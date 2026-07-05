@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Updates & Changelog | Teacher's Digital Diary</title>
+  <meta name="description" content="View the timeline of latest changes, modifications, and feature updates made to Teacher's Digital Diary.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Timeline styling */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto 48px;
+      padding: 20px 0;
+    }
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: #bdaea2;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+    }
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+      box-sizing: border-box;
+      text-align: left;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background-color: #ffffff;
+      border: 4px solid #4c1d95;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+      transition: var(--transition);
+    }
+    .left {
+      left: 0;
+    }
+    .right {
+      left: 50%;
+    }
+    .right::after {
+      left: -10px;
+    }
+    .timeline-content {
+      padding: 24px;
+      background: var(--glass-bg);
+      position: relative;
+      border-radius: var(--radius-lg);
+      border: 2px solid #bdaea2;
+      box-shadow: 0 4px 15px rgba(74, 62, 53, 0.05);
+      transition: var(--transition);
+    }
+    .timeline-item:hover .timeline-content {
+      border-color: #4c1d95;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(76, 29, 149, 0.1);
+    }
+    .timeline-item:hover::after {
+      background-color: #4c1d95;
+      transform: scale(1.2);
+    }
+    .time-tag {
+      font-size: 0.8em;
+      font-weight: 800;
+      color: #4c1d95;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+    .timeline-content h3 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 0 0 10px;
+      color: #1e1b18;
+    }
+    .timeline-content p {
+      font-size: 0.88em;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0 0 12px;
+    }
+    .timeline-content ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+    .timeline-content ul li {
+      font-size: 0.84em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .timeline-content ul li strong {
+      color: #1e1b18;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 auto 28px;
+      padding: 9px 20px;
+      background: #ffffff;
+      color: #1e1b18;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.88em;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: #4c1d95;
+      color: #ffffff !important;
+      border-color: #4c1d95;
+      transform: translateX(-3px);
+    }
+
+    @media screen and (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      .timeline-item::after {
+        left: 21px;
+        right: auto;
+      }
+      .right::after {
+        left: 21px;
+      }
+      .right {
+        left: 0%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container" style="position: relative;">
+      <div class="page-chip fade-in"><i class="fas fa-history"></i> Latest Updates</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        
+        <!-- Group 1: Teacher's Desk -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="profile.html"><i class="fas fa-user-shield"></i> Profile Access</a>
+            <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+            <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
+            <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+          </div>
+        </div>
+
+        <!-- Group 2: Academics -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+            <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+            <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+            <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+            <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+            <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          </div>
+        </div>
+
+        <!-- Group 3: Students Corner -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="timetable.html"><i class="fas fa-clock"></i> Class Timetable</a>
+            <a href="homework.html"><i class="fas fa-home"></i> Holiday Homework</a>
+            <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+            <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+            <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+            <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+          </div>
+        </div>
+
+        <!-- Group 4: Exams & Prep -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
+            <a href="board.html"><i class="fas fa-question-circle"></i> Board Question Papers</a>
+            <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+            <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
+          </div>
+        </div>
+
+        <!-- Group 5: Math Labs -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+            <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Laboratory</a>
+            <a href="robocompass.html"><i class="fas fa-compass"></i> RoboCompass Geometry</a>
+            <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
+            <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding Lab</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#128392;</span>
+      <h1>Diary Updates &amp; Changelog</h1>
+      <p>A chronological history of all feature updates, modifications, and design enhancements made to the Digital Diary.</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main style="text-align: center;">
+    <div class="container">
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Timeline -->
+      <div class="timeline fade-in-1">
+
+        <!-- Checkpoint 4: Real Photo Gallery & Link Changes -->
+        <div class="timeline-item left">
+          <div class="timeline-content">
+            <span class="time-tag">July 2026 - Phase 4</span>
+            <h3>Real Photos &amp; Navigation Links</h3>
+            <p>Optimized welcome dashboard links and integrated real physical math laboratory photographs into the sliding homepage gallery.</p>
+            <ul>
+              <li><strong>Real Photo Slideshow</strong>: Integrated actual class images showcasing PGT Mathematics K B Joshi and students.</li>
+              <li><strong>Google Drive Mapped</strong>: Connected the sliding gallery directly to your Google Drive photo folder.</li>
+              <li><strong>Welcome Buttons Mapped</strong>:
+                <ul>
+                  <li>Linked <em>Explore Resources</em> directly to the local <strong>resources</strong> folder.</li>
+                  <li>Linked <em>YouTube Channel</em> to the official <strong>Mathematics Department</strong> channel.</li>
+                  <li>Linked <em>Latest Updates</em> to this changelog timeline (<strong>updates.html</strong>).</li>
+                  <li>Linked <em>Contact Info</em> directly to send emails to <strong>kboshikv2008@gmail.com</strong>.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Checkpoint 3: Interactive Lesson Hub & Home Buttons -->
+        <div class="timeline-item right">
+          <div class="timeline-content">
+            <span class="time-tag">July 2026 - Phase 3</span>
+            <h3>Interactive Hub &amp; Global Home Buttons</h3>
+            <p>Enhanced resource mappings by creating a central hub for all files inside the interactive lesson plans directory and adding Home buttons globally.</p>
+            <ul>
+              <li><strong>Interactive Lesson Hub (interactive.html)</strong>: Restored the broken navigation link by creating a page linking Matrices, Determinants, Calculus, Revision Plans, and Study Materials with live query searches.</li>
+              <li><strong>Global Home Navbar Buttons</strong>: Modified all 32 secondary HTML pages to add a Home link to their navbars.</li>
+              <li><strong>Email Address Update</strong>: Changed the contact email address to <strong>kboshikv2008@gmail.com</strong> in all profile tables, homepage footer widgets, and subpages.</li>
+              <li><strong>Alternating Colored Symbols</strong>: Changed background watermark symbols to alternate between light red and light green.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Checkpoint 2: Consolidated Dropdowns & Parchment Theme -->
+        <div class="timeline-item left">
+          <div class="timeline-content">
+            <span class="time-tag">June 2026 - Phase 2</span>
+            <h3>Grouped Navigation &amp; Parchment Theme</h3>
+            <p>Conducted major UI/UX upgrades to organize layout components and transition the design to a mathematical canvas aesthetic.</p>
+            <ul>
+              <li><strong>Consolidated Navbar Dropdowns</strong>: Grouped 25 flat navigation links into 5 neat hover categories with CSS hover bridges and mobile click handlers to prevent dropping.</li>
+              <li><strong>Light Beige Parchment Grid</strong>: Created a mathematical graph paper design with sepia gridlines and charcoal-brown text.</li>
+              <li><strong>mathematician Portraits</strong>: Injected Srinivasa Ramanujan (right) and Shakuntala Devi (left) portraits inside the homepage header.</li>
+              <li><strong>YouTube Channel Integration</strong>: Added subscriber CTA banners and footer link points for "LEARN MATHS WITH KBJ".</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Checkpoint 1: Initial Setup -->
+        <div class="timeline-item right">
+          <div class="timeline-content">
+            <span class="time-tag">May 2026 - Phase 1</span>
+            <h3>Digital Diary Foundation</h3>
+            <p>Established the initial digital diary layout aligning CBSE mathematical resources, class tests, and syllabus files.</p>
+            <ul>
+              <li><strong>Core Files</strong>: Configured main landing page, stylesheet foundations, and local resource folders.</li>
+              <li><strong>CBSE Syllabus Mappings</strong>: Set up Syllabus page courses and structured class worksheets.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📚 Teacher's Digital Diary</h3>
+          <p>A modern, comprehensive digital workspace for K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Empowering students through structured learning, digital resources, and innovative mathematical education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="syllabus.html"><i class="fas fa-chevron-right"></i> Syllabus</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; Designed by <strong>K B Joshi</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dropdown toggles for mobile viewports
+    document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+      trigger.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          e.stopPropagation();
+          const parent = this.parentElement;
+          const menu = parent.querySelector('.dropdown-menu');
+          const isOpened = menu.style.display === 'flex';
+          
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          
+          if (!isOpened) {
+            menu.style.display = 'flex';
+            parent.classList.add('active');
+          }
+        }
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item') && window.innerWidth <= 768) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      }
+    });
+  </script>
+</body>
+</html>
