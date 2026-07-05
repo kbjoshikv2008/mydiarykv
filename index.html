@@ -138,7 +138,8 @@
       gap: 6px;
       z-index: 3;
     }
-    .math-portrait-wrap img {
+    .math-portrait-wrap img,
+    .math-portrait-wrap svg {
       height: 95px;
       width: 95px;
       border-radius: 50%;
@@ -148,10 +149,17 @@
       transition: var(--transition);
       background-color: #ffffff;
     }
-    .math-portrait-wrap:hover img {
+    .math-portrait-wrap:hover img,
+    .math-portrait-wrap:hover svg {
       transform: scale(1.08) translateY(-2px);
       box-shadow: 0 12px 30px rgba(76, 29, 149, 0.25);
       border-color: #4c1d95;
+    }
+    .portrait-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .math-portrait-name {
       font-size: 0.75em;
@@ -176,6 +184,36 @@
     .math-portrait-wrap.math-right {
       right: 40px;
     }
+
+    /* Subtle background math symbols */
+    .math-bg-symbols {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .math-bg-symbols span {
+      position: absolute;
+      font-size: clamp(1.2rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: rgba(120, 53, 4, 0.04) !important; /* Very light sepia brown */
+      font-family: 'Poppins', 'Inter', sans-serif;
+      user-select: none;
+    }
+    .math-bg-symbols span:nth-child(1) { top: 12%; left: 15%; }
+    .math-bg-symbols span:nth-child(2) { top: 22%; left: 45%; }
+    .math-bg-symbols span:nth-child(3) { top: 15%; left: 75%; }
+    .math-bg-symbols span:nth-child(4) { top: 48%; left: 10%; }
+    .math-bg-symbols span:nth-child(5) { top: 55%; left: 85%; }
+    .math-bg-symbols span:nth-child(6) { top: 75%; left: 25%; }
+    .math-bg-symbols span:nth-child(7) { top: 68%; left: 60%; }
+    .math-bg-symbols span:nth-child(8) { top: 82%; left: 15%; }
+    .math-bg-symbols span:nth-child(9) { top: 38%; left: 90%; }
+    .math-bg-symbols span:nth-child(10) { top: 85%; left: 75%; }
+    .math-bg-symbols span:nth-child(11) { top: 42%; left: 55%; }
+    .math-bg-symbols span:nth-child(12) { top: 60%; left: 35%; }
+    .math-bg-symbols span:nth-child(13) { top: 28%; left: 28%; }
 
     .hero-badge {
       display: inline-flex;
@@ -1204,7 +1242,8 @@
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; text-align: center; }
       .math-portrait-wrap { top: 16px; }
-      .math-portrait-wrap img { height: 60px; width: 60px; }
+      .math-portrait-wrap img,
+      .math-portrait-wrap svg { height: 60px; width: 60px; }
       .math-portrait-name { font-size: 0.6em; padding: 1px 6px; }
       .math-portrait-wrap.math-left { left: 16px; }
       .math-portrait-wrap.math-right { right: 16px; }
@@ -1220,7 +1259,8 @@
       .welcome-buttons { flex-direction: column; }
       .btn-primary, .btn-outline { justify-content: center; }
       .quote-text { font-size: 1.1rem; }
-      .math-portrait-wrap img { height: 44px; width: 44px; }
+      .math-portrait-wrap img,
+      .math-portrait-wrap svg { height: 44px; width: 44px; }
       .math-portrait-name { display: none !important; }
     }
 
@@ -2092,12 +2132,57 @@
       </div>
       <!-- Srinivasa Ramanujan (Top Right) & Shakuntala Devi (Top Left) -->
       <div class="math-portrait-wrap math-left" title="Shakuntala Devi - The Human Computer">
-        <img src="shakuntala_devi.jpg" alt="Shakuntala Devi" onerror="this.src='https://ui-avatars.com/api/?name=Shakuntala+Devi&background=faf5eb&color=4c1d95&size=100&bold=true'">
+        <div class="portrait-container">
+          <img src="shakuntala_devi.jpg" alt="Shakuntala Devi" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="fallback-avatar-svg" style="display:none; width: 95px; height: 95px; border-radius: 50%;" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="shakGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fffbeb" />
+                <stop offset="100%" stop-color="#bdaea2" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="48" fill="url(#shakGrad)" stroke="#4c1d95" stroke-width="2.5"/>
+            <path d="M 50 25 C 40 25, 31 34, 31 44 C 31 51, 35 57, 40 61 L 40 69 C 40 72, 43 74, 47 74 L 53 74 C 57 74, 60 72, 60 69 L 60 61 C 65 57, 69 51, 69 44 C 69 34, 60 25, 50 25 Z" fill="#1e1b18" />
+            <circle cx="43" cy="45" r="2.5" fill="#ffffff" />
+            <circle cx="57" cy="45" r="2.5" fill="#ffffff" />
+            <circle cx="50" cy="41" r="2.5" fill="#9d174d" />
+            <path d="M 45 54 Q 50 57 55 54" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" />
+            <text x="18" y="32" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">∑</text>
+            <text x="74" y="32" font-size="11" fill="#0f766e" font-family="sans-serif" font-weight="bold">π</text>
+            <text x="18" y="78" font-size="11" fill="#9a3412" font-family="sans-serif" font-weight="bold">√</text>
+            <text x="72" y="78" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">∞</text>
+          </svg>
+        </div>
         <span class="math-portrait-name">Shakuntala Devi</span>
       </div>
       <div class="math-portrait-wrap math-right" title="Srinivasa Ramanujan - The Man Who Knew Infinity">
-        <img src="ramanujan.jpg" alt="Srinivasa Ramanujan" onerror="this.src='https://ui-avatars.com/api/?name=Srinivasa+Ramanujan&background=faf5eb&color=4c1d95&size=100&bold=true'">
+        <div class="portrait-container">
+          <img src="ramanujan.jpg" alt="Srinivasa Ramanujan" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="fallback-avatar-svg" style="display:none; width: 95px; height: 95px; border-radius: 50%;" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="ramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fffbeb" />
+                <stop offset="100%" stop-color="#bdaea2" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="48" fill="url(#ramGrad)" stroke="#4c1d95" stroke-width="2.5"/>
+            <path d="M 50 22 C 38 22, 28 32, 28 44 C 28 50, 31 56, 36 60 L 36 71 C 36 74, 40 76, 44 76 L 56 76 C 60 76, 64 74, 64 71 L 64 60 C 69 56, 72 50, 72 44 C 72 32, 62 22, 50 22 Z" fill="#1e1b18" />
+            <circle cx="42" cy="45" r="2.5" fill="#ffffff" />
+            <circle cx="58" cy="45" r="2.5" fill="#ffffff" />
+            <path d="M 45 53 Q 50 56 55 53" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" />
+            <text x="18" y="30" font-size="11" fill="#9a3412" font-family="sans-serif" font-weight="bold">∫</text>
+            <text x="74" y="30" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">e</text>
+            <text x="18" y="78" font-size="11" fill="#0f766e" font-family="sans-serif" font-weight="bold">x²</text>
+            <text x="70" y="78" font-size="9" fill="#9d174d" font-family="sans-serif" font-weight="bold">1729</text>
+          </svg>
+        </div>
         <span class="math-portrait-name">Srinivasa Ramanujan</span>
+      </div>
+
+      <!-- Subtle background math symbols -->
+      <div class="math-bg-symbols">
+        <span>α</span>
+        <span>∑</span><span>∫</span><span>π</span><span>√</span><span>∞</span><span>θ</span><span>λ</span><span>Δ</span><span>%</span><span>x²</span><span>log</span><span>sin</span><span>1729</span>
       </div>
       <div class="container">
         <div class="hero-badge fade-in"><i class="fas fa-graduation-cap"></i>&nbsp; Academic Excellence Portal</div>
