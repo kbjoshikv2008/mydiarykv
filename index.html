@@ -2114,6 +2114,96 @@
       border-color: #4c1d95 !important;
     }
 
+    /* YouTube Promo Card styling */
+    .youtube-promo-card {
+      background: linear-gradient(135deg, #1e1b18 0%, #000000 100%);
+      color: #ffffff !important;
+      border: 1px solid #ff0000;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.1);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+    .youtube-promo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(255, 0, 0, 0.25);
+    }
+    .youtube-promo-card::before {
+      content: '\f167';
+      font-family: 'Font Awesome 5 Brands';
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      font-size: 8rem;
+      color: rgba(255, 0, 0, 0.08);
+      pointer-events: none;
+    }
+    .youtube-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .youtube-logo-wrap {
+      background: #ff0000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+    .youtube-title-wrap h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff !important;
+    }
+    .youtube-title-wrap p {
+      margin: 2px 0 0;
+      font-size: 0.72rem;
+      color: #bdaea2 !important;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .youtube-desc {
+      font-size: 0.82rem !important;
+      color: #e5e5e5 !important;
+      line-height: 1.45;
+      margin: 0;
+    }
+    .youtube-sub-btn {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ff0000;
+      color: #ffffff !important;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+      transition: var(--transition);
+      border: 1px solid #ff0000;
+    }
+    .youtube-sub-btn:hover {
+      background: #ffffff;
+      color: #ff0000 !important;
+      box-shadow: 0 6px 18px rgba(255, 0, 0, 0.4);
+    }
+
     /* Global Background Mathematical Symbols and Equations */
     .global-math-bg {
       position: absolute;
@@ -2358,12 +2448,28 @@
             </div>
             <div class="welcome-buttons">
               <a href="studymaterial.html" class="btn-primary"><i class="fas fa-layer-group"></i> Explore Resources</a>
+              <a href="http://www.youtube.com/@KBJ25" target="_blank" class="btn-outline" style="border-color:#ff0000; color:#ff0000; background:rgba(255,0,0,0.06); font-weight:750;"><i class="fab fa-youtube"></i> YouTube Channel</a>
               <a href="examination.html" class="btn-outline"><i class="fas fa-bell"></i> Latest Updates</a>
               <a href="https://wa.me/919410121232?text=Hello%20Sir%2C%20I%20have%20a%20mathematics%20query%20from%20your%20Digital%20Diary." target="_blank" class="btn-outline" style="border-color:#25d366; color:#25d366; background:rgba(37,211,102,0.06);"><i class="fab fa-whatsapp"></i> WhatsApp Me</a>
               <a href="profile.html" class="btn-outline"><i class="fas fa-envelope"></i> Contact Info</a>
             </div>
           </div>
           <div class="welcome-right">
+            <!-- YouTube Channel Promo Card -->
+            <div class="youtube-promo-card" contenteditable="false">
+              <div class="youtube-header">
+                <div class="youtube-logo-wrap">
+                  <i class="fab fa-youtube"></i>
+                </div>
+                <div class="youtube-title-wrap">
+                  <h4>LEARN MATHS WITH KBJ</h4>
+                  <p>YouTube Channel</p>
+                </div>
+              </div>
+              <p class="youtube-desc">Subscribe for conceptual video lectures, CBSE exam prep tips, NCERT solution guides, and mathematics tutorials by K B Joshi.</p>
+              <a href="http://www.youtube.com/@KBJ25" target="_blank" class="youtube-sub-btn"><i class="fas fa-play"></i> Watch & Subscribe</a>
+            </div>
+
             <div class="info-card-sm">
               <div class="ic-icon">&#128218;</div>
               <h4>About This Digital Diary</h4>
@@ -2610,10 +2716,10 @@
           <p>A modern, comprehensive digital workspace for K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Empowering students through structured learning, digital resources, and innovative mathematical education.</p>
           <p style="margin-top:10px; font-size:0.84em; color:rgba(255,255,255,0.45);">CBSE Board &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet &nbsp;&middot;&nbsp; Ranikhet, Uttarakhand</p>
           <div class="footer-social">
-            <span class="social-btn" title="YouTube (placeholder)"><i class="fab fa-youtube"></i></span>
+            <a href="http://www.youtube.com/@KBJ25" target="_blank" class="social-btn" title="YouTube Channel - LEARN MATHS WITH KBJ" style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:inherit;"><i class="fab fa-youtube"></i></a>
             <span class="social-btn" title="Twitter (placeholder)"><i class="fab fa-twitter"></i></span>
             <span class="social-btn" title="LinkedIn (placeholder)"><i class="fab fa-linkedin-in"></i></span>
-            <span class="social-btn" title="Email (placeholder)"><i class="fas fa-envelope"></i></span>
+            <a href="mailto:kbjoshikv2008@gmail.com" class="social-btn" title="Email K B Joshi" style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:inherit;"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
 
