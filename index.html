@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher's Digital Diary | K B Joshi | PGT Mathematics | PM SHRI KV Ranikhet</title>
+  <meta name="description" content="Teacher's Digital Diary of K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Access study materials, lesson plans, digital content, NCERT books, board questions and more.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #7c3aed;
+      --primary-light: #a78bfa;
+      --primary-dark: #4c1d95;
+      --secondary: #0ea5e9;
+      --accent: #ffd700;
+      --accent2: #ff2a85;
+      --success: #10b981;
+      --bg-dark: #070412;
+      --bg-mid: #160c33;
+      --glass-bg: rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.14);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      --card-bg: rgba(255,255,255,0.04);
+      --text-light: rgba(255,255,255,0.95);
+      --text-muted: rgba(255,255,255,0.55);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #160c33 0%, #070412 60%, #030206 100%);
+      color: var(--text-light);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===================== ANIMATED BACKGROUND BLOBS ===================== */
+    .bg-blobs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.35;
+      mix-blend-mode: plus-lighter;
+      animation: blobFloat 15s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(124,58,237,0.4) 0%, rgba(76,29,149,0.05) 70%); top: -150px; left: -100px; animation-duration: 14s; }
+    .blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(14,165,233,0.3) 0%, rgba(3,105,161,0.05) 70%); top: 30%; right: -100px; animation-duration: 18s; animation-delay: -5s; }
+    .blob-3 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(190,24,93,0.05) 70%); bottom: 10%; left: 20%; animation-duration: 16s; animation-delay: -3s; }
+    .blob-4 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(245,158,11,0.25) 0%, rgba(180,83,9,0.05) 70%); bottom: -100px; right: 10%; animation-duration: 20s; animation-delay: -8s; }
+
+    @keyframes blobFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(40px, -60px) scale(1.08); }
+      66%  { transform: translate(-30px, 30px) scale(0.95); }
+      100% { transform: translate(20px, -20px) scale(1.04); }
+    }
+
+    /* ===================== CONTAINER ===================== */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===================== HERO HEADER ===================== */
+    header {
+      position: relative;
+      overflow: visible;
+      padding: 0;
+      background: transparent;
+      margin-bottom: 0;
+      box-shadow: none;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(76,29,149,0.85) 0%, rgba(15,12,41,0.95) 60%, rgba(14,165,233,0.3) 100%);
+      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 56px 0 48px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 10px 60px rgba(0,0,0,0.4);
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 0%, rgba(139,92,246,0.3) 0%, transparent 60%),
+                  radial-gradient(ellipse at 10% 100%, rgba(14,165,233,0.2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Animated floating shapes in hero */
+    .hero-shapes span {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.08);
+      animation: heroFloat 8s ease-in-out infinite;
+    }
+    .hero-shapes span:nth-child(1) { width:80px; height:80px; top:15%; left:5%; animation-delay:0s; }
+    .hero-shapes span:nth-child(2) { width:40px; height:40px; top:60%; left:8%; animation-delay:2s; border-radius:6px; }
+    .hero-shapes span:nth-child(3) { width:60px; height:60px; top:20%; right:6%; animation-delay:1s; }
+    .hero-shapes span:nth-child(4) { width:30px; height:30px; bottom:20%; right:12%; animation-delay:3s; border-radius:4px; }
+    .hero-shapes span:nth-child(5) { width:50px; height:50px; top:50%; left:15%; animation-delay:4s; opacity:0.5; }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+      50%       { transform: translateY(-18px) rotate(180deg); opacity: 0.8; }
+    }
+
+    .profile-photo {
+      position: absolute;
+      right: 40px;
+      top: 28px;
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 0 0 5px rgba(139,92,246,0.4), 0 8px 32px rgba(0,0,0,0.4);
+      object-fit: cover;
+      z-index: 3;
+      transition: var(--transition);
+    }
+    .profile-photo:hover { transform: scale(1.08); box-shadow: 0 0 0 7px rgba(139,92,246,0.6), 0 12px 40px rgba(0,0,0,0.5); }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(139,92,246,0.25);
+      border: 1px solid rgba(139,92,246,0.5);
+      border-radius: 50px;
+      padding: 6px 20px;
+      font-size: 0.78em;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c4b5fd;
+      margin-bottom: 18px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-badge i { font-size: 0.9em; color: #a78bfa; }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      text-shadow: none;
+    }
+
+    .hero-subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px;
+      margin-bottom: 0;
+    }
+
+    h3 { font-family: 'Poppins', sans-serif; }
+
+    .hero-tagline {
+      margin: 18px 0 12px;
+      font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+      color: #c4b5fd;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .hero-meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: 0.82em;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+    }
+    .hero-meta-chip i { color: #a78bfa; font-size: 0.9em; }
+
+    /* ===================== TOP NAV BAR ===================== */
+    .nav-bar {
+      background: rgba(15,12,41,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 10px 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav a {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.83em;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(14,165,233,0.4));
+      border-color: rgba(139,92,246,0.5);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139,92,246,0.3);
+    }
+
+    /* ===================== MAIN CONTENT ===================== */
+    main {
+      position: relative;
+      z-index: 1;
+      padding: 48px 0 0;
+    }
+
+    /* ===================== SECTION TITLES ===================== */
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-title .label {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(14,165,233,0.2));
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 50px;
+      padding: 5px 18px;
+      font-size: 0.78em;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 12px;
+    }
+    .section-title h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1em;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #8b5cf6, #0ea5e9);
+      border-radius: 2px;
+      margin: 14px auto 0;
+    }
+
+    /* ===================== WELCOME / DASHBOARD CARD ===================== */
+    .editable {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--glass-shadow);
+      padding: 0;
+      margin: 0 0 56px;
+      overflow: hidden;
+      transition: var(--transition);
+      min-height: 50px;
+    }
+    .editable:hover { box-shadow: 0 12px 50px rgba(139,92,246,0.2), var(--glass-shadow); border-color: rgba(139,92,246,0.3); }
+
+    .welcome-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .welcome-left {
+      padding: 40px 36px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .welcome-right {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .welcome-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(14,165,233,0.15));
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.78em;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 14px;
+    }
+
+    .welcome-left h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.3;
+      -webkit-text-fill-color: #fff;
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+    }
+
+    .welcome-left p {
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-size: 0.96em;
+      margin-bottom: 10px;
+    }
+
+    .mission-box {
+      background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(14,165,233,0.1));
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin-top: 16px;
+    }
+    .mission-box h4 { color: #c4b5fd; font-size: 0.82em; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; font-weight: 600; }
+    .mission-box p  { color: rgba(255,255,255,0.75); font-size: 0.93em; line-height: 1.65; }
+
+    .welcome-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6c3fc5, #0ea5e9);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 24px;
+      font-size: 0.88em;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 20px rgba(108,63,197,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(108,63,197,0.6); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #c4b5fd;
+      border: 1px solid rgba(139,92,246,0.5);
+      border-radius: var(--radius-sm);
+      padding: 11px 22px;
+      font-size: 0.88em;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+    }
+    .btn-outline:hover { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.8); transform: translateY(-3px); }
+
+    .info-card-sm {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      transition: var(--transition);
+    }
+    .info-card-sm:hover { background: rgba(255,255,255,0.09); border-color: rgba(139,92,246,0.3); }
+    .info-card-sm .ic-icon { font-size: 1.5em; margin-bottom: 8px; }
+    .info-card-sm h4 { font-size: 0.92em; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .info-card-sm p  { font-size: 0.82em; color: var(--text-muted); line-height: 1.5; }
+
+    .edu-quote-sm {
+      background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(236,72,153,0.1));
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+    }
+    .edu-quote-sm .quote-mark { font-size: 2.5em; line-height: 0.5; color: rgba(245,158,11,0.5); font-family: Georgia, serif; }
+    .edu-quote-sm p { font-style: italic; color: rgba(255,255,255,0.8); font-size: 0.9em; line-height: 1.6; margin: 6px 0; }
+    .edu-quote-sm .quote-author { font-size: 0.78em; color: #f59e0b; font-weight: 600; letter-spacing: 0.5px; }
+
+    /* ===================== QUICK ACCESS GRID ===================== */
+    .quick-access { margin-bottom: 56px; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px;
+    }
+
+    .quick-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 20px 26px;
+      text-decoration: none;
+      color: var(--text-light);
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    .quick-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.04));
+      transition: var(--transition);
+    }
+
+    .quick-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35), 0 0 0 1px rgba(139,92,246,0.4);
+      border-color: rgba(139,92,246,0.5);
+    }
+
+    .quick-card:hover::before { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(14,165,233,0.05) 100%); }
+
+    .card-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8em;
+      margin-bottom: 14px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .quick-card:hover .card-icon-wrap { transform: scale(1.12) rotate(-4deg); }
+
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9em;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .card-desc { font-size: 0.76em; color: var(--text-muted); line-height: 1.4; }
+
+    .card-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.78em;
+      margin-top: 14px;
+      transition: var(--transition);
+      color: #a78bfa;
+    }
+    .quick-card:hover .card-arrow { background: rgba(139,92,246,0.35); border-color: rgba(139,92,246,0.6); transform: translateX(3px); }
+
+    /* Card color themes */
+    .c1 .card-icon-wrap { background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(139,92,246,0.25)); color: #a78bfa; }
+    .c2 .card-icon-wrap { background: linear-gradient(135deg, rgba(14,165,233,0.2), rgba(6,182,212,0.25)); color: #38bdf8; }
+    .c3 .card-icon-wrap { background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(244,48,120,0.25)); color: #f472b6; }
+    .c4 .card-icon-wrap { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(251,146,60,0.25)); color: #fbbf24; }
+    .c5 .card-icon-wrap { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(52,211,153,0.25)); color: #34d399; }
+    .c6 .card-icon-wrap { background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(248,113,113,0.25)); color: #f87171; }
+    .c7 .card-icon-wrap { background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(129,140,248,0.25)); color: #818cf8; }
+    .c8 .card-icon-wrap { background: linear-gradient(135deg, rgba(20,184,166,0.2), rgba(45,212,191,0.25)); color: #2dd4bf; }
+    .c9 .card-icon-wrap { background: linear-gradient(135deg, rgba(217,119,6,0.2), rgba(245,158,11,0.25)); color: #fcd34d; }
+    .c10 .card-icon-wrap { background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(192,132,252,0.25)); color: #c084fc; }
+    .c11 .card-icon-wrap { background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.25)); color: #f472b6; }
+
+    /* animation delay cascade */
+    .quick-card:nth-child(1)  { animation-delay: 0.05s; }
+    .quick-card:nth-child(2)  { animation-delay: 0.10s; }
+    .quick-card:nth-child(3)  { animation-delay: 0.15s; }
+    .quick-card:nth-child(4)  { animation-delay: 0.20s; }
+    .quick-card:nth-child(5)  { animation-delay: 0.25s; }
+    .quick-card:nth-child(6)  { animation-delay: 0.30s; }
+    .quick-card:nth-child(7)  { animation-delay: 0.35s; }
+    .quick-card:nth-child(8)  { animation-delay: 0.40s; }
+    .quick-card:nth-child(9)  { animation-delay: 0.45s; }
+    .quick-card:nth-child(10) { animation-delay: 0.50s; }
+    .quick-card:nth-child(11) { animation-delay: 0.55s; }
+
+    /* ===================== FEATURES SECTION ===================== */
+    .features-section { margin-bottom: 56px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 26px;
+      transition: var(--transition);
+      animation: fadeInUp 0.6s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #6c3fc5, #0ea5e9);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); border-color: rgba(139,92,246,0.3); }
+    .feature-card:hover::after { transform: scaleX(1); }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.88em;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .check-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: 0.72em;
+      font-weight: 600;
+      color: #34d399;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===================== ACADEMIC HIGHLIGHTS ===================== */
+    .academic-section { margin-bottom: 56px; }
+
+    .academic-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    .classes-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: var(--transition);
+    }
+    .classes-card:hover { border-color: rgba(139,92,246,0.3); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+
+    .classes-card h3 {
+      font-size: 0.88em;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .class-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .class-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(14,165,233,0.15));
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 0.88em;
+      font-weight: 600;
+      color: #e0d7ff;
+      transition: var(--transition);
+    }
+    .class-pill:hover { background: linear-gradient(135deg, rgba(139,92,246,0.4), rgba(14,165,233,0.3)); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,92,246,0.25); cursor: default; }
+    .class-pill i { color: #a78bfa; font-size: 0.85em; }
+
+    .stats-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      transition: var(--transition);
+      text-align: center;
+    }
+    .stat-card:hover { border-color: rgba(139,92,246,0.4); transform: translateY(-4px); }
+    .stat-icon { font-size: 2em; margin-bottom: 8px; }
+    .stat-label { font-size: 0.75em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 4px; }
+    .stat-value { font-family: 'Poppins', sans-serif; font-size: 1.15em; font-weight: 700; color: #fff; }
+
+    /* ===================== QUOTE SECTION ===================== */
+    .quote-section { margin-bottom: 56px; }
+
+    .quote-card {
+      background: linear-gradient(135deg, rgba(76,29,149,0.4) 0%, rgba(12,74,110,0.4) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-icon { font-size: 2.5em; margin-bottom: 20px; }
+
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.5;
+      max-width: 760px;
+      margin: 0 auto 24px;
+      font-style: italic;
+    }
+
+    .quote-author-line {
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #a78bfa;
+      letter-spacing: 1px;
+    }
+    .quote-author-line span { color: var(--text-muted); font-weight: 400; }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: linear-gradient(135deg, rgba(15,12,41,0.95) 0%, rgba(30,20,70,0.95) 100%);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      padding: 56px 0 0;
+      margin-top: 24px;
+      position: relative;
+      z-index: 2;
+      text-align: left;
+      color: var(--text-light);
+      font-size: 1em;
+      font-weight: 400;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .footer-brand h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c4b5fd, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .footer-brand p { color: var(--text-muted); font-size: 0.88em; line-height: 1.75; }
+
+    .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.95em;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .social-btn:hover { background: rgba(139,92,246,0.25); border-color: rgba(139,92,246,0.5); color: #c4b5fd; transform: translateY(-3px); }
+
+    .footer-col h4 { font-family: 'Poppins', sans-serif; font-size: 0.82em; font-weight: 700; color: #c4b5fd; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.86em; transition: var(--transition); display: flex; align-items: center; gap: 6px; }
+    .footer-col ul li a:hover { color: #c4b5fd; transform: translateX(4px); }
+    .footer-col ul li a i { font-size: 0.75em; color: #7c3aed; }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 24px 0;
+    }
+    .footer-bottom p { font-size: 0.82em; color: var(--text-muted); }
+    .footer-bottom strong { color: rgba(255,255,255,0.7); }
+
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(14,165,233,0.3));
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.82em;
+      font-weight: 600;
+      color: #c4b5fd;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .back-to-top:hover { background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(14,165,233,0.5)); transform: translateY(-3px); }
+
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25%       { transform: translateX(-10px); }
+      75%       { transform: translateX(10px); }
+    }
+
+    .shake { animation: shake 0.5s ease-in-out; }
+
+    .fade-in  { animation: fadeInUp 0.7s ease both; }
+    .fade-in-1 { animation: fadeInUp 0.7s 0.1s ease both; }
+    .fade-in-2 { animation: fadeInUp 0.7s 0.2s ease both; }
+    .fade-in-3 { animation: fadeInUp 0.7s 0.3s ease both; }
+    .fade-in-4 { animation: fadeInUp 0.7s 0.4s ease both; }
+
+    /* ===================== PASSWORD MODAL STYLES (UNCHANGED) ===================== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px; right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #6b46c1;
+      transition: transform 0.3s;
+    }
+    .close-btn:hover { transform: rotate(90deg); color: #4c1d95; }
+
+    .modal h2 {
+      color: #4c1d95;
+      margin-top: 0;
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      -webkit-text-fill-color: #4c1d95;
+      background: none;
+    }
+
+    .teacher-info {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.7);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .teacher-pic-modal {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 3px solid #6b46c1;
+      overflow: hidden;
+      margin-right: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .teacher-pic-modal img { width: 100%; height: 100%; object-fit: cover; }
+
+    .teacher-details h3 { font-size: 1.4em; color: #4c1d95; margin: 0 0 5px 0; text-align: left; -webkit-text-fill-color: #4c1d95; background: none; }
+    .teacher-details p  { color: #6b46c1; margin: 3px 0; text-align: left; font-weight: 600; }
+
+    .password-form { display: flex; flex-direction: column; gap: 15px; }
+
+    .form-group { position: relative; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #4c1d95; text-align: left; }
+    .form-group input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid #a78bfa;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: all 0.3s;
+      background: rgba(255,255,255,0.9);
+      color: #2d3748;
+    }
+    .form-group input:focus { border-color: #6b46c1; outline: none; box-shadow: 0 0 0 3px rgba(107,70,193,0.2); }
+
+    .password-container { position: relative; }
+    .toggle-password {
+      position: absolute; right: 15px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      cursor: pointer; color: #6b46c1; font-size: 1.2em;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #6b46c1 0%, #4c1d95 100%);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(107,70,193,0.4);
+      margin-top: 10px;
+      letter-spacing: 1px;
+      width: 100%;
+    }
+    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(107,70,193,0.6); }
+    .submit-btn:active { transform: translateY(1px); }
+
+    .error-message {
+      color: #e53e3e;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 600;
+      height: 20px;
+      font-size: 0.95em;
+    }
+
+    .security-info {
+      text-align: center;
+      color: #4c1d95;
+      font-size: 0.9em;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      .academic-grid { grid-template-columns: 1fr; }
+      .stats-stack { flex-direction: row; flex-wrap: wrap; }
+      .stat-card { flex: 1 1 150px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      .welcome-grid { grid-template-columns: 1fr; }
+      .welcome-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 28px 22px; }
+      .welcome-right { padding: 22px 22px 28px; }
+      .cards-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      .quick-card { padding: 24px 14px 20px; }
+      .card-icon-wrap { width: 52px; height: 52px; font-size: 1.5em; }
+      .features-grid { grid-template-columns: 1fr; }
+      .quote-card { padding: 40px 28px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .profile-photo { height: 60px; width: 60px; right: 16px; top: 18px; }
+      .hero-section { padding: 40px 0 36px; }
+      .nav { gap: 3px; }
+      .nav a { padding: 6px 10px; font-size: 0.76em; }
+    }
+
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-meta { gap: 10px; }
+      .hero-meta-chip { padding: 5px 12px; font-size: 0.76em; }
+      .welcome-buttons { flex-direction: column; }
+      .btn-primary, .btn-outline { justify-content: center; }
+      .quote-text { font-size: 1.1rem; }
+    }
+
+    /* Floating Buttons & Chatbot Styles */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 60px;
+      height: 60px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0px rgba(37, 211, 102, 0.3);
+      cursor: pointer;
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+      animation: pulseWhatsapp 2s infinite;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+      color: white;
+    }
+    @keyframes pulseWhatsapp {
+      0% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0px rgba(37, 211, 102, 0.4); }
+      70% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0px rgba(37, 211, 102, 0); }
+    }
+
+    .chatbot-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 4px 25px rgba(124, 58, 237, 0.45);
+      cursor: pointer;
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .chatbot-float:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.65);
+    }
+    .chatbot-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #ef4444;
+      color: white;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 10px rgba(239, 68, 68, 0.4);
+    }
+
+    .chatbot-panel {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 380px;
+      height: 520px;
+      background: rgba(15, 10, 36, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 9998;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    .chatbot-panel.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-bot-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .chat-bot-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .chat-bot-name h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .chat-bot-name span {
+      font-size: 0.72rem;
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .chat-bot-name span::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #34d399;
+      border-radius: 50%;
+    }
+    .chat-close-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: var(--transition);
+    }
+    .chat-close-btn:hover { color: #fff; }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat-messages::-webkit-scrollbar { width: 6px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+    .message {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.85em;
+      line-height: 1.5;
+    }
+    .message.bot {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255,255,255,0.9);
+      border-bottom-left-radius: 4px;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+    }
+
+    .chat-shortcuts {
+      padding: 8px 16px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.2);
+    }
+    .chat-shortcuts::-webkit-scrollbar { height: 4px; }
+    .chat-shortcuts::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
+    .shortcut-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8);
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 0.72em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .shortcut-btn:hover {
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.3);
+      color: #c4b5fd;
+    }
+
+    .chat-input-area {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 10px 18px;
+      color: white;
+      font-size: 0.85em;
+      outline: none;
+      transition: var(--transition);
+    }
+    .chat-input:focus {
+      border-color: #7c3aed;
+      background: rgba(255,255,255,0.08);
+    }
+    .chat-send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+    .chat-send-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.45);
+    }
+
+    .math-steps {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+      color: #38bdf8;
+    }
+    .math-highlight {
+      color: #ffd700;
+      font-weight: 700;
+    }
+    
+    @media (max-width: 480px) {
+      .chatbot-panel {
+        width: calc(100vw - 32px);
+        right: 16px;
+        left: 16px;
+        bottom: 96px;
+        height: 460px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- ======================== HEADER ======================== -->
+  <header>
+    <div class="hero-section">
+      <div class="hero-shapes">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <img src="ramanujan.jpg" class="profile-photo" alt="Srinivasa Ramanujan" style="border: 2px solid var(--accent); box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);">
+      <div class="container">
+        <div class="hero-badge fade-in"><i class="fas fa-graduation-cap"></i>&nbsp; Academic Excellence Portal</div>
+        <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+        <div class="hero-subtitle fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS</div>
+        <h2 class="fade-in-2">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+        <p class="hero-tagline fade-in-3"><i class="fas fa-infinity" style="margin-right:8px; color:#a78bfa;"></i>"Inspiring Mathematical Thinking Through Digital Innovation"</p>
+        <div class="hero-meta fade-in-4">
+          <div class="hero-meta-chip"><i class="fas fa-clock"></i> <span id="currentDate">Loading...</span></div>
+          <div class="hero-meta-chip"><i class="fas fa-school"></i> CBSE Board</div>
+          <div class="hero-meta-chip"><i class="fas fa-map-marker-alt"></i> Ranikhet, Uttarakhand</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== NAVIGATION ======================== -->
+    <nav class="nav-bar">
+      <div class="container">
+        <div class="nav">
+          <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+          <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+          <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+          <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+          <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+          <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+          <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+          <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+          <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+          <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+          <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+          <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+          <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+          <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+          <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+          <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+          <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+          <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+          <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+          <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+          <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+          <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+          <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+          <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ======================== MAIN CONTENT ======================== -->
+  <main>
+    <div class="container">
+
+      <!-- ======================== WELCOME DASHBOARD CARD ======================== -->
+      <div class="editable" contenteditable="true">
+        <div class="welcome-grid">
+          <div class="welcome-left">
+            <div class="welcome-tag"><i class="fas fa-star"></i>&nbsp; Welcome Dashboard</div>
+            <h2>Welcome to My Teaching Hub!</h2>
+            <p>This is the central command center for all teaching activities, resources, and digital tools. Navigate through the sections to access lesson plans, study materials, digital content, and much more &mdash; all curated to enhance the learning experience.</p>
+            <p>This digital diary is a comprehensive platform designed to bring mathematics alive through interactive tools, structured lesson plans, and CBSE-aligned resources for Classes VI through XII.</p>
+            <div class="mission-box">
+              <h4><i class="fas fa-bullseye" style="margin-right:6px;"></i> Mission Statement</h4>
+              <p>To nurture analytical thinking and a deep love for mathematics by providing structured, innovative, and technology-enhanced learning experiences that prepare students for academic excellence and lifelong curiosity.</p>
+            </div>
+            <div class="welcome-buttons">
+              <a href="studymaterial.html" class="btn-primary"><i class="fas fa-layer-group"></i> Explore Resources</a>
+              <a href="examination.html" class="btn-outline"><i class="fas fa-bell"></i> Latest Updates</a>
+              <a href="https://wa.me/919410121232?text=Hello%20Sir%2C%20I%20have%20a%20mathematics%20query%20from%20your%20Digital%20Diary." target="_blank" class="btn-outline" style="border-color:#25d366; color:#25d366; background:rgba(37,211,102,0.06);"><i class="fab fa-whatsapp"></i> WhatsApp Me</a>
+              <a href="profile.html" class="btn-outline"><i class="fas fa-envelope"></i> Contact Info</a>
+            </div>
+          </div>
+          <div class="welcome-right">
+            <div class="info-card-sm">
+              <div class="ic-icon">&#128218;</div>
+              <h4>About This Digital Diary</h4>
+              <p>A comprehensive digital workspace housing lesson plans, NCERT resources, board exam papers, interactive activities, and student profiles &mdash; all accessible from one place.</p>
+            </div>
+            <div class="edu-quote-sm">
+              <div class="quote-mark">&ldquo;</div>
+              <p>Pure mathematics is, in its way, the poetry of logical ideas.</p>
+              <div class="quote-author">&mdash; Albert Einstein</div>
+            </div>
+            <div class="info-card-sm">
+              <div class="ic-icon">&#127919;</div>
+              <h4>Quick Introduction</h4>
+              <p>Explore resources for <strong style="color:#c4b5fd;">7 classes</strong>, curated digital content, GeoGebra tools, IOQM preparation, and comprehensive lesson planning &mdash; all aligned with CBSE standards.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== QUICK ACCESS SECTION ======================== -->
+      <section class="quick-access">
+        <div class="section-title">
+          <div class="label"><i class="fas fa-bolt"></i> Quick Access</div>
+          <h2>Explore All Resources</h2>
+          <p>Click any card to instantly access learning materials, tools, and educational content.</p>
+          <div class="divider"></div>
+        </div>
+
+        <div class="cards-grid">
+
+          <a href="studymaterial.html" class="quick-card c1">
+            <div class="card-icon-wrap"><i class="fas fa-layer-group"></i></div>
+            <div class="card-title">Study Materials</div>
+            <div class="card-desc">Worksheets &amp; practice sheets</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="lessonplan.html" class="quick-card c2">
+            <div class="card-icon-wrap"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div class="card-title">Lesson Plans</div>
+            <div class="card-desc">Structured teaching frameworks</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="digitalcontent.html" class="quick-card c3">
+            <div class="card-icon-wrap"><i class="fas fa-laptop-code"></i></div>
+            <div class="card-title">Digital Content</div>
+            <div class="card-desc">Videos &amp; e-resources</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="ncertbooks.html" class="quick-card c4">
+            <div class="card-icon-wrap"><i class="fas fa-book-open"></i></div>
+            <div class="card-title">NCERT Books</div>
+            <div class="card-desc">Official textbooks online</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="board.html" class="quick-card c5">
+            <div class="card-icon-wrap"><i class="fas fa-question-circle"></i></div>
+            <div class="card-title">Board Questions</div>
+            <div class="card-desc">Past year CBSE papers</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="interactive.html" class="quick-card c6">
+            <div class="card-icon-wrap"><i class="fas fa-gamepad"></i></div>
+            <div class="card-title">Interactive Lessons</div>
+            <div class="card-desc">Engage &amp; learn dynamically</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="geogebra.html" class="quick-card c7">
+            <div class="card-icon-wrap"><i class="fas fa-draw-polygon"></i></div>
+            <div class="card-title">GeoGebra</div>
+            <div class="card-desc">Visual math exploration</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="ioqm.html" class="quick-card c8">
+            <div class="card-icon-wrap"><i class="fas fa-medal"></i></div>
+            <div class="card-title">IOQM</div>
+            <div class="card-desc">Olympiad prep &amp; resources</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="ppts.html" class="quick-card c9">
+            <div class="card-icon-wrap"><i class="fas fa-tv"></i></div>
+            <div class="card-title">PPTs</div>
+            <div class="card-desc">Class presentations</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="students.html" class="quick-card c10">
+            <div class="card-icon-wrap"><i class="fas fa-user-graduate"></i></div>
+            <div class="card-title">Students</div>
+            <div class="card-desc">Student profiles &amp; records</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+          <a href="chapterwise-board-questions.html" class="quick-card c11">
+            <div class="card-icon-wrap"><i class="fas fa-folder-open"></i></div>
+            <div class="card-title">Chapterwise PYQs</div>
+            <div class="card-desc">CBSE Board Chapterwise PDFs</div>
+            <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ======================== FEATURES SECTION ======================== -->
+      <section class="features-section">
+        <div class="section-title">
+          <div class="label"><i class="fas fa-star"></i> Features</div>
+          <h2>Why Use This Digital Diary?</h2>
+          <p>A complete ecosystem for modern mathematics education &mdash; structured, interactive, and always accessible.</p>
+          <div class="divider"></div>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card fade-in-1">
+            <div class="feature-icon" style="background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1)); color: #a78bfa;">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="check-badge"><i class="fas fa-check"></i> Lesson Planning</div>
+            <h3>Structured Lesson Planning</h3>
+            <p>Well-crafted lesson plans aligned with CBSE curriculum, designed to maximize understanding and classroom engagement for every topic.</p>
+          </div>
+
+          <div class="feature-card fade-in-2">
+            <div class="feature-icon" style="background: linear-gradient(135deg, rgba(14,165,233,0.2), rgba(14,165,233,0.1)); color: #38bdf8;">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <div class="check-badge"><i class="fas fa-check"></i> Digital Teaching</div>
+            <h3>Digital Teaching Tools</h3>
+            <p>Leverage cutting-edge digital tools, GeoGebra visualizations, and interactive presentations to bring mathematical concepts to life.</p>
+          </div>
+
+          <div class="feature-card fade-in-3">
+            <div class="feature-icon" style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.1)); color: #34d399;">
+              <i class="fas fa-infinity"></i>
+            </div>
+            <div class="check-badge"><i class="fas fa-check"></i> Math Activities</div>
+            <h3>Mathematics Activities</h3>
+            <p>Hands-on activities, paper folding, 3D shape exploration, and real-world math projects that make learning tangible and memorable.</p>
+          </div>
+
+          <div class="feature-card fade-in-1">
+            <div class="feature-icon" style="background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1)); color: #fbbf24;">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <div class="check-badge"><i class="fas fa-check"></i> Interactive Learning</div>
+            <h3>Interactive Learning</h3>
+            <p>Engaging interactive lesson plans and digital resources that encourage student participation, exploration, and self-paced learning.</p>
+          </div>
+
+          <div class="feature-card fade-in-2">
+            <div class="feature-icon" style="background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(236,72,153,0.1)); color: #f472b6;">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <div class="check-badge"><i class="fas fa-check"></i> CBSE Resources</div>
+            <h3>CBSE Resources</h3>
+            <p>Comprehensive CBSE-aligned materials including NCERT textbooks, board question banks, syllabi, and examination practice papers for all classes.</p>
+          </div>
+
+          <div class="feature-card fade-in-3">
+            <div class="feature-icon" style="background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(99,102,241,0.1)); color: #818cf8;">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="check-badge"><i class="fas fa-check"></i> Assessment Tools</div>
+            <h3>Assessment Tools</h3>
+            <p>Robust assessment resources including class tests, practice papers, examination archives, and PTM reports to track student progress effectively.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================== ACADEMIC HIGHLIGHTS ======================== -->
+      <section class="academic-section">
+        <div class="section-title">
+          <div class="label"><i class="fas fa-university"></i> Academic Profile</div>
+          <h2>Academic Highlights</h2>
+          <p>Covering a broad spectrum of mathematics education from middle school to senior secondary level.</p>
+          <div class="divider"></div>
+        </div>
+
+        <div class="academic-grid">
+          <div class="classes-card">
+            <h3><i class="fas fa-chalkboard" style="margin-right:8px;"></i> Classes Covered</h3>
+            <div class="class-pills">
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class VI</div>
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class VII</div>
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class VIII</div>
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class IX</div>
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class X</div>
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class XI</div>
+              <div class="class-pill"><i class="fas fa-graduation-cap"></i> Class XII</div>
+            </div>
+          </div>
+
+          <div class="stats-stack">
+            <div class="stat-card">
+              <div class="stat-icon">&#128208;</div>
+              <div class="stat-label">Subject</div>
+              <div class="stat-value">Mathematics</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">&#127979;</div>
+              <div class="stat-label">Curriculum</div>
+              <div class="stat-value">CBSE</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">&#127963;</div>
+              <div class="stat-label">School</div>
+              <div class="stat-value">PM SHRI KV Ranikhet</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================== INSPIRATIONAL QUOTE ======================== -->
+      <section class="quote-section">
+        <div class="quote-card">
+          <div class="quote-icon">&#128290;</div>
+          <p class="quote-text">
+            &ldquo;Mathematics is not about numbers, equations, computations, or algorithms &mdash; it is about understanding.&rdquo;
+          </p>
+          <div class="quote-author-line">&mdash; William Paul Thurston <span>&nbsp;|&nbsp; Fields Medal Laureate</span></div>
+        </div>
+      </section>
+
+    </div><!-- /.container -->
+  </main>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>&#128211; Teacher's Digital Diary</h3>
+          <p>A modern, comprehensive digital workspace for K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Empowering students through structured learning, digital resources, and innovative mathematical education.</p>
+          <p style="margin-top:10px; font-size:0.84em; color:rgba(255,255,255,0.45);">CBSE Board &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet &nbsp;&middot;&nbsp; Ranikhet, Uttarakhand</p>
+          <div class="footer-social">
+            <span class="social-btn" title="YouTube (placeholder)"><i class="fab fa-youtube"></i></span>
+            <span class="social-btn" title="Twitter (placeholder)"><i class="fab fa-twitter"></i></span>
+            <span class="social-btn" title="LinkedIn (placeholder)"><i class="fab fa-linkedin-in"></i></span>
+            <span class="social-btn" title="Email (placeholder)"><i class="fas fa-envelope"></i></span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+            <li><a href="examination.html"><i class="fas fa-chevron-right"></i> Examinations</a></li>
+            <li><a href="digitalcontent.html"><i class="fas fa-chevron-right"></i> Digital Content</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tools &amp; More</h4>
+          <ul>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Lessons</a></li>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="students.html"><i class="fas fa-chevron-right"></i> Students Profile</a></li>
+            <li><a href="syllabus.html"><i class="fas fa-chevron-right"></i> Syllabus</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          <strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp;
+          Designed by <strong>K B Joshi</strong>, PGT Mathematics, PM SHRI KV Ranikhet &nbsp;&middot;&nbsp;
+          Empowering Educators with Creative Tools
+        </p>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
+          <i class="fas fa-arrow-up"></i> Back to Top
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================== PASSWORD MODAL (UNCHANGED) ======================== -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+
+      <div class="teacher-info">
+        <div class="teacher-pic-modal">
+          <img src="kbjoshi.png" alt="Kirti Ballabh Joshi">
+        </div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="security-info">
+          &#128274; Profile access is securely encrypted and monitored
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ======================== LIVE DATE DISPLAY ========================
+    (function() {
+      var dateEl = document.getElementById('currentDate');
+      if (dateEl) {
+        var now = new Date();
+        var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        dateEl.textContent = now.toLocaleDateString('en-IN', options);
+      }
+    })();
+
+    // ======================== PASSWORD MODAL (ORIGINAL - UNCHANGED) ========================
+    document.addEventListener('DOMContentLoaded', function() {
+      // Modal elements
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+      
+      // Show modal when profile link is clicked
+      profileLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.display = 'flex';
+        passwordInput.focus();
+      });
+      
+      // Close modal when close button is clicked
+      closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        passwordInput.value = '';
+        errorMessage.textContent = '';
+      });
+      
+      // Close modal when clicking outside the modal content
+      window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          passwordInput.value = '';
+          errorMessage.textContent = '';
+        }
+      });
+      
+      // Toggle password visibility
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      
+      // Submit password
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        
+        if (!password) {
+          errorMessage.textContent = 'Please enter your access password';
+          return;
+        }
+        
+        // Check password (in real scenario, this would be server-side)
+        if (password === 'KV@2025') {
+          // Success - redirect to profile page
+          submitBtn.textContent = 'Authenticating...';
+          submitBtn.disabled = true;
+          
+          // Simulate authentication delay
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = '';
+          passwordInput.focus();
+          
+          // Add shake animation for error feedback
+          submitBtn.classList.add('shake');
+          setTimeout(() => {
+            submitBtn.classList.remove('shake');
+          }, 500);
+        }
+      });
+      
+      // Allow pressing Enter to submit
+      passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          submitBtn.click();
+        }
+      });
+    });
+  </script>
+
+  <!-- ======================== FLOATING WIDGETS ======================== -->
+  
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919410121232?text=Hello%20Sir%2C%20I%20have%20a%20mathematics%20query%20from%20your%20Digital%20Diary." target="_blank" class="whatsapp-float" title="Contact me on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Chatbot Floating Button -->
+  <div class="chatbot-float" id="chatbotFloatBtn" title="Aryabhata Math AI">
+    <i class="fas fa-robot"></i>
+    <span class="chatbot-badge">Math AI</span>
+  </div>
+
+  <!-- Chatbot Panel -->
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chat-header">
+      <div class="chat-bot-info">
+        <div class="chat-bot-avatar"><i class="fas fa-square-root-alt" style="color:#fff;"></i></div>
+        <div class="chat-bot-name">
+          <h4>Aryabhata Math AI</h4>
+          <span>Online Assistant</span>
+        </div>
+      </div>
+      <button class="chat-close-btn" id="chatbotCloseBtn"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">
+        Hello! I am <strong>Aryabhata</strong>, your virtual math assistant. Ask me a question (e.g., formulas, derivatives) or type an equation like <code>x^2 - 5x + 6 = 0</code> to solve it instantly!
+      </div>
+    </div>
+
+    <!-- Quick Shortcuts Bar -->
+    <div class="chat-shortcuts">
+      <button class="shortcut-btn" data-query="quadratic formula">Quadratic Formula</button>
+      <button class="shortcut-btn" data-query="derivative of sin x">d/dx(sin x)</button>
+      <button class="shortcut-btn" data-query="solve x^2 - 5x + 6 = 0">Solve x²-5x+6=0</button>
+      <button class="shortcut-btn" data-query="Euler's formula">Euler's Formula</button>
+      <button class="shortcut-btn" data-query="syllabus">CBSE Syllabus</button>
+      <button class="shortcut-btn" data-query="IOQM">IOQM Prep</button>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask a math question...">
+      <button class="chat-send-btn" id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Chatbot Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatbotFloatBtn = document.getElementById('chatbotFloatBtn');
+      const chatbotPanel = document.getElementById('chatbotPanel');
+      const chatbotCloseBtn = document.getElementById('chatbotCloseBtn');
+      const chatInput = document.getElementById('chatInput');
+      const chatSendBtn = document.getElementById('chatSendBtn');
+      const chatMessages = document.getElementById('chatMessages');
+      const shortcutBtns = document.querySelectorAll('.shortcut-btn');
+
+      // Toggle Panel
+      chatbotFloatBtn.addEventListener('click', () => {
+        chatbotPanel.classList.toggle('active');
+        if(chatbotPanel.classList.contains('active')) {
+          chatInput.focus();
+        }
+      });
+
+      chatbotCloseBtn.addEventListener('click', () => {
+        chatbotPanel.classList.remove('active');
+      });
+
+      // Send Message
+      function sendMessage() {
+        const query = chatInput.value.trim();
+        if (!query) return;
+
+        // Append User Message
+        appendMessage(query, 'user');
+        chatInput.value = '';
+
+        // Process Bot Answer
+        setTimeout(() => {
+          const response = getMathAnswer(query);
+          appendMessage(response, 'bot');
+        }, 600);
+      }
+
+      chatSendBtn.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
+
+      // Shortcuts clicks
+      shortcutBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const query = btn.getAttribute('data-query');
+          appendMessage(query, 'user');
+          setTimeout(() => {
+            const response = getMathAnswer(query);
+            appendMessage(response, 'bot');
+          }, 500);
+        });
+      });
+
+      function appendMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message', sender);
+        msgDiv.innerHTML = text;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Mathematical Response Engine
+      function getMathAnswer(query) {
+        let q = query.toLowerCase().trim();
+
+        // 1. Check for quadratic equation solver pattern
+        if (q.includes('x^2') || q.includes('x²')) {
+          let solverResult = solveQuadratic(query);
+          if (solverResult) {
+            return `Here is the step-by-step solution for your quadratic equation:<br>${solverResult}`;
+          }
+        }
+
+        // 2. Greetings
+        if (q === 'hi' || q === 'hello' || q === 'hey' || q.includes('good morning') || q.includes('good afternoon')) {
+          return "Hello! I am Aryabhata, your virtual math assistant. How can I help you with your mathematics queries today? You can ask me to solve quadratic equations or fetch formulas!";
+        }
+
+        // 3. Formula checks
+        if (q.includes('quadratic formula') || q.includes('quadratic equation formula')) {
+          return `For a quadratic equation of the form <span class="math-highlight">ax² + bx + c = 0</span>, the roots are given by:<br>
+                  <span class="math-highlight">x = [-b ± √(b² - 4ac)] / 2a</span><br>
+                  Where:<br>
+                  - <strong>b² - 4ac</strong> is the Discriminant (D).<br>
+                  - If D > 0: Roots are real and distinct.<br>
+                  - If D = 0: Roots are real and equal.<br>
+                  - If D < 0: Roots are complex.`;
+        }
+
+        if (q.includes('euler') && q.includes('formula')) {
+          return `Euler's Formula is a beautiful bridge in complex analysis:<br>
+                  <span class="math-highlight">e^(iθ) = cos θ + i sin θ</span><br>
+                  Setting θ = π yields the famous Euler's Identity:<br>
+                  <span class="math-highlight">e^(iπ) + 1 = 0</span>`;
+        }
+
+        if (q.includes('derivative of sin')) {
+          return "The derivative of <strong>sin x</strong> with respect to x is:<br><span class=\"math-highlight\">d/dx(sin x) = cos x</span>";
+        }
+        if (q.includes('derivative of cos')) {
+          return "The derivative of <strong>cos x</strong> with respect to x is:<br><span class=\"math-highlight\">d/dx(cos x) = -sin x</span>";
+        }
+        if (q.includes('derivative of tan')) {
+          return "The derivative of <strong>tan x</strong> with respect to x is:<br><span class=\"math-highlight\">d/dx(tan x) = sec² x</span>";
+        }
+        if (q.includes('derivative of e^x') || q.includes('derivative of e^')) {
+          return "The derivative of exponential function <strong>e^x</strong> is:<br><span class=\"math-highlight\">d/dx(e^x) = e^x</span>";
+        }
+        if (q.includes('derivative of log') || q.includes('derivative of ln')) {
+          return "The derivative of natural logarithm <strong>ln x</strong> is:<br><span class=\"math-highlight\">d/dx(ln x) = 1/x</span> (for x > 0)";
+        }
+        if (q.includes('integral of sin')) {
+          return "The indefinite integral of <strong>sin x</strong> is:<br><span class=\"math-highlight\">∫ sin x dx = -cos x + C</span>";
+        }
+        if (q.includes('integral of cos')) {
+          return "The indefinite integral of <strong>cos x</strong> is:<br><span class=\"math-highlight\">∫ cos x dx = sin x + C</span>";
+        }
+
+        // 4. Site specific links
+        if (q.includes('syllabus') || q.includes('class 11 syllabus') || q.includes('class 12 syllabus')) {
+          return "You can view the detailed Class 11 &amp; 12 syllabus structure in our <a href='syllabus.html' style='color:#a78bfa; font-weight:600;'>Syllabus Portal</a>.";
+        }
+        if (q.includes('ioqm') || q.includes('olympiad')) {
+          return "For preparation tips, past registration dates, and question papers, check our <a href='ioqm.html' style='color:#a78bfa; font-weight:600;'>IOQM Prep Hub</a>.";
+        }
+        if (q.includes('exam') || q.includes('test') || q.includes('schedule')) {
+          return "Check upcoming Chapterwise Tests, Monthly Exams, and Periodic Tests under the secure <a href='examination.html' style='color:#a78bfa; font-weight:600;'>Examinations Portal</a> (access password: <code>exam123</code>).";
+        }
+        if (q.includes('lesson plan') || q.includes('lessonplan')) {
+          return "Classwise lesson planners are stored securely under the <a href='lessonplan.html' style='color:#a78bfa; font-weight:600;'>Lesson Plans Vault</a> (access password: <code>euclid</code>).";
+        }
+
+        // Fallback response
+        return "That is an interesting mathematical concept! As a local guide, I can solve quadratic equations (like <code>x^2 - 5x + 6 = 0</code>), pull up standard derivative formulas, and guide you around the Teacher's Digital Diary resources. What else can I retrieve for you?";
+      }
+
+      // Quadratic Equation Solver
+      function solveQuadratic(eq) {
+        let cleaned = eq.replace(/\s+/g, '');
+        cleaned = cleaned.replace(/x²/g, 'x^2');
+        cleaned = cleaned.replace(/(^|[+-])x\^2/, '$11x^2');
+        cleaned = cleaned.replace(/([+-])x([+-]|=|$)/, '$11x$2');
+        if (cleaned.startsWith('x')) cleaned = '1' + cleaned;
+        
+        let match = cleaned.match(/(-?\d+(?:\.\d+)?)x\^2(?:([+-]\d+(?:\.\d+)?))?x(?:([+-]\d+(?:\.\d+)?))?(?:=0)?/);
+        
+        if (!match) {
+          // Fallback simple parsing for x^2 - c = 0
+          let simpleMatch = cleaned.match(/(-?\d+(?:\.\d+)?)x\^2(?:([+-]\d+(?:\.\d+)?))?(?:=0)?/);
+          if (simpleMatch) {
+            let a = parseFloat(simpleMatch[1]);
+            let b = 0;
+            let c = simpleMatch[2] ? parseFloat(simpleMatch[2]) : 0;
+            return calculateRoots(a, b, c);
+          }
+          return null;
+        }
+        
+        let a = parseFloat(match[1]);
+        let b = match[2] ? parseFloat(match[2]) : 0;
+        let c = match[3] ? parseFloat(match[3]) : 0;
+        
+        return calculateRoots(a, b, c);
+      }
+
+      function calculateRoots(a, b, c) {
+        if (isNaN(a) || a === 0) return null;
+        
+        let disc = b*b - 4*a*c;
+        let steps = `<div class="math-steps">`;
+        steps += `Equation: <span class="math-highlight">${a}x² + (${b})x + (${c}) = 0</span><br>`;
+        steps += `Discriminant (D) = b² - 4ac<br>`;
+        steps += `D = (${b})² - 4(${a})(${c}) = ${b*b} - ${4*a*c} = <span class="math-highlight">${disc}</span><br>`;
+        
+        if (disc > 0) {
+          let r1 = (-b + Math.sqrt(disc)) / (2*a);
+          let r2 = (-b - Math.sqrt(disc)) / (2*a);
+          steps += `D &gt; 0 (Real &amp; Distinct Roots):<br>`;
+          steps += `x = [-b ± √D] / 2a<br>`;
+          steps += `x₁ = <span class="math-highlight">${r1.toFixed(3)}</span><br>`;
+          steps += `x₂ = <span class="math-highlight">${r2.toFixed(3)}</span>`;
+        } else if (disc === 0) {
+          let r = -b / (2*a);
+          steps += `D = 0 (Equal Roots):<br>`;
+          steps += `x = -b / 2a<br>`;
+          steps += `x = <span class="math-highlight">${r.toFixed(3)}</span>`;
+        } else {
+          let realPart = -b / (2*a);
+          let imagPart = Math.sqrt(-disc) / (2*a);
+          steps += `D &lt; 0 (Complex Roots):<br>`;
+          steps += `x = -b/2a ± i(√-D)/2a<br>`;
+          steps += `x₁ = <span class="math-highlight">${realPart.toFixed(3)} + ${imagPart.toFixed(3)}i</span><br>`;
+          steps += `x₂ = <span class="math-highlight">${realPart.toFixed(3)} - ${imagPart.toFixed(3)}i</span>`;
+        }
+        steps += `</div>`;
+        return steps;
+      }
+    });
+  </script>
+</body>
+</html>

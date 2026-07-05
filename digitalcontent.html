@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Maths with KBJ | Digital Content | Teacher's Digital Diary</title>
+  <meta name="description" content="Learn Maths with KBJ - Educational mathematics videos for Class 10, 11 and 12 CBSE. YouTube channel by K B Joshi, PGT Mathematics, PM SHRI KV Ranikhet.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Preserve original class names; restyle them */
+    .channel-info {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: var(--glass-shadow);
+    }
+    .channel-logo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(139,92,246,0.6);
+      box-shadow: 0 0 0 5px rgba(139,92,246,0.2), 0 8px 30px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+    .channel-description h2 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 8px;
+    }
+    .channel-description p { color: var(--text-secondary); font-size: 0.92em; line-height: 1.7; }
+    .subscribe-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: white;
+      padding: 10px 22px;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      margin-top: 14px;
+      transition: var(--transition);
+      font-size: 0.88em;
+      box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+    }
+    .subscribe-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(220,38,38,0.55); color: white; }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+      margin-bottom: 48px;
+    }
+    .video-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      animation: fadeInUp 0.5s ease both;
+    }
+    .video-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-color: rgba(139,92,246,0.4); }
+
+    .video-thumbnail {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+    .video-card:hover .video-thumbnail { filter: brightness(1.1); }
+
+    .video-info { padding: 18px 20px 20px; }
+    .video-title {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 0.97em;
+      margin: 0 0 6px;
+      color: #fff;
+    }
+    .video-desc { font-size: 0.83em; color: var(--text-muted); margin: 0 0 12px; line-height: 1.55; }
+    .video-info a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #a78bfa;
+      font-size: 0.82em;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 50px;
+      padding: 5px 14px;
+    }
+    .video-info a:hover { background: rgba(139,92,246,0.2); color: #c4b5fd; }
+
+    .section-h2 {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-h2 i { color: #a78bfa; }
+
+    @media (max-width: 768px) {
+      .channel-info { flex-direction: column; text-align: center; }
+      .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-laptop"></i> Digital Content</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html" class="active"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#127909;</span>
+      <h1>Learn Maths with KBJ</h1>
+      <p>Your gateway to mastering mathematics &mdash; Video lessons, playlists &amp; digital resources for CBSE Classes 10, 11 &amp; 12</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <!-- Channel Info -->
+      <section class="channel-info fade-in">
+        <img src="https://yt3.ggpht.com/VPn7eKRGFNDuj88dZ2BazICJpQnEBWGtNweKQfrZfMwDuzDIrYNE8X2VRTlg2Zaimh3aTfHFrQ=s600-c-k-c0x00ffffff-no-rj-rp-mo" class="channel-logo" alt="LEARN MATHS WITH KBJ Channel">
+        <div class="channel-description">
+          <h2><i class="fab fa-youtube" style="color:#ef4444;"></i> About the Channel</h2>
+          <p>Welcome to <strong style="color:#fff;">LEARN MATHS WITH KBJ</strong>, your premier destination for comprehensive mathematics education. Our channel specializes in Class 11 and 12 mathematics, covering topics from Relations and Functions to Calculus, with clear explanations and practical examples.</p>
+          <a href="http://www.youtube.com/@KBJ25" class="subscribe-btn" target="_blank"><i class="fab fa-youtube"></i> Subscribe on YouTube</a>
+        </div>
+      </section>
+
+      <!-- Stats Row -->
+      <div class="stats-row mb-32 fade-in-1">
+        <div class="stat-box">
+          <div class="sb-icon">&#127909;</div>
+          <div class="sb-num">2+</div>
+          <div class="sb-label">Playlists</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#127891;</div>
+          <div class="sb-num">3</div>
+          <div class="sb-label">Classes Covered</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#128218;</div>
+          <div class="sb-num">CBSE</div>
+          <div class="sb-label">Curriculum</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#128247;</div>
+          <div class="sb-num">Free</div>
+          <div class="sb-label">Access</div>
+        </div>
+      </div>
+
+      <!-- Popular Playlists -->
+      <section>
+        <div class="section-title mb-24" style="text-align:left;">
+          <div class="label"><i class="fas fa-list"></i> Playlists</div>
+          <h2 class="section-h2"><i class="fas fa-play-circle"></i> Popular Playlists</h2>
+        </div>
+        <div class="video-grid">
+          <!-- Playlist 1 -->
+          <div class="video-card">
+            <img src="https://i.ytimg.com/vi/wRshdLu5hg0/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA_py_y-FdHh6BQu3pirTAsTD9IjQ" alt="Class 10 Maths" class="video-thumbnail">
+            <div class="video-info">
+              <h3 class="video-title">CBSE BOARD QUESTIONS CLASS-10</h3>
+              <p class="video-desc">All topics covered of class 10. CBSE board questions discussed in detail with step-by-step solutions.</p>
+              <a href="https://www.youtube.com/watch?v=wRshdLu5hg0&list=PLRJiYwGZKrS7v6hR4q8Hrk1BY_sSsl7LW&pp=gAQB" target="_blank"><i class="fas fa-external-link-alt"></i> View Playlist</a>
+            </div>
+          </div>
+          <!-- Playlist 2 -->
+          <div class="video-card">
+            <img src="https://i.ytimg.com/vi/G9Rq5WDxtMM/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCnQGY5Wwp5BCjTQGRdozo4__0UeQ" alt="Quick Revision" class="video-thumbnail">
+            <div class="video-info">
+              <h3 class="video-title">Exam Preparation Series for CLASS 12</h3>
+              <p class="video-desc">Quick revision videos and important questions for board exams for CLASS 12. Comprehensive coverage of all topics.</p>
+              <a href="https://www.youtube.com/watch?v=G9Rq5WDxtMM&list=PLRJiYwGZKrS4L6geVBqczKAkB-muBBEoJ&pp=gAQB" target="_blank"><i class="fas fa-external-link-alt"></i> View Playlist</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Videos -->
+      <section>
+        <div class="section-title mb-24" style="text-align:left;">
+          <div class="label"><i class="fas fa-star"></i> Featured</div>
+          <h2 class="section-h2"><i class="fas fa-video"></i> Featured Videos</h2>
+        </div>
+        <div class="video-grid">
+          <div class="video-card">
+            <img src="https://i.ytimg.com/vi/VIDEO_ID_1/maxresdefault.jpg" alt="Relations and Functions" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/400x200/1a1040/a78bfa?text=Relations+%26+Functions'">
+            <div class="video-info">
+              <h3 class="video-title">Relations and Functions</h3>
+              <p class="video-desc">Master the fundamentals of relations and functions with detailed explanations and examples.</p>
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_1" target="_blank"><i class="fas fa-play"></i> Watch Now</a>
+            </div>
+          </div>
+          <div class="video-card">
+            <img src="https://i.ytimg.com/vi/VIDEO_ID_2/maxresdefault.jpg" alt="Trigonometry" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/400x200/1a1040/a78bfa?text=Trigonometric+Functions'">
+            <div class="video-info">
+              <h3 class="video-title">Trigonometric Functions Explained</h3>
+              <p class="video-desc">Learn all about trigonometric functions with practical applications and problem-solving techniques.</p>
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_2" target="_blank"><i class="fas fa-play"></i> Watch Now</a>
+            </div>
+          </div>
+          <div class="video-card">
+            <img src="https://i.ytimg.com/vi/VIDEO_ID_3/maxresdefault.jpg" alt="Calculus" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/400x200/1a1040/a78bfa?text=Introduction+to+Calculus'">
+            <div class="video-info">
+              <h3 class="video-title">Introduction to Calculus for Beginners</h3>
+              <p class="video-desc">Start your journey into calculus with this comprehensive introductory lesson.</p>
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_3" target="_blank"><i class="fas fa-play"></i> Watch Now</a>
+            </div>
+          </div>
+          <div class="video-card">
+            <img src="https://i.ytimg.com/vi/VIDEO_ID_4/maxresdefault.jpg" alt="Algebra" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/400x200/1a1040/a78bfa?text=Algebra+Basics'">
+            <div class="video-info">
+              <h3 class="video-title">Algebra Basics Every Student Should Know</h3>
+              <p class="video-desc">Build a strong foundation in algebra with these essential concepts and techniques.</p>
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_4" target="_blank"><i class="fas fa-play"></i> Watch Now</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+          <div class="footer-social">
+            <a href="https://www.youtube.com/c/LEARNMATHSWITHKBJ" target="_blank" class="social-btn"><i class="fab fa-youtube"></i></a>
+            <span class="social-btn"><i class="fab fa-twitter"></i></span>
+            <span class="social-btn"><i class="fab fa-linkedin-in"></i></span>
+            <a href="mailto:learnmathswithkbj@example.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="http://www.youtube.com/@KBJ25" target="_blank"><i class="fas fa-chevron-right"></i> YouTube Channel</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Lessons</a></li>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password_profile">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password_profile" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePasswordProfile">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      togglePasswordProfile.addEventListener('click', function() {
+        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputProfile.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+
+      submitBtnProfile.addEventListener('click', function() {
+        const password = passwordInputProfile.value;
+        errorMessageProfile.textContent = '';
+        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+          passwordInputProfile.value = ''; passwordInputProfile.focus();
+          submitBtnProfile.classList.add('shake');
+          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+    });
+  </script>
+</body>
+</html>

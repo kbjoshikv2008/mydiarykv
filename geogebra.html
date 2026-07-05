@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoGebra Resources | K B Joshi | PGT Mathematics</title>
+  <meta name="description" content="Dynamic mathematics visualisation and exploration tools — GeoGebra profile, graphing calculator, geometry tool, and CAS by K B Joshi, PGT Mathematics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .geo-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 48px;
+    }
+    .geo-link-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .geo-link-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #8b5cf6, #0ea5e9);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+    .geo-link-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(139,92,246,0.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+    .geo-link-card:hover::after { transform: scaleX(1); }
+    .geo-link-card .glc-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7em;
+      margin-bottom: 4px;
+    }
+    .geo-link-card .glc-title {
+      font-family: var(--font-head);
+      font-size: 0.97em;
+      font-weight: 700;
+      color: #fff;
+    }
+    .geo-link-card .glc-sub {
+      font-size: 0.78em;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .geo-link-card .glc-arrow {
+      font-size: 0.78em;
+      color: #a78bfa;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .iframe-section {
+      margin-bottom: 48px;
+    }
+    .iframe-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .iframe-header .ih-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(14,165,233,0.3), rgba(139,92,246,0.2));
+      border: 1px solid rgba(14,165,233,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4em;
+      flex-shrink: 0;
+    }
+    .iframe-header h2 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .iframe-header p {
+      font-size: 0.8em;
+      color: var(--text-muted);
+    }
+    .geo-iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: var(--radius-lg);
+      display: block;
+    }
+
+    .glc-icon-profile { background: linear-gradient(135deg, rgba(139,92,246,0.35), rgba(14,165,233,0.25)); border: 1px solid rgba(139,92,246,0.35); }
+    .glc-icon-calc    { background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(14,165,233,0.25)); border: 1px solid rgba(16,185,129,0.35); }
+    .glc-icon-geo     { background: linear-gradient(135deg, rgba(245,158,11,0.35), rgba(236,72,153,0.25)); border: 1px solid rgba(245,158,11,0.35); }
+    .glc-icon-cas     { background: linear-gradient(135deg, rgba(236,72,153,0.35), rgba(139,92,246,0.25)); border: 1px solid rgba(236,72,153,0.35); }
+  </style>
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ===== SITE HEADER ===== -->
+    <header class="site-header">
+      <div class="container">
+        <div class="page-chip"><i class="fa-solid fa-star"></i> PM SHRI KV Ranikhet</div>
+        <h1>K B Joshi</h1>
+        <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+        <h3>Teacher's Digital Diary</h3>
+      </div>
+      <a href="#" id="profileLink" title="View Teacher Profile">
+        <img src="kbjoshi.png" alt="K B Joshi" class="profile-photo">
+      </a>
+    </header>
+
+    <!-- ===== NAV BAR ===== -->
+    <nav class="nav-bar">
+      <div class="container">
+        <div class="nav">
+          <a href="#" id="profileNavLink" onclick="document.getElementById('profileLink').click();return false;">Profile</a>
+          <a href="timetable.html">Timetable</a>
+          <a href="syllabus.html">Syllabus</a>
+          <a href="lessonplan.html">Lesson Plan</a>
+          <a href="codeofconduct.html">Code of Conduct</a>
+          <a href="lincoln.html">Lincoln</a>
+          <a href="activities.html">Activities</a>
+          <a href="ncertbooks.html">NCERT Books</a>
+          <a href="homework.html">Homework</a>
+          <a href="digitalcontent.html">Digital Content</a>
+          <a href="examination.html">Examination</a>
+          <a href="ioqm.html">IOQM</a>
+          <a href="meetings.html">Meetings</a>
+          <a href="3dshapes.html">3D Shapes</a>
+          <a href="geogebra.html" class="active">GeoGebra</a>
+          <a href="robocompass.html">RoboCompass</a>
+          <a href="paper-folding.html">Paper Folding</a>
+          <a href="ppts.html">PPTs</a>
+          <a href="students.html">Students</a>
+          <a href="interactive.html">Interactive</a>
+          <a href="board.html">Board</a>
+          <a href="studymaterial.html">Study Material</a>
+          <a href="ptm.html">PTM</a>
+          <a href="learners.html">Learners</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="page-hero-icon">&#128208;</span>
+        <h1>GeoGebra</h1>
+        <p>Dynamic mathematics visualisation &amp; exploration tools — interactive, intuitive and powerful.</p>
+      </div>
+    </section>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+      <div class="container">
+
+        <!-- Section title -->
+        <div class="section-title fade-in" style="margin-top:12px;">
+          <span class="label">&#128279; Quick Access</span>
+          <h2>GeoGebra Tools &amp; Profile</h2>
+          <p>Explore dynamic visualisations, graphing tools, geometry constructions, and the CAS system.</p>
+          <div class="divider"></div>
+        </div>
+
+        <!-- GeoGebra link cards -->
+        <div class="geo-links-grid fade-in-1">
+
+          <a href="https://www.geogebra.org/u/kbjoshikv" target="_blank" class="geo-link-card">
+            <div class="glc-icon glc-icon-profile">&#128279;</div>
+            <div class="glc-title">My GeoGebra Profile</div>
+            <div class="glc-sub">Browse all resources, applets and constructions shared by the teacher.</div>
+            <div class="glc-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Profile</div>
+          </a>
+
+          <a href="https://www.geogebra.org/calculator" target="_blank" class="geo-link-card">
+            <div class="glc-icon glc-icon-calc">&#129518;</div>
+            <div class="glc-title">Graphing Calculator</div>
+            <div class="glc-sub">Plot functions, explore equations and visualise mathematical relationships.</div>
+            <div class="glc-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Calculator</div>
+          </a>
+
+          <a href="https://www.geogebra.org/geometry" target="_blank" class="geo-link-card">
+            <div class="glc-icon glc-icon-geo">&#128208;</div>
+            <div class="glc-title">Geometry Tool</div>
+            <div class="glc-sub">Construct geometric shapes, explore theorems, and create interactive proofs.</div>
+            <div class="glc-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Geometry</div>
+          </a>
+
+          <a href="https://www.geogebra.org/cas" target="_blank" class="geo-link-card">
+            <div class="glc-icon glc-icon-cas">&#128187;</div>
+            <div class="glc-title">CAS (Algebra System)</div>
+            <div class="glc-sub">Perform symbolic computations, factorisation, differentiation and integration.</div>
+            <div class="glc-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open CAS</div>
+          </a>
+
+        </div>
+
+        <!-- Embedded iframe section -->
+        <div class="iframe-section fade-in-2">
+          <div class="section-title">
+            <span class="label">&#127919; Live Preview</span>
+            <h2>My GeoGebra Profile</h2>
+            <p>Interact with the teacher's published GeoGebra resources directly below.</p>
+            <div class="divider"></div>
+          </div>
+
+          <div class="glass-card">
+            <div class="glass-card-inner">
+              <div class="iframe-header">
+                <div class="ih-icon">&#128208;</div>
+                <div>
+                  <h2>Embedded Profile View</h2>
+                  <p>geogebra.org/u/kbjoshikv — interactive mathematics resources</p>
+                </div>
+                <a href="https://www.geogebra.org/u/kbjoshikv" target="_blank" class="btn btn-outline btn-sm" style="margin-left:auto;white-space:nowrap;">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Full
+                </a>
+              </div>
+              <iframe
+                src="https://www.geogebra.org/u/kbjoshikv"
+                class="geo-iframe"
+                allowfullscreen
+                title="GeoGebra Profile of K B Joshi">
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back link -->
+        <div class="text-center mb-48">
+          <a href="index.html" class="btn btn-outline">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+          </a>
+        </div>
+
+      </div><!-- end container -->
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>Teacher's Digital Diary</h3>
+            <p>K B Joshi &nbsp;|&nbsp; PGT Mathematics<br>PM SHRI Kendriya Vidyalaya Ranikhet, Uttarakhand</p>
+            <div class="footer-social">
+              <span class="social-btn"><i class="fa-brands fa-google"></i></span>
+              <span class="social-btn"><i class="fa-solid fa-envelope"></i></span>
+              <span class="social-btn"><i class="fa-solid fa-school"></i></span>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+              <li><a href="syllabus.html"><i class="fa-solid fa-chevron-right"></i> Syllabus</a></li>
+              <li><a href="lessonplan.html"><i class="fa-solid fa-chevron-right"></i> Lesson Plans</a></li>
+              <li><a href="homework.html"><i class="fa-solid fa-chevron-right"></i> Homework</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="ncertbooks.html"><i class="fa-solid fa-chevron-right"></i> NCERT Books</a></li>
+              <li><a href="robocompass.html"><i class="fa-solid fa-chevron-right"></i> RoboCompass</a></li>
+              <li><a href="3dshapes.html"><i class="fa-solid fa-chevron-right"></i> 3D Shapes</a></li>
+              <li><a href="interactive.html"><i class="fa-solid fa-chevron-right"></i> Interactive</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 <strong>K B Joshi</strong> &mdash; PGT Mathematics, PM SHRI KV Ranikhet. All rights reserved.</p>
+          <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+            <i class="fa-solid fa-arrow-up"></i> Back to Top
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div><!-- end page-wrapper -->
+
+  <!-- ===== PASSWORD MODAL ===== -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal">
+          <img src="kbjoshi.png" alt="Kirti Ballabh Joshi">
+        </div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button id="backToTop" title="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script>
+    // Back to Top
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); }
+      else { btn.classList.remove('visible'); }
+    });
+    document.getElementById('backToTop').onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Password Modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+
+      profileLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.display = 'flex';
+        passwordInput.focus();
+      });
+      closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        passwordInput.value = '';
+        errorMessage.textContent = '';
+      });
+      window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          passwordInput.value = '';
+          errorMessage.textContent = '';
+        }
+      });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...';
+          submitBtn.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = '';
+          passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { submitBtn.click(); }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slow Learners List | Teacher's Digital Diary</title>
+  <meta name="description" content="List of slow learners with subjects of concern and suggested support remarks, editable directly.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .class-header-title {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #93c5fd;
+      margin-top: 32px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .class-header-title i { color: #60a5fa; }
+    
+    .editable {
+      outline: none;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(14,165,233,0.2);
+      color: #38bdf8;
+      border-color: rgba(14,165,233,0.4);
+      transform: translateX(-3px);
+    }
+
+    .edit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #34d399;
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: 0.8em;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1" style="background: rgba(14,165,233,0.2);"></div>
+    <div class="blob blob-2" style="background: rgba(56,189,248,0.15);"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-heart" style="color:#3b82f6;"></i> Slow Learners Support</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html" class="active"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero" style="background: linear-gradient(135deg, rgba(15,12,41,0.7) 0%, rgba(30,30,70,0.5) 100%);">
+    <div class="container">
+      <span class="page-hero-icon">&#128218;</span>
+      <h1>Slow Learners Support</h1>
+      <p>Continuous monitoring, diagnostic testing, and targeted remedial class schedules</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <a href="learners.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Categories</a>
+
+      <div class="text-center">
+        <span class="edit-badge"><i class="fas fa-pen-fancy"></i> Editable Mode Active &mdash; Double click inside table cells to modify</span>
+      </div>
+
+      <!-- EDITABLE AREA -->
+      <div class="editable glass-card p-32 mb-48 fade-in-1" contenteditable="true">
+        
+        <!-- Class 7 -->
+        <h2 class="class-header-title" style="margin-top:0;"><i class="fas fa-graduation-cap"></i> Class 7 - Mathematics</h2>
+        <div class="table-wrapper mb-32">
+          <table>
+            <thead>
+              <tr>
+                <th width="12%">Roll No.</th>
+                <th>Name</th>
+                <th>Subject of Concern</th>
+                <th>Suggested Support / Remedial Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td></td><td></td><td></td></tr>
+              <tr><td>2</td><td></td><td></td><td></td></tr>
+              <tr><td>3</td><td></td><td></td><td></td></tr>
+              <tr><td>4</td><td></td><td></td><td></td></tr>
+              <tr><td>5</td><td></td><td></td><td></td></tr>
+              <tr><td>6</td><td></td><td></td><td></td></tr>
+              <tr><td>7</td><td></td><td></td><td></td></tr>
+              <tr><td>8</td><td></td><td></td><td></td></tr>
+              <tr><td>9</td><td></td><td></td><td></td></tr>
+              <tr><td>10</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Class 11 -->
+        <h2 class="class-header-title"><i class="fas fa-graduation-cap"></i> Class 11 - Mathematics</h2>
+        <div class="table-wrapper mb-32">
+          <table>
+            <thead>
+              <tr>
+                <th width="12%">Roll No.</th>
+                <th>Name</th>
+                <th>Stream</th>
+                <th>Subject of Concern</th>
+                <th>Suggested Support / Remedial Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>6</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>7</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>8</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>9</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>10</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Class 12 -->
+        <h2 class="class-header-title"><i class="fas fa-graduation-cap"></i> Class 12 - Mathematics</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th width="12%">Roll No.</th>
+                <th>Name</th>
+                <th>Stream</th>
+                <th>Subject of Concern</th>
+                <th>Suggested Support / Remedial Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>6</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>7</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>8</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>9</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>10</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- end editable -->
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password_profile">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password_profile" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePasswordProfile">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      togglePasswordProfile.addEventListener('click', function() {
+        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputProfile.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+
+      submitBtnProfile.addEventListener('click', function() {
+        const password = passwordInputProfile.value;
+        errorMessageProfile.textContent = '';
+        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+          passwordInputProfile.value = ''; passwordInputProfile.focus();
+          submitBtnProfile.classList.add('shake');
+          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+    });
+  </script>
+</body>
+</html>

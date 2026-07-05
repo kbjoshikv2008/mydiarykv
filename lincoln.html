@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lincoln's Timeless Wisdom | Teacher's Digital Diary</title>
+  <meta name="description" content="Abraham Lincoln's famous, timeless letter to his son's teacher about faith, love, and courage. Curated by K B Joshi, PGT Mathematics.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .letter-container {
+      max-width: 800px;
+      margin: 0 auto 48px;
+    }
+    .letter-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+    }
+    
+    .letter-card p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(139,92,246,0.3) 0%, rgba(139,92,246,0.05) 100%);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    .quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #c4b5fd;
+      border-left: 4px solid #8b5cf6;
+      padding: 16px 24px;
+      margin: 32px 0;
+      background: rgba(255,255,255,0.03);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      line-height: 1.7;
+    }
+    
+    .tip {
+      background: rgba(14,165,233,0.06);
+      border-left: 4px solid #0ea5e9;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .tip-title {
+      font-family: var(--font-head);
+      font-weight: 700;
+      color: #38bdf8;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .tip p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+    
+    .signature {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      color: #fff;
+      text-align: right;
+      margin-top: 48px;
+      position: relative;
+    }
+    .signature:before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      right: 0;
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(139,92,246,0.5), transparent);
+    }
+    
+    .decoration {
+      text-align: center;
+      color: #8b5cf6;
+      font-size: 1.4rem;
+      margin: 36px 0;
+      opacity: 0.8;
+      letter-spacing: 6px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-scroll"></i> Timeless Wisdom</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html" class="active"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#9993;</span>
+      <h1>A Father's Advice</h1>
+      <p>Abraham Lincoln's timeless letter to his son's teacher on education, moral character, and resilience</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container letter-container">
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Letter Card -->
+      <div class="letter-card fade-in-1">
+        <p>My son starts school today. It is all going to be strange and new to him for a while, and I wish you would treat him gently. It is an adventure that might take him across continents—an adventure that will include <span class="highlight">wars, tragedy, and sorrow</span>. To live this life will require <span class="highlight">faith, love, and courage</span>.</p>
+        
+        <div class="tip">
+          <h3 class="tip-title">The Teacher's Challenge</h3>
+          <p>So dear Teacher, will you please take him by his hand and teach him things he will have to know—teaching him, but gently, if you can.</p>
+        </div>
+        
+        <div class="quote">
+          "Teach him that for every enemy, there is a friend. He will have to know that all men are not just, that all men are not true. But teach him also that for every scoundrel there is a hero; that for every crooked politician, there is a dedicated leader."
+        </div>
+        
+        <p>Teach him if you can that <span class="highlight">10 cents earned is of far more value than a dollar found</span>. In school, teacher, it is far more honorable to fail than to cheat. Teach him to learn how to <span class="highlight">gracefully lose</span>, and enjoy winning when he does win.</p>
+        
+        <div class="tip">
+          <h3 class="tip-title">Life's Contradictions</h3>
+          <p>Teach him to be gentle with gentle people, but tough with tough people. Steer him away from envy if you can, and teach him the secret of quiet laughter. Teach him how to laugh when he is sad, and that there is no shame in tears.</p>
+        </div>
+        
+        <p>Teach him there can be <span class="highlight">glory in failure</span> and despair in success. Teach him to scoff at cynics and to beware of too much sweetness. Teach him the wonders of books, but also give him quiet time to ponder the eternal mystery of birds in the sky, bees in the sun, and flowers on a green hillside.</p>
+        
+        <div class="quote">
+          "Teach him to have faith in his own ideas, even if everyone tells him they are wrong. Try to give my son the strength not to follow the crowd when everyone is getting on the bandwagon."
+        </div>
+        
+        <p>Teach him to listen to all men but to <span class="highlight">filter all he hears on the screen of truth</span>, and to take only the good that comes through. Teach him to sell his talents and brains to the highest bidder, but never to put a price tag on his heart and soul.</p>
+        
+        <div class="decoration">✦ ✦ ✦</div>
+        
+        <p>Let him have the courage to be impatient, and the patience to be brave. Teach him to have <span class="highlight">sublime faith in himself</span>, because then he will always have sublime faith in mankind and in God.</p>
+        
+        <p>This is a big order, teacher, but see what you can do. He is such a nice little boy—he is my son.</p>
+        
+        <div class="signature">Abraham Lincoln</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password_profile">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password_profile" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePasswordProfile">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      togglePasswordProfile.addEventListener('click', function() {
+        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputProfile.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+
+      submitBtnProfile.addEventListener('click', function() {
+        const password = passwordInputProfile.value;
+        errorMessageProfile.textContent = '';
+        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+          passwordInputProfile.value = ''; passwordInputProfile.focus();
+          submitBtnProfile.classList.add('shake');
+          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+    });
+  </script>
+</body>
+</html>

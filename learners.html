@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learner Categories – KBJ Digital Diary</title>
+  <meta name="description" content="Personalised support for Bright Learners and Slow Learners – KBJ Digital Diary, PM SHRI KV Ranikhet."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-content {
+      position: relative;
+      z-index: 1;
+      padding-top: 30px;
+    }
+    /* Learners grid */
+    .learners-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+    @media (max-width: 640px) { .learners-grid { grid-template-columns: 1fr; } }
+
+    .learner-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--glass-shadow);
+      padding: 44px 36px;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .learner-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    .learner-card.bright::before {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24, #fde68a);
+    }
+    .learner-card.slow::before {
+      background: linear-gradient(90deg, #0ea5e9, #38bdf8, #7dd3fc);
+    }
+    .learner-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.45);
+    }
+    .learner-card.bright:hover { border-color: rgba(245,158,11,0.45); }
+    .learner-card.slow:hover   { border-color: rgba(14,165,233,0.45); }
+
+    .learner-icon {
+      font-size: 4rem;
+      margin-bottom: 18px;
+      display: block;
+      animation: floatIcon 3.5s ease-in-out infinite alternate;
+    }
+    @keyframes floatIcon {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    .learner-card h2 {
+      font-family: var(--font-head);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .learner-card p {
+      font-size: .95rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .learner-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: .92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .bright .learner-btn {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      color: #1a1040;
+      box-shadow: 0 4px 16px rgba(245,158,11,0.35);
+    }
+    .bright .learner-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(245,158,11,0.55);
+    }
+    .slow .learner-btn {
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(14,165,233,0.35);
+    }
+    .slow .learner-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(14,165,233,0.55);
+    }
+
+    /* Motivational quote */
+    .quote-section {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .quote-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 36px 40px;
+      text-align: center;
+      position: relative;
+    }
+    .quote-box::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px; left: 24px;
+      font-family: Georgia, serif;
+      font-size: 5rem;
+      color: var(--primary-light);
+      opacity: 0.4;
+      line-height: 1;
+    }
+    .quote-box blockquote {
+      font-family: var(--font-head);
+      font-size: 1.18rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin: 0 0 14px;
+    }
+    .quote-box cite {
+      font-size: .85rem;
+      color: var(--primary-light);
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Background Blobs ───────────────────────────────────── -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+</div>
+
+<!-- ── Site Header ────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="brand-logo"><i class="fa-solid fa-chalkboard-user"></i></div>
+      <div class="brand-text">
+        <span class="brand-name">KBJ Digital Diary</span>
+        <span class="brand-sub">PGT Mathematics · PM SHRI KV Ranikhet</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="btn btn-outline" id="profileLink"><i class="fa-solid fa-user-shield"></i> Profile</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Nav Bar ────────────────────────────────────────────── -->
+<nav class="nav-bar" aria-label="Main navigation">
+  <div class="nav">
+    <a href="timetable.html"><i class="fa-solid fa-calendar-days"></i> Timetable</a>
+    <a href="syllabus.html"><i class="fa-solid fa-book"></i> Syllabus</a>
+    <a href="lessonplan.html"><i class="fa-solid fa-file-lines"></i> Lesson Plan</a>
+    <a href="codeofconduct.html"><i class="fa-solid fa-scale-balanced"></i> Code of Conduct</a>
+    <a href="lincoln.html"><i class="fa-solid fa-landmark"></i> Lincoln</a>
+    <a href="activities.html"><i class="fa-solid fa-puzzle-piece"></i> Activities</a>
+    <a href="ncertbooks.html"><i class="fa-solid fa-book-open"></i> NCERT Books</a>
+    <a href="homework.html"><i class="fa-solid fa-pen-to-square"></i> Homework</a>
+    <a href="digitalcontent.html"><i class="fa-solid fa-photo-film"></i> Digital Content</a>
+    <a href="examination.html"><i class="fa-solid fa-file-circle-check"></i> Examination</a>
+    <a href="ioqm.html"><i class="fa-solid fa-trophy"></i> IOQM</a>
+    <a href="meetings.html"><i class="fa-solid fa-people-group"></i> Meetings</a>
+    <a href="3dshapes.html"><i class="fa-solid fa-cube"></i> 3D Shapes</a>
+    <a href="geogebra.html"><i class="fa-solid fa-compass-drafting"></i> GeoGebra</a>
+    <a href="robocompass.html"><i class="fa-solid fa-robot"></i> RoboCompass</a>
+    <a href="paper-folding.html"><i class="fa-solid fa-scissors"></i> Paper Folding</a>
+    <a href="ppts.html"><i class="fa-solid fa-desktop"></i> PPTs</a>
+    <a href="students.html"><i class="fa-solid fa-users"></i> Students</a>
+    <a href="interactive.html"><i class="fa-solid fa-hand-pointer"></i> Interactive</a>
+    <a href="board.html"><i class="fa-solid fa-chalkboard"></i> Board</a>
+    <a href="studymaterial.html"><i class="fa-solid fa-folder-open"></i> Study Material</a>
+    <a href="ptm.html"><i class="fa-solid fa-handshake"></i> PTM</a>
+    <a href="learners.html" class="active"><i class="fa-solid fa-graduation-cap"></i> Learners</a>
+  </div>
+</nav>
+
+<!-- ── Page Content ───────────────────────────────────────── -->
+<main class="page-content">
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="hero-icon">🎓</div>
+    <h1 class="hero-title">Learner Categories</h1>
+    <p class="hero-subtitle">Personalised support for every type of learner</p>
+  </section>
+
+  <!-- Learners Grid -->
+  <div class="learners-grid">
+
+    <!-- Bright Learners -->
+    <div class="learner-card bright">
+      <span class="learner-icon">⭐</span>
+      <h2>Bright Learners</h2>
+      <p>Explore profiles and enrichment resources for students demonstrating exceptional mathematical ability. Challenging problems, olympiad prep, and advanced content tailored for high achievers.</p>
+      <a href="brightlearner.html" class="learner-btn">
+        <i class="fa-solid fa-star"></i> Explore Bright Learners
+      </a>
+    </div>
+
+    <!-- Slow Learners -->
+    <div class="learner-card slow">
+      <span class="learner-icon">💙</span>
+      <h2>Slow Learners</h2>
+      <p>A nurturing space with simplified explanations, extra practice sheets, and supportive resources for students who need additional guidance and personalised attention to grow at their own pace.</p>
+      <a href="slowlearner.html" class="learner-btn">
+        <i class="fa-solid fa-heart"></i> View Support Resources
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Motivational Quote -->
+  <div class="quote-section">
+    <div class="quote-box">
+      <blockquote>
+        "Every student can learn, just not on the same day, or in the same way."
+      </blockquote>
+      <cite>— George Evans</cite>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Site Footer ────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>KBJ Digital Diary</h4>
+      <p>PGT Mathematics · PM SHRI KV Ranikhet<br/>Session 2025–26</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="learners.html">Learner Categories</a>
+      <a href="students.html">Students</a>
+      <a href="activities.html">Activities</a>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <a href="ncertbooks.html">NCERT Books</a>
+      <a href="studymaterial.html">Study Material</a>
+      <a href="homework.html">Homework</a>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <p style="text-align:center;color:var(--text-muted);font-size:.82rem;">
+    &copy; 2025 Learner Profiles Dashboard · All rights reserved
+  </p>
+</footer>
+
+<!-- ── Back to Top ────────────────────────────────────────── -->
+<button id="backToTop" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- ── Password Modal ─────────────────────────────────────── -->
+<div id="passwordModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div style="background:rgba(26,16,64,0.95);border:1px solid var(--glass-border);border-radius:var(--radius-xl);padding:40px 36px;width:min(420px,90vw);box-shadow:0 30px 80px rgba(0,0,0,0.6);position:relative;">
+    <button id="closeModal" style="position:absolute;top:14px;right:18px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;">&times;</button>
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-size:2.5rem;margin-bottom:10px;"><i class="fa-solid fa-lock" style="color:var(--primary-light);"></i></div>
+      <h2 style="font-family:var(--font-head);font-size:1.4rem;color:var(--text-primary);margin-bottom:6px;">Teacher Profile</h2>
+      <p style="color:var(--text-secondary);font-size:.9rem;">Enter password to access the profile.</p>
+    </div>
+    <div style="position:relative;margin-bottom:14px;">
+      <input type="password" id="password" placeholder="Enter password" style="width:100%;padding:12px 44px 12px 16px;background:rgba(255,255,255,0.07);border:1px solid var(--glass-border);border-radius:var(--radius-md);color:var(--text-primary);font-size:1rem;outline:none;box-sizing:border-box;"/>
+      <button id="togglePassword" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;"><i class="fa-solid fa-eye"></i></button>
+    </div>
+    <p id="errorMessage" style="color:var(--danger);font-size:.85rem;margin-bottom:10px;display:none;">Incorrect password. Please try again.</p>
+    <button id="submitPassword" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;border-radius:var(--radius-md);font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition);">Unlock Profile</button>
+  </div>
+</div>
+
+<script>
+  // Back to top
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 300);
+  });
+  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Password modal
+  const modal = document.getElementById('passwordModal');
+  const profileLink = document.getElementById('profileLink');
+  const closeModal = document.getElementById('closeModal');
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+  const submitPassword = document.getElementById('submitPassword');
+  const errorMessage = document.getElementById('errorMessage');
+
+  profileLink.addEventListener('click', e => {
+    e.preventDefault();
+    modal.style.display = 'flex';
+    passwordInput.value = '';
+    errorMessage.style.display = 'none';
+  });
+  closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+  modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+  togglePassword.addEventListener('click', () => {
+    const show = passwordInput.type === 'password';
+    passwordInput.type = show ? 'text' : 'password';
+    togglePassword.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+  });
+  submitPassword.addEventListener('click', () => {
+    if (passwordInput.value === 'KV@2025') {
+      modal.style.display = 'none';
+      window.location.href = 'profile.html';
+    } else {
+      errorMessage.style.display = 'block';
+      passwordInput.value = '';
+    }
+  });
+  passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitPassword.click(); });
+</script>
+</body>
+</html>

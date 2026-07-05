@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapterwise Examination Management System | Teacher's Digital Diary</title>
+  <meta name="description" content="Secure chapterwise examination schedules, periodic test schedules, and monthly test planners for K B Joshi, PGT Mathematics at PM SHRI KV Ranikhet.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Examination specific styling */
+    .password-overlay-section {
+      max-width: 480px;
+      margin: 40px auto 80px;
+    }
+
+    .tabs {
+      display: flex;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 6px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      min-width: 150px;
+      text-align: center;
+      font-size: 0.88em;
+      font-family: var(--font-head);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #6c3fc5, #0ea5e9);
+      color: white;
+      box-shadow: 0 4px 15px rgba(108,63,197,0.3);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    .chapter-header {
+      background: rgba(139,92,246,0.12);
+      border-left: 4px solid #8b5cf6;
+      padding: 12px 20px;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-top: 36px;
+      margin-bottom: 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+    }
+
+    .exam-content {
+      display: none;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: 0.8em;
+      font-weight: 700;
+    }
+    .status-scheduled {
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: #fcd34d;
+    }
+    .status-completed {
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.35);
+      color: #6ee7b7;
+    }
+    .status-pending {
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.35);
+      color: #fca5a5;
+    }
+
+    .action-btn {
+      background: rgba(255,255,255,0.06);
+      color: var(--text-secondary);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78em;
+    }
+    .action-btn:hover {
+      background: rgba(139,92,246,0.15);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.35);
+    }
+
+    .add-test {
+      text-align: center;
+      margin: 36px 0;
+    }
+    .add-test-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-size: 0.95em;
+      font-weight: 700;
+      font-family: var(--font-head);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.3);
+    }
+    .add-test-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(16,185,129,0.45);
+    }
+
+    /* Input styling for password form */
+    .password-section {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 36px;
+      border-radius: var(--radius-xl);
+      text-align: center;
+      box-shadow: var(--glass-shadow);
+    }
+    .password-section h2 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .password-section p {
+      color: var(--text-secondary);
+      font-size: 0.9em;
+      margin-bottom: 24px;
+    }
+    .password-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .input-group {
+      position: relative;
+    }
+    .input-group i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #a78bfa;
+      font-size: 1.1em;
+    }
+    .password-input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border: 2px solid rgba(139,92,246,0.3);
+      border-radius: var(--radius-sm);
+      font-size: 1em;
+      transition: var(--transition);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+    }
+    .password-input:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 3px rgba(139,92,246,0.25);
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, #6c3fc5, #0ea5e9);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      font-size: 1em;
+      font-weight: 700;
+      font-family: var(--font-head);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 18px rgba(108,63,197,0.3);
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(108,63,197,0.5);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+
+    /* Table column overrides */
+    .exam-table td a {
+      color: #a78bfa;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .exam-table td a:hover {
+      text-decoration: underline;
+      color: #c4b5fd;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-file-invoice"></i> Examinations</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html" class="active"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#128196;</span>
+      <h1>Examination Portal</h1>
+      <p>Secure Chapterwise Test Schedules, Monthly Exams, and Periodic Evaluations</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- SECURE PASS SECTION -->
+      <div class="password-overlay-section fade-in-1">
+        <div class="password-section">
+          <h2><i class="fas fa-lock" style="color:#a78bfa; margin-right:8px;"></i> Secure Examination Access</h2>
+          <p>Please enter the secure password to view exam details and questionnaires.</p>
+          <form class="password-form" id="passwordForm">
+            <div class="input-group">
+              <i class="fas fa-key"></i>
+              <input type="password" class="password-input" id="password" placeholder="Enter access password" required autofocus>
+            </div>
+            <button type="submit" class="submit-btn">Access Examination System</button>
+          </form>
+          <p id="passwordError" style="color: #f87171; margin-top: 15px; display: none; font-weight: 600;">
+            <i class="fas fa-exclamation-circle"></i> Incorrect password. Please try again.
+          </p>
+        </div>
+      </div>
+
+      <!-- AUTHENTICATED EXAM CONTENT -->
+      <div class="exam-content fade-in-2" id="examContent">
+        <!-- Tab Bar -->
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="chapterwise-test">Chapterwise Test</button>
+          <button class="tab-btn" data-tab="monthly-test">Monthly Test</button>
+          <button class="tab-btn" data-tab="periodic-test">Periodic Test</button>
+          <button class="tab-btn" data-tab="half-yearly">Half Yearly</button>
+        </div>
+        
+        <!-- Chapterwise Test Tab -->
+        <div class="tab-content active" id="chapterwise-test">
+          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff;"><i class="fas fa-book-open" style="color:#a78bfa; margin-right:8px;"></i> Chapterwise Test Schedule</h2>
+          <p style="color:var(--text-secondary); margin-bottom:20px; font-size:0.92em;">Each chapter test: 20 marks | 40 minutes duration</p>
+          
+          <!-- Class 7-C Section -->
+          <div class="chapter-header">
+            <i class="fas fa-users"></i> Class 7-C - Mathematics
+          </div>
+          <div class="table-wrapper mb-24">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter</th>
+                  <th>Title</th>
+                  <th>Duration</th>
+                  <th>Marks</th>
+                  <th>Question Paper</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Chapter 1</td>
+                  <td>Integers</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 2</td>
+                  <td>Fractions &amp; Decimals</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 3</td>
+                  <td>Data Handling</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 4</td>
+                  <td>Simple Equations</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 5</td>
+                  <td>Lines &amp; Angles</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 6</td>
+                  <td>Triangles</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 7</td>
+                  <td>Congruence</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 8</td>
+                  <td>Comparing Quantities</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 9</td>
+                  <td>Rational Numbers</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 10</td>
+                  <td>Practical Geometry</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 11</td>
+                  <td>Perimeter &amp; Area</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 12</td>
+                  <td>Algebraic Expressions</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 13</td>
+                  <td>Exponents &amp; Powers</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Chapter 14</td>
+                  <td>Symmetry</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Class 11 Section -->
+          <div class="chapter-header">
+            <i class="fas fa-users"></i> Class 11 - Mathematics
+          </div>
+          <div class="table-wrapper mb-24">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter</th>
+                  <th>Title</th>
+                  <th>Duration</th>
+                  <th>Marks</th>
+                  <th>Question Paper</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Chapter 1</td>
+                  <td>Sets</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 11/sets.html" class="class test 11-Sets">Sets</a></td>
+                  <td><span class="status-badge status-completed">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 2</td>
+                  <td>Relations &amp; Functions</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 11/relationfunction.html" class="Relations and functions">Relations and functions</a></td>
+                  <td><span class="status-badge status-completed">completed 20 june</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 3</td>
+                  <td>Trigonometric Functions</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 11/trigonometricfunctions.html" class="Trigonometric Functions">Trigonometric Functions</a></td>
+                  <td><span class="status-badge status-scheduled">scheduled 01 July 2025</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 4</td>
+                  <td>Complex Numbers</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 11/complexnumbers.html" class="Complex Numbers">Complex Numbers</a></td>
+                  <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 5</td>
+                  <td>Linear Inequalities</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 6</td>
+                  <td>Permutations</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 7</td>
+                  <td>Binomial Theorem</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 8</td>
+                  <td>Sequences &amp; Series</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 9</td>
+                  <td>Straight Lines</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 10</td>
+                  <td>Conic Sections</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 11</td>
+                  <td>Introduction to 3D</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 12</td>
+                  <td>Limits &amp; Derivatives</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 13</td>
+                  <td>Mathematical Reasoning</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 14</td>
+                  <td>Statistics</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Class 12 Section -->
+          <div class="chapter-header">
+            <i class="fas fa-users"></i> Class 12 - Mathematics
+          </div>
+          <div class="table-wrapper mb-24">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter</th>
+                  <th>Title</th>
+                  <th>Duration</th>
+                  <th>Marks</th>
+                  <th>Question Paper</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Chapter 1</td>
+                  <td>Relations &amp; Functions</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 12/relationfunction.html" class="Relations and Functions">Relations and Functions</a></td>
+                  <td><span class="status-badge status-completed">completed</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 2</td>
+                  <td>Inverse Functions</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 12/inversetfunction.html" class="Inverse Trig Functions">Inverse Trig Functions</a></td>
+                  <td><span class="status-badge status-completed">completed</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 3</td>
+                  <td>Matrices</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 12/matrices.html" class="Matrices">Matrices</a></td>
+                  <td><span class="status-badge status-completed">completed</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 4</td>
+                  <td>Determinants</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 12/determinants.html" class="determinants">Determinants</a></td>
+                  <td><span class="status-badge status-completed">completed</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 5</td>
+                  <td>Continuity</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 12/continuity.html" class="Continuity">Continuity</a></td>
+                  <td><span class="status-badge status-completed">completed</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 6</td>
+                  <td>Differentiation</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="class test 12/applicationsofderivatives.html" class="Applications of Derivatives">Applications of Derivatives</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 7</td>
+                  <td>Application of Derivatives</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 8</td>
+                  <td>Integrals</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 9</td>
+                  <td>Differential Equations</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 10</td>
+                  <td>Vector Algebra</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 11</td>
+                  <td>3D Geometry</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 12</td>
+                  <td>Linear Programming</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 13</td>
+                  <td>Probability</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Chapter 14</td>
+                  <td>Bayes Theorem</td>
+                  <td>40 min</td>
+                  <td>20</td>
+                  <td><a href="#" class="add-content">Add Content</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Monthly Test Tab -->
+        <div class="tab-content" id="monthly-test">
+          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff;"><i class="fas fa-calendar-alt" style="color:#a78bfa; margin-right:8px;"></i> Monthly Test Schedule</h2>
+          <div class="table-wrapper mb-24">
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Subject</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Duration</th>
+                  <th>Question Paper</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Class 11</td>
+                  <td>Mathematics</td>
+                  <td>15/07/2025</td>
+                  <td>10:00 AM</td>
+                  <td>90 min</td>
+                  <td><a href="#">Download</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Class 12</td>
+                  <td>Mathematics</td>
+                  <td>17/07/2025</td>
+                  <td>10:00 AM</td>
+                  <td>90 min</td>
+                  <td><a href="#">Download</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Periodic Test Tab -->
+        <div class="tab-content" id="periodic-test">
+          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff;"><i class="fas fa-clipboard-list" style="color:#a78bfa; margin-right:8px;"></i> Periodic Test Schedule</h2>
+          <div class="table-wrapper mb-24">
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Subject</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Duration</th>
+                  <th>Question Paper</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Class 11</td>
+                  <td>Mathematics</td>
+                  <td>05/08/2025</td>
+                  <td>10:00 AM</td>
+                  <td>90 min</td>
+                  <td><a href="#">Download</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+                <tr>
+                  <td>Class 12</td>
+                  <td>Mathematics</td>
+                  <td>07/08/2025</td>
+                  <td>10:00 AM</td>
+                  <td>90 min</td>
+                  <td><a href="#">Download</a></td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Half Yearly Tab (MAPPED PLACEHOLDER) -->
+        <div class="tab-content" id="half-yearly">
+          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff;"><i class="fas fa-award" style="color:#a78bfa; margin-right:8px;"></i> Half Yearly Examination Planner</h2>
+          <p style="color:var(--text-secondary); margin-bottom:20px; font-size:0.92em;">Half Yearly Exam Schedule details for session 2025-26 will be updated here.</p>
+          <div class="table-wrapper mb-24">
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Subject</th>
+                  <th>Syllabus Coverage</th>
+                  <th>Tentative Date</th>
+                  <th>Max Marks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Class 11</td>
+                  <td>Mathematics</td>
+                  <td>Ch 1 to Ch 7</td>
+                  <td>Sept 2025</td>
+                  <td>80</td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Class 12</td>
+                  <td>Mathematics</td>
+                  <td>Ch 1 to Ch 6 &amp; Ch 7-8</td>
+                  <td>Sept 2025</td>
+                  <td>80</td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="add-test">
+          <button class="add-test-btn">
+            <i class="fas fa-plus-circle"></i> Add New Test Schedule
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password_profile">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password_profile" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePasswordProfile">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    // Password Protection (exam123)
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const errorElement = document.getElementById('passwordError');
+      
+      if (password === "exam123") {
+        document.getElementById('examContent').style.display = 'block';
+        document.querySelector('.password-overlay-section').style.display = 'none';
+      } else {
+        errorElement.style.display = 'block';
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+        
+        setTimeout(() => {
+          errorElement.style.display = 'none';
+        }, 3000);
+      }
+    });
+
+    // Tab Switching
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        
+        const tabId = btn.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Hover effect on rows
+    const tableRows = document.querySelectorAll('.exam-table tbody tr');
+    tableRows.forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        row.style.transform = 'scale(1.005)';
+        row.style.transition = 'all 0.2s ease';
+      });
+      
+      row.addEventListener('mouseleave', () => {
+        row.style.transform = 'scale(1)';
+      });
+    });
+
+    // Add content click handler
+    const addContentLinks = document.querySelectorAll('.add-content');
+    addContentLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const chapter = this.closest('tr').querySelector('td:first-child').textContent;
+        const className = this.closest('table').previousElementSibling.textContent.trim();
+        alert(`Add content for ${chapter} in ${className}`);
+      });
+    });
+
+    // Profile auth password modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      togglePasswordProfile.addEventListener('click', function() {
+        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputProfile.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+
+      submitBtnProfile.addEventListener('click', function() {
+        const password = passwordInputProfile.value;
+        errorMessageProfile.textContent = '';
+        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+          passwordInputProfile.value = ''; passwordInputProfile.focus();
+          submitBtnProfile.classList.add('shake');
+          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+    });
+  </script>
+</body>
+</html>

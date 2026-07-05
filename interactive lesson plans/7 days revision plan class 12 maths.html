@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 Mathematics - 7-Days Revision Plan</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .days-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+        
+        .day-btn {
+            padding: 8px 16px;
+            background-color: #fff;
+            border: 1px solid #2a5298;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #2a5298;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            margin: 0 2px;
+        }
+        
+        .day-btn:hover {
+            background-color: #e6efff;
+        }
+        
+        .day-btn.active {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        .content-area {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            min-height: 500px;
+        }
+        
+        .day-content {
+            display: none;
+        }
+        
+        .day-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .day-title {
+            font-size: 1.6rem;
+            color: #2a5298;
+        }
+        
+        .day-topic {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 18px;
+            border-radius: 8px;
+            background-color: #f9fafc;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .question-number {
+            font-weight: 600;
+            color: #2a5298;
+        }
+        
+        .question-marks {
+            background-color: #e6efff;
+            color: #2a5298;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .question-text {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .solution-btn {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .solution-btn:hover {
+            background-color: #1e3c72;
+        }
+        
+        .solution {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e6efff;
+            border-radius: 6px;
+            border-left: 3px solid #2a5298;
+        }
+        
+        .solution.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .solution-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2a5298;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1e3c72;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .days-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .day-btn {
+                margin: 5px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .day-topic {
+                margin-top: 8px;
+            }
+            
+            .content-area {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Class 12 Mathematics</h1>
+            <p>7-Days Revision Plan</p>
+        </header>
+        
+        <div class="days-nav">
+            <button class="day-btn active" data-day="1">Day 1: Relations & Functions</button>
+            <button class="day-btn" data-day="2">Day 2: Inverse Trigonometry</button>
+            <button class="day-btn" data-day="3">Day 3: Matrices</button>
+            <button class="day-btn" data-day="4">Day 4: Determinants</button>
+            <button class="day-btn" data-day="5">Day 5: Continuity & Differentiability</button>
+            <button class="day-btn" data-day="6">Day 6: Applications of Derivatives</button>
+            <button class="day-btn" data-day="7">Day 7: Integrals</button>
+        </div>
+        
+        <div class="content-area">
+            <!-- Day 1 Content - Updated -->
+            <div class="day-content active" id="day1">
+                <div class="day-header">
+                    <h2 class="day-title">Day 1: Relations & Functions</h2>
+                    <div class="day-topic">6 Questions</div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>A function f : A → B defined as \( f(x) = 2x \) is both one-one and onto. If A = {1, 2, 3, 4}, then find the set B.</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Since f is one-one and onto, it is a bijection.</p>
+                        <p>f(1) = 2, f(2) = 4, f(3) = 6, f(4) = 8</p>
+                        <p>Therefore, B = {2, 4, 6, 8}</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 2</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Check whether the relation S in the set of all real numbers (\(\mathbb{R}\)) defined by \( S = \{(a, b) : a \leq b^3\} \) is reflexive, symmetric or transitive.</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p><strong>Reflexive:</strong> For any a ∈ R, a ≤ a³ is not always true (e.g., a=2, 2 ≤ 8 is true; a=1/2, 1/2 ≤ 1/8 is false). So not reflexive.</p>
+                        <p><strong>Symmetric:</strong> If a ≤ b³, it doesn't imply b ≤ a³. Counterexample: a=1, b=2. 1 ≤ 8 is true but 2 ≤ 1 is false. So not symmetric.</p>
+                        <p><strong>Transitive:</strong> If a ≤ b³ and b ≤ c³, it doesn't necessarily imply a ≤ c³. Counterexample: a=1/2, b=1, c=2. 1/2 ≤ 1 is true, 1 ≤ 8 is true, but 1/2 ≤ 8 is false. So not transitive.</p>
+                        <p>Therefore, S is neither reflexive, nor symmetric, nor transitive.</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 3</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>A function f: \([-4, 4] \rightarrow [0, 4]\) is given by \(f(x) = \sqrt{16 - x^2}\). Show that f is an onto function but not a one-one function. Further, find all possible values of 'a' for which \(f(a) = \sqrt{7}\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>f(x) = \(\sqrt{16 - x^2}\)</p>
+                        <p><strong>Onto:</strong> For any y ∈ [0,4], we can find x = ±√(16-y²) ∈ [-4,4] such that f(x) = y. So f is onto.</p>
+                        <p><strong>Not one-one:</strong> f(x) = f(-x) for all x ∈ [-4,4] but x ≠ -x (except 0). So f is not one-one.</p>
+                        <p>For f(a) = √7: √(16-a²) = √7 ⇒ 16-a² = 7 ⇒ a² = 9 ⇒ a = ±3</p>
+                        <p>So the possible values of a are 3 and -3.</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 4</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Let A = {3, 5}. Then number of reflexive relations on A is</p>
+                        <p>(a) 2 (b) 4 (c) 0 (d) 8</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>For a set with n elements, number of reflexive relations = \(2^{n^2 - n}\)</p>
+                        <p>Here n = 2, so number of reflexive relations = \(2^{4-2} = 2^2 = 4\)</p>
+                        <p>Therefore, the correct answer is (b) 4.</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 5</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Let R be the relation defined in the set A = {1, 2, 3, 4, 5, 6, 7} by R = { (a, b) : both a and b are either odd or even}. Show that R is an equivalence relation. Hence, find the elements of equivalence class [1].</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p><strong>Reflexive:</strong> For any a ∈ A, a and a have same parity (both odd or both even). So (a,a) ∈ R. Hence reflexive.</p>
+                        <p><strong>Symmetric:</strong> If (a,b) ∈ R, then a and b have same parity, so b and a have same parity. Hence (b,a) ∈ R. So symmetric.</p>
+                        <p><strong>Transitive:</strong> If (a,b) ∈ R and (b,c) ∈ R, then a and b have same parity, and b and c have same parity. So a and c have same parity. Hence (a,c) ∈ R. So transitive.</p>
+                        <p>Therefore, R is an equivalence relation.</p>
+                        <p>Equivalence class [1] = {x ∈ A : (1,x) ∈ R} = {all odd numbers in A} = {1, 3, 5, 7}</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 6</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>A function f : \( R_+ \to R \) (where \( R_+ \) is the set of all non-negative real numbers) defined by \( f(x) = 4x + 3 \) is :</p>
+                        <p>(A) one-one but not onto</p>
+                        <p>(B) onto but not one-one</p>
+                        <p>(C) both one-one and onto</p>
+                        <p>(D) neither one-one nor onto</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p><strong>One-one:</strong> Let f(x₁) = f(x₂) ⇒ 4x₁+3 = 4x₂+3 ⇒ x₁ = x₂. So f is one-one.</p>
+                        <p><strong>Onto:</strong> Let y ∈ R (codomain). Then f(x) = y ⇒ 4x+3 = y ⇒ x = (y-3)/4</p>
+                        <p>For y < 3, x becomes negative, but domain is R₊ (non-negative reals). So f is not onto.</p>
+                        <p>Therefore, f is one-one but not onto.</p>
+                        <p>The correct answer is (A) one-one but not onto.</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-day1" disabled>Previous Day</button>
+                    <button class="nav-btn" id="next-day1">Next Day</button>
+                </div>
+            </div>
+            
+            <!-- Day 2 Content - Updated -->
+            <div class="day-content" id="day2">
+                <div class="day-header">
+                    <h2 class="day-title">Day 2: Inverse Trigonometric Functions</h2>
+                    <div class="day-topic">6 Questions</div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\sin^{-1} \left( \sin \frac{3\pi}{4} \right) + \cos^{-1} \left( \cos \frac{3\pi}{4} \right) + \tan^{-1}(1)\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\sin^{-1} \left( \sin \frac{3\pi}{4} \right) = \sin^{-1} \left( \sin \left( \pi - \frac{\pi}{4} \right) \right) = \sin^{-1} \left( \sin \frac{\pi}{4} \right) = \frac{\pi}{4}\)</p>
+                        <p>\(\cos^{-1} \left( \cos \frac{3\pi}{4} \right) = \cos^{-1} \left( \cos \left( \pi - \frac{\pi}{4} \right) \right) = \cos^{-1} \left( -\cos \frac{\pi}{4} \right) = \pi - \frac{\pi}{4} = \frac{3\pi}{4}\)</p>
+                        <p>\(\tan^{-1}(1) = \frac{\pi}{4}\)</p>
+                        <p>Sum = \(\frac{\pi}{4} + \frac{3\pi}{4} + \frac{\pi}{4} = \frac{5\pi}{4}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 2</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(3 \sin^{-1} \left( \frac{1}{\sqrt{2}} \right) + 2 \cos^{-1} \left( \frac{\sqrt{3}}{2} \right) + \cos^{-1}(0)\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\sin^{-1} \left( \frac{1}{\sqrt{2}} \right) = \frac{\pi}{4}\)</p>
+                        <p>\(\cos^{-1} \left( \frac{\sqrt{3}}{2} \right) = \frac{\pi}{6}\)</p>
+                        <p>\(\cos^{-1}(0) = \frac{\pi}{2}\)</p>
+                        <p>Sum = \(3 \times \frac{\pi}{4} + 2 \times \frac{\pi}{6} + \frac{\pi}{2} = \frac{3\pi}{4} + \frac{\pi}{3} + \frac{\pi}{2}\)</p>
+                        <p>= \(\frac{9\pi + 4\pi + 6\pi}{12} = \frac{19\pi}{12}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 3</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Find the domain of \( y = \sin^{-1} (x^2 - 4) \).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>For \(\sin^{-1}(x^2 - 4)\) to be defined:</p>
+                        <p>\(-1 \leq x^2 - 4 \leq 1\)</p>
+                        <p>\(\Rightarrow 3 \leq x^2 \leq 5\)</p>
+                        <p>\(\Rightarrow x \in [-\sqrt{5}, -\sqrt{3}] \cup [\sqrt{3}, \sqrt{5}]\)</p>
+                        <p>Therefore, domain = \([-\sqrt{5}, -\sqrt{3}] \cup [\sqrt{3}, \sqrt{5}]\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 4</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\cos^{-1} \left[ \cos \left( -\frac{7\pi}{3} \right) \right]\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\cos^{-1} \left[ \cos \left( -\frac{7\pi}{3} \right) \right] = \cos^{-1} \left[ \cos \left( -2\pi - \frac{\pi}{3} \right) \right]\)</p>
+                        <p>= \(\cos^{-1} \left[ \cos \left( 2\pi + \frac{\pi}{3} \right) \right]\) (since cosine is even)</p>
+                        <p>= \(\cos^{-1} \left[ \cos \frac{\pi}{3} \right]\) (since cosine has period \(2\pi\))</p>
+                        <p>= \(\frac{\pi}{3}\) (since \(\frac{\pi}{3} \in [0, \pi]\))</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 5</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Find the value of \(\cos^{-1} \left( \frac{1}{2} \right) - \tan^{-1} \left( -\frac{1}{\sqrt{3}} \right) + \csc^{-1} (-2)\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\cos^{-1} \left( \frac{1}{2} \right) = \frac{\pi}{3}\)</p>
+                        <p>\(\tan^{-1} \left( -\frac{1}{\sqrt{3}} \right) = -\frac{\pi}{6}\)</p>
+                        <p>\(\csc^{-1} (-2) = -\frac{\pi}{6}\) (since \(\csc(-\frac{\pi}{6}) = -2\))</p>
+                        <p>Sum = \(\frac{\pi}{3} - \left( -\frac{\pi}{6} \right) + \left( -\frac{\pi}{6} \right) = \frac{\pi}{3} + \frac{\pi}{6} - \frac{\pi}{6} = \frac{\pi}{3}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 6</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Simplify: \(\tan^{-1} \left( \frac{\cos x}{1 - \sin x} \right)\), where \(\frac{-\pi}{2} < x < \frac{\pi}{2}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\tan^{-1} \left( \frac{\cos x}{1 - \sin x} \right)\)</p>
+                        <p>= \(\tan^{-1} \left( \frac{\cos^2(x/2) - \sin^2(x/2)}{\cos^2(x/2) + \sin^2(x/2) - 2\sin(x/2)\cos(x/2)} \right)\)</p>
+                        <p>= \(\tan^{-1} \left( \frac{(\cos(x/2) - \sin(x/2))(\cos(x/2) + \sin(x/2))}{(\cos(x/2) - \sin(x/2))^2} \right)\)</p>
+                        <p>= \(\tan^{-1} \left( \frac{\cos(x/2) + \sin(x/2)}{\cos(x/2) - \sin(x/2)} \right)\)</p>
+                        <p>= \(\tan^{-1} \left( \frac{1 + \tan(x/2)}{1 - \tan(x/2)} \right)\)</p>
+                        <p>= \(\tan^{-1} \left( \tan\left(\frac{\pi}{4} + \frac{x}{2}\right) \right)\)</p>
+                        <p>= \(\frac{\pi}{4} + \frac{x}{2}\) (since \(\frac{-\pi}{2} < x < \frac{\pi}{2} \Rightarrow \frac{-\pi}{4} < \frac{x}{2} < \frac{\pi}{4}\))</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-day2">Previous Day</button>
+                    <button class="nav-btn" id="next-day2">Next Day</button>
+                </div>
+            </div>
+            
+            <!-- Day 3 Content - Updated from PDF -->
+            <div class="day-content" id="day3">
+                <div class="day-header">
+                    <h2 class="day-title">Day 3: Matrices</h2>
+                    <div class="day-topic">6 Questions</div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \( A = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix} \) and \((3I + 4A)(3I - 4A) = x^2I\), then the value(s) x is/are :</p>
+                        <p>(a) \(\pm \sqrt{7}\)</p>
+                        <p>(b) 0</p>
+                        <p>(c) \(\pm 5\)</p>
+                        <p>(d) 25</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>First, calculate \(3I + 4A\) and \(3I - 4A\):</p>
+                        <p>\(3I = \begin{bmatrix} 3 & 0 \\ 0 & 3 \end{bmatrix}\), \(4A = \begin{bmatrix} 0 & 4 \\ -4 & 0 \end{bmatrix}\)</p>
+                        <p>\(3I + 4A = \begin{bmatrix} 3 & 4 \\ -4 & 3 \end{bmatrix}\), \(3I - 4A = \begin{bmatrix} 3 & -4 \\ 4 & 3 \end{bmatrix}\)</p>
+                        <p>Now multiply: \((3I + 4A)(3I - 4A) = \begin{bmatrix} 3 & 4 \\ -4 & 3 \end{bmatrix} \begin{bmatrix} 3 & -4 \\ 4 & 3 \end{bmatrix}\)</p>
+                        <p>= \(\begin{bmatrix} 9+16 & -12+12 \\ -12+12 & 16+9 \end{bmatrix} = \begin{bmatrix} 25 & 0 \\ 0 & 25 \end{bmatrix} = 25I\)</p>
+                        <p>So \(x^2 = 25 \Rightarrow x = \pm 5\)</p>
+                        <p>Answer: (c) \(\pm 5\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 2</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If for a square matrix \( A, A^2 - 3A + I = 0 \) and \( A^{-1} = xA + yI \), then the value of \( x + y \) is :</p>
+                        <p>(a) \(-2\)</p>
+                        <p>(b) 2</p>
+                        <p>(c) 3</p>
+                        <p>(d) \(-3\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Given: \(A^2 - 3A + I = 0\)</p>
+                        <p>Multiply both sides by \(A^{-1}\): \(A - 3I + A^{-1} = 0\)</p>
+                        <p>So \(A^{-1} = 3I - A\)</p>
+                        <p>Comparing with \(A^{-1} = xA + yI\), we get \(x = -1, y = 3\)</p>
+                        <p>Thus \(x + y = -1 + 3 = 2\)</p>
+                        <p>Answer: (b) 2</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 3</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \( A = \begin{bmatrix} 3 & 4 \\ 5 & 2 \end{bmatrix} \) and \( 2A + B \) is a null matrix, then \( B \) is equal to :</p>
+                        <p>(a) \(\begin{bmatrix} 6 & 8 \\ 10 & 4 \end{bmatrix}\)</p>
+                        <p>(b) \(\begin{bmatrix} -6 & -8 \\ -10 & -4 \end{bmatrix}\)</p>
+                        <p>(c) \(\begin{bmatrix} 5 & 8 \\ 10 & 3 \end{bmatrix}\)</p>
+                        <p>(d) \(\begin{bmatrix} -5 & -8 \\ -10 & -3 \end{bmatrix}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Given: \(2A + B = 0\)</p>
+                        <p>So \(B = -2A = -2 \begin{bmatrix} 3 & 4 \\ 5 & 2 \end{bmatrix} = \begin{bmatrix} -6 & -8 \\ -10 & -4 \end{bmatrix}\)</p>
+                        <p>Answer: (b) \(\begin{bmatrix} -6 & -8 \\ -10 & -4 \end{bmatrix}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 4</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \( A \) is a \( 2 \times 3 \) matrix such that \( AB \) and \( AB' \) both are defined, then order of the matrix \( B \) is</p>
+                        <p>(A) \( 2 \times 2 \)</p>
+                        <p>(B) \( 2 \times 1 \)</p>
+                        <p>(C) \( 3 \times 2 \)</p>
+                        <p>(D) \( 3 \times 3 \)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>For AB to be defined, number of columns of A must equal number of rows of B.</p>
+                        <p>A is 2×3, so B must have 3 rows.</p>
+                        <p>For AB' to be defined, number of columns of A must equal number of rows of B'.</p>
+                        <p>B' has same number of rows as B has columns.</p>
+                        <p>So if B is m×n, then AB is defined ⇒ n = 3</p>
+                        <p>AB' is defined ⇒ m = 3</p>
+                        <p>So B is 3×3</p>
+                        <p>Answer: (D) \( 3 \times 3 \)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 5</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(\begin{bmatrix} 2 & 0 \\ 5 & 4 \end{bmatrix} = P + Q\), where \( P \) is a symmetric and \( Q \) is a skew symmetric matrix, then \( Q \) is equal to</p>
+                        <p>(A) \(\begin{bmatrix} 2 & 5/2 \\ 5/2 & 4 \end{bmatrix}\)</p>
+                        <p>(B) \(\begin{bmatrix} 0 & -5/2 \\ 5/2 & 0 \end{bmatrix}\)</p>
+                        <p>(C) \(\begin{bmatrix} 0 & 5/2 \\ -5/2 & 0 \end{bmatrix}\)</p>
+                        <p>(D) \(\begin{bmatrix} 2 & -5/2 \\ 5/2 & 4 \end{bmatrix}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Any square matrix can be expressed as sum of symmetric and skew-symmetric matrices:</p>
+                        <p>\(P = \frac{1}{2}(A + A^T)\), \(Q = \frac{1}{2}(A - A^T)\)</p>
+                        <p>Here \(A = \begin{bmatrix} 2 & 0 \\ 5 & 4 \end{bmatrix}\), \(A^T = \begin{bmatrix} 2 & 5 \\ 0 & 4 \end{bmatrix}\)</p>
+                        <p>\(A - A^T = \begin{bmatrix} 0 & -5 \\ 5 & 0 \end{bmatrix}\)</p>
+                        <p>So \(Q = \frac{1}{2} \begin{bmatrix} 0 & -5 \\ 5 & 0 \end{bmatrix} = \begin{bmatrix} 0 & -5/2 \\ 5/2 & 0 \end{bmatrix}\)</p>
+                        <p>Answer: (B) \(\begin{bmatrix} 0 & -5/2 \\ 5/2 & 0 \end{bmatrix}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 6</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(\begin{bmatrix} 1 & 2 & 1 \\ 2 & 3 & 1 \\ 3 & a & 1 \end{bmatrix}\) is non-singular matrix and \(a \in A\), then the set \(A\) is</p>
+                        <p>(A) \(\mathbb{R}\)</p>
+                        <p>(B) \(\{0\}\)</p>
+                        <p>(C) \(\{4\}\)</p>
+                        <p>(D) \(\mathbb{R} - \{4\}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>A matrix is non-singular if its determinant ≠ 0</p>
+                        <p>Let \(M = \begin{bmatrix} 1 & 2 & 1 \\ 2 & 3 & 1 \\ 3 & a & 1 \end{bmatrix}\)</p>
+                        <p>\(|M| = 1(3-1) - 2(2-3) + 1(2a-9) = 2 + 2 + 2a - 9 = 2a - 5\)</p>
+                        <p>For non-singular matrix: \(2a - 5 \neq 0 \Rightarrow a \neq \frac{5}{2}\)</p>
+                        <p>But wait, let's recalculate:</p>
+                        <p>Using cofactor expansion: \(|M| = 1(3×1 - 1×a) - 2(2×1 - 1×3) + 1(2×a - 3×3)\)</p>
+                        <p>= \(1(3-a) - 2(2-3) + 1(2a-9) = 3-a +2 + 2a-9 = a - 4\)</p>
+                        <p>So \(|M| = a - 4\)</p>
+                        <p>For non-singular: \(a - 4 \neq 0 \Rightarrow a \neq 4\)</p>
+                        <p>Thus \(A = \mathbb{R} - \{4\}\)</p>
+                        <p>Answer: (D) \(\mathbb{R} - \{4\}\)</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-day3">Previous Day</button>
+                    <button class="nav-btn" id="next-day3">Next Day</button>
+                </div>
+            </div>
+            
+            <!-- Day 4 Content - Updated from PDF -->
+            <div class="day-content" id="day4">
+                <div class="day-header">
+                    <h2 class="day-title">Day 4: Determinants</h2>
+                    <div class="day-topic">6 Questions</div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(|A| = 2\), where \(A\) is a \(2 \times 2\) matrix, then \(|4A^{-1}|\) equals:</p>
+                        <p>(a) 4</p>
+                        <p>(b) 2</p>
+                        <p>(c) 8</p>
+                        <p>(d) \(\frac{1}{32}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>We know: \(|kA| = k^n |A|\) for n×n matrix</p>
+                        <p>Also: \(|A^{-1}| = \frac{1}{|A|}\)</p>
+                        <p>So \(|4A^{-1}| = 4^2 |A^{-1}| = 16 \times \frac{1}{|A|} = 16 \times \frac{1}{2} = 8\)</p>
+                        <p>Answer: (c) 8</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 2</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Let \(A\) be a \(3 \times 3\) matrix such that \(|adj A| = 64\). Then \(|A|\) is equal to:</p>
+                        <p>(a) 8 only</p>
+                        <p>(b) -8 only</p>
+                        <p>(c) 64</p>
+                        <p>(d) 8 or -8</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>We know: \(|adj A| = |A|^{n-1}\) for n×n matrix</p>
+                        <p>Here n = 3, so \(|adj A| = |A|^2\)</p>
+                        <p>Given \(|adj A| = 64\), so \(|A|^2 = 64 \Rightarrow |A| = \pm 8\)</p>
+                        <p>Answer: (d) 8 or -8</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 3</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(A = \begin{bmatrix} 1 & 2 & -2 \\ -1 & 3 & 0 \\ 0 & -2 & 1 \end{bmatrix}\) and \(B^{-1} = \begin{bmatrix} 3 & -1 & 1 \\ -15 & 6 & -5 \\ 5 & -2 & 2 \end{bmatrix}\), find \((AB)^{-1}\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>We know: \((AB)^{-1} = B^{-1}A^{-1}\)</p>
+                        <p>First find \(A^{-1}\):</p>
+                        <p>\(|A| = 1(3-0) - 2(-1-0) + (-2)(2-0) = 3 + 2 - 4 = 1\)</p>
+                        <p>adj A = \(\begin{bmatrix} 3 & 2 & 6 \\ 1 & 1 & 2 \\ 2 & 2 & 5 \end{bmatrix}\)</p>
+                        <p>So \(A^{-1} = \frac{1}{|A|} adj A = \begin{bmatrix} 3 & 2 & 6 \\ 1 & 1 & 2 \\ 2 & 2 & 5 \end{bmatrix}\)</p>
+                        <p>Now \((AB)^{-1} = B^{-1}A^{-1} = \begin{bmatrix} 3 & -1 & 1 \\ -15 & 6 & -5 \\ 5 & -2 & 2 \end{bmatrix} \begin{bmatrix} 3 & 2 & 6 \\ 1 & 1 & 2 \\ 2 & 2 & 5 \end{bmatrix}\)</p>
+                        <p>= \(\begin{bmatrix} 9-1+2 & 6-1+2 & 18-2+5 \\ -45+6-10 & -30+6-10 & -90+12-25 \\ 15-2+4 & 10-2+4 & 30-4+10 \end{bmatrix}\)</p>
+                        <p>= \(\begin{bmatrix} 10 & 7 & 21 \\ -49 & -34 & -103 \\ 17 & 12 & 36 \end{bmatrix}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 4</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Solve the following system of equations by matrix method:</p>
+                        <p>\(x + 2y + 3z = 6\)</p>
+                        <p>\(2x - y + z = 2\)</p>
+                        <p>\(3x + 2y - 2z = 3\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>The system can be written as \(AX = B\), where</p>
+                        <p>\(A = \begin{bmatrix} 1 & 2 & 3 \\ 2 & -1 & 1 \\ 3 & 2 & -2 \end{bmatrix}\), \(X = \begin{bmatrix} x \\ y \\ z \end{bmatrix}\), \(B = \begin{bmatrix} 6 \\ 2 \\ 3 \end{bmatrix}\)</p>
+                        <p>\(|A| = 1(2-2) - 2(-4-3) + 3(4+3) = 0 + 14 + 21 = 35\)</p>
+                        <p>Since \(|A| \neq 0\), unique solution exists.</p>
+                        <p>\(A^{-1} = \frac{1}{|A|} adj A\)</p>
+                        <p>adj A = \(\begin{bmatrix} 0 & 10 & 5 \\ 7 & -11 & 5 \\ 7 & 4 & -5 \end{bmatrix}\)</p>
+                        <p>So \(A^{-1} = \frac{1}{35} \begin{bmatrix} 0 & 10 & 5 \\ 7 & -11 & 5 \\ 7 & 4 & -5 \end{bmatrix}\)</p>
+                        <p>\(X = A^{-1}B = \frac{1}{35} \begin{bmatrix} 0 & 10 & 5 \\ 7 & -11 & 5 \\ 7 & 4 & -5 \end{bmatrix} \begin{bmatrix} 6 \\ 2 \\ 3 \end{bmatrix}\)</p>
+                        <p>= \(\frac{1}{35} \begin{bmatrix} 0+20+15 \\ 42-22+15 \\ 42+8-15 \end{bmatrix} = \frac{1}{35} \begin{bmatrix} 35 \\ 35 \\ 35 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\)</p>
+                        <p>So \(x = 1, y = 1, z = 1\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 5</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If (a, b), (c, d) and (e, f) are the vertices of \(\triangle ABC\) and \(\Delta\) denotes the area of \(\triangle ABC\), then</p>
+                        <p>\(\begin{vmatrix} a & c & e \\ b & d & f \\ 1 & 1 & 1 \end{vmatrix}^2\) is equal to</p>
+                        <p>(A) \(2\Delta^2\)</p>
+                        <p>(B) \(4\Delta^2\)</p>
+                        <p>(C) \(2\Delta\)</p>
+                        <p>(D) \(4\Delta\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Area of triangle with vertices (a,b), (c,d), (e,f) is:</p>
+                        <p>\(\Delta = \frac{1}{2} \begin{vmatrix} a & b & 1 \\ c & d & 1 \\ e & f & 1 \end{vmatrix}\)</p>
+                        <p>The given determinant is \(\begin{vmatrix} a & c & e \\ b & d & f \\ 1 & 1 & 1 \end{vmatrix}\)</p>
+                        <p>This is the transpose of the area determinant, and determinant of transpose equals original determinant.</p>
+                        <p>So \(\begin{vmatrix} a & c & e \\ b & d & f \\ 1 & 1 & 1 \end{vmatrix} = \begin{vmatrix} a & b & 1 \\ c & d & 1 \\ e & f & 1 \end{vmatrix} = 2\Delta\)</p>
+                        <p>Thus \(\begin{vmatrix} a & c & e \\ b & d & f \\ 1 & 1 & 1 \end{vmatrix}^2 = (2\Delta)^2 = 4\Delta^2\)</p>
+                        <p>Answer: (B) \(4\Delta^2\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 6</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(|A| = |kA|\), where \(A\) is a square matrix of order 2, then sum of all possible values of k is</p>
+                        <p>(A) 1</p>
+                        <p>(B) -1</p>
+                        <p>(C) 2</p>
+                        <p>(D) 0</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>For n×n matrix, \(|kA| = k^n |A|\)</p>
+                        <p>Here n = 2, so \(|kA| = k^2 |A|\)</p>
+                        <p>Given \(|A| = |kA|\), so \(|A| = k^2 |A|\)</p>
+                        <p>If \(|A| \neq 0\), then \(1 = k^2 \Rightarrow k = \pm 1\)</p>
+                        <p>Sum of possible values = 1 + (-1) = 0</p>
+                        <p>If \(|A| = 0\), then equation holds for all k, but question asks for sum of all possible values.</p>
+                        <p>Considering the non-trivial case where \(|A| \neq 0\), sum = 0</p>
+                        <p>Answer: (D) 0</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-day4">Previous Day</button>
+                    <button class="nav-btn" id="next-day4">Next Day</button>
+                </div>
+            </div>
+            
+            <!-- Day 5 Content -->
+            <div class="day-content" id="day5">
+                <div class="day-header">
+                    <h2 class="day-title">Day 5: Continuity & Differentiability</h2>
+                    <div class="day-topic">6 Questions</div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Examine the continuity of the function \(f(x) = \begin{cases} \frac{1-\cos x}{x^2}, & \text{if } x \ne 0 \\ \frac{1}{2}, & \text{if } x = 0 \end{cases}\) at \(x = 0\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\lim_{x \to 0} f(x) = \lim_{x \to 0} \frac{1-\cos x}{x^2} = \lim_{x \to 0} \frac{2\sin^2(x/2)}{x^2} = \lim_{x \to 0} \frac{2(x/2)^2}{x^2} = \frac{1}{2}\)</p>
+                        <p>Also \(f(0) = \frac{1}{2}\)</p>
+                        <p>Since \(\lim_{x \to 0} f(x) = f(0)\), the function is continuous at \(x = 0\).</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 2</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(f(x) = \begin{cases} 3x - 2, & 0 < x \leq 1 \\ 2x^2 + ax, & 1 < x < 2 \end{cases}\) is continuous for \(x \in (0, 2)\), then a is equal to:</p>
+                        <p>(A) -4 (B) -7/2 (C) -2 (D) -1</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>For continuity at x = 1:</p>
+                        <p>\(\lim_{x \to 1^-} f(x) = 3(1) - 2 = 1\)</p>
+                        <p>\(\lim_{x \to 1^+} f(x) = 2(1)^2 + a(1) = 2 + a\)</p>
+                        <p>\(f(1) = 3(1) - 2 = 1\)</p>
+                        <p>For continuity, \(2 + a = 1 \Rightarrow a = -1\)</p>
+                        <p>Therefore, the correct answer is (D) -1.</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 3</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(y = \log(\log x)\), find \(\frac{dy}{dx}\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(y = \log(\log x)\)</p>
+                        <p>\(\frac{dy}{dx} = \frac{1}{\log x} \cdot \frac{1}{x} = \frac{1}{x \log x}\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 4</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(x = a(\theta - \sin\theta)\) and \(y = a(1 - \cos\theta)\), find \(\frac{dy}{dx}\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\frac{dx}{d\theta} = a(1 - \cos\theta)\), \(\frac{dy}{d\theta} = a(\sin\theta)\)</p>
+                        <p>\(\frac{dy}{dx} = \frac{dy/d\theta}{dx/d\theta} = \frac{a\sin\theta}{a(1-\cos\theta)} = \frac{\sin\theta}{1-\cos\theta}\)</p>
+                        <p>= \(\frac{2\sin(\theta/2)\cos(\theta/2)}{2\sin^2(\theta/2)} = \cot(\theta/2)\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 5</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Differentiate \(2^{\cos^2 x}\) with respect to \(\cos^2 x\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Let \(u = 2^{\cos^2 x} \Rightarrow \frac{du}{dx} = 2^{\cos^2 x} (-2\cos x \sin x) \log 2\)</p>
+                        <p>Let \(v = \cos^2 x \Rightarrow \frac{dv}{dx} = -2\cos x \sin x\)</p>
+                        <p>Now \(\frac{du}{dv} = \left( \frac{du}{dx} \right) / \left( \frac{dv}{dx} \right) = 2^{\cos^2 x} \log 2\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 6</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>If \(x\sqrt{1+y} + y\sqrt{1+x} = 0, -1 < x < 1, x \ne y\), then prove that \(\frac{dy}{dx} = \frac{-1}{(1+x)^2}\).</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(x\sqrt{1+y} + y\sqrt{1+x} = 0\)</p>
+                        <p>\(\Rightarrow x\sqrt{1+y} = -y\sqrt{1+x}\)</p>
+                        <p>\(\Rightarrow x^2(1+y) = y^2(1+x)\)</p>
+                        <p>\(\Rightarrow (x - y)(x + y) + xy(x - y) = 0\)</p>
+                        <p>\(\Rightarrow (x - y)(x + y + xy) = 0\)</p>
+                        <p>Since \(x \ne y\), we have \(x + y + xy = 0\)</p>
+                        <p>\(\Rightarrow y = \frac{-x}{1+x}\)</p>
+                        <p>Differentiating both sides with respect to x:</p>
+                        <p>\(\frac{dy}{dx} = \frac{-(1+x) - (-x)(1)}{(1+x)^2} = \frac{-1}{(1+x)^2}\)</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-day5">Previous Day</button>
+                    <button class="nav-btn" id="next-day5">Next Day</button>
+                </div>
+            </div>
+            
+            <!-- Day 6 Content -->
+            <!-- Day 6 Content - Updated from PDF -->
+<div class="day-content" id="day6">
+    <div class="day-header">
+        <h2 class="day-title">Day 6: Applications of Derivatives</h2>
+        <div class="day-topic">6 Questions</div>
+    </div>
+    
+    <div class="question">
+        <div class="question-header">
+            <div class="question-number">Question 1</div>
+            <div class="question-marks">1 Mark</div>
+        </div>
+        <div class="question-text">
+            <p>If \( f(x) = a(x - \cos x) \) is strictly decreasing in \( R \), then 'a' belongs to:</p>
+            <p>(a) \(\{0\}\) (b) \((0, \infty)\) (c) \((- \infty, 0)\) (d) \((- \infty, \infty)\)</p>
+        </div>
+        <button class="solution-btn">Show Solution</button>
+        <div class="solution">
+            <div class="solution-title">Solution:</div>
+            <p>\( f'(x) = a(1 + \sin x) \)</p>
+            <p>For strictly decreasing: \( f'(x) < 0 \) for all \( x \in R \)</p>
+            <p>Since \( 1 + \sin x \geq 0 \), for \( f'(x) < 0 \), we need \( a < 0 \)</p>
+            <p>Therefore, \( a \in (-\infty, 0) \)</p>
+            <p>Answer: (c) \((- \infty, 0)\)</p>
+        </div>
+    </div>
+    
+    <div class="question">
+        <div class="question-header">
+            <div class="question-number">Question 2</div>
+            <div class="question-marks">1 Mark</div>
+        </div>
+        <div class="question-text">
+            <p>The function \( f(x) = x | x | \), \( x \in R \) is differentiable:</p>
+            <p>(a) only at \( x = 0 \)</p>
+            <p>(b) only at \( x = 1 \)</p>
+            <p>(c) in \( R \)</p>
+            <p>(d) in \( R - \{0\} \)</p>
+        </div>
+        <button class="solution-btn">Show Solution</button>
+        <div class="solution">
+            <div class="solution-title">Solution:</div>
+            <p>\( f(x) = \begin{cases} x^2, & x \geq 0 \\ -x^2, & x < 0 \end{cases} \)</p>
+            <p>\( f'(x) = \begin{cases} 2x, & x \geq 0 \\ -2x, & x < 0 \end{cases} \)</p>
+            <p>At \( x = 0 \):</p>
+            <p>Left derivative = \( \lim_{h \to 0^-} \frac{f(0+h)-f(0)}{h} = \lim_{h \to 0^-} \frac{-h^2}{h} = 0 \)</p>
+            <p>Right derivative = \( \lim_{h \to 0^+} \frac{f(0+h)-f(0)}{h} = \lim_{h \to 0^+} \frac{h^2}{h} = 0 \)</p>
+            <p>Since both derivatives exist and are equal, f is differentiable at x=0</p>
+            <p>Therefore, f is differentiable in R</p>
+            <p>Answer: (c) in \( R \)</p>
+        </div>
+    </div>
+    
+    <div class="question">
+        <div class="question-header">
+            <div class="question-number">Question 3</div>
+            <div class="question-marks">2 Marks</div>
+        </div>
+        <div class="question-text">
+            <p>The median of an equilateral triangle is increasing at the rate of \( 2\sqrt{3} \) cm/s. Find the rate at which its side is increasing.</p>
+        </div>
+        <button class="solution-btn">Show Solution</button>
+        <div class="solution">
+            <div class="solution-title">Solution:</div>
+            <p>For an equilateral triangle of side a:</p>
+            <p>Median = \( \frac{\sqrt{3}}{2}a \)</p>
+            <p>Let m = median, then \( m = \frac{\sqrt{3}}{2}a \)</p>
+            <p>Differentiating with respect to time t:</p>
+            <p>\( \frac{dm}{dt} = \frac{\sqrt{3}}{2} \frac{da}{dt} \)</p>
+            <p>Given \( \frac{dm}{dt} = 2\sqrt{3} \) cm/s</p>
+            <p>So \( 2\sqrt{3} = \frac{\sqrt{3}}{2} \frac{da}{dt} \)</p>
+            <p>\( \frac{da}{dt} = 4 \) cm/s</p>
+            <p>Therefore, the side is increasing at 4 cm/s</p>
+        </div>
+    </div>
+    
+    <div class="question">
+        <div class="question-header">
+            <div class="question-number">Question 4</div>
+            <div class="question-marks">3 Marks</div>
+        </div>
+        <div class="question-text">
+            <p>Sum of two numbers is 5. If the sum of the cubes of these numbers is least, then find the sum of the squares of these numbers.</p>
+        </div>
+        <button class="solution-btn">Show Solution</button>
+        <div class="solution">
+            <div class="solution-title">Solution:</div>
+            <p>Let the numbers be x and 5-x</p>
+            <p>Sum of cubes: \( S = x^3 + (5-x)^3 = x^3 + 125 - 75x + 15x^2 - x^3 = 15x^2 - 75x + 125 \)</p>
+            <p>\( \frac{dS}{dx} = 30x - 75 \)</p>
+            <p>For minimum, \( \frac{dS}{dx} = 0 \Rightarrow 30x - 75 = 0 \Rightarrow x = 2.5 \)</p>
+            <p>\( \frac{d^2S}{dx^2} = 30 > 0 \), so minimum at x = 2.5</p>
+            <p>Numbers are 2.5 and 2.5</p>
+            <p>Sum of squares = \( (2.5)^2 + (2.5)^2 = 6.25 + 6.25 = 12.5 \)</p>
+        </div>
+    </div>
+    
+    <div class="question">
+        <div class="question-header">
+            <div class="question-number">Question 5</div>
+            <div class="question-marks">4 Marks</div>
+        </div>
+        <div class="question-text">
+            <p>The perimeter of a rectangular metallic sheet is 300 cm. It is rolled along one of its sides to form a cylinder. Find the dimensions of the rectangular sheet so that volume of cylinder so formed is maximum.</p>
+        </div>
+        <button class="solution-btn">Show Solution</button>
+        <div class="solution">
+            <div class="solution-title">Solution:</div>
+            <p>Let length = l, breadth = b</p>
+            <p>Perimeter = 2(l + b) = 300 ⇒ l + b = 150 ⇒ b = 150 - l</p>
+            <p>When rolled along length, circumference of cylinder = l, height = b</p>
+            <p>Radius r = \( \frac{l}{2\pi} \), height h = b = 150 - l</p>
+            <p>Volume V = \( \pi r^2 h = \pi \left( \frac{l}{2\pi} \right)^2 (150 - l) = \frac{l^2(150 - l)}{4\pi} \)</p>
+            <p>\( \frac{dV}{dl} = \frac{1}{4\pi} [2l(150 - l) - l^2] = \frac{1}{4\pi} [300l - 2l^2 - l^2] = \frac{1}{4\pi} [300l - 3l^2] \)</p>
+            <p>For maximum volume, \( \frac{dV}{dl} = 0 \Rightarrow 300l - 3l^2 = 0 \Rightarrow l(300 - 3l) = 0 \)</p>
+            <p>So l = 0 or l = 100</p>
+            <p>l = 0 is not possible, so l = 100 cm</p>
+            <p>b = 150 - 100 = 50 cm</p>
+            <p>\( \frac{d^2V}{dl^2} = \frac{1}{4\pi} [300 - 6l] \)</p>
+            <p>At l = 100, \( \frac{d^2V}{dl^2} = \frac{1}{4\pi} [300 - 600] = \frac{-300}{4\pi} < 0 \), so maximum</p>
+            <p>Therefore, dimensions are 100 cm × 50 cm</p>
+        </div>
+    </div>
+    
+    <div class="question">
+        <div class="question-header">
+            <div class="question-number">Question 6</div>
+            <div class="question-marks">4 Marks</div>
+        </div>
+        <div class="question-text">
+            <p>Show that the function \( f(x) = \frac{16 \sin x}{4 + \cos x} - x \), is strictly decreasing in \(\left( \frac{\pi}{2}, \pi \right)\).</p>
+        </div>
+        <button class="solution-btn">Show Solution</button>
+        <div class="solution">
+            <div class="solution-title">Solution:</div>
+            <p>\( f(x) = \frac{16 \sin x}{4 + \cos x} - x \)</p>
+            <p>\( f'(x) = \frac{16 \cos x (4 + \cos x) - 16 \sin x (-\sin x)}{(4 + \cos x)^2} - 1 \)</p>
+            <p>= \( \frac{64 \cos x + 16 \cos^2 x + 16 \sin^2 x}{(4 + \cos x)^2} - 1 \)</p>
+            <p>= \( \frac{64 \cos x + 16}{(4 + \cos x)^2} - 1 \)</p>
+            <p>For \( x \in \left( \frac{\pi}{2}, \pi \right) \), cos x < 0</p>
+            <p>So \( 64 \cos x + 16 < 16 \) and \( (4 + \cos x)^2 > 0 \)</p>
+            <p>Thus \( \frac{64 \cos x + 16}{(4 + \cos x)^2} < \frac{16}{(4 + \cos x)^2} \)</p>
+            <p>Since 4 + cos x > 3 (as cos x > -1), we have \( \frac{16}{(4 + \cos x)^2} < \frac{16}{9} < 2 \)</p>
+            <p>So \( \frac{64 \cos x + 16}{(4 + \cos x)^2} - 1 < 1 \), but more importantly, since cos x is negative, 64 cos x + 16 could be negative</p>
+            <p>Let's check at x = π: cos π = -1, so numerator = 64(-1) + 16 = -48, so f'(x) = -48/9 - 1 < 0</p>
+            <p>Therefore, f'(x) < 0 for all \( x \in \left( \frac{\pi}{2}, \pi \right) \)</p>
+            <p>Hence, f(x) is strictly decreasing in \( \left( \frac{\pi}{2}, \pi \right) \)</p>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prev-day6">Previous Day</button>
+        <button class="nav-btn" id="next-day6">Next Day</button>
+    </div>
+</div>
+            
+            <!-- Day 7 Content -->
+            <div class="day-content" id="day7">
+                <div class="day-header">
+                    <h2 class="day-title">Day 7: Integrals</h2>
+                    <div class="day-topic">6 Questions</div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\int \frac{dx}{\sqrt{1 - x^2}}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\int \frac{dx}{\sqrt{1 - x^2}} = \sin^{-1}x + C\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 2</div>
+                        <div class="question-marks">1 Mark</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\int \frac{dx}{x^2 + a^2}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\int \frac{dx}{x^2 + a^2} = \frac{1}{a} \tan^{-1}\left(\frac{x}{a}\right) + C\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 3</div>
+                        <div class="question-marks">2 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\int \frac{x^3 + x + 1}{x^2 - 1} dx\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>First, perform polynomial division:</p>
+                        <p>\(\frac{x^3 + x + 1}{x^2 - 1} = x + \frac{2x + 1}{x^2 - 1}\)</p>
+                        <p>Now, \(\frac{2x + 1}{x^2 - 1} = \frac{2x + 1}{(x-1)(x+1)} = \frac{A}{x-1} + \frac{B}{x+1}\)</p>
+                        <p>Solving: \(A = \frac{3}{2}, B = \frac{1}{2}\)</p>
+                        <p>So the integral becomes:</p>
+                        <p>\(\int x dx + \frac{3}{2} \int \frac{dx}{x-1} + \frac{1}{2} \int \frac{dx}{x+1}\)</p>
+                        <p>= \(\frac{x^2}{2} + \frac{3}{2} \log|x-1| + \frac{1}{2} \log|x+1| + C\)</p>
+                        <p>= \(\frac{x^2}{2} + \frac{1}{2} \log|(x-1)^3(x+1)| + C\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 4</div>
+                        <div class="question-marks">3 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\int_0^{\pi/4} \log(1 + \tan x) dx\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>Let \(I = \int_0^{\pi/4} \log(1 + \tan x) dx\)</p>
+                        <p>Using property: \(\int_0^a f(x) dx = \int_0^a f(a-x) dx\)</p>
+                        <p>\(I = \int_0^{\pi/4} \log(1 + \tan(\pi/4 - x)) dx\)</p>
+                        <p>= \(\int_0^{\pi/4} \log(1 + \frac{1 - \tan x}{1 + \tan x}) dx\)</p>
+                        <p>= \(\int_0^{\pi/4} \log(\frac{2}{1 + \tan x}) dx\)</p>
+                        <p>= \(\int_0^{\pi/4} [\log 2 - \log(1 + \tan x)] dx\)</p>
+                        <p>= \(\int_0^{\pi/4} \log 2 dx - I\)</p>
+                        <p>So, \(2I = \frac{\pi}{4} \log 2\)</p>
+                        <p>Therefore, \(I = \frac{\pi}{8} \log 2\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 5</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\int \frac{dx}{\sqrt{3 - 2x - x^2}}\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\int \frac{dx}{\sqrt{3 - 2x - x^2}} = \int \frac{dx}{\sqrt{-(x^2 + 2x - 3)}}\)</p>
+                        <p>= \(\int \frac{dx}{\sqrt{4 - (x+1)^2}}\)</p>
+                        <p>= \(\sin^{-1}\left(\frac{x+1}{2}\right) + C\)</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">Question 6</div>
+                        <div class="question-marks">4 Marks</div>
+                    </div>
+                    <div class="question-text">
+                        <p>Evaluate: \(\int_0^4 |x - 1| dx\)</p>
+                    </div>
+                    <button class="solution-btn">Show Solution</button>
+                    <div class="solution">
+                        <div class="solution-title">Solution:</div>
+                        <p>\(\int_0^4 |x - 1| dx = \int_0^1 (1 - x) dx + \int_1^4 (x - 1) dx\)</p>
+                        <p>= \([x - \frac{x^2}{2}]_0^1 + [\frac{x^2}{2} - x]_1^4\)</p>
+                        <p>= \((1 - \frac{1}{2}) + [(8 - 4) - (\frac{1}{2} - 1)]\)</p>
+                        <p>= \(\frac{1}{2} + [4 - (-\frac{1}{2})] = \frac{1}{2} + 4 + \frac{1}{2} = 5\)</p>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-day7">Previous Day</button>
+                    <button class="nav-btn" id="next-day7" disabled>Next Day</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Class 12 Mathematics Revision Plan | Based on CBSE Sample Papers and Marking Schemes (2024-25)</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Day navigation buttons
+            const dayButtons = document.querySelectorAll('.day-btn');
+            const dayContents = document.querySelectorAll('.day-content');
+            
+            dayButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const day = this.getAttribute('data-day');
+                    
+                    // Remove active class from all buttons and contents
+                    dayButtons.forEach(btn => btn.classList.remove('active'));
+                    dayContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`day${day}`).classList.add('active');
+                });
+            });
+            
+            // Solution buttons
+            const solutionButtons = document.querySelectorAll('.solution-btn');
+            
+            solutionButtons.forEach(button => {
+                if (button.id && (button.id.startsWith('next-day') || button.id.startsWith('prev-day'))) {
+                    // Skip navigation buttons
+                    return;
+                }
+                
+                button.addEventListener('click', function() {
+                    const solution = this.nextElementSibling;
+                    solution.classList.toggle('active');
+                    
+                    if (solution.classList.contains('active')) {
+                        this.textContent = 'Hide Solution';
+                    } else {
+                        this.textContent = 'Show Solution';
+                    }
+                });
+            });
+            
+            // Next and Previous navigation
+            const nextButtons = document.querySelectorAll('[id^="next-day"]');
+            const prevButtons = document.querySelectorAll('[id^="prev-day"]');
+            
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentDay = document.querySelector('.day-content.active');
+                    const nextDay = currentDay.nextElementSibling;
+                    
+                    if (nextDay && nextDay.classList.contains('day-content')) {
+                        currentDay.classList.remove('active');
+                        nextDay.classList.add('active');
+                        
+                        // Update active day button
+                        const currentDayNum = currentDay.id.replace('day', '');
+                        const nextDayNum = nextDay.id.replace('day', '');
+                        
+                        document.querySelector(`.day-btn[data-day="${currentDayNum}"]`).classList.remove('active');
+                        document.querySelector(`.day-btn[data-day="${nextDayNum}"]`).classList.add('active');
+                    }
+                });
+            });
+            
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentDay = document.querySelector('.day-content.active');
+                    const prevDay = currentDay.previousElementSibling;
+                    
+                    if (prevDay && prevDay.classList.contains('day-content')) {
+                        currentDay.classList.remove('active');
+                        prevDay.classList.add('active');
+                        
+                        // Update active day button
+                        const currentDayNum = currentDay.id.replace('day', '');
+                        const prevDayNum = prevDay.id.replace('day', '');
+                        
+                        document.querySelector(`.day-btn[data-day="${currentDayNum}"]`).classList.remove('active');
+                        document.querySelector(`.day-btn[data-day="${prevDayNum}"]`).classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

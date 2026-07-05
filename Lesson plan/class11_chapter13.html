@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Plan: Measures of Dispersion | Class 11 Statistics</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 29.7cm;
+            min-height: 21cm;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5cm;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title-section {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1c4587;
+            position: relative;
+        }
+        
+        .title-section h1 {
+            color: #1c4587;
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .title-section h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: normal;
+        }
+        
+        .title-section::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 35%;
+            width: 30%;
+            height: 3px;
+            background: #e74c3c;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background-color: #e3eaf3;
+            font-weight: bold;
+        }
+        
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .english {
+            font-weight: bold;
+            color: #1c4587;
+            margin-bottom: 3px;
+        }
+        
+        .hindi {
+            font-family: 'Nirmala UI', 'Arial Unicode MS', sans-serif;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .input-field {
+            width: 100%;
+            border: none;
+            padding: 8px;
+            font-size: 14px;
+            background-color: transparent;
+        }
+        
+        .input-field:focus {
+            outline: 1px solid #4a86e8;
+        }
+        
+        textarea.input-field {
+            height: 80px;
+            resize: none;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+        
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .signature-box {
+            width: 45%;
+            padding: 15px;
+            border: 1px dashed #999;
+            text-align: center;
+        }
+        
+        .signature-box p {
+            margin: 0;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .required:after {
+            content: " *";
+            color: red;
+        }
+        
+        .prefilled {
+            background-color: #f8f9fa;
+            padding: 8px;
+            min-height: 20px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .highlight {
+            background-color: #fff2cc;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        
+        .stat-formula {
+            font-family: 'Cambria Math', serif;
+            background: #e3f2fd;
+            padding: 2px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 3px 0;
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #1c4587;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 600;
+        }
+        
+        .print-btn:hover {
+            background-color: #0d3268;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            color: #1c4587;
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #3498db;
+        }
+        
+        .concept-list {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .concept-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .container {
+                box-shadow: none;
+                padding: 1cm;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">Print Lesson Plan</button>
+    
+    <div class="container">
+        <div class="title-section">
+            <h1>Lesson Plan Organiser</h1>
+            <h2>शिक्षण योजना आयोजक</h2>
+        </div>
+        
+        <!-- General Facts Section -->
+        <table>
+            <tr>
+                <th colspan="4" class="bilingual">
+                    <div class="english">General Facts</div>
+                    <div class="hindi">सामान्य तथ्य</div>
+                </th>
+            </tr>
+            <tr>
+                <td width="25%" class="bilingual">
+                    <div class="english required">Date</div>
+                    <div class="hindi">दिनांक</div>
+                </td>
+                <td width="25%"><input type="date" class="input-field" id="lesson-date"></td>
+                <td width="25%" class="bilingual">
+                    <div class="english required">Class and Section</div>
+                    <div class="hindi">कक्षा एवं अनुभाग</div>
+                </td>
+                <td width="25%"><div class="prefilled">XI - Science</div></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english required">Subject</div>
+                    <div class="hindi">विषय</div>
+                </td>
+                <td><div class="prefilled">Mathematics (Statistics)</div></td>
+                <td class="bilingual">
+                    <div class="english required">Number of Enrolled Students</div>
+                    <div class="hindi">नामांकित छात्रों की संख्या</div>
+                </td>
+                <td><input type="number" class="input-field" placeholder="e.g., 40" value="42"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english required">Chapter/Topic</div>
+                    <div class="hindi">अध्याय/विषय</div>
+                </td>
+                <td><div class="prefilled">Measures of Dispersion</div></td>
+                <td class="bilingual">
+                    <div class="english required">Date of Commencement</div>
+                    <div class="hindi">प्रारंभ करने की तिथि</div>
+                </td>
+                <td><input type="date" class="input-field" value="2023-11-01"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english required">No. of Periods Required</div>
+                    <div class="hindi">आवश्यक अवधियों की संख्या</div>
+                </td>
+                <td><div class="prefilled">8</div></td>
+                <td class="bilingual">
+                    <div class="english">Actual Date of Completion</div>
+                    <div class="hindi">वास्तविक पूर्णता तिथि</div>
+                </td>
+                <td><input type="date" class="input-field" value="2023-11-15"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Source of the Lesson Plan</div>
+                    <div class="hindi">पाठ योजना का स्रोत</div>
+                </td>
+                <td>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="self-source" checked>
+                        <label for="self-source">Self | स्वयं</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="resource-pool">
+                        <label for="resource-pool">Resource Pool | संसाधन पूल</label>
+                    </div>
+                </td>
+                <td class="bilingual">
+                    <div class="english">Lesson Plan Developer</div>
+                    <div class="hindi">पाठ योजना विकासकर्ता</div>
+                </td>
+                <td><input type="text" class="input-field" placeholder="Teacher Name" value="Dr. Anil Sharma"></td>
+            </tr>
+        </table>
+        
+        <!-- Content and Concepts -->
+        <div class="section-title">Content and Concepts | विषयवस्तु एवं संकल्पनाएँ</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li>Introduction to measures of dispersion and their importance</li>
+                <li>Range: <span class="stat-formula">Range = Max - Min</span></li>
+                <li>Mean Deviation:
+                    <ul>
+                        <li>For ungrouped data: <span class="stat-formula">M.D.(a) = 1/n Σ|xᵢ - a|</span></li>
+                        <li>For discrete frequency distribution</li>
+                        <li>For continuous frequency distribution</li>
+                    </ul>
+                </li>
+                <li>Variance and Standard Deviation:
+                    <ul>
+                        <li>For ungrouped data: <span class="stat-formula">σ² = 1/n Σ(xᵢ - x̄)²</span></li>
+                        <li>For discrete frequency distribution</li>
+                        <li>For continuous frequency distribution</li>
+                    </ul>
+                </li>
+                <li>Shortcut methods for variance and standard deviation</li>
+                <li>Comparison of variability using different measures</li>
+                <li>Limitations of different dispersion measures</li>
+            </ul>
+        </div>
+        
+        <!-- Learning Outcomes -->
+        <div class="section-title">Learning Outcomes | अधिगम उपलब्धियाँ</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li>Students will understand the concept and importance of dispersion in statistics</li>
+                <li>Students will calculate range, mean deviation, variance, and standard deviation</li>
+                <li>Students will interpret measures of dispersion in real-world contexts</li>
+                <li>Students will apply shortcut methods for efficient calculations</li>
+                <li>Students will compare variability between different datasets</li>
+                <li>Students will understand the limitations of different dispersion measures</li>
+                <li>Students will solve complex problems involving measures of dispersion</li>
+            </ul>
+        </div>
+        
+        <!-- Pedagogical Strategies -->
+        <div class="section-title">Pedagogical Strategies | शैक्षणिक रणनीतियाँ</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li>Interactive lectures with real-world examples of dispersion</li>
+                <li>Step-by-step problem-solving demonstrations</li>
+                <li>Group activities for calculating measures of dispersion</li>
+                <li>Comparative analysis of datasets with same mean but different dispersion</li>
+                <li>Technology integration using spreadsheets for calculations</li>
+                <li>Case studies of practical applications in various fields</li>
+                <li>Error analysis in dispersion calculations</li>
+            </ul>
+        </div>
+        
+        <!-- 21st Century Skills -->
+        <div class="section-title">21st Century Skills | 21वीं सदी के कौशल</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li><span class="highlight">Critical Thinking:</span> Analyzing which measure is appropriate in different situations</li>
+                <li><span class="highlight">Data Literacy:</span> Interpreting dispersion measures in real-world data</li>
+                <li><span class="highlight">Problem Solving:</span> Applying dispersion concepts to solve complex problems</li>
+                <li><span class="highlight">Numerical Reasoning:</span> Understanding mathematical relationships in formulas</li>
+                <li><span class="highlight">Collaboration:</span> Working in groups on statistical problems</li>
+                <li><span class="highlight">Technology Integration:</span> Using software for statistical calculations</li>
+            </ul>
+        </div>
+        
+        <!-- Extension Section -->
+        <div class="section-title">Extension / Real life applications | विस्तार / वास्तविक जीवन अनुप्रयोग</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li>Quality control in manufacturing (measuring consistency)</li>
+                <li>Financial markets analysis (using standard deviation for volatility)</li>
+                <li>Sports statistics (assessing player consistency)</li>
+                <li>Educational assessment (comparing score variability)</li>
+                <li>Meteorology (analyzing temperature variations)</li>
+                <li>Economic indicators (measuring income inequality)</li>
+                <li>Biological studies (examining variations in traits)</li>
+            </ul>
+        </div>
+        
+        <!-- Integration Section -->
+        <div class="section-title">Integration with other subjects | अन्य विषयों के साथ एकीकरण</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li><span class="highlight">Economics:</span> Income distribution analysis, price volatility</li>
+                <li><span class="highlight">Physics:</span> Measurement errors and precision analysis</li>
+                <li><span class="highlight">Biology:</span> Variation in biological traits and characteristics</li>
+                <li><span class="highlight">Psychology:</span> Analysis of behavioral variability</li>
+                <li><span class="highlight">Business Studies:</span> Quality control and process optimization</li>
+                <li><span class="highlight">Geography:</span> Climate variability analysis</li>
+            </ul>
+        </div>
+        
+        <!-- Assessment Section -->
+        <div class="section-title">Assessment | मूल्यांकन</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li>Formative: Class participation in problem-solving activities</li>
+                <li>Quizzes: Weekly quizzes on concepts and calculations</li>
+                <li>Practical assignments: Calculating dispersion for real datasets</li>
+                <li>Group projects: Comparative analysis of variability in different domains</li>
+                <li>Written tests: Problem-solving and conceptual questions</li>
+                <li>Final examination: Comprehensive test covering all concepts</li>
+            </ul>
+        </div>
+        
+        <!-- Resources Section -->
+        <div class="section-title">Resources / Digital / Physical | संसाधन / डिजिटल / भौतिक</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li>Textbook: NCERT Class 11 Mathematics</li>
+                <li>Statistical software: Excel, R, Python (for demonstrations)</li>
+                <li>Online resources: Khan Academy, StatTrek, educational videos</li>
+                <li>Worksheets: Practice problems with varying difficulty levels</li>
+                <li>Real datasets: Sports statistics, economic indicators, weather data</li>
+                <li>Visual aids: Charts comparing different dispersion measures</li>
+                <li>Calculators: Scientific calculators for complex calculations</li>
+            </ul>
+        </div>
+        
+        <!-- Teaching Methodology -->
+        <div class="section-title">Teaching Methodology | शिक्षण पद्धति</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li><strong>Period 1:</strong> Introduction to dispersion - need and significance</li>
+                <li><strong>Period 2:</strong> Range and Mean Deviation for ungrouped data</li>
+                <li><strong>Period 3:</strong> Mean Deviation for discrete frequency distribution</li>
+                <li><strong>Period 4:</strong> Mean Deviation for continuous frequency distribution</li>
+                <li><strong>Period 5:</strong> Variance and Standard Deviation for ungrouped data</li>
+                <li><strong>Period 6:</strong> Variance and SD for discrete frequency distribution</li>
+                <li><strong>Period 7:</strong> Variance and SD for continuous frequency distribution</li>
+                <li><strong>Period 8:</strong> Shortcut methods, comparison, and applications</li>
+            </ul>
+        </div>
+        
+        <!-- Competency Based Lesson Plan -->
+        <div class="section-title">Competency Based Lesson Plan | क्षमता आधारित पाठ योजना</div>
+        <div class="prefilled">
+            <ul class="concept-list">
+                <li><strong>Statistical Reasoning:</strong> Understanding dispersion concepts</li>
+                <li><strong>Calculation Skills:</strong> Computing various measures of dispersion</li>
+                <li><strong>Analytical Thinking:</strong> Comparing variability across datasets</li>
+                <li><strong>Problem Solving:</strong> Applying dispersion measures to real problems</li>
+                <li><strong>Data Interpretation:</strong> Drawing conclusions from dispersion values</li>
+                <li><strong>Critical Evaluation:</strong> Assessing limitations of different measures</li>
+            </ul>
+        </div>
+        
+        <!-- Post Teaching Reflection -->
+        <div class="section-title">Post Teaching Reflection | शिक्षण पश्चात चिंतन</div>
+        <table>
+            <tr>
+                <td width="50%" class="bilingual">
+                    <div class="english">No. of periods required</div>
+                    <div class="hindi">आवश्यक अवधियों की संख्या</div>
+                </td>
+                <td width="50%"><input type="number" class="input-field" placeholder="Actual periods used" value="8"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Planning for remedial teaching</div>
+                    <div class="hindi">उपचारात्मक शिक्षण हेतु योजना</div>
+                </td>
+                <td><input type="text" class="input-field" placeholder="e.g., Additional practice on..." value="Extra practice on standard deviation calculations"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Concepts for which remedial classes are required</div>
+                    <div class="hindi">जिन संकल्पनाओं हेतु उपचारात्मक कक्षाओं की आवश्यकता है</div>
+                </td>
+                <td><textarea class="input-field" placeholder="Specific concepts students struggled with">Variance for grouped data, Interpretation of dispersion measures</textarea></td>
+            </tr>
+        </table>
+        
+        <!-- Self-assessment Section -->
+        <table>
+            <tr>
+                <th colspan="3" class="bilingual">
+                    <div class="english">Self-assessment by the teacher</div>
+                    <div class="hindi">शिक्षक द्वारा स्व-मूल्यांकन</div>
+                </th>
+            </tr>
+            <tr>
+                <td width="70%" class="bilingual">
+                    <div class="english">Were all students engaged in all activities?</div>
+                    <div class="hindi">क्या सभी छात्र सभी गतिविधियों में संलग्न थे?</div>
+                </td>
+                <td width="15%" style="text-align: center;">
+                    <input type="checkbox" checked> Yes | हाँ
+                </td>
+                <td width="15%" style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Were the questions posed to test students' understanding appropriate?</div>
+                    <div class="hindi">क्या छात्रों की समझ परखने के लिए पूछे गए प्रश्न उपयुक्त थे?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" checked> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Was I able to move through the various stages successfully?</div>
+                    <div class="hindi">क्या मैं विभिन्न चरणों में सफलतापूर्वक आगे बढ़ पाया/पाई?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" checked> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Was I able to keep time?</div>
+                    <div class="hindi">क्या मैं समय का पालन कर पाया/पाई?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" checked> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">How satisfactory has been the implementation of the plan?</div>
+                    <div class="hindi">योजना का कार्यान्वयन कितना संतोषजनक रहा?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" checked> High | उच्च
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Medium | मध्यम
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Do I need any modifications in the plan?</div>
+                    <div class="hindi">क्या मुझे योजना में किसी संशोधन की आवश्यकता है?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" checked> No | नहीं
+                </td>
+            </tr>
+        </table>
+        
+        <!-- Signature Section -->
+        <div class="signature-row">
+            <div class="signature-box">
+                <p>Signature of Teacher with date | शिक्षक के हस्ताक्षर सहित तिथि</p>
+            </div>
+            <div class="signature-box">
+                <p>Signature of HM/Vice Principal/Principal | प्रधानाध्यापक/उप-प्राचार्य/प्राचार्य के हस्ताक्षर</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; color: #777; font-size: 14px;">
+            Note: Fields marked with * are mandatory | ध्यान दें: * चिह्नित फ़ील्ड अनिवार्य हैं
+        </p>
+    </div>
+    
+    <script>
+        // Set default date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('lesson-date').value = today;
+        
+        // Set current time
+        const now = new Date();
+        
+        // Set focus on first input field
+        document.querySelector('.input-field').focus();
+    </script>
+</body>
+</html>

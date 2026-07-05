@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematics Activities | Class 11 &amp; 12 | Teacher's Digital Diary</title>
+  <meta name="description" content="Mathematics practical activities, lab work, project guides, and class activity gallery for CBSE Class 11 and 12 curated by K B Joshi, PGT Mathematics.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Tabs styling */
+    .tab-content-panel {
+      display: none;
+      animation: fadeIn 0.5s ease both;
+    }
+    .tab-content-panel.active {
+      display: block;
+    }
+
+    /* Gallery styles */
+    .gallery-title {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .gallery-title i { color: #a78bfa; }
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 14px;
+    }
+    .gallery-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transition: var(--transition);
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: rgba(139,92,246,0.35);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+    .gallery-item:hover img {
+      filter: brightness(1.1);
+    }
+    .gallery-caption {
+      padding: 12px;
+      text-align: center;
+      background: rgba(15,12,41,0.6);
+      font-size: 0.85em;
+      color: var(--text-secondary);
+      font-weight: 500;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-shapes"></i> Activities</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html" class="active"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#127912;</span>
+      <h1>Mathematics Activities</h1>
+      <p>Hands-on mathematical practicals, board project works, guidelines, and class activity gallery</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Class Tab Switchers -->
+      <div class="class-tabs mb-24 fade-in-1">
+        <button class="class-tab active" onclick="switchTab('class11')"><i class="fas fa-graduation-cap"></i> Class XI Activities</button>
+        <button class="class-tab" onclick="switchTab('class12')"><i class="fas fa-graduation-cap"></i> Class XII Activities</button>
+      </div>
+
+      <!-- CLASS 11 TAB PANEL -->
+      <div id="class11" class="tab-content-panel active fade-in-2">
+        <div class="glass-card mb-32">
+          <div class="glass-card-inner">
+            <h2 class="mb-16" style="font-family:var(--font-head);font-size:1.3rem;font-weight:700;color:#fff;"><i class="fas fa-circle-notch" style="color:#a78bfa;margin-right:8px;"></i>Class XI Activity Resources</h2>
+            
+            <h3 class="mb-8" style="font-family:var(--font-head);font-size:0.9em;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Subject-wise Activities</h3>
+            <div class="link-list mb-24">
+              <a href="https://drive.google.com/drive/folders/1bAjknO4Vv8dSDc9yoz7U4DJk8MDbZcy1?usp=sharing" target="_blank">
+                <i class="fas fa-file-pdf"></i>
+                <div>
+                  <div>Mathematics Activities File</div>
+                  <div class="link-meta">Download Class XI practical guidelines and instructions</div>
+                </div>
+                <i class="fas fa-external-link-alt" style="margin-left:auto;font-size:0.8em;color:var(--text-muted);"></i>
+              </a>
+            </div>
+
+            <h3 class="mb-8" style="font-family:var(--font-head);font-size:0.9em;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Project Work</h3>
+            <div class="link-list">
+              <a href="https://drive.google.com/drive/folders/CLASS11_PROJECTS_ID" target="_blank">
+                <i class="fas fa-folder-open"></i>
+                <div>
+                  <div>All Project Guidelines</div>
+                  <div class="link-meta">Term-wise project work ideas and instructions</div>
+                </div>
+                <i class="fas fa-external-link-alt" style="margin-left:auto;font-size:0.8em;color:var(--text-muted);"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class 11 Gallery -->
+        <div class="gallery-title"><i class="fas fa-images"></i> Class XI activity Gallery</div>
+        <div class="gallery-container mb-48">
+          <div class="gallery-item">
+            <img src="images/activitykit1.jpg" alt="Class 11 Activity 1" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Math+Workshop'">
+            <div class="gallery-caption">Math Workshop</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/activitykit2.jpg" alt="Class 11 Activity 2" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Activity+Kit'">
+            <div class="gallery-caption">Activity kit</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/class11-activity3.jpg" alt="Class 11 Activity 3" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Group+Project'">
+            <div class="gallery-caption">Group Project</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/class11-activity4.jpg" alt="Class 11 Activity 4" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Field+Trip'">
+            <div class="gallery-caption">Field Trip</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLASS 12 TAB PANEL -->
+      <div id="class12" class="tab-content-panel fade-in-2">
+        <div class="glass-card mb-32">
+          <div class="glass-card-inner">
+            <h2 class="mb-16" style="font-family:var(--font-head);font-size:1.3rem;font-weight:700;color:#fff;"><i class="fas fa-circle-notch" style="color:#a78bfa;margin-right:8px;"></i>Class XII Activity Resources</h2>
+
+            <h3 class="mb-8" style="font-family:var(--font-head);font-size:0.9em;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Subject-wise Activities</h3>
+            <div class="link-list mb-24">
+              <a href="https://drive.google.com/drive/folders/1pWrvqVS1QKevRyrTQ2-BEIAXVc6HUVps?usp=sharing" target="_blank">
+                <i class="fas fa-file-pdf"></i>
+                <div>
+                  <div>Mathematics Activities File</div>
+                  <div class="link-meta">Download Class XII practical lab records and exercises</div>
+                </div>
+                <i class="fas fa-external-link-alt" style="margin-left:auto;font-size:0.8em;color:var(--text-muted);"></i>
+              </a>
+            </div>
+
+            <h3 class="mb-8" style="font-family:var(--font-head);font-size:0.9em;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Practical &amp; Projects</h3>
+            <div class="link-list">
+              <a href="https://drive.google.com/drive/folders/CLASS12_PRACTICALS_ID" target="_blank" class="mb-8">
+                <i class="fas fa-clipboard-check"></i>
+                <div>
+                  <div>Practical Records</div>
+                  <div class="link-meta">CBSE guidelines for mathematical practical evaluation</div>
+                </div>
+                <i class="fas fa-external-link-alt" style="margin-left:auto;font-size:0.8em;color:var(--text-muted);"></i>
+              </a>
+              <a href="https://drive.google.com/drive/folders/CLASS12_PROJECTS_ID" target="_blank">
+                <i class="fas fa-folder-open"></i>
+                <div>
+                  <div>Board Project Submissions</div>
+                  <div class="link-meta">Board project instructions, templates, and samples</div>
+                </div>
+                <i class="fas fa-external-link-alt" style="margin-left:auto;font-size:0.8em;color:var(--text-muted);"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class 12 Gallery -->
+        <div class="gallery-title"><i class="fas fa-images"></i> Class XII activity Gallery</div>
+        <div class="gallery-container mb-48">
+          <div class="gallery-item">
+            <img src="images/activitykit3.jpg" alt="Class 12 Activity 1" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Math+Activity+Kit'">
+            <div class="gallery-caption">Maths Activity Kit</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/demoactivity1.jpg" alt="Class 12 Activity 2" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Activity+in+Class'">
+            <div class="gallery-caption">ACTVITY IN CLASS</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/activitykit4.jpg" alt="Class 12 Activity 3" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Math+Lab'">
+            <div class="gallery-caption">Math Lab</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/class12-activity4.jpg" alt="Class 12 Activity 4" onerror="this.src='https://via.placeholder.com/400x300/1a1040/a78bfa?text=Farewell'">
+            <div class="gallery-caption">Farewell</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html" class="active"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // Tab switching functionality
+    function switchTab(tabId) {
+      // Hide all panels
+      const panels = document.querySelectorAll('.tab-content-panel');
+      panels.forEach(panel => panel.classList.remove('active'));
+
+      // Deactivate all tab buttons
+      const tabs = document.querySelectorAll('.class-tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Show target panel
+      document.getElementById(tabId).classList.add('active');
+
+      // Find the tab button that has this onclick and set active
+      event.currentTarget.classList.add('active');
+    }
+
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInput.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; } });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = ''; passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtn.click(); } });
+    });
+  </script>
+</body>
+</html>

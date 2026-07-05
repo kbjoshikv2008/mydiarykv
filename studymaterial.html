@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Materials | Mathematics Class 11 & 12 | K B Joshi</title>
+  <meta name="description" content="Curated mathematics study materials for Class 11 & 12 — complete notes, previous year papers, important formulas, sample papers and more by K B Joshi, PGT Mathematics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 768px) {
+      .two-col-grid { grid-template-columns: 1fr; }
+    }
+    .class-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .class-section-header .class-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+    .class-icon-xi  { background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(14,165,233,0.2)); border: 1px solid rgba(139,92,246,0.35); }
+    .class-icon-xii { background: linear-gradient(135deg, rgba(236,72,153,0.3), rgba(245,158,11,0.2)); border: 1px solid rgba(236,72,153,0.35); }
+    .class-section-header h2 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .class-section-header p {
+      font-size: 0.78em;
+      color: var(--text-muted);
+    }
+    .link-list-label {
+      font-size: 0.72em;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 12px;
+    }
+    .additional-card {
+      margin-bottom: 48px;
+    }
+    .additional-card .glass-card-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .additional-card .ac-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(14,165,233,0.2));
+      border: 1px solid rgba(16,185,129,0.35);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8em;
+      flex-shrink: 0;
+    }
+    .additional-card .ac-body { flex: 1; min-width: 200px; }
+    .additional-card .ac-body h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .additional-card .ac-body p {
+      font-size: 0.85em;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ===== SITE HEADER ===== -->
+    <header class="site-header">
+      <div class="container">
+        <div class="page-chip"><i class="fa-solid fa-star"></i> PM SHRI KV Ranikhet</div>
+        <h1>K B Joshi</h1>
+        <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+        <h3>Teacher's Digital Diary</h3>
+      </div>
+      <a href="#" id="profileLink" title="View Teacher Profile">
+        <img src="kbjoshi.png" alt="K B Joshi" class="profile-photo">
+      </a>
+    </header>
+
+    <!-- ===== NAV BAR ===== -->
+    <nav class="nav-bar">
+      <div class="container">
+        <div class="nav">
+          <a href="#" id="profileNavLink" onclick="document.getElementById('profileLink').click();return false;">Profile</a>
+          <a href="timetable.html">Timetable</a>
+          <a href="syllabus.html">Syllabus</a>
+          <a href="lessonplan.html">Lesson Plan</a>
+          <a href="codeofconduct.html">Code of Conduct</a>
+          <a href="lincoln.html">Lincoln</a>
+          <a href="activities.html">Activities</a>
+          <a href="ncertbooks.html">NCERT Books</a>
+          <a href="homework.html">Homework</a>
+          <a href="digitalcontent.html">Digital Content</a>
+          <a href="examination.html">Examination</a>
+          <a href="ioqm.html">IOQM</a>
+          <a href="meetings.html">Meetings</a>
+          <a href="3dshapes.html">3D Shapes</a>
+          <a href="geogebra.html">GeoGebra</a>
+          <a href="robocompass.html">RoboCompass</a>
+          <a href="paper-folding.html">Paper Folding</a>
+          <a href="ppts.html">PPTs</a>
+          <a href="students.html">Students</a>
+          <a href="interactive.html">Interactive</a>
+          <a href="board.html">Board</a>
+          <a href="studymaterial.html" class="active">Study Material</a>
+          <a href="ptm.html">PTM</a>
+          <a href="learners.html">Learners</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="page-hero-icon">&#128218;</span>
+        <h1>Study Materials</h1>
+        <p>Curated resources for Class 11 &amp; 12 Mathematics — notes, papers, formulas &amp; more.</p>
+      </div>
+    </section>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+      <div class="container">
+
+        <!-- Stats row -->
+        <div class="stats-row fade-in" style="margin-top:12px;">
+          <div class="stat-box">
+            <div class="sb-icon">&#127983;</div>
+            <div class="sb-num">2</div>
+            <div class="sb-label">Classes</div>
+          </div>
+          <div class="stat-box">
+            <div class="sb-icon">&#128194;</div>
+            <div class="sb-num">4+</div>
+            <div class="sb-label">Resource Types</div>
+          </div>
+          <div class="stat-box">
+            <div class="sb-icon">&#128203;</div>
+            <div class="sb-num">CBSE</div>
+            <div class="sb-label">Aligned</div>
+          </div>
+          <div class="stat-box">
+            <div class="sb-icon">&#9729;&#65039;</div>
+            <div class="sb-num">Drive</div>
+            <div class="sb-label">Hosted</div>
+          </div>
+        </div>
+
+        <!-- Section title -->
+        <div class="section-title fade-in-1">
+          <span class="label">&#128218; Resources</span>
+          <h2>Class-Wise Study Materials</h2>
+          <p>Select your class and access comprehensive study resources curated by your teacher.</p>
+          <div class="divider"></div>
+        </div>
+
+        <!-- Two-column class sections -->
+        <div class="two-col-grid fade-in-2">
+
+          <!-- CLASS XI -->
+          <div class="glass-card">
+            <div class="glass-card-inner">
+              <div class="class-section-header">
+                <div class="class-icon class-icon-xi">&#128290;</div>
+                <div>
+                  <h2>Class XI Mathematics</h2>
+                  <p>Sets &middot; Trigonometry &middot; Algebra &middot; Calculus &middot; Statistics</p>
+                </div>
+              </div>
+
+              <div class="link-list-label"><i class="fa-solid fa-circle-dot"></i>&nbsp; Available Resources</div>
+              <div class="link-list">
+                <a href="https://drive.google.com/drive/folders/1jhzBqa9DmwX0qVO-MghUHz7trqwcmV3w?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-book-open"></i>
+                  <div>
+                    <div>Complete Notes</div>
+                    <div class="link-meta">All chapters — CBSE Class 11</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+                <a href="https://drive.google.com/drive/folders/141ViUHd4lJmJMNec1SCgLwCAfxkiRUV5?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <div>
+                    <div>Previous Year Papers</div>
+                    <div class="link-meta">Past 5 years &middot; CBSE Board</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+                <a href="https://drive.google.com/file/d/1UssJPOPPebbQTkNBXDVKm4twhef96Sz_/view?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-square-root-variable"></i>
+                  <div>
+                    <div>Important Formulas</div>
+                    <div class="link-meta">Quick reference sheet</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- CLASS XII -->
+          <div class="glass-card">
+            <div class="glass-card-inner">
+              <div class="class-section-header">
+                <div class="class-icon class-icon-xii">&#128202;</div>
+                <div>
+                  <h2>Class XII Mathematics</h2>
+                  <p>Calculus &middot; Vectors &middot; Probability &middot; Linear Programming</p>
+                </div>
+              </div>
+
+              <div class="link-list-label"><i class="fa-solid fa-circle-dot"></i>&nbsp; Available Resources</div>
+              <div class="link-list">
+                <a href="https://drive.google.com/file/d/1M8ng01ypwqXPGNiuBzyvemnU2taanhEM/view?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-book-open"></i>
+                  <div>
+                    <div>Complete Notes</div>
+                    <div class="link-meta">Detailed — CBSE Class 12</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+                <a href="https://drive.google.com/drive/folders/1MJyXSy7cNCle0SJdcFfP8qci-6zx19yO?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-file-lines"></i>
+                  <div>
+                    <div>Previous Year Papers</div>
+                    <div class="link-meta">Past 10 years with solutions</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+                <a href="https://drive.google.com/file/d/1M8ng01ypwqXPGNiuBzyvemnU2taanhEM/view?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-scroll"></i>
+                  <div>
+                    <div>Sample Papers &amp; Solutions</div>
+                    <div class="link-meta">With marking scheme</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+                <a href="https://drive.google.com/file/d/1MpD0x_VmZw9pjF3UIfAHRhb72_1XduQZ/view?usp=sharing" target="_blank">
+                  <i class="fa-solid fa-star"></i>
+                  <div>
+                    <div>Important Questions</div>
+                    <div class="link-meta">Chapter-wise &middot; Board exam focus</div>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:0.75em;color:var(--text-muted);"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end two-col-grid -->
+
+        <!-- Additional Resources -->
+        <div class="additional-card glass-card fade-in-3">
+          <div class="glass-card-inner">
+            <div class="ac-icon">&#128230;</div>
+            <div class="ac-body">
+              <h3>Additional Resources</h3>
+              <p>Reference books and solved examples for both Class 11 and 12 Mathematics.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1YZA456BCDMathReference" target="_blank" class="btn btn-outline">
+              <i class="fa-solid fa-folder-open"></i> Open Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- Back link -->
+        <div class="text-center mb-48">
+          <a href="index.html" class="btn btn-outline">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+          </a>
+        </div>
+
+      </div><!-- end container -->
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>Teacher's Digital Diary</h3>
+            <p>K B Joshi &nbsp;|&nbsp; PGT Mathematics<br>PM SHRI Kendriya Vidyalaya Ranikhet, Uttarakhand</p>
+            <div class="footer-social">
+              <span class="social-btn"><i class="fa-brands fa-google"></i></span>
+              <span class="social-btn"><i class="fa-solid fa-envelope"></i></span>
+              <span class="social-btn"><i class="fa-solid fa-school"></i></span>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+              <li><a href="syllabus.html"><i class="fa-solid fa-chevron-right"></i> Syllabus</a></li>
+              <li><a href="lessonplan.html"><i class="fa-solid fa-chevron-right"></i> Lesson Plans</a></li>
+              <li><a href="homework.html"><i class="fa-solid fa-chevron-right"></i> Homework</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="ncertbooks.html"><i class="fa-solid fa-chevron-right"></i> NCERT Books</a></li>
+              <li><a href="digitalcontent.html"><i class="fa-solid fa-chevron-right"></i> Digital Content</a></li>
+              <li><a href="examination.html"><i class="fa-solid fa-chevron-right"></i> Examinations</a></li>
+              <li><a href="ioqm.html"><i class="fa-solid fa-chevron-right"></i> IOQM</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 <strong>K B Joshi</strong> &mdash; PGT Mathematics, PM SHRI KV Ranikhet. All rights reserved.</p>
+          <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+            <i class="fa-solid fa-arrow-up"></i> Back to Top
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div><!-- end page-wrapper -->
+
+  <!-- ===== PASSWORD MODAL ===== -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal">
+          <img src="kbjoshi.png" alt="Kirti Ballabh Joshi">
+        </div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button id="backToTop" title="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script>
+    // Back to Top
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); }
+      else { btn.classList.remove('visible'); }
+    });
+    document.getElementById('backToTop').onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Password Modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+
+      profileLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.display = 'flex';
+        passwordInput.focus();
+      });
+      closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        passwordInput.value = '';
+        errorMessage.textContent = '';
+      });
+      window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          passwordInput.value = '';
+          errorMessage.textContent = '';
+        }
+      });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...';
+          submitBtn.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = '';
+          passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') { submitBtn.click(); }
+      });
+    });
+  </script>
+</body>
+</html>

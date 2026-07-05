@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematics Syllabus 2025-26 | Teacher's Digital Diary</title>
+  <meta name="description" content="CBSE Mathematics Syllabus for Class XI and XII 2025-26. Course structure, unit details, question paper design and internal assessment information.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page-specific overrides that keep original class names functional */
+    .syllabus-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      margin-bottom: 32px;
+      box-shadow: var(--glass-shadow);
+      transition: var(--transition);
+      border-left: 4px solid #8b5cf6;
+    }
+    .syllabus-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.35); border-color: rgba(139,92,246,0.5); }
+
+    .syllabus-card h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff 0%, #c4b5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      padding: 0;
+      border: none;
+    }
+    .syllabus-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 28px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(139,92,246,0.25);
+    }
+    .syllabus-card h4 {
+      font-family: var(--font-head);
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: #93c5fd;
+      margin: 16px 0 6px;
+    }
+
+    .unit {
+      margin-left: 0;
+      padding: 0;
+      border: none;
+      margin-top: 16px;
+    }
+
+    .topic {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    .topic:hover { background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.3); }
+    .topic p { color: var(--text-secondary); font-size: 0.9em; line-height: 1.7; margin: 6px 0; }
+
+    .note {
+      font-style: italic;
+      color: rgba(251,191,36,0.85);
+      padding: 12px 16px;
+      background: rgba(245,158,11,0.1);
+      border-left: 3px solid #f59e0b;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.88em;
+      margin: 10px 0;
+    }
+
+    .highlight {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.92em;
+    }
+
+    /* Badges override for this page's badge classes */
+    .badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 50px; padding: 4px 12px; font-size: 0.75em; font-weight: 600; margin-right: 6px; }
+    .badge-primary   { background: rgba(108,63,197,0.25); border: 1px solid rgba(108,63,197,0.5); color: #c4b5fd; }
+    .badge-secondary { background: rgba(14,165,233,0.2);  border: 1px solid rgba(14,165,233,0.4); color: #7dd3fc; }
+    .badge-accent    { background: rgba(16,185,129,0.2);  border: 1px solid rgba(16,185,129,0.4); color: #6ee7b7; }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      font-size: 0.75em;
+      color: var(--text-secondary);
+      margin: 3px 4px 3px 0;
+      transition: var(--transition);
+    }
+    .tag:hover { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.35); color: #c4b5fd; }
+
+    .curriculum-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 20px;
+      padding: 10px 20px;
+      background: rgba(16,185,129,0.15);
+      color: #6ee7b7;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.88em;
+      border: 1px solid rgba(16,185,129,0.4);
+      transition: var(--transition);
+    }
+    .curriculum-link:hover { background: rgba(16,185,129,0.3); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.2); color: #6ee7b7; }
+    .curriculum-link i { margin-right: 0; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover { background: rgba(139,92,246,0.2); color: #c4b5fd; border-color: rgba(139,92,246,0.4); transform: translateX(-3px); }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-book"></i> Syllabus</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html" class="active"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#128218;</span>
+      <h1>Mathematics Syllabus 2025-26</h1>
+      <p>CBSE Course Structure, Unit Details, Question Paper Design &amp; Internal Assessment for Class XI &amp; XII</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <!-- Stats Row -->
+      <div class="stats-row mb-32 fade-in">
+        <div class="stat-box">
+          <div class="sb-icon">&#127981;</div>
+          <div class="sb-num">2</div>
+          <div class="sb-label">Classes</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#128218;</div>
+          <div class="sb-num">80</div>
+          <div class="sb-label">Max Marks</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#128203;</div>
+          <div class="sb-num">20</div>
+          <div class="sb-label">Internal Assessment</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#127891;</div>
+          <div class="sb-num">CBSE</div>
+          <div class="sb-label">Board</div>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- CLASS XI -->
+      <div class="syllabus-card fade-in-1">
+        <h2>CLASS XI (2025-26)</h2>
+        <p>
+          <span class="badge badge-primary"><i class="fas fa-clock"></i> Three Hours</span>
+          <span class="badge badge-secondary"><i class="fas fa-star"></i> Max Marks: 80</span>
+          <span class="badge badge-accent"><i class="fas fa-clipboard-check"></i> Internal: 20</span>
+        </p>
+
+        <a href="https://cbseacademic.nic.in/curriculum_2026.html" class="curriculum-link" target="_blank">
+          <i class="fas fa-external-link-alt"></i> View Official CBSE Class 11 Curriculum (2025-26)
+        </a>
+
+        <h3><i class="fas fa-table" style="margin-right:8px;color:#a78bfa;"></i>Course Structure</h3>
+        <div class="table-wrapper mb-16">
+          <table>
+            <thead>
+              <tr><th>No.</th><th>Units</th><th>Marks</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>I.</td><td>Sets and Functions</td><td>23</td></tr>
+              <tr><td>II.</td><td>Algebra</td><td>25</td></tr>
+              <tr><td>III.</td><td>Coordinate Geometry</td><td>12</td></tr>
+              <tr><td>IV.</td><td>Calculus</td><td>08</td></tr>
+              <tr><td>V.</td><td>Statistics and Probability</td><td>12</td></tr>
+              <tr><td><strong>Total</strong></td><td></td><td><strong>80</strong></td></tr>
+              <tr><td><strong>Internal Assessment</strong></td><td></td><td><strong>20</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">*No chapter/unit-wise weightage. Care to be taken to cover all the chapters.</p>
+
+        <div class="unit">
+          <h3><i class="fas fa-layer-group" style="margin-right:8px;color:#a78bfa;"></i>Unit-I: Sets and Functions</h3>
+          <div class="topic">
+            <h4>1. Sets</h4>
+            <p>Sets and their representations, Empty set, Finite and Infinite sets, Equal sets, Subsets, Subsets of a set of real numbers especially intervals (with notations). Universal set. Venn diagrams. Union and Intersection of sets. Difference of sets. Complement of a set. Properties of Complement.</p>
+            <div><span class="tag">Venn diagrams</span><span class="tag">Union</span><span class="tag">Intersection</span><span class="tag">Complement</span></div>
+          </div>
+          <div class="topic">
+            <h4>2. Relations &amp; Functions</h4>
+            <p>Ordered pairs. Cartesian product of sets. Number of elements in the Cartesian product of two finite sets. Cartesian product of the set of reals with itself (up to R &times; R &times; R). Definition of relation, pictorial diagrams, domain, co-domain and range of a relation. Function as a special type of relation. Real valued functions, domain and range of these functions, constant, identity, polynomial, rational, modulus, signum, exponential, logarithmic and greatest integer functions, with their graphs. Sum, difference, product and quotients of functions.</p>
+            <div><span class="tag">Cartesian product</span><span class="tag">Relations</span><span class="tag">Functions</span><span class="tag">Graphs</span></div>
+          </div>
+        </div>
+
+        <div class="unit">
+          <h3><i class="fas fa-superscript" style="margin-right:8px;color:#a78bfa;"></i>Unit-II: Algebra</h3>
+          <div class="topic">
+            <h4>1. Complex Numbers and Quadratic Equations</h4>
+            <p>Need for complex numbers, especially &radic;-1, to be motivated by inability to solve some of the quadratic equations. Algebraic properties of complex numbers. Argand plane.</p>
+            <div><span class="tag">Complex numbers</span><span class="tag">Quadratic equations</span><span class="tag">Argand plane</span></div>
+          </div>
+          <div class="topic">
+            <h4>2. Linear Inequalities</h4>
+            <p>Linear inequalities. Algebraic solutions of linear inequalities in one variable and their representation on the number line.</p>
+            <div><span class="tag">Inequalities</span><span class="tag">Number line</span></div>
+          </div>
+        </div>
+
+        <h3><i class="fas fa-file-alt" style="margin-right:8px;color:#a78bfa;"></i>Question Paper Design</h3>
+        <div class="table-wrapper mb-16">
+          <table>
+            <thead>
+              <tr><th>S. No.</th><th>Typology of Questions</th><th>Total Marks</th><th>% Weightage</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><span class="highlight">Remembering:</span> Exhibit memory of previously learned material by recalling facts, terms, basic concepts, and answers. <span class="highlight">Understanding:</span> Demonstrate understanding of facts and ideas by organizing, comparing, translating, interpreting, giving descriptions, and stating main ideas</td>
+                <td>44</td><td>55</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><span class="highlight">Applying:</span> Solve problems to new situations by applying acquired knowledge, facts, techniques and rules in a different way.</td>
+                <td>20</td><td>25</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><span class="highlight">Analysing:</span> Examine and break information into parts by identifying motives or causes. <span class="highlight">Evaluating:</span> Present and defend opinions by making judgments about information. <span class="highlight">Creating:</span> Compile information together in a different way.</td>
+                <td>16</td><td>20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3><i class="fas fa-clipboard-list" style="margin-right:8px;color:#a78bfa;"></i>Internal Assessment <span class="badge badge-accent">20 Marks</span></h3>
+        <div class="topic">
+          <h4><i class="fas fa-pen-to-square" style="margin-right:6px;color:#34d399;"></i>Periodic Tests</h4>
+          <p>Best 2 out of 3 tests conducted: <span class="highlight">10 Marks</span></p>
+        </div>
+        <div class="topic">
+          <h4><i class="fas fa-infinity" style="margin-right:6px;color:#38bdf8;"></i>Mathematics Activities</h4>
+          <p>Practical work and projects: <span class="highlight">10 Marks</span></p>
+        </div>
+      </div>
+
+      <!-- CLASS XII -->
+      <div class="syllabus-card fade-in-2">
+        <h2>CLASS XII (2025-26)</h2>
+        <p>
+          <span class="badge badge-primary"><i class="fas fa-file"></i> One Paper</span>
+          <span class="badge badge-secondary"><i class="fas fa-star"></i> Max. Marks: 80</span>
+          <span class="badge badge-accent"><i class="fas fa-clipboard-check"></i> Internal: 20</span>
+        </p>
+
+        <a href="https://cbseacademic.nic.in/curriculum_2026.html" class="curriculum-link" target="_blank">
+          <i class="fas fa-external-link-alt"></i> View Official CBSE Class 12 Curriculum (2025-26)
+        </a>
+
+        <h3><i class="fas fa-table" style="margin-right:8px;color:#a78bfa;"></i>Course Structure</h3>
+        <div class="table-wrapper mb-16">
+          <table>
+            <thead>
+              <tr><th>No.</th><th>Units</th><th>Marks</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>I.</td><td>Relations and Functions</td><td>08</td></tr>
+              <tr><td>II.</td><td>Algebra</td><td>10</td></tr>
+              <tr><td>III.</td><td>Calculus</td><td>35</td></tr>
+              <tr><td>IV.</td><td>Vectors and Three-Dimensional Geometry</td><td>14</td></tr>
+              <tr><td>V.</td><td>Linear Programming</td><td>05</td></tr>
+              <tr><td>VI.</td><td>Probability</td><td>08</td></tr>
+              <tr><td><strong>Total</strong></td><td></td><td><strong>80</strong></td></tr>
+              <tr><td><strong>Internal Assessment</strong></td><td></td><td><strong>20</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="unit">
+          <h3><i class="fas fa-layer-group" style="margin-right:8px;color:#a78bfa;"></i>Unit-I: Relations and Functions</h3>
+          <div class="topic">
+            <h4>1. Relations and Functions</h4>
+            <p>Types of relations: reflexive, symmetric, transitive and equivalence relations. One to one and onto functions.</p>
+            <div><span class="tag">Relations</span><span class="tag">Functions</span><span class="tag">Equivalence</span></div>
+          </div>
+          <div class="topic">
+            <h4>2. Inverse Trigonometric Functions</h4>
+            <p>Definition, range, domain, principal value branch. Graphs of inverse trigonometric functions.</p>
+            <div><span class="tag">Trigonometry</span><span class="tag">Inverse functions</span><span class="tag">Graphs</span></div>
+          </div>
+        </div>
+
+        <h3><i class="fas fa-file-alt" style="margin-right:8px;color:#a78bfa;"></i>Question Paper Design</h3>
+        <div class="table-wrapper mb-16">
+          <table>
+            <thead>
+              <tr><th>S. No.</th><th>Typology of Questions</th><th>Total Marks</th><th>% Weightage</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><span class="highlight">Remembering:</span> Exhibit memory of previously learned material. <span class="highlight">Understanding:</span> Demonstrate understanding of facts and ideas.</td>
+                <td>44</td><td>55</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><span class="highlight">Applying:</span> Solve problems to new situations.</td>
+                <td>20</td><td>25</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><span class="highlight">Higher Order Thinking Skills</span> (Analysis, Evaluation, Creation)</td>
+                <td>16</td><td>20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3><i class="fas fa-clipboard-list" style="margin-right:8px;color:#a78bfa;"></i>Internal Assessment <span class="badge badge-accent">20 Marks</span></h3>
+        <div class="topic">
+          <h4><i class="fas fa-pen-to-square" style="margin-right:6px;color:#34d399;"></i>Periodic Tests</h4>
+          <p>Best 2 out of 3 tests conducted: <span class="highlight">10 Marks</span></p>
+        </div>
+        <div class="topic">
+          <h4><i class="fas fa-infinity" style="margin-right:6px;color:#38bdf8;"></i>Mathematics Activities</h4>
+          <p>Practical work and projects: <span class="highlight">10 Marks</span></p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>&#128211; Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+          <div class="footer-social">
+            <span class="social-btn"><i class="fab fa-youtube"></i></span>
+            <span class="social-btn"><i class="fab fa-twitter"></i></span>
+            <span class="social-btn"><i class="fab fa-linkedin-in"></i></span>
+            <span class="social-btn"><i class="fas fa-envelope"></i></span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+            <li><a href="examination.html"><i class="fas fa-chevron-right"></i> Examinations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Tools</h4>
+          <ul>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Lessons</a></li>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // Back to top visibility
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    // Password modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInput.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; } });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = ''; passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtn.click(); } });
+    });
+  </script>
+</body>
+</html>

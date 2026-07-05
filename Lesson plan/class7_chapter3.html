@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Plan: A Peek Beyond the Point | Grade 7 Maths</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        }
+        
+        .container {
+            width: 29.7cm; /* A4 width */
+            min-height: 21cm;  /* A4 height */
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5cm;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title-section {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1c4587;
+        }
+        
+        .title-section h1 {
+            color: #1c4587;
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .title-section h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: normal;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background-color: #e3eaf3;
+            font-weight: bold;
+        }
+        
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .english {
+            font-weight: bold;
+            color: #1c4587;
+            margin-bottom: 3px;
+        }
+        
+        .hindi {
+            font-family: 'Nirmala UI', 'Arial Unicode MS', sans-serif;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .input-field {
+            width: 100%;
+            border: none;
+            padding: 5px;
+            font-size: 14px;
+            background-color: transparent;
+        }
+        
+        .input-field:focus {
+            outline: 1px solid #4a86e8;
+        }
+        
+        textarea.input-field {
+            height: 60px;
+            resize: none;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+        
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .signature-box {
+            width: 45%;
+            padding: 15px;
+            border: 1px dashed #999;
+            text-align: center;
+        }
+        
+        .signature-box p {
+            margin: 0;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        @media print {
+            .container {
+                box-shadow: none;
+                padding: 1cm;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #1c4587;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            background-color: #0d3268;
+        }
+        
+        .required:after {
+            content: " *";
+            color: red;
+        }
+        
+        .prefilled {
+            background-color: #f8f9fa;
+            padding: 5px;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">Print Lesson Plan</button>
+    
+    <div class="container">
+        <div class="title-section">
+            <h1>Lesson Plan Organiser</h1>
+            <h2>शिक्षण योजना आयोजक</h2>
+        </div>
+        
+        <!-- General Facts Section -->
+        <table>
+            <tr>
+                <th colspan="4" class="bilingual">
+                    <div class="english">General Facts</div>
+                    <div class="hindi">सामान्य तथ्य</div>
+                </th>
+            </tr>
+            <tr>
+                <td width="25%" class="bilingual">
+                    <div class="english required">Date</div>
+                    <div class="hindi">दिनांक</div>
+                </td>
+                <td width="25%"><input type="date" class="input-field" id="lesson-date"></td>
+                <td width="25%" class="bilingual">
+                    <div class="english required">Class and Section</div>
+                    <div class="hindi">कक्षा एवं अनुभाग</div>
+                </td>
+                <td width="25%"><div class="prefilled">VII-C</div></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english required">Subject</div>
+                    <div class="hindi">विषय</div>
+                </td>
+                <td><div class="prefilled">Mathematics</div></td>
+                <td class="bilingual">
+                    <div class="english required">Number of Enrolled Students</div>
+                    <div class="hindi">नामांकित छात्रों की संख्या</div>
+                </td>
+                <td><input type="number" class="input-field" placeholder="e.g., 40"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english required">Chapter/Topic</div>
+                    <div class="hindi">अध्याय/विषय</div>
+                </td>
+                <td><div class="prefilled">Chapter 3: A Peek Beyond the Point</div></td>
+                <td class="bilingual">
+                    <div class="english required">Date of Commencement</div>
+                    <div class="hindi">प्रारंभ करने की तिथि</div>
+                </td>
+                <td><input type="date" class="input-field"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english required">No. of Periods Required</div>
+                    <div class="hindi">आवश्यक अवधियों की संख्या</div>
+                </td>
+                <td><div class="prefilled">8</div></td>
+                <td class="bilingual">
+                    <div class="english">Actual Date of Completion</div>
+                    <div class="hindi">वास्तविक पूर्णता तिथि</div>
+                </td>
+                <td><input type="date" class="input-field"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Source of the Lesson Plan</div>
+                    <div class="hindi">पाठ योजना का स्रोत</div>
+                </td>
+                <td>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="self-source" checked>
+                        <label for="self-source">Self | स्वयं</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="resource-pool">
+                        <label for="resource-pool">Resource Pool | संसाधन पूल</label>
+                    </div>
+                </td>
+                <td class="bilingual">
+                    <div class="english">Lesson Plan Developer</div>
+                    <div class="hindi">पाठ योजना विकासकर्ता</div>
+                </td>
+                <td><input type="text" class="input-field" placeholder="Teacher Name"></td>
+            </tr>
+        </table>
+        
+        <!-- Content and Concepts -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Content and Concepts</div>
+                    <div class="hindi">विषयवस्तु एवं संकल्पनाएँ</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    - Introduction to decimals through measurement (Screw story)<br>
+                    - Tenths and hundredths concepts<br>
+                    - Decimal place value system<br>
+                    - Reading and writing decimal numbers<br>
+                    - Unit conversions (mm-cm-m, g-kg, paise-rupee)<br>
+                    - Comparing and ordering decimals<br>
+                    - Addition/subtraction of decimals<br>
+                    - Decimal sequences and patterns<br>
+                    - Real-life applications and error analysis
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Learning Outcomes -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Learning Outcomes (NCERT)</div>
+                    <div class="hindi">अधिगम उपलब्धियाँ</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    - Understands decimal representation of fractional quantities<br>
+                    - Converts between different measurement units using decimals<br>
+                    - Performs addition and subtraction of decimal numbers<br>
+                    - Compares and orders decimal numbers<br>
+                    - Locates decimals on number line<br>
+                    - Solves real-life problems involving decimals<br>
+                    - Recognizes importance of decimal point placement
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Pedagogical Strategies -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Pedagogical Strategies</div>
+                    <div class="hindi">शैक्षणिक रणनीतियाँ</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    1. Demonstration: Using rulers/scales to show decimal divisions<br>
+                    2. Real-life story: Mother fixing toy with screws<br>
+                    3. Measurement activities: Measure classroom objects<br>
+                    4. Group activity: Currency conversion (rupees-paise)<br>
+                    5. Number line exercises: Locating decimals<br>
+                    6. Error analysis: Real-world decimal disasters<br>
+                    7. Visual aids: Place value charts, decimal grids<br>
+                    8. Digital tools: Interactive decimal games/apps<br>
+                    9. Think-pair-share: Solving decimal problems<br>
+                    10. Hands-on: Folding paper to demonstrate hundredths
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- 21st Century Skills -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">21st Century Skills / Value Education / Vocational skills</div>
+                    <div class="hindi">21वीं सदी के कौशल / मूल्य शिक्षा / व्यावसायिक कौशल</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    - Critical Thinking: Analyzing measurement errors<br>
+                    - Financial Literacy: Money calculations<br>
+                    - Accuracy & Precision: Importance in engineering/medicine<br>
+                    - Digital Literacy: Using measurement apps<br>
+                    - Collaboration: Group measurement activities<br>
+                    - Problem Solving: Real-world decimal challenges<br>
+                    - Historical Awareness: Decimal system evolution<br>
+                    - Environmental Awareness: Measuring natural objects<br>
+                    - Ethical Understanding: Consequences of decimal errors
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Extension Section -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Extension / Real life applications</div>
+                    <div class="hindi">विस्तार / वास्तविक जीवन अनुप्रयोग</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    - Measurement: Tailoring, carpentry, engineering blueprints<br>
+                    - Finance: Banking transactions, currency conversion<br>
+                    - Cooking: Recipe measurements and conversions<br>
+                    - Science: Laboratory measurements, dosage calculations<br>
+                    - Sports: Timing records in athletics<br>
+                    - Technology: Pixel measurements in digital displays<br>
+                    - Case studies: Decimal errors in aviation<br>
+                    - Historical prices: Cost of goods in paise<br>
+                    - Nature measurements: Size of smallest creatures
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Integration Section -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Integration with other subjects</div>
+                    <div class="hindi">अन्य विषयों के साथ एकीकरण</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    - Science: Measurement units in physics experiments<br>
+                    - Social Science: Currency systems across countries<br>
+                    - Geography: Distance measurements, map scales<br>
+                    - History: Evolution of number systems<br>
+                    - Economics: Financial calculations, inflation<br>
+                    - Computer Science: Binary-decimal conversions<br>
+                    - Biology: Measuring microscopic organisms<br>
+                    - Home Science: Measurement in cooking and nutrition
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Assessment Section -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Assessment (Item Format)</div>
+                    <div class="hindi">मूल्यांकन (मद प्रारूप)</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    Formative Assessment:<br>
+                    - Measurement worksheet<br>
+                    - Decimal addition/subtraction exercises<br>
+                    - Group quiz: Unit conversion races<br>
+                    - Think-aloud: Explaining decimal concepts<br>
+                    - Exit tickets: Quick decimal questions<br><br>
+                    
+                    Summative Assessment:<br>
+                    1. MCQ: Decimal place value identification<br>
+                    2. Conversion problems: mm-cm-m, g-kg, paise-rupee<br>
+                    3. Word problems: Real-life decimal applications<br>
+                    4. Error identification: Decimal point mistakes<br>
+                    5. Number line: Locating decimal points<br>
+                    6. Sequencing: Continuing decimal patterns<br>
+                    7. Practical: Measuring objects with precision
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Resources Section -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Resources / Digital / Physical</div>
+                    <div class="hindi">संसाधन / डिजिटल / भौतिक</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    PHYSICAL RESOURCES:<br>
+                    - Rulers and measuring tapes<br>
+                    - Weighing scales<br>
+                    - Play money (coins and notes)<br>
+                    - Fraction-decimal conversion charts<br>
+                    - Classroom objects for measurement<br>
+                    - Paper for folding activity<br><br>
+                    
+                    DIGITAL RESOURCES:<br>
+                    - Interactive number line tools<br>
+                    - Decimal games (Math Playground)<br>
+                    - Measurement conversion apps<br>
+                    - NCERT e-resources<br>
+                    - Real-world error case videos<br>
+                    - GeoGebra decimal activities<br><br>
+                    
+                    PRINT RESOURCES:<br>
+                    - Ganita Prakash textbook<br>
+                    - Worksheet with measurement exercises<br>
+                    - Decimal place value charts<br>
+                    - Real-life problem cards<br>
+                    - Historical decimal system documents
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Objectives Section -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Objectives</div>
+                    <div class="hindi">उद्देश्य</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    1. Understand the need for decimals in precise measurements<br>
+                    2. Read and write decimal numbers correctly<br>
+                    3. Convert between different units using decimals<br>
+                    4. Perform addition/subtraction of decimal numbers<br>
+                    5. Compare and order decimal numbers<br>
+                    6. Locate decimals on number line<br>
+                    7. Apply decimals in real-life contexts<br>
+                    8. Recognize consequences of decimal errors<br>
+                    9. Develop estimation skills with decimals<br>
+                    10. Appreciate historical development of decimal system
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Teaching Methodology -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Teaching Methodology</div>
+                    <div class="hindi">शिक्षण पद्धति</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    <strong>PERIOD 1:</strong> Introduction through screw measurement story<br>
+                    <strong>PERIOD 2:</strong> Concept of hundredths through paper folding<br>
+                    <strong>PERIOD 3:</strong> Reading and writing decimals<br>
+                    <strong>PERIOD 4:</strong> Unit conversion activities<br>
+                    <strong>PERIOD 5:</strong> Addition of decimals<br>
+                    <strong>PERIOD 6:</strong> Subtraction of decimals<br>
+                    <strong>PERIOD 7:</strong> Comparing decimals and number line activities<br>
+                    <strong>PERIOD 8:</strong> Real-life applications and assessment
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Skills and Attitude -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Skills and Attitude</div>
+                    <div class="hindi">कौशल एवं दृष्टिकोण</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    DEVELOPED SKILLS:<br>
+                    - Precision in measurement<br>
+                    - Accurate calculation<br>
+                    - Unit conversion<br>
+                    - Logical sequencing<br>
+                    - Error detection<br>
+                    - Estimation<br><br>
+                    
+                    CULTIVATED ATTITUDES:<br>
+                    - Appreciation for accuracy<br>
+                    - Patience in detailed work<br>
+                    - Confidence in handling money<br>
+                    - Awareness of real-world consequences<br>
+                    - Curiosity about measurement systems<br>
+                    - Respect for precision in professional fields
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Competency Based Lesson Plan -->
+        <table>
+            <tr>
+                <th class="bilingual">
+                    <div class="english">Competency Based Lesson Plan</div>
+                    <div class="hindi">क्षमता आधारित पाठ योजना</div>
+                </th>
+            </tr>
+            <tr>
+                <td><div class="prefilled">
+                    CONCEPTUAL UNDERSTANDING:<br>
+                    - Decimal as extension of place value<br>
+                    - Relationship between fractions and decimals<br><br>
+                    
+                    PROCEDURAL FLUENCY:<br>
+                    - Decimal operations (addition/subtraction)<br>
+                    - Unit conversion methods<br><br>
+                    
+                    APPLICATION ABILITY:<br>
+                    - Solving measurement problems<br>
+                    - Handling money calculations<br>
+                    - Analyzing real-world scenarios<br><br>
+                    
+                    REASONING PROFICIENCY:<br>
+                    - Comparing decimal quantities<br>
+                    - Estimating decimal sums/differences<br>
+                    - Error analysis in decimal placement<br><br>
+                    
+                    CONNECTION COMPETENCY:<br>
+                    - Linking decimals to real-world contexts<br>
+                    - Cross-subject applications<br>
+                    - Historical development of number systems
+                </div></td>
+            </tr>
+        </table>
+        
+        <!-- Post Teaching Reflection -->
+        <table>
+            <tr>
+                <th colspan="2" class="bilingual">
+                    <div class="english">Post Teaching Reflection</div>
+                    <div class="hindi">शिक्षण पश्चात चिंतन</div>
+                </th>
+            </tr>
+            <tr>
+                <td width="50%" class="bilingual">
+                    <div class="english">No. of periods required</div>
+                    <div class="hindi">आवश्यक अवधियों की संख्या</div>
+                </td>
+                <td width="50%"><input type="number" class="input-field" placeholder="Actual periods used"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Planning for remedial teaching</div>
+                    <div class="hindi">उपचारात्मक शिक्षण हेतु योजना</div>
+                </td>
+                <td><input type="text" class="input-field" placeholder="e.g., Place value reinforcement"></td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Concepts for which remedial classes are required</div>
+                    <div class="hindi">जिन संकल्पनाओं हेतु उपचारात्मक कक्षाओं की आवश्यकता है</div>
+                </td>
+                <td><textarea class="input-field" placeholder="Specific concepts students struggled with"></textarea></td>
+            </tr>
+        </table>
+        
+        <!-- Self-assessment Section -->
+        <table>
+            <tr>
+                <th colspan="3" class="bilingual">
+                    <div class="english">Self-assessment by the teacher</div>
+                    <div class="hindi">शिक्षक द्वारा स्व-मूल्यांकन</div>
+                </th>
+            </tr>
+            <tr>
+                <td width="70%" class="bilingual">
+                    <div class="english">Were all students engaged in all activities?</div>
+                    <div class="hindi">क्या सभी छात्र सभी गतिविधियों में संलग्न थे?</div>
+                </td>
+                <td width="15%" style="text-align: center;">
+                    <input type="checkbox"> Yes | हाँ
+                </td>
+                <td width="15%" style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Were the questions posed to test students' understanding appropriate?</div>
+                    <div class="hindi">क्या छात्रों की समझ परखने के लिए पूछे गए प्रश्न उपयुक्त थे?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Was I able to move through the various stages successfully?</div>
+                    <div class="hindi">क्या मैं विभिन्न चरणों में सफलतापूर्वक आगे बढ़ पाया/पाई?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Was I able to keep time?</div>
+                    <div class="hindi">क्या मैं समय का पालन कर पाया/पाई?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">How satisfactory has been the implementation of the plan?</div>
+                    <div class="hindi">योजना का कार्यान्वयन कितना संतोषजनक रहा?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> High | उच्च
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Medium | मध्यम
+                </td>
+            </tr>
+            <tr>
+                <td class="bilingual">
+                    <div class="english">Do I need any modifications in the plan?</div>
+                    <div class="hindi">क्या मुझे योजना में किसी संशोधन की आवश्यकता है?</div>
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> Yes | हाँ
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox"> No | नहीं
+                </td>
+            </tr>
+        </table>
+        
+        <!-- Signature Section -->
+        <div class="signature-row">
+            <div class="signature-box">
+                <p>Signature of Teacher with date | शिक्षक के हस्ताक्षर सहित तिथि</p>
+            </div>
+            <div class="signature-box">
+                <p>Signature of HM/Vice Principal/Principal | प्रधानाध्यापक/उप-प्राचार्य/प्राचार्य के हस्ताक्षर</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; color: #777; font-size: 14px;">
+            Note: Fields marked with * are mandatory | ध्यान दें: * चिह्नित फ़ील्ड अनिवार्य हैं
+        </p>
+    </div>
+    
+    <script>
+        // Set default date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('lesson-date').value = today;
+        
+        // Prevent form submission on enter key
+        document.querySelectorAll('.input-field').forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' && this.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

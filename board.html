@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBSE Class 12 Maths Previous Year Papers | Teacher's Digital Diary</title>
+  <meta name="description" content="Access official CBSE Class 12 Mathematics previous year question papers and marking schemes from 2023, 2024, and 2025. Curated by K B Joshi, PGT Mathematics.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Board specific styles */
+    .year-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--glass-shadow);
+      transition: var(--transition);
+      opacity: 0; /* Animated in via JS */
+      transform: translateY(20px);
+    }
+    .year-card.animate-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .year-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(139,92,246,0.38);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, rgba(108,63,197,0.5), rgba(14,165,233,0.35));
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-family: var(--font-head);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .card-body {
+      padding: 24px;
+    }
+
+    .paper-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+      gap: 12px;
+    }
+    .paper-info:last-child {
+      border-bottom: none;
+    }
+    .paper-type {
+      font-weight: 600;
+      color: #e0d7ff;
+      font-size: 0.95em;
+      text-transform: capitalize;
+    }
+    .paper-links {
+      display: flex;
+      gap: 8px;
+    }
+    .paper-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8em;
+      transition: var(--transition);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .paper-links a.question-paper {
+      background: rgba(139,92,246,0.22);
+      border: 1px solid rgba(139,92,246,0.45);
+      color: #c4b5fd;
+    }
+    .paper-links a.question-paper:hover {
+      background: rgba(139,92,246,0.4);
+      transform: translateY(-2px);
+    }
+    .paper-links a.marking-scheme {
+      background: rgba(16,185,129,0.2);
+      border: 1px solid rgba(16,185,129,0.45);
+      color: #6ee7b7;
+    }
+    .paper-links a.marking-scheme:hover {
+      background: rgba(16,185,129,0.35);
+      transform: translateY(-2px);
+    }
+
+    .official-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #6c3fc5, #0ea5e9);
+      color: #fff;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 18px rgba(108,63,197,0.3);
+      transition: var(--transition);
+      font-size: 0.9em;
+    }
+    .official-link-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(108,63,197,0.5);
+      color: #fff;
+    }
+
+    .years-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+
+    @media (max-width: 768px) {
+      .years-grid { grid-template-columns: 1fr; }
+      .paper-info { flex-direction: column; align-items: flex-start; }
+      .paper-links { width: 100%; margin-top: 10px; }
+      .paper-links a { flex: 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-question-circle"></i> Board Papers</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html" class="active"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#128203;</span>
+      <h1>CBSE Board Questions</h1>
+      <p>CBSE Class 12 Mathematics Previous Year Question Papers &amp; Official Marking Schemes (2023-2025)</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <!-- Alert Box -->
+      <div class="alert alert-info fade-in">
+        <i class="fas fa-info-circle"></i>
+        <div>
+          <strong style="color:#7dd3fc; font-size:1.05em; font-family:var(--font-head);">About CBSE Class 12 Maths Papers</strong>
+          <p style="margin-top:4px;">Access previous year question papers and marking schemes for CBSE Class 12 Mathematics. These resources are essential for understanding exam patterns, marking distribution, and important topics. Solving previous papers helps students improve time management and identify their strengths and weaknesses.</p>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Years Grid -->
+      <div class="years-grid">
+        <!-- 2025 Papers -->
+        <div class="year-card">
+          <div class="card-header">2025 Question Papers</div>
+          <div class="card-body">
+            <div class="paper-info">
+              <div class="paper-type">Sample Paper</div>
+              <div class="paper-links">
+                <a href="https://cbseacademic.nic.in/SQP_CLASSXII_2024-25.html" target="_blank" class="question-paper"><i class="fas fa-file-pdf"></i> Question Paper</a>
+                <a href="https://cbseacademic.nic.in/SQP_CLASSXII_2024-25.html" target="_blank" class="marking-scheme"><i class="fas fa-check-circle"></i> Marking Scheme</a>
+              </div>
+            </div>
+            <div class="paper-info">
+              <div class="paper-type">all sets Board</div>
+              <div class="paper-links">
+                <a href="https://drive.google.com/drive/folders/19BaHC05XPd1FRPkN8_wq7Ipccb-l3Edo?usp=sharing" target="_blank" class="question-paper"><i class="fas fa-file-pdf"></i> Question Paper</a>
+                <a href="https://drive.google.com/drive/folders/1tZeFgQqmf4Zx7ISX7pc1ttdaeYT6Ay1W?usp=sharing" target="_blank" class="marking-scheme"><i class="fas fa-check-circle"></i> Marking Scheme</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2024 Papers -->
+        <div class="year-card">
+          <div class="card-header">2024 Question Papers</div>
+          <div class="card-body">
+            <div class="paper-info">
+              <div class="paper-type">Sample Paper</div>
+              <div class="paper-links">
+                <a href="https://cbseacademic.nic.in/SQP_CLASSXII_2023-24.html" target="_blank" class="question-paper"><i class="fas fa-file-pdf"></i> Question Paper</a>
+                <a href="https://cbseacademic.nic.in/SQP_CLASSXII_2023-24.html" target="_blank" class="marking-scheme"><i class="fas fa-check-circle"></i> Marking Scheme</a>
+              </div>
+            </div>
+            <div class="paper-info">
+              <div class="paper-type">all sets Board</div>
+              <div class="paper-links">
+                <a href="https://drive.google.com/drive/folders/1ZEp_aehsNsSMK7iOHRPPDRcchv5YH2xM?usp=sharing" target="_blank" class="question-paper"><i class="fas fa-file-pdf"></i> Question Paper</a>
+                <a href="https://drive.google.com/drive/folders/1WS_X3LU2BU6i1hdyApZSLQ1BIbJTxwi3?usp=sharing" target="_blank" class="marking-scheme"><i class="fas fa-check-circle"></i> Marking Scheme</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2023 Papers -->
+        <div class="year-card">
+          <div class="card-header">2023 Question Papers</div>
+          <div class="card-body">
+            <div class="paper-info">
+              <div class="paper-type">Sample Papers</div>
+              <div class="paper-links">
+                <a href="https://cbseacademic.nic.in/SQP_CLASSXII_2022-23.html" target="_blank" class="question-paper"><i class="fas fa-file-pdf"></i> Question Paper</a>
+                <a href="https://cbseacademic.nic.in/SQP_CLASSXII_2022-23.html" target="_blank" class="marking-scheme"><i class="fas fa-check-circle"></i> Marking Scheme</a>
+              </div>
+            </div>
+            <div class="paper-info">
+              <div class="paper-type">all sets Board</div>
+              <div class="paper-links">
+                <a href="https://drive.google.com/drive/folders/1mzbtTSYWi5gpmZL4_VrV8t3xnswQKnh8?usp=sharing" target="_blank" class="question-paper"><i class="fas fa-file-pdf"></i> Question Paper</a>
+                <a href="https://drive.google.com/drive/folders/1GrZa5vFnTpdzf6HUwAHgcnvvFfUYjndU?usp=sharing" target="_blank" class="marking-scheme"><i class="fas fa-check-circle"></i> Marking Scheme</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature/Advice Grid -->
+      <div class="resource-grid mb-48 fade-in-3">
+        <div class="resource-card">
+          <div class="rc-icon" style="background:rgba(139,92,246,0.18); color:#a78bfa;"><i class="fas fa-lightbulb"></i></div>
+          <div class="rc-title">Why Solve Previous Papers?</div>
+          <div class="rc-sub">Solving previous year papers helps you understand the exam pattern, important topics, and difficulty level. It improves time management and boosts confidence for the actual exam.</div>
+        </div>
+        <div class="resource-card">
+          <div class="rc-icon" style="background:rgba(16,185,129,0.18); color:#34d399;"><i class="fas fa-clipboard-check"></i></div>
+          <div class="rc-title">Marking Scheme Benefits</div>
+          <div class="rc-sub">Marking schemes help you understand how answers are evaluated, how marks are distributed, and what examiners expect in ideal answers.</div>
+        </div>
+        <div class="resource-card">
+          <div class="rc-icon" style="background:rgba(14,165,233,0.18); color:#38bdf8;"><i class="fas fa-chart-line"></i></div>
+          <div class="rc-title">Performance Analysis</div>
+          <div class="rc-sub">After solving papers, analyze your performance to identify weak areas. Focus your preparation on topics where you lose maximum marks.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+          <a href="https://cbseacademic.nic.in/index.html" class="official-link-btn" target="_blank">
+            Visit Official CBSE Website &nbsp;<i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html" class="active"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Staggered fade in animation using existing JS functionality logic
+      const yearCards = document.querySelectorAll('.year-card');
+      yearCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.15}s`;
+        card.classList.add('animate-in');
+      });
+
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInput.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; } });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = ''; passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtn.click(); } });
+    });
+  </script>
+</body>
+</html>

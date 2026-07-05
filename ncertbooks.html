@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT Mathematics Textbooks | Class 7 to 12 | Teacher's Digital Diary</title>
+  <meta name="description" content="Access online NCERT Mathematics textbooks chapter-wise for Class 7, Class 11, and Class 12, featuring new NEP 2020 syllabi, Brahmagupta methods, and official PDF download links.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Tabs Panel switching */
+    .tab-content-panel {
+      display: none;
+      animation: fadeIn 0.5s ease both;
+    }
+    .tab-content-panel.active {
+      display: block;
+    }
+
+    /* Textbook custom overrides */
+    .textbook-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--glass-shadow);
+      margin-bottom: 32px;
+    }
+    .textbook-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .textbook-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .textbook-meta {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .ncert-logo {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(139,92,246,0.15));
+      border: 1px solid rgba(236,72,153,0.3);
+      padding: 6px 18px;
+      border-radius: var(--radius-sm);
+      color: #f472b6;
+      font-weight: 700;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+      font-family: var(--font-head);
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+      margin-bottom: 28px;
+    }
+    .chapter-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .chapter-item:hover {
+      transform: translateY(-4px) scale(1.02);
+      background: rgba(139,92,246,0.1);
+      border-color: rgba(139,92,246,0.35);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .chapter-link {
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 0.95em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chapter-item:hover .chapter-link {
+      color: #c4b5fd;
+    }
+    .chapter-desc {
+      font-size: 0.8em;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .features-box {
+      background: rgba(139,92,246,0.06);
+      border-left: 4px solid #8b5cf6;
+      padding: 24px 28px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-top: 28px;
+    }
+    .features-box h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 12px;
+    }
+    .features-list {
+      list-style: none;
+      padding: 0;
+    }
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88em;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .features-list li i {
+      color: #10b981;
+      margin-top: 3px;
+      font-size: 0.95em;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6c3fc5, #0ea5e9);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88em;
+      margin-top: 18px;
+      transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(108,63,197,0.3);
+    }
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(108,63,197,0.5);
+      color: #fff;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-book-open"></i> NCERT Library</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html" class="active"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#128214;</span>
+      <h1>NCERT Textbooks</h1>
+      <p>Official chapter-wise NCERT Mathematics textbooks online for Classes 7, 11, and 12</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <!-- Stats Row -->
+      <div class="stats-row mb-32 fade-in">
+        <div class="stat-box">
+          <div class="sb-icon">&#128218;</div>
+          <div class="sb-num">3</div>
+          <div class="sb-label">Classes Covered</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#128196;</div>
+          <div class="sb-num">37</div>
+          <div class="sb-label">Total Chapters</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#128101;</div>
+          <div class="sb-num">Official</div>
+          <div class="sb-label">NCERT Links</div>
+        </div>
+        <div class="stat-box">
+          <div class="sb-icon">&#127891;</div>
+          <div class="sb-num">NEP</div>
+          <div class="sb-label">Aligned</div>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Class Tab Switchers -->
+      <div class="class-tabs mb-24 fade-in-1">
+        <button class="class-tab active" onclick="switchTab('class7')"><i class="fas fa-book"></i> Class 7 (Ganita Prakash)</button>
+        <button class="class-tab" onclick="switchTab('class11')"><i class="fas fa-book"></i> Class 11 Mathematics</button>
+        <button class="class-tab" onclick="switchTab('class12')"><i class="fas fa-book"></i> Class 12 Mathematics</button>
+      </div>
+
+      <!-- CLASS 7 PANEL -->
+      <div id="class7" class="tab-content-panel active fade-in-2">
+        <div class="textbook-card">
+          <div class="textbook-header">
+            <h2 class="textbook-title">Class 7 Mathematics</h2>
+            <div class="textbook-meta">New Syllabus as per NEP 2020 &amp; NCF-SE 2023</div>
+          </div>
+          
+          <div class="ncert-logo">गणित प्रकाश (Ganita Prakash)</div>
+          
+          <h3 style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:#c4b5fd;margin-bottom:12px;"><i class="fas fa-list-ol"></i> Chapter-wise Content</h3>
+          
+          <div class="chapter-grid">
+            <a href="https://ncert.nic.in/textbook.php?gegp1=1-8" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 1</div>
+              <div class="chapter-desc">Large Numbers Around Us: Introduces the world of lakhs, crores, millions, and billions.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=9-18" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 2</div>
+              <div class="chapter-desc">Arithmetic Expressions: Multiple operations, parentheses, and order of operations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=19-30" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 3</div>
+              <div class="chapter-desc">A Peek Beyond the Point: Decimal numbers, representations, and operations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=31-40" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 4</div>
+              <div class="chapter-desc">Expressions using Letter-Numbers: Introduction to variables and algebra basics.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=41-50" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 5</div>
+              <div class="chapter-desc">Parallel and Intersecting Lines: Geometry concepts with paper-folding exercises.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=51-64" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 6</div>
+              <div class="chapter-desc">Number Play: Computational thinking through puzzles, cryptarithms, and patterns.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=65-76" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 7</div>
+              <div class="chapter-desc">A Tale of Three Intersecting Lines: Properties of triangles and constructions.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=77-90" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 8</div>
+              <div class="chapter-desc">Working with Fractions: Operations on fractions, incorporating historic Indian methods.</div>
+            </a>
+          </div>
+
+          <div class="features-box">
+            <h3><i class="fas fa-lightbulb"></i> Key Features:</h3>
+            <ul class="features-list">
+              <li><li><i class="fas fa-check-circle"></i> Aligns with <strong>NEP 2020</strong> and <strong>NCF-SE 2023</strong> guidelines</li></li>
+              <li><li><i class="fas fa-check-circle"></i> Integrates Indian knowledge systems (e.g., Brahmagupta's fraction methods)</li></li>
+              <li><li><i class="fas fa-check-circle"></i> Includes fun puzzles, real-life math models, and cross-subject applications</li></li>
+              <li><li><i class="fas fa-check-circle"></i> Practical paper-folding geometry tools</li></li>
+            </ul>
+            <a href="https://ncert.nic.in/textbook.php?gegp1=0-8" class="download-btn" target="_blank"><i class="fas fa-file-download"></i> Download Full Book PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLASS 11 PANEL -->
+      <div id="class11" class="tab-content-panel fade-in-2">
+        <div class="textbook-card">
+          <div class="textbook-header">
+            <h2 class="textbook-title">Class 11 Mathematics</h2>
+            <div class="textbook-meta">Comprehensive foundation for senior secondary level</div>
+          </div>
+
+          <h3 style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:#c4b5fd;margin-bottom:12px;"><i class="fas fa-list-ol"></i> Chapter-wise Content</h3>
+          
+          <div class="chapter-grid">
+            <a href="https://ncert.nic.in/textbook.php?kemh1=1-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 1: Sets</div>
+              <div class="chapter-desc">Introduction to sets, operations, Venn diagrams and subsets.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=2-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 2: Relations &amp; Functions</div>
+              <div class="chapter-desc">Cartesian products, domains, co-domains, range, and standard function graphs.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=3-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 3: Trigonometric Functions</div>
+              <div class="chapter-desc">Angles, trigonometric equations, identities, and graphical functions.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=4-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 4: Induction</div>
+              <div class="chapter-desc">Principle of Mathematical Induction as a method of proof.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=5-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 5: Complex Numbers</div>
+              <div class="chapter-desc">Algebra of complex numbers, Argand plane, and quadratic equations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=6-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 6: Linear Inequalities</div>
+              <div class="chapter-desc">Algebraic and graphical solutions of linear inequalities.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=7-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 7: Permutations &amp; Combinations</div>
+              <div class="chapter-desc">Fundamental principles of counting, permutations, combinations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=8-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 8: Binomial Theorem</div>
+              <div class="chapter-desc">History, statement, and proof of Binomial Theorem for positive integers.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=9-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 9: Sequences &amp; Series</div>
+              <div class="chapter-desc">AP, GP, arithmetic/geometric mean and sum to infinity of GP.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=10-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 10: Straight Lines</div>
+              <div class="chapter-desc">Slope, angle between lines, distance formula, and forms of equations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=11-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 11: Conic Sections</div>
+              <div class="chapter-desc">Equations of circles, ellipses, parabolas, and hyperbolas.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=12-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 12: 3D Geometry</div>
+              <div class="chapter-desc">Coordinates, distance formula, section formula in 3D space.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=13-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 13: Limits &amp; Derivatives</div>
+              <div class="chapter-desc">First-principles calculus, limit rules, derivatives of polynomials.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=14-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 14: Mathematical Reasoning</div>
+              <div class="chapter-desc">Statements, connections, and validation of logical steps.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=15-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 15: Statistics</div>
+              <div class="chapter-desc">Measures of dispersion, mean deviation, variance, standard deviation.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?kemh1=16-14" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 16: Probability</div>
+              <div class="chapter-desc">Random experiments, events, axiomatic probability rules.</div>
+            </a>
+          </div>
+
+          <div class="features-box">
+            <h3><i class="fas fa-lightbulb"></i> Key Features:</h3>
+            <ul class="features-list">
+              <li><li><i class="fas fa-check-circle"></i> Clear conceptual diagrams and graphical illustrations</li></li>
+              <li><li><i class="fas fa-check-circle"></i> Detailed solved examples for every topic</li></li>
+              <li><li><i class="fas fa-check-circle"></i> Provides solid foundation for JEE/competitive exam preparations</li></li>
+            </ul>
+            <a href="https://ncert.nic.in/textbook.php" class="download-btn" target="_blank"><i class="fas fa-file-download"></i> Download Full Book PDF Portal</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLASS 12 PANEL -->
+      <div id="class12" class="tab-content-panel fade-in-2">
+        <div class="textbook-card">
+          <div class="textbook-header">
+            <h2 class="textbook-title">Class 12 Mathematics</h2>
+            <div class="textbook-meta">Advanced calculus, geometry, and probability</div>
+          </div>
+
+          <h3 style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:#c4b5fd;margin-bottom:12px;"><i class="fas fa-list-ol"></i> Chapter-wise Content</h3>
+          
+          <div class="chapter-grid">
+            <a href="https://ncert.nic.in/textbook.php?lemh1=1-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 1: Relations &amp; Functions</div>
+              <div class="chapter-desc">Equivalence relations, composition, inverse, binary operations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=2-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 2: Inverse Trig Functions</div>
+              <div class="chapter-desc">Principal values, domain/range, graphs and algebraic properties.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=3-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 3: Matrices</div>
+              <div class="chapter-desc">Operations, types of matrices, transposes, symmetric/skew-symmetric matrices.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=4-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 4: Determinants</div>
+              <div class="chapter-desc">Properties, minors/cofactors, matrix adjoint, inverse, linear systems.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=5-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 5: Continuity</div>
+              <div class="chapter-desc">Continuity, differentiability, chain rule, implicit functions, Rolle's/MVT.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=6-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 6: App. of Derivatives</div>
+              <div class="chapter-desc">Rate of change, increasing/decreasing, tangent normals, maxima/minima.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=7-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 7: Integrals</div>
+              <div class="chapter-desc">Definite and indefinite integrals, methods of substitution, parts, partial fractions.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=8-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 8: App. of Integrals</div>
+              <div class="chapter-desc">Area evaluation under simple curves (lines, circles, parabolas).</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=9-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 9: Differential Equations</div>
+              <div class="chapter-desc">Order, degree, general/particular solution, homogeneous/linear equations.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=10-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 10: Vector Algebra</div>
+              <div class="chapter-desc">Vectors, direction cosines, dot and cross products.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=11-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 11: 3D Geometry</div>
+              <div class="chapter-desc">Lines and planes in space, angle between, shortest distance formulas.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=12-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 12: Linear Programming</div>
+              <div class="chapter-desc">Optimization, constraints, graphical solution of linear programming.</div>
+            </a>
+            <a href="https://ncert.nic.in/textbook.php?lemh1=13-13" target="_blank" class="chapter-item">
+              <div class="chapter-link"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Chapter 13: Probability</div>
+              <div class="chapter-desc">Conditional probability, Bayes' theorem, binomial distribution, random variables.</div>
+            </a>
+          </div>
+
+          <div class="features-box">
+            <h3><i class="fas fa-lightbulb"></i> Key Features:</h3>
+            <ul class="features-list">
+              <li><li><i class="fas fa-check-circle"></i> Advanced calculus coverage (35% marks weightage in boards)</li></li>
+              <li><li><i class="fas fa-check-circle"></i> Curated exercise problems for CBSE Class 12 board preparation</li></li>
+            </ul>
+            <a href="https://ncert.nic.in/textbook.php" class="download-btn" target="_blank"><i class="fas fa-file-download"></i> Download Full Book PDF Portal</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional links -->
+      <div class="glass-card mb-48 fade-in-3" style="margin-top:24px;">
+        <div class="glass-card-inner" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+          <div>
+            <h3 style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:#fff;margin:0 0 4px;"><i class="fas fa-folder-open" style="color:#38bdf8;"></i> Additional Resources</h3>
+            <p style="font-size:0.88em;color:var(--text-muted);margin:0;">Access official NCERT exemplar problem sets and the e-Pathshala application.</p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="https://ncert.nic.in/exemplar-problems.php" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-star"></i> Exemplar Problems</a>
+            <a href="https://epathshala.nic.in/" target="_blank" class="btn btn-outline btn-sm"><i class="fas fa-mobile-alt"></i> e-Pathshala</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html" class="active"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // Tab switching functionality
+    function switchTab(tabId) {
+      const panels = document.querySelectorAll('.tab-content-panel');
+      panels.forEach(panel => panel.classList.remove('active'));
+
+      const tabs = document.querySelectorAll('.class-tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInput.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInput.value = ''; errorMessage.textContent = ''; } });
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = ''; passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtn.click(); } });
+    });
+  </script>
+</body>
+</html>

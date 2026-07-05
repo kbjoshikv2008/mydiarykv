@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapterwise Board Questions (PYQs) | Teacher's Digital Diary</title>
+  <meta name="description" content="Download chapterwise CBSE previous years board questions (PYQs) for Class 11 and Class 12 Mathematics. Resources compiled by K B Joshi, PGT Mathematics.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tabs {
+      display: flex;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 6px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      min-width: 150px;
+      text-align: center;
+      font-size: 0.88em;
+      font-family: var(--font-head);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: white;
+      box-shadow: 0 4px 15px rgba(124,58,237,0.3);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    .chapters-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .chapter-row {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+      gap: 16px;
+    }
+    .chapter-row:hover {
+      transform: translateY(-2px);
+      border-color: rgba(124, 58, 237, 0.35);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .chapter-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .chapter-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      color: #a78bfa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1em;
+      flex-shrink: 0;
+    }
+    .chapter-details h3 {
+      font-family: var(--font-head);
+      font-size: 0.95em;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 3px;
+    }
+    .chapter-details p {
+      font-size: 0.8em;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .download-btn {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85em;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .download-btn:hover {
+      background: rgba(124, 58, 237, 0.15);
+      color: #c4b5fd;
+      border-color: rgba(124, 58, 237, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(124, 58, 237, 0.2);
+      color: #c4b5fd;
+      border-color: rgba(124, 58, 237, 0.4);
+      transform: translateX(-3px);
+    }
+
+    @media (max-width: 600px) {
+      .chapter-row { flex-direction: column; align-items: stretch; text-align: center; }
+      .chapter-info { flex-direction: column; }
+      .download-btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="ramanujan.jpg" class="profile-photo" alt="Srinivasa Ramanujan" style="border: 2px solid var(--accent); box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-folder-open"></i> Chapterwise PYQs</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+        <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+        <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+        <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+        <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+        <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+        <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+        <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+        <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+        <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+        <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+        <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+        <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+        <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+        <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+        <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+        <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+        <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+        <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+        <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+        <a href="chapterwise-board-questions.html" class="active"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+        <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+        <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+        <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#128194;</span>
+      <h1>Chapterwise PYQs</h1>
+      <p>Download previous years' CBSE board exam question papers categorized chapter by chapter</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Alert disclaimer -->
+      <div class="alert alert-info fade-in-1">
+        <i class="fas fa-info-circle"></i>
+        <div>
+          <strong style="color:#60a5fa; font-family:var(--font-head);">Compiles CBSE Board Exam PDFs</strong>
+          <p style="margin-top:4px;">These worksheets are hosted in the local <code>all chapters pdf</code> folder inside the directory. Clicking any download button will retrieve the PDF compilation directly onto your device.</p>
+        </div>
+      </div>
+
+      <!-- Tab Bar -->
+      <div class="tabs fade-in-2">
+        <button class="tab-btn active" data-tab="class-12">Class XII Mathematics</button>
+        <button class="tab-btn" data-tab="class-11">Class XI Mathematics</button>
+      </div>
+
+      <!-- Class XII Tab -->
+      <div class="tab-content active" id="class-12">
+        <div class="chapters-list">
+          
+          <!-- Ch 1 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 1: Relations &amp; Functions</h3>
+                <p>Equivalence relations, functions mapping, binary operations</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/Chapter 1 Relations and Functions.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 2 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 2: Inverse Trigonometric Functions</h3>
+                <p>Principal values, range, domain, trigonometric identity proofs</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/2 INVERSE TRIGONOMETRIC FUNCTIONS.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 3 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 3: Matrices</h3>
+                <p>Matrix algebra, symmetric and skew-symmetric, transformations</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/3 MATRICES.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 4 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 4: Determinants</h3>
+                <p>Properties, area of triangles, adjoint, system of linear equations</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/4 DETERMINANTS.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 5 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 5: Continuity &amp; Differentiability</h3>
+                <p>Continuity checks, derivatives, logarithmic functions, Rolle's theorem</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/5 CONTINUITY AND DIFFERENTIABILITY.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 6 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 6: Application of Derivatives</h3>
+                <p>Tangents, normals, increasing/decreasing, maxima and minima problems</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/6 APPLICATIONS OF DERIVATIVES.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 7 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 7: Integrals</h3>
+                <p>Definite &amp; indefinite integrals, integration methods</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="all chapters pdf/class12/7 INTEGRALS INDEFINITE.pdf" download class="download-btn">
+                <i class="fas fa-download"></i> Indefinite
+              </a>
+              <a href="all chapters pdf/class12/8 INTEGRALS DEFINITE.pdf" download class="download-btn">
+                <i class="fas fa-download"></i> Definite
+              </a>
+            </div>
+          </div>
+
+          <!-- Ch 8 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 8: Application of Integrals</h3>
+                <p>Area under simple curves, circle, parabola, ellipse segments</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/9 APPLICATIONS OF INTEGRALS.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 9 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 9: Differential Equations</h3>
+                <p>Order and degree, homogeneous equations, integrating factor</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/10 DIFFERENTIAL EQUATIONS.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 10 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 10: Vector Algebra</h3>
+                <p>Scalar and vector products, projections, direction cosines</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/11 VECTORS.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 11 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 11: Three Dimensional Geometry</h3>
+                <p>Direction ratios, line and plane equations, shortest distance</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/12 3-DIMENSIONAL GEOMETRY.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 12 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 12: Linear Programming</h3>
+                <p>Mathematical formulation, graphical solution methods, feasible region</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/13 LINEAR PRAGRAMMING.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 13 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 13: Probability</h3>
+                <p>Conditional probability, multiplication rule, Bayes' theorem</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class12/14 PROBABILITY.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Class XI Tab -->
+      <div class="tab-content" id="class-11">
+        <div class="chapters-list">
+          
+          <!-- Ch 1 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 1: Sets</h3>
+                <p>Venn diagrams, set operations, empty set, subsets, power sets</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 1 Sets.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 2 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 2: Relations &amp; Functions</h3>
+                <p>Cartesian product, ordered pairs, relations domain and range</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 2 Relations and Functions.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 3 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 3: Trigonometric Functions</h3>
+                <p>Angles, radian and degree measures, trigonometric identities and values</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 3 Trigonometric Functions.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 4 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 4: Complex Numbers</h3>
+                <p>Real &amp; imaginary parts, argand plane, quadratic equations roots</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 4 Complex Numbers.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 5 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 5: Linear Inequalities</h3>
+                <p>Algebraic solutions, graphical solutions of systems of inequalities</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 5 Linear Inequalities.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 6 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 6: Permutations &amp; Combinations</h3>
+                <p>Fundamental principle of counting, factorial notations, combinations</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 6 Permutations and Combinations.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 7 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 7: Binomial Theorem</h3>
+                <p>Binomial expansions, general term, middle term calculations</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 7 Binomial Theorem.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 8 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 8: Sequences &amp; Series</h3>
+                <p>Arithmetic and Geometric progressions, arithmetic &amp; geometric means</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 8 Sequences and Series.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 9 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 9: Straight Lines</h3>
+                <p>Slope of lines, forms of equation of line, distance calculations</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 9 Straight Lines.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 10 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 10: Conic Sections</h3>
+                <p>Standard equations of circle, parabola, ellipse, hyperbola</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 10 Conic Sections.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 11 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 11: Introduction to 3D Coordinates</h3>
+                <p>Coordinate axes and planes, octants, distance formula</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 11 Introduction to Three Dimensional Geometry.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 12 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 12: Limits &amp; Derivatives</h3>
+                <p>Intuitive limits, derivatives quotient and product rules</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 12 Limits and Derivatives.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 13 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 13: Statistics</h3>
+                <p>Mean deviation, variance, standard deviation of grouped data</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 13 Statistics.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+          <!-- Ch 14 -->
+          <div class="chapter-row">
+            <div class="chapter-info">
+              <div class="chapter-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="chapter-details">
+                <h3>Chapter 14: Probability</h3>
+                <p>Events, operations on events, mutually exclusive probability</p>
+              </div>
+            </div>
+            <a href="all chapters pdf/class11/Chapter 14 Probability.pdf" download class="download-btn">
+              <i class="fas fa-download"></i> Download PDF
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Olympiad</h4>
+          <ul>
+            <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password_profile">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password_profile" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePasswordProfile">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    // Tab Switching
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        
+        const tabId = btn.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Profile auth password modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+
+      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      togglePasswordProfile.addEventListener('click', function() {
+        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputProfile.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+
+      submitBtnProfile.addEventListener('click', function() {
+        const password = passwordInputProfile.value;
+        errorMessageProfile.textContent = '';
+        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+        if (password === 'KV@2025') {
+          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+          passwordInputProfile.value = ''; passwordInputProfile.focus();
+          submitBtnProfile.classList.add('shake');
+          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+        }
+      });
+      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+    });
+  </script>
+</body>
+</html>
