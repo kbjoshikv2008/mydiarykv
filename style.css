@@ -6,26 +6,26 @@
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --primary:        #7c3aed;
-  --primary-light:  #a78bfa;
+  --primary:        #6d28d9;
+  --primary-light:  #c084fc;
   --primary-dark:   #4c1d95;
-  --secondary:      #0ea5e9;
-  --accent:         #ffd700;
-  --accent2:        #ff2a85;
-  --success:        #10b981;
+  --secondary:      #0284c7;
+  --accent:         #d97706;
+  --accent2:        #db2777;
+  --success:        #15803d;
   --danger:         #ef4444;
 
-  --bg-dark:        #070412;
-  --bg-mid:         #160c33;
-  --bg-surface:     rgba(255,255,255,0.04);
+  --bg-dark:        #ffffff;
+  --bg-mid:         #f8fafc;
+  --bg-surface:     rgba(255,255,255,0.9);
 
-  --glass-bg:       rgba(255,255,255,0.05);
-  --glass-border:   rgba(255,255,255,0.14);
-  --glass-shadow:   0 20px 50px rgba(0,0,0,0.45);
+  --glass-bg:       rgba(255,255,255,0.85);
+  --glass-border:   rgba(109, 40, 217, 0.12);
+  --glass-shadow:   0 15px 35px rgba(31, 38, 135, 0.05);
 
-  --text-primary:   rgba(255,255,255,0.95);
-  --text-secondary: rgba(255,255,255,0.70);
-  --text-muted:     rgba(255,255,255,0.55);
+  --text-primary:   #0f172a;
+  --text-secondary: #334155;
+  --text-muted:     #475569;
 
   --radius-xl:  24px;
   --radius-lg:  18px;
@@ -44,29 +44,28 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background: radial-gradient(circle at 50% 0%, #160c33 0%, #070412 60%, #030206 100%);
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(rgba(109, 40, 217, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(109, 40, 217, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(109, 40, 217, 0.02) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(109, 40, 217, 0.02) 2px, transparent 2px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  background-position: center center;
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  font-size: 1.05rem;
   line-height: 1.6;
 }
 
 /* ── Animated Background Blobs ──────────────────────────────── */
 .bg-blobs {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
+  display: none !important;
 }
 
 .blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.35;
-  mix-blend-mode: plus-lighter;
-  animation: blobFloat 15s ease-in-out infinite alternate;
+  display: none !important;
 }
 .blob-1 { width:480px; height:480px; background: radial-gradient(circle, rgba(124,58,237,0.4) 0%, rgba(76,29,149,0.05) 70%); top:-120px;  left:-80px;   animation-duration:14s; }
 .blob-2 { width:380px; height:380px; background: radial-gradient(circle, rgba(14,165,233,0.3) 0%, rgba(3,105,161,0.05) 70%); top:30%;     right:-80px;  animation-duration:18s; animation-delay:-5s; }
@@ -637,9 +636,9 @@ tbody td:first-child { color: var(--text-primary); font-weight: 500; }
   font-size: 1.4em;
   flex-shrink: 0;
 }
-.resource-card .rc-title { font-family: var(--font-head); font-weight: 600; font-size: 0.97em; color: #fff; }
+.resource-card .rc-title { font-family: var(--font-head); font-weight: 600; font-size: 0.97em; color: var(--text-primary); }
 .resource-card .rc-sub   { font-size: 0.8em; color: var(--text-muted); line-height: 1.45; }
-.resource-card .rc-link  { font-size: 0.8em; color: #a78bfa; font-weight: 600; display: flex; align-items: center; gap: 5px; margin-top: auto; }
+.resource-card .rc-link  { font-size: 0.8em; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 5px; margin-top: auto; }
 
 /* ── Class Tabs ─────────────────────────────────────────────── */
 .class-tabs {
@@ -650,8 +649,8 @@ tbody td:first-child { color: var(--text-primary); font-weight: 500; }
 }
 .class-tab {
   padding: 9px 20px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(109, 40, 217, 0.15);
   border-radius: var(--radius-sm);
   font-family: var(--font-head);
   font-size: 0.85em;
@@ -663,11 +662,11 @@ tbody td:first-child { color: var(--text-primary); font-weight: 500; }
 }
 .class-tab:hover,
 .class-tab.active {
-  background: linear-gradient(135deg, rgba(139,92,246,0.35), rgba(14,165,233,0.25));
-  border-color: rgba(139,92,246,0.5);
+  background: linear-gradient(135deg, #6d28d9, #0ea5e9);
+  border-color: #6d28d9;
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(139,92,246,0.25);
+  box-shadow: 0 6px 18px rgba(109, 40, 217, 0.15);
 }
 
 /* ── Info Rows ──────────────────────────────────────────────── */
@@ -778,9 +777,9 @@ tbody td:first-child { color: var(--text-primary); font-weight: 500; }
   text-align: center;
   transition: var(--transition);
 }
-.stat-box:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.38); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+.stat-box:hover { transform: translateY(-4px); border-color: rgba(109, 40, 217, 0.38); box-shadow: var(--glass-shadow); }
 .stat-box .sb-icon { font-size: 2em; margin-bottom: 8px; }
-.stat-box .sb-num  { font-family: var(--font-head); font-size: 1.8em; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.stat-box .sb-num  { font-family: var(--font-head); font-size: 1.8em; font-weight: 800; color: var(--text-primary); line-height: 1; margin-bottom: 4px; }
 .stat-box .sb-label{ font-size: 0.74em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
 /* ── Animations ─────────────────────────────────────────────── */
