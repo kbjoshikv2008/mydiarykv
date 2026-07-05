@@ -2311,6 +2311,160 @@
         display: none !important;
       }
     }
+
+    /* ===================== PHOTO GALLERY SECTION ===================== */
+    .photo-gallery-section {
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+    .gallery-container {
+      background: var(--glass-bg);
+      border: 2px solid #bdaea2;
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-slider {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border: 1px solid rgba(189, 174, 162, 0.3);
+      cursor: pointer;
+    }
+    .gallery-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .gallery-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: transform 10s ease;
+    }
+    .gallery-slide.active img {
+      transform: scale(1.08);
+    }
+    .gallery-caption {
+      background: linear-gradient(to top, rgba(30, 27, 24, 0.9) 0%, rgba(30, 27, 24, 0.5) 70%, rgba(30, 27, 24, 0) 100%);
+      color: #ffffff;
+      padding: 24px 32px;
+      text-align: left;
+      z-index: 3;
+    }
+    .gallery-caption h3 {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      margin: 0 0 6px;
+      color: #faf5eb;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .gallery-caption p {
+      font-size: 0.95rem;
+      margin: 0;
+      color: rgba(250, 245, 235, 0.85);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .gallery-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: var(--transition);
+    }
+    .gallery-nav-btn:hover {
+      background: #ffffff;
+      color: #4c1d95;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .gallery-nav-btn.prev { left: 20px; }
+    .gallery-nav-btn.next { right: 20px; }
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .gallery-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid #bdaea2;
+    }
+    .gallery-dot.active {
+      background: #4c1d95;
+      transform: scale(1.2);
+      border-color: #4c1d95;
+    }
+    .gallery-drive-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #ffffff;
+      color: #1e1b18;
+      border: 2px solid #bdaea2;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.95em;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .gallery-drive-cta:hover {
+      background: #4c1d95;
+      color: #ffffff !important;
+      border-color: #4c1d95;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(76, 29, 149, 0.2);
+    }
+    .gallery-drive-cta i { font-size: 1.1em; }
+    @media (max-width: 768px) {
+      .gallery-slider { height: 320px; }
+      .gallery-caption h3 { font-size: 1.2rem; }
+      .gallery-caption p { font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
@@ -2553,6 +2707,62 @@
           </div>
         </div>
       </div>
+
+      <!-- ======================== PHOTO GALLERY SECTION ======================== -->
+      <section class="photo-gallery-section fade-in-1">
+        <div class="section-title">
+          <div class="label"><i class="fas fa-images"></i> School & Activity Gallery</div>
+          <h2>Explore Dynamic Learning & KV Ranikhet</h2>
+          <p>Catch a glimpse of daily academic excellence, hands-on lab experiments, and beautiful school scenery.</p>
+          <div class="divider"></div>
+        </div>
+
+        <div class="gallery-container">
+          <!-- The slider links to Google Drive on click -->
+          <div class="gallery-slider" id="gallerySlider" title="Click to view all photos on Google Drive">
+            
+            <div class="gallery-slide active">
+              <img src="gallery_ranikhet_school.jpg" alt="PM SHRI KV Ranikhet">
+              <div class="gallery-caption">
+                <h3>PM SHRI Kendriya Vidyalaya Ranikhet</h3>
+                <p>A panoramic vista of the school campus surrounded by quiet pine forests in the Himalayas of Uttarakhand.</p>
+              </div>
+            </div>
+
+            <div class="gallery-slide">
+              <img src="gallery_math_classroom.jpg" alt="Interactive Mathematics Classroom">
+              <div class="gallery-caption">
+                <h3>Dynamic Mathematics Classroom</h3>
+                <p>Students actively investigating calculus, matrices, and algebraic formulas with interactive devices.</p>
+              </div>
+            </div>
+
+            <div class="gallery-slide">
+              <img src="gallery_math_geometry.jpg" alt="Mathematical Instrument Lab Experiments">
+              <div class="gallery-caption">
+                <h3>Interactive Geometry & Labs</h3>
+                <p>Engaging hands-on geometry calculations, 3D structures, and drawing constructions in action.</p>
+              </div>
+            </div>
+
+            <!-- Nav Arrows -->
+            <button class="gallery-nav-btn prev" id="prevSlideBtn" title="Previous Image"><i class="fas fa-chevron-left"></i></button>
+            <button class="gallery-nav-btn next" id="nextSlideBtn" title="Next Image"><i class="fas fa-chevron-right"></i></button>
+          </div>
+
+          <!-- Indicator dots -->
+          <div class="gallery-dots" id="galleryDots">
+            <span class="gallery-dot active" data-index="0"></span>
+            <span class="gallery-dot" data-index="1"></span>
+            <span class="gallery-dot" data-index="2"></span>
+          </div>
+
+          <!-- Google Drive CTA Button -->
+          <a href="https://drive.google.com/drive/folders/1lHRBc7Iq7ogTGe1gRej236VFwcMEoBW9" target="_blank" class="gallery-drive-cta">
+            <i class="fab fa-google-drive"></i> View All Photos on Google Drive
+          </a>
+        </div>
+      </section>
 
       <!-- ======================== QUICK ACCESS SECTION ======================== -->
       <section class="quick-access">
@@ -3335,6 +3545,83 @@
         });
       }
     });
+
+    // ==================== AUTO-SLIDING PHOTO GALLERY ====================
+    (function() {
+      const slider = document.getElementById('gallerySlider');
+      const slides = document.querySelectorAll('.gallery-slide');
+      const dots = document.querySelectorAll('.gallery-dot');
+      const prevBtn = document.getElementById('prevSlideBtn');
+      const nextBtn = document.getElementById('nextSlideBtn');
+      const driveUrl = "https://drive.google.com/drive/folders/1lHRBc7Iq7ogTGe1gRej236VFwcMEoBW9";
+      
+      let currentIndex = 0;
+      let slideInterval;
+      const intervalTime = 5000; // 5 seconds
+      
+      function showSlide(index) {
+        if (index >= slides.length) index = 0;
+        if (index < 0) index = slides.length - 1;
+        
+        currentIndex = index;
+        
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+      }
+      
+      function nextSlide() {
+        showSlide(currentIndex + 1);
+      }
+      
+      function prevSlide() {
+        showSlide(currentIndex - 1);
+      }
+      
+      function startSlideShow() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+      }
+      
+      function pauseSlideShow() {
+        clearInterval(slideInterval);
+      }
+      
+      slider.addEventListener('click', function(e) {
+        if (e.target.closest('.gallery-nav-btn')) {
+          return;
+        }
+        window.open(driveUrl, '_blank');
+      });
+      
+      prevBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        prevSlide();
+        startSlideShow();
+      });
+      
+      nextBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        nextSlide();
+        startSlideShow();
+      });
+      
+      dots.forEach(dot => {
+        dot.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const index = parseInt(this.getAttribute('data-index'));
+          showSlide(index);
+          startSlideShow();
+        });
+      });
+      
+      slider.addEventListener('mouseenter', pauseSlideShow);
+      slider.addEventListener('mouseleave', startSlideShow);
+      
+      startSlideShow();
+    })();
   </script>
 </body>
 </html>
