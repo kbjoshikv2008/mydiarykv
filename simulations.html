@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Simulation Tools | K B Joshi | PGT Mathematics | KV Ranikhet</title>
+  <meta name="description" content="Interactive mathematics simulation tools â€” Desmos, GeoGebra, PhET, Kahoot, WolframAlpha, Mathway, Quizizz and more by K B Joshi, PGT Mathematics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cat-filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;justify-content:center}
+    .cat-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border:2px solid var(--glass-border);background:var(--glass-bg);color:var(--text-secondary);border-radius:50px;font-size:.85em;font-weight:700;cursor:pointer;transition:var(--transition);font-family:var(--font-head)}
+    .cat-btn:hover,.cat-btn.active{background:#4c1d95;color:#fff;border-color:#4c1d95;box-shadow:0 4px 16px rgba(76,29,149,.2);transform:translateY(-2px)}
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-bottom:60px}
+    .tool-card{background:var(--glass-bg);border:1.5px solid var(--glass-border);border-radius:var(--radius-xl);padding:0;transition:var(--transition);display:flex;flex-direction:column;overflow:hidden;position:relative}
+    .tool-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(74,62,53,.12);border-color:#8b5cf6}
+    .tool-card-top{padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px;flex:1}
+    .tool-card-header{display:flex;align-items:center;gap:14px}
+    .tool-icon-wrap{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5em;flex-shrink:0;transition:var(--transition)}
+    .tool-card:hover .tool-icon-wrap{transform:scale(1.1) rotate(-5deg)}
+    .tool-name{font-family:var(--font-head);font-size:1.08rem;font-weight:800;color:var(--text-primary);line-height:1.2}
+    .tool-tag{font-size:.7em;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:50px;display:inline-block;margin-top:2px}
+    .tool-desc{font-size:.87em;color:var(--text-muted);line-height:1.6}
+    .tool-features{display:flex;flex-wrap:wrap;gap:6px}
+    .feat-chip{font-size:.7em;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(76,29,149,.07);color:#4c1d95;border:1px solid rgba(76,29,149,.12)}
+    .tool-card-footer{display:flex;gap:10px;padding:16px 24px 20px;border-top:1px solid var(--glass-border);flex-wrap:wrap}
+    .tool-launch-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:30px;font-size:.83em;font-weight:700;text-decoration:none;transition:var(--transition);font-family:var(--font-head);cursor:pointer;border:none}
+    .btn-lp{background:linear-gradient(135deg,#4c1d95,#0ea5e9);color:#fff;box-shadow:0 4px 14px rgba(76,29,149,.25)}
+    .btn-lp:hover{box-shadow:0 6px 22px rgba(76,29,149,.4);transform:translateY(-2px);color:#fff}
+    .btn-prev{background:var(--glass-bg);border:2px solid var(--glass-border)!important;color:var(--text-secondary)}
+    .btn-prev:hover{border-color:#4c1d95!important;color:#4c1d95;transform:translateY(-2px)}
+    .tool-ribbon{position:absolute;top:14px;right:-30px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:.62em;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:4px 36px;transform:rotate(35deg);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+    .sim-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,10,30,.8);backdrop-filter:blur(8px);z-index:9000;align-items:center;justify-content:center;padding:20px}
+    .sim-modal-overlay.open{display:flex}
+    .sim-modal{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-xl);width:100%;max-width:1100px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.5);animation:modalIn .3s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes modalIn{from{transform:scale(.85) translateY(30px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+    .sim-modal-header{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--glass-border);flex-shrink:0}
+    .sim-modal-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3em;flex-shrink:0}
+    .sim-modal-title{font-family:var(--font-head);font-size:1.15rem;font-weight:800;color:var(--text-primary)}
+    .sim-modal-subtitle{font-size:.8em;color:var(--text-muted)}
+    .sim-modal-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .sim-modal-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:30px;font-size:.82em;font-weight:700;text-decoration:none;transition:var(--transition);border:2px solid transparent;cursor:pointer;font-family:var(--font-head)}
+    .sim-btn-ext{background:linear-gradient(135deg,#4c1d95,#0ea5e9);color:#fff}
+    .sim-btn-close{background:var(--glass-bg);border-color:var(--glass-border);color:var(--text-secondary)}
+    .sim-btn-close:hover{border-color:#ef4444;color:#ef4444}
+    .sim-modal-body{flex:1;overflow:hidden;position:relative;min-height:480px}
+    .sim-modal-body iframe{width:100%;height:100%;min-height:480px;border:none;display:block}
+    .sim-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--glass-bg);z-index:1}
+    .spin{width:48px;height:48px;border:3px solid var(--glass-border);border-top-color:#8b5cf6;border-radius:50%;animation:sp .8s linear infinite}
+    @keyframes sp{to{transform:rotate(360deg)}}
+    .sim-noembed{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:380px;gap:18px;padding:40px 24px;text-align:center}
+    .sim-noembed .ne-icon{font-size:3.5em;opacity:.5}
+    .sim-noembed h3{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--text-primary)}
+    .sim-noembed p{font-size:.9em;color:var(--text-muted);max-width:420px;line-height:1.6}
+    .stat-strip{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:40px}
+    .stat-box{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:18px 28px;text-align:center;min-width:130px;transition:var(--transition)}
+    .stat-box:hover{transform:translateY(-3px);border-color:#8b5cf6}
+    .stat-num{font-family:var(--font-head);font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:4px}
+    .stat-lbl{font-size:.78em;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+    .sec-div{display:flex;align-items:center;gap:16px;margin:48px 0 28px}
+    .sec-div .sdl{flex:1;height:1px;background:var(--glass-border)}
+    .sec-div span{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:.75em;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a78bfa;padding:6px 16px;border:1px solid rgba(139,92,246,.2);border-radius:50px;background:rgba(139,92,246,.06);white-space:nowrap}
+    .embed-card{background:var(--glass-bg);border:1.5px solid var(--glass-border);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:36px;transition:var(--transition)}
+    .embed-card:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(74,62,53,.1)}
+    .embed-hdr{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--glass-border)}
+    .embed-hdr .tool-icon-wrap{width:48px;height:48px;font-size:1.3em}
+    .embed-title{font-family:var(--font-head);font-size:1.08rem;font-weight:800;color:var(--text-primary)}
+    .embed-sub{font-size:.8em;color:var(--text-muted);margin-top:2px}
+    .embed-body{position:relative}
+    .ico-desmos{background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(14,165,233,.2));border:1px solid rgba(99,102,241,.35);color:#818cf8}
+    .ico-gg{background:linear-gradient(135deg,rgba(16,185,129,.3),rgba(14,165,233,.2));border:1px solid rgba(16,185,129,.35);color:#34d399}
+    .ico-phet{background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(239,68,68,.2));border:1px solid rgba(245,158,11,.35);color:#fbbf24}
+    .ico-kahoot{background:linear-gradient(135deg,rgba(139,92,246,.3),rgba(236,72,153,.2));border:1px solid rgba(139,92,246,.35);color:#c084fc}
+    .ico-wolf{background:linear-gradient(135deg,rgba(239,68,68,.3),rgba(245,158,11,.2));border:1px solid rgba(239,68,68,.35);color:#f87171}
+    .ico-mway{background:linear-gradient(135deg,rgba(6,182,212,.3),rgba(16,185,129,.2));border:1px solid rgba(6,182,212,.35);color:#22d3ee}
+    .ico-quiz{background:linear-gradient(135deg,rgba(236,72,153,.3),rgba(139,92,246,.2));border:1px solid rgba(236,72,153,.35);color:#f472b6}
+    .ico-scratch{background:linear-gradient(135deg,rgba(251,146,60,.3),rgba(245,158,11,.2));border:1px solid rgba(251,146,60,.35);color:#fb923c}
+    .ico-mp{background:linear-gradient(135deg,rgba(52,211,153,.3),rgba(6,182,212,.2));border:1px solid rgba(52,211,153,.35);color:#34d399}
+    .ico-nrich{background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(236,72,153,.2));border:1px solid rgba(99,102,241,.35);color:#818cf8}
+    .ico-mig{background:linear-gradient(135deg,rgba(236,72,153,.3),rgba(245,158,11,.2));border:1px solid rgba(236,72,153,.35);color:#f472b6}
+    .ico-sci{background:linear-gradient(135deg,rgba(99,102,241,.35),rgba(6,182,212,.2));border:1px solid rgba(99,102,241,.4);color:#818cf8}
+    .tg{background:rgba(99,102,241,.1);color:#6366f1;border:1px solid rgba(99,102,241,.2)}
+    .tgg{background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2)}
+    .tp{background:rgba(245,158,11,.1);color:#d97706;border:1px solid rgba(245,158,11,.2)}
+    .tq{background:rgba(139,92,246,.1);color:#7c3aed;border:1px solid rgba(139,92,246,.2)}
+    .ta{background:rgba(239,68,68,.1);color:#dc2626;border:1px solid rgba(239,68,68,.2)}
+    .ts{background:rgba(6,182,212,.1);color:#0891b2;border:1px solid rgba(6,182,212,.2)}
+    .tc{background:rgba(251,146,60,.1);color:#ea580c;border:1px solid rgba(251,146,60,.2)}
+    .tac{background:rgba(52,211,153,.1);color:#059669;border:1px solid rgba(52,211,153,.2)}
+    .tpz{background:rgba(236,72,153,.1);color:#db2777;border:1px solid rgba(236,72,153,.2)}
+    .back-pill{display:inline-flex;align-items:center;gap:8px;margin:12px 0 28px;padding:9px 20px;background:var(--glass-bg);color:var(--text-primary);text-decoration:none;border-radius:50px;font-weight:700;font-size:.88em;border:1px solid var(--glass-border);transition:var(--transition)}
+    .back-pill:hover{background:#4c1d95;color:#fff;border-color:#4c1d95;transform:translateX(-3px)}
+    @media(max-width:768px){.tools-grid{grid-template-columns:1fr}.sim-modal{max-height:95vh}}
+  </style>
+</head>
+<body>
+<div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div><div class="blob blob-4"></div></div>
+<div class="page-wrapper">
+<header class="site-header">
+  <div class="container">
+    <div class="page-chip"><i class="fa-solid fa-star"></i> PM SHRI KV Ranikhet</div>
+    <h1>K B Joshi</h1>
+    <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+    <h3>Teacher's Digital Diary</h3>
+  </div>
+  <a href="#" id="profileLink" title="View Teacher Profile"><img src="kbjoshi.png" alt="K B Joshi" class="profile-photo"></a>
+</header>
+<nav class="nav-bar"><div class="container"><div class="nav">
+  <a href="index.html"><i class="fas fa-home"></i> Home</a>
+  <a href="#" id="profileNavLink" onclick="document.getElementById('profileLink').click();return false;">Profile</a>
+  <a href="timetable.html">Timetable</a><a href="syllabus.html">Syllabus</a>
+  <a href="lessonplan.html">Lesson Plan</a><a href="codeofconduct.html">Code of Conduct</a>
+  <a href="activities.html">Activities</a><a href="ncertbooks.html">NCERT Books</a>
+  <a href="homework.html">Homework</a><a href="digitalcontent.html">Digital Content</a>
+  <a href="examination.html">Examination</a><a href="ioqm.html">IOQM</a>
+  <a href="geogebra.html">GeoGebra</a><a href="3dshapes.html">3D Shapes</a>
+  <a href="robocompass.html">RoboCompass</a><a href="interactive.html">Interactive</a>
+  <a href="simulations.html" class="active">&#9881; Simulations</a>
+  <a href="studymaterial.html">Study Material</a><a href="board.html">Board</a><a href="learners.html">Learners</a>
+</div></div></nav>
+<section class="page-hero">
+  <div class="container" style="text-align:center;">
+    <span class="page-hero-icon">ðŸ§®</span>
+    <h1>Math Simulation &amp; Digital Tools</h1>
+    <p>Explore, visualise, play and learn â€” interactive graphing calculators, physics simulations, gamified quizzes, and AI-powered solvers, all in one place.</p>
+  </div>
+</section>
+<main><div class="container">
+  <a href="index.html" class="back-pill fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  <div class="stat-strip fade-in">
+    <div class="stat-box"><div class="stat-num">14+</div><div class="stat-lbl">Tools Listed</div></div>
+    <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Live Embeds</div></div>
+    <div class="stat-box"><div class="stat-num">Free</div><div class="stat-lbl">All Tools Free</div></div>
+    <div class="stat-box"><div class="stat-num">VI-XII</div><div class="stat-lbl">Classes Covered</div></div>
+    <div class="stat-box"><div class="stat-num">CBSE</div><div class="stat-lbl">Curriculum Aligned</div></div>
+  </div>
+  <div class="cat-filter-bar fade-in-1">
+    <button class="cat-btn active" data-cat="all"><i class="fas fa-th"></i> All Tools</button>
+    <button class="cat-btn" data-cat="graphing"><i class="fas fa-chart-line"></i> Graphing</button>
+    <button class="cat-btn" data-cat="geometry"><i class="fas fa-shapes"></i> Geometry</button>
+    <button class="cat-btn" data-cat="algebra"><i class="fas fa-infinity"></i> Algebra &amp; Solver</button>
+    <button class="cat-btn" data-cat="quiz"><i class="fas fa-gamepad"></i> Quiz &amp; Games</button>
+    <button class="cat-btn" data-cat="activities"><i class="fas fa-puzzle-piece"></i> Activities</button>
+    <button class="cat-btn" data-cat="physics"><i class="fas fa-atom"></i> Physics / Science</button>
+  </div>
+  <div class="tools-grid fade-in-2" id="toolsGrid">
+
+    <div class="tool-card" data-cat="graphing">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-desmos">ðŸ“ˆ</div><div><div class="tool-name">Desmos Graphing Calculator</div><span class="tool-tag tg">Graphing</span></div></div>
+        <p class="tool-desc">World's most popular graphing calculator. Plot any function, create sliders, animate graphs, and explore mathematical relationships visually. Perfect for Calculus, Trigonometry and Algebra.</p>
+        <div class="tool-features"><span class="feat-chip">Function Plotter</span><span class="feat-chip">Sliders &amp; Animation</span><span class="feat-chip">Polar Graphs</span><span class="feat-chip">Tables</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Desmos Graphing Calculator','https://www.desmos.com/calculator','ico-desmos','ðŸ“ˆ','Free graphing calculator â€” plot any function in seconds.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.desmos.com/calculator" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="algebra">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-sci">ðŸ”¢</div><div><div class="tool-name">Desmos Scientific Calculator</div><span class="tool-tag ta">Algebra &amp; Arithmetic</span></div></div>
+        <p class="tool-desc">Full-featured scientific calculator for arithmetic, trigonometry, logarithms, matrices, and more. Ideal for Class 9-12 students in board exam preparation.</p>
+        <div class="tool-features"><span class="feat-chip">Trig Functions</span><span class="feat-chip">Logarithms</span><span class="feat-chip">Matrices</span><span class="feat-chip">Statistics</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Desmos Scientific Calculator','https://www.desmos.com/scientific','ico-sci','ðŸ”¢','Scientific calculator for all CBSE computations.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.desmos.com/scientific" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="graphing geometry">
+      <div class="tool-ribbon">Embedded Below</div>
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-gg">ðŸ“</div><div><div class="tool-name">GeoGebra Graphing</div><span class="tool-tag tg">Graphing &amp; Geometry</span></div></div>
+        <p class="tool-desc">Plot functions, investigate transformations, explore geometric relationships. Supports graphing, geometry, CAS, spreadsheet, and 3D views seamlessly.</p>
+        <div class="tool-features"><span class="feat-chip">3D Graphs</span><span class="feat-chip">Geometry</span><span class="feat-chip">CAS</span><span class="feat-chip">Probability</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('GeoGebra Graphing Calculator','https://www.geogebra.org/calculator','ico-gg','ðŸ“','Dynamic mathematics visualization and construction tool.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.geogebra.org/calculator" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="geometry">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-gg">ðŸ“</div><div><div class="tool-name">GeoGebra Geometry</div><span class="tool-tag tgg">Geometry</span></div></div>
+        <p class="tool-desc">Construct points, lines, angles, triangles, circles, and polygons. Explore Euclidean theorems interactively â€” perfect for Classes 6-10 geometry topics.</p>
+        <div class="tool-features"><span class="feat-chip">Compass &amp; Ruler</span><span class="feat-chip">Circle Theorems</span><span class="feat-chip">Locus</span><span class="feat-chip">Transformations</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('GeoGebra Geometry Tool','https://www.geogebra.org/geometry','ico-gg','ðŸ“','Euclidean geometry constructions and theorem exploration.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.geogebra.org/geometry" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="geometry graphing">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-gg">ðŸ§Š</div><div><div class="tool-name">GeoGebra 3D Calculator</div><span class="tool-tag tgg">3D Geometry</span></div></div>
+        <p class="tool-desc">Visualise 3D surfaces, vectors, planes, and solid geometry. Ideal for Class XII topics like 3D Geometry, Vectors, and visualising conic sections.</p>
+        <div class="tool-features"><span class="feat-chip">3D Surfaces</span><span class="feat-chip">Vectors</span><span class="feat-chip">Planes</span><span class="feat-chip">Solid Geometry</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('GeoGebra 3D Calculator','https://www.geogebra.org/3d','ico-gg','ðŸ§Š','3D graphing for vectors, planes and solid geometry.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.geogebra.org/3d" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="physics activities">
+      <div class="tool-ribbon">Embedded Below</div>
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-phet">âš—ï¸</div><div><div class="tool-name">PhET Interactive Simulations</div><span class="tool-tag tp">Physics &amp; Science</span></div></div>
+        <p class="tool-desc">Nobel Prize-winning simulations from University of Colorado. Explore algebra, arithmetic, fractions, vectors, probability through research-based interactive simulations.</p>
+        <div class="tool-features"><span class="feat-chip">Arithmetic</span><span class="feat-chip">Fractions</span><span class="feat-chip">Vectors</span><span class="feat-chip">Probability</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('PhET Math Simulations','https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html','ico-phet','âš—ï¸','Research-based interactive math simulations from University of Colorado.')"><i class="fas fa-play-circle"></i> Browse PhET</button>
+        <a href="https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="quiz">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-kahoot">ðŸŽ®</div><div><div class="tool-name">Kahoot!</div><span class="tool-tag tq">Quiz &amp; Game</span></div></div>
+        <p class="tool-desc">Create and play live mathematics quizzes in class. Make learning competitive and fun with real-time leaderboards. Teachers can host custom maths Kahoots for any chapter.</p>
+        <div class="tool-features"><span class="feat-chip">Live Quiz</span><span class="feat-chip">Leaderboard</span><span class="feat-chip">Team Mode</span><span class="feat-chip">Teacher Dashboard</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openNoEmbed('Kahoot!','Kahoot restricts embedding to protect student privacy. Click Open Kahoot to host or join a live quiz session.','ico-kahoot','ðŸŽ®','https://kahoot.com')"><i class="fas fa-info-circle"></i> About</button>
+        <a href="https://kahoot.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Kahoot</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="quiz">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-quiz">ðŸ†</div><div><div class="tool-name">Quizizz</div><span class="tool-tag tq">Quiz &amp; Practice</span></div></div>
+        <p class="tool-desc">Self-paced and teacher-led math quizzes. Practice chapter-wise MCQs at your own pace with over 50 million questions for all CBSE classes.</p>
+        <div class="tool-features"><span class="feat-chip">Self-Paced</span><span class="feat-chip">MCQ Practice</span><span class="feat-chip">Instant Feedback</span><span class="feat-chip">Reports</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Quizizz â€” Math Practice','https://quizizz.com/','ico-quiz','ðŸ†','Self-paced math quiz practice platform.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://quizizz.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="algebra">
+      <div class="tool-ribbon">AI Powered</div>
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-wolf">ðŸ§ </div><div><div class="tool-name">WolframAlpha</div><span class="tool-tag ta">AI Computation Engine</span></div></div>
+        <p class="tool-desc">World's leading computational knowledge engine. Solve integrals, derivatives, matrices, limits, and get step-by-step solutions instantly for Class XI and XII board preparation.</p>
+        <div class="tool-features"><span class="feat-chip">Step-by-Step</span><span class="feat-chip">Integrals</span><span class="feat-chip">Matrices</span><span class="feat-chip">Number Theory</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('WolframAlpha','https://www.wolframalpha.com/','ico-wolf','ðŸ§ ','Computational knowledge engine for all mathematics topics.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.wolframalpha.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="algebra">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-mway">ðŸ“</div><div><div class="tool-name">Mathway</div><span class="tool-tag ts">Step-by-Step Solver</span></div></div>
+        <p class="tool-desc">Type or photograph any math problem and get instant step-by-step solutions. Covers arithmetic, algebra, trigonometry, calculus, statistics, and linear programming.</p>
+        <div class="tool-features"><span class="feat-chip">Photo Solver</span><span class="feat-chip">Calculus</span><span class="feat-chip">Trigonometry</span><span class="feat-chip">Linear Programming</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Mathway â€” Math Problem Solver','https://www.mathway.com/','ico-mway','ðŸ“','Instant step-by-step math problem solver.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.mathway.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="activities algebra geometry">
+      <div class="tool-ribbon">Recommended</div>
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-mig">ðŸŒŸ</div><div><div class="tool-name">Mathigon Polypad</div><span class="tool-tag tac">Interactive Textbook</span></div></div>
+        <p class="tool-desc">Beautiful virtual manipulatives including fraction bars, algebra tiles, number lines, tangrams, and more. Ideal for class demonstrations.</p>
+        <div class="tool-features"><span class="feat-chip">Virtual Manipulatives</span><span class="feat-chip">Algebra Tiles</span><span class="feat-chip">Number Line</span><span class="feat-chip">Fraction Bars</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Mathigon Polypad','https://mathigon.org/polypad','ico-mig','ðŸŒŸ','Interactive virtual manipulatives for mathematics teaching.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://mathigon.org/polypad" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="activities">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-scratch">ðŸ±</div><div><div class="tool-name">Scratch â€” Math Projects</div><span class="tool-tag tc">Coding &amp; Math</span></div></div>
+        <p class="tool-desc">MIT visual programming language for creating mathematics animations, simulations, and games. Students can code geometric patterns, fractals, and math stories.</p>
+        <div class="tool-features"><span class="feat-chip">Visual Coding</span><span class="feat-chip">Fractals</span><span class="feat-chip">Math Animation</span><span class="feat-chip">Games</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Scratch â€” Math Projects','https://scratch.mit.edu/explore/projects/math/','ico-scratch','ðŸ±','Create math animations and games with visual coding.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://scratch.mit.edu" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Scratch</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="quiz activities">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-mp">ðŸŽ¡</div><div><div class="tool-name">Math Playground</div><span class="tool-tag tac">Games &amp; Logic</span></div></div>
+        <p class="tool-desc">Teacher-approved math games for Classes 6-10. Explore logic puzzles, fraction operations, and word problems with visual, game-based learning.</p>
+        <div class="tool-features"><span class="feat-chip">Logic Puzzles</span><span class="feat-chip">Fractions</span><span class="feat-chip">Number Games</span><span class="feat-chip">Word Problems</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('Math Playground','https://www.mathplayground.com/','ico-mp','ðŸŽ¡','Teacher-approved math games and puzzles for middle school.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://www.mathplayground.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+    <div class="tool-card" data-cat="activities">
+      <div class="tool-card-top">
+        <div class="tool-card-header"><div class="tool-icon-wrap ico-nrich">ðŸ”¬</div><div><div class="tool-name">NRICH Mathematics</div><span class="tool-tag tpz">Rich Problems &amp; Puzzles</span></div></div>
+        <p class="tool-desc">University of Cambridge mathematics enrichment platform. Rich problems, investigations, and interactives that develop deep problem-solving skills â€” ideal for IOQM preparation.</p>
+        <div class="tool-features"><span class="feat-chip">Olympiad Prep</span><span class="feat-chip">Investigations</span><span class="feat-chip">Interactives</span><span class="feat-chip">Problem Solving</span></div>
+      </div>
+      <div class="tool-card-footer">
+        <button class="tool-launch-btn btn-prev" onclick="openSim('NRICH Mathematics','https://nrich.maths.org/','ico-nrich','ðŸ”¬','Cambridge University math enrichment activities.')"><i class="fas fa-play-circle"></i> Preview</button>
+        <a href="https://nrich.maths.org" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sec-div fade-in"><div class="sdl"></div><span><i class="fas fa-desktop"></i> Featured Live Embeds â€” Use Directly Below</span><div class="sdl"></div></div>
+
+  <div class="embed-card fade-in-1">
+    <div class="embed-hdr"><div class="tool-icon-wrap ico-desmos">ðŸ“ˆ</div><div style="flex:1;"><div class="embed-title">Desmos Graphing Calculator</div><div class="embed-sub">Plot functions, create sliders, and explore mathematical relationships interactively</div></div><a href="https://www.desmos.com/calculator" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;"><i class="fas fa-expand"></i> Full Screen</a></div>
+    <div class="embed-body"><div class="sim-loading" id="d1"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading Desmos...</div></div><iframe src="https://www.desmos.com/calculator" style="width:100%;height:580px;border:none;display:block;" title="Desmos Graphing Calculator" onload="document.getElementById('d1').style.display='none'" allowfullscreen></iframe></div>
+  </div>
+
+  <div class="embed-card fade-in-2">
+    <div class="embed-hdr"><div class="tool-icon-wrap ico-gg">ðŸ“</div><div style="flex:1;"><div class="embed-title">GeoGebra Classic â€” Full Suite</div><div class="embed-sub">Algebra, geometry, CAS â€” all integrated in one powerful tool</div></div><a href="https://www.geogebra.org/classic" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#10b981,#0ea5e9);"><i class="fas fa-expand"></i> Full Screen</a></div>
+    <div class="embed-body"><div class="sim-loading" id="d2"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading GeoGebra...</div></div><iframe src="https://www.geogebra.org/classic" style="width:100%;height:580px;border:none;display:block;" title="GeoGebra Classic" onload="document.getElementById('d2').style.display='none'" allowfullscreen></iframe></div>
+  </div>
+
+  <div class="embed-card fade-in-3">
+    <div class="embed-hdr"><div class="tool-icon-wrap ico-phet">âš—ï¸</div><div style="flex:1;"><div class="embed-title">PhET â€” Number Line: Integers Simulation</div><div class="embed-sub">Interactive simulation for understanding integers on a number line â€” Class VI-VII</div></div><a href="https://phet.colorado.edu/en/simulations/number-line-integers" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#f59e0b,#ef4444);"><i class="fas fa-expand"></i> Full Screen</a></div>
+    <div class="embed-body"><div class="sim-loading" id="d3"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading PhET Simulation...</div></div><iframe src="https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_en.html" style="width:100%;height:500px;border:none;display:block;" title="PhET Number Line Integers" onload="document.getElementById('d3').style.display='none'" allowfullscreen></iframe></div>
+  </div>
+
+  <div class="embed-card fade-in-1">
+    <div class="embed-hdr"><div class="tool-icon-wrap ico-mig">ðŸŒŸ</div><div style="flex:1;"><div class="embed-title">Mathigon Polypad â€” Virtual Manipulatives</div><div class="embed-sub">Drag-and-drop virtual manipulatives: algebra tiles, number lines, fraction bars, tangrams</div></div><a href="https://mathigon.org/polypad" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#ec4899,#f59e0b);"><i class="fas fa-expand"></i> Full Screen</a></div>
+    <div class="embed-body"><div class="sim-loading" id="d4"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading Mathigon Polypad...</div></div><iframe src="https://mathigon.org/polypad" style="width:100%;height:580px;border:none;display:block;" title="Mathigon Polypad" onload="document.getElementById('d4').style.display='none'" allowfullscreen></iframe></div>
+  </div>
+
+  <div class="embed-card fade-in-2" style="margin-bottom:60px;">
+    <div class="embed-hdr"><div class="tool-icon-wrap ico-scratch">ðŸ±</div><div style="flex:1;"><div class="embed-title">Scratch â€” Create Math Animations</div><div class="embed-sub">MIT free coding platform â€” build geometric patterns and math simulations</div></div><a href="https://scratch.mit.edu/projects/editor" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#fb923c,#f59e0b);"><i class="fas fa-expand"></i> Full Screen</a></div>
+    <div class="embed-body"><div class="sim-loading" id="d5"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading Scratch Editor...</div></div><iframe src="https://scratch.mit.edu/projects/editor" style="width:100%;height:580px;border:none;display:block;" title="Scratch Editor" onload="document.getElementById('d5').style.display='none'" allowfullscreen></iframe></div>
+  </div>
+
+</div></main>
+
+<footer class="site-footer"><div class="container"><div class="footer-grid">
+  <div class="footer-brand"><h3>ðŸ““ Teacher's Digital Diary</h3><p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p></div>
+  <div class="footer-col"><h4>Simulation Tools</h4><ul>
+    <li><a href="https://www.desmos.com/calculator" target="_blank"><i class="fas fa-chevron-right"></i> Desmos Graphing</a></li>
+    <li><a href="https://www.geogebra.org/calculator" target="_blank"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+    <li><a href="https://phet.colorado.edu" target="_blank"><i class="fas fa-chevron-right"></i> PhET Simulations</a></li>
+    <li><a href="https://kahoot.com" target="_blank"><i class="fas fa-chevron-right"></i> Kahoot!</a></li>
+    <li><a href="https://www.wolframalpha.com" target="_blank"><i class="fas fa-chevron-right"></i> WolframAlpha</a></li>
+  </ul></div>
+  <div class="footer-col"><h4>Quick Links</h4><ul>
+    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+    <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra Page</a></li>
+    <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Lessons</a></li>
+    <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+    <li><a href="digitalcontent.html"><i class="fas fa-chevron-right"></i> Digital Content</a></li>
+  </ul></div>
+  <div class="footer-col"><h4>Contact</h4><ul>
+    <li><a href="mailto:kboshikv2008@gmail.com"><i class="fas fa-envelope"></i> kboshikv2008@gmail.com</a></li>
+    <li><a href="https://wa.me/919410121232" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Me</a></li>
+    <li><a href="http://www.youtube.com/@KBJ25" target="_blank"><i class="fab fa-youtube"></i> YouTube Channel</a></li>
+  </ul></div>
+</div><div class="footer-bottom"><p>&copy; 2025 <strong>K B Joshi</strong> &mdash; PGT Mathematics, PM SHRI KV Ranikhet. All rights reserved.</p><a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><i class="fa-solid fa-arrow-up"></i> Back to Top</a></div></div></footer>
+</div>
+
+<div class="sim-modal-overlay" id="simModalOverlay" onclick="if(event.target===this)closeSim()">
+  <div class="sim-modal">
+    <div class="sim-modal-header">
+      <div class="sim-modal-icon" id="simModalIcon">ðŸ§®</div>
+      <div style="flex:1;"><div class="sim-modal-title" id="simModalTitle">Tool Preview</div><div class="sim-modal-subtitle" id="simModalSubtitle"></div></div>
+      <div class="sim-modal-actions">
+        <a href="#" id="simModalExtLink" target="_blank" class="sim-modal-btn sim-btn-ext"><i class="fas fa-external-link-alt"></i> Open Full Screen</a>
+        <button class="sim-modal-btn sim-btn-close" onclick="closeSim()"><i class="fas fa-times"></i> Close</button>
+      </div>
+    </div>
+    <div class="sim-modal-body" id="simModalBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="passwordModal"><div class="modal-content">
+  <span class="close-btn" id="closeModal">&times;</span><h2>SECURE PROFILE ACCESS</h2>
+  <div class="teacher-info"><div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div><div class="teacher-details"><h3>KIRTI BALLABH JOSHI</h3><p>PGT Mathematics</p><p>PM SHRI KV Ranikhet</p></div></div>
+  <div class="password-form"><div class="form-group"><label for="password">Enter Access Password</label><div class="password-container"><input type="password" id="password" placeholder="Secure password required"><button class="toggle-password" id="togglePassword">&#128065;&#65039;</button></div></div><button class="submit-btn" id="submitPassword">ACCESS PROFILE</button><div class="error-message" id="errorMessage"></div><div class="security-info">&#128274; Profile access is securely encrypted and monitored</div></div>
+</div></div>
+
+<button id="backToTop" title="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<script>
+document.querySelectorAll('.cat-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const c=b.dataset.cat;document.querySelectorAll('.tool-card').forEach(card=>{card.style.display=(c==='all'||card.dataset.cat.includes(c))?'':'none';});});});
+function openSim(t,u,ic,em,sub){const o=document.getElementById('simModalOverlay');document.getElementById('simModalTitle').textContent=t;document.getElementById('simModalSubtitle').textContent=sub;const i=document.getElementById('simModalIcon');i.textContent=em;i.className='sim-modal-icon '+ic;document.getElementById('simModalExtLink').href=u;document.getElementById('simModalBody').innerHTML='<div class="sim-loading" id="ms"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading '+t+'...</div></div><iframe src="'+u+'" style="width:100%;height:100%;min-height:480px;border:none;display:block;" title="'+t+'" allowfullscreen onload="var s=document.getElementById(\'ms\');if(s)s.style.display=\'none\';"></iframe>';o.classList.add('open');document.body.style.overflow='hidden';}
+function openNoEmbed(t,msg,ic,em,eu){const o=document.getElementById('simModalOverlay');document.getElementById('simModalTitle').textContent=t;document.getElementById('simModalSubtitle').textContent='External platform â€” opens in new tab';const i=document.getElementById('simModalIcon');i.textContent=em;i.className='sim-modal-icon '+ic;document.getElementById('simModalExtLink').href=eu;document.getElementById('simModalBody').innerHTML='<div class="sim-noembed"><div class="ne-icon">'+em+'</div><h3>'+t+'</h3><p>'+msg+'</p><a href="'+eu+'" target="_blank" class="tool-launch-btn btn-lp" style="width:auto;padding:12px 28px;"><i class="fas fa-external-link-alt"></i> Open '+t+' in New Tab</a></div>';o.classList.add('open');document.body.style.overflow='hidden';}
+function closeSim(){document.getElementById('simModalOverlay').classList.remove('open');document.body.style.overflow='';setTimeout(()=>{document.getElementById('simModalBody').innerHTML='';},300);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSim();});
+window.addEventListener('scroll',()=>{document.getElementById('backToTop').classList.toggle('visible',window.scrollY>300);});
+document.getElementById('backToTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+document.addEventListener('DOMContentLoaded',()=>{const modal=document.getElementById('passwordModal'),pl=document.getElementById('profileLink'),cm=document.getElementById('closeModal'),tp=document.getElementById('togglePassword'),pi=document.getElementById('password'),sb=document.getElementById('submitPassword'),em=document.getElementById('errorMessage');pl.addEventListener('click',e=>{e.preventDefault();modal.style.display='flex';pi.focus();});cm.addEventListener('click',()=>{modal.style.display='none';pi.value='';em.textContent='';});window.addEventListener('click',e=>{if(e.target===modal){modal.style.display='none';pi.value='';em.textContent='';}});tp.addEventListener('click',function(){const t=pi.getAttribute('type')==='password'?'text':'password';pi.setAttribute('type',t);this.textContent=t==='password'?'\uD83D\uDC41\uFE0F':'\uD83D\uDD12';});sb.addEventListener('click',()=>{const p=pi.value;em.textContent='';if(!p){em.textContent='Please enter your access password';return;}if(p==='KV@2025'){sb.textContent='Authenticating...';sb.disabled=true;setTimeout(()=>{window.location.href='profile.html';},1200);}else{em.textContent='Incorrect password. Please try again.';pi.value='';pi.focus();sb.classList.add('shake');setTimeout(()=>sb.classList.remove('shake'),500);}});pi.addEventListener('keypress',e=>{if(e.key==='Enter')sb.click();});});
+</script>
+</body>
+</html>
