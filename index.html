@@ -1571,6 +1571,7 @@
       font-size: 1.08rem !important;
       font-weight: 500 !important;
       line-height: 1.65 !important;
+      position: relative !important;
     }
 
     .bg-blobs {
@@ -2112,9 +2113,80 @@
       color: #ffffff !important;
       border-color: #4c1d95 !important;
     }
+
+    /* Global Background Mathematical Symbols and Equations */
+    .global-math-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+    .global-math-bg span {
+      position: absolute;
+      font-weight: 700;
+      color: rgba(120, 53, 4, 0.035) !important; /* Extremely faint sepia brown */
+      font-family: 'Poppins', 'Inter', 'Courier New', monospace;
+      white-space: nowrap;
+    }
+    .global-math-bg span:nth-child(1) { top: 4%; left: 3%; font-size: 1.8rem; }
+    .global-math-bg span:nth-child(2) { top: 8%; right: 4%; font-size: 1.6rem; }
+    .global-math-bg span:nth-child(3) { top: 14%; left: 5%; font-size: 2.2rem; }
+    .global-math-bg span:nth-child(4) { top: 18%; right: 5%; font-size: 2rem; }
+    .global-math-bg span:nth-child(5) { top: 22%; left: 2%; font-size: 1.5rem; }
+    .global-math-bg span:nth-child(6) { top: 26%; right: 3%; font-size: 1.7rem; }
+    .global-math-bg span:nth-child(7) { top: 31%; left: 4%; font-size: 2.4rem; }
+    .global-math-bg span:nth-child(8) { top: 35%; right: 6%; font-size: 2rem; }
+    .global-math-bg span:nth-child(9) { top: 40%; left: 3%; font-size: 1.6rem; }
+    .global-math-bg span:nth-child(10) { top: 45%; right: 2%; font-size: 1.9rem; }
+    .global-math-bg span:nth-child(11) { top: 50%; left: 5%; font-size: 2.3rem; }
+    .global-math-bg span:nth-child(12) { top: 54%; right: 4%; font-size: 1.8rem; }
+    .global-math-bg span:nth-child(13) { top: 58%; left: 2%; font-size: 1.6rem; }
+    .global-math-bg span:nth-child(14) { top: 62%; right: 5%; font-size: 2.2rem; }
+    .global-math-bg span:nth-child(15) { top: 67%; left: 4%; font-size: 2.5rem; }
+    .global-math-bg span:nth-child(16) { top: 71%; right: 3%; font-size: 1.9rem; }
+    .global-math-bg span:nth-child(17) { top: 76%; left: 3%; font-size: 1.7rem; }
+    .global-math-bg span:nth-child(18) { top: 80%; right: 4%; font-size: 2.1rem; }
+    .global-math-bg span:nth-child(19) { top: 85%; left: 4%; font-size: 2.3rem; }
+    .global-math-bg span:nth-child(20) { top: 90%; right: 2%; font-size: 1.8rem; }
+    .global-math-bg span:nth-child(21) { top: 93%; left: 3%; font-size: 2.1rem; }
+
+    @media (max-width: 1024px) {
+      .global-math-bg {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Global Background Mathematical Notations and Equations -->
+  <div class="global-math-bg">
+    <span>e^(iπ) + 1 = 0</span>
+    <span>∑(1/n²) = π²/6</span>
+    <span>x = (-b ± √(b² - 4ac)) / 2a</span>
+    <span>f'(x) = lim[h→0] (f(x+h)-f(x))/h</span>
+    <span>∫ e^(-x²) dx = √π</span>
+    <span>a² + b² = c²</span>
+    <span>∇ × E = -∂B/∂t</span>
+    <span>lim [x→0] (sin x)/x = 1</span>
+    <span>sin²θ + cos²θ = 1</span>
+    <span>E = mc²</span>
+    <span>P(A|B) = P(B|A)P(A)/P(B)</span>
+    <span>d = √((x₂-x₁)² + (y₂-y₁)²)</span>
+    <span>A = π r²</span>
+    <span>V = 4/3 π r³</span>
+    <span>φ = (1 + √5)/2</span>
+    <span>1729</span>
+    <span>∞</span>
+    <span>ζ(s) = ∑(1/nˢ)</span>
+    <span>i² = -1</span>
+    <span>log(xy) = log(x) + log(y)</span>
+    <span>F = G(m₁m₂)/r²</span>
+  </div>
 
   <!-- Animated Background Blobs -->
   <div class="bg-blobs">
