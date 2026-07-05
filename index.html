@@ -229,7 +229,7 @@
     }
     .hero-meta-chip i { color: #a78bfa; font-size: 0.9em; }
 
-    /* ===================== TOP NAV BAR ===================== */
+    /* ===================== TOP NAV BAR & DROPDOWNS ===================== */
     .nav-bar {
       background: rgba(15,12,41,0.85);
       backdrop-filter: blur(20px);
@@ -245,20 +245,26 @@
     .nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      padding: 10px 0;
+      gap: 16px;
+      padding: 12px 0;
       justify-content: center;
       align-items: center;
     }
 
-    .nav a {
-      padding: 8px 16px;
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-item .dropdown-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
       background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.82);
+      color: rgba(255,255,255,0.85);
       text-decoration: none;
       border-radius: 8px;
-      text-align: center;
-      font-weight: 500;
+      font-weight: 600;
       font-family: 'Poppins', sans-serif;
       transition: var(--transition);
       border: 1px solid rgba(255,255,255,0.07);
@@ -266,14 +272,121 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       white-space: nowrap;
+      cursor: pointer;
     }
 
-    .nav a:hover {
-      background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(14,165,233,0.4));
+    .nav-item .dropdown-trigger i.fa-chevron-down {
+      font-size: 0.8em;
+      transition: transform 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .nav-item:hover .dropdown-trigger {
+      background: linear-gradient(135deg, rgba(139,92,246,0.4), rgba(14,165,233,0.3));
       border-color: rgba(139,92,246,0.5);
       color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139,92,246,0.3);
+      box-shadow: 0 6px 20px rgba(139,92,246,0.25);
+    }
+
+    .nav-item:hover .dropdown-trigger i.fa-chevron-down {
+      transform: rotate(180deg);
+      color: #ffd700;
+    }
+
+    /* Glassmorphic Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(15px);
+      background: linear-gradient(135deg, rgba(22, 12, 51, 0.96), rgba(7, 4, 18, 0.99));
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      width: 250px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .nav-item:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(8px);
+      pointer-events: auto;
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.85em;
+      font-weight: 500;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      text-align: left;
+    }
+
+    .dropdown-menu a i {
+      width: 16px;
+      text-align: center;
+      font-size: 1.05em;
+      color: #a78bfa;
+      transition: var(--transition);
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,0.06);
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.08);
+      padding-left: 18px;
+    }
+
+    .dropdown-menu a:hover i {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        gap: 8px;
+        padding: 8px;
+      }
+      .nav-item {
+        width: 100%;
+      }
+      .nav-item .dropdown-trigger {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .dropdown-menu {
+        position: static;
+        transform: none !important;
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        margin-top: 4px;
+        pointer-events: auto;
+      }
+      .nav-item:hover .dropdown-menu {
+        display: flex;
+      }
     }
 
     /* ===================== MAIN CONTENT ===================== */
@@ -466,10 +579,54 @@
       border: 1px solid rgba(245,158,11,0.25);
       border-radius: var(--radius-md);
       padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
     }
-    .edu-quote-sm .quote-mark { font-size: 2.5em; line-height: 0.5; color: rgba(245,158,11,0.5); font-family: Georgia, serif; }
-    .edu-quote-sm p { font-style: italic; color: rgba(255,255,255,0.8); font-size: 0.9em; line-height: 1.6; margin: 6px 0; }
-    .edu-quote-sm .quote-author { font-size: 0.78em; color: #f59e0b; font-weight: 600; letter-spacing: 0.5px; }
+    .edu-quote-sm .quote-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+    .edu-quote-sm .quote-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffd700;
+      background: rgba(245,158,11,0.15);
+      padding: 4px 10px;
+      border-radius: 50px;
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+    .edu-quote-sm .quote-refresh-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      font-size: 0.85em;
+      padding: 4px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      width: 24px;
+      height: 24px;
+    }
+    .edu-quote-sm .quote-refresh-btn:hover {
+      color: #ffd700;
+      background: rgba(255,255,255,0.08);
+      transform: rotate(180deg);
+    }
+    .edu-quote-sm .quote-mark { font-size: 2.5em; line-height: 0.5; color: rgba(245,158,11,0.5); font-family: Georgia, serif; position: relative; z-index: 2; }
+    .edu-quote-sm p { font-style: italic; color: rgba(255,255,255,0.9); font-size: 0.92em; line-height: 1.6; margin: 8px 0; min-height: 48px; position: relative; z-index: 2; }
+    .edu-quote-sm .quote-author { font-size: 0.8em; color: #f59e0b; font-weight: 600; letter-spacing: 0.5px; text-align: right; position: relative; z-index: 2; }
 
     /* ===================== QUICK ACCESS GRID ===================== */
     .quick-access { margin-bottom: 56px; }
@@ -1337,31 +1494,67 @@
     <nav class="nav-bar">
       <div class="container">
         <div class="nav">
-          <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
-          <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
-          <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
-          <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
-          <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
-          <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
-          <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
-          <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
-          <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
-          <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
-          <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
-          <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
-          <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
-          <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
-          <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
-          <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
-          <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
-          <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
-          <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
-          <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
-          <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
-          <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
-          <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
-          <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
-          <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+          
+          <!-- Group 1: Teacher's Desk -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> Profile Access</a>
+              <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+              <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
+              <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+            </div>
+          </div>
+
+          <!-- Group 2: Academics -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+              <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+              <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+              <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+              <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+              <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+            </div>
+          </div>
+
+          <!-- Group 3: Students Corner -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="timetable.html"><i class="fas fa-clock"></i> Class Timetable</a>
+              <a href="homework.html"><i class="fas fa-home"></i> Holiday Homework</a>
+              <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+              <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+              <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+              <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+            </div>
+          </div>
+
+          <!-- Group 4: Exams & Prep -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
+              <a href="board.html"><i class="fas fa-question-circle"></i> Board Question Papers</a>
+              <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+              <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
+            </div>
+          </div>
+
+          <!-- Group 5: Math Labs -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+              <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Laboratory</a>
+              <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass Geometry</a>
+              <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
+              <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding Lab</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </nav>
@@ -1396,10 +1589,14 @@
               <h4>About This Digital Diary</h4>
               <p>A comprehensive digital workspace housing lesson plans, NCERT resources, board exam papers, interactive activities, and student profiles &mdash; all accessible from one place.</p>
             </div>
-            <div class="edu-quote-sm">
-              <div class="quote-mark">&ldquo;</div>
-              <p>Pure mathematics is, in its way, the poetry of logical ideas.</p>
-              <div class="quote-author">&mdash; Albert Einstein</div>
+            <div class="edu-quote-sm" contenteditable="false">
+              <div class="quote-header">
+                <span class="quote-badge"><i class="fas fa-quote-left"></i> Quote of the Day</span>
+                <button id="nextQuoteBtn" class="quote-refresh-btn" title="Show Another Quote"><i class="fas fa-sync-alt"></i></button>
+              </div>
+              <div class="quote-mark" style="margin-top: -5px;">&ldquo;</div>
+              <p id="dailyQuoteText">Pure mathematics is, in its way, the poetry of logical ideas.</p>
+              <div class="quote-author" id="dailyQuoteAuthor">&mdash; Albert Einstein</div>
             </div>
             <div class="info-card-sm">
               <div class="ic-icon">&#127919;</div>
@@ -1717,7 +1914,7 @@
   </div>
 
   <script>
-    // ======================== LIVE DATE DISPLAY ========================
+    // ======================== LIVE DATE DISPLAY & DAILY QUOTE LOGIC ========================
     (function() {
       var dateEl = document.getElementById('currentDate');
       if (dateEl) {
@@ -1725,6 +1922,98 @@
         var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
         dateEl.textContent = now.toLocaleDateString('en-IN', options);
       }
+
+      const quotes = [
+        { text: "Pure mathematics is, in its way, the poetry of logical ideas.", author: "Albert Einstein" },
+        { text: "Mathematics is the music of reason.", author: "James Joseph Sylvester" },
+        { text: "The only way to learn mathematics is to do mathematics.", author: "Paul Halmos" },
+        { text: "Mathematics is the most beautiful and most powerful creation of the human spirit.", author: "Stefan Banach" },
+        { text: "In mathematics, the art of proposing a question must be held of higher value than the solving of it.", author: "Georg Cantor" },
+        { text: "Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding.", author: "William Paul Thurston" },
+        { text: "Nature is written in mathematical language.", author: "Galileo Galilei" },
+        { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
+        { text: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
+        { text: "Tell me and I forget. Teach me and I remember. Involve me and I learn.", author: "Benjamin Franklin" },
+        { text: "The essence of mathematics is not to make simple things complicated, but to make complicated things simple.", author: "S. Gudder" },
+        { text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
+        { text: "Do not worry about your difficulties in Mathematics. I can assure you mine are still greater.", author: "Albert Einstein" },
+        { text: "Wherever there is number, there is beauty.", author: "Proclus" },
+        { text: "Mathematics is the key and gate to the sciences.", author: "Roger Bacon" },
+        { text: "Go down deep enough into anything and you will find mathematics.", author: "Dean Schlicter" },
+        { text: "The study of mathematics, like the Nile, begins in minuteness but ends in magnificence.", author: "Charles Caleb Colton" },
+        { text: "Without mathematics, there's nothing you can do. Everything around you is mathematics. Everything around you is numbers.", author: "Shakuntala Devi" },
+        { text: "Mathematics is a game played according to certain simple rules with meaningless marks on paper.", author: "David Hilbert" },
+        { text: "If I have seen further than others, it is by standing upon the shoulders of giants.", author: "Isaac Newton" },
+        { text: "What is mathematics? It is only a systematic effort of solving puzzles posed by nature.", author: "Shakuntala Devi" },
+        { text: "Standard mathematics education is a slow process of learning to see the obvious.", author: "Richard Feynman" },
+        { text: "An equation for me has no meaning unless it expresses a thought of God.", author: "Srinivasa Ramanujan" },
+        { text: "The art of doing mathematics consists in finding that special case which contains all the germs of generality.", author: "David Hilbert" },
+        { text: "Perfect numbers like perfect men are very rare.", author: "René Descartes" },
+        { text: "Errors using inadequate data are much less than those using no data at all.", author: "Charles Babbage" },
+        { text: "Mathematics, rightly viewed, possesses not only truth, but supreme beauty.", author: "Bertrand Russell" },
+        { text: "Obvious is the most dangerous word in mathematics.", author: "Eric Temple Bell" },
+        { text: "Mathematics has beauty and romance. It's not a boring place to be, the mathematical world. It's an extraordinary place; it's worth spending time there.", author: "Marcus du Sautoy" },
+        { text: "Mathematics is the language with which God has written the universe.", author: "Galileo Galilei" },
+        { text: "The definition of a good mathematical problem is the one that generates new mathematics.", author: "Srinivasa Ramanujan" },
+        { text: "If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is.", author: "John von Neumann" },
+        { text: "In mathematics you don't understand things. You just get used to them.", author: "John von Neumann" },
+        { text: "Mathematics is the supreme judge; from its decisions there is no appeal.", author: "Tobias Dantzig" },
+        { text: "No employment can be managed without arithmetic, no mechanical invention without geometry.", author: "Benjamin Franklin" }
+      ];
+
+      function getQuoteIndexForDate() {
+        const d = new Date();
+        const dateString = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        let hash = 0;
+        for (let i = 0; i < dateString.length; i++) {
+          hash = dateString.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return Math.abs(hash) % quotes.length;
+      }
+
+      function displayQuote(index) {
+        const quoteTextEl = document.getElementById('dailyQuoteText');
+        const quoteAuthorEl = document.getElementById('dailyQuoteAuthor');
+        if (quoteTextEl && quoteAuthorEl) {
+          const q = quotes[index];
+          quoteTextEl.style.opacity = 0;
+          quoteAuthorEl.style.opacity = 0;
+          setTimeout(() => {
+            quoteTextEl.textContent = q.text;
+            quoteAuthorEl.innerHTML = "&mdash; " + q.author;
+            quoteTextEl.style.opacity = 1;
+            quoteAuthorEl.style.opacity = 1;
+          }, 250);
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const quoteTextEl = document.getElementById('dailyQuoteText');
+        const quoteAuthorEl = document.getElementById('dailyQuoteAuthor');
+        
+        if (quoteTextEl) {
+          quoteTextEl.style.transition = "opacity 0.25s ease";
+        }
+        if (quoteAuthorEl) {
+          quoteAuthorEl.style.transition = "opacity 0.25s ease";
+        }
+
+        let currentIndex = getQuoteIndexForDate();
+        displayQuote(currentIndex);
+
+        const nextBtn = document.getElementById('nextQuoteBtn');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            let nextIndex;
+            do {
+              nextIndex = Math.floor(Math.random() * quotes.length);
+            } while (nextIndex === currentIndex && quotes.length > 1);
+            
+            currentIndex = nextIndex;
+            displayQuote(currentIndex);
+          });
+        }
+      });
     })();
 
     // ======================== PASSWORD MODAL (ORIGINAL - UNCHANGED) ========================

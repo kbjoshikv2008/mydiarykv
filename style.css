@@ -230,6 +230,145 @@ body {
   box-shadow: 0 5px 18px rgba(139,92,246,0.28);
 }
 
+/* ── Dropdowns Styling (Home Page & Subpages) ───────────────── */
+.nav-item {
+  position: relative;
+}
+
+.nav-item .dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-family: var(--font-head);
+  transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-item .dropdown-trigger i.fa-chevron-down {
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+
+.nav-item:hover .dropdown-trigger {
+  background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(14,165,233,0.38));
+  border-color: rgba(139,92,246,0.5);
+  color: #fff;
+  box-shadow: 0 5px 18px rgba(139,92,246,0.28);
+}
+
+.nav-item:hover .dropdown-trigger i.fa-chevron-down {
+  transform: rotate(180deg);
+  color: #ffd700;
+}
+
+/* Glassmorphic Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(15px);
+  background: linear-gradient(135deg, rgba(22, 12, 51, 0.96), rgba(7, 4, 18, 0.99));
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  width: 250px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(8px);
+  pointer-events: auto;
+}
+
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: var(--transition);
+  border: 1px solid transparent;
+  text-align: left;
+}
+
+.dropdown-menu a i {
+  width: 16px;
+  text-align: center;
+  font-size: 1.05em;
+  color: #a78bfa;
+  transition: var(--transition);
+}
+
+.dropdown-menu a:hover {
+  background: rgba(255,255,255,0.06);
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.08);
+  padding-left: 18px;
+}
+
+.dropdown-menu a:hover i {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    gap: 8px;
+    padding: 8px;
+  }
+  .nav-item {
+    width: 100%;
+  }
+  .nav-item .dropdown-trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .dropdown-menu {
+    position: static;
+    transform: none !important;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    display: none;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 4px;
+    pointer-events: auto;
+  }
+  .nav-item:hover .dropdown-menu {
+    display: flex;
+  }
+}
+
 /* ── Page Hero Banner ───────────────────────────────────────── */
 .page-hero {
   background: linear-gradient(135deg, rgba(76,29,149,0.45) 0%, rgba(14,165,233,0.2) 100%);
