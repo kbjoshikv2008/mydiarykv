@@ -6,26 +6,26 @@
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --primary:        #5b21b6;       /* Strong Dark Violet */
-  --primary-light:  #7c3aed;
-  --primary-dark:   #3b0764;
-  --secondary:      #0369a1;     /* Strong Sky Blue */
-  --accent:         #b45309;        /* Amber Brown */
-  --accent2:        #be185d;
-  --success:        #166534;       /* Forest Green */
+  --primary:        #4c1d95;       /* Deep Violet Purple */
+  --primary-light:  #6d28d9;
+  --primary-dark:   #2e1065;
+  --secondary:      #0f766e;     /* Deep Forest Teal */
+  --accent:         #9a3412;        /* Deep Terracotta Amber */
+  --accent2:        #9d174d;
+  --success:        #14532d;       /* Dark Green */
   --danger:         #ef4444;
 
-  --bg-dark:        #ffffff;       /* Pure White Background */
-  --bg-mid:         #f8fafc;
-  --bg-surface:     #ffffff;       /* Solid White */
+  --bg-dark:        #faf5eb;       /* Warm Light Beige Background */
+  --bg-mid:         #fdfbf7;        /* Warm Cream card background */
+  --bg-surface:     #ffffff;
 
-  --glass-bg:       #ffffff;       /* Solid White */
-  --glass-border:   #cbd5e1;       /* Crisp borders */
-  --glass-shadow:   0 8px 30px rgba(15, 23, 42, 0.06);
+  --glass-bg:       #ffffff;
+  --glass-border:   #bdaea2;       /* Warm sepia border */
+  --glass-shadow:   0 8px 30px rgba(74, 62, 53, 0.05);
 
-  --text-primary:   #000000;       /* Pure Black */
-  --text-secondary: #1e293b;       /* Dark Slate */
-  --text-muted:     #334155;
+  --text-primary:   #1e1b18;       /* Deep charcoal-brown */
+  --text-secondary: #4a3e3d;       /* Muted charcoal brown */
+  --text-muted:     #695a51;
 
   --radius-xl:  24px;
   --radius-lg:  18px;
@@ -44,12 +44,12 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background-color: #f8fafc;
+  background-color: #faf5eb;
   background-image: 
-    linear-gradient(rgba(109, 40, 217, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(109, 40, 217, 0.05) 1px, transparent 1px),
-    linear-gradient(rgba(109, 40, 217, 0.02) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(109, 40, 217, 0.02) 2px, transparent 2px);
+    linear-gradient(rgba(120, 53, 4, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 53, 4, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(120, 53, 4, 0.03) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(120, 53, 4, 0.03) 2px, transparent 2px);
   background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
   background-position: center center;
   color: var(--text-primary);
