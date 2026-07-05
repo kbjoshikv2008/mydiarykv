@@ -197,9 +197,14 @@
       position: absolute;
       font-size: clamp(1.2rem, 3vw, 2.5rem);
       font-weight: 700;
-      color: rgba(120, 53, 4, 0.04) !important; /* Very light sepia brown */
       font-family: 'Poppins', 'Inter', sans-serif;
       user-select: none;
+    }
+    .math-bg-symbols span:nth-child(odd) {
+      color: rgba(220, 38, 38, 0.05) !important;
+    }
+    .math-bg-symbols span:nth-child(even) {
+      color: rgba(22, 163, 74, 0.05) !important;
     }
     .math-bg-symbols span:nth-child(1) { top: 12%; left: 15%; }
     .math-bg-symbols span:nth-child(2) { top: 22%; left: 45%; }
@@ -2270,9 +2275,14 @@
     .global-math-bg span {
       position: absolute;
       font-weight: 700;
-      color: rgba(120, 53, 4, 0.035) !important; /* Extremely faint sepia brown */
       font-family: 'Poppins', 'Inter', 'Courier New', monospace;
       white-space: nowrap;
+    }
+    .global-math-bg span:nth-child(odd) {
+      color: rgba(220, 38, 38, 0.045) !important;
+    }
+    .global-math-bg span:nth-child(even) {
+      color: rgba(22, 163, 74, 0.045) !important;
     }
     .global-math-bg span:nth-child(1) { top: 4%; left: 3%; font-size: 1.8rem; }
     .global-math-bg span:nth-child(2) { top: 8%; right: 4%; font-size: 1.6rem; }

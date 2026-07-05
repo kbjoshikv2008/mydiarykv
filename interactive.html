@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
+  <meta name="description" content="Access conceptual interactive mathematics lessons, Class XII lesson plans, revision guides, and preboard exam preparation materials.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Specific styles for Interactive Lesson Hub */
+    .search-filter-container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--glass-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .search-box {
+      position: relative;
+      flex: 1 1 300px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border: 2px solid var(--glass-border);
+      border-radius: 30px;
+      background: #ffffff;
+      color: #1e1b18;
+      font-size: 0.95em;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .search-box input:focus {
+      border-color: #4c1d95;
+      outline: none;
+      box-shadow: 0 0 10px rgba(76, 29, 149, 0.1);
+    }
+    .search-box i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bdaea2;
+    }
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      border: 2px solid var(--glass-border);
+      background: #ffffff;
+      color: #1e1b18;
+      border-radius: 30px;
+      font-size: 0.88em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: #4c1d95;
+      color: #ffffff;
+      border-color: #4c1d95;
+      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.15);
+    }
+
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .lesson-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--glass-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+    .lesson-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(74, 62, 53, 0.1);
+      border-color: #4c1d95;
+    }
+    .lesson-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #bdaea2;
+      transition: var(--transition);
+    }
+    .lesson-card:hover::after {
+      background: #4c1d95;
+    }
+    .card-cat-badge {
+      align-self: flex-start;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72em;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-lp { background: rgba(76, 29, 149, 0.08); color: #4c1d95; border: 1px solid rgba(76, 29, 149, 0.15); }
+    .badge-study { background: rgba(15, 118, 110, 0.08); color: #0f766e; border: 1px solid rgba(15, 118, 110, 0.15); }
+    .badge-prep { background: rgba(185, 28, 28, 0.08); color: #b91c1c; border: 1px solid rgba(185, 28, 28, 0.15); }
+
+    .lesson-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1e1b18;
+      margin: 0;
+      line-height: 1.35;
+    }
+    .lesson-card p {
+      font-size: 0.88em;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .lesson-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.78em;
+      color: #a39589;
+      border-top: 1px solid rgba(189, 174, 162, 0.15);
+      padding-top: 12px;
+      margin-top: 4px;
+    }
+    .lesson-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .lesson-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 2px solid var(--glass-border);
+      color: #1e1b18;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.85em;
+      font-weight: 800;
+      text-decoration: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .lesson-card:hover .lesson-btn {
+      background: #4c1d95;
+      color: #ffffff !important;
+      border-color: #4c1d95;
+      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.15);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: #ffffff;
+      color: #1e1b18;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.88em;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: #4c1d95;
+      color: #ffffff !important;
+      border-color: #4c1d95;
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container" style="position: relative;">
+      <div class="page-chip fade-in"><i class="fas fa-gamepad"></i> Interactive lessons</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        
+        <!-- Group 1: Teacher's Desk -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="profile.html"><i class="fas fa-user-shield"></i> Profile Access</a>
+            <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+            <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
+            <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+          </div>
+        </div>
+
+        <!-- Group 2: Academics -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+            <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+            <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+            <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+            <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+            <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          </div>
+        </div>
+
+        <!-- Group 3: Students Corner -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="timetable.html"><i class="fas fa-clock"></i> Class Timetable</a>
+            <a href="homework.html"><i class="fas fa-home"></i> Holiday Homework</a>
+            <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+            <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+            <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+            <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+          </div>
+        </div>
+
+        <!-- Group 4: Exams & Prep -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
+            <a href="board.html"><i class="fas fa-question-circle"></i> Board Question Papers</a>
+            <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+            <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
+          </div>
+        </div>
+
+        <!-- Group 5: Math Labs -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="interactive.html" class="active"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+            <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Laboratory</a>
+            <a href="robocompass.html"><i class="fas fa-compass"></i> RoboCompass Geometry</a>
+            <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
+            <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding Lab</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#127918;</span>
+      <h1>Interactive Lesson Hub</h1>
+      <p>Explore multimedia presentation guides, detailed syllabus lesson plans, and comprehensive study materials</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <!-- Back Link & Filter Controls -->
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <div class="search-filter-container fade-in">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="lessonSearch" placeholder="Search lessons or topics (e.g. Matrices, Integrals)...">
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All Files</button>
+          <button class="filter-btn" data-filter="lp">Lesson Plans</button>
+          <button class="filter-btn" data-filter="study">Study Guides</button>
+          <button class="filter-btn" data-filter="prep">Exam Prep</button>
+        </div>
+      </div>
+
+      <!-- Lessons Grid -->
+      <div class="lessons-grid fade-in-1" id="lessonsGrid">
+        
+        <!-- Matrices -->
+        <div class="lesson-card" data-category="lp" data-title="matrices">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>Matrices</h3>
+          <p>Interactive Class XII presentation on matrices. Detailed lesson progression covering concepts, operations, types, and mathematical properties of matrices.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
+          </div>
+          <a href="interactive lesson plans/matrices.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- Determinants -->
+        <div class="lesson-card" data-category="lp" data-title="determinants">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>Determinants</h3>
+          <p>Comprehensive lesson plan for determinants. Focuses on matrix determinants, properties of determinants, minors, cofactors, and system solutions.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
+          </div>
+          <a href="interactive lesson plans/determinants.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- Continuity and Differentiability -->
+        <div class="lesson-card" data-category="lp" data-title="continuity and differentiability">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>Continuity &amp; Differentiability</h3>
+          <p>Deep-dive lesson guide on mathematical limits, continuity checking, derivatives of functions, chain rule, and differentiability.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
+          </div>
+          <a href="interactive lesson plans/continuity and differentaibility.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- Indefinite Integral -->
+        <div class="lesson-card" data-category="lp" data-title="indefinite integral calculus">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>Indefinite Integral</h3>
+          <p>Detailed interactive lesson plan mapping integral calculus, antiderivative concepts, integration rules, and method guides.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
+          </div>
+          <a href="interactive lesson plans/interactive lesson plan indefinite integral.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- Inverse T Functions -->
+        <div class="lesson-card" data-category="lp" data-title="inverse trigonometric functions">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>Inverse Trigonometric Functions</h3>
+          <p>Study structure and interactive lesson slides detailing inverse trigonometry, domain/range constraints, and core properties.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
+          </div>
+          <a href="interactive lesson plans/inverse t functions plan.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- General LP1 -->
+        <div class="lesson-card" data-category="lp" data-title="general lesson plan lp1">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>General Lesson Plan (LP1)</h3>
+          <p>Structured mathematics lesson template LP1 mapping chapter outlines, teacher objectives, and pupil engagement activities.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Template HTML</span>
+          </div>
+          <a href="interactive lesson plans/LP1.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- General LP2 -->
+        <div class="lesson-card" data-category="lp" data-title="general lesson plan lp2">
+          <span class="card-cat-badge badge-lp">Lesson Plan</span>
+          <h3>General Lesson Plan (LP2)</h3>
+          <p>Structured mathematics lesson template LP2 detailing learning check tasks, homework assignments, and assessment parameters.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-code"></i> Template HTML</span>
+          </div>
+          <a href="interactive lesson plans/LP2.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
+        </div>
+
+        <!-- 7 Days Revision Plan -->
+        <div class="lesson-card" data-category="prep" data-title="7 days revision plan class 12 maths">
+          <span class="card-cat-badge badge-prep">Exam Prep</span>
+          <h3>7 Days Revision Plan</h3>
+          <p>Strategic, day-by-day revision guide for Class 12 Board Exams. Targets key topics, formulas, and high-yield scoring chapters.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-pdf"></i> Revision Sheet</span>
+          </div>
+          <a href="interactive lesson plans/7 days revision plan class 12 maths.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Revision Guide</a>
+        </div>
+
+        <!-- Study Material Core -->
+        <div class="lesson-card" data-category="study" data-title="12 maths study material core">
+          <span class="card-cat-badge badge-study">Study Guide</span>
+          <h3>Class XII Maths Study Material (Core)</h3>
+          <p>Detailed mathematical revision notes, standard worksheets, basic formulas, and exercises for CBSE Board Students.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-alt"></i> Study Material</span>
+          </div>
+          <a href="interactive lesson plans/12 maths study material.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Study Guide</a>
+        </div>
+
+        <!-- Study Material Extended -->
+        <div class="lesson-card" data-category="study" data-title="maths class 12 study material extended">
+          <span class="card-cat-badge badge-study">Study Guide</span>
+          <h3>Class XII Maths Study Material (Extended)</h3>
+          <p>Extended, chapterwise formulas, reference questions, practice sheets, and concept checklists for Board candidates.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-alt"></i> Study Material</span>
+          </div>
+          <a href="interactive lesson plans/MATHS CLASS 12 STUDY MATERIAL.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Study Guide</a>
+        </div>
+
+        <!-- Preboard Class 12 Summer -->
+        <div class="lesson-card" data-category="prep" data-title="preboard class 12 summer paper">
+          <span class="card-cat-badge badge-prep">Exam Prep</span>
+          <h3>Preboard Class XII Summer Paper</h3>
+          <p>Comprehensive preboard mock examination question paper aligned with the latest CBSE guidelines and weightage rules.</p>
+          <div class="lesson-meta">
+            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
+            <span><i class="fas fa-file-signature"></i> Mock Paper</span>
+          </div>
+          <a href="interactive lesson plans/Preboard class 12 summer.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Mock Exam</a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📚 Teacher's Digital Diary</h3>
+          <p>A modern, comprehensive digital workspace for K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Empowering students through structured learning, digital resources, and innovative mathematical education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="syllabus.html"><i class="fas fa-chevron-right"></i> Syllabus</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; Designed by <strong>K B Joshi</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Search and Filter Functionality
+    const searchInput = document.getElementById('lessonSearch');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const lessonCards = document.querySelectorAll('.lesson-card');
+
+    function filterLessons() {
+      const query = searchInput.value.toLowerCase().trim();
+      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+
+      lessonCards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const text = card.textContent.toLowerCase();
+        const category = card.getAttribute('data-category');
+
+        const matchesSearch = title.includes(query) || text.includes(query);
+        const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+        if (matchesSearch && matchesFilter) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterLessons);
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filterLessons();
+      });
+    });
+
+    // Dropdown toggles for mobile
+    document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+      trigger.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          e.stopPropagation();
+          const parent = this.parentElement;
+          const menu = parent.querySelector('.dropdown-menu');
+          const isOpened = menu.style.display === 'flex';
+          
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          
+          if (!isOpened) {
+            menu.style.display = 'flex';
+            parent.classList.add('active');
+          }
+        }
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-item') && window.innerWidth <= 768) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      }
+    });
+  </script>
+</body>
+</html>
