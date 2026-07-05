@@ -3028,11 +3028,35 @@
       </div>
 
       <div class="footer-bottom">
-        <p>
-          <strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp;
-          Designed by <strong>K B Joshi</strong>, PGT Mathematics, PM SHRI KV Ranikhet &nbsp;&middot;&nbsp;
-          Empowering Educators with Creative Tools
+        <p style="
+          font-size: 0.72em;
+          font-weight: 600;
+          letter-spacing: 0.6px;
+          line-height: 1.8;
+          background: linear-gradient(135deg, #14532d, #166534, #15803d, #166534, #14532d);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: greenShimmer 4s linear infinite;
+          text-transform: none;
+          display: inline-block;
+        ">
+          🌿 <strong style="-webkit-text-fill-color:transparent;background:inherit;background-clip:text;">TEACHER'S DIGITAL DIARY</strong>
+          &nbsp;<span style="-webkit-text-fill-color:#166534;color:#166534;">©</span> 2026
+          &nbsp;<span style="-webkit-text-fill-color:#15803d;color:#15803d;font-size:1.1em;">·</span>&nbsp;
+          Designed by <strong style="-webkit-text-fill-color:transparent;background:inherit;background-clip:text;">K B Joshi</strong>,
+          PGT Mathematics, PM SHRI KV Ranikhet
+          &nbsp;<span style="-webkit-text-fill-color:#15803d;color:#15803d;font-size:1.1em;">·</span>&nbsp;
+          Empowering Educators with Creative Tools 🎓
         </p>
+        <style>
+          @keyframes greenShimmer {
+            0%   { background-position: 0% center; }
+            50%  { background-position: 100% center; }
+            100% { background-position: 0% center; }
+          }
+        </style>
         <a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
           <i class="fas fa-arrow-up"></i> Back to Top
         </a>
@@ -3266,7 +3290,7 @@
 
   <!-- ======================== FLOATING WIDGETS ======================== -->
   
-  <!-- WhatsApp Floating Button -->
+    <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/919410121232?text=Hello%20Sir%2C%20I%20have%20a%20mathematics%20query%20from%20your%20Digital%20Diary." target="_blank" class="whatsapp-float" title="Contact me on WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
@@ -3284,237 +3308,278 @@
         <div class="chat-bot-avatar"><i class="fas fa-square-root-alt" style="color:#fff;"></i></div>
         <div class="chat-bot-name">
           <h4>Aryabhata Math AI</h4>
-          <span>Online Assistant</span>
+          <span>CBSE Classes VI-XII Assistant</span>
         </div>
       </div>
       <button class="chat-close-btn" id="chatbotCloseBtn"><i class="fas fa-times"></i></button>
     </div>
-    
     <div class="chat-messages" id="chatMessages">
       <div class="message bot">
-        Hello! I am <strong>Aryabhata</strong>, your virtual math assistant. Ask me a question (e.g., formulas, derivatives) or type an equation like <code>x^2 - 5x + 6 = 0</code> to solve it instantly!
+        Hello! I am <strong>Aryabhata</strong>, your CBSE Mathematics AI assistant.<br><br>
+        I can answer:<br>
+        📐 Formulas (Trig, Calculus, Algebra, Geometry)<br>
+        🔢 Quadratic solver and arithmetic<br>
+        📚 All CBSE Classes VI-XII chapters<br><br>
+        For complex questions I will open <strong>WolframAlpha</strong> or <strong>Google Gemini AI</strong> for you!
       </div>
     </div>
-
-    <!-- Quick Shortcuts Bar -->
-    <div class="chat-shortcuts">
-      <button class="shortcut-btn" data-query="quadratic formula">Quadratic Formula</button>
-      <button class="shortcut-btn" data-query="derivative of sin x">d/dx(sin x)</button>
-      <button class="shortcut-btn" data-query="solve x^2 - 5x + 6 = 0">Solve x²-5x+6=0</button>
-      <button class="shortcut-btn" data-query="Euler's formula">Euler's Formula</button>
-      <button class="shortcut-btn" data-query="syllabus">CBSE Syllabus</button>
-      <button class="shortcut-btn" data-query="IOQM">IOQM Prep</button>
+    <div class="chat-shortcuts" id="chatShortcuts">
+      <button class="shortcut-btn" data-query="quadratic formula">Quadratic</button>
+      <button class="shortcut-btn" data-query="derivative formulas">Derivatives</button>
+      <button class="shortcut-btn" data-query="integration formulas">Integrals</button>
+      <button class="shortcut-btn" data-query="trigonometry formulas">Trig</button>
+      <button class="shortcut-btn" data-query="matrices formulas">Matrices</button>
+      <button class="shortcut-btn" data-query="probability formulas">Probability</button>
+      <button class="shortcut-btn" data-query="solve x^2 - 5x + 6 = 0">Solve x2-5x+6</button>
+      <button class="shortcut-btn" data-query="heron formula">Heron</button>
+      <button class="shortcut-btn" data-query="pythagoras theorem">Pythagoras</button>
+      <button class="shortcut-btn" data-query="ap formulas">AP/GP</button>
+      <button class="shortcut-btn" data-query="vector formulas">Vectors</button>
+      <button class="shortcut-btn" data-query="algebraic identities">Identities</button>
     </div>
-
     <div class="chat-input-area">
-      <input type="text" class="chat-input" id="chatInput" placeholder="Ask a math question...">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask any maths question...">
       <button class="chat-send-btn" id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
 
-  <!-- Chatbot Script -->
+  <style>
+    .typing-indicator span { display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin:0 2px;animation:bounce 1.2s infinite; }
+    .typing-indicator span:nth-child(2){animation-delay:.2s}.typing-indicator span:nth-child(3){animation-delay:.4s}
+    @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
+  </style>
+
+  <!-- Chatbot Script Enhanced v2 -->
   <script>
+  (function(){
     document.addEventListener('DOMContentLoaded', function() {
-      const chatbotFloatBtn = document.getElementById('chatbotFloatBtn');
-      const chatbotPanel = document.getElementById('chatbotPanel');
-      const chatbotCloseBtn = document.getElementById('chatbotCloseBtn');
-      const chatInput = document.getElementById('chatInput');
-      const chatSendBtn = document.getElementById('chatSendBtn');
-      const chatMessages = document.getElementById('chatMessages');
-      const shortcutBtns = document.querySelectorAll('.shortcut-btn');
+      var btn = document.getElementById('chatbotFloatBtn');
+      var panel = document.getElementById('chatbotPanel');
+      var closeBtn = document.getElementById('chatbotCloseBtn');
+      var input = document.getElementById('chatInput');
+      var sendBtn = document.getElementById('chatSendBtn');
+      var msgs = document.getElementById('chatMessages');
 
-      // Toggle Panel
-      chatbotFloatBtn.addEventListener('click', () => {
-        chatbotPanel.classList.toggle('active');
-        if(chatbotPanel.classList.contains('active')) {
-          chatInput.focus();
-        }
-      });
+      btn.addEventListener('click', function(){ panel.classList.toggle('active'); if(panel.classList.contains('active')) input.focus(); });
+      closeBtn.addEventListener('click', function(){ panel.classList.remove('active'); });
 
-      chatbotCloseBtn.addEventListener('click', () => {
-        chatbotPanel.classList.remove('active');
-      });
-
-      // Send Message
-      function sendMessage() {
-        const query = chatInput.value.trim();
-        if (!query) return;
-
-        // Append User Message
-        appendMessage(query, 'user');
-        chatInput.value = '';
-
-        // Process Bot Answer
-        setTimeout(() => {
-          const response = getMathAnswer(query);
-          appendMessage(response, 'bot');
-        }, 600);
+      function send(){
+        var q = input.value.trim(); if(!q) return;
+        addMsg(q,'user'); input.value=''; showTyping();
+        setTimeout(function(){ removeTyping(); addMsg(answer(q),'bot'); }, 700);
       }
-
-      chatSendBtn.addEventListener('click', sendMessage);
-      chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-      });
-
-      // Shortcuts clicks
-      shortcutBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const query = btn.getAttribute('data-query');
-          appendMessage(query, 'user');
-          setTimeout(() => {
-            const response = getMathAnswer(query);
-            appendMessage(response, 'bot');
-          }, 500);
+      sendBtn.addEventListener('click', send);
+      input.addEventListener('keypress', function(e){ if(e.key==='Enter') send(); });
+      document.querySelectorAll('.shortcut-btn').forEach(function(b){
+        b.addEventListener('click', function(){
+          var q=b.getAttribute('data-query'); addMsg(q,'user'); showTyping();
+          setTimeout(function(){ removeTyping(); addMsg(answer(q),'bot'); }, 600);
         });
       });
 
-      function appendMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.classList.add('message', sender);
-        msgDiv.innerHTML = text;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+      function addMsg(t,s){ var d=document.createElement('div'); d.className='message '+s; d.innerHTML=t; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; }
+      function showTyping(){ var t=document.createElement('div'); t.className='message bot typing-indicator'; t.id='typingDots'; t.innerHTML='<span></span><span></span><span></span>'; msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight; }
+      function removeTyping(){ var t=document.getElementById('typingDots'); if(t) t.remove(); }
+
+      function hl(t){ return '<span class="math-highlight">'+t+'</span>'; }
+      function lk(href,label){ return '<a href="'+href+'" style="color:#a78bfa;font-weight:700;">'+label+'</a>'; }
+
+      function answer(query){
+        var q = query.toLowerCase().trim();
+
+        // Arithmetic evaluator
+        if(/^[\d\s\+\-\*\/\^\(\)\.%]+$/.test(query) && query.length<60){
+          try{ var r=Function('"use strict";return('+query.replace(/\^/g,'**')+')')(); if(typeof r==='number'&&isFinite(r)) return 'Result: '+hl(query+' = '+r); }catch(e){}
+        }
+
+        // Quadratic solver
+        if(q.indexOf('x^2')>-1||q.indexOf('x2')>-1||q.indexOf('\u00b2')>-1){ var sol=solveQ(query); if(sol) return 'Quadratic:<br>'+sol; }
+
+        // Greetings
+        if(/^(hi|hello|hey|namaste)/.test(q)) return 'Hello! I am Aryabhata Math AI. Ask me any CBSE formula, theorem, or equation!';
+        if(q.indexOf('thank')>-1) return 'You are welcome! Keep loving mathematics!';
+        if(q.indexOf('who are you')>-1||q.indexOf('your name')>-1) return 'I am <strong>Aryabhata</strong> Math AI, built into K B Joshi\'s Digital Diary for CBSE students.';
+
+        // HCF LCM
+        if(q.indexOf('hcf')>-1||q.indexOf('lcm')>-1) return '<strong>HCF and LCM:</strong><br>'+hl('HCF x LCM = Product of two numbers')+'<br>HCF = largest common factor; LCM = smallest common multiple.<br>Use prime factorisation or Euclid\'s division algorithm.';
+
+        // Rational/Irrational
+        if(q.indexOf('rational')>-1||q.indexOf('irrational')>-1) return '<strong>Number System:</strong><br>Rational: p/q form, q not 0. Decimal is terminating or recurring.<br>Irrational: cannot be p/q. e.g. root(2), pi, e.<br>'+hl('root(p) is irrational if p is prime.');
+
+        // Euclid
+        if(q.indexOf('euclid')>-1&&q.indexOf('formula')===-1) return '<strong>Euclid\'s Division Lemma:</strong><br>'+hl('a = bq + r, 0 <= r < b')+'<br>Used to find HCF by repeated division.';
+
+        // Algebraic Identities
+        if(q.indexOf('algebraic identit')>-1||q.indexOf('(a+b)')>-1||q.indexOf('expansion')>-1)
+          return '<strong>Algebraic Identities:</strong><br>'+hl('(a+b)2 = a2+2ab+b2')+'<br>'+hl('(a-b)2 = a2-2ab+b2')+'<br>'+hl('(a+b)(a-b) = a2-b2')+'<br>'+hl('(a+b)3 = a3+3a2b+3ab2+b3')+'<br>'+hl('(a-b)3 = a3-3a2b+3ab2-b3')+'<br>'+hl('a3+b3=(a+b)(a2-ab+b2)')+'<br>'+hl('a3-b3=(a-b)(a2+ab+b2)');
+
+        // Factor / Remainder
+        if(q.indexOf('factor theorem')>-1) return '<strong>Factor Theorem:</strong><br>If p(a)=0, then (x-a) is a factor of p(x).';
+        if(q.indexOf('remainder theorem')>-1) return '<strong>Remainder Theorem:</strong><br>Remainder when p(x) / (x-a) = '+hl('p(a)');
+
+        // Linear equations
+        if(q.indexOf('linear equation')>-1||(q.indexOf('pair')>-1&&q.indexOf('equation')>-1))
+          return '<strong>Pair of Linear Equations:</strong><br>a1x+b1y+c1=0 and a2x+b2y+c2=0<br>Unique solution: a1/a2 not equal b1/b2<br>No solution: a1/a2=b1/b2 not equal c1/c2<br>Infinite solutions: a1/a2=b1/b2=c1/c2';
+
+        // Quadratic formula
+        if(q.indexOf('quadratic formula')>-1||(q.indexOf('quadratic')>-1&&q.indexOf('formula')>-1))
+          return '<strong>Quadratic Formula:</strong><br>For ax2+bx+c=0:<br>'+hl('x = [-b +/- root(b2-4ac)] / 2a')+'<br>D=b2-4ac: D>0 two real roots, D=0 equal roots, D<0 complex roots<br>Sum of roots=-b/a, Product=c/a<br>Tip: type "x^2-5x+6=0" to solve instantly!';
+
+        // AP
+        if(q.indexOf('arithmetic progression')>-1||q.indexOf('ap formula')>-1)
+          return '<strong>Arithmetic Progression (AP):</strong><br>nth term: '+hl('an = a+(n-1)d')+'<br>Sum: '+hl('Sn = n/2[2a+(n-1)d]')+'<br>where a=first term, d=common difference';
+
+        // GP
+        if(q.indexOf('geometric progression')>-1||q.indexOf('gp formula')>-1)
+          return '<strong>Geometric Progression (GP):</strong><br>nth term: '+hl('an = a r^(n-1)')+'<br>Sum (r not 1): '+hl('Sn = a(r^n-1)/(r-1)')+'<br>Sum to infinity (|r|<1): '+hl('S = a/(1-r)');
+
+        // Heron
+        if(q.indexOf('heron')>-1) return '<strong>Heron\'s Formula:</strong><br>s=(a+b+c)/2<br>Area = '+hl('root[s(s-a)(s-b)(s-c)]');
+
+        // Pythagoras
+        if(q.indexOf('pythagoras')>-1||q.indexOf('pythagorean')>-1) return '<strong>Pythagoras Theorem:</strong><br>'+hl('c2 = a2 + b2')+'<br>Triplets: (3,4,5) (5,12,13) (8,15,17) (7,24,25)';
+
+        // Circle
+        if(q.indexOf('circle formula')>-1||q.indexOf('area of circle')>-1||q.indexOf('circumference')>-1)
+          return '<strong>Circle:</strong><br>Area = '+hl('pi r2')+'<br>Circumference = '+hl('2 pi r')+'<br>Arc = (theta/360) x 2pi r<br>Sector area = (theta/360) x pi r2';
+
+        // Mensuration
+        if(q.indexOf('surface area')>-1||q.indexOf('volume')>-1||q.indexOf('mensuration')>-1)
+          return '<strong>Mensuration:</strong><br>Cube(a): SA=6a2, V=a3<br>Cuboid(l,b,h): SA=2(lb+bh+hl), V=lbh<br>Cylinder(r,h): CSA=2pirh, V=pir2h<br>Cone(r,h): CSA=pirl, V=1/3 pir2h, l=root(r2+h2)<br>Sphere(r): SA=4pir2, V=4/3 pir3';
+
+        // Coordinate geometry
+        if(q.indexOf('coordinate')>-1||q.indexOf('distance formula')>-1||q.indexOf('section formula')>-1||q.indexOf('midpoint')>-1)
+          return '<strong>Coordinate Geometry:</strong><br>Distance: '+hl('root[(x2-x1)2+(y2-y1)2]')+'<br>Midpoint: '+hl('((x1+x2)/2,(y1+y2)/2)')+'<br>Section (m:n): ((mx2+nx1)/(m+n),(my2+ny1)/(m+n))<br>Area of triangle: 1/2|x1(y2-y3)+x2(y3-y1)+x3(y1-y2)|';
+
+        // Trigonometry
+        if(q.indexOf('trig')>-1||(q.indexOf('sin')>-1&&q.indexOf('cos')>-1&&q.indexOf('formula')>-1))
+          return '<strong>Trigonometry (Class 10-11):</strong><br>'+hl('sin2 theta + cos2 theta = 1')+'<br>'+hl('1 + tan2 theta = sec2 theta')+'<br>'+hl('1 + cot2 theta = cosec2 theta')+'<br>Values: sin30=1/2, sin45=1/root2, sin60=root3/2<br>cos30=root3/2, cos45=1/root2, cos60=1/2<br>tan30=1/root3, tan45=1, tan60=root3';
+
+        // Compound angles
+        if((q.indexOf('compound angle')>-1||q.indexOf('addition formula')>-1)&&(q.indexOf('sin')>-1||q.indexOf('cos')>-1))
+          return '<strong>Compound Angles:</strong><br>'+hl('sin(A+B)=sinA cosB+cosA sinB')+'<br>'+hl('sin(A-B)=sinA cosB-cosA sinB')+'<br>'+hl('cos(A+B)=cosA cosB-sinA sinB')+'<br>'+hl('cos(A-B)=cosA cosB+sinA sinB')+'<br>'+hl('tan(A+B)=(tanA+tanB)/(1-tanA tanB)');
+
+        // Double angle
+        if(q.indexOf('double angle')>-1) return '<strong>Double Angle:</strong><br>'+hl('sin2A=2sinA cosA')+'<br>'+hl('cos2A=cos2A-sin2A=2cos2A-1=1-2sin2A')+'<br>'+hl('tan2A=2tanA/(1-tan2A)');
+
+        // Inverse trig
+        if(q.indexOf('inverse trig')>-1||q.indexOf('inverse trigonometric')>-1)
+          return '<strong>Inverse Trig (Class 12):</strong><br>'+hl('sin-1(-x)=-sin-1(x)')+'<br>'+hl('cos-1(-x)=pi-cos-1(x)')+'<br>'+hl('sin-1(x)+cos-1(x)=pi/2')+'<br>'+hl('tan-1(x)+cot-1(x)=pi/2')+'<br>'+hl('tan-1(x)+tan-1(y)=tan-1((x+y)/(1-xy)) for xy<1');
+
+        // Derivatives
+        if(q.indexOf('derivative formula')>-1||q.indexOf('differentiation formula')>-1||q.indexOf('standard derivative')>-1)
+          return '<strong>Standard Derivatives:</strong><br>'+hl('d/dx(x^n)=nx^(n-1)')+'<br>d/dx(sinx)=cosx<br>d/dx(cosx)=-sinx<br>d/dx(tanx)=sec2x<br>d/dx(cotx)=-cosec2x<br>d/dx(secx)=secx tanx<br>d/dx(cosecx)=-cosecx cotx<br>d/dx(ex)=ex<br>d/dx(lnx)=1/x<br>d/dx(ax)=ax lna';
+
+        if(q.indexOf('derivative of sin')>-1||q.indexOf('d/dx sin')>-1) return 'd/dx(sinx) = '+hl('cosx');
+        if(q.indexOf('derivative of cos')>-1||q.indexOf('d/dx cos')>-1) return 'd/dx(cosx) = '+hl('-sinx');
+        if(q.indexOf('derivative of tan')>-1||q.indexOf('d/dx tan')>-1) return 'd/dx(tanx) = '+hl('sec2x');
+        if(q.indexOf('derivative of e')>-1||q.indexOf('d/dx e')>-1) return 'd/dx(ex) = '+hl('ex');
+        if(q.indexOf('derivative of log')>-1||q.indexOf('derivative of ln')>-1) return 'd/dx(lnx) = '+hl('1/x')+' for x>0';
+        if(q.indexOf('chain rule')>-1) return '<strong>Chain Rule:</strong><br>If y=f(g(x)), '+hl('dy/dx=f\'(g(x)) x g\'(x)')+'<br>Example: d/dx(sin(x2)) = cos(x2) x 2x';
+        if(q.indexOf('product rule')>-1) return '<strong>Product Rule:</strong><br>y=u.v: '+hl('dy/dx = u dv/dx + v du/dx');
+        if(q.indexOf('quotient rule')>-1) return '<strong>Quotient Rule:</strong><br>y=u/v: '+hl('dy/dx = (v du/dx - u dv/dx) / v2');
+        if(q.indexOf('increasing')>-1||q.indexOf('decreasing')>-1||(q.indexOf('application')>-1&&q.indexOf('derivative')>-1))
+          return '<strong>Applications of Derivatives:</strong><br>f\'(x)>0: increasing, f\'(x)<0: decreasing<br>f\'(x)=0: critical point<br>f\'\'(x)<0: local maxima, f\'\'(x)>0: local minima';
+
+        // Integrals
+        if(q.indexOf('integration formula')>-1||q.indexOf('integral formula')>-1||q.indexOf('standard integral')>-1)
+          return '<strong>Standard Integrals:</strong><br>'+hl('int x^n dx = x^(n+1)/(n+1)+C')+'<br>int 1/x dx=ln|x|+C<br>int ex dx=ex+C<br>int sinx dx=-cosx+C<br>int cosx dx=sinx+C<br>int sec2x dx=tanx+C<br>int cosec2x dx=-cotx+C<br>'+hl('int 1/root(1-x2) dx=sin-1x+C')+'<br>'+hl('int 1/(1+x2) dx=tan-1x+C');
+
+        if(q.indexOf('integral of sin')>-1||q.indexOf('integrate sin')>-1) return 'int sinx dx = '+hl('-cosx + C');
+        if(q.indexOf('integral of cos')>-1||q.indexOf('integrate cos')>-1) return 'int cosx dx = '+hl('sinx + C');
+        if(q.indexOf('integral of e')>-1||q.indexOf('integrate e')>-1) return 'int ex dx = '+hl('ex + C');
+        if(q.indexOf('definite integral')>-1||q.indexOf('fundamental theorem')>-1)
+          return '<strong>Definite Integral:</strong><br>'+hl('int(a to b) f(x)dx = F(b)-F(a)')+'<br>where F(x) is anti-derivative of f(x).';
+        if(q.indexOf('by parts')>-1||q.indexOf('integration by parts')>-1)
+          return '<strong>Integration by Parts (ILATE):</strong><br>'+hl('int u v dx = u int v dx - int (du/dx x int v dx) dx')+'<br>ILATE: Inverse trig > Logarithm > Algebraic > Trig > Exponential';
+
+        // Matrices
+        if(q.indexOf('matri')>-1||q.indexOf('matrices formula')>-1)
+          return '<strong>Matrices (Class 12):</strong><br>Symmetric: AT=A; Skew-symmetric: AT=-A<br>For 2x2 [a b;c d]:<br>'+hl('det=ad-bc')+'<br>'+hl('A-1=(1/det)[d -b;-c a]')+'<br>(AB)T=BTAT, (AB)-1=B-1A-1';
+
+        if(q.indexOf('determinant')>-1||(q.indexOf(' det ')>-1))
+          return '<strong>Determinants:</strong><br>2x2: '+hl('|A|=ad-bc')+'<br>Adjoint=transpose of cofactor matrix<br>'+hl('A-1=adj(A)/|A|, |A| not 0')+'<br>|AB|=|A||B|; identical rows gives |A|=0';
+
+        // Vectors
+        if(q.indexOf('vector formula')>-1||(q.indexOf('vector')>-1&&(q.indexOf('formula')>-1||q.indexOf('product')>-1)))
+          return '<strong>Vectors (Class 12):</strong><br>Magnitude: '+hl('|a|=root(a12+a22+a32)')+'<br>Dot product: '+hl('a.b=|a||b|cos theta=a1b1+a2b2+a3b3')+'<br>Cross magnitude: '+hl('|axb|=|a||b|sin theta')+'<br>Perpendicular: a.b=0; Parallel: axb=0<br>Projection of a on b=(a.b)/|b|';
+
+        // Probability
+        if(q.indexOf('probability formula')>-1||(q.indexOf('probability')>-1&&q.indexOf('formula')>-1))
+          return '<strong>Probability (Class 11-12):</strong><br>'+hl('P(A)=n(A)/n(S)')+'<br>P(A\')=1-P(A)<br>P(AuB)=P(A)+P(B)-P(AnB)<br>Conditional: '+hl('P(B|A)=P(AnB)/P(A)')+'<br>Bayes: '+hl('P(A|B)=P(B|A)P(A)/P(B)')+'<br>Binomial: P(X=r)=nCr p^r q^(n-r)';
+
+        // 3D Geometry
+        if(q.indexOf('3d geometry')>-1||q.indexOf('direction cosine')>-1||q.indexOf('direction ratio')>-1)
+          return '<strong>3D Geometry (Class 12):</strong><br>l2+m2+n2=1<br>Distance=root[(x2-x1)2+(y2-y1)2+(z2-z1)2]<br>Line: (x-x1)/a=(y-y1)/b=(z-z1)/c<br>Plane distance: '+hl('d=|ax1+by1+cz1+d|/root(a2+b2+c2)');
+
+        // LPP
+        if(q.indexOf('linear programming')>-1||q.indexOf('lpp')>-1||q.indexOf('feasible region')>-1)
+          return '<strong>Linear Programming (Class 12):</strong><br>Objective: Z=ax+by (max/min)<br>Steps: write constraints, plot feasible region, evaluate Z at corner points.<br>Optimal Z always occurs at a corner point of feasible region.';
+
+        // Statistics
+        if(q.indexOf('mean')>-1||q.indexOf('median')>-1||q.indexOf('mode')>-1||q.indexOf('statistics formula')>-1||q.indexOf('standard deviation')>-1)
+          return '<strong>Statistics:</strong><br>Mean: '+hl('x-bar=sum(fi xi)/sum(fi)')+'<br>Median(grouped): '+hl('M=l+[(n/2-cf)/f]xh')+'<br>Mode(grouped): '+hl('Mode=l+[(f1-f0)/(2f1-f0-f2)]xh')+'<br>SD=root(variance); Mode=3 Median-2 Mean';
+
+        // Permutation Combination
+        if(q.indexOf('permutation')>-1||q.indexOf('combination')>-1||q.indexOf('ncr')>-1||q.indexOf('npr')>-1)
+          return '<strong>P and C (Class 11):</strong><br>'+hl('nPr=n!/(n-r)!')+'<br>'+hl('nCr=n!/[r!(n-r)!]')+'<br>nCr=nCn-r; nCr+nCr-1=n+1Cr';
+
+        // Binomial theorem
+        if(q.indexOf('binomial theorem')>-1||q.indexOf('binomial expansion')>-1)
+          return '<strong>Binomial Theorem (Class 11):</strong><br>'+hl('(a+b)^n = sum nCr a^(n-r) b^r')+'<br>General term T(r+1)=nCr a^(n-r) b^r<br>Number of terms = n+1';
+
+        // Complex numbers
+        if(q.indexOf('complex number')>-1||q.indexOf('argand')>-1)
+          return '<strong>Complex Numbers (Class 11):</strong><br>z=a+bi, i2=-1<br>Modulus: '+hl('|z|=root(a2+b2)')+'<br>Conjugate: z-bar=a-bi<br>Euler: '+hl('e^(i theta)=cos theta+i sin theta')+'<br>Powers of i: i,i2=-1,i3=-i,i4=1 (cycle 4)';
+
+        // Limits
+        if(q.indexOf('limit')>-1||q.indexOf('continuity')>-1||q.indexOf('differentiab')>-1)
+          return '<strong>Limits (Class 11-12):</strong><br>'+hl('lim(x->0) sinx/x=1')+'<br>'+hl('lim(x->0)(1+x)^(1/x)=e')+'<br>'+hl('lim(x->0)(ex-1)/x=1')+'<br>'+hl('lim(x->a)(x^n-a^n)/(x-a)=n a^(n-1)')+'<br>Continuity: lim(x->a)f(x)=f(a)';
+
+        // Euler
+        if(q.indexOf('euler')>-1&&q.indexOf('formula')>-1) return '<strong>Euler\'s Identity:</strong><br>'+hl('e^(i pi)+1=0')+'<br>General: '+hl('e^(i theta)=cos theta+i sin theta');
+
+        // Functions Relations
+        if((q.indexOf('relation')>-1||q.indexOf('function')>-1)&&(q.indexOf('one-one')>-1||q.indexOf('onto')>-1||q.indexOf('bijective')>-1||q.indexOf('type')>-1))
+          return '<strong>Relations and Functions (Class 12):</strong><br>One-one: f(a)=f(b) implies a=b<br>Onto: Range=Codomain; Bijective: both<br>Reflexive:(a,a) in R; Symmetric:(a,b) implies (b,a); Transitive:(a,b)&(b,c) implies (a,c)<br>Equivalence = Reflexive+Symmetric+Transitive';
+
+        // Site navigation
+        if(q.indexOf('syllabus')>-1) return 'View CBSE syllabus: '+lk('syllabus.html','Syllabus Portal');
+        if(q.indexOf('ioqm')>-1||q.indexOf('olympiad')>-1) return 'IOQM preparation: '+lk('ioqm.html','IOQM Prep Hub');
+        if(q.indexOf('exam')>-1||q.indexOf('question paper')>-1) return 'Question papers: '+lk('examination.html','Examinations Portal');
+        if(q.indexOf('lesson plan')>-1) return 'Lesson plans: '+lk('lessonplan.html','Lesson Plans Vault');
+        if(q.indexOf('simulation')>-1||q.indexOf('desmos')>-1||q.indexOf('geogebra')>-1||q.indexOf('phet')>-1) return 'Simulation tools: '+lk('simulations.html','Math Simulation Hub');
+        if(q.indexOf('study material')>-1||q.indexOf('notes')>-1) return 'Study materials: '+lk('studymaterial.html','Study Materials');
+
+        // AI Fallback
+        var wq=encodeURIComponent(query), gq=encodeURIComponent(query+' mathematics CBSE');
+        return 'I do not have a stored answer for "<strong>'+query+'</strong>". Try these AI tools:<br><br>'+
+          '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">'+
+          '<a href="https://www.wolframalpha.com/input?i='+wq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:linear-gradient(135deg,#ef4444,#f59e0b);color:#fff;border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fas fa-atom"></i> Solve on WolframAlpha</a>'+
+          '<a href="https://gemini.google.com/?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fas fa-robot"></i> Ask Google Gemini AI</a>'+
+          '<a href="https://www.mathway.com/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:linear-gradient(135deg,#06b6d4,#10b981);color:#fff;border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fas fa-calculator"></i> Solve on Mathway</a>'+
+          '<a href="https://www.google.com/search?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--glass-bg);color:var(--text-primary);border:1.5px solid var(--glass-border);border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fab fa-google"></i> Search on Google</a>'+
+          '</div><div style="margin-top:8px;font-size:.78em;color:var(--text-muted);">Tip: Try "quadratic formula", "integration formulas", "trig identities", or type an equation like x^2-5x+6=0</div>';
       }
 
-      // Mathematical Response Engine
-      function getMathAnswer(query) {
-        let q = query.toLowerCase().trim();
-
-        // 1. Check for quadratic equation solver pattern
-        if (q.includes('x^2') || q.includes('x²')) {
-          let solverResult = solveQuadratic(query);
-          if (solverResult) {
-            return `Here is the step-by-step solution for your quadratic equation:<br>${solverResult}`;
-          }
-        }
-
-        // 2. Greetings
-        if (q === 'hi' || q === 'hello' || q === 'hey' || q.includes('good morning') || q.includes('good afternoon')) {
-          return "Hello! I am Aryabhata, your virtual math assistant. How can I help you with your mathematics queries today? You can ask me to solve quadratic equations or fetch formulas!";
-        }
-
-        // 3. Formula checks
-        if (q.includes('quadratic formula') || q.includes('quadratic equation formula')) {
-          return `For a quadratic equation of the form <span class="math-highlight">ax² + bx + c = 0</span>, the roots are given by:<br>
-                  <span class="math-highlight">x = [-b ± √(b² - 4ac)] / 2a</span><br>
-                  Where:<br>
-                  - <strong>b² - 4ac</strong> is the Discriminant (D).<br>
-                  - If D > 0: Roots are real and distinct.<br>
-                  - If D = 0: Roots are real and equal.<br>
-                  - If D < 0: Roots are complex.`;
-        }
-
-        if (q.includes('euler') && q.includes('formula')) {
-          return `Euler's Formula is a beautiful bridge in complex analysis:<br>
-                  <span class="math-highlight">e^(iθ) = cos θ + i sin θ</span><br>
-                  Setting θ = π yields the famous Euler's Identity:<br>
-                  <span class="math-highlight">e^(iπ) + 1 = 0</span>`;
-        }
-
-        if (q.includes('derivative of sin')) {
-          return "The derivative of <strong>sin x</strong> with respect to x is:<br><span class=\"math-highlight\">d/dx(sin x) = cos x</span>";
-        }
-        if (q.includes('derivative of cos')) {
-          return "The derivative of <strong>cos x</strong> with respect to x is:<br><span class=\"math-highlight\">d/dx(cos x) = -sin x</span>";
-        }
-        if (q.includes('derivative of tan')) {
-          return "The derivative of <strong>tan x</strong> with respect to x is:<br><span class=\"math-highlight\">d/dx(tan x) = sec² x</span>";
-        }
-        if (q.includes('derivative of e^x') || q.includes('derivative of e^')) {
-          return "The derivative of exponential function <strong>e^x</strong> is:<br><span class=\"math-highlight\">d/dx(e^x) = e^x</span>";
-        }
-        if (q.includes('derivative of log') || q.includes('derivative of ln')) {
-          return "The derivative of natural logarithm <strong>ln x</strong> is:<br><span class=\"math-highlight\">d/dx(ln x) = 1/x</span> (for x > 0)";
-        }
-        if (q.includes('integral of sin')) {
-          return "The indefinite integral of <strong>sin x</strong> is:<br><span class=\"math-highlight\">∫ sin x dx = -cos x + C</span>";
-        }
-        if (q.includes('integral of cos')) {
-          return "The indefinite integral of <strong>cos x</strong> is:<br><span class=\"math-highlight\">∫ cos x dx = sin x + C</span>";
-        }
-
-        // 4. Site specific links
-        if (q.includes('syllabus') || q.includes('class 11 syllabus') || q.includes('class 12 syllabus')) {
-          return "You can view the detailed Class 11 &amp; 12 syllabus structure in our <a href='syllabus.html' style='color:#a78bfa; font-weight:600;'>Syllabus Portal</a>.";
-        }
-        if (q.includes('ioqm') || q.includes('olympiad')) {
-          return "For preparation tips, past registration dates, and question papers, check our <a href='ioqm.html' style='color:#a78bfa; font-weight:600;'>IOQM Prep Hub</a>.";
-        }
-        if (q.includes('exam') || q.includes('test') || q.includes('schedule')) {
-          return "Check upcoming Chapterwise Tests, Monthly Exams, and Periodic Tests under the secure <a href='examination.html' style='color:#a78bfa; font-weight:600;'>Examinations Portal</a> (access password: <code>exam123</code>).";
-        }
-        if (q.includes('lesson plan') || q.includes('lessonplan')) {
-          return "Classwise lesson planners are stored securely under the <a href='lessonplan.html' style='color:#a78bfa; font-weight:600;'>Lesson Plans Vault</a> (access password: <code>euclid</code>).";
-        }
-
-        // Fallback response
-        return "That is an interesting mathematical concept! As a local guide, I can solve quadratic equations (like <code>x^2 - 5x + 6 = 0</code>), pull up standard derivative formulas, and guide you around the Teacher's Digital Diary resources. What else can I retrieve for you?";
-      }
-
-      // Quadratic Equation Solver
-      function solveQuadratic(eq) {
-        let cleaned = eq.replace(/\s+/g, '');
-        cleaned = cleaned.replace(/x²/g, 'x^2');
-        cleaned = cleaned.replace(/(^|[+-])x\^2/, '$11x^2');
-        cleaned = cleaned.replace(/([+-])x([+-]|=|$)/, '$11x$2');
-        if (cleaned.startsWith('x')) cleaned = '1' + cleaned;
-        
-        let match = cleaned.match(/(-?\d+(?:\.\d+)?)x\^2(?:([+-]\d+(?:\.\d+)?))?x(?:([+-]\d+(?:\.\d+)?))?(?:=0)?/);
-        
-        if (!match) {
-          // Fallback simple parsing for x^2 - c = 0
-          let simpleMatch = cleaned.match(/(-?\d+(?:\.\d+)?)x\^2(?:([+-]\d+(?:\.\d+)?))?(?:=0)?/);
-          if (simpleMatch) {
-            let a = parseFloat(simpleMatch[1]);
-            let b = 0;
-            let c = simpleMatch[2] ? parseFloat(simpleMatch[2]) : 0;
-            return calculateRoots(a, b, c);
-          }
-          return null;
-        }
-        
-        let a = parseFloat(match[1]);
-        let b = match[2] ? parseFloat(match[2]) : 0;
-        let c = match[3] ? parseFloat(match[3]) : 0;
-        
-        return calculateRoots(a, b, c);
-      }
-
-      function calculateRoots(a, b, c) {
-        if (isNaN(a) || a === 0) return null;
-        
-        let disc = b*b - 4*a*c;
-        let steps = `<div class="math-steps">`;
-        steps += `Equation: <span class="math-highlight">${a}x² + (${b})x + (${c}) = 0</span><br>`;
-        steps += `Discriminant (D) = b² - 4ac<br>`;
-        steps += `D = (${b})² - 4(${a})(${c}) = ${b*b} - ${4*a*c} = <span class="math-highlight">${disc}</span><br>`;
-        
-        if (disc > 0) {
-          let r1 = (-b + Math.sqrt(disc)) / (2*a);
-          let r2 = (-b - Math.sqrt(disc)) / (2*a);
-          steps += `D &gt; 0 (Real &amp; Distinct Roots):<br>`;
-          steps += `x = [-b ± √D] / 2a<br>`;
-          steps += `x₁ = <span class="math-highlight">${r1.toFixed(3)}</span><br>`;
-          steps += `x₂ = <span class="math-highlight">${r2.toFixed(3)}</span>`;
-        } else if (disc === 0) {
-          let r = -b / (2*a);
-          steps += `D = 0 (Equal Roots):<br>`;
-          steps += `x = -b / 2a<br>`;
-          steps += `x = <span class="math-highlight">${r.toFixed(3)}</span>`;
-        } else {
-          let realPart = -b / (2*a);
-          let imagPart = Math.sqrt(-disc) / (2*a);
-          steps += `D &lt; 0 (Complex Roots):<br>`;
-          steps += `x = -b/2a ± i(√-D)/2a<br>`;
-          steps += `x₁ = <span class="math-highlight">${realPart.toFixed(3)} + ${imagPart.toFixed(3)}i</span><br>`;
-          steps += `x₂ = <span class="math-highlight">${realPart.toFixed(3)} - ${imagPart.toFixed(3)}i</span>`;
-        }
-        steps += `</div>`;
-        return steps;
+      function solveQ(eq){
+        var s=eq.replace(/\s+/g,'').replace(/x2/g,'x^2').replace(/\u00b2/g,'x^2').replace(/(^|[+\-])x\^2/,'$11x^2').replace(/([+\-])x([+\-]|=|$)/,'$11x$2');
+        if(s.charAt(0)==='x') s='1'+s;
+        var m=s.match(/(-?\d+(?:\.\d+)?)x\^2(?:([+\-]\d+(?:\.\d+)?)x)?(?:([+\-]\d+(?:\.\d+)?))?(?:=0)?/);
+        if(!m) return null;
+        var a=parseFloat(m[1]),b=m[2]?parseFloat(m[2]):0,c=m[3]?parseFloat(m[3]):0;
+        if(!a) return null;
+        var D=b*b-4*a*c, out='Equation: <span class="math-highlight">'+a+'x2+('+b+')x+('+c+')=0</span><br>D=b2-4ac='+b*b+'-'+(4*a*c)+'=<span class="math-highlight">'+D+'</span><br>';
+        if(D>0){ out+='Two real roots:<br>x1=<span class="math-highlight">'+(((-b+Math.sqrt(D))/(2*a)).toFixed(4))+'</span>, x2=<span class="math-highlight">'+(((-b-Math.sqrt(D))/(2*a)).toFixed(4))+'</span>'; }
+        else if(D===0){ out+='Equal roots: x=<span class="math-highlight">'+(-b/(2*a)).toFixed(4)+'</span>'; }
+        else{ var re=(-b/(2*a)).toFixed(4),im=(Math.sqrt(-D)/(2*a)).toFixed(4); out+='Complex roots:<br>x1=<span class="math-highlight">'+re+'+'+im+'i</span>, x2=<span class="math-highlight">'+re+'-'+im+'i</span>'; }
+        return out;
       }
     });
+  })();
+  </script>
 
-    // Mobile and Touch Screen Dropdown Menu Toggles
+  // Mobile and Touch Screen Dropdown Menu Toggles
     document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
       trigger.addEventListener('click', function(e) {
         // Toggle on mobile screens (width <= 768px)
