@@ -858,6 +858,37 @@
       .test-date-input:focus {
         background: rgba(255, 255, 255, 0.2);
       }
+      
+      .sub-tabs-container {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 5px;
+        border-radius: 8px;
+        border: 1px solid rgba(74, 62, 53, 0.08);
+        width: fit-content;
+      }
+      .sub-tab {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+      .sub-tab.active {
+        background: var(--primary-light);
+        color: #ffffff;
+        box-shadow: 0 4px 10px rgba(109, 40, 217, 0.2);
+      }
+      .sub-tab:hover:not(.active) {
+        background: rgba(0, 0, 0, 0.03);
+        color: var(--text-color);
+      }
     }
   </style>
 </head>
@@ -1017,6 +1048,13 @@
 
           <!-- Table & Marks Sheet -->
           <div class="chart-card" style="min-height: auto;">
+            <!-- Sub tabs for exam categories -->
+            <div class="sub-tabs-container">
+              <button class="sub-tab active" id="subTabCh1_8" onclick="switchSubTab('ch1_8')">Chapter Tests (Ch 1 - 8)</button>
+              <button class="sub-tab" id="subTabCh9_15" onclick="switchSubTab('ch9_15')">Chapter Tests (Ch 9 - 15)</button>
+              <button class="sub-tab" id="subTabTerm" onclick="switchSubTab('term_exams')">Term & Board Exams (PT, HY, PB, SEE)</button>
+            </div>
+            
             <div class="table-toolbar">
               <div class="search-wrapper">
                 <i class="fas fa-search"></i>
@@ -1275,6 +1313,7 @@
     }
 
     let activeClass = "7C";
+    let activeSubTab = "ch1_8";
     let studentData = {};
     let testDates = {};
     
@@ -1364,7 +1403,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v3") {
+      if (savedData && dbVersion === "v4") {
         try {
           studentData = JSON.parse(savedData);
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
@@ -1380,7 +1419,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v3");
+        localStorage.setItem("student_performance_db_version", "v4");
       }
 
       setupOriginalProfileModal();
@@ -1524,11 +1563,42 @@
       currentSortColumn = 'rollNo';
       currentSortAscending = true;
 
-      updateMaxMarksOverview();
+      // Always reset subtab to first set on class switch
+      switchSubTab("ch1_8");
 
-      renderTable();
+      updateMaxMarksOverview();
       calculateClassStats();
       updateCharts();
+    }
+
+    function switchSubTab(subTabId) {
+      activeSubTab = subTabId;
+      
+      document.querySelectorAll(".sub-tab").forEach(tab => {
+        if (tab.id === "subTabCh1_8" && subTabId === "ch1_8") tab.classList.add("active");
+        else if (tab.id === "subTabCh9_15" && subTabId === "ch9_15") tab.classList.add("active");
+        else if (tab.id === "subTabTerm" && subTabId === "term_exams") tab.classList.add("active");
+        else tab.classList.remove("active");
+      });
+
+      renderTable();
+    }
+
+    function getActiveSubTabTests() {
+      const activeTests = classTests[activeClass];
+      if (activeSubTab === "ch1_8") {
+        return activeTests.filter(t => {
+          const num = parseInt(t.id.replace("ch", ""));
+          return t.id.startsWith("ch") && num >= 1 && num <= 8;
+        });
+      } else if (activeSubTab === "ch9_15") {
+        return activeTests.filter(t => {
+          const num = parseInt(t.id.replace("ch", ""));
+          return t.id.startsWith("ch") && num >= 9 && num <= 15;
+        });
+      } else { // term_exams
+        return activeTests.filter(t => !t.id.startsWith("ch"));
+      }
     }
 
     function updateMaxMarksOverview() {
@@ -1653,13 +1723,19 @@
         `;
       });
 
+      let subAvgLabel = "Ch 1-8 Avg %";
+      if (activeSubTab === "ch9_15") subAvgLabel = "Ch 9-15 Avg %";
+      else if (activeSubTab === "term_exams") subAvgLabel = "Term Avg %";
+
       headHTML += `
-        <th class="sortable" onclick="sortTable('avgPercentage')">Avg %${currentSortColumn === 'avgPercentage' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th>${subAvgLabel}</th>
+        <th class="sortable" onclick="sortTable('avgPercentage')">Overall Avg %${currentSortColumn === 'avgPercentage' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th>Analysis & Sharing</th>
       `;
       trHead.innerHTML = headHTML;
       thead.appendChild(trHead);
 
+      // 2. Filter & Sort Students
       let students = [...(studentData[activeClass] || [])];
       const searchValue = document.getElementById("studentSearchInput").value.trim().toLowerCase();
 
@@ -1667,8 +1743,20 @@
         students = students.filter(s => s.name.toLowerCase().includes(searchValue));
       }
 
-      const totalPossiblePerStudent = activeTests.reduce((a, b) => a + b.maxMarks, 0);
       students.forEach(s => {
+        // Calculate sub-tab specific average
+        let subSum = 0;
+        let subPossible = 0;
+        visibleTests.forEach(test => {
+          const val = s.marks[test.id];
+          if (val !== undefined && val !== null && val !== "") {
+            subSum += Number(val);
+            subPossible += test.maxMarks;
+          }
+        });
+        s.subAvgPercentage = subPossible > 0 ? (subSum / subPossible) * 100 : null;
+
+        // Calculate overall average
         let sum = 0;
         let possible = 0;
         activeTests.forEach(test => {
@@ -1687,7 +1775,7 @@
 
         if (currentSortColumn === 'avgPercentage') {
           if (valA === null && valB === null) return 0;
-          if (valA === null) return 1;
+          if (valA === null) return 1; // blanks sort to bottom
           if (valB === null) return -1;
         }
 
@@ -1698,10 +1786,22 @@
         }
       });
 
+      // 3. Generate Body Rows
       students.forEach((student) => {
         const tr = document.createElement("tr");
-        const pct = student.avgPercentage;
         
+        // Sub average badge styling
+        const subPct = student.subAvgPercentage;
+        let subPctText = "--%";
+        let subBadgeClass = "average";
+        if (subPct !== null) {
+          subPctText = subPct.toFixed(1) + "%";
+          if (subPct >= 75) subBadgeClass = "excellent";
+          else if (subPct < 40) subBadgeClass = "critical";
+        }
+
+        // Overall average badge styling
+        const pct = student.avgPercentage;
         let pctText = "--%";
         let badgeClass = "average";
         if (pct !== null) {
@@ -1721,7 +1821,7 @@
           </td>
         `;
 
-        activeTests.forEach(test => {
+        visibleTests.forEach(test => {
           const score = student.marks[test.id];
           const displayScore = (score !== undefined && score !== null && score !== "") ? score : "";
           cellsHTML += `
@@ -1733,7 +1833,8 @@
         });
 
         cellsHTML += `
-          <td><span class="score-badge ${badgeClass}">${pctText}</span></td>
+          <td><span class="score-badge ${subBadgeClass}" style="opacity: 0.85;">${subPctText}</span></td>
+          <td><span class="score-badge ${badgeClass}" style="font-weight: 700;">${pctText}</span></td>
           <td>
             <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})">
               <i class="fas fa-chart-line"></i> Analyze & Share
