@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Performance Analysis | Teacher's Digital Diary</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* ── Scoped Styling for Performance Dashboard ───────────────── */
+    .dashboard-container {
+      padding: 30px 0;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Glassmorphic Analytics Section */
+    .glass-card {
+      background: var(--bg-mid);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    }
+
+    /* Class Tabs & Selector */
+    .class-nav {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    
+    .class-tab {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-head);
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .class-tab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-color: var(--primary-light);
+    }
+    
+    .class-tab.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.25);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: var(--transition);
+    }
+    
+    .stat-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.04);
+    }
+    
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    
+    .stat-icon.avg { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+    .stat-icon.pass { background: linear-gradient(135deg, #10b981, #059669); }
+    .stat-icon.top { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .stat-icon.low { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    
+    .stat-info h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    
+    .stat-info p {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: var(--font-head);
+    }
+    
+    .stat-info .sub-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Charts Section */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    
+    @media (max-width: 992px) {
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+    
+    .chart-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      min-height: 350px;
+    }
+    
+    .chart-card h3 {
+      font-family: var(--font-head);
+      color: var(--primary);
+      font-size: 1.15rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Spreadsheet Table Design */
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      max-width: 350px;
+    }
+    
+    .search-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 10px 15px 10px 40px;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .btn-action {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn-action:hover {
+      border-color: var(--primary-light);
+      color: var(--primary-light);
+      background: rgba(109, 40, 217, 0.03);
+    }
+    
+    .btn-action.primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      border: none;
+    }
+    .btn-action.primary:hover {
+      box-shadow: 0 4px 10px rgba(109, 40, 217, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      background: var(--bg-surface);
+    }
+    
+    .marks-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    
+    .marks-table th {
+      background: #f1e9db;
+      color: var(--text-primary);
+      padding: 12px 14px;
+      font-family: var(--font-head);
+      font-weight: 600;
+      border-bottom: 2px solid var(--glass-border);
+      white-space: nowrap;
+    }
+    
+    .marks-table th.sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+    .marks-table th.sortable:hover {
+      background: #e8ddca;
+    }
+    .marks-table th.sortable i {
+      margin-left: 5px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .marks-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+    
+    .marks-table tr:hover {
+      background: rgba(120, 53, 4, 0.02);
+    }
+    
+    /* Spreadsheet input styling */
+    .student-name-input {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 5px 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      border-radius: var(--radius-xs);
+      width: 100%;
+      transition: var(--transition);
+    }
+    .student-name-input:focus {
+      background: var(--bg-surface);
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
+      outline: none;
+    }
+
+    .marks-input {
+      width: 60px;
+      padding: 5px 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: center;
+      font-size: 0.9rem;
+      border-radius: var(--radius-xs);
+      transition: var(--transition);
+      font-family: monospace;
+      font-weight: bold;
+    }
+    
+    .marks-input:focus {
+      background: var(--bg-surface);
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
+      outline: none;
+    }
+    
+    /* Performance Color Indicators */
+    .score-excellent { color: #047857; font-weight: 600; }
+    .score-average { color: #d97706; font-weight: 600; }
+    .score-needs-improvement { color: #dc2626; font-weight: 600; }
+    
+    .score-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .score-badge.excellent { background: rgba(16, 185, 129, 0.15); color: #047857; }
+    .score-badge.average { background: rgba(245, 158, 11, 0.15); color: #d97706; }
+    .score-badge.critical { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+
+    .btn-view-analysis {
+      background: var(--primary-light);
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: var(--radius-xs);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-view-analysis:hover {
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+
+    /* ── PASS CODE SECURITY OVERLAY ──────────────────────────────── */
+    .security-gate {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(30, 27, 24, 0.82);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease;
+    }
+    
+    .security-card {
+      background: linear-gradient(135deg, #faf5eb 0%, #f3ebda 100%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      width: 90%;
+      max-width: 460px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    .security-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      background: rgba(109, 40, 217, 0.1);
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: inset 0 0 10px rgba(109, 40, 217, 0.15);
+    }
+    
+    .security-card h2 {
+      font-family: var(--font-head);
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-size: 1.6rem;
+    }
+    
+    .security-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+    
+    .security-input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .security-input {
+      width: 100%;
+      padding: 14px 20px;
+      padding-right: 50px;
+      border: 2px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 2px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+    
+    .security-input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.15);
+    }
+    
+    .security-toggle-pwd {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    
+    .security-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.3);
+      letter-spacing: 0.5px;
+    }
+    
+    .security-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(109, 40, 217, 0.4);
+    }
+    
+    .security-error {
+      color: var(--danger);
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      height: 20px;
+    }
+
+    .security-footer-links {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .security-footer-links a {
+      color: var(--primary-light);
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .security-footer-links a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* ── SHAKE ANIMATION FOR ERRORS ─────────────────────────────── */
+    .shake {
+      animation: shakeKey 0.4s ease-in-out;
+    }
+    @keyframes shakeKey {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* ── STUDENT ANALYSIS MODAL ─────────────────────────────────── */
+    .analysis-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    .analysis-modal-content {
+      background: var(--bg-surface);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--glass-border);
+      width: 90%;
+      max-width: 850px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    
+    .close-analysis-modal {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .close-analysis-modal:hover {
+      background: #e53e3e;
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .student-modal-header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 15px;
+    }
+    
+    .student-modal-header h2 {
+      font-family: var(--font-head);
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+    
+    .student-meta-details {
+      display: flex;
+      gap: 20px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+    
+    .analysis-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+    
+    @media (max-width: 768px) {
+      .analysis-split { grid-template-columns: 1fr; }
+    }
+    
+    .student-perf-summary {
+      background: var(--bg-dark);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    
+    .student-perf-summary h4 {
+      font-family: var(--font-head);
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    
+    .student-perf-summary p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .summary-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .summary-stat-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 15px;
+    }
+    .summary-stat-item label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .summary-stat-item div {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .share-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .btn-share {
+      border: none;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+    
+    .btn-share.whatsapp {
+      background-color: #25d366;
+      color: white;
+    }
+    .btn-share.whatsapp:hover {
+      background-color: #20ba5a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+    }
+    
+    .btn-share.copy {
+      background-color: var(--secondary);
+      color: white;
+    }
+    .btn-share.copy:hover {
+      background-color: #0d6861;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+    }
+    
+    .btn-share.print {
+      background-color: var(--primary);
+      color: white;
+    }
+    .btn-share.print:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.25);
+    }
+
+    /* Auto-save notification */
+    .save-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    .save-indicator i {
+      color: #10b981;
+    }
+
+    /* Backup Utilities styling */
+    .backup-panel {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      border-top: 1px dashed var(--glass-border);
+      padding-top: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .backup-label {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* ── PRINT-ONLY REPORT CARD LAYOUT ───────────────────────────── */
+    #reportCardPrintView {
+      display: none;
+    }
+    
+    @media print {
+      /* Hide standard page elements */
+      body * {
+        visibility: hidden;
+      }
+      
+      #reportCardPrintView, #reportCardPrintView * {
+        visibility: visible;
+      }
+      
+      #reportCardPrintView {
+        display: block !important;
+        position: absolute;
+        left: 0; top: 0; width: 100%;
+        color: #000 !important;
+        background: #fff !important;
+        padding: 40px;
+      }
+      
+      .print-header {
+        text-align: center;
+        border-bottom: 3px double #000;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+      }
+      .print-header h1 {
+        font-size: 1.8rem;
+        margin: 0;
+        font-family: 'Times New Roman', serif;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+      .print-header h2 {
+        font-size: 1.2rem;
+        margin: 5px 0 0;
+        font-family: 'Times New Roman', serif;
+      }
+      
+      .print-student-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+        font-size: 1rem;
+        font-family: 'Arial', sans-serif;
+      }
+      .print-info-item {
+        margin-bottom: 8px;
+      }
+      
+      .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 35px;
+        font-size: 1rem;
+      }
+      .print-table th, .print-table td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: center;
+      }
+      .print-table th {
+        background-color: #f2f2f2 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-weight: bold;
+      }
+      .print-table td.test-name {
+        text-align: left;
+        font-weight: bold;
+      }
+      
+      .print-summary {
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+      
+      .print-signatures {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 80px;
+        font-weight: bold;
+      }
+      .print-sig-line {
+        border-top: 1px solid #000;
+        width: 200px;
+        text-align: center;
+        padding-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== SECURITY ACCESS GATE ======================== -->
+  <div class="security-gate" id="securityGate">
+    <div class="security-card">
+      <div class="security-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+      <h2>SECURE PORTAL</h2>
+      <p>Enter the access credentials to view Student Performance Analysis dashboard.</p>
+      
+      <div class="security-input-group">
+        <input type="password" id="gatePassword" class="security-input" placeholder="ACCESS PASSWORD" autofocus>
+        <button class="security-toggle-pwd" id="toggleGatePassword"><i class="fas fa-eye"></i></button>
+      </div>
+      
+      <button class="security-btn" id="btnSubmitGate">ACCESS DASHBOARD</button>
+      <div class="security-error" id="gateError"></div>
+      
+      <div class="security-footer-links">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Return to Homepage</a>
+        <a href="mailto:kboshikv2008@gmail.com"><i class="fas fa-envelope"></i> Request Access</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== MAIN PAGE CONTENT ======================== -->
+  <div class="page-wrapper" id="mainDashboardWrapper" style="display: none;">
+    
+    <!-- Site Header -->
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="header-logo">
+          <img src="kbjoshi.png" alt="K B Joshi" class="teacher-logo-img">
+          <div class="logo-text">
+            <span class="logo-title">MATHEMATICS DIARY</span>
+            <span class="logo-subtitle">PM SHRI KV RANIKHET</span>
+          </div>
+        </div>
+        <div class="header-title-main">
+          <h1>TEACHER'S DIGITAL DIARY</h1>
+          <h2>K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-bar">
+      <div class="container">
+        <div class="nav">
+          <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> PROFILE</a>
+          <a href="timetable.html"><i class="fas fa-clock"></i> Time Table</a>
+          <a href="syllabus.html"><i class="fas fa-book"></i> Syllabus</a>
+          <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> LESSON PLAN</a>
+          <a href="codeofconduct.html"><i class="fas fa-gavel"></i> CODE OF CONDUCT</a>
+          <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+          <a href="activities.html"><i class="fas fa-running"></i> Activities</a>
+          <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT BOOKS</a>
+          <a href="homework.html"><i class="fas fa-home"></i> Holiday HW</a>
+          <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          <a href="examination.html"><i class="fas fa-file-alt"></i> EXAMINATIONS</a>
+          <a href="analysis.html" class="active"><i class="fas fa-chart-line"></i> PERFORMANCE ANALYSIS</a>
+          <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM</a>
+          <a href="meetings.html"><i class="fas fa-users"></i> Meetings</a>
+          <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes</a>
+          <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra</a>
+          <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass</a>
+          <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding</a>
+          <a href="ppts.html"><i class="fas fa-tv"></i> PPTs</a>
+          <a href="students.html"><i class="fas fa-user-graduate"></i> Students Profile</a>
+          <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
+          <a href="board.html"><i class="fas fa-question-circle"></i> Board Questions</a>
+          <a href="studymaterial.html"><i class="fas fa-layer-group"></i> STUDY MATERIALS</a>
+          <a href="ptm.html"><i class="fas fa-handshake"></i> PTMs</a>
+          <a href="learners.html"><i class="fas fa-list-ul"></i> LEARNERS LIST</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="container">
+      <div class="dashboard-container">
+        
+        <div class="glass-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:15px;">
+            <div>
+              <h2 style="font-family:var(--font-head); color:var(--primary); font-size:1.8em; margin:0;"><i class="fas fa-chart-pie"></i> Student Performance & Test Analytics</h2>
+              <p style="color:var(--text-secondary); margin-top:5px; font-size:0.95rem;">Manage, analyze, and share mathematics scores of classes 7C, 11B, and 12B.</p>
+            </div>
+            <div class="save-indicator" id="saveIndicator">
+              <i class="fas fa-cloud-upload-alt"></i> Auto-saved to local browser storage
+            </div>
+          </div>
+          
+          <!-- Class Tabs -->
+          <div class="class-nav">
+            <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(40 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(18 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('12B')"><i class="fas fa-graduation-cap"></i> Class 12B <span style="font-size:0.8em; opacity:0.8;">(23 Students)</span></button>
+          </div>
+
+          <!-- Class Stats Summary Cards -->
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-icon avg"><i class="fas fa-percentage"></i></div>
+              <div class="stat-info">
+                <h4>Class Average</h4>
+                <p id="cardClassAverage">0.0%</p>
+                <div class="sub-text">All tests aggregate</div>
+              </div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-icon pass"><i class="fas fa-check-circle"></i></div>
+              <div class="stat-info">
+                <h4>Pass Rate</h4>
+                <p id="cardPassRate">0%</p>
+                <div class="sub-text">Students scoring >= 33%</div>
+              </div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-icon top"><i class="fas fa-crown"></i></div>
+              <div class="stat-info">
+                <h4>Top Performer</h4>
+                <p id="cardTopPerformer" style="font-size:1.15rem; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; max-width:180px;">N/A</p>
+                <div class="sub-text" id="cardTopScore">Score: --%</div>
+              </div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-icon low"><i class="fas fa-exclamation-triangle"></i></div>
+              <div class="stat-info">
+                <h4>Needs Support</h4>
+                <p id="cardLowCount">0</p>
+                <div class="sub-text">Students scoring &lt; 40%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h3><i class="fas fa-chart-bar"></i> Average Score by Examination Category</h3>
+              <div style="position:relative; height:300px;">
+                <canvas id="classAveragesChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3><i class="fas fa-chart-pie"></i> Grade Distribution</h3>
+              <div style="position:relative; height:300px;">
+                <canvas id="gradeDistributionChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table & Marks Sheet -->
+          <div class="chart-card" style="min-height: auto;">
+            <div class="table-toolbar">
+              <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="studentSearchInput" class="search-input" placeholder="Search student by name..." oninput="handleSearch()">
+              </div>
+              <div class="table-actions">
+                <button class="btn-action" onclick="resetToDefaultData()"><i class="fas fa-sync-alt"></i> Reset Sample Data</button>
+                <button class="btn-action" onclick="exportData()"><i class="fas fa-file-export"></i> Backup (Export JSON)</button>
+                <button class="btn-action" onclick="document.getElementById('importFileInput').click();"><i class="fas fa-file-import"></i> Restore (Import JSON)</button>
+                <input type="file" id="importFileInput" style="display:none;" accept=".json" onchange="importData(event)">
+              </div>
+            </div>
+
+            <div style="margin-bottom:10px; font-size:0.85rem; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+              <span>💡 Double-click student names or edit marks in cells directly. Changes are automatically saved!</span>
+              <span style="font-weight:600; color:var(--primary-light);" id="classMaxMarksOverview">Loading marks overview...</span>
+            </div>
+
+            <div class="table-container">
+              <table class="marks-table" id="marksTable">
+                <thead id="tableHead">
+                  <!-- Generated dynamically by JS -->
+                </thead>
+                <tbody id="tableBody">
+                  <!-- Data filled by javascript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Backup Panel -->
+          <div class="backup-panel">
+            <span class="backup-label"><i class="fas fa-info-circle"></i> Dashboard Settings:</span>
+            <button class="btn-action" onclick="clearSessionAccess()"><i class="fas fa-sign-out-alt"></i> Lock Portal Session</button>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>📓 Teacher's Digital Diary</h3>
+            <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+              <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+              <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+              <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Olympiad</h4>
+            <ul>
+              <li><a href="ioqm.html"><i class="fas fa-chevron-right"></i> IOQM Prep</a></li>
+              <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+              <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+              <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+          <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ======================== PASSWORD MODAL (ORIGINAL PROFILE ACCESS) ======================== -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal">
+          <img src="kbjoshi.png" alt="Kirti Ballabh Joshi">
+        </div>
+        <div class="teacher-details">
+          <h3>K. B. Joshi</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+      </div>
+      <div class="security-info">
+        <i class="fas fa-lock"></i> Authorized Access Only
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== STUDENT DETAILED ANALYSIS MODAL ======================== -->
+  <div class="analysis-modal" id="studentAnalysisModal">
+    <div class="analysis-modal-content">
+      <span class="close-analysis-modal" onclick="closeStudentAnalysisModal()">&times;</span>
+      
+      <div class="student-modal-header">
+        <h2 id="modalStudentName">Student Performance Analysis</h2>
+        <div class="student-meta-details">
+          <span><i class="fas fa-school"></i> Class: <strong id="modalClassName">--</strong></span>
+          <span><i class="fas fa-hashtag"></i> Roll No: <strong id="modalStudentRoll">--</strong></span>
+          <span><i class="fas fa-chart-line"></i> Aggregate Average: <strong id="modalStudentAvg">--%</strong></span>
+        </div>
+      </div>
+
+      <div class="analysis-split">
+        <!-- Text Analysis & Remarks & Actions -->
+        <div>
+          <div class="student-perf-summary">
+            <h4>Performance Summary</h4>
+            <p id="studentAnalysisText">Aarav Sharma has scored an overall average of 85.5% in Class 7C mathematics evaluations. Their peak score was in PT1 (92.5%) and key improvement is needed in SEE (75%).</p>
+            
+            <div class="summary-stats-grid">
+              <div class="summary-stat-item">
+                <label>Highest Marks</label>
+                <div id="studentHighestScore">--% (PT1)</div>
+              </div>
+              <div class="summary-stat-item">
+                <label>Overall Grade</label>
+                <div id="studentOverallGrade">A</div>
+              </div>
+            </div>
+            
+            <div style="margin-bottom:15px;">
+              <label style="font-weight:600; color:var(--primary-dark); font-size:0.85rem; display:block; margin-bottom:5px;">Personalized Teacher Remarks:</label>
+              <textarea id="studentRemarks" rows="2" style="width:100%; padding:10px; border-radius:var(--radius-xs); border:1px solid var(--glass-border); font-family:var(--font-body); font-size:0.9rem;" placeholder="Add remarks for parents (e.g. Excellent progress, needs revision in Algebra)..." oninput="updateRemarks()"></textarea>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <h4 style="font-family:var(--font-head); color:var(--primary); font-size:1rem; margin-bottom:12px;"><i class="fas fa-share-alt"></i> Share Performance Report</h4>
+            <div class="share-btn-group">
+              <button class="btn-share whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> Share Performance on WhatsApp</button>
+              <button class="btn-share copy" onclick="copyShareText()"><i class="fas fa-copy"></i> Copy Progress Text Summary</button>
+              <button class="btn-share print" onclick="printReportCard()"><i class="fas fa-print"></i> Generate Printable Report Card</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Chart vs Class Average -->
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+          <h4 style="font-family:var(--font-head); color:var(--primary-dark); font-size:1.05rem; margin-bottom:10px; align-self:flex-start;"><i class="fas fa-chart-line"></i> Score comparison vs. Class Average</h4>
+          <div style="position:relative; width:100%; height:320px; background:#fff; padding:10px; border-radius:var(--radius-md); border:1px solid var(--glass-border);">
+            <canvas id="studentComparisonChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================== PRINT-ONLY ELEMENT (PDF GENERATOR) ======================== -->
+  <div id="reportCardPrintView">
+    <div class="print-header">
+      <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+      <h2>STUDENT PROGRESS REPORT (MATHEMATICS DEPARTMENT)</h2>
+    </div>
+    
+    <div class="print-student-info">
+      <div>
+        <div class="print-info-item"><strong>Student Name:</strong> <span id="printName">--</span></div>
+        <div class="print-info-item"><strong>Roll No:</strong> <span id="printRoll">--</span></div>
+      </div>
+      <div>
+        <div class="print-info-item"><strong>Class:</strong> <span id="printClass">--</span></div>
+        <div class="print-info-item"><strong>Academic Session:</strong> 2026-27</div>
+      </div>
+    </div>
+    
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th>Examination Category</th>
+          <th>Max Marks</th>
+          <th>Marks Obtained</th>
+          <th>Percentage (%)</th>
+          <th>Grade Status</th>
+        </tr>
+      </thead>
+      <tbody id="printTableBody">
+        <!-- Rendered by JS -->
+      </tbody>
+    </table>
+    
+    <div class="print-summary">
+      <p><strong>Overall Class Average Score:</strong> <span id="printClassAvg">--%</span></p>
+      <p><strong>Student Aggregate Average:</strong> <span id="printStudentAvgVal">--%</span></p>
+      <p><strong>Result Grade:</strong> <span id="printGrade">--</span></p>
+      <p><strong>Teacher Remarks:</strong> <span id="printRemarks">--</span></p>
+    </div>
+    
+    <div class="print-signatures">
+      <div class="print-sig-line">Class Teacher Signature</div>
+      <div class="print-sig-line">Mathematics PGT (K B Joshi)</div>
+      <div class="print-sig-line">Principal Signature</div>
+    </div>
+  </div>
+
+  <!-- ======================== CORE DASHBOARD JAVASCRIPT ======================== -->
+  <script>
+    // Max marks definitions
+    const testMaxMarks = {
+      chapterwise: 40,
+      pt1: 40,
+    const classTests = {
+      "7C": [
+        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 40 })),
+        { id: "pt1", label: "PT1", maxMarks: 40 },
+        { id: "pt2", label: "PT2", maxMarks: 40 },
+        { id: "hy", label: "HY", maxMarks: 80 },
+        { id: "see", label: "SEE", maxMarks: 80 }
+      ],
+      "11B": [
+        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 40 })),
+        { id: "pt1", label: "PT1", maxMarks: 40 },
+        { id: "pt2", label: "PT2", maxMarks: 40 },
+        { id: "hy", label: "HY", maxMarks: 80 },
+        { id: "see", label: "SEE", maxMarks: 80 }
+      ],
+      "12B": [
+        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 40 })),
+        { id: "pt1", label: "PT1", maxMarks: 40 },
+        { id: "pt2", label: "PT2", maxMarks: 40 },
+        { id: "pb1", label: "PB1", maxMarks: 80 },
+        { id: "pb2", label: "PB2", maxMarks: 80 },
+        { id: "pb3", label: "PB3", maxMarks: 80 }
+      ]
+    };
+    
+    const testFullNames = {
+      pt1: "PT1 (Periodic Test 1)",
+      pt2: "PT2 (Periodic Test 2)",
+      hy: "HY (Half Yearly)",
+      see: "SEE (Session Ending Exam)",
+      pb1: "PB1 (Pre-Board 1)",
+      pb2: "PB2 (Pre-Board 2)",
+      pb3: "PB3 (Pre-Board 3)"
+    };
+    for(let i = 1; i <= 15; i++) {
+      testFullNames[`ch${i}`] = `Chapterwise Test ${i}`;
+    }
+
+    let activeClass = "7C";
+    let studentData = {};
+    let classAveragesChartInstance = null;
+    let gradeDistributionChartInstance = null;
+    let studentComparisonChartInstance = null;
+    let currentSelectedStudentIndex = -1;
+    let currentSortColumn = 'rollNo';
+    let currentSortAscending = true;
+
+    function generateInitialData() {
+      const c11bNames = [
+        "MANSI BHANDARI", "ARUN ARYA", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "PRANAY SATI",
+        "JANVI", "DIKSHANT NEGI", "PARAS SATI", "ADITYA NEGI", "MANAS BHAGAT",
+        "KARAN", "ISHANT MEHRA", "NIHARIKA MOHAN", "KARTIKEY PHARTIYAL", "NEHA NEGI",
+        "AYUSH ROY", "priyanshu kandpal", "amit dubey"
+      ];
+
+      const c12bNames = [
+        "ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA",
+        "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT",
+        "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ",
+        "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT",
+        "TANMAY ADHIKARI", "PALAK", "NISHANT"
+      ];
+
+      const c7cNames = [
+        "Abhay", "Abhinay", "Anaika", "Aryan", "Bhavika",
+        "Chandni", "Deepika", "Disha", "Geeta", "Gunjan",
+        "Harshul", "Himanshi", "Kamal", "Karishma", "Kartik",
+        "Kritika Godiyal", "Kritika Rawat", "Lakshit Rawat", "Lakshit Singh", "Malvika",
+        "Naman Tamta", "Maulik", "Moitrika", "Mrityunjay", "Munkashif",
+        "Naitik", "Naman Sati", "Nishthi", "Paridhi", "Parth",
+        "Prachi", "Prasun Dev", "Rudra", "Shravani", "Tanisha",
+        "Yaman", "Yashpal", "Arpita", "Maansha", "Parth bisht"
+      ];
+
+      function getScore(studentIndex, examKey, maxMarks) {
+        const seed = (studentIndex * 17 + examKey.length * 23) % 100;
+        let percentage = 62 + (seed % 34);
+        if (studentIndex % 7 === 0) percentage -= 22;
+        if (studentIndex % 11 === 0) percentage += 6;
+        percentage = Math.max(15, Math.min(99, percentage));
+        return Math.round((percentage / 100) * maxMarks);
+      }
+
+      const classes = {
+        "7C": c7cNames.map((name, i) => {
+          const marks = {};
+          classTests["7C"].forEach(test => {
+            marks[test.id] = getScore(i, test.id, test.maxMarks);
+          });
+          return { rollNo: i + 1, name, marks, remarks: "" };
+        }),
+        "12B": c12bNames.map((name, i) => {
+          const marks = {};
+          classTests["12B"].forEach(test => {
+            marks[test.id] = getScore(i + 40, test.id, test.maxMarks);
+          });
+          return { rollNo: i + 1, name, marks, remarks: "" };
+        }),
+        "11B": c11bNames.map((name, i) => {
+          const marks = {};
+          classTests["11B"].forEach(test => {
+            marks[test.id] = getScore(i + 80, test.id, test.maxMarks);
+          });
+          return { rollNo: i + 1, name, marks, remarks: "" };
+        })
+      };
+
+      return classes;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (sessionStorage.getItem("analysis_access_granted") === "yes") {
+        hideSecurityGate();
+      }
+
+      const savedData = localStorage.getItem("student_performance_data");
+      let resetNeeded = false;
+      if (savedData) {
+        try {
+          studentData = JSON.parse(savedData);
+          if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
+            resetNeeded = true;
+          }
+        } catch(e) {
+          resetNeeded = true;
+        }
+      } else {
+        resetNeeded = true;
+      }
+
+      if (resetNeeded) {
+        studentData = generateInitialData();
+        saveData();
+      }
+
+      setupOriginalProfileModal();
+      switchClass("7C");
+
+      const gatePwd = document.getElementById("gatePassword");
+      gatePwd.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          verifyAccess();
+        }
+      });
+      document.getElementById("btnSubmitGate").addEventListener("click", verifyAccess);
+      document.getElementById("toggleGatePassword").addEventListener("click", toggleGatePasswordVisibility);
+    });
+
+    function toggleGatePasswordVisibility() {
+      const pInput = document.getElementById("gatePassword");
+      const icon = document.getElementById("toggleGatePassword").querySelector("i");
+      if (pInput.type === "password") {
+        pInput.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        pInput.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+
+    function verifyAccess() {
+      const pwd = document.getElementById("gatePassword").value;
+      const errorMsg = document.getElementById("gateError");
+      errorMsg.textContent = "";
+
+      if (pwd === "kvrkt2026") {
+        sessionStorage.setItem("analysis_access_granted", "yes");
+        hideSecurityGate();
+      } else {
+        errorMsg.textContent = "Incorrect password! Access Denied.";
+        const btn = document.getElementById("btnSubmitGate");
+        btn.classList.add("shake");
+        setTimeout(() => btn.classList.remove("shake"), 400);
+        document.getElementById("gatePassword").value = "";
+        document.getElementById("gatePassword").focus();
+      }
+    }
+
+    function hideSecurityGate() {
+      document.getElementById("securityGate").style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById("securityGate").style.display = "none";
+        document.getElementById("mainDashboardWrapper").style.display = "flex";
+        updateCharts();
+      }, 500);
+    }
+
+    function clearSessionAccess() {
+      sessionStorage.removeItem("analysis_access_granted");
+      location.reload();
+    }
+
+    function setupOriginalProfileModal() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+      
+      if(profileLink) {
+        profileLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          modal.style.display = 'flex';
+          passwordInput.focus();
+        });
+      }
+      
+      closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        passwordInput.value = '';
+        errorMessage.textContent = '';
+      });
+      
+      window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          passwordInput.value = '';
+          errorMessage.textContent = '';
+        }
+      });
+      
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '👁️' : '🔒';
+      });
+      
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        
+        if (password === 'KV@2025') {
+          submitBtn.textContent = 'Authenticating...';
+          submitBtn.disabled = true;
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1000);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = '';
+          submitBtn.classList.add('shake');
+          setTimeout(() => submitBtn.classList.remove('shake'), 500);
+        }
+      });
+    }
+
+    function saveData() {
+      localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+      showSaveIndicator();
+    }
+
+    function showSaveIndicator() {
+      const indicator = document.getElementById("saveIndicator");
+      indicator.innerHTML = '<i class="fas fa-check-circle" style="color:#10b981;"></i> Saved to localStorage';
+      setTimeout(() => {
+        indicator.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Auto-saved to local browser storage';
+      }, 3000);
+    }
+
+    function switchClass(className) {
+      activeClass = className;
+      
+      document.querySelectorAll(".class-tab").forEach(tab => {
+        if(tab.textContent.includes(className)) tab.classList.add("active");
+        else tab.classList.remove("active");
+      });
+
+      document.getElementById("studentSearchInput").value = "";
+      
+      currentSortColumn = 'rollNo';
+      currentSortAscending = true;
+
+      updateMaxMarksOverview();
+
+      renderTable();
+      calculateClassStats();
+      updateCharts();
+    }
+
+    function updateMaxMarksOverview() {
+      const activeTests = classTests[activeClass];
+      const items = activeTests.map(t => `${t.label}: ${t.maxMarks}`);
+      document.getElementById("classMaxMarksOverview").textContent = "📊 Class Test Breakdown (Max Marks) — " + items.join(" | ");
+    }
+
+    function calculateClassStats() {
+      const students = studentData[activeClass] || [];
+      if (students.length === 0) return;
+
+      const activeTests = classTests[activeClass];
+      const totalPossiblePerStudent = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+
+      let totalObtained = 0;
+      let totalMaxPossible = 0;
+      let passCount = 0;
+      let lowCount = 0;
+      let topStudent = null;
+      let topPercentage = -1;
+
+      students.forEach(student => {
+        let studentSum = 0;
+        activeTests.forEach(test => {
+          studentSum += student.marks[test.id] !== undefined ? student.marks[test.id] : 0;
+        });
+
+        const percentage = totalPossiblePerStudent > 0 ? (studentSum / totalPossiblePerStudent) * 100 : 0;
+        totalObtained += studentSum;
+        totalMaxPossible += totalPossiblePerStudent;
+
+        if (percentage >= 33) passCount++;
+        if (percentage < 40) lowCount++;
+
+        if (percentage > topPercentage) {
+          topPercentage = percentage;
+          topStudent = student;
+        }
+      });
+
+      const classAvgPercent = totalMaxPossible > 0 ? (totalObtained / totalMaxPossible) * 100 : 0;
+      const passRatePercent = (passCount / students.length) * 100;
+
+      document.getElementById("cardClassAverage").textContent = classAvgPercent.toFixed(1) + "%";
+      document.getElementById("cardPassRate").textContent = passRatePercent.toFixed(1) + "%";
+      
+      if (topStudent) {
+        document.getElementById("cardTopPerformer").textContent = topStudent.name;
+        document.getElementById("cardTopScore").textContent = "Score: " + topPercentage.toFixed(1) + "%";
+      } else {
+        document.getElementById("cardTopPerformer").textContent = "N/A";
+        document.getElementById("cardTopScore").textContent = "Score: --%";
+      }
+      
+      document.getElementById("cardLowCount").textContent = lowCount;
+    }
+
+    function sortTable(columnName) {
+      if (currentSortColumn === columnName) {
+        currentSortAscending = !currentSortAscending;
+      } else {
+        currentSortColumn = columnName;
+        currentSortAscending = true;
+      }
+      renderTable();
+    }
+
+    function handleSearch() {
+      renderTable();
+    }
+
+    function renderTable() {
+      const thead = document.getElementById("tableHead");
+      const tbody = document.getElementById("tableBody");
+      
+      thead.innerHTML = "";
+      tbody.innerHTML = "";
+
+      const activeTests = classTests[activeClass];
+
+      const trHead = document.createElement("tr");
+      const sortIcon = currentSortAscending ? ' <i class="fas fa-sort-up"></i>' : ' <i class="fas fa-sort-down"></i>';
+      
+      let headHTML = `
+        <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+      `;
+
+      activeTests.forEach(test => {
+        headHTML += `<th>${test.label} <span style="font-size:0.75em; font-weight:normal; opacity:0.8;">(${test.maxMarks})</span></th>`;
+      });
+
+      headHTML += `
+        <th class="sortable" onclick="sortTable('avgPercentage')">Avg %${currentSortColumn === 'avgPercentage' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th>Analysis & Sharing</th>
+      `;
+      trHead.innerHTML = headHTML;
+      thead.appendChild(trHead);
+
+      let students = [...(studentData[activeClass] || [])];
+      const searchValue = document.getElementById("studentSearchInput").value.trim().toLowerCase();
+
+      if (searchValue) {
+        students = students.filter(s => s.name.toLowerCase().includes(searchValue));
+      }
+
+      const totalPossiblePerStudent = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+      students.forEach(s => {
+        let sum = 0;
+        activeTests.forEach(test => {
+          sum += s.marks[test.id] !== undefined ? s.marks[test.id] : 0;
+        });
+        s.avgPercentage = totalPossiblePerStudent > 0 ? (sum / totalPossiblePerStudent) * 100 : 0;
+      });
+
+      students.sort((a, b) => {
+        let valA = a[currentSortColumn];
+        let valB = b[currentSortColumn];
+
+        if (typeof valA === 'string') {
+          return currentSortAscending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        } else {
+          return currentSortAscending ? valA - valB : valB - valA;
+        }
+      });
+
+      students.forEach((student) => {
+        const tr = document.createElement("tr");
+        const pct = student.avgPercentage;
+        
+        let badgeClass = "average";
+        if (pct >= 75) {
+          badgeClass = "excellent";
+        } else if (pct < 40) {
+          badgeClass = "critical";
+        }
+
+        let cellsHTML = `
+          <td>${student.rollNo}</td>
+          <td>
+            <input type="text" class="student-name-input" value="${student.name}" 
+              onchange="updateStudentName(${student.rollNo}, this.value)">
+          </td>
+        `;
+
+        activeTests.forEach(test => {
+          const score = student.marks[test.id] !== undefined ? student.marks[test.id] : 0;
+          cellsHTML += `
+            <td>
+              <input type="number" class="marks-input" min="0" max="${test.maxMarks}" value="${score}" 
+                onchange="updateStudentMark(${student.rollNo}, '${test.id}', this.value)">
+            </td>
+          `;
+        });
+
+        cellsHTML += `
+          <td><span class="score-badge ${badgeClass}">${pct.toFixed(1)}%</span></td>
+          <td>
+            <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})">
+              <i class="fas fa-chart-line"></i> Analyze & Share
+            </button>
+          </td>
+        `;
+
+        tr.innerHTML = cellsHTML;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateStudentName(rollNo, newName) {
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === rollNo);
+      if (student && newName.trim()) {
+        student.name = newName.trim();
+        saveData();
+        calculateClassStats();
+        renderTable();
+      }
+    }
+
+    function updateStudentMark(rollNo, testKey, newValue) {
+      const activeTests = classTests[activeClass];
+      const test = activeTests.find(t => t.id === testKey);
+      const maxVal = test ? test.maxMarks : 100;
+      
+      let parsed = parseInt(newValue) || 0;
+      if (parsed < 0) parsed = 0;
+      if (parsed > maxVal) parsed = maxVal;
+
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === rollNo);
+      if (student) {
+        student.marks[testKey] = parsed;
+        saveData();
+        calculateClassStats();
+        updateCharts();
+        renderTable(); 
+      }
+    }
+
+    function updateCharts() {
+      const students = studentData[activeClass] || [];
+      if (students.length === 0) return;
+
+      const activeTests = classTests[activeClass];
+
+      const examAvgValues = [];
+      const examLabels = [];
+
+      activeTests.forEach(test => {
+        let sum = 0;
+        students.forEach(s => {
+          sum += s.marks[test.id] !== undefined ? s.marks[test.id] : 0;
+        });
+        const avgRaw = sum / students.length;
+        const avgPercent = test.maxMarks > 0 ? (avgRaw / test.maxMarks) * 100 : 0;
+        
+        examLabels.push(test.label);
+        examAvgValues.push(avgPercent.toFixed(1));
+      });
+
+      if (classAveragesChartInstance) {
+        classAveragesChartInstance.destroy();
+      }
+
+      const ctx1 = document.getElementById('classAveragesChart').getContext('2d');
+      classAveragesChartInstance = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: examLabels,
+          datasets: [{
+            label: 'Class Avg (%)',
+            data: examAvgValues,
+            backgroundColor: 'rgba(109, 40, 217, 0.65)',
+            borderColor: '#4c1d95',
+            borderWidth: 2,
+            borderRadius: 6,
+            hoverBackgroundColor: 'rgba(109, 40, 217, 0.85)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: 'rgba(74, 62, 53, 0.08)' },
+              ticks: { callback: value => value + "%" }
+            },
+            x: { 
+              grid: { display: false },
+              ticks: { font: { size: 9 }, autoSkip: false }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      let countA = 0;
+      let countB = 0;
+      let countC = 0;
+      let countD = 0;
+      let countE = 0;
+
+      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+
+      students.forEach(student => {
+        let sum = 0;
+        activeTests.forEach(test => {
+          sum += student.marks[test.id] !== undefined ? student.marks[test.id] : 0;
+        });
+        const pct = totalPossible > 0 ? (sum / totalPossible) * 100 : 0;
+        if (pct >= 75) countA++;
+        else if (pct >= 60) countB++;
+        else if (pct >= 45) countC++;
+        else if (pct >= 33) countD++;
+        else countE++;
+      });
+
+      if (gradeDistributionChartInstance) {
+        gradeDistributionChartInstance.destroy();
+      }
+
+      const ctx2 = document.getElementById('gradeDistributionChart').getContext('2d');
+      gradeDistributionChartInstance = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: ['Grade A (>=75%)', 'Grade B (60-74%)', 'Grade C (45-59%)', 'Grade D (33-44%)', 'Grade E/F (<33%)'],
+          datasets: [{
+            data: [countA, countB, countC, countD, countE],
+            backgroundColor: [
+              'rgba(16, 185, 129, 0.8)',
+              'rgba(99, 102, 241, 0.8)',
+              'rgba(245, 158, 11, 0.8)',
+              'rgba(236, 72, 153, 0.8)',
+              'rgba(239, 68, 68, 0.8)'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    function openStudentAnalysisModal(rollNo) {
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === rollNo);
+      if (!student) return;
+
+      currentSelectedStudentIndex = students.indexOf(student);
+      const activeTests = classTests[activeClass];
+      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+
+      document.getElementById("modalStudentName").textContent = student.name;
+      document.getElementById("modalClassName").textContent = "Class " + activeClass;
+      document.getElementById("modalStudentRoll").textContent = student.rollNo;
+      
+      let studentSum = 0;
+      activeTests.forEach(t => {
+        studentSum += student.marks[t.id] !== undefined ? student.marks[t.id] : 0;
+      });
+      const studentPct = totalPossible > 0 ? (studentSum / totalPossible) * 100 : 0;
+      document.getElementById("modalStudentAvg").textContent = studentPct.toFixed(1) + "%";
+
+      let grade = "E/Fail";
+      if (studentPct >= 75) grade = "A (Excellent)";
+      else if (studentPct >= 60) grade = "B (Good)";
+      else if (studentPct >= 45) grade = "C (Satisfactory)";
+      else if (studentPct >= 33) grade = "D (Average)";
+      document.getElementById("studentOverallGrade").textContent = grade;
+
+      let highestTest = "";
+      let highestPct = -1;
+      activeTests.forEach(t => {
+        const score = student.marks[t.id] !== undefined ? student.marks[t.id] : 0;
+        const testPct = t.maxMarks > 0 ? (score / t.maxMarks) * 100 : 0;
+        if (testPct > highestPct) {
+          highestPct = testPct;
+          highestTest = t.label;
+        }
+      });
+      document.getElementById("studentHighestScore").textContent = highestPct.toFixed(0) + "% (" + highestTest + ")";
+      
+      document.getElementById("studentRemarks").value = student.remarks || "";
+
+      let summaryText = `${student.name} is working at an aggregate marks percentage of ${studentPct.toFixed(1)}% in Class ${activeClass} Mathematics. `;
+      if (studentPct >= 75) {
+        summaryText += `They demonstrate outstanding mathematical proficiency, showing consistent excellence. Their peak performance was in ${highestTest} at ${highestPct.toFixed(0)}%.`;
+      } else if (studentPct >= 48) {
+        summaryText += `They have a satisfactory understanding of the syllabus, but there is room for improvement. Best efforts were shown in ${highestTest}. Practice is recommended in topics where scores were lower.`;
+      } else {
+        summaryText += `Special attention is required to bridge learning gaps. Consistent practice on board structures and basic concepts is highly encouraged to enhance outcomes.`;
+      }
+      document.getElementById("studentAnalysisText").textContent = summaryText;
+
+      renderStudentComparisonChart(student);
+      document.getElementById("studentAnalysisModal").style.display = "flex";
+    }
+
+    function closeStudentAnalysisModal() {
+      document.getElementById("studentAnalysisModal").style.display = "none";
+    }
+
+    function updateRemarks() {
+      const val = document.getElementById("studentRemarks").value;
+      const students = studentData[activeClass] || [];
+      if (currentSelectedStudentIndex !== -1 && students[currentSelectedStudentIndex]) {
+        students[currentSelectedStudentIndex].remarks = val;
+        saveData();
+      }
+    }
+
+    function renderStudentComparisonChart(student) {
+      const students = studentData[activeClass] || [];
+      const activeTests = classTests[activeClass];
+      
+      const classAvgPercentages = [];
+      const studentPercentages = [];
+      const labels = [];
+
+      activeTests.forEach(test => {
+        labels.push(test.label);
+        studentPercentages.push(((student.marks[test.id] || 0) / test.maxMarks) * 100);
+
+        let sum = 0;
+        students.forEach(s => {
+          sum += s.marks[test.id] || 0;
+        });
+        const classAvgRaw = sum / students.length;
+        classAvgPercentages.push((classAvgRaw / test.maxMarks) * 100);
+      });
+
+      if (studentComparisonChartInstance) {
+        studentComparisonChartInstance.destroy();
+      }
+
+      const ctx = document.getElementById('studentComparisonChart').getContext('2d');
+      studentComparisonChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: student.name,
+              data: studentPercentages.map(v => v.toFixed(0)),
+              backgroundColor: 'rgba(109, 40, 217, 0.25)',
+              borderColor: '#6d28d9',
+              borderWidth: 2,
+              pointBackgroundColor: '#6d28d9'
+            },
+            {
+              label: 'Class Average',
+              data: classAvgPercentages.map(v => v.toFixed(0)),
+              backgroundColor: 'rgba(15, 118, 110, 0.15)',
+              borderColor: '#0f766e',
+              borderWidth: 2,
+              pointBackgroundColor: '#0f766e',
+              borderDash: [5, 5]
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: { display: true },
+              suggestedMin: 0,
+              suggestedMax: 100,
+              ticks: {
+                stepSize: 20,
+                backdropColor: 'transparent',
+                font: { size: 8 }
+              }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+    }
+
+    function generateShareMessage(student) {
+      const activeTests = classTests[activeClass];
+      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+      let studentSum = 0;
+      activeTests.forEach(t => {
+        studentSum += student.marks[t.id] !== undefined ? student.marks[t.id] : 0;
+      });
+      const studentPct = totalPossible > 0 ? (studentSum / totalPossible) * 100 : 0;
+      
+      let msg = `Dear Parent,\n`;
+      msg += `Here is the academic performance progress report for *${student.name}* (Class ${activeClass}) in Mathematics evaluations:\n\n`;
+      
+      activeTests.forEach(test => {
+        const score = student.marks[test.id] || 0;
+        const testName = testFullNames[test.id] || test.label;
+        msg += `• ${testName}: *${score}/${test.maxMarks}* (${((score/test.maxMarks)*100).toFixed(0)}%)\n`;
+      });
+      
+      msg += `\n*Overall Average:* *${studentPct.toFixed(1)}%*\n`;
+      
+      if(student.remarks) {
+        msg += `*Teacher Remarks:* _${student.remarks}_\n`;
+      }
+      
+      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
+      return msg;
+    }
+
+    function shareOnWhatsApp() {
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (!student) return;
+
+      const message = generateShareMessage(student);
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    function copyShareText() {
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (!student) return;
+
+      const message = generateShareMessage(student);
+      navigator.clipboard.writeText(message).then(() => {
+        alert("Progress report message copied to clipboard!");
+      }).catch(err => {
+        console.error("Copy failed: ", err);
+      });
+    }
+
+    function printReportCard() {
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (!student) return;
+
+      document.getElementById("printName").textContent = student.name;
+      document.getElementById("printRoll").textContent = student.rollNo;
+      document.getElementById("printClass").textContent = activeClass;
+      
+      const activeTests = classTests[activeClass];
+      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+      
+      let studentSum = 0;
+      activeTests.forEach(t => {
+        studentSum += student.marks[t.id] !== undefined ? student.marks[t.id] : 0;
+      });
+      const studentPct = totalPossible > 0 ? (studentSum / totalPossible) * 100 : 0;
+      
+      let classSum = 0;
+      students.forEach(s => {
+        activeTests.forEach(t => {
+          classSum += s.marks[t.id] || 0;
+        });
+      });
+      const classAvgPercent = (classSum / (totalPossible * students.length)) * 100;
+
+      document.getElementById("printClassAvg").textContent = classAvgPercent.toFixed(1) + "%";
+      document.getElementById("printStudentAvgVal").textContent = studentPct.toFixed(1) + "%";
+      
+      let grade = "E / Fail";
+      if (studentPct >= 75) grade = "A (Outstanding)";
+      else if (studentPct >= 60) grade = "B (Good)";
+      else if (studentPct >= 45) grade = "C (Satisfactory)";
+      else if (studentPct >= 33) grade = "D (Average)";
+      document.getElementById("printGrade").textContent = grade;
+      document.getElementById("printRemarks").textContent = student.remarks || "Satisfactory progress. Keep practising.";
+
+      const printTableBody = document.getElementById("printTableBody");
+      printTableBody.innerHTML = "";
+      
+      activeTests.forEach(test => {
+        const score = student.marks[test.id] || 0;
+        const pct = ((score/test.maxMarks)*100).toFixed(0);
+        const testName = testFullNames[test.id] || test.label;
+        
+        let testGrade = "E";
+        if(pct >= 75) testGrade = "A";
+        else if(pct >= 60) testGrade = "B";
+        else if(pct >= 45) testGrade = "C";
+        else if(pct >= 33) testGrade = "D";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="test-name">${testName}</td>
+          <td>${test.maxMarks}</td>
+          <td>${score}</td>
+          <td>${pct}%</td>
+          <td>${testGrade}</td>
+        `;
+        printTableBody.appendChild(tr);
+      });
+
+      window.print();
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(studentData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `student_performance_backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed["7C"] && parsed["11B"] && parsed["12B"]) {
+            studentData = parsed;
+            saveData();
+            switchClass(activeClass);
+            alert("Database imported successfully!");
+          } else {
+            alert("Invalid database structure. Please ensure the backup file contains classes 7C, 11B, and 12B.");
+          }
+        } catch(err) {
+          alert("Error parsing backup file. Please make sure it is a valid JSON file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetToDefaultData() {
+      if (confirm("Are you sure you want to reset all students and marks to default sample data? This will overwrite your current changes.")) {
+        studentData = generateInitialData();
+        saveData();
+        switchClass(activeClass);
+      }
+    }
+  </script>
+</body>
+</html>

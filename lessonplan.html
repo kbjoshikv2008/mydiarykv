@@ -16,7 +16,7 @@
       background: rgba(15,12,41,0.85);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
       z-index: 1000;
@@ -119,9 +119,9 @@
       margin-right: 4px;
     }
 
-    /* Content Styling (hidden by default) */
+    /* Content Styling (visible by default) */
     .content {
-      display: none;
+      display: block;
     }
 
     .class-container {
@@ -286,7 +286,7 @@
       
       <div class="password-input">
         <i class="fas fa-key"></i>
-        <input type="password" id="passwordInput" placeholder="Enter your password" autofocus>
+        <input type="password" id="passwordInput" placeholder="Enter your password">
       </div>
       
       <button class="submit-btn" onclick="checkPassword()">
