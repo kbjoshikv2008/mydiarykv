@@ -817,6 +817,47 @@
         text-align: center;
         padding-top: 8px;
       }
+      
+      .test-header-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        min-width: 80px;
+      }
+      .test-label {
+        font-weight: 600;
+        font-size: 0.85rem;
+        white-space: nowrap;
+      }
+      .test-max {
+        font-size: 0.75rem;
+        opacity: 0.8;
+        font-weight: normal;
+      }
+      .test-date-input {
+        width: 100%;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        font-size: 0.65rem;
+        color: #ffffff;
+        text-align: center;
+        margin-top: 2px;
+        padding: 2px 4px;
+        outline: none;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .test-date-input::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        font-size: 0.65rem;
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      .test-date-input:focus {
+        background: rgba(255, 255, 255, 0.2);
+      }
     }
   </style>
 </head>
@@ -1197,21 +1238,21 @@
     // Dynamic test configurations per class
     const classTests = {
       "7C": [
-        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 40 })),
+        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
-        { id: "hy", label: "HY", maxMarks: 80 },
-        { id: "see", label: "SEE", maxMarks: 80 }
+        { id: "hy", label: "HY", maxMarks: 60 },
+        { id: "see", label: "SEE", maxMarks: 60 }
       ],
       "11B": [
-        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 40 })),
+        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
         { id: "hy", label: "HY", maxMarks: 80 },
         { id: "see", label: "SEE", maxMarks: 80 }
       ],
       "12B": [
-        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 40 })),
+        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
         { id: "pb1", label: "PB1", maxMarks: 80 },
@@ -1220,7 +1261,6 @@
       ]
     };
     
-    // Friendly full names for sharing messages
     const testFullNames = {
       pt1: "PT1 (Periodic Test 1)",
       pt2: "PT2 (Periodic Test 2)",
@@ -1236,14 +1276,25 @@
 
     let activeClass = "7C";
     let studentData = {};
+    let testDates = {};
+    
     let classAveragesChartInstance = null;
     let gradeDistributionChartInstance = null;
     let studentComparisonChartInstance = null;
+    
     let currentSelectedStudentIndex = -1;
     let currentSortColumn = 'rollNo';
     let currentSortAscending = true;
 
-    // Seeding pseudo-random but realistic marks based on classTests
+    function formatDate(dateString) {
+      if (!dateString) return "";
+      const parts = dateString.split("-");
+      if (parts.length === 3) {
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      }
+      return dateString;
+    }
+
     function generateInitialData() {
       const c11bNames = [
         "MANSI BHANDARI", "ARUN ARYA", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "PRANAY SATI",
@@ -1271,35 +1322,20 @@
         "Yaman", "Yashpal", "Arpita", "Maansha", "Parth bisht"
       ];
 
-      function getScore(studentIndex, examKey, maxMarks) {
-        const seed = (studentIndex * 17 + examKey.length * 23) % 100;
-        let percentage = 62 + (seed % 34); // 62% to 96%
-        if (studentIndex % 7 === 0) percentage -= 22; // Low performer
-        if (studentIndex % 11 === 0) percentage += 6;  // Top performer
-        percentage = Math.max(15, Math.min(99, percentage));
-        return Math.round((percentage / 100) * maxMarks);
-      }
-
       const classes = {
         "7C": c7cNames.map((name, i) => {
           const marks = {};
-          classTests["7C"].forEach(test => {
-            marks[test.id] = getScore(i, test.id, test.maxMarks);
-          });
+          classTests["7C"].forEach(test => { marks[test.id] = ""; });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
         "12B": c12bNames.map((name, i) => {
           const marks = {};
-          classTests["12B"].forEach(test => {
-            marks[test.id] = getScore(i + 40, test.id, test.maxMarks);
-          });
+          classTests["12B"].forEach(test => { marks[test.id] = ""; });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
         "11B": c11bNames.map((name, i) => {
           const marks = {};
-          classTests["11B"].forEach(test => {
-            marks[test.id] = getScore(i + 80, test.id, test.maxMarks);
-          });
+          classTests["11B"].forEach(test => { marks[test.id] = ""; });
           return { rollNo: i + 1, name, marks, remarks: "" };
         })
       };
@@ -1307,20 +1343,30 @@
       return classes;
     }
 
-    // Initialize Security and Data
     document.addEventListener("DOMContentLoaded", () => {
-      // Check Security session
       if (sessionStorage.getItem("analysis_access_granted") === "yes") {
         hideSecurityGate();
       }
 
-      // Load Data
+      const savedDates = localStorage.getItem("student_performance_test_dates");
+      if (savedDates) {
+        try {
+          testDates = JSON.parse(savedDates);
+        } catch(e) {
+          testDates = {};
+        }
+      }
+      if (!testDates["7C"]) testDates["7C"] = {};
+      if (!testDates["11B"]) testDates["11B"] = {};
+      if (!testDates["12B"]) testDates["12B"] = {};
+
       const savedData = localStorage.getItem("student_performance_data");
+      const dbVersion = localStorage.getItem("student_performance_db_version");
+      
       let resetNeeded = false;
-      if (savedData) {
+      if (savedData && dbVersion === "v3") {
         try {
           studentData = JSON.parse(savedData);
-          // Check if it's the old schema (doesn't have Ch 1 to Ch 15 tests split out, i.e. marks.ch1 is missing)
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
             resetNeeded = true;
           }
@@ -1334,15 +1380,12 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
+        localStorage.setItem("student_performance_db_version", "v3");
       }
 
-      // Profile access original password configuration
       setupOriginalProfileModal();
-
-      // Render Active Class
       switchClass("7C");
 
-      // Password input listeners
       const gatePwd = document.getElementById("gatePassword");
       gatePwd.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
@@ -1455,7 +1498,6 @@
       });
     }
 
-    // Save data to localStorage
     function saveData() {
       localStorage.setItem("student_performance_data", JSON.stringify(studentData));
       showSaveIndicator();
@@ -1469,7 +1511,6 @@
       }, 3000);
     }
 
-    // Switch active class
     function switchClass(className) {
       activeClass = className;
       
@@ -1479,10 +1520,12 @@
       });
 
       document.getElementById("studentSearchInput").value = "";
+      
       currentSortColumn = 'rollNo';
       currentSortAscending = true;
 
       updateMaxMarksOverview();
+
       renderTable();
       calculateClassStats();
       updateCharts();
@@ -1494,13 +1537,28 @@
       document.getElementById("classMaxMarksOverview").textContent = "📊 Class Test Breakdown (Max Marks) — " + items.join(" | ");
     }
 
-    // Calculate class stats metrics dynamically
+    function updateTestDate(testId, dateVal) {
+      if (!testDates[activeClass]) {
+        testDates[activeClass] = {};
+      }
+      testDates[activeClass][testId] = dateVal;
+      localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
+      showSaveIndicator();
+      
+      if (currentSelectedStudentIndex !== -1) {
+        const students = studentData[activeClass] || [];
+        const student = students[currentSelectedStudentIndex];
+        if (student) {
+          renderStudentComparisonChart(student);
+        }
+      }
+    }
+
     function calculateClassStats() {
       const students = studentData[activeClass] || [];
       if (students.length === 0) return;
 
       const activeTests = classTests[activeClass];
-      const totalPossiblePerStudent = activeTests.reduce((a, b) => a + b.maxMarks, 0);
 
       let totalObtained = 0;
       let totalMaxPossible = 0;
@@ -1508,33 +1566,42 @@
       let lowCount = 0;
       let topStudent = null;
       let topPercentage = -1;
+      let gradedStudentCount = 0;
 
       students.forEach(student => {
         let studentSum = 0;
+        let studentMaxPossible = 0;
         activeTests.forEach(test => {
-          studentSum += student.marks[test.id] !== undefined ? student.marks[test.id] : 0;
+          const val = student.marks[test.id];
+          if (val !== undefined && val !== null && val !== "") {
+            studentSum += Number(val);
+            studentMaxPossible += test.maxMarks;
+          }
         });
 
-        const percentage = totalPossiblePerStudent > 0 ? (studentSum / totalPossiblePerStudent) * 100 : 0;
-        totalObtained += studentSum;
-        totalMaxPossible += totalPossiblePerStudent;
+        if (studentMaxPossible > 0) {
+          const percentage = (studentSum / studentMaxPossible) * 100;
+          totalObtained += studentSum;
+          totalMaxPossible += studentMaxPossible;
+          gradedStudentCount++;
 
-        if (percentage >= 33) passCount++;
-        if (percentage < 40) lowCount++;
+          if (percentage >= 33) passCount++;
+          if (percentage < 40) lowCount++;
 
-        if (percentage > topPercentage) {
-          topPercentage = percentage;
-          topStudent = student;
+          if (percentage > topPercentage) {
+            topPercentage = percentage;
+            topStudent = student;
+          }
         }
       });
 
-      const classAvgPercent = totalMaxPossible > 0 ? (totalObtained / totalMaxPossible) * 100 : 0;
-      const passRatePercent = (passCount / students.length) * 100;
+      const classAvgPercent = totalMaxPossible > 0 ? (totalObtained / totalMaxPossible) * 100 : null;
+      const passRatePercent = gradedStudentCount > 0 ? (passCount / gradedStudentCount) * 100 : null;
 
-      document.getElementById("cardClassAverage").textContent = classAvgPercent.toFixed(1) + "%";
-      document.getElementById("cardPassRate").textContent = passRatePercent.toFixed(1) + "%";
+      document.getElementById("cardClassAverage").textContent = classAvgPercent !== null ? classAvgPercent.toFixed(1) + "%" : "--%";
+      document.getElementById("cardPassRate").textContent = passRatePercent !== null ? passRatePercent.toFixed(1) + "%" : "--%";
       
-      if (topStudent) {
+      if (topStudent && topPercentage !== -1) {
         document.getElementById("cardTopPerformer").textContent = topStudent.name;
         document.getElementById("cardTopScore").textContent = "Score: " + topPercentage.toFixed(1) + "%";
       } else {
@@ -1545,7 +1612,6 @@
       document.getElementById("cardLowCount").textContent = lowCount;
     }
 
-    // Sort column handler
     function sortTable(columnName) {
       if (currentSortColumn === columnName) {
         currentSortAscending = !currentSortAscending;
@@ -1556,12 +1622,6 @@
       renderTable();
     }
 
-    // Handle Search filter
-    function handleSearch() {
-      renderTable();
-    }
-
-    // Render Dynamic Marks Table
     function renderTable() {
       const thead = document.getElementById("tableHead");
       const tbody = document.getElementById("tableBody");
@@ -1571,7 +1631,6 @@
 
       const activeTests = classTests[activeClass];
 
-      // 1. Generate Header Row
       const trHead = document.createElement("tr");
       const sortIcon = currentSortAscending ? ' <i class="fas fa-sort-up"></i>' : ' <i class="fas fa-sort-down"></i>';
       
@@ -1581,7 +1640,17 @@
       `;
 
       activeTests.forEach(test => {
-        headHTML += `<th>${test.label} <span style="font-size:0.75em; font-weight:normal; opacity:0.8;">(${test.maxMarks})</span></th>`;
+        const currentDate = testDates[activeClass]?.[test.id] || "";
+        headHTML += `
+          <th>
+            <div class="test-header-cell">
+              <span class="test-label">${test.label}</span>
+              <span class="test-max">(${test.maxMarks})</span>
+              <input type="date" class="test-date-input" value="${currentDate}" 
+                onchange="updateTestDate('${test.id}', this.value)" title="Click to enter test date">
+            </div>
+          </th>
+        `;
       });
 
       headHTML += `
@@ -1591,7 +1660,6 @@
       trHead.innerHTML = headHTML;
       thead.appendChild(trHead);
 
-      // 2. Filter & Sort Students
       let students = [...(studentData[activeClass] || [])];
       const searchValue = document.getElementById("studentSearchInput").value.trim().toLowerCase();
 
@@ -1602,15 +1670,26 @@
       const totalPossiblePerStudent = activeTests.reduce((a, b) => a + b.maxMarks, 0);
       students.forEach(s => {
         let sum = 0;
+        let possible = 0;
         activeTests.forEach(test => {
-          sum += s.marks[test.id] !== undefined ? s.marks[test.id] : 0;
+          const val = s.marks[test.id];
+          if (val !== undefined && val !== null && val !== "") {
+            sum += Number(val);
+            possible += test.maxMarks;
+          }
         });
-        s.avgPercentage = totalPossiblePerStudent > 0 ? (sum / totalPossiblePerStudent) * 100 : 0;
+        s.avgPercentage = possible > 0 ? (sum / possible) * 100 : null;
       });
 
       students.sort((a, b) => {
         let valA = a[currentSortColumn];
         let valB = b[currentSortColumn];
+
+        if (currentSortColumn === 'avgPercentage') {
+          if (valA === null && valB === null) return 0;
+          if (valA === null) return 1;
+          if (valB === null) return -1;
+        }
 
         if (typeof valA === 'string') {
           return currentSortAscending ? valA.localeCompare(valB) : valB.localeCompare(valA);
@@ -1619,14 +1698,20 @@
         }
       });
 
-      // 3. Generate Body Rows
       students.forEach((student) => {
         const tr = document.createElement("tr");
         const pct = student.avgPercentage;
         
+        let pctText = "--%";
         let badgeClass = "average";
-        if (pct >= 75) badgeClass = "excellent";
-        else if (pct < 40) badgeClass = "critical";
+        if (pct !== null) {
+          pctText = pct.toFixed(1) + "%";
+          if (pct >= 75) {
+            badgeClass = "excellent";
+          } else if (pct < 40) {
+            badgeClass = "critical";
+          }
+        }
 
         let cellsHTML = `
           <td>${student.rollNo}</td>
@@ -1637,17 +1722,18 @@
         `;
 
         activeTests.forEach(test => {
-          const score = student.marks[test.id] !== undefined ? student.marks[test.id] : 0;
+          const score = student.marks[test.id];
+          const displayScore = (score !== undefined && score !== null && score !== "") ? score : "";
           cellsHTML += `
             <td>
-              <input type="number" class="marks-input" min="0" max="${test.maxMarks}" value="${score}" 
+              <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
                 onchange="updateStudentMark(${student.rollNo}, '${test.id}', this.value)">
             </td>
           `;
         });
 
         cellsHTML += `
-          <td><span class="score-badge ${badgeClass}">${pct.toFixed(1)}%</span></td>
+          <td><span class="score-badge ${badgeClass}">${pctText}</span></td>
           <td>
             <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})">
               <i class="fas fa-chart-line"></i> Analyze & Share
@@ -1676,14 +1762,19 @@
       const test = activeTests.find(t => t.id === testKey);
       const maxVal = test ? test.maxMarks : 100;
       
-      let parsed = parseInt(newValue) || 0;
-      if (parsed < 0) parsed = 0;
-      if (parsed > maxVal) parsed = maxVal;
-
       const students = studentData[activeClass] || [];
       const student = students.find(s => s.rollNo === rollNo);
       if (student) {
-        student.marks[testKey] = parsed;
+        if (newValue.trim() === "") {
+          student.marks[testKey] = "";
+        } else {
+          let parsed = parseInt(newValue);
+          if (isNaN(parsed)) parsed = 0;
+          if (parsed < 0) parsed = 0;
+          if (parsed > maxVal) parsed = maxVal;
+          student.marks[testKey] = parsed;
+        }
+        
         saveData();
         calculateClassStats();
         updateCharts();
@@ -1691,83 +1782,153 @@
       }
     }
 
-    // Dynamic Chart.js visualizations
     function updateCharts() {
       const students = studentData[activeClass] || [];
       if (students.length === 0) return;
 
       const activeTests = classTests[activeClass];
 
-      // Class Averages Chart data
       const examAvgValues = [];
       const examLabels = [];
 
       activeTests.forEach(test => {
         let sum = 0;
+        let count = 0;
         students.forEach(s => {
-          sum += s.marks[test.id] !== undefined ? s.marks[test.id] : 0;
-        });
-        const avgRaw = sum / students.length;
-        const avgPercent = test.maxMarks > 0 ? (avgRaw / test.maxMarks) * 100 : 0;
-        
-        examLabels.push(test.label);
-        examAvgValues.push(avgPercent.toFixed(1));
-      });
-
-      if (classAveragesChartInstance) classAveragesChartInstance.destroy();
-
-      const ctx1 = document.getElementById('classAveragesChart').getContext('2d');
-      classAveragesChartInstance = new Chart(ctx1, {
-        type: 'bar',
-        data: {
-          labels: examLabels,
-          datasets: [{
-            label: 'Class Avg (%)',
-            data: examAvgValues,
-            backgroundColor: 'rgba(109, 40, 217, 0.65)',
-            borderColor: '#4c1d95',
-            borderWidth: 2,
-            borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { beginAtZero: true, max: 100 },
-            x: { grid: { display: false } }
+          const val = s.marks[test.id];
+          if (val !== undefined && val !== null && val !== "") {
+            sum += Number(val);
+            count++;
           }
+        });
+        
+        if (count > 0) {
+          const avgRaw = sum / count;
+          const avgPercent = test.maxMarks > 0 ? (avgRaw / test.maxMarks) * 100 : 0;
+          examLabels.push(test.label);
+          examAvgValues.push(avgPercent.toFixed(1));
         }
       });
 
-      // Grade Distribution Data
+      if (classAveragesChartInstance) {
+        classAveragesChartInstance.destroy();
+        classAveragesChartInstance = null;
+      }
+
+      if (examLabels.length === 0) {
+        const ctx1 = document.getElementById('classAveragesChart').getContext('2d');
+        ctx1.clearRect(0, 0, ctx1.canvas.width, ctx1.canvas.height);
+        ctx1.font = "14px Inter";
+        ctx1.fillStyle = "rgba(74, 62, 53, 0.5)";
+        ctx1.textAlign = "center";
+        ctx1.fillText("No test scores recorded yet", ctx1.canvas.width / 2, ctx1.canvas.height / 2);
+      } else {
+        const ctx1 = document.getElementById('classAveragesChart').getContext('2d');
+        classAveragesChartInstance = new Chart(ctx1, {
+          type: 'bar',
+          data: {
+            labels: examLabels,
+            datasets: [{
+              label: 'Class Avg (%)',
+              data: examAvgValues,
+              backgroundColor: 'rgba(109, 40, 217, 0.65)',
+              borderColor: '#4c1d95',
+              borderWidth: 2,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: { color: 'rgba(74, 62, 53, 0.08)' },
+                ticks: { callback: value => value + "%" }
+              },
+              x: { 
+                grid: { display: false },
+                ticks: { font: { size: 9 }, autoSkip: false }
+              }
+            },
+            plugins: {
+              legend: { display: false }
+            }
+          }
+        });
+      }
+
       let countA = 0; let countB = 0; let countC = 0; let countD = 0; let countE = 0;
-      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+      let totalStudentsWithMarks = 0;
 
       students.forEach(student => {
         let sum = 0;
-        activeTests.forEach(test => { sum += student.marks[test.id] || 0; });
-        const pct = totalPossible > 0 ? (sum / totalPossible) * 100 : 0;
-        if (pct >= 75) countA++;
-        else if (pct >= 60) countB++;
-        else if (pct >= 45) countC++;
-        else if (pct >= 33) countD++;
-        else countE++;
+        let possible = 0;
+        activeTests.forEach(test => {
+          const val = student.marks[test.id];
+          if (val !== undefined && val !== null && val !== "") {
+            sum += Number(val);
+            possible += test.maxMarks;
+          }
+        });
+        
+        if (possible > 0) {
+          const pct = (sum / possible) * 100;
+          totalStudentsWithMarks++;
+          if (pct >= 75) countA++;
+          else if (pct >= 60) countB++;
+          else if (pct >= 45) countC++;
+          else if (pct >= 33) countD++;
+          else countE++;
+        }
       });
 
-      if (gradeDistributionChartInstance) gradeDistributionChartInstance.destroy();
-      const ctx2 = document.getElementById('gradeDistributionChart').getContext('2d');
-      gradeDistributionChartInstance = new Chart(ctx2, {
-        type: 'doughnut',
-        data: {
-          labels: ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade E'],
-          datasets: [{ data: [countA, countB, countC, countD, countE], backgroundColor: ['#10b981', '#6366f1', '#f59e0b', '#ec4899', '#ef4444'] }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-      });
+      if (gradeDistributionChartInstance) {
+        gradeDistributionChartInstance.destroy();
+        gradeDistributionChartInstance = null;
+      }
+
+      if (totalStudentsWithMarks === 0) {
+        const ctx2 = document.getElementById('gradeDistributionChart').getContext('2d');
+        ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
+        ctx2.font = "14px Inter";
+        ctx2.fillStyle = "rgba(74, 62, 53, 0.5)";
+        ctx2.textAlign = "center";
+        ctx2.fillText("No grades recorded yet", ctx2.canvas.width / 2, ctx2.canvas.height / 2);
+      } else {
+        const ctx2 = document.getElementById('gradeDistributionChart').getContext('2d');
+        gradeDistributionChartInstance = new Chart(ctx2, {
+          type: 'doughnut',
+          data: {
+            labels: ['Grade A (>=75%)', 'Grade B (60-74%)', 'Grade C (45-59%)', 'Grade D (33-44%)', 'Grade E/F (<33%)'],
+            datasets: [{
+              data: [countA, countB, countC, countD, countE],
+              backgroundColor: [
+                'rgba(16, 185, 129, 0.8)',
+                'rgba(99, 102, 241, 0.8)',
+                'rgba(245, 158, 11, 0.8)',
+                'rgba(236, 72, 153, 0.8)',
+                'rgba(239, 68, 68, 0.8)'
+              ],
+              borderColor: '#ffffff',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } }
+              }
+            }
+          }
+        });
+      }
     }
 
-    // Modal Details
     function openStudentAnalysisModal(rollNo) {
       const students = studentData[activeClass] || [];
       const student = students.find(s => s.rollNo === rollNo);
@@ -1782,17 +1943,63 @@
       document.getElementById("modalStudentRoll").textContent = student.rollNo;
       
       let studentSum = 0;
-      activeTests.forEach(t => { studentSum += student.marks[t.id] || 0; });
-      const studentPct = totalPossible > 0 ? (studentSum / totalPossible) * 100 : 0;
-      document.getElementById("modalStudentAvg").textContent = studentPct.toFixed(1) + "%";
+      let studentMaxPossible = 0;
+      activeTests.forEach(t => {
+        const val = student.marks[t.id];
+        if (val !== undefined && val !== null && val !== "") {
+          studentSum += Number(val);
+          studentMaxPossible += t.maxMarks;
+        }
+      });
+      
+      const studentPct = studentMaxPossible > 0 ? (studentSum / studentMaxPossible) * 100 : null;
+      document.getElementById("modalStudentAvg").textContent = studentPct !== null ? studentPct.toFixed(1) + "%" : "--%";
 
-      let grade = "E/Fail";
-      if (studentPct >= 75) grade = "A (Excellent)";
-      else if (studentPct >= 60) grade = "B (Good)";
-      else if (studentPct >= 45) grade = "C (Satisfactory)";
-      else if (studentPct >= 33) grade = "D (Average)";
+      let grade = "No marks entered";
+      if (studentPct !== null) {
+        if (studentPct >= 75) grade = "A (Excellent)";
+        else if (studentPct >= 60) grade = "B (Good)";
+        else if (studentPct >= 45) grade = "C (Satisfactory)";
+        else if (studentPct >= 33) grade = "D (Average)";
+        else grade = "E/Fail";
+      }
       document.getElementById("studentOverallGrade").textContent = grade;
+
+      let highestTest = "";
+      let highestPct = -1;
+      activeTests.forEach(t => {
+        const score = student.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          const testPct = t.maxMarks > 0 ? (score / t.maxMarks) * 100 : 0;
+          if (testPct > highestPct) {
+            highestPct = testPct;
+            highestTest = t.label;
+          }
+        }
+      });
+      
+      if (highestPct !== -1) {
+        document.getElementById("studentHighestScore").textContent = highestPct.toFixed(0) + "% (" + highestTest + ")";
+      } else {
+        document.getElementById("studentHighestScore").textContent = "N/A";
+      }
+      
       document.getElementById("studentRemarks").value = student.remarks || "";
+
+      let summaryText = "";
+      if (studentPct !== null) {
+        summaryText = `${student.name} is working at an aggregate marks percentage of ${studentPct.toFixed(1)}% in Class ${activeClass} Mathematics. `;
+        if (studentPct >= 75) {
+          summaryText += `They demonstrate outstanding mathematical proficiency, showing consistent excellence. Their peak performance was in ${highestTest} at ${highestPct.toFixed(0)}%.`;
+        } else if (studentPct >= 48) {
+          summaryText += `They have a satisfactory understanding of the syllabus, but there is room for improvement. Best efforts were shown in ${highestTest}. Practice is recommended in topics where scores were lower.`;
+        } else {
+          summaryText += `Special attention is required to bridge learning gaps. Consistent practice on board structures and basic concepts is highly encouraged to enhance outcomes.`;
+        }
+      } else {
+        summaryText = `No exam results have been entered for ${student.name} yet. Enter scores in the spreadsheet table to generate their progress report card.`;
+      }
+      document.getElementById("studentAnalysisText").textContent = summaryText;
 
       renderStudentComparisonChart(student);
       document.getElementById("studentAnalysisModal").style.display = "flex";
@@ -1814,74 +2021,280 @@
     function renderStudentComparisonChart(student) {
       const students = studentData[activeClass] || [];
       const activeTests = classTests[activeClass];
-      const labels = activeTests.map(t => t.label);
-      const studentPercentages = activeTests.map(t => ((student.marks[t.id] || 0) / t.maxMarks) * 100);
       
-      let classAvgPercentages = [];
-      activeTests.forEach(t => {
-        let sum = students.reduce((acc, s) => acc + (s.marks[t.id] || 0), 0);
-        classAvgPercentages.push((sum / (students.length * t.maxMarks)) * 100);
+      const classAvgPercentages = [];
+      const studentPercentages = [];
+      const labels = [];
+
+      activeTests.forEach(test => {
+        const val = student.marks[test.id];
+        if (val !== undefined && val !== null && val !== "") {
+          labels.push(test.label);
+          studentPercentages.push((Number(val) / test.maxMarks) * 100);
+
+          let sum = 0;
+          let count = 0;
+          students.forEach(s => {
+            const sVal = s.marks[test.id];
+            if (sVal !== undefined && sVal !== null && sVal !== "") {
+              sum += Number(sVal);
+              count++;
+            }
+          });
+          classAvgPercentages.push(count > 0 ? ((sum / count) / test.maxMarks) * 100 : 0);
+        }
       });
 
-      if (studentComparisonChartInstance) studentComparisonChartInstance.destroy();
-      const ctx = document.getElementById('studentComparisonChart').getContext('2d');
-      studentComparisonChartInstance = new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: labels,
-          datasets: [
-            { label: student.name, data: studentPercentages, borderColor: '#6d28d9', backgroundColor: 'rgba(109, 40, 217, 0.25)' },
-            { label: 'Class Avg', data: classAvgPercentages, borderColor: '#0f766e', borderDash: [5, 5] }
-          ]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-      });
+      if (studentComparisonChartInstance) {
+        studentComparisonChartInstance.destroy();
+        studentComparisonChartInstance = null;
+      }
+
+      if (labels.length === 0) {
+        const ctx = document.getElementById('studentComparisonChart').getContext('2d');
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.font = "12px Inter";
+        ctx.fillStyle = "rgba(74, 62, 53, 0.5)";
+        ctx.textAlign = "center";
+        ctx.fillText("No test results to compare yet", ctx.canvas.width / 2, ctx.canvas.height / 2);
+      } else {
+        const ctx = document.getElementById('studentComparisonChart').getContext('2d');
+        studentComparisonChartInstance = new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: student.name,
+                data: studentPercentages.map(v => v.toFixed(0)),
+                backgroundColor: 'rgba(109, 40, 217, 0.25)',
+                borderColor: '#6d28d9',
+                borderWidth: 2,
+                pointBackgroundColor: '#6d28d9'
+              },
+              {
+                label: 'Class Average',
+                data: classAvgPercentages.map(v => v.toFixed(0)),
+                backgroundColor: 'rgba(15, 118, 110, 0.15)',
+                borderColor: '#0f766e',
+                borderWidth: 2,
+                pointBackgroundColor: '#0f766e',
+                borderDash: [5, 5]
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: { display: true },
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks: {
+                  stepSize: 20,
+                  backdropColor: 'transparent',
+                  font: { size: 8 }
+                }
+              }
+            },
+            plugins: {
+              legend: { position: 'bottom' }
+            }
+          }
+        });
+      }
     }
 
     function generateShareMessage(student) {
       const activeTests = classTests[activeClass];
       const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
-      let studentSum = activeTests.reduce((acc, t) => acc + (student.marks[t.id] || 0), 0);
-      const studentPct = totalPossible > 0 ? (studentSum / totalPossible) * 100 : 0;
       
-      let msg = `Performance Report for *${student.name}* (Class ${activeClass}):\n\n`;
-      activeTests.forEach(test => {
-        msg += `• ${testFullNames[test.id]}: ${student.marks[test.id]}/${test.maxMarks}\n`;
+      let studentSum = 0;
+      let studentMaxPossible = 0;
+      activeTests.forEach(t => {
+        const val = student.marks[t.id];
+        if (val !== undefined && val !== null && val !== "") {
+          studentSum += Number(val);
+          studentMaxPossible += t.maxMarks;
+        }
       });
-      msg += `\n*Overall Average:* ${studentPct.toFixed(1)}%`;
+      
+      const studentPct = studentMaxPossible > 0 ? (studentSum / studentMaxPossible) * 100 : null;
+      
+      let msg = `Dear Parent,\n`;
+      msg += `Here is the academic performance progress report for *${student.name}* (Class ${activeClass}) in Mathematics evaluations:\n\n`;
+      
+      let hasExams = false;
+      activeTests.forEach(test => {
+        const score = student.marks[test.id];
+        if (score !== undefined && score !== null && score !== "") {
+          hasExams = true;
+          const testName = testFullNames[test.id] || test.label;
+          const dateStr = testDates[activeClass]?.[test.id] ? ` (${formatDate(testDates[activeClass][test.id])})` : '';
+          msg += `• ${testName}${dateStr}: *${score}/${test.maxMarks}* (${((score/test.maxMarks)*100).toFixed(0)}%)\n`;
+        }
+      });
+      
+      if (!hasExams) {
+        msg += `No evaluations recorded yet.\n`;
+      } else {
+        msg += `\n*Overall Average:* *${studentPct.toFixed(1)}%*\n`;
+      }
+      
+      if(student.remarks) {
+        msg += `*Teacher Remarks:* _${student.remarks}_\n`;
+      }
+      
+      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
       return msg;
     }
 
     function shareOnWhatsApp() {
-      const msg = generateShareMessage(studentData[activeClass][currentSelectedStudentIndex]);
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (!student) return;
+
+      const message = generateShareMessage(student);
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
     }
 
     function copyShareText() {
-      const msg = generateShareMessage(studentData[activeClass][currentSelectedStudentIndex]);
-      navigator.clipboard.writeText(msg).then(() => alert("Copied!"));
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (!student) return;
+
+      const message = generateShareMessage(student);
+      navigator.clipboard.writeText(message).then(() => {
+        alert("Progress report message copied to clipboard!");
+      }).catch(err => {
+        console.error("Copy failed: ", err);
+      });
     }
 
-    function printReportCard() { window.print(); }
+    function printReportCard() {
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (!student) return;
+
+      document.getElementById("printName").textContent = student.name;
+      document.getElementById("printRoll").textContent = student.rollNo;
+      document.getElementById("printClass").textContent = activeClass;
+      
+      const activeTests = classTests[activeClass];
+      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
+      
+      let studentSum = 0;
+      let studentMaxPossible = 0;
+      activeTests.forEach(t => {
+        const val = student.marks[t.id];
+        if (val !== undefined && val !== null && val !== "") {
+          studentSum += Number(val);
+          studentMaxPossible += t.maxMarks;
+        }
+      });
+      const studentPct = studentMaxPossible > 0 ? (studentSum / studentMaxPossible) * 100 : null;
+      
+      let classSum = 0;
+      let classMaxPossible = 0;
+      students.forEach(s => {
+        activeTests.forEach(t => {
+          const val = s.marks[t.id];
+          if (val !== undefined && val !== null && val !== "") {
+            classSum += Number(val);
+            classMaxPossible += t.maxMarks;
+          }
+        });
+      });
+      const classAvgPercent = classMaxPossible > 0 ? (classSum / classMaxPossible) * 100 : null;
+
+      document.getElementById("printClassAvg").textContent = classAvgPercent !== null ? classAvgPercent.toFixed(1) + "%" : "--%";
+      document.getElementById("printStudentAvgVal").textContent = studentPct !== null ? studentPct.toFixed(1) + "%" : "--%";
+      
+      let grade = "--";
+      if (studentPct !== null) {
+        grade = "E / Fail";
+        if (studentPct >= 75) grade = "A (Outstanding)";
+        else if (studentPct >= 60) grade = "B (Good)";
+        else if (studentPct >= 45) grade = "C (Satisfactory)";
+        else if (studentPct >= 33) grade = "D (Average)";
+      }
+      document.getElementById("printGrade").textContent = grade;
+      document.getElementById("printRemarks").textContent = student.remarks || "No remarks entered.";
+
+      const printTableBody = document.getElementById("printTableBody");
+      printTableBody.innerHTML = "";
+      
+      let hasExams = false;
+      activeTests.forEach(test => {
+        const score = student.marks[test.id];
+        if (score !== undefined && score !== null && score !== "") {
+          hasExams = true;
+          const pct = ((score/test.maxMarks)*100).toFixed(0);
+          const testName = testFullNames[test.id] || test.label;
+          const dateStr = testDates[activeClass]?.[test.id] ? ` (${formatDate(testDates[activeClass][test.id])})` : '';
+          
+          let testGrade = "E";
+          if(pct >= 75) testGrade = "A";
+          else if(pct >= 60) testGrade = "B";
+          else if(pct >= 45) testGrade = "C";
+          else if(pct >= 33) testGrade = "D";
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="test-name">${testName}${dateStr}</td>
+            <td>${test.maxMarks}</td>
+            <td>${score}</td>
+            <td>${pct}%</td>
+            <td>${testGrade}</td>
+          `;
+          printTableBody.appendChild(tr);
+        }
+      });
+
+      if (!hasExams) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td colspan="5" style="text-align:center; color:var(--text-muted);">No evaluations recorded yet.</td>
+        `;
+        printTableBody.appendChild(tr);
+      }
+
+      window.print();
+    }
 
     function exportData() {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(studentData, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", "backup.json");
+      downloadAnchor.setAttribute("download", `student_performance_backup_${new Date().toISOString().slice(0,10)}.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
     }
 
     function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
       const reader = new FileReader();
       reader.onload = function(e) {
-        studentData = JSON.parse(e.target.result);
-        saveData();
-        switchClass(activeClass);
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed["7C"] && parsed["11B"] && parsed["12B"]) {
+            studentData = parsed;
+            saveData();
+            switchClass(activeClass);
+            alert("Database imported successfully!");
+          } else {
+            alert("Invalid database structure. Please ensure the backup file contains classes 7C, 11B, and 12B.");
+          }
+        } catch(err) {
+          alert("Error parsing backup file. Please make sure it is a valid JSON file.");
+        }
       };
-      reader.readAsText(event.target.files[0]);
+      reader.readAsText(file);
     }
 
     function resetToDefaultData() {
