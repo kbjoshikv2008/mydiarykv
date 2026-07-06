@@ -1383,10 +1383,30 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      // 1. Register Password Gate Event Listeners Immediately
+      const gatePwd = document.getElementById("gatePassword");
+      if (gatePwd) {
+        gatePwd.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            verifyAccess();
+          }
+        });
+      }
+      const btnSubmit = document.getElementById("btnSubmitGate");
+      if (btnSubmit) {
+        btnSubmit.addEventListener("click", verifyAccess);
+      }
+      const btnToggle = document.getElementById("toggleGatePassword");
+      if (btnToggle) {
+        btnToggle.addEventListener("click", toggleGatePasswordVisibility);
+      }
+
+      // Check Security session
       if (sessionStorage.getItem("analysis_access_granted") === "yes") {
         hideSecurityGate();
       }
 
+      // Load Date Metadata
       const savedDates = localStorage.getItem("student_performance_test_dates");
       if (savedDates) {
         try {
@@ -1399,6 +1419,7 @@
       if (!testDates["11B"]) testDates["11B"] = {};
       if (!testDates["12B"]) testDates["12B"] = {};
 
+      // Load Data (with version check for new subtabs schema)
       const savedData = localStorage.getItem("student_performance_data");
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
@@ -1424,15 +1445,6 @@
 
       setupOriginalProfileModal();
       switchClass("7C");
-
-      const gatePwd = document.getElementById("gatePassword");
-      gatePwd.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          verifyAccess();
-        }
-      });
-      document.getElementById("btnSubmitGate").addEventListener("click", verifyAccess);
-      document.getElementById("toggleGatePassword").addEventListener("click", toggleGatePasswordVisibility);
     });
 
     function toggleGatePasswordVisibility() {
@@ -1884,6 +1896,10 @@
     }
 
     function updateCharts() {
+      if (!window.Chart) {
+        console.warn("Chart.js is not loaded. Skipping rendering of class performance charts.");
+        return;
+      }
       const students = studentData[activeClass] || [];
       if (students.length === 0) return;
 
@@ -2120,6 +2136,10 @@
     }
 
     function renderStudentComparisonChart(student) {
+      if (!window.Chart) {
+        console.warn("Chart.js is not loaded. Skipping rendering of student comparison radar chart.");
+        return;
+      }
       const students = studentData[activeClass] || [];
       const activeTests = classTests[activeClass];
       
