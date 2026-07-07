@@ -1338,15 +1338,15 @@
       const c11bNames = [
         "MANSI BHANDARI", "ARUN ARYA", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "PRANAY SATI",
         "JANVI", "DIKSHANT NEGI", "PARAS SATI", "ADITYA NEGI", "MANAS BHAGAT",
-        "KARAN", "ISHANT MEHRA", "NIHARIKA MOHAN", "KARTIKEY PHARTIYAL", "NEHA NEGI",
-        "AYUSH ROY", "priyanshu kandpal", "amit dubey"
+        "KARAN CHANDRA", "ISHANT MEHRA", "NIHARIKA MOHAN", "KARTIKEY PHARTIYAL", "NEHA NEGI",
+        "AYUSH ROY", "PRIYANSHU KANDPAL", "SPARSH DUBEY"
       ];
 
       const c12bNames = [
-        "ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA",
-        "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT",
-        "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ",
-        "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT",
+        "ABHIMANYU SINGH NEGI", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA",
+        "HARSHIT ARYA", "HARSITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT",
+        "KARAN KUWARBI", "NITIN BISHT", "PARTH AKOLIA", "PRIYANKA", "RAJ BISHT",
+        "RITIKA RAWAT", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT",
         "TANMAY ADHIKARI", "PALAK", "NISHANT"
       ];
 
@@ -1361,6 +1361,23 @@
         "Yaman", "Yashpal", "Arpita", "Maansha", "Parth bisht"
       ];
 
+      const pt1_11b = {
+        "ADITYA NEGI": 17, "ARUN ARYA": 39, "AYUSH ROY": 1, "DIKSHANT NEGI": 31,
+        "ISHANT MEHRA": 4, "JANVI": 32, "KARAN CHANDRA": 10, "KARTIKEY PHARTIYAL": 19,
+        "MANAS BHAGAT": 6, "MANSI BHANDARI": 20, "NEHA NEGI": 9, "PARAS SATI": 27,
+        "PRANAY SATI": 24, "PRIYANSHU KANDPAL": 23, "PRIYANSHU PANDEY": 22,
+        "RAJAT ADHIKARI": 21, "SPARSH DUBEY": 11
+      };
+
+      const pt1_12b = {
+        "ABHIMANYU SINGH NEGI": 21, "ANUJ GOSWAMI": 32, "AYUSH NEGI": 23, "BHUMI SATI": 20,
+        "HARDIK PHULARA": 17, "HARSHIT ARYA": 40, "HARSITA NEGI": 28, "HITESH UPADHYAY": 14,
+        "KAMAL JOSHI": 13, "KANIKA BISHT": 18, "KARAN KUWARBI": 23, "NISHANT": 30,
+        "NITIN BISHT": 18, "PALAK": 7, "PARTH AKOLIA": 20, "PRIYANKA": 20,
+        "RAJ BISHT": 14, "RITIKA RAWAT": 15, "SADHNA": 10, "SAKSHAM NEGI": 24,
+        "SIYA SUYAL": 22, "SPARSH BHATT": 24, "TANMAY ADHIKARI": 26
+      };
+
       const classes = {
         "7C": c7cNames.map((name, i) => {
           const marks = {};
@@ -1369,12 +1386,16 @@
         }),
         "12B": c12bNames.map((name, i) => {
           const marks = {};
-          classTests["12B"].forEach(test => { marks[test.id] = ""; });
+          classTests["12B"].forEach(test => {
+            marks[test.id] = (test.id === "pt1" && pt1_12b[name] !== undefined) ? pt1_12b[name] : "";
+          });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
         "11B": c11bNames.map((name, i) => {
           const marks = {};
-          classTests["11B"].forEach(test => { marks[test.id] = ""; });
+          classTests["11B"].forEach(test => {
+            marks[test.id] = (test.id === "pt1" && pt1_11b[name] !== undefined) ? pt1_11b[name] : "";
+          });
           return { rollNo: i + 1, name, marks, remarks: "" };
         })
       };
@@ -1424,7 +1445,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v4") {
+      if (savedData && dbVersion === "v5") {
         try {
           studentData = JSON.parse(savedData);
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
@@ -1440,7 +1461,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v4");
+        localStorage.setItem("student_performance_db_version", "v5");
       }
 
       setupOriginalProfileModal();
