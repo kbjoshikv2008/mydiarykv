@@ -1,0 +1,241 @@
+/* ============================================================
+   TEACHER'S DIGITAL DIARY — Premium Dark Glassmorphism Theme
+   Author  : K B Joshi | PGT Mathematics | PM SHRI KV Ranikhet
+   Version : 3.0 — High-Contrast Glowing Accent Design
+   ============================================================ */
+
+@import url('style.css');
+
+:root {
+  /* Glowing modern palette */
+  --primary:        #7c3aed;       /* Vibrant Violet */
+  --primary-light:  #a78bfa;       /* Soft Light Violet */
+  --primary-dark:   #4c1d95;       /* Rich Deep Violet */
+  --secondary:      #0d9488;       /* Teal Accent */
+  --accent:         #f97316;       /* Radiant Amber */
+  --accent2:        #db2777;       /* Rose Pink */
+  --success:        #10b981;       /* Emerald */
+  --danger:         #ef4444;       /* Coral Red */
+
+  /* Dark space gradients */
+  --bg-dark:        #06060c;       /* Pitch Space Black */
+  --bg-mid:         #0c0b16;       /* Deep Indigo Card Base */
+  --bg-surface:     #11101e;       /* Elevated Card Surface */
+
+  /* Frosted Glass */
+  --glass-bg:       rgba(12, 11, 24, 0.72);
+  --glass-border:   rgba(255, 255, 255, 0.08);
+  --glass-shadow:   0 12px 40px 0 rgba(0, 0, 0, 0.45);
+
+  /* Contrast text variables */
+  --text-primary:   #f8fafc;       /* Cool Crisp White */
+  --text-secondary: #cbd5e1;       /* Slate Grey */
+  --text-muted:     #64748b;       /* Darker Muted Slate */
+  
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Premium Body Background & Glowing Blobs ────────────────── */
+body {
+  background-color: var(--bg-dark) !important;
+  background-image: 
+    radial-gradient(circle at 5% 10%, rgba(124, 58, 237, 0.12) 0%, transparent 35%),
+    radial-gradient(circle at 95% 85%, rgba(13, 148, 136, 0.1) 0%, transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(219, 39, 119, 0.06) 0%, transparent 45%) !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  color: var(--text-primary) !important;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -15%;
+  left: -15%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+  animation: floatBlob1 35s infinite alternate ease-in-out;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -15%;
+  right: -15%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.16) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+  animation: floatBlob2 28s infinite alternate ease-in-out;
+}
+
+@keyframes floatBlob1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(8vw, 6vh) scale(1.08); }
+}
+
+@keyframes floatBlob2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-6vw, -6vh) scale(1.12); }
+}
+
+/* ── Sticky Nav Bar & Header Styling ────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, rgba(30, 10, 80, 0.9) 0%, rgba(8, 6, 16, 0.95) 60%, rgba(13, 148, 136, 0.15) 100%) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.nav-bar {
+  background: rgba(8, 6, 16, 0.92) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.45) !important;
+}
+
+.nav a {
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.nav a:hover,
+.nav a.active {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.6), rgba(13, 148, 136, 0.4)) !important;
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3) !important;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+/* ── Dropdowns Override ─────────────────────────────────────── */
+.dropdown-menu {
+  background: rgba(12, 11, 24, 0.94) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: var(--glass-shadow) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dropdown-menu a {
+  color: var(--text-secondary) !important;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── Hero Banners ───────────────────────────────────────────── */
+.page-hero {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(13, 148, 136, 0.08) 100%) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+/* ── Frosted Cards & Content Blocks ────────────────────────── */
+.chart-card, 
+.profile-card, 
+.info-card, 
+.table-card,
+.content-card,
+.diary-section,
+.lesson-plan-card,
+.doc-card,
+.stat-card,
+.card {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: var(--text-secondary) !important;
+}
+
+.chart-card h3,
+.profile-card h3,
+.info-card h2,
+.content-card h2,
+.lesson-plan-card h3,
+.card-title {
+  color: #ffffff !important;
+  border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ── Tables & Worksheets Overrides ─────────────────────────── */
+table {
+  background: rgba(12, 11, 24, 0.3) !important;
+}
+
+th {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: var(--text-secondary) !important;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.01) !important;
+}
+
+tr:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* ── Form Inputs ────────────────────────────────────────────── */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  transition: var(--transition-smooth) !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-light) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25) !important;
+}
+
+/* ── Scrollbars Styling ─────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* ── Footer Overrides ───────────────────────────────────────── */
+footer {
+  background: rgba(6, 6, 12, 0.95) !important;
+  border-top: 1px solid var(--glass-border) !important;
+  color: var(--text-muted) !important;
+}

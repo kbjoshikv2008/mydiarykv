@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <!-- Global Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="premium.css">
   
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -889,6 +889,129 @@
         background: rgba(0, 0, 0, 0.03);
         color: var(--text-color);
       }
+
+      .exam-types-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      .exam-type-btn {
+        background: #ffffff;
+        border: 1px solid rgba(74, 62, 53, 0.12);
+        color: var(--text-color);
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.25s ease;
+      }
+      .exam-type-btn.active {
+        background: var(--primary-light);
+        color: #ffffff;
+        border-color: var(--primary-light);
+        box-shadow: 0 4px 10px rgba(109, 40, 217, 0.2);
+      }
+      .exam-type-btn:hover:not(.active) {
+        background: rgba(109, 40, 217, 0.05);
+        border-color: rgba(109, 40, 217, 0.2);
+        color: var(--primary-light);
+      }
+      
+      .test-sub-selectors {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 20px;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.02);
+        border-radius: 8px;
+        border: 1px solid rgba(74, 62, 53, 0.05);
+      }
+      .sub-select-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-muted);
+        padding: 5px 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .sub-select-btn.active {
+        background: #ffffff;
+        color: var(--primary-light);
+        border-color: rgba(109, 40, 217, 0.15);
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba(109, 40, 217, 0.1);
+      }
+      .sub-select-btn:hover:not(.active) {
+        color: var(--text-color);
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .selected-test-info-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        background: linear-gradient(135deg, rgba(109, 40, 217, 0.03), rgba(15, 118, 110, 0.03));
+        border: 1px solid rgba(109, 40, 217, 0.08);
+        padding: 12px 18px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .test-info-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .test-info-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .test-info-meta {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+      .test-info-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .test-date-picker-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+      .test-card-date-input {
+        background: #ffffff;
+        border: 1px solid rgba(74, 62, 53, 0.15);
+        color: var(--text-color);
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        outline: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .test-card-date-input:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+      }
     }
   </style>
 </head>
@@ -1048,12 +1171,20 @@
 
           <!-- Table & Marks Sheet -->
           <div class="chart-card" style="min-height: auto;">
-            <!-- Sub tabs for exam categories -->
-            <div class="sub-tabs-container">
-              <button class="sub-tab active" id="subTabCh1_8" onclick="switchSubTab('ch1_8')">Chapter Tests (Ch 1 - 8)</button>
-              <button class="sub-tab" id="subTabCh9_15" onclick="switchSubTab('ch9_15')">Chapter Tests (Ch 9 - 15)</button>
-              <button class="sub-tab" id="subTabTerm" onclick="switchSubTab('term_exams')">Term & Board Exams (PT, HY, PB, SEE)</button>
+            <!-- Main Exam Category Selection Buttons -->
+            <div class="exam-types-container">
+              <button class="exam-type-btn active" id="examTypeBtnChapter" onclick="switchExamType('chapter')"><i class="fas fa-book-open"></i> Chapterwise Tests</button>
+              <button class="exam-type-btn" id="examTypeBtnPT" onclick="switchExamType('pt')"><i class="fas fa-calendar-check"></i> Periodic Tests (PT)</button>
+              <button class="exam-type-btn" id="examTypeBtnHY" onclick="switchExamType('hy')"><i class="fas fa-file-invoice"></i> Half Yearly (HY)</button>
+              <button class="exam-type-btn" id="examTypeBtnPB" onclick="switchExamType('pb')"><i class="fas fa-graduation-cap"></i> Pre-Boards (PB)</button>
+              <button class="exam-type-btn" id="examTypeBtnSEE" onclick="switchExamType('see')"><i class="fas fa-award"></i> Session Ending Exam (SEE)</button>
             </div>
+
+            <!-- Sub-selector for specific test (e.g. Ch 1, PT1) -->
+            <div class="test-sub-selectors" id="testSubSelectors"></div>
+
+            <!-- Selected Test Header Info Card -->
+            <div class="selected-test-info-card" id="selectedTestInfoCard"></div>
             
             <div class="table-toolbar">
               <div class="search-wrapper">
@@ -1313,7 +1444,8 @@
     }
 
     let activeClass = "7C";
-    let activeSubTab = "ch1_8";
+    let activeExamType = "chapter";
+    let activeTestId = "ch1";
     let studentData = {};
     let testDates = {};
     
@@ -1596,48 +1728,126 @@
       currentSortColumn = 'rollNo';
       currentSortAscending = true;
 
-      // Always reset subtab to first set on class switch
-      switchSubTab("ch1_8");
-
-      updateMaxMarksOverview();
-      calculateClassStats();
-      updateCharts();
+      updateExamTypeButtonsVisibility();
+      switchExamType("chapter");
     }
 
-    function switchSubTab(subTabId) {
-      activeSubTab = subTabId;
+    function updateExamTypeButtonsVisibility() {
+      const pbBtn = document.getElementById("examTypeBtnPB");
+      const hyBtn = document.getElementById("examTypeBtnHY");
+      const seeBtn = document.getElementById("examTypeBtnSEE");
       
-      document.querySelectorAll(".sub-tab").forEach(tab => {
-        if (tab.id === "subTabCh1_8" && subTabId === "ch1_8") tab.classList.add("active");
-        else if (tab.id === "subTabCh9_15" && subTabId === "ch9_15") tab.classList.add("active");
-        else if (tab.id === "subTabTerm" && subTabId === "term_exams") tab.classList.add("active");
-        else tab.classList.remove("active");
-      });
-
-      renderTable();
-    }
-
-    function getActiveSubTabTests() {
-      const activeTests = classTests[activeClass];
-      if (activeSubTab === "ch1_8") {
-        return activeTests.filter(t => {
-          const num = parseInt(t.id.replace("ch", ""));
-          return t.id.startsWith("ch") && num >= 1 && num <= 8;
-        });
-      } else if (activeSubTab === "ch9_15") {
-        return activeTests.filter(t => {
-          const num = parseInt(t.id.replace("ch", ""));
-          return t.id.startsWith("ch") && num >= 9 && num <= 15;
-        });
-      } else { // term_exams
-        return activeTests.filter(t => !t.id.startsWith("ch"));
+      if (activeClass === "12B") {
+        pbBtn.style.display = "flex";
+        hyBtn.style.display = "none";
+        seeBtn.style.display = "none";
+      } else { // 11B or 7C
+        pbBtn.style.display = "none";
+        hyBtn.style.display = "flex";
+        seeBtn.style.display = "flex";
       }
     }
 
-    function updateMaxMarksOverview() {
+    function switchExamType(type) {
+      activeExamType = type;
+      
+      document.querySelectorAll(".exam-type-btn").forEach(btn => {
+        if (btn.id === "examTypeBtnChapter" && type === "chapter") btn.classList.add("active");
+        else if (btn.id === "examTypeBtnPT" && type === "pt") btn.classList.add("active");
+        else if (btn.id === "examTypeBtnHY" && type === "hy") btn.classList.add("active");
+        else if (btn.id === "examTypeBtnPB" && type === "pb") btn.classList.add("active");
+        else if (btn.id === "examTypeBtnSEE" && type === "see") btn.classList.add("active");
+        else btn.classList.remove("active");
+      });
+
+      // Select default test ID for this type
       const activeTests = classTests[activeClass];
-      const items = activeTests.map(t => `${t.label}: ${t.maxMarks}`);
-      document.getElementById("classMaxMarksOverview").textContent = "📊 Class Test Breakdown (Max Marks) — " + items.join(" | ");
+      const filtered = activeTests.filter(t => {
+        if (type === "chapter") return t.id.startsWith("ch");
+        if (type === "pt") return t.id.startsWith("pt");
+        if (type === "pb") return t.id.startsWith("pb");
+        if (type === "hy") return t.id === "hy";
+        if (type === "see") return t.id === "see";
+        return false;
+      });
+
+      if (filtered.length > 0) {
+        activeTestId = filtered[0].id;
+      }
+
+      renderSubSelectors();
+      renderSelectedTestInfo();
+      calculateClassStats();
+      renderTable();
+      updateCharts();
+    }
+
+    function renderSubSelectors() {
+      const container = document.getElementById("testSubSelectors");
+      container.innerHTML = "";
+
+      const activeTests = classTests[activeClass];
+      const filtered = activeTests.filter(t => {
+        if (activeExamType === "chapter") return t.id.startsWith("ch");
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        return false;
+      });
+
+      if (filtered.length <= 1) {
+        container.style.display = "none";
+        return;
+      }
+      container.style.display = "flex";
+
+      filtered.forEach(test => {
+        const btn = document.createElement("button");
+        btn.className = "sub-select-btn" + (activeTestId === test.id ? " active" : "");
+        btn.textContent = test.label;
+        btn.onclick = () => {
+          activeTestId = test.id;
+          document.querySelectorAll(".sub-select-btn").forEach(b => {
+            if (b.textContent === test.label) b.classList.add("active");
+            else b.classList.remove("active");
+          });
+          renderSelectedTestInfo();
+          calculateClassStats();
+          renderTable();
+          updateCharts();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderSelectedTestInfo() {
+      const container = document.getElementById("selectedTestInfoCard");
+      const activeTests = classTests[activeClass];
+      const test = activeTests.find(t => t.id === activeTestId);
+      if (!test) return;
+
+      const currentDate = testDates[activeClass]?.[test.id] || "";
+      const fullName = testFullNames[test.id] || test.label;
+
+      container.innerHTML = `
+        <div class="test-info-left">
+          <div class="test-info-title">
+            <i class="fas fa-file-signature" style="color: var(--primary-light);"></i>
+            <span>${fullName}</span>
+          </div>
+          <div class="test-info-meta">
+            <span>Maximum Marks: <strong>${test.maxMarks}</strong></span>
+            <span style="margin-left: 15px;">Pass Marks (33%): <strong>${Math.ceil(test.maxMarks * 0.33)}</strong></span>
+          </div>
+        </div>
+        <div class="test-info-right">
+          <div class="test-date-picker-wrapper">
+            <i class="far fa-calendar-alt"></i>
+            <label>Test Date:</label>
+            <input type="date" class="test-card-date-input" value="${currentDate}" 
+              onchange="updateTestDate('${test.id}', this.value)" title="Select evaluation date">
+          </div>
+        </div>
+      `;
     }
 
     function updateTestDate(testId, dateVal) {
@@ -1655,6 +1865,7 @@
           renderStudentComparisonChart(student);
         }
       }
+      renderSelectedTestInfo();
     }
 
     function calculateClassStats() {
@@ -1662,37 +1873,31 @@
       if (students.length === 0) return;
 
       const activeTests = classTests[activeClass];
+      const activeTest = activeTests.find(t => t.id === activeTestId);
+      if (!activeTest) return;
 
       let totalObtained = 0;
       let totalMaxPossible = 0;
       let passCount = 0;
       let lowCount = 0;
       let topStudent = null;
-      let topPercentage = -1;
+      let topScore = -1;
       let gradedStudentCount = 0;
 
       students.forEach(student => {
-        let studentSum = 0;
-        let studentMaxPossible = 0;
-        activeTests.forEach(test => {
-          const val = student.marks[test.id];
-          if (val !== undefined && val !== null && val !== "") {
-            studentSum += Number(val);
-            studentMaxPossible += test.maxMarks;
-          }
-        });
-
-        if (studentMaxPossible > 0) {
-          const percentage = (studentSum / studentMaxPossible) * 100;
-          totalObtained += studentSum;
-          totalMaxPossible += studentMaxPossible;
+        const val = student.marks[activeTestId];
+        if (val !== undefined && val !== null && val !== "") {
+          const score = Number(val);
+          totalObtained += score;
+          totalMaxPossible += activeTest.maxMarks;
           gradedStudentCount++;
 
-          if (percentage >= 33) passCount++;
-          if (percentage < 40) lowCount++;
+          const pct = (score / activeTest.maxMarks) * 100;
+          if (pct >= 33) passCount++;
+          if (pct < 40) lowCount++;
 
-          if (percentage > topPercentage) {
-            topPercentage = percentage;
+          if (score > topScore) {
+            topScore = score;
             topStudent = student;
           }
         }
@@ -1704,12 +1909,12 @@
       document.getElementById("cardClassAverage").textContent = classAvgPercent !== null ? classAvgPercent.toFixed(1) + "%" : "--%";
       document.getElementById("cardPassRate").textContent = passRatePercent !== null ? passRatePercent.toFixed(1) + "%" : "--%";
       
-      if (topStudent && topPercentage !== -1) {
+      if (topStudent && topScore !== -1) {
         document.getElementById("cardTopPerformer").textContent = topStudent.name;
-        document.getElementById("cardTopScore").textContent = "Score: " + topPercentage.toFixed(1) + "%";
+        document.getElementById("cardTopScore").textContent = `Marks: ${topScore}/${activeTest.maxMarks} (${((topScore/activeTest.maxMarks)*100).toFixed(1)}%)`;
       } else {
         document.getElementById("cardTopPerformer").textContent = "N/A";
-        document.getElementById("cardTopScore").textContent = "Score: --%";
+        document.getElementById("cardTopScore").textContent = "Marks: --";
       }
       
       document.getElementById("cardLowCount").textContent = lowCount;
@@ -1733,39 +1938,21 @@
       tbody.innerHTML = "";
 
       const activeTests = classTests[activeClass];
+      const test = activeTests.find(t => t.id === activeTestId);
+      if (!test) return;
 
-      const trHead = document.createElement("tr");
       const sortIcon = currentSortAscending ? ' <i class="fas fa-sort-up"></i>' : ' <i class="fas fa-sort-down"></i>';
-      
-      let headHTML = `
+
+      // 1. Generate Header Row
+      const trHead = document.createElement("tr");
+      trHead.innerHTML = `
         <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-      `;
-
-      activeTests.forEach(test => {
-        const currentDate = testDates[activeClass]?.[test.id] || "";
-        headHTML += `
-          <th>
-            <div class="test-header-cell">
-              <span class="test-label">${test.label}</span>
-              <span class="test-max">(${test.maxMarks})</span>
-              <input type="date" class="test-date-input" value="${currentDate}" 
-                onchange="updateTestDate('${test.id}', this.value)" title="Click to enter test date">
-            </div>
-          </th>
-        `;
-      });
-
-      let subAvgLabel = "Ch 1-8 Avg %";
-      if (activeSubTab === "ch9_15") subAvgLabel = "Ch 9-15 Avg %";
-      else if (activeSubTab === "term_exams") subAvgLabel = "Term Avg %";
-
-      headHTML += `
-        <th>${subAvgLabel}</th>
-        <th class="sortable" onclick="sortTable('avgPercentage')">Overall Avg %${currentSortColumn === 'avgPercentage' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('score')">Marks Obtained (Max: ${test.maxMarks})${currentSortColumn === 'score' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('pct')">Percentage (%)${currentSortColumn === 'pct' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('status')">Grade / Status${currentSortColumn === 'status' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th>Analysis & Sharing</th>
       `;
-      trHead.innerHTML = headHTML;
       thead.appendChild(trHead);
 
       // 2. Filter & Sort Students
@@ -1777,40 +1964,25 @@
       }
 
       students.forEach(s => {
-        // Calculate sub-tab specific average
-        let subSum = 0;
-        let subPossible = 0;
-        visibleTests.forEach(test => {
-          const val = s.marks[test.id];
-          if (val !== undefined && val !== null && val !== "") {
-            subSum += Number(val);
-            subPossible += test.maxMarks;
-          }
-        });
-        s.subAvgPercentage = subPossible > 0 ? (subSum / subPossible) * 100 : null;
-
-        // Calculate overall average
-        let sum = 0;
-        let possible = 0;
-        activeTests.forEach(test => {
-          const val = s.marks[test.id];
-          if (val !== undefined && val !== null && val !== "") {
-            sum += Number(val);
-            possible += test.maxMarks;
-          }
-        });
-        s.avgPercentage = possible > 0 ? (sum / possible) * 100 : null;
+        const val = s.marks[activeTestId];
+        if (val !== undefined && val !== null && val !== "") {
+          s.score = Number(val);
+          s.pct = (s.score / test.maxMarks) * 100;
+          s.status = s.pct >= 33 ? 1 : 0;
+        } else {
+          s.score = null;
+          s.pct = null;
+          s.status = -1;
+        }
       });
 
       students.sort((a, b) => {
         let valA = a[currentSortColumn];
         let valB = b[currentSortColumn];
 
-        if (currentSortColumn === 'avgPercentage') {
-          if (valA === null && valB === null) return 0;
-          if (valA === null) return 1; // blanks sort to bottom
-          if (valB === null) return -1;
-        }
+        if (valA === null && valB === null) return 0;
+        if (valA === null) return 1; // blanks sort to bottom
+        if (valB === null) return -1;
 
         if (typeof valA === 'string') {
           return currentSortAscending ? valA.localeCompare(valB) : valB.localeCompare(valA);
@@ -1822,60 +1994,46 @@
       // 3. Generate Body Rows
       students.forEach((student) => {
         const tr = document.createElement("tr");
-        
-        // Sub average badge styling
-        const subPct = student.subAvgPercentage;
-        let subPctText = "--%";
-        let subBadgeClass = "average";
-        if (subPct !== null) {
-          subPctText = subPct.toFixed(1) + "%";
-          if (subPct >= 75) subBadgeClass = "excellent";
-          else if (subPct < 40) subBadgeClass = "critical";
-        }
 
-        // Overall average badge styling
-        const pct = student.avgPercentage;
+        const val = student.marks[activeTestId];
+        const displayScore = (val !== undefined && val !== null && val !== "") ? val : "";
+        
         let pctText = "--%";
         let badgeClass = "average";
-        if (pct !== null) {
-          pctText = pct.toFixed(1) + "%";
-          if (pct >= 75) {
-            badgeClass = "excellent";
-          } else if (pct < 40) {
-            badgeClass = "critical";
-          }
+        if (student.pct !== null) {
+          pctText = student.pct.toFixed(1) + "%";
+          if (student.pct >= 75) badgeClass = "excellent";
+          else if (student.pct < 33) badgeClass = "critical";
         }
 
-        let cellsHTML = `
+        let statusText = "Absent / Blank";
+        let statusBadgeClass = "average";
+        if (student.status === 1) {
+          statusText = "Pass";
+          statusBadgeClass = "excellent";
+        } else if (student.status === 0) {
+          statusText = "Fail";
+          statusBadgeClass = "critical";
+        }
+
+        tr.innerHTML = `
           <td>${student.rollNo}</td>
           <td>
             <input type="text" class="student-name-input" value="${student.name}" 
               onchange="updateStudentName(${student.rollNo}, this.value)">
           </td>
-        `;
-
-        visibleTests.forEach(test => {
-          const score = student.marks[test.id];
-          const displayScore = (score !== undefined && score !== null && score !== "") ? score : "";
-          cellsHTML += `
-            <td>
-              <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
-                onchange="updateStudentMark(${student.rollNo}, '${test.id}', this.value)">
-            </td>
-          `;
-        });
-
-        cellsHTML += `
-          <td><span class="score-badge ${subBadgeClass}" style="opacity: 0.85;">${subPctText}</span></td>
-          <td><span class="score-badge ${badgeClass}" style="font-weight: 700;">${pctText}</span></td>
+          <td>
+            <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
+              onchange="updateStudentMark(${student.rollNo}, '${activeTestId}', this.value)" style="width: 85px; text-align: center;">
+          </td>
+          <td><span class="score-badge ${badgeClass}">${pctText}</span></td>
+          <td><span class="score-badge ${statusBadgeClass}">${statusText}</span></td>
           <td>
             <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})">
               <i class="fas fa-chart-line"></i> Analyze & Share
             </button>
           </td>
         `;
-
-        tr.innerHTML = cellsHTML;
         tbody.appendChild(tr);
       });
     }
@@ -2000,27 +2158,21 @@
       let countA = 0; let countB = 0; let countC = 0; let countD = 0; let countE = 0;
       let totalStudentsWithMarks = 0;
 
-      students.forEach(student => {
-        let sum = 0;
-        let possible = 0;
-        activeTests.forEach(test => {
-          const val = student.marks[test.id];
+      const activeTest = activeTests.find(t => t.id === activeTestId);
+      if (activeTest) {
+        students.forEach(student => {
+          const val = student.marks[activeTestId];
           if (val !== undefined && val !== null && val !== "") {
-            sum += Number(val);
-            possible += test.maxMarks;
+            const pct = (Number(val) / activeTest.maxMarks) * 100;
+            totalStudentsWithMarks++;
+            if (pct >= 75) countA++;
+            else if (pct >= 60) countB++;
+            else if (pct >= 45) countC++;
+            else if (pct >= 33) countD++;
+            else countE++;
           }
         });
-        
-        if (possible > 0) {
-          const pct = (sum / possible) * 100;
-          totalStudentsWithMarks++;
-          if (pct >= 75) countA++;
-          else if (pct >= 60) countB++;
-          else if (pct >= 45) countC++;
-          else if (pct >= 33) countD++;
-          else countE++;
-        }
-      });
+      }
 
       if (gradeDistributionChartInstance) {
         gradeDistributionChartInstance.destroy();
