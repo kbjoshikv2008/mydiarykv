@@ -1468,10 +1468,10 @@
 
     function generateInitialData() {
       const c11bNames = [
-        "MANSI BHANDARI", "ARUN ARYA", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "PRANAY SATI",
-        "JANVI", "DIKSHANT NEGI", "PARAS SATI", "ADITYA NEGI", "MANAS BHAGAT",
-        "KARAN CHANDRA", "ISHANT MEHRA", "NIHARIKA MOHAN", "KARTIKEY PHARTIYAL", "NEHA NEGI",
-        "AYUSH ROY", "PRIYANSHU KANDPAL", "SPARSH DUBEY"
+        "ADITYA NEGI", "ARUN ARYA", "AYUSH ROY", "DIKSHANT NEGI", "ISHANT MEHRA",
+        "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI",
+        "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY",
+        "RAJAT ADHIKARI", "SPARSH DUBEY"
       ];
 
       const c12bNames = [
@@ -1483,22 +1483,22 @@
       ];
 
       const c7cNames = [
-        "Abhay", "Abhinay", "Anaika", "Aryan", "Bhavika",
-        "Chandni", "Deepika", "Disha", "Geeta", "Gunjan",
-        "Harshul", "Himanshi", "Kamal", "Karishma", "Kartik",
-        "Kritika Godiyal", "Kritika Rawat", "Lakshit Rawat", "Lakshit Singh", "Malvika",
-        "Naman Tamta", "Maulik", "Moitrika", "Mrityunjay", "Munkashif",
-        "Naitik", "Naman Sati", "Nishthi", "Paridhi", "Parth",
-        "Prachi", "Prasun Dev", "Rudra", "Shravani", "Tanisha",
-        "Yaman", "Yashpal", "Arpita", "Maansha", "Parth bisht"
+        "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI",
+        "DIPIKA", "DISHA", "GEETA", "GUNJAN", "HARSHUL",
+        "HIMANSHI", "KAMAL SINGH", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT",
+        "KARISHMA", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA", "MAULIK",
+        "MOITRIKA", "MRTUNJAY CHANDRA", "MUNKASHIF", "NAITIK", "NAMAN SATI",
+        "NAMAN TAMTA", "NISHTHI", "PARIDHI", "PARTH", "PRACHI",
+        "PRASHUN", "RUDRAPRATAP SINGH", "SHRAVANI DILEEP", "TANISHA", "YAMAN",
+        "YASHPAL", "ARPITA", "PARTH", "MAANSHA"
       ];
 
       const pt1_11b = {
-        "ADITYA NEGI": 17, "ARUN ARYA": 39, "AYUSH ROY": 1, "DIKSHANT NEGI": 31,
-        "ISHANT MEHRA": 4, "JANVI": 32, "KARAN CHANDRA": 10, "KARTIKEY PHARTIYAL": 19,
-        "MANAS BHAGAT": 6, "MANSI BHANDARI": 20, "NEHA NEGI": 9, "PARAS SATI": 27,
-        "PRANAY SATI": 24, "PRIYANSHU KANDPAL": 23, "PRIYANSHU PANDEY": 22,
-        "RAJAT ADHIKARI": 21, "SPARSH DUBEY": 11
+        "ADITYA NEGI": 17, "ARUN ARYA": 39, "AYUSH ROY": 3, "DIKSHANT NEGI": 31,
+        "ISHANT MEHRA": 4, "JANVI": 32, "KARAN CHANDRA": 13, "KARTIKEY PHARTIYAL": 21,
+        "MANAS BHAGAT": 6, "MANSI BHANDARI": 20, "NEHA NEGI": 9, "PARAS SATI": 29,
+        "PRANAY SATI": 28, "PRIYANSHU KANDPAL": 23, "PRIYANSHU PANDEY": 24,
+        "RAJAT ADHIKARI": 24, "SPARSH DUBEY": 11
       };
 
       const pt1_12b = {
@@ -1510,10 +1510,16 @@
         "SIYA SUYAL": 22, "SPARSH BHATT": 24, "TANMAY ADHIKARI": 26
       };
 
+      const pt1_7c = [
+        1, 29, 13, 32, 3, 4, 13, 6, 25, 6, 7, 3, 10, 3, 20, 16, 7, 24, 20, 25, 30, 24, 20, 31, 26, 23, 23, 4, 16, 17, 8, 22, 13, 8, 14, 22, 12, 29, 23
+      ];
+
       const classes = {
         "7C": c7cNames.map((name, i) => {
           const marks = {};
-          classTests["7C"].forEach(test => { marks[test.id] = ""; });
+          classTests["7C"].forEach(test => {
+            marks[test.id] = (test.id === "pt1" && pt1_7c[i] !== undefined) ? pt1_7c[i] : "";
+          });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
         "12B": c12bNames.map((name, i) => {
@@ -1577,7 +1583,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v5") {
+      if (savedData && dbVersion === "v8") {
         try {
           studentData = JSON.parse(savedData);
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
@@ -1593,7 +1599,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v5");
+        localStorage.setItem("student_performance_db_version", "v8");
       }
 
       setupOriginalProfileModal();
@@ -1836,7 +1842,7 @@
           </div>
           <div class="test-info-meta">
             <span>Maximum Marks: <strong>${test.maxMarks}</strong></span>
-            <span style="margin-left: 15px;">Pass Marks (33%): <strong>${Math.ceil(test.maxMarks * 0.33)}</strong></span>
+            <span style="margin-left: 15px;">Pass Marks: <strong>${test.maxMarks === 40 ? 13 : Math.ceil(test.maxMarks * 0.33)}</strong></span>
           </div>
         </div>
         <div class="test-info-right">
@@ -1893,8 +1899,10 @@
           gradedStudentCount++;
 
           const pct = (score / activeTest.maxMarks) * 100;
-          if (pct >= 33) passCount++;
-          if (pct < 40) lowCount++;
+          const isPassed = (activeTest.maxMarks === 40) ? (score >= 13) : (pct >= 33);
+          if (isPassed) passCount++;
+          const isLowPerformer = (activeTest.maxMarks === 40) ? (score < 13) : (pct < 33);
+          if (isLowPerformer) lowCount++;
 
           if (score > topScore) {
             topScore = score;
@@ -1968,7 +1976,8 @@
         if (val !== undefined && val !== null && val !== "") {
           s.score = Number(val);
           s.pct = (s.score / test.maxMarks) * 100;
-          s.status = s.pct >= 33 ? 1 : 0;
+          const isPass = (test.maxMarks === 40) ? (s.score >= 13) : (s.pct >= 33);
+          s.status = isPass ? 1 : 0;
         } else {
           s.score = null;
           s.pct = null;
@@ -2163,12 +2172,13 @@
         students.forEach(student => {
           const val = student.marks[activeTestId];
           if (val !== undefined && val !== null && val !== "") {
-            const pct = (Number(val) / activeTest.maxMarks) * 100;
+            const numVal = Number(val);
+            const pct = (numVal / activeTest.maxMarks) * 100;
             totalStudentsWithMarks++;
             if (pct >= 75) countA++;
             else if (pct >= 60) countB++;
             else if (pct >= 45) countC++;
-            else if (pct >= 33) countD++;
+            else if (activeTest.maxMarks === 40 ? numVal >= 13 : pct >= 33) countD++;
             else countE++;
           }
         });
@@ -2533,7 +2543,7 @@
           if(pct >= 75) testGrade = "A";
           else if(pct >= 60) testGrade = "B";
           else if(pct >= 45) testGrade = "C";
-          else if(pct >= 33) testGrade = "D";
+          else if(test.maxMarks === 40 ? Number(score) >= 13 : pct >= 33) testGrade = "D";
 
           const tr = document.createElement("tr");
           tr.innerHTML = `
