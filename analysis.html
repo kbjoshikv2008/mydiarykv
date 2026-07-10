@@ -370,6 +370,36 @@
       background: var(--primary);
       transform: scale(1.05);
     }
+    .btn-share-quick {
+      background: var(--secondary) !important;
+      color: #fff !important;
+      border: none;
+      padding: 5px 10px;
+      border-radius: var(--radius-xs);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-share-quick:hover {
+      background: var(--primary-light) !important;
+      transform: scale(1.05);
+    }
+    .parent-mobile-input {
+      background: rgba(255, 255, 255, 0.04) !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 6px !important;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      width: 125px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .parent-mobile-input:focus {
+      border-color: var(--primary-light) !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      outline: none;
+    }
 
     /* ── PASS CODE SECURITY OVERLAY ──────────────────────────────── */
     .security-gate {
@@ -1306,9 +1336,10 @@
           <span><i class="fas fa-school"></i> Class: <strong id="modalClassName">--</strong></span>
           <span><i class="fas fa-hashtag"></i> Roll No: <strong id="modalStudentRoll">--</strong></span>
           <span><i class="fas fa-chart-line"></i> Aggregate Average: <strong id="modalStudentAvg">--%</strong></span>
+          <span style="display:flex; align-items:center; gap:5px;"><i class="fas fa-phone-alt"></i> Parent Mobile: <input type="text" id="modalParentMobile" class="parent-mobile-input" style="width: 140px; padding: 2px 6px; font-size: 0.8rem; margin: 0; display: inline-block;" placeholder="Add Mobile" oninput="updateModalParentMobile(this.value)"></span>
         </div>
       </div>
-
+ 
       <div class="analysis-split">
         <!-- Text Analysis & Remarks & Actions -->
         <div>
@@ -1332,13 +1363,25 @@
               <textarea id="studentRemarks" rows="2" style="width:100%; padding:10px; border-radius:var(--radius-xs); border:1px solid var(--glass-border); font-family:var(--font-body); font-size:0.9rem;" placeholder="Add remarks for parents (e.g. Excellent progress, needs revision in Algebra)..." oninput="updateRemarks()"></textarea>
             </div>
           </div>
-
+ 
           <div style="margin-top:20px;">
             <h4 style="font-family:var(--font-head); color:var(--primary); font-size:1rem; margin-bottom:12px;"><i class="fas fa-share-alt"></i> Share Performance Report</h4>
+            
+            <!-- Report Type Selector -->
+            <div style="display:flex; gap:15px; margin-bottom:12px; font-size:0.85rem; align-items:center;">
+              <span style="font-weight:600; color:var(--primary-dark);"><i class="fas fa-cog"></i> Report Type:</span>
+              <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="radio" name="reportType" id="reportTypeAll" checked style="accent-color:var(--primary-light);"> Cumulative (All Exams)
+              </label>
+              <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="radio" name="reportType" id="reportTypeSelected" style="accent-color:var(--primary-light);"> Active Exam Only
+              </label>
+            </div>
+ 
             <div class="share-btn-group">
-              <button class="btn-share whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> Share Performance on WhatsApp</button>
-              <button class="btn-share copy" onclick="copyShareText()"><i class="fas fa-copy"></i> Copy Progress Text Summary</button>
-              <button class="btn-share print" onclick="printReportCard()"><i class="fas fa-print"></i> Generate Printable Report Card</button>
+              <button class="btn-share whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
+              <button class="btn-share copy" onclick="copyShareText()"><i class="fas fa-copy"></i> Copy Progress Message</button>
+              <button class="btn-share print" onclick="printReportCard()"><i class="fas fa-print"></i> Generate Report Card</button>
             </div>
           </div>
         </div>
@@ -1583,9 +1626,20 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v8") {
+      if (savedData && (dbVersion === "v8" || dbVersion === "v9")) {
         try {
           studentData = JSON.parse(savedData);
+          if (dbVersion === "v8") {
+            Object.keys(studentData).forEach(cls => {
+              studentData[cls].forEach(student => {
+                if (student.parentMobile === undefined) {
+                  student.parentMobile = "";
+                }
+              });
+            });
+            saveData();
+            localStorage.setItem("student_performance_db_version", "v9");
+          }
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
             resetNeeded = true;
           }
@@ -1599,7 +1653,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v8");
+        localStorage.setItem("student_performance_db_version", "v9");
       }
 
       setupOriginalProfileModal();
@@ -1956,6 +2010,7 @@
       trHead.innerHTML = `
         <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th>Parent's Mobile</th>
         <th class="sortable" onclick="sortTable('score')">Marks Obtained (Max: ${test.maxMarks})${currentSortColumn === 'score' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th class="sortable" onclick="sortTable('pct')">Percentage (%)${currentSortColumn === 'pct' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th class="sortable" onclick="sortTable('status')">Grade / Status${currentSortColumn === 'status' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
@@ -2032,15 +2087,24 @@
               onchange="updateStudentName(${student.rollNo}, this.value)">
           </td>
           <td>
+            <input type="text" class="parent-mobile-input" value="${student.parentMobile || ''}" placeholder="Add Mobile" 
+              onchange="updateParentMobile(${student.rollNo}, this.value)">
+          </td>
+          <td>
             <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
               onchange="updateStudentMark(${student.rollNo}, '${activeTestId}', this.value)" style="width: 85px; text-align: center;">
           </td>
           <td><span class="score-badge ${badgeClass}">${pctText}</span></td>
           <td><span class="score-badge ${statusBadgeClass}">${statusText}</span></td>
           <td>
-            <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})">
-              <i class="fas fa-chart-line"></i> Analyze & Share
-            </button>
+            <div style="display:flex; gap:5px; justify-content:center; align-items:center;">
+              <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})" title="Detailed Analysis">
+                <i class="fas fa-chart-line"></i> Analyze
+              </button>
+              <button class="btn-share-quick" onclick="quickShareWhatsApp(${student.rollNo})" title="Quick Share to Parent">
+                <i class="fab fa-whatsapp"></i> Share
+              </button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
@@ -2241,6 +2305,8 @@
       document.getElementById("modalStudentName").textContent = student.name;
       document.getElementById("modalClassName").textContent = "Class " + activeClass;
       document.getElementById("modalStudentRoll").textContent = student.rollNo;
+      document.getElementById("modalParentMobile").value = student.parentMobile || "";
+      document.getElementById("reportTypeAll").checked = true;
       
       let studentSum = 0;
       let studentMaxPossible = 0;
@@ -2454,13 +2520,59 @@
       return msg;
     }
 
+    function generateActiveTestShareMessage(student) {
+      const activeTests = classTests[activeClass];
+      const test = activeTests.find(t => t.id === activeTestId);
+      if (!test) return "";
+      
+      const score = student.marks[activeTestId];
+      const displayScore = (score !== undefined && score !== null && score !== "") ? `${score}/${test.maxMarks}` : "Absent / Blank";
+      const pct = (score !== undefined && score !== null && score !== "") ? `(${((score/test.maxMarks)*100).toFixed(0)}%)` : "";
+      
+      let passStatus = "";
+      if (score !== undefined && score !== null && score !== "") {
+        const isPass = (test.maxMarks === 40) ? (Number(score) >= 13) : (((score/test.maxMarks)*100) >= 33);
+        passStatus = isPass ? "*Pass*" : "*Fail*";
+      }
+
+      const testName = testFullNames[test.id] || test.label;
+      const dateStr = testDates[activeClass]?.[test.id] ? ` conducted on ${formatDate(testDates[activeClass][test.id])}` : '';
+      
+      let msg = `Dear Parent,\n`;
+      msg += `Here is the evaluation result for *${student.name}* (Class ${activeClass}) in Mathematics *${testName}*${dateStr}:\n\n`;
+      msg += `• Marks Obtained: *${displayScore}* ${pct}\n`;
+      if (passStatus) {
+        msg += `• Status: ${passStatus}\n`;
+      }
+      
+      if(student.remarks) {
+        msg += `\n*Teacher Remarks:* _${student.remarks}_\n`;
+      }
+      
+      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
+      return msg;
+    }
+
     function shareOnWhatsApp() {
       const students = studentData[activeClass] || [];
       const student = students[currentSelectedStudentIndex];
       if (!student) return;
 
-      const message = generateShareMessage(student);
-      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+      const isSelectedExamOnly = document.getElementById("reportTypeSelected")?.checked;
+      const message = isSelectedExamOnly ? generateActiveTestShareMessage(student) : generateShareMessage(student);
+      
+      let phone = student.parentMobile || '';
+      phone = phone.replace(/\D/g, '');
+      if (phone.length === 10) {
+        phone = '91' + phone;
+      }
+      
+      let url = "";
+      if (phone) {
+        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+      } else {
+        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+      }
       window.open(url, '_blank');
     }
 
@@ -2469,12 +2581,70 @@
       const student = students[currentSelectedStudentIndex];
       if (!student) return;
 
-      const message = generateShareMessage(student);
+      const isSelectedExamOnly = document.getElementById("reportTypeSelected")?.checked;
+      const message = isSelectedExamOnly ? generateActiveTestShareMessage(student) : generateShareMessage(student);
+      
       navigator.clipboard.writeText(message).then(() => {
         alert("Progress report message copied to clipboard!");
       }).catch(err => {
         console.error("Copy failed: ", err);
       });
+    }
+
+    function updateParentMobile(rollNo, newMobile) {
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === rollNo);
+      if (student) {
+        student.parentMobile = newMobile.trim();
+        saveData();
+        // If modal is open for this student, update it
+        if (currentSelectedStudentIndex !== -1 && students[currentSelectedStudentIndex].rollNo === rollNo) {
+          const modalInput = document.getElementById("modalParentMobile");
+          if (modalInput) modalInput.value = student.parentMobile;
+        }
+      }
+    }
+
+    function updateModalParentMobile(value) {
+      const students = studentData[activeClass] || [];
+      const student = students[currentSelectedStudentIndex];
+      if (student) {
+        student.parentMobile = value.trim();
+        saveData();
+        // Update table input too
+        const tableInputs = document.querySelectorAll(".parent-mobile-input");
+        tableInputs.forEach(input => {
+          const tr = input.closest("tr");
+          if (tr) {
+            const firstTd = tr.querySelector("td");
+            if (firstTd && Number(firstTd.textContent) === student.rollNo) {
+              input.value = student.parentMobile;
+            }
+          }
+        });
+      }
+    }
+
+    function quickShareWhatsApp(rollNo) {
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === rollNo);
+      if (!student) return;
+
+      const message = generateShareMessage(student);
+      
+      let phone = student.parentMobile || '';
+      phone = phone.replace(/\D/g, '');
+      if (phone.length === 10) {
+        phone = '91' + phone;
+      }
+      
+      let url = "";
+      if (phone) {
+        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+      } else {
+        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+      }
+      window.open(url, '_blank');
     }
 
     function printReportCard() {
