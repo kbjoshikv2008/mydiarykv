@@ -1231,12 +1231,22 @@
           <!-- Table & Marks Sheet -->
           <div class="chart-card" style="min-height: auto;">
             
-            <div class="table-toolbar">
-              <div class="search-wrapper">
+            <div class="table-toolbar" style="display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+              <div class="search-wrapper" style="margin-bottom: 0;">
                 <i class="fas fa-search"></i>
                 <input type="text" id="studentSearchInput" class="search-input" placeholder="Search student by name..." oninput="handleSearch()">
               </div>
-              <div class="table-actions">
+              
+              <!-- View Mode Toggle (Single Test vs Combined Progress Sheet) -->
+              <div class="view-mode-toggle-container" style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); padding: 4px 8px; border-radius: 50px; border: 1px solid var(--glass-border);">
+                <span style="font-size: 0.8rem; font-weight: 600; color: var(--primary-light);"><i class="fas fa-table"></i> Display Sheet:</span>
+                <div style="display: flex; gap: 4px; background: rgba(0,0,0,0.2); padding: 2px; border-radius: 50px;">
+                  <button class="btn-toggle-mode active" id="viewModeSingle" onclick="setViewMode('single')" style="background: var(--primary-light); border: none; border-radius: 50px; padding: 6px 14px; color: white; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">Single Test View</button>
+                  <button class="btn-toggle-mode" id="viewModeCombined" onclick="setViewMode('combined')" style="background: transparent; border: none; border-radius: 50px; padding: 6px 14px; color: var(--text-secondary); font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">Combined Progress Sheet</button>
+                </div>
+              </div>
+
+              <div class="table-actions" style="margin-top: 0;">
                 <button class="btn-action excel" onclick="downloadExcelMarks()"><i class="fas fa-file-excel"></i> Export Excel (CSV)</button>
                 <button class="btn-action" onclick="resetToDefaultData()"><i class="fas fa-sync-alt"></i> Reset Sample Data</button>
                 <button class="btn-action" onclick="exportData()"><i class="fas fa-file-export"></i> Backup (Export JSON)</button>
@@ -1510,6 +1520,7 @@
     let activeClass = "7C";
     let activeExamType = "chapter";
     let activeTestId = "ch1";
+    let activeViewMode = "single";
     let studentData = {};
     let testDates = {};
     
@@ -2014,6 +2025,11 @@
       const container = document.getElementById("testSubSelectors");
       container.innerHTML = "";
 
+      if (activeViewMode === "combined") {
+        container.style.display = "none";
+        return;
+      }
+
       const activeTests = classTests[activeClass];
       const filtered = activeTests.filter(t => {
         if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
@@ -2050,6 +2066,25 @@
     function renderSelectedTestInfo() {
       const container = document.getElementById("selectedTestInfoCard");
       const activeTests = classTests[activeClass];
+      
+      if (activeViewMode === "combined") {
+        container.innerHTML = `
+          <div class="test-info-left">
+            <div class="test-info-title">
+              <i class="fas fa-table" style="color: var(--primary-light);"></i>
+              <span>Combined Progress Sheet</span>
+            </div>
+            <div class="test-info-meta">
+              <span>Displaying progress and average performance of all class tests. Edit scores directly in cell inputs below.</span>
+            </div>
+          </div>
+          <div class="test-info-right">
+            <span style="font-size: 0.8rem; opacity: 0.8; color: var(--primary-light);"><i class="fas fa-info-circle"></i> Horizontal scroll to view all tests</span>
+          </div>
+        `;
+        return;
+      }
+
       const test = activeTests.find(t => t.id === activeTestId);
       if (!test) return;
 
@@ -2101,53 +2136,118 @@
       if (students.length === 0) return;
 
       const activeTests = classTests[activeClass];
-      const activeTest = activeTests.find(t => t.id === activeTestId);
-      if (!activeTest) return;
+      
+      if (activeViewMode === "single") {
+        const activeTest = activeTests.find(t => t.id === activeTestId);
+        if (!activeTest) return;
 
-      let totalObtained = 0;
-      let totalMaxPossible = 0;
-      let passCount = 0;
-      let lowCount = 0;
-      let topStudent = null;
-      let topScore = -1;
-      let gradedStudentCount = 0;
+        let totalObtained = 0;
+        let totalMaxPossible = 0;
+        let passCount = 0;
+        let lowCount = 0;
+        let topStudent = null;
+        let topScore = -1;
+        let gradedStudentCount = 0;
 
-      students.forEach(student => {
-        const val = student.marks[activeTestId];
-        if (val !== undefined && val !== null && val !== "") {
-          const score = Number(val);
-          totalObtained += score;
-          totalMaxPossible += activeTest.maxMarks;
-          gradedStudentCount++;
+        students.forEach(student => {
+          const val = student.marks[activeTestId];
+          if (val !== undefined && val !== null && val !== "") {
+            const score = Number(val);
+            totalObtained += score;
+            totalMaxPossible += activeTest.maxMarks;
+            gradedStudentCount++;
 
-          const pct = (score / activeTest.maxMarks) * 100;
-          const isPassed = (activeTest.maxMarks === 40) ? (score >= 13) : (pct >= 33);
-          if (isPassed) passCount++;
-          const isLowPerformer = (activeTest.maxMarks === 40) ? (score < 13) : (pct < 33);
-          if (isLowPerformer) lowCount++;
+            const pct = (score / activeTest.maxMarks) * 100;
+            const isPassed = (activeTest.maxMarks === 40) ? (score >= 13) : (pct >= 33);
+            if (isPassed) passCount++;
+            const isLowPerformer = (activeTest.maxMarks === 40) ? (score < 13) : (pct < 33);
+            if (isLowPerformer) lowCount++;
 
-          if (score > topScore) {
-            topScore = score;
-            topStudent = student;
+            if (score > topScore) {
+              topScore = score;
+              topStudent = student;
+            }
           }
+        });
+
+        const classAvgPercent = totalMaxPossible > 0 ? (totalObtained / totalMaxPossible) * 100 : null;
+        const passRatePercent = gradedStudentCount > 0 ? (passCount / gradedStudentCount) * 100 : null;
+
+        document.getElementById("cardClassAverage").textContent = classAvgPercent !== null ? classAvgPercent.toFixed(1) + "%" : "--%";
+        document.getElementById("cardPassRate").textContent = passRatePercent !== null ? passRatePercent.toFixed(1) + "%" : "--%";
+        
+        if (topStudent && topScore !== -1) {
+          document.getElementById("cardTopPerformer").textContent = topStudent.name;
+          document.getElementById("cardTopScore").textContent = `Marks: ${topScore}/${activeTest.maxMarks} (${((topScore/activeTest.maxMarks)*100).toFixed(1)}%)`;
+        } else {
+          document.getElementById("cardTopPerformer").textContent = "N/A";
+          document.getElementById("cardTopScore").textContent = "Marks: --";
         }
-      });
-
-      const classAvgPercent = totalMaxPossible > 0 ? (totalObtained / totalMaxPossible) * 100 : null;
-      const passRatePercent = gradedStudentCount > 0 ? (passCount / gradedStudentCount) * 100 : null;
-
-      document.getElementById("cardClassAverage").textContent = classAvgPercent !== null ? classAvgPercent.toFixed(1) + "%" : "--%";
-      document.getElementById("cardPassRate").textContent = passRatePercent !== null ? passRatePercent.toFixed(1) + "%" : "--%";
-      
-      if (topStudent && topScore !== -1) {
-        document.getElementById("cardTopPerformer").textContent = topStudent.name;
-        document.getElementById("cardTopScore").textContent = `Marks: ${topScore}/${activeTest.maxMarks} (${((topScore/activeTest.maxMarks)*100).toFixed(1)}%)`;
+        
+        document.getElementById("cardLowCount").textContent = lowCount;
       } else {
-        document.getElementById("cardTopPerformer").textContent = "N/A";
-        document.getElementById("cardTopScore").textContent = "Marks: --";
+        // Combined mode
+        const categoryTests = activeTests.filter(t => {
+          if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+          if (activeExamType === "pt") return t.id.startsWith("pt");
+          if (activeExamType === "pb") return t.id.startsWith("pb");
+          if (activeExamType === "hy") return t.id === "hy";
+          if (activeExamType === "see") return t.id === "see";
+          return false;
+        });
+
+        let totalStudentPctSum = 0;
+        let studentCountWithMarks = 0;
+        let passCount = 0;
+        let lowCount = 0;
+        let topStudent = null;
+        let topAvg = -1;
+
+        students.forEach(student => {
+          let studentObtained = 0;
+          let studentMax = 0;
+          let studentTestCount = 0;
+          
+          categoryTests.forEach(test => {
+            const val = student.marks[test.id];
+            if (val !== undefined && val !== null && val !== "") {
+              studentObtained += Number(val);
+              studentMax += test.maxMarks;
+              studentTestCount++;
+            }
+          });
+
+          if (studentTestCount > 0) {
+            const avgPct = (studentObtained / studentMax) * 100;
+            totalStudentPctSum += avgPct;
+            studentCountWithMarks++;
+
+            if (avgPct >= 33) passCount++;
+            if (avgPct < 40) lowCount++;
+
+            if (avgPct > topAvg) {
+              topAvg = avgPct;
+              topStudent = student;
+            }
+          }
+        });
+
+        const overallClassAvg = studentCountWithMarks > 0 ? totalStudentPctSum / studentCountWithMarks : null;
+        const overallPassRate = studentCountWithMarks > 0 ? (passCount / studentCountWithMarks) * 100 : null;
+
+        document.getElementById("cardClassAverage").textContent = overallClassAvg !== null ? overallClassAvg.toFixed(1) + "%" : "--%";
+        document.getElementById("cardPassRate").textContent = overallPassRate !== null ? overallPassRate.toFixed(1) + "%" : "--%";
+
+        if (topStudent && topAvg !== -1) {
+          document.getElementById("cardTopPerformer").textContent = topStudent.name;
+          document.getElementById("cardTopScore").textContent = `Avg Performance: ${topAvg.toFixed(1)}%`;
+        } else {
+          document.getElementById("cardTopPerformer").textContent = "N/A";
+          document.getElementById("cardTopScore").textContent = "Avg Performance: --%";
+        }
+
+        document.getElementById("cardLowCount").textContent = lowCount;
       }
-      
-      document.getElementById("cardLowCount").textContent = lowCount;
     }
 
     function sortTable(columnName) {
@@ -2168,22 +2268,45 @@
       tbody.innerHTML = "";
 
       const activeTests = classTests[activeClass];
-      const test = activeTests.find(t => t.id === activeTestId);
-      if (!test) return;
+      const categoryTests = activeTests.filter(t => {
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        if (activeExamType === "hy") return t.id === "hy";
+        if (activeExamType === "see") return t.id === "see";
+        return false;
+      });
 
       const sortIcon = currentSortAscending ? ' <i class="fas fa-sort-up"></i>' : ' <i class="fas fa-sort-down"></i>';
 
       // 1. Generate Header Row
       const trHead = document.createElement("tr");
-      trHead.innerHTML = `
-        <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-        <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-        <th>Parent's Mobile</th>
-        <th class="sortable" onclick="sortTable('score')">Marks Obtained (Max: ${test.maxMarks})${currentSortColumn === 'score' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-        <th class="sortable" onclick="sortTable('pct')">Percentage (%)${currentSortColumn === 'pct' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-        <th class="sortable" onclick="sortTable('status')">Grade / Status${currentSortColumn === 'status' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-        <th>Analysis & Sharing</th>
-      `;
+      if (activeViewMode === "single") {
+        const test = categoryTests.find(t => t.id === activeTestId);
+        if (!test) return;
+        trHead.innerHTML = `
+          <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th>Parent's Mobile</th>
+          <th class="sortable" onclick="sortTable('score')">Marks Obtained (Max: ${test.maxMarks})${currentSortColumn === 'score' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th class="sortable" onclick="sortTable('pct')">Percentage (%)${currentSortColumn === 'pct' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th class="sortable" onclick="sortTable('status')">Grade / Status${currentSortColumn === 'status' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th>Analysis & Sharing</th>
+        `;
+      } else {
+        let testHeaders = "";
+        categoryTests.forEach(test => {
+          testHeaders += `<th style="text-align: center; min-width: 75px;">${test.label}<br><span style="font-size:0.75em; opacity:0.7;">Max: ${test.maxMarks}</span></th>`;
+        });
+        trHead.innerHTML = `
+          <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th>Parent's Mobile</th>
+          ${testHeaders}
+          <th class="sortable" onclick="sortTable('pct')" style="text-align: center;">Average Performance${currentSortColumn === 'pct' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+          <th>Analysis & Sharing</th>
+        `;
+      }
       thead.appendChild(trHead);
 
       // 2. Filter & Sort Students
@@ -2195,16 +2318,42 @@
       }
 
       students.forEach(s => {
-        const val = s.marks[activeTestId];
-        if (val !== undefined && val !== null && val !== "") {
-          s.score = Number(val);
-          s.pct = (s.score / test.maxMarks) * 100;
-          const isPass = (test.maxMarks === 40) ? (s.score >= 13) : (s.pct >= 33);
-          s.status = isPass ? 1 : 0;
+        if (activeViewMode === "single") {
+          const test = categoryTests.find(t => t.id === activeTestId);
+          if (!test) return;
+          const val = s.marks[activeTestId];
+          if (val !== undefined && val !== null && val !== "") {
+            s.score = Number(val);
+            s.pct = (s.score / test.maxMarks) * 100;
+            const isPass = (test.maxMarks === 40) ? (s.score >= 13) : (s.pct >= 33);
+            s.status = isPass ? 1 : 0;
+          } else {
+            s.score = null;
+            s.pct = null;
+            s.status = -1;
+          }
         } else {
-          s.score = null;
-          s.pct = null;
-          s.status = -1;
+          // Combined Mode calculations
+          let sumPct = 0;
+          let countPct = 0;
+          categoryTests.forEach(test => {
+            const val = s.marks[test.id];
+            if (val !== undefined && val !== null && val !== "") {
+              const score = Number(val);
+              const pct = (score / test.maxMarks) * 100;
+              sumPct += pct;
+              countPct++;
+            }
+          });
+          if (countPct > 0) {
+            s.pct = sumPct / countPct;
+            s.score = s.pct; // for sorting
+            s.status = s.pct >= 33 ? 1 : 0;
+          } else {
+            s.pct = null;
+            s.score = null;
+            s.status = -1;
+          }
         }
       });
 
@@ -2227,54 +2376,102 @@
       students.forEach((student) => {
         const tr = document.createElement("tr");
 
-        const val = student.marks[activeTestId];
-        const displayScore = (val !== undefined && val !== null && val !== "") ? val : "";
-        
-        let pctText = "--%";
-        let badgeClass = "average";
-        if (student.pct !== null) {
-          pctText = student.pct.toFixed(1) + "%";
-          if (student.pct >= 75) badgeClass = "excellent";
-          else if (student.pct < 33) badgeClass = "critical";
-        }
+        if (activeViewMode === "single") {
+          const test = categoryTests.find(t => t.id === activeTestId);
+          const val = student.marks[activeTestId];
+          const displayScore = (val !== undefined && val !== null && val !== "") ? val : "";
+          
+          let pctText = "--%";
+          let badgeClass = "average";
+          if (student.pct !== null) {
+            pctText = student.pct.toFixed(1) + "%";
+            if (student.pct >= 75) badgeClass = "excellent";
+            else if (student.pct < 33) badgeClass = "critical";
+          }
 
-        let statusText = "Absent / Blank";
-        let statusBadgeClass = "average";
-        if (student.status === 1) {
-          statusText = "Pass";
-          statusBadgeClass = "excellent";
-        } else if (student.status === 0) {
-          statusText = "Fail";
-          statusBadgeClass = "critical";
-        }
+          let statusText = "Absent / Blank";
+          let statusBadgeClass = "average";
+          if (student.status === 1) {
+            statusText = "Pass";
+            statusBadgeClass = "excellent";
+          } else if (student.status === 0) {
+            statusText = "Fail";
+            statusBadgeClass = "critical";
+          }
 
-        tr.innerHTML = `
-          <td>${student.rollNo}</td>
-          <td>
-            <input type="text" class="student-name-input" value="${student.name}" 
-              onchange="updateStudentName(${student.rollNo}, this.value)">
-          </td>
-          <td>
-            <input type="text" class="parent-mobile-input" value="${student.parentMobile || ''}" placeholder="Add Mobile" 
-              onchange="updateParentMobile(${student.rollNo}, this.value)">
-          </td>
-          <td>
-            <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
-              onchange="updateStudentMark(${student.rollNo}, '${activeTestId}', this.value)" style="width: 85px; text-align: center;">
-          </td>
-          <td><span class="score-badge ${badgeClass}">${pctText}</span></td>
-          <td><span class="score-badge ${statusBadgeClass}">${statusText}</span></td>
-          <td>
-            <div style="display:flex; gap:5px; justify-content:center; align-items:center;">
-              <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})" title="Detailed Analysis">
-                <i class="fas fa-chart-line"></i> Analyze
-              </button>
-              <button class="btn-share-quick" onclick="quickShareWhatsApp(${student.rollNo})" title="Quick Share to Parent">
-                <i class="fab fa-whatsapp"></i> Share
-              </button>
-            </div>
-          </td>
-        `;
+          tr.innerHTML = `
+            <td>${student.rollNo}</td>
+            <td>
+              <input type="text" class="student-name-input" value="${student.name}" 
+                onchange="updateStudentName(${student.rollNo}, this.value)">
+            </td>
+            <td>
+              <input type="text" class="parent-mobile-input" value="${student.parentMobile || ''}" placeholder="Add Mobile" 
+                onchange="updateParentMobile(${student.rollNo}, this.value)">
+            </td>
+            <td>
+              <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
+                onchange="updateStudentMark(${student.rollNo}, '${activeTestId}', this.value)" style="width: 85px; text-align: center;">
+            </td>
+            <td><span class="score-badge ${badgeClass}">${pctText}</span></td>
+            <td><span class="score-badge ${statusBadgeClass}">${statusText}</span></td>
+            <td>
+              <div style="display:flex; gap:5px; justify-content:center; align-items:center;">
+                <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})" title="Detailed Analysis">
+                  <i class="fas fa-chart-line"></i> Analyze
+                </button>
+                <button class="btn-share-quick" onclick="quickShareWhatsApp(${student.rollNo})" title="Quick Share to Parent">
+                  <i class="fab fa-whatsapp"></i> Share
+                </button>
+              </div>
+            </td>
+          `;
+        } else {
+          // Combined Mode Row
+          let testCells = "";
+          categoryTests.forEach(test => {
+            const val = student.marks[test.id];
+            const displayScore = (val !== undefined && val !== null && val !== "") ? val : "";
+            testCells += `
+              <td style="text-align: center;">
+                <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
+                  onchange="updateStudentMark(${student.rollNo}, '${test.id}', this.value)" style="width: 65px; text-align: center; padding: 4px; border-radius: 4px;">
+              </td>
+            `;
+          });
+
+          let pctText = "--%";
+          let badgeClass = "average";
+          if (student.pct !== null) {
+            pctText = student.pct.toFixed(1) + "%";
+            if (student.pct >= 75) badgeClass = "excellent";
+            else if (student.pct < 33) badgeClass = "critical";
+          }
+
+          tr.innerHTML = `
+            <td>${student.rollNo}</td>
+            <td>
+              <input type="text" class="student-name-input" value="${student.name}" 
+                onchange="updateStudentName(${student.rollNo}, this.value)">
+            </td>
+            <td>
+              <input type="text" class="parent-mobile-input" value="${student.parentMobile || ''}" placeholder="Add Mobile" 
+                onchange="updateParentMobile(${student.rollNo}, this.value)">
+            </td>
+            ${testCells}
+            <td style="text-align: center;"><span class="score-badge ${badgeClass}">${pctText}</span></td>
+            <td>
+              <div style="display:flex; gap:5px; justify-content:center; align-items:center;">
+                <button class="btn-view-analysis" onclick="openStudentAnalysisModal(${student.rollNo})" title="Detailed Analysis">
+                  <i class="fas fa-chart-line"></i> Analyze
+                </button>
+                <button class="btn-share-quick" onclick="quickShareWhatsApp(${student.rollNo})" title="Quick Share to Parent">
+                  <i class="fab fa-whatsapp"></i> Share
+                </button>
+              </div>
+            </td>
+          `;
+        }
         tbody.appendChild(tr);
       });
     }
@@ -2813,6 +3010,33 @@
         url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
       }
       window.open(url, '_blank');
+    }
+
+    function setViewMode(mode) {
+      activeViewMode = mode;
+      const btnSingle = document.getElementById("viewModeSingle");
+      const btnCombined = document.getElementById("viewModeCombined");
+      if (btnSingle && btnCombined) {
+        btnSingle.classList.toggle("active", mode === "single");
+        btnCombined.classList.toggle("active", mode === "combined");
+        
+        if (mode === "single") {
+          btnSingle.style.background = "var(--primary-light)";
+          btnSingle.style.color = "white";
+          btnCombined.style.background = "transparent";
+          btnCombined.style.color = "var(--text-secondary)";
+        } else {
+          btnCombined.style.background = "var(--primary-light)";
+          btnCombined.style.color = "white";
+          btnSingle.style.background = "transparent";
+          btnSingle.style.color = "var(--text-secondary)";
+        }
+      }
+      
+      renderSubSelectors();
+      renderSelectedTestInfo();
+      calculateClassStats();
+      renderTable();
     }
 
     function downloadExcelMarks() {
