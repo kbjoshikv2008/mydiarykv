@@ -251,6 +251,15 @@
       box-shadow: 0 4px 10px rgba(109, 40, 217, 0.2);
       transform: translateY(-1px);
     }
+    .btn-action.excel {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #fff !important;
+      border: none !important;
+    }
+    .btn-action.excel:hover {
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2) !important;
+      transform: translateY(-1px);
+    }
 
     .table-container {
       overflow-x: auto;
@@ -1141,11 +1150,31 @@
           </div>
           
           <!-- Class Tabs -->
-          <div class="class-nav">
-            <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(40 Students)</span></button>
-            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(18 Students)</span></button>
+          <div class="class-nav" style="margin-bottom: 15px;">
+            <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(39 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(17 Students)</span></button>
             <button class="class-tab" onclick="switchClass('12B')"><i class="fas fa-graduation-cap"></i> Class 12B <span style="font-size:0.8em; opacity:0.8;">(23 Students)</span></button>
           </div>
+
+          <!-- Exam Sub Tabs for the Active Class (Class Test/Chapterwise, PT1/PT2, HY, PB, SEE) -->
+          <div class="exam-types-container" style="margin-bottom: 15px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary-light); margin-bottom: 8px; display: flex; align-items: center; gap: 5px;">
+              <i class="fas fa-tasks"></i> Select Examination Sub-Tab:
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <button class="exam-type-btn active" id="examTypeBtnChapter" onclick="switchExamType('chapter')"><i class="fas fa-book-open"></i> Class Tests / Chapterwise</button>
+              <button class="exam-type-btn" id="examTypeBtnPT" onclick="switchExamType('pt')"><i class="fas fa-calendar-check"></i> Periodic Tests (PT1 & PT2)</button>
+              <button class="exam-type-btn" id="examTypeBtnHY" onclick="switchExamType('hy')"><i class="fas fa-file-invoice"></i> Half Yearly (HY)</button>
+              <button class="exam-type-btn" id="examTypeBtnPB" onclick="switchExamType('pb')"><i class="fas fa-graduation-cap"></i> Pre-Boards (PB of Class 12)</button>
+              <button class="exam-type-btn" id="examTypeBtnSEE" onclick="switchExamType('see')"><i class="fas fa-award"></i> Session Ending Exam (SEE)</button>
+            </div>
+          </div>
+
+          <!-- Test Sub-Selectors (Specific Exam Pills e.g. Ch 1, PT1) -->
+          <div class="test-sub-selectors" id="testSubSelectors" style="margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
+
+          <!-- Selected Test Info Card -->
+          <div class="selected-test-info-card" id="selectedTestInfoCard" style="margin-bottom: 25px;"></div>
 
           <!-- Class Stats Summary Cards -->
           <div class="stats-grid">
@@ -1201,20 +1230,6 @@
 
           <!-- Table & Marks Sheet -->
           <div class="chart-card" style="min-height: auto;">
-            <!-- Main Exam Category Selection Buttons -->
-            <div class="exam-types-container">
-              <button class="exam-type-btn active" id="examTypeBtnChapter" onclick="switchExamType('chapter')"><i class="fas fa-book-open"></i> Chapterwise Tests</button>
-              <button class="exam-type-btn" id="examTypeBtnPT" onclick="switchExamType('pt')"><i class="fas fa-calendar-check"></i> Periodic Tests (PT)</button>
-              <button class="exam-type-btn" id="examTypeBtnHY" onclick="switchExamType('hy')"><i class="fas fa-file-invoice"></i> Half Yearly (HY)</button>
-              <button class="exam-type-btn" id="examTypeBtnPB" onclick="switchExamType('pb')"><i class="fas fa-graduation-cap"></i> Pre-Boards (PB)</button>
-              <button class="exam-type-btn" id="examTypeBtnSEE" onclick="switchExamType('see')"><i class="fas fa-award"></i> Session Ending Exam (SEE)</button>
-            </div>
-
-            <!-- Sub-selector for specific test (e.g. Ch 1, PT1) -->
-            <div class="test-sub-selectors" id="testSubSelectors"></div>
-
-            <!-- Selected Test Header Info Card -->
-            <div class="selected-test-info-card" id="selectedTestInfoCard"></div>
             
             <div class="table-toolbar">
               <div class="search-wrapper">
@@ -1222,6 +1237,7 @@
                 <input type="text" id="studentSearchInput" class="search-input" placeholder="Search student by name..." oninput="handleSearch()">
               </div>
               <div class="table-actions">
+                <button class="btn-action excel" onclick="downloadExcelMarks()"><i class="fas fa-file-excel"></i> Export Excel (CSV)</button>
                 <button class="btn-action" onclick="resetToDefaultData()"><i class="fas fa-sync-alt"></i> Reset Sample Data</button>
                 <button class="btn-action" onclick="exportData()"><i class="fas fa-file-export"></i> Backup (Export JSON)</button>
                 <button class="btn-action" onclick="document.getElementById('importFileInput').click();"><i class="fas fa-file-import"></i> Restore (Import JSON)</button>
@@ -2645,6 +2661,63 @@
         url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
       }
       window.open(url, '_blank');
+    }
+
+    function downloadExcelMarks() {
+      const students = studentData[activeClass] || [];
+      if (students.length === 0) {
+        alert("No student data available to export.");
+        return;
+      }
+
+      const activeTests = classTests[activeClass] || [];
+      
+      // 1. Build CSV Headers
+      const headers = ["Roll No", "Student Name", "Parent Mobile"];
+      activeTests.forEach(test => {
+        const testName = testFullNames[test.id] || test.label;
+        headers.push(`${testName} (Max: ${test.maxMarks})`);
+      });
+
+      // Helper function to escape CSV cell values
+      const escapeCSV = (val) => {
+        if (val === undefined || val === null) return "";
+        let str = String(val);
+        if (str.includes(",") || str.includes("\"") || str.includes("\n") || str.includes("\r")) {
+          str = str.replace(/"/g, '""');
+          return `"${str}"`;
+        }
+        return str;
+      };
+
+      // 2. Build CSV Rows
+      const csvRows = [headers.map(escapeCSV).join(",")];
+      
+      students.forEach(student => {
+        const row = [
+          student.rollNo,
+          student.name,
+          student.parentMobile || ""
+        ];
+        activeTests.forEach(test => {
+          const score = student.marks[test.id];
+          row.push(score !== undefined && score !== null ? score : "");
+        });
+        csvRows.push(row.map(escapeCSV).join(","));
+      });
+
+      const csvContent = "\ufeff" + csvRows.join("\n"); // Include UTF-8 BOM for Excel compatibility
+
+      // 3. Trigger Download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Marks_List_Class_${activeClass}_Mathematics.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     function printReportCard() {
