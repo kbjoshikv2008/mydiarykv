@@ -2720,6 +2720,7 @@
                 <span class="quote-badge"><i class="fas fa-quote-left"></i> Quote of the Day</span>
                 <button id="nextQuoteBtn" class="quote-refresh-btn" title="Show Another Quote"><i class="fas fa-sync-alt"></i></button>
               </div>
+              <div id="dailyQuoteDate" style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; border-bottom: 1px solid rgba(154, 52, 18, 0.15); padding-bottom: 5px; text-align: left;">Saturday, 11-Jul-2026</div>
               <div class="quote-mark" style="margin-top: -5px;">&ldquo;</div>
               <p id="dailyQuoteText">Pure mathematics is, in its way, the poetry of logical ideas.</p>
               <div class="quote-author" id="dailyQuoteAuthor">&mdash; Albert Einstein</div>
@@ -3190,6 +3191,16 @@
         { text: "No employment can be managed without arithmetic, no mechanical invention without geometry.", author: "Benjamin Franklin" }
       ];
 
+      function updateQuoteDate() {
+        const dateEl = document.getElementById('dailyQuoteDate');
+        if (dateEl) {
+          const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          const d = new Date();
+          dateEl.textContent = `${days[d.getDay()]}, ${d.getDate()}-${months[d.getMonth()]}-${d.getFullYear()}`;
+        }
+      }
+
       function getQuoteIndexForDate() {
         const d = new Date();
         const dateString = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -3227,6 +3238,7 @@
           quoteAuthorEl.style.transition = "opacity 0.25s ease";
         }
 
+        updateQuoteDate();
         let currentIndex = getQuoteIndexForDate();
         displayQuote(currentIndex);
 
