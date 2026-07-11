@@ -1534,10 +1534,10 @@
       ];
 
       const c12bNames = [
-        "ABHIMANYU SINGH NEGI", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA",
-        "HARSHIT ARYA", "HARSITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT",
-        "KARAN KUWARBI", "NITIN BISHT", "PARTH AKOLIA", "PRIYANKA", "RAJ BISHT",
-        "RITIKA RAWAT", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT",
+        "ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA",
+        "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT",
+        "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ",
+        "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT",
         "TANMAY ADHIKARI", "PALAK", "NISHANT"
       ];
 
@@ -1561,12 +1561,52 @@
       };
 
       const pt1_12b = {
-        "ABHIMANYU SINGH NEGI": 21, "ANUJ GOSWAMI": 32, "AYUSH NEGI": 23, "BHUMI SATI": 20,
-        "HARDIK PHULARA": 17, "HARSHIT ARYA": 40, "HARSITA NEGI": 28, "HITESH UPADHYAY": 14,
-        "KAMAL JOSHI": 13, "KANIKA BISHT": 18, "KARAN KUWARBI": 23, "NISHANT": 30,
-        "NITIN BISHT": 18, "PALAK": 7, "PARTH AKOLIA": 20, "PRIYANKA": 20,
-        "RAJ BISHT": 14, "RITIKA RAWAT": 15, "SADHNA": 10, "SAKSHAM NEGI": 24,
+        "ABHIMANYU SINGH": 21, "ANUJ GOSWAMI": 32, "AYUSH NEGI": 23, "BHUMI SATI": 20,
+        "HARDIK PHULARA": 17, "HARSHIT ARYA": 40, "HARSHITA NEGI": 28, "HITESH UPADHYAY": 14,
+        "KAMAL JOSHI": 13, "KANIKA BISHT": 18, "KARAN": 23, "NISHANT": 30,
+        "NITIN BISHT": 18, "PALAK": 7, "PARTH": 20, "PRIYANKA": 20,
+        "RAJ": 14, "RITIKA": 15, "SADHNA": 10, "SAKSHAM NEGI": 24,
         "SIYA SUYAL": 22, "SPARSH BHATT": 24, "TANMAY ADHIKARI": 26
+      };
+
+      const ch1_12b = {
+        "ABHIMANYU SINGH": 11, "ANUJ GOSWAMI": 11, "AYUSH NEGI": 10, "BHUMI SATI": 15, "HARDIK PHULARA": 9,
+        "HARSHIT ARYA": 18, "HARSHITA NEGI": 17, "HITESH UPADHYAY": 0, "KAMAL JOSHI": 3, "KANIKA BISHT": 16,
+        "KARAN": 11, "NITIN BISHT": 14, "PARTH": 15, "PRIYANKA": 16, "RAJ": 4,
+        "RITIKA": 11, "SADHNA": 18, "SAKSHAM NEGI": 10, "SIYA SUYAL": 14, "SPARSH BHATT": 18,
+        "TANMAY ADHIKARI": 13, "PALAK": "", "NISHANT": 13
+      };
+
+      const ch2_12b = {
+        "ABHIMANYU SINGH": 10, "ANUJ GOSWAMI": 13, "AYUSH NEGI": 11, "BHUMI SATI": "", "HARDIK PHULARA": 9,
+        "HARSHIT ARYA": 16, "HARSHITA NEGI": 18, "HITESH UPADHYAY": 4, "KAMAL JOSHI": 8, "KANIKA BISHT": 15,
+        "KARAN": 2, "NITIN BISHT": 9, "PARTH": 19, "PRIYANKA": 15, "RAJ": 5,
+        "RITIKA": 15, "SADHNA": 9, "SAKSHAM NEGI": 8, "SIYA SUYAL": 16, "SPARSH BHATT": 18,
+        "TANMAY ADHIKARI": 11, "PALAK": "", "NISHANT": ""
+      };
+
+      const ch3_12b = {
+        "ABHIMANYU SINGH": 15, "ANUJ GOSWAMI": 20, "AYUSH NEGI": "", "BHUMI SATI": 15, "HARDIK PHULARA": 12,
+        "HARSHIT ARYA": 20, "HARSHITA NEGI": 19, "HITESH UPADHYAY": 0, "KAMAL JOSHI": "", "KANIKA BISHT": 17,
+        "KARAN": 6, "NITIN BISHT": 15, "PARTH": 19, "PRIYANKA": 20, "RAJ": 4,
+        "RITIKA": 15, "SADHNA": "", "SAKSHAM NEGI": 13, "SIYA SUYAL": 15, "SPARSH BHATT": 20,
+        "TANMAY ADHIKARI": 17, "PALAK": "", "NISHANT": 15
+      };
+
+      const ch4_12b = {
+        "ABHIMANYU SINGH": 13, "ANUJ GOSWAMI": 11, "AYUSH NEGI": 8, "BHUMI SATI": 10.5, "HARDIK PHULARA": 2,
+        "HARSHIT ARYA": 20, "HARSHITA NEGI": 13, "HITESH UPADHYAY": 3, "KAMAL JOSHI": 5.5, "KANIKA BISHT": 6,
+        "KARAN": 8, "NITIN BISHT": 9, "PARTH": 19, "PRIYANKA": 16, "RAJ": 5,
+        "RITIKA": "", "SADHNA": 0, "SAKSHAM NEGI": 1, "SIYA SUYAL": 16, "SPARSH BHATT": 11,
+        "TANMAY ADHIKARI": 8, "PALAK": 3, "NISHANT": 11
+      };
+
+      const ch5_12b = {
+        "ABHIMANYU SINGH": 5, "ANUJ GOSWAMI": 4, "AYUSH NEGI": 0, "BHUMI SATI": 5, "HARDIK PHULARA": 3,
+        "HARSHIT ARYA": 20, "HARSHITA NEGI": 14, "HITESH UPADHYAY": "", "KAMAL JOSHI": 2, "KANIKA BISHT": "",
+        "KARAN": 5, "NITIN BISHT": 9, "PARTH": 19, "PRIYANKA": 4, "RAJ": 0,
+        "RITIKA": 2, "SADHNA": 4, "SAKSHAM NEGI": 4, "SIYA SUYAL": 3, "SPARSH BHATT": 10,
+        "TANMAY ADHIKARI": 9, "PALAK": 0, "NISHANT": 8
       };
 
       const pt1_7c = [
@@ -1584,7 +1624,21 @@
         "12B": c12bNames.map((name, i) => {
           const marks = {};
           classTests["12B"].forEach(test => {
-            marks[test.id] = (test.id === "pt1" && pt1_12b[name] !== undefined) ? pt1_12b[name] : "";
+            if (test.id === "pt1" && pt1_12b[name] !== undefined) {
+              marks[test.id] = pt1_12b[name];
+            } else if (test.id === "ch1" && ch1_12b[name] !== undefined) {
+              marks[test.id] = ch1_12b[name];
+            } else if (test.id === "ch2" && ch2_12b[name] !== undefined) {
+              marks[test.id] = ch2_12b[name];
+            } else if (test.id === "ch3" && ch3_12b[name] !== undefined) {
+              marks[test.id] = ch3_12b[name];
+            } else if (test.id === "ch4" && ch4_12b[name] !== undefined) {
+              marks[test.id] = ch4_12b[name];
+            } else if (test.id === "ch5" && ch5_12b[name] !== undefined) {
+              marks[test.id] = ch5_12b[name];
+            } else {
+              marks[test.id] = "";
+            }
           });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
@@ -1642,20 +1696,9 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && (dbVersion === "v8" || dbVersion === "v9")) {
+      if (savedData && dbVersion === "v10") {
         try {
           studentData = JSON.parse(savedData);
-          if (dbVersion === "v8") {
-            Object.keys(studentData).forEach(cls => {
-              studentData[cls].forEach(student => {
-                if (student.parentMobile === undefined) {
-                  student.parentMobile = "";
-                }
-              });
-            });
-            saveData();
-            localStorage.setItem("student_performance_db_version", "v9");
-          }
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
             resetNeeded = true;
           }
@@ -1669,7 +1712,15 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v9");
+        localStorage.setItem("student_performance_db_version", "v10");
+        
+        // Also pre-seed the Class 12B test dates
+        testDates["12B"].ch1 = "2026-04-13";
+        testDates["12B"].ch2 = "2026-04-20";
+        testDates["12B"].ch3 = "2026-04-02";
+        testDates["12B"].ch4 = "2026-04-08";
+        testDates["12B"].ch5 = "2026-06-09";
+        localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
       }
 
       setupOriginalProfileModal();
