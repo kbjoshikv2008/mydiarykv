@@ -1855,15 +1855,21 @@
     }
 
     .edu-quote-sm p {
-      color: #1e1b18 !important;
-      font-size: 0.98rem !important;
-      font-weight: 600 !important;
+      color: #0f172a !important;
+      font-size: 1.08rem !important;
+      font-weight: 800 !important;
+      font-family: 'Outfit', 'Playfair Display', 'Georgia', serif !important;
+      letter-spacing: -0.2px !important;
+      line-height: 1.45 !important;
     }
 
     .edu-quote-sm .quote-author {
-      color: #9a3412 !important;
-      font-weight: 750 !important;
-      font-size: 0.85em !important;
+      color: #b45309 !important;
+      font-weight: 800 !important;
+      font-size: 0.88em !important;
+      font-family: 'Outfit', sans-serif !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
     }
 
     /* Buttons */
@@ -2465,7 +2471,21 @@
       .gallery-caption h3 { font-size: 1.2rem; }
       .gallery-caption p { font-size: 0.85rem; }
     }
-  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        enableMenu: false
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 </head>
 <body>
   <!-- Global Background Mathematical Notations and Equations -->
@@ -2704,21 +2724,21 @@
               <div class="quote-author" id="dailyQuoteAuthor">&mdash; Albert Einstein</div>
             </div>
             
-            <!-- Calculus Formula Flasher Widget -->
-            <div class="edu-quote-sm" style="background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(76, 29, 149, 0.3)); border: 1px solid rgba(139, 92, 246, 0.3); box-shadow: 0 0 15px rgba(139, 92, 246, 0.1); contenteditable: false;">
-              <div class="quote-header">
-                <span class="quote-badge" style="color: #c084fc; font-weight: 700;"><i class="fas fa-calculator"></i> Calculus Flashcard</span>
-                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4); font-weight: 600;" id="formulaTimer">60s</span>
-              </div>
-              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 95px; text-align: center; padding: 10px 0;">
-                <div id="calculusFormulaTopic" style="font-size: 0.8rem; color: #a78bfa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; transition: opacity 0.2s ease;">Power Rule</div>
-                <div id="calculusFormulaText" style="font-family: 'Outfit', 'Inter', sans-serif; font-size: 1.45rem; font-weight: 800; color: #ffffff; text-shadow: 0 2px 8px rgba(139, 92, 246, 0.3); letter-spacing: 0.5px; transition: opacity 0.2s ease;">d/dx(xⁿ) = n·xⁿ⁻¹</div>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
-                <span>Auto-updates in 1m</span>
-                <button id="nextFormulaBtn" style="background: transparent; border: none; color: #c084fc; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; padding: 0;" onclick="showNextFormula()"><i class="fas fa-forward"></i> Next</button>
-              </div>
-            </div>
+             <!-- Calculus Formula Flasher Widget -->
+             <div class="edu-quote-sm" style="background: #090514 !important; border: 2px solid #7c3aed !important; box-shadow: 0 0 15px rgba(124, 58, 237, 0.3) !important; contenteditable: false;">
+               <div class="quote-header">
+                 <span class="quote-badge" style="color: #c084fc; font-weight: 700; background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(124, 58, 237, 0.3);"><i class="fas fa-calculator"></i> Calculus Flashcard</span>
+                 <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4); font-weight: 600;" id="formulaTimer">60s</span>
+               </div>
+               <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 95px; text-align: center; padding: 10px 0;">
+                 <div id="calculusFormulaTopic" style="font-size: 0.8rem; color: #a78bfa; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; transition: opacity 0.2s ease;">Power Rule</div>
+                 <div id="calculusFormulaText" style="font-family: 'Outfit', 'Inter', sans-serif; font-size: 1.35rem; font-weight: 800; color: #ffffff; transition: opacity 0.2s ease; min-height: 50px; display: flex; align-items: center; justify-content: center;">$$\mathbf{\frac{d}{dx}(x^n) = n x^{n-1}}$$</div>
+               </div>
+               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                 <span>Auto-updates in 1m</span>
+                 <button id="nextFormulaBtn" style="background: transparent; border: none; color: #c084fc; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; padding: 0;" onclick="showNextFormula()"><i class="fas fa-forward"></i> Next</button>
+               </div>
+             </div>
             <div class="info-card-sm">
               <div class="ic-icon">&#127919;</div>
               <h4>Quick Introduction</h4>
@@ -3227,22 +3247,22 @@
     // ======================== CALCULUS FORMULA FLASHER ========================
     (function() {
       const calculusFormulas = [
-        { topic: "Power Rule", formula: "d/dx(x\u207f) = n\u00b7x\u207f\u207b\u00b9" },
-        { topic: "Derivative of e\u02e3", formula: "d/dx(e\u02e3) = e\u02e3" },
-        { topic: "Derivative of ln(x)", formula: "d/dx(ln x) = 1/x" },
-        { topic: "Product Rule", formula: "d/dx(u\u00b7v) = u\u00b7v' + v\u00b7u'" },
-        { topic: "Quotient Rule", formula: "d/dx(u/v) = (v\u00b7u' - u\u00b7v') / v\u00b2" },
-        { topic: "Derivative of sin(x)", formula: "d/dx(sin x) = cos x" },
-        { topic: "Derivative of cos(x)", formula: "d/dx(cos x) = -sin x" },
-        { topic: "Derivative of tan(x)", formula: "d/dx(tan x) = sec\u00b2 x" },
-        { topic: "Chain Rule", formula: "d/dx[f(g(x))] = f'(g(x))\u00b7g'(x)" },
-        { topic: "Fundamental Theorem", formula: "\u222b\u2090\u1d45 f(x) dx = F(b) - F(a)" },
-        { topic: "Integration by Parts", formula: "\u222b u dv = u\u00b7v - \u222b v du" },
-        { topic: "Integral of 1/x", formula: "\u222b (1/x) dx = ln|x| + C" },
-        { topic: "Integral of e\u02e3", formula: "\u222b e\u02e3 dx = e\u02e3 + C" },
-        { topic: "Derivative of sec(x)", formula: "d/dx(sec x) = sec x \u00b7 tan x" },
-        { topic: "Integral of sin(x)", formula: "\u222b sin x dx = -cos x + C" },
-        { topic: "Integral of cos(x)", formula: "\u222b cos x dx = sin x + C" }
+        { topic: "Power Rule", latex: "\\frac{d}{dx}(x^n) = n x^{n-1}" },
+        { topic: "Derivative of e^x", latex: "\\frac{d}{dx}(e^x) = e^x" },
+        { topic: "Derivative of ln(x)", latex: "\\frac{d}{dx}(\\ln x) = \\frac{1}{x}" },
+        { topic: "Product Rule", latex: "\\frac{d}{dx}(u \\cdot v) = u\\frac{dv}{dx} + v\\frac{du}{dx}" },
+        { topic: "Quotient Rule", latex: "\\frac{d}{dx}\\left(\\frac{u}{v}\\right) = \\frac{v\\frac{du}{dx} - u\\frac{dv}{dx}}{v^2}" },
+        { topic: "Derivative of sin(x)", latex: "\\frac{d}{dx}(\\sin x) = \\cos x" },
+        { topic: "Derivative of cos(x)", latex: "\\frac{d}{dx}(\\cos x) = -\\sin x" },
+        { topic: "Derivative of tan(x)", latex: "\\frac{d}{dx}(\\tan x) = \\sec^2 x" },
+        { topic: "Chain Rule", latex: "\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)" },
+        { topic: "Fundamental Theorem", latex: "\\int_{a}^{b} f(x) dx = F(b) - F(a)" },
+        { topic: "Integration by Parts", latex: "\\int u \\, dv = uv - \\int v \\, du" },
+        { topic: "Integral of 1/x", latex: "\\int \\frac{1}{x} dx = \\ln|x| + C" },
+        { topic: "Integral of e^x", latex: "\\int e^x dx = e^x + C" },
+        { topic: "Derivative of sec(x)", latex: "\\frac{d}{dx}(\\sec x) = \\sec x \\tan x" },
+        { topic: "Integral of sin(x)", latex: "\\int \\sin x dx = -\\cos x + C" },
+        { topic: "Integral of cos(x)", latex: "\\int \\cos x dx = \\sin x + C" }
       ];
 
       let currentFormulaIndex = 0;
@@ -3260,9 +3280,20 @@
           
           setTimeout(() => {
             topicEl.textContent = formula.topic;
-            textEl.textContent = formula.formula;
-            topicEl.style.opacity = 1;
-            textEl.style.opacity = 1;
+            textEl.textContent = '$$\\mathbf{' + formula.latex + '}$$';
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise([textEl]).then(() => {
+                topicEl.style.opacity = 1;
+                textEl.style.opacity = 1;
+              }).catch(() => {
+                topicEl.style.opacity = 1;
+                textEl.style.opacity = 1;
+              });
+            } else {
+              topicEl.style.opacity = 1;
+              textEl.style.opacity = 1;
+            }
           }, 200);
         }
         
