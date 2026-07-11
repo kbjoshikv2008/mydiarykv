@@ -98,6 +98,39 @@
         padding: 28px;
       }
     }
+    .profile-layout-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.9fr;
+      gap: 30px;
+      margin-bottom: 40px;
+      align-items: start;
+    }
+    .compact-table td {
+      padding: 8px 12px !important;
+      font-size: 0.88rem !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+    .compact-table th {
+      padding: 10px 12px !important;
+      font-size: 0.85rem !important;
+    }
+    .timeline-container {
+      position: relative;
+      padding-left: 25px;
+      margin-top: 15px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    @media (max-width: 992px) {
+      .profile-layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -168,315 +201,224 @@
 
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
-      <!-- Profile Card -->
-      <div class="profile-card fade-in-1">
-        <div class="profile-pic-container">
-          <img src="kbjoshi.png" alt="Kirti Ballabh Joshi">
-        </div>
-        <div class="profile-info">
-          <h2>KIRTI BALLABH JOSHI</h2>
-          <p><strong>Designation:</strong> PGT Mathematics</p>
-          <p><strong>KV Currently Working:</strong> PM SHRI Kendriya Vidyalaya Ranikhet</p>
-        </div>
-      </div>
+      <!-- Profile Grid Layout -->
+      <div class="profile-layout-grid">
+        
+        <!-- LEFT COLUMN: Profile Card, Personal Details, Professional Details -->
+        <div style="display: flex; flex-direction: column; gap: 30px;">
+          <!-- Profile Card -->
+          <div class="profile-card fade-in-1" style="margin-bottom: 0;">
+            <div class="profile-pic-container">
+              <img src="kbjoshi.png" alt="Kirti Ballabh Joshi">
+            </div>
+            <div class="profile-info">
+              <h2>KIRTI BALLABH JOSHI</h2>
+              <p><strong>Designation:</strong> PGT Mathematics</p>
+              <p><strong>Currently Working:</strong> PM SHRI KV Ranikhet</p>
+            </div>
+          </div>
 
-      <!-- PERSONAL DETAILS -->
-      <div class="glass-card mb-32 fade-in-2">
-        <div class="glass-card-inner">
-          <div class="section-title">PERSONAL DETAILS</div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th width="30%">Field</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Father's Name</td>
-                  <td>SH KESHAV DATT JOSHI</td>
-                </tr>
-                <tr>
-                  <td>Mother's Name</td>
-                  <td>SMT KANTI JOSHI</td>
-                </tr>
-                <tr>
-                  <td>Date of Birth</td>
-                  <td>16 JULY 1978</td>
-                </tr>
-                <tr>
-                  <td>Category</td>
-                  <td>GENERAL</td>
-                </tr>
-                <tr>
-                  <td>Employee Code</td>
-                  <td>54244</td>
-                </tr>
-                <tr>
-                  <td>PAN Number</td>
-                  <td>AHJPB3512G</td>
-                </tr>
-                <tr>
-                  <td>Aadhar Number</td>
-                  <td>783488734680</td>
-                </tr>
-                <tr>
-                  <td>PRAN Number</td>
-                  <td>110061569598</td>
-                </tr>
-                <tr>
-                  <td>Mobile Number</td>
-                  <td>9410121232</td>
-                </tr>
-                <tr>
-                  <td>Email ID</td>
-                  <td><a href="mailto:kboshikv2008@gmail.com">kboshikv2008@gmail.com</a></td>
-                </tr>
-                <tr>
-                  <td>Residential Address</td>
-                  <td>C-1/4 KV STAFF COLONY ,RANIKHET, UTTARAKHAND</td>
-                </tr>
-                <tr>
-                  <td>Permanent Address</td>
-                  <td>VILL EZATTA DUNGRA POST DEVIDHURA TEHSHIL PATI DISTT CHAMPAWAT</td>
-                </tr>
-              </tbody>
-            </table>
+          <!-- PERSONAL DETAILS -->
+          <div class="glass-card fade-in-2">
+            <div class="glass-card-inner">
+              <div class="section-title">PERSONAL DETAILS</div>
+              <div class="table-wrapper">
+                <table class="compact-table">
+                  <tbody>
+                    <tr>
+                      <td width="40%"><strong>Father's Name</strong></td>
+                      <td>SH KESHAV DATT JOSHI</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Mother's Name</strong></td>
+                      <td>SMT KANTI JOSHI</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Date of Birth</strong></td>
+                      <td>16 JULY 1978</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Category</strong></td>
+                      <td>GENERAL</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Employee Code</strong></td>
+                      <td>54244</td>
+                    </tr>
+                    <tr>
+                      <td><strong>PAN Number</strong></td>
+                      <td>AHJPB3512G</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Aadhar Number</strong></td>
+                      <td>783488734680</td>
+                    </tr>
+                    <tr>
+                      <td><strong>PRAN Number</strong></td>
+                      <td>110061569598</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Mobile Number</strong></td>
+                      <td>9410121232</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Email ID</strong></td>
+                      <td><a href="mailto:kboshikv2008@gmail.com">kboshikv2008@gmail.com</a></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Residential Address</strong></td>
+                      <td>C-1/4 KV STAFF COLONY ,RANIKHET, UTTARAKHAND</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Permanent Address</strong></td>
+                      <td>VILL EZATTA DUNGRA POST DEVIDHURA TEHSHIL PATI DISTT CHAMPAWAT</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROFESSIONAL DETAILS -->
+          <div class="glass-card fade-in-3">
+            <div class="glass-card-inner">
+              <div class="section-title">PROFESSIONAL DETAILS</div>
+              <div class="table-wrapper">
+                <table class="compact-table">
+                  <tbody>
+                    <tr>
+                      <td width="40%"><strong>Date of KVS Appt.</strong></td>
+                      <td>11 NOV 2008 AS TGT MATH</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Joining Present KV</strong></td>
+                      <td>08 AUGUST 2023 AS PGT MATHS</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Pay Scale</strong></td>
+                      <td>76500</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Pay Level</strong></td>
+                      <td>8</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Qualification</strong></td>
+                      <td>B.Sc. (PCM), M.A.(MATHS), M.A.(EDU)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Professional Qual.</strong></td>
+                      <td>B.Ed., CIG(IGNOU)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- PROFESSIONAL DETAILS -->
-      <div class="glass-card mb-32 fade-in-3">
-        <div class="glass-card-inner">
-          <div class="section-title">PROFESSIONAL DETAILS</div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th width="30%">Field</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Date of Appointment in KVS</td>
-                  <td>11 NOV 2008 AS TGT MATH</td>
-                </tr>
-                <tr>
-                  <td>Date of Joining in Present KV</td>
-                  <td>08 AUGUST 2023 AS PGT MATHS</td>
-                </tr>
-                <tr>
-                  <td>Pay Scale</td>
-                  <td>76500</td>
-                </tr>
-                <tr>
-                  <td>Pay Level</td>
-                  <td>8</td>
-                </tr>
-                <tr>
-                  <td>Qualification</td>
-                  <td>B.Sc. (PCM), M.A.(MATHS), M.A.(EDU)</td>
-                </tr>
-                <tr>
-                  <td>Professional Qualification</td>
-                  <td>B.Ed., CIG(IGNOU)</td>
-                </tr>
-              </tbody>
-            </table>
+        <!-- RIGHT COLUMN: Service History Timeline & In-service Courses -->
+        <div style="display: flex; flex-direction: column; gap: 30px;">
+          <!-- SERVICE TIMELINE -->
+          <div class="glass-card fade-in-1">
+            <div class="glass-card-inner">
+              <div class="section-title">SERVICE TIMELINE & HISTORY</div>
+              <div class="timeline-container" style="position: relative; padding-left: 30px; margin-top: 20px;">
+                <div style="position: absolute; left: 9px; top: 10px; bottom: 10px; width: 2px; background: rgba(139,92,246,0.35);"></div>
+                
+                <!-- PGT RANIKHET -->
+                <div class="timeline-item" style="position: relative; margin-bottom: 28px;">
+                  <div style="position: absolute; left: -26px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #10b981; border: 3px solid rgba(16, 185, 129, 0.4); box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);"></div>
+                  <div style="font-size: 0.78em; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px;">08/08/2023 - PRESENT &nbsp;&middot;&nbsp; PGT MATHS</div>
+                  <h4 style="margin: 4px 0 2px; font-family: var(--font-head); font-size: 1.08rem; color: #fff;">PM SHRI Kendriya Vidyalaya Ranikhet, Uttarakhand</h4>
+                  <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);"><strong>Assigned Duties:</strong> TIME TABLE, FURNITURE</p>
+                </div>
+                
+                <!-- PGT AUGUSTYAMUNI -->
+                <div class="timeline-item" style="position: relative; margin-bottom: 28px;">
+                  <div style="position: absolute; left: -26px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary-light); border: 3px solid rgba(139,92,246,0.4); box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);"></div>
+                  <div style="font-size: 0.78em; font-weight: 700; color: var(--primary-light); text-transform: uppercase; letter-spacing: 1px;">25/02/2019 - 07/08/2023 &nbsp;&middot;&nbsp; PGT MATHS</div>
+                  <h4 style="margin: 4px 0 2px; font-family: var(--font-head); font-size: 1.08rem; color: #fff;">KV Augustyamuni, Uttarakhand</h4>
+                  <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);"><strong>Assigned Duties:</strong> CBSE, TIME TABLE, EXAMINATION, OFFICE(INCOME TAX)</p>
+                </div>
+                
+                <!-- TGT HALDWANI -->
+                <div class="timeline-item" style="position: relative; margin-bottom: 28px;">
+                  <div style="position: absolute; left: -26px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--secondary); border: 3px solid rgba(236,72,153,0.4);"></div>
+                  <div style="font-size: 0.78em; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px;">26/06/2012 - 23/02/2019 &nbsp;&middot;&nbsp; TGT MATHS</div>
+                  <h4 style="margin: 4px 0 2px; font-family: var(--font-head); font-size: 1.08rem; color: #fff;">KV Haldwani (II Shift), Uttarakhand</h4>
+                  <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);"><strong>Assigned Duties:</strong> CBSE, ADMISSION, UBI FEE COLLECTION, MATHS OLYMPIAD, OFFICE(INCOME TAX), EXAMINATION, DISCIPLINE</p>
+                </div>
+                
+                <!-- TGT JOSHIMATH -->
+                <div class="timeline-item" style="position: relative; margin-bottom: 28px;">
+                  <div style="position: absolute; left: -26px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--secondary); border: 3px solid rgba(236,72,153,0.4);"></div>
+                  <div style="font-size: 0.78em; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px;">28/06/2010 - 23/06/2012 &nbsp;&middot;&nbsp; TGT MATHS</div>
+                  <h4 style="margin: 4px 0 2px; font-family: var(--font-head); font-size: 1.08rem; color: #fff;">KV Joshimath, Uttarakhand</h4>
+                  <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);"><strong>Assigned Duties:</strong> CBSE, ADMISSION, EXAMINATION, OFFICE(INCOME TAX)</p>
+                </div>
+                
+                <!-- TGT NALIYA -->
+                <div class="timeline-item" style="position: relative; margin-bottom: 28px;">
+                  <div style="position: absolute; left: -26px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--secondary); border: 3px solid rgba(236,72,153,0.4);"></div>
+                  <div style="font-size: 0.78em; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px;">02/04/2009 - 25/06/2010 &nbsp;&middot;&nbsp; TGT MATHS</div>
+                  <h4 style="margin: 4px 0 2px; font-family: var(--font-head); font-size: 1.08rem; color: #fff;">KV AFS Naliya, Gujarat</h4>
+                  <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);"><strong>Assigned Duties:</strong> EXAMINATION, CCE, OFFICE(INCOME TAX)</p>
+                </div>
+                
+                <!-- TGT PAYYANUR -->
+                <div class="timeline-item" style="position: relative;">
+                  <div style="position: absolute; left: -26px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--secondary); border: 3px solid rgba(236,72,153,0.4);"></div>
+                  <div style="font-size: 0.78em; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1px;">11/11/2008 - 31/03/2009 &nbsp;&middot;&nbsp; TGT MATHS</div>
+                  <h4 style="margin: 4px 0 2px; font-family: var(--font-head); font-size: 1.08rem; color: #fff;">KV Payyanur, Kerala</h4>
+                  <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);">First KVS Appointment as TGT Mathematics.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IN-SERVICE COURSES/WORKSHOPS -->
+          <div class="glass-card fade-in-2">
+            <div class="glass-card-inner">
+              <div class="section-title">IN-SERVICE COURSES & WORKSHOPS</div>
+              <div class="table-wrapper">
+                <table class="compact-table">
+                  <thead>
+                    <tr>
+                      <th width="8%">S.No</th>
+                      <th width="10%">Days</th>
+                      <th>Location / Institute</th>
+                      <th width="12%">Year</th>
+                      <th>Duration Dates</th>
+                      <th width="10%">Grade</th>
+                      <th>Director / Resource Person</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1</td><td>12</td><td>KV 1 KOTA</td><td>2010</td><td>07/06 - 18/06</td><td>A</td><td>DR R K AGARWAL</td></tr>
+                    <tr><td>2</td><td>10</td><td>KV AFS HIGHGROUND</td><td>2010</td><td>24/12 - 02/01</td><td>A</td><td>DR S SHERGILL</td></tr>
+                    <tr><td>3</td><td>3</td><td>JRC BAREILLY</td><td>2011</td><td>26/08 - 28/08</td><td>-</td><td>MR B.D.OLI</td></tr>
+                    <tr><td>4</td><td>3</td><td>ZIET CHANDIGARH</td><td>2016</td><td>22/04 - 24/04</td><td>-</td><td>DR MANISH JAIN</td></tr>
+                    <tr><td>5</td><td>12</td><td>KV DWARAKA SEC12</td><td>2016</td><td>18/05 - 29/05</td><td>-</td><td>SMT SHAILJA TIWARI</td></tr>
+                    <tr><td>6</td><td>3</td><td>KV FRI DEHRADUN</td><td>2016</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>7</td><td>10</td><td>KV DWARAKA SEC12</td><td>2016-17</td><td>24/12 - 02/01</td><td>A</td><td>SMT SHAILJA TIWARI</td></tr>
+                    <tr><td>8</td><td>2</td><td>K V FRI DEHRADUN</td><td>2017-18</td><td>-</td><td>-</td><td>-</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
 
-      <!-- TGT HISTORY -->
-      <div class="glass-card mb-32 fade-in-1">
+      <!-- BOARD RESULTS (Full Width below) -->
+      <div class="glass-card mb-48 fade-in-3" style="width: 100%;">
         <div class="glass-card-inner">
-          <div class="section-title">KENDRIYA VIDYALAYA SERVED AS TGT MATHS</div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name of KV</th>
-                  <th>From</th>
-                  <th>To</th>
-                  <th>Work Assigned Other Than Studies</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>PAYYANUR, KERALA</td>
-                  <td>11/11/2008</td>
-                  <td>31/03/2009</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>AFS NALIYA, GUJRAT</td>
-                  <td>02/04/2009</td>
-                  <td>25/06/2010</td>
-                  <td>EXAMINATION, CCE, OFFICE(INCOME TAX)</td>
-                </tr>
-                <tr>
-                  <td>JOSHIMATH, UTTARAKHAND</td>
-                  <td>28/06/2010</td>
-                  <td>23/06/2012</td>
-                  <td>CBSE, ADMISSION, EXAMINATION, OFFICE(INCOME TAX)</td>
-                </tr>
-                <tr>
-                  <td>HALDWANI II SHIFT</td>
-                  <td>26/06/2012</td>
-                  <td>23/02/2019</td>
-                  <td>CBSE, ADMISSION, UBI FEE COLLECTION, MATHS OLYMPIAD, OFFICE(INCOME TAX), EXAMINATION, DISCIPLINE</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <span>RESULT OF BOARD CLASSES (CLASS 12)</span>
+            <span class="badge badge-green"><i class="fas fa-check"></i> 100% Pass Rate Maintained</span>
           </div>
-        </div>
-      </div>
-
-      <!-- PGT HISTORY -->
-      <div class="glass-card mb-32 fade-in-2">
-        <div class="glass-card-inner">
-          <div class="section-title">KENDRIYA VIDYALAYA SERVED AS PGT MATHS</div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name of KV</th>
-                  <th>From</th>
-                  <th>To</th>
-                  <th>Work Assigned Other Than Studies</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>AUGUSTYAMUNI, UTTARAKHAND</td>
-                  <td>25/02/2019</td>
-                  <td>07/08/2023</td>
-                  <td>CBSE, TIME TABLE, EXAMINATION, OFFICE(INCOME TAX)</td>
-                </tr>
-                <tr>
-                  <td>RANIKHET, UTTARAKHAND</td>
-                  <td>25/02/2019</td>
-                  <td>TILL DATE</td>
-                  <td>TIME TABLE, FURNITURE</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- IN-SERVICE COURSES -->
-      <div class="glass-card mb-32 fade-in-3">
-        <div class="glass-card-inner">
-          <div class="section-title">IN-SERVICE COURSES/WORKSHOPS ATTENDED</div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>No. of Days</th>
-                  <th>KV/ZIET</th>
-                  <th>Year</th>
-                  <th>Date From</th>
-                  <th>Date To</th>
-                  <th>Grades</th>
-                  <th>Director/Resource Person/Facilitator</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>12</td>
-                  <td>KV 1 KOTA</td>
-                  <td>2010</td>
-                  <td>07/06/2010</td>
-                  <td>18/06/2010</td>
-                  <td>A</td>
-                  <td>DR R K AGARWAL</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>10</td>
-                  <td>KV AFS HIGHGROUND</td>
-                  <td>2010</td>
-                  <td>24/12/2010</td>
-                  <td>02/01/2011</td>
-                  <td>A</td>
-                  <td>DR S SHERGILL</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>3</td>
-                  <td>JRC BAREILLY</td>
-                  <td>2011</td>
-                  <td>26/08/2011</td>
-                  <td>28/08/2011</td>
-                  <td>-</td>
-                  <td>MR B.D.OLI</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>3</td>
-                  <td>ZIET CHANDIGARH</td>
-                  <td>2016</td>
-                  <td>22/04/2016</td>
-                  <td>24/04/2016</td>
-                  <td>-</td>
-                  <td>DR MANISH JAIN</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>12</td>
-                  <td>KV DWARAKA SEC12</td>
-                  <td>2016</td>
-                  <td>18/05/2016</td>
-                  <td>29/05/2016</td>
-                  <td>-</td>
-                  <td>SMT SHAILJA TIWARI</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>3</td>
-                  <td>KV FRI DEHRADUN</td>
-                  <td>2016</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>7</td>
-                  <td>10</td>
-                  <td>KV DWARAKA SEC12</td>
-                  <td>2016-17</td>
-                  <td>24/12/2016</td>
-                  <td>02/01/2017</td>
-                  <td>A</td>
-                  <td>SMT SHAILJA TIWARI</td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td>2</td>
-                  <td>K V FRI DEHRADUN</td>
-                  <td>2017-18</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOARD RESULTS -->
-      <div class="glass-card mb-48 fade-in-1">
-        <div class="glass-card-inner">
-          <div class="section-title">RESULT OF BOARD CLASSES <span class="badge badge-green"><i class="fas fa-check"></i> 100% Pass Rate Verified</span></div>
           <div class="table-wrapper">
             <table>
               <thead>
@@ -495,7 +437,7 @@
                   <th>C1</th>
                   <th>C2</th>
                   <th>D</th>
-                  <th>PI</th>
+                  <th>PI (Performance Index)</th>
                 </tr>
               </thead>
               <tbody>
@@ -514,7 +456,7 @@
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td>68.38</td>
+                  <td><strong>68.38</strong></td>
                 </tr>
                 <tr>
                   <td>2021</td>
@@ -531,7 +473,7 @@
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td>70.67</td>
+                  <td><strong>70.67</strong></td>
                 </tr>
                 <tr>
                   <td>2022</td>
@@ -548,7 +490,7 @@
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td>61.61</td>
+                  <td><strong>61.61</strong></td>
                 </tr>
                 <tr>
                   <td>2023</td>
@@ -565,7 +507,7 @@
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td>65.13</td>
+                  <td><strong>65.13</strong></td>
                 </tr>
                 <tr>
                   <td>2024</td>
@@ -582,7 +524,7 @@
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td>76.88</td>
+                  <td><strong>76.88</strong></td>
                 </tr>
                 <tr>
                   <td>2025</td>
@@ -599,7 +541,24 @@
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td>71.43</td>
+                  <td><strong>71.43</strong></td>
+                </tr>
+                <tr>
+                  <td>2026</td>
+                  <td>MATH</td>
+                  <td>12</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td><span class="badge badge-green">100%</span></td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><strong style="color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);">77.2</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -701,7 +660,7 @@
         const password = passwordInput.value;
         errorMessage.textContent = '';
         if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
-        if (password === 'KV@2025') {
+        if (password === 'kbj2008') {
           submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
         } else {
