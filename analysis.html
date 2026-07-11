@@ -1152,7 +1152,7 @@
           <!-- Class Tabs -->
           <div class="class-nav" style="margin-bottom: 15px;">
             <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(39 Students)</span></button>
-            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(17 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(18 Students)</span></button>
             <button class="class-tab" onclick="switchClass('12B')"><i class="fas fa-graduation-cap"></i> Class 12B <span style="font-size:0.8em; opacity:0.8;">(23 Students)</span></button>
           </div>
 
@@ -1466,7 +1466,11 @@
     // Dynamic test configurations per class
     const classTests = {
       "7C": [
-        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
+        { id: "crm", label: "CRM", maxMarks: 20 },
+        { id: "ch1", label: "Ch 1", maxMarks: 10 },
+        { id: "ch2", label: "Ch 2", maxMarks: 10 },
+        { id: "ch3", label: "Ch 3", maxMarks: 10 },
+        ...Array.from({length: 12}, (_, i) => ({ id: `ch${i+4}`, label: `Ch ${i+4}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
         { id: "hy", label: "HY", maxMarks: 60 },
@@ -1490,6 +1494,7 @@
     };
     
     const testFullNames = {
+      crm: "CRM (Classroom Readiness Module)",
       pt1: "PT1 (Periodic Test 1)",
       pt2: "PT2 (Periodic Test 2)",
       hy: "HY (Half Yearly)",
@@ -1529,7 +1534,7 @@
       const c11bNames = [
         "ADITYA NEGI", "ARUN ARYA", "AYUSH ROY", "DIKSHANT NEGI", "ISHANT MEHRA",
         "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI",
-        "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY",
+        "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY",
         "RAJAT ADHIKARI", "SPARSH DUBEY"
       ];
 
@@ -1542,14 +1547,14 @@
       ];
 
       const c7cNames = [
-        "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI",
-        "DIPIKA", "DISHA", "GEETA", "GUNJAN", "HARSHUL",
-        "HIMANSHI", "KAMAL SINGH", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT",
-        "KARISHMA", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA", "MAULIK",
-        "MOITRIKA", "MRTUNJAY CHANDRA", "MUNKASHIF", "NAITIK", "NAMAN SATI",
-        "NAMAN TAMTA", "NISHTHI", "PARIDHI", "PARTH", "PRACHI",
-        "PRASHUN", "RUDRAPRATAP SINGH", "SHRAVANI DILEEP", "TANISHA", "YAMAN",
-        "YASHPAL", "ARPITA", "PARTH", "MAANSHA"
+        "ABHAY", "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA",
+        "CHANDNI", "DEEPIKA", "DISHA", "GEETA", "GUNJAN",
+        "HARSHUL", "HIMANSHI", "KAMAL", "KARISHMA", "KARTIK",
+        "KRITIKA GODIYAL", "KRITIKA RAWAT", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA",
+        "NAMAN TAMTA", "MAULIK", "MOITRIKA", "MRITYUNJAY", "MUNKASHIF",
+        "NAITIK", "NAMAN SATI", "NISHTHI", "PARIDHI", "PARTH",
+        "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA",
+        "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"
       ];
 
       const pt1_11b = {
@@ -1609,15 +1614,94 @@
         "TANMAY ADHIKARI": 9, "PALAK": 0, "NISHANT": 8
       };
 
-      const pt1_7c = [
-        1, 29, 13, 32, 3, 4, 13, 6, 25, 6, 7, 3, 10, 3, 20, 16, 7, 24, 20, 25, 30, 24, 20, 31, 26, 23, 23, 4, 16, 17, 8, 22, 13, 8, 14, 22, 12, 29, 23
-      ];
+      const ch1_11b = {
+        "ADITYA NEGI": 3, "ARUN ARYA": 12, "DIKSHANT NEGI": 11, "ISHANT MEHRA": 0,
+        "JANVI": 6, "KARAN CHANDRA": 4, "KARTIKEY PHARTIYAL": "", "MANAS BHAGAT": 2,
+        "MANSI BHANDARI": 9, "NEHA NEGI": "", "NIHARIKA MOHAN": 12, "PARAS SATI": 6,
+        "PRANAY SATI": 4, "PRIYANSHU PANDEY": 8, "RAJAT ADHIKARI": 7,
+        "AYUSH ROY": "", "PRIYANSHU KANDPAL": "", "SPARSH DUBEY": ""
+      };
+
+      const ch2_11b = {
+        "ADITYA NEGI": 3, "ARUN ARYA": 11, "DIKSHANT NEGI": 7, "ISHANT MEHRA": 3.5,
+        "JANVI": 5, "KARAN CHANDRA": 5.5, "KARTIKEY PHARTIYAL": 1, "MANAS BHAGAT": 3,
+        "MANSI BHANDARI": 5, "NEHA NEGI": 2, "NIHARIKA MOHAN": "", "PARAS SATI": 10,
+        "PRANAY SATI": 12.5, "PRIYANSHU PANDEY": 5, "RAJAT ADHIKARI": 5,
+        "AYUSH ROY": "", "PRIYANSHU KANDPAL": "", "SPARSH DUBEY": ""
+      };
+
+      const pt1_7c = {
+        "ABHINAY": 1, "ANAIKA": 29, "ARYAN": 13, "BHAVIKA": 32, "CHANDNI": 3,
+        "DEEPIKA": 4, "DISHA": 13, "GEETA": 6, "GUNJAN": 25, "HARSHUL": 6,
+        "HIMANSHI": 7, "KAMAL": 3, "KARTIK": 10, "KRITIKA GODIYAL": 3, "KRITIKA RAWAT": 20,
+        "KARISHMA": 16, "LAKSHIT RAWAT": 7, "LAKSHIT SINGH": 24, "MALVIKA": 20, "MAULIK": 25,
+        "MOITRIKA": 30, "MRITYUNJAY": 24, "MUNKASHIF": 20, "NAITIK": 31, "NAMAN SATI": 26,
+        "NAMAN TAMTA": 23, "NISHTHI": 23, "PARIDHI": 4, "PARTH": 16, "PRACHI": 17,
+        "PRASUN DEV": 8, "RUDRA": 22, "SHRAVANI": 13, "TANISHA": 8, "YAMAN": 14,
+        "YASHPAL": 22, "ARPITA": 12, "PARTH BISHT": 29, "MAANSHA": 23, "ABHAY": ""
+      };
+
+      const crm_7c = {
+        "ABHAY": 6, "ABHINAY": 4, "ANAIKA": 19, "ARYAN": 7, "BHAVIKA": 14,
+        "CHANDNI": 2, "DEEPIKA": 0, "DISHA": 8, "GEETA": 2, "GUNJAN": 10,
+        "HARSHUL": 0, "HIMANSHI": 2, "KAMAL": 0, "KARISHMA": 12, "KARTIK": "",
+        "KRITIKA GODIYAL": 2, "KRITIKA RAWAT": 10, "LAKSHIT RAWAT": 6, "LAKSHIT SINGH": 14, "MALVIKA": 12,
+        "NAMAN TAMTA": "", "MAULIK": 12, "MOITRIKA": 12, "MRITYUNJAY": 10, "MUNKASHIF": 14,
+        "NAITIK": 14, "NAMAN SATI": 18, "NISHTHI": 14, "PARIDHI": 4, "PARTH": 14,
+        "PRACHI": 10, "PRASUN DEV": 2, "RUDRA": 6, "SHRAVANI": 2, "TANISHA": 10,
+        "YAMAN": 4, "YASHPAL": 10, "ARPITA": "", "MAANSHA": "", "PARTH BISHT": ""
+      };
+
+      const ch1_7c = {
+        "ABHAY": 3, "ABHINAY": 2, "ANAIKA": 6, "ARYAN": 2, "BHAVIKA": 10,
+        "CHANDNI": 1, "DEEPIKA": 0, "DISHA": 3, "GEETA": 1, "GUNJAN": 3,
+        "HARSHUL": "", "HIMANSHI": "", "KAMAL": 4, "KARISHMA": 2, "KARTIK": 2,
+        "KRITIKA GODIYAL": 0, "KRITIKA RAWAT": 6, "LAKSHIT RAWAT": 0, "LAKSHIT SINGH": 4, "MALVIKA": "",
+        "NAMAN TAMTA": 8, "MAULIK": 7, "MOITRIKA": 5, "MRITYUNJAY": 8, "MUNKASHIF": 8,
+        "NAITIK": 8, "NAMAN SATI": 5, "NISHTHI": 6, "PARIDHI": 2, "PARTH": 5,
+        "PRACHI": 5, "PRASUN DEV": 4, "RUDRA": 3, "SHRAVANI": 3, "TANISHA": 1,
+        "YAMAN": 2, "YASHPAL": 7, "ARPITA": 2, "MAANSHA": "", "PARTH BISHT": ""
+      };
+
+      const ch2_7c = {
+        "ABHAY": 1, "ABHINAY": 0, "ANAIKA": "", "ARYAN": 5, "BHAVIKA": 7,
+        "CHANDNI": 1, "DEEPIKA": "", "DISHA": 3, "GEETA": 1, "GUNJAN": 5,
+        "HARSHUL": 3.5, "HIMANSHI": 0, "KAMAL": 6, "KARISHMA": 4, "KARTIK": "",
+        "KRITIKA GODIYAL": 0, "KRITIKA RAWAT": 3, "LAKSHIT RAWAT": 5, "LAKSHIT SINGH": 8.5, "MALVIKA": 1,
+        "NAMAN TAMTA": 8.5, "MAULIK": 6, "MOITRIKA": 6, "MRITYUNJAY": 4, "MUNKASHIF": 5.5,
+        "NAITIK": 8, "NAMAN SATI": 6, "NISHTHI": 6, "PARIDHI": 0, "PARTH": 5.5,
+        "PRACHI": 5, "PRASUN DEV": 0, "RUDRA": 3, "SHRAVANI": 1, "TANISHA": 3,
+        "YAMAN": 4, "YASHPAL": 5, "ARPITA": "", "MAANSHA": 8, "PARTH BISHT": 4.5
+      };
+
+      const ch3_7c = {
+        "ABHAY": 4, "ABHINAY": 0, "ANAIKA": 7, "ARYAN": 1, "BHAVIKA": 8,
+        "CHANDNI": 3, "DEEPIKA": 2, "DISHA": 5, "GEETA": 3, "GUNJAN": 8,
+        "HARSHUL": 2, "HIMANSHI": 3, "KAMAL": 4, "KARISHMA": 6, "KARTIK": 6,
+        "KRITIKA GODIYAL": 3, "KRITIKA RAWAT": 10, "LAKSHIT RAWAT": "", "LAKSHIT SINGH": 5, "MALVIKA": 7,
+        "NAMAN TAMTA": 8, "MAULIK": 7.5, "MOITRIKA": 10, "MRITYUNJAY": "", "MUNKASHIF": "",
+        "NAITIK": 7.5, "NAMAN SATI": 7, "NISHTHI": 5, "PARIDHI": 4, "PARTH": 4,
+        "PRACHI": 9, "PRASUN DEV": 6, "RUDRA": 7, "SHRAVANI": 0, "TANISHA": 1,
+        "YAMAN": 1, "YASHPAL": 3, "ARPITA": 7, "MAANSHA": 10, "PARTH BISHT": 6
+      };
 
       const classes = {
         "7C": c7cNames.map((name, i) => {
           const marks = {};
           classTests["7C"].forEach(test => {
-            marks[test.id] = (test.id === "pt1" && pt1_7c[i] !== undefined) ? pt1_7c[i] : "";
+            if (test.id === "pt1" && pt1_7c[name] !== undefined) {
+              marks[test.id] = pt1_7c[name];
+            } else if (test.id === "crm" && crm_7c[name] !== undefined) {
+              marks[test.id] = crm_7c[name];
+            } else if (test.id === "ch1" && ch1_7c[name] !== undefined) {
+              marks[test.id] = ch1_7c[name];
+            } else if (test.id === "ch2" && ch2_7c[name] !== undefined) {
+              marks[test.id] = ch2_7c[name];
+            } else if (test.id === "ch3" && ch3_7c[name] !== undefined) {
+              marks[test.id] = ch3_7c[name];
+            } else {
+              marks[test.id] = "";
+            }
           });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
@@ -1645,7 +1729,15 @@
         "11B": c11bNames.map((name, i) => {
           const marks = {};
           classTests["11B"].forEach(test => {
-            marks[test.id] = (test.id === "pt1" && pt1_11b[name] !== undefined) ? pt1_11b[name] : "";
+            if (test.id === "pt1" && pt1_11b[name] !== undefined) {
+              marks[test.id] = pt1_11b[name];
+            } else if (test.id === "ch1" && ch1_11b[name] !== undefined) {
+              marks[test.id] = ch1_11b[name];
+            } else if (test.id === "ch2" && ch2_11b[name] !== undefined) {
+              marks[test.id] = ch2_11b[name];
+            } else {
+              marks[test.id] = "";
+            }
           });
           return { rollNo: i + 1, name, marks, remarks: "" };
         })
@@ -1696,7 +1788,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v10") {
+      if (savedData && dbVersion === "v12") {
         try {
           studentData = JSON.parse(savedData);
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
@@ -1712,14 +1804,23 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v10");
+        localStorage.setItem("student_performance_db_version", "v12");
         
-        // Also pre-seed the Class 12B test dates
+        // Also pre-seed the Class 12B and Class 11B test dates
         testDates["12B"].ch1 = "2026-04-13";
         testDates["12B"].ch2 = "2026-04-20";
         testDates["12B"].ch3 = "2026-04-02";
         testDates["12B"].ch4 = "2026-04-08";
         testDates["12B"].ch5 = "2026-06-09";
+        
+        testDates["11B"].ch1 = "2026-04-08";
+        testDates["11B"].ch2 = "2026-06-09";
+
+        testDates["7C"].crm = "2026-04-02";
+        testDates["7C"].ch1 = "2026-04-24";
+        testDates["7C"].ch2 = "2026-05-08";
+        testDates["7C"].ch3 = "2026-06-12";
+        
         localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
       }
 
@@ -1890,7 +1991,7 @@
       // Select default test ID for this type
       const activeTests = classTests[activeClass];
       const filtered = activeTests.filter(t => {
-        if (type === "chapter") return t.id.startsWith("ch");
+        if (type === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (type === "pt") return t.id.startsWith("pt");
         if (type === "pb") return t.id.startsWith("pb");
         if (type === "hy") return t.id === "hy";
@@ -1915,7 +2016,7 @@
 
       const activeTests = classTests[activeClass];
       const filtered = activeTests.filter(t => {
-        if (activeExamType === "chapter") return t.id.startsWith("ch");
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (activeExamType === "pt") return t.id.startsWith("pt");
         if (activeExamType === "pb") return t.id.startsWith("pb");
         return false;
