@@ -1142,7 +1142,7 @@
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:15px;">
             <div>
               <h2 style="font-family:var(--font-head); color:var(--primary); font-size:1.8em; margin:0;"><i class="fas fa-chart-pie"></i> Student Performance & Test Analytics</h2>
-              <p style="color:var(--text-secondary); margin-top:5px; font-size:0.95rem;">Manage, analyze, and share mathematics scores of classes 7C, 11B, and 12B.</p>
+              <p style="color:var(--text-secondary); margin-top:5px; font-size:0.95rem;">Manage, analyze, and share mathematics scores of classes 7C, 11B, and 12.</p>
             </div>
             <div class="save-indicator" id="saveIndicator">
               <i class="fas fa-cloud-upload-alt"></i> Auto-saved to local browser storage
@@ -1151,9 +1151,9 @@
           
           <!-- Class Tabs -->
           <div class="class-nav" style="margin-bottom: 15px;">
-            <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(39 Students)</span></button>
+            <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(40 Students)</span></button>
             <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(18 Students)</span></button>
-            <button class="class-tab" onclick="switchClass('12B')"><i class="fas fa-graduation-cap"></i> Class 12B <span style="font-size:0.8em; opacity:0.8;">(23 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('12')"><i class="fas fa-graduation-cap"></i> Class 12 <span style="font-size:0.8em; opacity:0.8;">(23 Students)</span></button>
           </div>
 
           <!-- Exam Sub Tabs for the Active Class (Class Test/Chapterwise, PT1/PT2, HY, PB, SEE) -->
@@ -1493,7 +1493,7 @@
         { id: "hy", label: "HY", maxMarks: 80 },
         { id: "see", label: "SEE", maxMarks: 80 }
       ],
-      "12B": [
+      "12": [
         ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
@@ -1716,9 +1716,9 @@
           });
           return { rollNo: i + 1, name, marks, remarks: "" };
         }),
-        "12B": c12bNames.map((name, i) => {
+        "12": c12bNames.map((name, i) => {
           const marks = {};
-          classTests["12B"].forEach(test => {
+          classTests["12"].forEach(test => {
             if (test.id === "pt1" && pt1_12b[name] !== undefined) {
               marks[test.id] = pt1_12b[name];
             } else if (test.id === "ch1" && ch1_12b[name] !== undefined) {
@@ -1792,14 +1792,14 @@
       }
       if (!testDates["7C"]) testDates["7C"] = {};
       if (!testDates["11B"]) testDates["11B"] = {};
-      if (!testDates["12B"]) testDates["12B"] = {};
+      if (!testDates["12"]) testDates["12"] = {};
 
       // Load Data (with version check for new subtabs schema)
       const savedData = localStorage.getItem("student_performance_data");
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v12") {
+      if (savedData && dbVersion === "v13") {
         try {
           studentData = JSON.parse(savedData);
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
@@ -1815,14 +1815,14 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v12");
+        localStorage.setItem("student_performance_db_version", "v13");
         
-        // Also pre-seed the Class 12B and Class 11B test dates
-        testDates["12B"].ch1 = "2026-04-13";
-        testDates["12B"].ch2 = "2026-04-20";
-        testDates["12B"].ch3 = "2026-04-02";
-        testDates["12B"].ch4 = "2026-04-08";
-        testDates["12B"].ch5 = "2026-06-09";
+        // Also pre-seed the Class 12 and Class 11B test dates
+        testDates["12"].ch1 = "2026-04-13";
+        testDates["12"].ch2 = "2026-04-20";
+        testDates["12"].ch3 = "2026-04-02";
+        testDates["12"].ch4 = "2026-04-08";
+        testDates["12"].ch5 = "2026-06-09";
         
         testDates["11B"].ch1 = "2026-04-08";
         testDates["11B"].ch2 = "2026-06-09";
@@ -1976,7 +1976,7 @@
       const hyBtn = document.getElementById("examTypeBtnHY");
       const seeBtn = document.getElementById("examTypeBtnSEE");
       
-      if (activeClass === "12B") {
+      if (activeClass === "12") {
         pbBtn.style.display = "flex";
         hyBtn.style.display = "none";
         seeBtn.style.display = "none";
@@ -3090,13 +3090,13 @@
       reader.onload = function(e) {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed["7C"] && parsed["11B"] && parsed["12B"]) {
+          if (parsed["7C"] && parsed["11B"] && parsed["12"]) {
             studentData = parsed;
             saveData();
             switchClass(activeClass);
             alert("Database imported successfully!");
           } else {
-            alert("Invalid database structure. Please ensure the backup file contains classes 7C, 11B, and 12B.");
+            alert("Invalid database structure. Please ensure the backup file contains classes 7C, 11B, and 12.");
           }
         } catch(err) {
           alert("Error parsing backup file. Please make sure it is a valid JSON file.");
