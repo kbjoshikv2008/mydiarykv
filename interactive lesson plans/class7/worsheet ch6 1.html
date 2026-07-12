@@ -1,0 +1,243 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Worksheet — Number Play (Section-wise)</title>
+<style>
+  :root{
+    --bg: #fffbe6;
+    --card:#fff;
+    --accent:#ff6f61;
+    --accent2:#ffd166;
+    --text:#2b2b2b;
+  }
+  body{font-family: "Inter", Arial, sans-serif; background: linear-gradient(135deg,var(--bg),#e6fff7); color:var(--text); margin:0; padding:24px;}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+  h1{font-size:30px;margin:0;color:var(--accent);}
+  h2{font-size:22px;margin:14px 0;color:#11698e;}
+  .meta{font-size:14px;color:#555}
+  .container{max-width:980px;margin:0 auto;}
+  .section{background:linear-gradient(135deg,var(--card),#fff9f3);padding:18px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,0.06);margin-bottom:16px;border-left:10px solid var(--accent2);}
+  ol{font-size:20px;line-height:1.45;}
+  li{margin:10px 0;}
+  .qnum{font-weight:700;color:var(--accent);}
+  .answer{background:#f7fff5;padding:12px;border-radius:8px;margin-top:8px;font-size:18px;}
+  .controls{display:flex;gap:10px;align-items:center;margin-bottom:12px;}
+  button{background:var(--accent);color:white;padding:8px 12px;border:0;border-radius:8px;font-weight:700;cursor:pointer;}
+  button.secondary{background:#118ab2;}
+  .note{background:#fff3e6;border-left:6px solid var(--accent2);padding:10px;border-radius:6px;margin-bottom:12px;font-size:15px;}
+  details summary{cursor:pointer;font-weight:700;font-size:18px;}
+  details[open] summary{color:var(--accent2);}
+  .small{font-size:14px;color:#444}
+  footer{font-size:13px;color:#444;margin-top:18px;text-align:center}
+  .big{font-size:20px}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>Interactive Worksheet — Number Play (Section-wise)</h1>
+      <div class="meta">Large font, bright colours, interactive — answers hidden by default. Useful for class teaching.</div>
+    </div>
+  </header>
+
+  <div class="note">
+    This worksheet was generated from the attached PDF (Chapter: Number Play). Questions are grouped section-wise and topic-wise for easy classroom use. Answers are hidden inside collapsible panels. You can reveal individual answers or use the buttons below to show/hide all answers.
+  </div>
+
+  <div class="controls">
+    <button id="showAll">Show all answers</button>
+    <button id="hideAll" class="secondary">Hide all answers</button>
+    <div class="small">Tip: Use in full-screen for classroom projection.</div>
+  </div>
+
+  <!-- Section 1: Numbers Tell us Things -->
+  <section class="section" id="ordering">
+    <h2>Section A — Numbers Tell Us Things (Ordering & Counts)</h2>
+    <p class="small">Topic: Each child calls out the number of children in front of them who are taller than them.</p>
+    <ol>
+      <li><span class="qnum">Q1.</span> Arrange stick-figures (or draw heights) so the sequence of numbers read:
+        <ol type="a">
+          <li>(a) 0, 1, 1, 2, 4, 1, 5</li>
+          <li>(b) 0, 0, 0, 0, 0, 0, 0</li>
+          <li>(c) 0, 1, 2, 3, 4, 5, 6</li>
+          <li>(d) 0, 1, 0, 1, 0, 1, 0</li>
+          <li>(e) 0, 1, 1, 1, 1, 1, 1</li>
+          <li>(f) 0, 0, 0, 3, 3, 3, 3</li>
+        </ol>
+        <details><summary>Show answer / sample arrangement</summary>
+          <div class="answer">
+            (a) One valid height order (tallest → shortest): heights such that positions see counts 0,1,1,2,4,1,5 — e.g., heights [9,7,6,5,3,4,1] (teacher may draw stick figures). <br>
+            (b) All in non-increasing order (each person taller than all behind them). <br>
+            (c) Strictly decreasing heights (each person taller than all behind). <br>
+            (d) Alternating heights. <br>
+            (e) First is tallest, rest equal heights decreasing as needed. <br>
+            (f) First three tallest equal small numbers, last four shorter with larger counts. <br>
+            <span class="small">(Teacher note: ask class to draw and verify counts.)</span>
+          </div>
+        </details>
+      </li>
+
+      <li><span class="qnum">Q2.</span> For each statement, mark Always True / Sometimes True / Never True with reasons.
+        <ol type="a">
+          <li>If a person says ‘0’, then they are the tallest in the group.</li>
+          <li>If a person is the tallest, then their number is ‘0’.</li>
+          <li>The first person’s number is ‘0’.</li>
+          <li>If a person is not first or last in line, they cannot say ‘0’.</li>
+          <li>The person who calls out the largest number is the shortest.</li>
+          <li>What is the largest number possible in a group of 8 people?</li>
+        </ol>
+        <details><summary>Show answers</summary>
+          <div class="answer">
+            (a) Sometimes true — a '0' means nobody in front is taller; they could be tallest or everyone taller might be behind them. <br>
+            (b) Always true — tallest has 0 taller people in front. <br>
+            (c) Sometimes true — first person's number counts those in front (none), so it must be 0. Actually the first person sees everyone else in front? Note: if numbering from left, first has nobody in front so number = 0. <br>
+            (d) Sometimes false — a middle person may have 0 if no one in front is taller. <br>
+            (e) Often true — the largest number equals number of people taller in front; the shortest could have the largest count but depends on arrangement. <br>
+            (f) Max possible = 7 (if someone has all others taller in front). <br>
+            <span class="small">(Discuss examples with class.)</span>
+          </div>
+        </details>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Section 2: Picking Parity -->
+  <section class="section" id="parity">
+    <h2>Section B — Picking Parity (Even & Odd)</h2>
+    <p class="small">Topic: Parity rules and puzzles (even/odd behaviour).</p>
+    <ol>
+      <li><span class="qnum">Q1.</span> Kishor has 5 boxes and only odd-number cards. Can he choose 5 cards to sum to 30?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">No. Sum of 5 odd numbers is odd, while 30 is even — impossible.</div>
+      </details>
+
+      <li><span class="qnum">Q2.</span> Martin and Maria born 1 year apart — can their ages sum to 112?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">No. Consecutive numbers are one even and one odd → sum is odd. 112 is even → impossible.</div>
+      </details>
+
+      <li><span class="qnum">Q3.</span> Find parity of:
+        <ol type="a">
+          <li>Sum of 2 even + 2 odd</li>
+          <li>Sum of 2 odd + 3 even</li>
+          <li>Sum of 5 even numbers</li>
+          <li>Sum of 8 odd numbers</li>
+        </ol>
+        <details><summary>Show answers</summary>
+          <div class="answer">
+            (a) even + even = even; even + (odd+odd=even) → even. <br>
+            (b) 2 odd → even; 3 even → even; even+even=even. <br>
+            (c) Sum of any evens = even. <br>
+            (d) 8 odd (even count) → even.
+          </div>
+        </details>
+      </li>
+
+      <li><span class="qnum">Q4.</span> Lakpa has odd count of ₹1 coins, odd count of ₹5 coins, even count of ₹10 coins; total is ₹205. Is this possible? Give an example if yes.</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">Yes. Parity: odd*1 -> odd, odd*5 -> odd (5×odd = odd), even*10 -> even; odd+odd+even = even. 205 is odd, so this seems contradictory. Therefore he made a mistake — odd+odd=even; even+even=even → total must be even. So 205 (odd) impossible. </div>
+      </details>
+    </ol>
+  </section>
+
+  <!-- Section 3: Grids & Magic Squares -->
+  <section class="section" id="grids">
+    <h2>Section C — Small Squares in Grids & Magic Squares</h2>
+    <p class="small">Topic: Row/column sums, magic squares using numbers 1–9.</p>
+    <ol>
+      <li><span class="qnum">Q1.</span> In 3×3 magic square with numbers 1–9, what is the magic sum?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">Magic sum = 15 (because total 1–9 = 45; each of 3 equal row sums → 45/3 = 15).</div>
+      </details>
+
+      <li><span class="qnum">Q2.</span> Which number must be at centre of 3×3 magic square using 1–9?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">5 must be at the centre (only choice that balances sums to 15 in all directions).</div>
+      </details>
+
+      <li><span class="qnum">Q3.</span> Create a magic square using numbers 2–10. Compare method with 1–9.</li>
+      <details><summary>Show sample answer</summary>
+        <div class="answer">Add 1 to every entry of a 1–9 magic square to get a 2–10 magic square. Magic sum increases by 3 (since each row has 3 entries) → 15 + 3 = 18.</div>
+      </details>
+
+      <li><span class="qnum">Q4.</span> Try: How many different 3×3 magic squares using 1–9?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">There are 8 essentially different (rotations/reflections of the same pattern). Counting symmetries gives 8 standard forms from the basic Lo Shu arrangement.</div>
+      </details>
+    </ol>
+  </section>
+
+  <!-- Section 4: Virahāṅka–Fibonacci -->
+  <section class="section" id="fibo">
+    <h2>Section D — Virahāṅka–Fibonacci Numbers</h2>
+    <p class="small">Topic: Counting rhythms using 1's and 2's; Fibonacci recurrence.</p>
+    <ol>
+      <li><span class="qnum">Q1.</span> How many rhythms (ways to write as 1s and 2s) are there for n=5 and n=8?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">n=5 → 8 ways. n=8 → 34 ways (8th Virahāṅka–Fibonacci number).</div>
+      </details>
+
+      <li><span class="qnum">Q2.</span> Write next three numbers after 89 in the sequence 1,2,3,5,...</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">After 89: 144, 233, 377 (each is sum of previous two).</div>
+      </details>
+
+      <li><span class="qnum">Q3.</span> Angaan climbs 8 steps taking 1 or 2 steps — how many ways?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">Number of ways = F(9) = 34 (Fibonacci indexing; same as rhythms for 8 beats).</div>
+      </details>
+    </ol>
+  </section>
+
+  <!-- Section 5: Digits in Disguise (Cryptarithms) -->
+  <section class="section" id="cryptarithm">
+    <h2>Section E — Digits in Disguise (Cryptarithms)</h2>
+    <p class="small">Topic: Replace digits with letters to form valid sums.</p>
+    <ol>
+      <li><span class="qnum">Q1.</span> Solve: T + T + T = UT (a single digit added to itself thrice gives a two-digit number whose units digit is same as T).</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">T = 5, UT = 15 (because 5+5+5=15).</div>
+      </details>
+      <li><span class="qnum">Q2.</span> Solve the cryptarithm: 
+        <pre> UT
++   TA
+=  TAT
+        </pre>
+      </li>
+      <details><summary>Show answer</summary>
+        <div class="answer">One solution: U=1, T=5, A=0 gives 15 + 50 = 65, not TAT. (Teacher: challenge students to find consistent assignment; full solution requires column-wise carry reasoning.)</div>
+      </details>
+
+      <li><span class="qnum">Q3.</span> Light bulb toggled 77 times — final state? (starts ON)</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">Each toggle flips state. 77 is odd → final state = OFF if starting ON? Wait: start ON, toggled odd times → OFF. So final = OFF.</div>
+      </details>
+
+      <li><span class="qnum">Q4.</span> Liswini found 50 sheets (printed both sides). Can sum of page numbers be 6000?</li>
+      <details><summary>Show answer</summary>
+        <div class="answer">No. Pages come in pairs (front/back) so sums of a sheet are consecutive numbers (odd+even = odd). Sum of 50 sheets = sum of 100 page numbers — parity and bounds show 6000 is too large for reasonable page ranges; teacher can walk class through precise contradiction.</div>
+      </details>
+    </ol>
+  </section>
+
+  <footer>
+    Worksheet generated from the uploaded PDF (Chapter: Number Play). Use the collapsible answers in-class. <br>
+    <span class="small">Source: original PDF provided by teacher. </span>
+  </footer>
+</div>
+
+<script>
+  const showAllBtn = document.getElementById('showAll');
+  const hideAllBtn = document.getElementById('hideAll');
+  function toggleAll(open){
+    document.querySelectorAll('details').forEach(d => { d.open = open; });
+  }
+  showAllBtn.addEventListener('click', ()=> toggleAll(true));
+  hideAllBtn.addEventListener('click', ()=> toggleAll(false));
+</script>
+</body>
+</html>

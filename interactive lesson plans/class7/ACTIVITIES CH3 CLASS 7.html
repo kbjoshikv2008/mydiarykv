@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎯 5 Decimal Activities | Grade 7 Maths (Ganita Prakash)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Comic Neue', 'Poppins', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fdebb3 0%, #f7cf8c 100%);
+            padding: 2rem 1.2rem;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .chapter-header {
+            background: #1f3a5f;
+            padding: 1.8rem 2rem;
+            border-radius: 70px;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            border-bottom: 6px solid #ffbc6e;
+        }
+
+        .chapter-header h1 {
+            font-size: 3rem;
+            color: #FFE9B6;
+            font-weight: 800;
+            text-shadow: 3px 3px 0 #0a1a2e;
+        }
+
+        .chapter-header p {
+            font-size: 1.4rem;
+            color: #fce6b4;
+            margin-top: 0.5rem;
+        }
+
+        /* grid */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        /* card */
+        .activity-card {
+            background: #fffef7;
+            border-radius: 52px;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+            border-left: 14px solid #ff914d;
+            border-right: 2px solid #ffdc97;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .tlo-badge {
+            background: #2c7da0;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 14px;
+            align-self: flex-start;
+        }
+
+        .activity-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: #ffd966;
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            color: #2b281c;
+        }
+
+        .objective-text {
+            background: #fff0dd;
+            padding: 12px 18px;
+            border-radius: 40px;
+            margin: 8px 0 18px 0;
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: #3a2c1a;
+            border-left: 5px solid #ffaa44;
+        }
+
+        .question-box {
+            background: #fff2e0;
+            padding: 1rem;
+            border-radius: 32px;
+            margin: 12px 0;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        input, select {
+            font-size: 1.3rem;
+            padding: 12px 18px;
+            border-radius: 60px;
+            border: 2px solid #f5b642;
+            background: #fffcf0;
+            width: 100%;
+            margin: 10px 0 12px;
+            font-weight: 500;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff6b2c;
+            box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.3);
+        }
+
+        button {
+            background: #ff7b2c;
+            border: none;
+            font-size: 1.25rem;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 48px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #9b3e00;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #9b3e00;
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .correct-feedback {
+            background: #c8f0d1;
+            color: #006622;
+            border-left: 8px solid #2ecc71;
+        }
+
+        .wrong-feedback {
+            background: #ffe0db;
+            color: #b13a1a;
+            border-left: 8px solid #e67e22;
+        }
+
+        .option-label {
+            display: block;
+            background: #fef5e8;
+            padding: 8px 14px;
+            border-radius: 60px;
+            margin: 8px 0;
+            font-size: 1.15rem;
+            border: 1px solid #f5cba0;
+            cursor: pointer;
+        }
+
+        hr {
+            margin: 12px 0;
+            border-color: #ffcd94;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: #ffecb3;
+            padding: 1rem;
+            border-radius: 50px;
+            color: #2e2416;
+        }
+
+        @media (max-width: 750px) {
+            .activity-title {
+                font-size: 1.5rem;
+            }
+            .objective-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <div class="chapter-header">
+        <h1>📐🔢 Decimals: Tenths & Hundredths</h1>
+        <p>✨ 5 Interactive Activities | Clear Learning Objectives ✨</p>
+        <p style="font-size:1.2rem;">🎯 Based on NCERT Grade 7 "A Peek Beyond the Point"</p>
+    </div>
+
+    <div class="activities-grid">
+
+        <!-- ACTIVITY 1: Adding tenths (Sonu's arm) -->
+        <div class="activity-card">
+            <div class="tlo-badge">🎯 Learning Objective 1</div>
+            <div class="activity-title">➕ Adding Tenths</div>
+            <div class="objective-text">
+                📌 <strong>Objective:</strong> Add decimal numbers involving tenths by combining whole units and tenths separately.
+            </div>
+            <div class="question-box">
+                🔸 Sonu’s lower arm = 2.7 units &nbsp;&nbsp; Upper arm = 3.6 units.<br>
+                What is the total length of Sonu’s arm? (in units)
+            </div>
+            <input type="number" id="armTotal" step="any" placeholder="Enter total length">
+            <button id="checkArmBtn">➕ ADD TENTHS</button>
+            <div id="armFeedback" class="feedback"></div>
+        </div>
+
+        <!-- ACTIVITY 2: Hundredths - folding paper in half -->
+        <div class="activity-card">
+            <div class="tlo-badge">🎯 Learning Objective 2</div>
+            <div class="activity-title">📄 Hundredths Precision</div>
+            <div class="objective-text">
+                📌 <strong>Objective:</strong> Measure and compute using hundredths (0.01) by dividing a tenth into 10 smaller parts.
+            </div>
+            <div class="question-box">
+                ✨ A sheet of paper is 8.9 units long. It is folded exactly in half (lengthwise).<br>
+                What is the length of the folded paper? (in units, decimal)
+            </div>
+            <input type="number" id="foldedLength" step="any" placeholder="e.g., 4.45">
+            <button id="checkFoldBtn">📏 HALVE IT</button>
+            <div id="foldFeedback" class="feedback"></div>
+        </div>
+
+        <!-- ACTIVITY 3: Unit conversions (mm, cm, m, kg, paise) -->
+        <div class="activity-card">
+            <div class="tlo-badge">🎯 Learning Objective 3</div>
+            <div class="activity-title">⚖️ Real-Life Conversions</div>
+            <div class="objective-text">
+                📌 <strong>Objective:</strong> Convert between metric units (mm→cm, cm→m, g→kg) and paise→rupees using decimals.
+            </div>
+            <div class="question-box">
+                <p>🔹 Convert each into decimals:</p>
+                <label>a) 56 mm = ______ cm</label>
+                <input type="text" id="convA" placeholder="cm">
+                <label>b) 325 cm = ______ m</label>
+                <input type="text" id="convB" placeholder="m">
+                <label>c) 254 g = ______ kg</label>
+                <input type="text" id="convC" placeholder="kg">
+                <label>d) 68 g = ______ kg</label>
+                <input type="text" id="convD" placeholder="kg">
+                <label>e) 50 paise = ______ rupees</label>
+                <input type="text" id="convE" placeholder="₹">
+            </div>
+            <button id="checkConvBtn">🔄 CHECK CONVERSIONS</button>
+            <div id="convFeedback" class="feedback"></div>
+        </div>
+
+        <!-- ACTIVITY 4: Comparing decimals (closest to 4 + largest in list) -->
+        <div class="activity-card">
+            <div class="tlo-badge">🎯 Learning Objective 4</div>
+            <div class="activity-title">🔍 Comparing Decimals</div>
+            <div class="objective-text">
+                📌 <strong>Objective:</strong> Compare decimal numbers by place value and find which is closest to a given number.
+            </div>
+            <div class="question-box">
+                <p>⭐ Which decimal is <strong>closest to 4</strong>? <br> 3.56 , 3.65 , 3.099</p>
+                <div id="closest4Group">
+                    <label class="option-label"><input type="radio" name="closest4" value="3.56"> 3.56</label>
+                    <label class="option-label"><input type="radio" name="closest4" value="3.65"> 3.65</label>
+                    <label class="option-label"><input type="radio" name="closest4" value="3.099"> 3.099</label>
+                </div>
+                <p style="margin-top: 20px;">📌 Which is the <strong>largest</strong> among these? <br> 2.567 , 2.675 , 2.768 , 2.499 , 2.698</p>
+                <div id="largestGroup">
+                    <label class="option-label"><input type="radio" name="largestVal" value="2.567"> 2.567</label>
+                    <label class="option-label"><input type="radio" name="largestVal" value="2.675"> 2.675</label>
+                    <label class="option-label"><input type="radio" name="largestVal" value="2.768"> 2.768</label>
+                    <label class="option-label"><input type="radio" name="largestVal" value="2.499"> 2.499</label>
+                    <label class="option-label"><input type="radio" name="largestVal" value="2.698"> 2.698</label>
+                </div>
+            </div>
+            <button id="checkCompareBtn">🔎 CHECK ANSWERS</button>
+            <div id="compareFeedback" class="feedback"></div>
+        </div>
+
+        <!-- ACTIVITY 5: Addition & subtraction word problems (fish & vegetables) -->
+        <div class="activity-card">
+            <div class="tlo-badge">🎯 Learning Objective 5</div>
+            <div class="activity-title">🐟 Add & Subtract Decimals</div>
+            <div class="objective-text">
+                📌 <strong>Objective:</strong> Solve real-world problems by adding and subtracting decimals (align decimal points).
+            </div>
+            <div class="question-box">
+                <p>🐠 <strong>Fish difference:</strong> Danio length = 2.4 cm, Goby length = 0.9 cm.<br> How much longer is Danio? (cm)</p>
+                <input type="number" id="fishDiff" step="any" placeholder="Difference in cm">
+                <p>🥔 <strong>Vegetable total:</strong> Mahi buys: beans 0.25 kg, carrots 0.3 kg, potatoes 0.5 kg, capsicum 0.2 kg, ginger 0.05 kg.<br> Find total weight (kg).</p>
+                <input type="number" id="vegTotal" step="any" placeholder="Total kg">
+            </div>
+            <button id="checkFishVegBtn">➕➖ VERIFY</button>
+            <div id="fishVegFeedback" class="feedback"></div>
+        </div>
+    </div>
+
+    <footer>
+        🌟 Clear objectives + instant feedback | Based on Grade 7 "A Peek Beyond the Point" (Decimals) 🌟
+    </footer>
+</div>
+
+<script>
+    // ACTIVITY 1: Sonu arm length (2.7 + 3.6)
+    document.getElementById("checkArmBtn").addEventListener("click", function(){
+        let userArm = parseFloat(document.getElementById("armTotal").value);
+        let fb = document.getElementById("armFeedback");
+        if(isNaN(userArm)){
+            fb.innerHTML = "❌ Please enter a number.";
+            fb.className = "feedback wrong-feedback";
+            return;
+        }
+        let correct = 6.3;
+        if(Math.abs(userArm - correct) < 0.001){
+            fb.innerHTML = "✅ Correct! 2.7 + 3.6 = 6.3 units. Great adding tenths!";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = `❌ 2.7 + 3.6 = 6.3 (7 tenths + 6 tenths = 13 tenths = 1.3, plus 5 units = 6.3). You gave ${userArm}.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    });
+
+    // ACTIVITY 2: folded paper half of 8.9
+    document.getElementById("checkFoldBtn").addEventListener("click", function(){
+        let userFold = parseFloat(document.getElementById("foldedLength").value);
+        let fb = document.getElementById("foldFeedback");
+        if(isNaN(userFold)){
+            fb.innerHTML = "❌ Enter the folded length.";
+            fb.className = "feedback wrong-feedback";
+            return;
+        }
+        let correctHalf = 4.45;
+        if(Math.abs(userFold - correctHalf) < 0.001){
+            fb.innerHTML = "🎉 Perfect! 8.9 ÷ 2 = 4.45 units (4 units and 45 hundredths).";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = `⚠️ Half of 8.9 is 4.45. Your answer: ${userFold}. Remember to use hundredths.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    });
+
+    // ACTIVITY 3: Conversions
+    document.getElementById("checkConvBtn").addEventListener("click", function(){
+        let convA = document.getElementById("convA").value.trim();
+        let convB = document.getElementById("convB").value.trim();
+        let convC = document.getElementById("convC").value.trim();
+        let convD = document.getElementById("convD").value.trim();
+        let convE = document.getElementById("convE").value.trim();
+
+        let correct = { a:5.6, b:3.25, c:0.254, d:0.068, e:0.5 };
+        let aOk = !isNaN(parseFloat(convA)) && Math.abs(parseFloat(convA)-correct.a)<0.001;
+        let bOk = !isNaN(parseFloat(convB)) && Math.abs(parseFloat(convB)-correct.b)<0.001;
+        let cOk = !isNaN(parseFloat(convC)) && Math.abs(parseFloat(convC)-correct.c)<0.001;
+        let dOk = !isNaN(parseFloat(convD)) && Math.abs(parseFloat(convD)-correct.d)<0.001;
+        let eOk = !isNaN(parseFloat(convE)) && Math.abs(parseFloat(convE)-correct.e)<0.001;
+        let fb = document.getElementById("convFeedback");
+        if(aOk && bOk && cOk && dOk && eOk){
+            fb.innerHTML = "🏆 All correct! 56mm=5.6cm, 325cm=3.25m, 254g=0.254kg, 68g=0.068kg, 50paise=₹0.50.";
+            fb.className = "feedback correct-feedback";
+        } else {
+            let err = [];
+            if(!aOk) err.push("56mm = 5.6cm");
+            if(!bOk) err.push("325cm = 3.25m");
+            if(!cOk) err.push("254g = 0.254kg");
+            if(!dOk) err.push("68g = 0.068kg");
+            if(!eOk) err.push("50paise = 0.5 rupee");
+            fb.innerHTML = `❌ Check: ${err.join(", ")}. Use decimal conversion (divide by 10,100,1000).`;
+            fb.className = "feedback wrong-feedback";
+        }
+    });
+
+    // ACTIVITY 4: closest to 4 & largest among list
+    document.getElementById("checkCompareBtn").addEventListener("click", function(){
+        let closestSel = document.querySelector('input[name="closest4"]:checked');
+        let largestSel = document.querySelector('input[name="largestVal"]:checked');
+        let fb = document.getElementById("compareFeedback");
+        if(!closestSel || !largestSel){
+            fb.innerHTML = "⚠️ Please answer both parts: closest to 4, and the largest decimal.";
+            fb.className = "feedback wrong-feedback";
+            return;
+        }
+        let closestCorrect = (closestSel.value === "3.65");
+        let largestCorrect = (largestSel.value === "2.768");
+        if(closestCorrect && largestCorrect){
+            fb.innerHTML = "🎯 Perfect! Closest to 4 is 3.65 (difference 0.35). Largest is 2.768. Excellent comparison!";
+            fb.className = "feedback correct-feedback";
+        } else if(!closestCorrect && largestCorrect){
+            fb.innerHTML = "⚠️ Closest to 4 is 3.65 (3.65 is 0.35 away, 3.56 is 0.44 away). Largest is correct!";
+            fb.className = "feedback wrong-feedback";
+        } else if(closestCorrect && !largestCorrect){
+            fb.innerHTML = "⚠️ Largest is 2.768 (compare tenths: 2.7 > 2.6). Closest to 4 is correct!";
+            fb.className = "feedback wrong-feedback";
+        } else {
+            fb.innerHTML = "❌ Both incorrect. Closest to 4 = 3.65. Largest = 2.768. Compare digits step by step.";
+            fb.className = "feedback wrong-feedback";
+        }
+    });
+
+    // ACTIVITY 5: Fish diff and veg total
+    document.getElementById("checkFishVegBtn").addEventListener("click", function(){
+        let fishUser = parseFloat(document.getElementById("fishDiff").value);
+        let vegUser = parseFloat(document.getElementById("vegTotal").value);
+        let fb = document.getElementById("fishVegFeedback");
+        if(isNaN(fishUser) || isNaN(vegUser)){
+            fb.innerHTML = "🐟 Please fill both fields: fish difference (cm) and total vegetable weight (kg).";
+            fb.className = "feedback wrong-feedback";
+            return;
+        }
+        let correctFish = 2.4 - 0.9; // 1.5
+        let correctVeg = 0.25 + 0.3 + 0.5 + 0.2 + 0.05; // 1.3
+        let fishOk = Math.abs(fishUser - correctFish) < 0.001;
+        let vegOk = Math.abs(vegUser - correctVeg) < 0.001;
+        if(fishOk && vegOk){
+            fb.innerHTML = "🌟 Excellent! Danio is 1.5 cm longer. Total vegetables = 1.3 kg. Decimal addition/subtraction mastered!";
+            fb.className = "feedback correct-feedback";
+        } else if(fishOk && !vegOk){
+            fb.innerHTML = `⚠️ Fish difference correct (1.5 cm). But total weight = 1.3 kg (you gave ${vegUser}). Add: 0.25+0.3+0.5+0.2+0.05 = 1.3.`;
+            fb.className = "feedback wrong-feedback";
+        } else if(!fishOk && vegOk){
+            fb.innerHTML = `⚠️ Vegetable total correct (1.3 kg). But fish difference: 2.4 - 0.9 = 1.5 cm. You entered ${fishUser}. Align decimals.`;
+            fb.className = "feedback wrong-feedback";
+        } else {
+            fb.innerHTML = `❌ Fish diff = 1.5 cm, veg total = 1.3 kg. You gave fish: ${fishUser}, veg: ${vegUser}. Try again.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    });
+</script>
+</body>
+</html>

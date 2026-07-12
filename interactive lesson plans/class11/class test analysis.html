@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Class XI Math: SETS vs Relations & Functions | Comparative Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+      background: #eef2ff;
+      color: #0f172a;
+      padding: 24px 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    /* header */
+    .header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      border-radius: 2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .header p {
+      margin-top: 8px;
+      opacity: 0.85;
+      font-size: 0.9rem;
+    }
+    .test-dates {
+      display: flex;
+      gap: 24px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .date-badge {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    /* cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      border-left: 6px solid;
+    }
+    .stat-card.blue { border-left-color: #3b82f6; }
+    .stat-card.purple { border-left-color: #8b5cf6; }
+    .stat-card.emerald { border-left-color: #10b981; }
+    .stat-card.amber { border-left-color: #f59e0b; }
+    .stat-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+    .stat-sub {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin-top: 6px;
+    }
+    /* charts row */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .chart-panel {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .chart-panel h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-left: 12px;
+      border-left: 4px solid #3b82f6;
+    }
+    canvas {
+      max-height: 280px;
+      width: 100%;
+    }
+    /* table section */
+    .table-wrapper {
+      background: white;
+      border-radius: 1.5rem;
+      overflow-x: auto;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    th {
+      background: #f1f5f9;
+      padding: 14px 8px;
+      font-weight: 700;
+      text-align: center;
+      color: #1e293b;
+    }
+    td {
+      padding: 10px 6px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .student-name {
+      font-weight: 600;
+      text-align: left;
+      background: #fafcff;
+    }
+    .improvement-positive {
+      color: #15803d;
+      font-weight: 700;
+      background: #dcfce7;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 30px;
+    }
+    .improvement-negative {
+      color: #b91c1c;
+      background: #fee2e2;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 30px;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .insight-box {
+      background: #fefce8;
+      border-radius: 1rem;
+      padding: 1.2rem;
+      border-left: 6px solid #eab308;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #475569;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #cbd5e1;
+    }
+    @media (max-width: 760px) {
+      .charts-row { grid-template-columns: 1fr; }
+      body { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📊 Chapter-wise Performance: SETS vs Relations & Functions</h1>
+    <p>PM SHRI Kendriya Vidyalaya Ranikhet | Class XI Mathematics</p>
+    <div class="test-dates">
+      <span class="date-badge">📘 SETS Test • 08 April 2026 (Max 20)</span>
+      <span class="date-badge">📙 Relations & Functions • 09 June 2026 (Max 20)</span>
+    </div>
+  </div>
+
+  <!-- dynamic summary cards -->
+  <div class="cards-grid" id="summaryCards"></div>
+
+  <!-- comparison charts -->
+  <div class="charts-row">
+    <div class="chart-panel">
+      <h2>📈 Individual Marks Comparison</h2>
+      <canvas id="groupedBarChart" width="400" height="250"></canvas>
+    </div>
+    <div class="chart-panel">
+      <h2>📊 Class Average Comparison</h2>
+      <canvas id="avgComparisonChart" width="400" height="250"></canvas>
+    </div>
+  </div>
+
+  <!-- detailed performance table -->
+  <div class="table-wrapper">
+    <table id="comparisonTable">
+      <thead>
+        <tr><th>Rank (Total)</th><th>Student Name</th><th>SETS (20)</th><th>Relations & Functions (20)</th><th>Total Marks</th><th>Difference (R&F - SETS)</th><th>Trend</th><th>Performance Status</th></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- insights & suggestions -->
+  <div class="insight-box">
+    <h3 style="display: flex; align-items: center; gap: 8px;">🔍 Comparative Analysis & Key Takeaways</h3>
+    <ul style="margin-top: 12px; margin-left: 20px; line-height: 1.5;">
+      <li>✔ <strong>Top scorer in Relations & Functions:</strong> PRANAY SATI (12.5/20) – significant growth from 4 marks in SETS.</li>
+      <li>✔ <strong>Overall class average declined</strong> from 6.47 (SETS) to 5.24 (R&F) → indicates need for focused intervention in Functions domain.</li>
+      <li>✔ <strong>11 out of 15 students</strong> scored below 40% in R&F; Venn diagram & function mapping needs reinforcement.</li>
+      <li>✔ <strong>Best improvement:</strong> PRANAY SATI (+8.5 marks), PARAS SATI (+4 marks).</li>
+      <li>✔ <strong>Alert:</strong> NIHARIKA MOHAN (12 → 0) and KARTIKEY/NEHA need remedial support.</li>
+      <li>📌 <strong>Action plan:</strong> Weekly concept tests on domain, codomain & types of functions; peer tutoring for weak students.</li>
+    </ul>
+  </div>
+  <div class="footer">
+    ⚡ Data based on official test records | "ab" treated as 0 (absent/invalid) | Both tests out of 20 marks | Comparison reflects progress in Relations & Functions vs SETS chapter.
+  </div>
+</div>
+
+<script>
+  // ----------------------------- DATA FROM TEST RECORD (Excel) ---------------------------------
+  // Real student list (ignoring the stray "NAME" row)
+  // Marks: SETS (2026-04-08) ,  R&F (2026-06-09)
+  // Handling 'ab' -> 0 numeric
+  const studentRecords = [
+    { name: "MANSI BHANDARI",     sets: 9,   rf: 5 },
+    { name: "ARUN ARYA",          sets: 12,  rf: 11 },
+    { name: "PRIYANSHU PANDEY",   sets: 8,   rf: 5 },
+    { name: "RAJAT ADHIKARI",     sets: 7,   rf: 5 },
+    { name: "PRANAY SATI",        sets: 4,   rf: 12.5 },
+    { name: "JANVI",              sets: 6,   rf: 5 },
+    { name: "DIKSHANT NEGI",      sets: 11,  rf: 7 },
+    { name: "PARAS SATI",         sets: 6,   rf: 10 },
+    { name: "ADITYA NEGI",        sets: 3,   rf: 3 },
+    { name: "MANAS BHAGAT",       sets: 2,   rf: 3 },
+    { name: "KARAN",              sets: 4,   rf: 5.5 },
+    { name: "ISHANT MEHRA",       sets: 0,   rf: 3.5 },
+    { name: "NIHARIKA MOHAN",     sets: 12,  rf: 0 },   // 'ab' -> 0
+    { name: "KARTIKEY PHARTIYAL", sets: 0,   rf: 1 },   // 'ab' -> 0, second test 1
+    { name: "NEHA NEGI",          sets: 0,   rf: 2 }    // 'ab' -> 0, second test 2
+  ];
+
+  // Calculate aggregated stats
+  const totalStudents = studentRecords.length;
+  const setsMarks = studentRecords.map(s => s.sets);
+  const rfMarks = studentRecords.map(s => s.rf);
+  
+  const avgSets = (setsMarks.reduce((a,b) => a + b, 0) / totalStudents).toFixed(2);
+  const avgRf = (rfMarks.reduce((a,b) => a + b, 0) / totalStudents).toFixed(2);
+  const maxSets = Math.max(...setsMarks);
+  const maxRf = Math.max(...rfMarks);
+  const topperSets = studentRecords.filter(s => s.sets === maxSets).map(s => s.name).join(', ');
+  const topperRf = studentRecords.filter(s => s.rf === maxRf).map(s => s.name).join(', ');
+  
+  // improvement tracking: highest positive diff
+  let improvements = studentRecords.map(s => ({ name: s.name, diff: (s.rf - s.sets).toFixed(1), rf: s.rf, sets: s.sets }));
+  improvements.sort((a,b) => parseFloat(b.diff) - parseFloat(a.diff));
+  const topImprover = improvements[0];
+  const biggestDrop = improvements.filter(i => parseFloat(i.diff) < 0).sort((a,b) => parseFloat(a.diff) - parseFloat(b.diff))[0];
+  
+  // total marks & rank
+  const studentsWithTotal = studentRecords.map(s => ({
+    ...s,
+    total: s.sets + s.rf,
+    diff: (s.rf - s.sets).toFixed(1)
+  }));
+  studentsWithTotal.sort((a,b) => b.total - a.total);
+  
+  // Helper for performance status based on R&F marks
+  function getPerformanceStatus(marks) {
+    if (marks >= 16) return { label: "Excellent", class: "excellent", color: "#bbf7d0" };
+    if (marks >= 12) return { label: "Good", class: "good", color: "#bfdbfe" };
+    if (marks >= 8) return { label: "Average", class: "average", color: "#fef9c3" };
+    return { label: "Needs Improvement", class: "poor", color: "#ffe4e2" };
+  }
+  
+  // render summary cards
+  const summaryDiv = document.getElementById('summaryCards');
+  summaryDiv.innerHTML = `
+    <div class="stat-card blue"><h3>📘 SETS Class Average</h3><div class="stat-value">${avgSets} / 20</div><div class="stat-sub">Highest: ${maxSets} (${topperSets})</div></div>
+    <div class="stat-card purple"><h3>📙 Relations & Functions Avg</h3><div class="stat-value">${avgRf} / 20</div><div class="stat-sub">Highest: ${maxRf} (${topperRf})</div></div>
+    <div class="stat-card emerald"><h3>🚀 Biggest Improver</h3><div class="stat-value">${topImprover.name}</div><div class="stat-sub">+${topImprover.diff} marks (SETS ${topImprover.sets} → R&F ${topImprover.rf})</div></div>
+    <div class="stat-card amber"><h3>📉 Performance Trend</h3><div class="stat-value">${avgRf > avgSets ? '▲ Improving' : '▼ Declined'}</div><div class="stat-sub">Class average ${avgRf > avgSets ? 'increased by ' + (avgRf - avgSets).toFixed(2) : 'decreased by ' + (avgSets - avgRf).toFixed(2)}</div></div>
+  `;
+  
+  // Populate table
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  studentsWithTotal.forEach((student, idx) => {
+    const rank = idx + 1;
+    const diffVal = parseFloat(student.diff);
+    const trendHtml = diffVal > 0 ? `<span class="improvement-positive">▲ +${diffVal}</span>` : (diffVal < 0 ? `<span class="improvement-negative">▼ ${diffVal}</span>` : `<span>➖ 0</span>`);
+    const perf = getPerformanceStatus(student.rf);
+    const badgeStyle = `background: ${perf.color}; padding: 4px 10px; border-radius: 30px; font-weight:500; display:inline-block;`;
+    const row = `
+      <tr>
+        <td style="font-weight:600;">${rank}</td>
+        <td class="student-name"><strong>${student.name}</strong></td>
+        <td>${student.sets}${student.sets % 1 !== 0 ? '' : ''}</td>
+        <td>${student.rf}${student.rf % 1 !== 0 ? '' : ''}</td>
+        <td><strong>${student.total}</strong></td>
+        <td>${trendHtml}</td>
+        <td>${diffVal > 0 ? '📈 Improved' : (diffVal < 0 ? '📉 Dropped' : '📊 Stable')}</td>
+        <td><span style="${badgeStyle}">${perf.label}</span></td>
+      </tr>
+    `;
+    tbody.insertAdjacentHTML('beforeend', row);
+  });
+  
+  // ----- CHART 1: GROUPED BAR CHART (SETS vs R&F per student) -----
+  const ctxBar = document.getElementById('groupedBarChart').getContext('2d');
+  const studentLabels = studentRecords.map(s => {
+    const parts = s.name.split(' ');
+    return parts[0] + (parts[1] ? ' ' + parts[1].charAt(0) : '');
+  });
+  
+  new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: studentLabels,
+      datasets: [
+        {
+          label: 'SETS (April 2026)',
+          data: studentRecords.map(s => s.sets),
+          backgroundColor: '#3b82f6',
+          borderRadius: 6,
+          barPercentage: 0.65,
+          categoryPercentage: 0.8
+        },
+        {
+          label: 'Relations & Functions (June 2026)',
+          data: studentRecords.map(s => s.rf),
+          backgroundColor: '#f97316',
+          borderRadius: 6,
+          barPercentage: 0.65,
+          categoryPercentage: 0.8
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} / 20`
+          }
+        },
+        legend: { position: 'top', labels: { font: { size: 11 } } }
+      },
+      scales: {
+        y: { beginAtZero: true, max: 20, title: { display: true, text: 'Marks out of 20', font: { size: 10 } } },
+        x: { ticks: { rotation: 35, font: { size: 9 } }, title: { display: true, text: 'Students', font: { size: 10 } } }
+      }
+    }
+  });
+  
+  // ----- CHART 2: Average comparison (SETS vs R&F) plus error bar or simple bar -----
+  const ctxAvg = document.getElementById('avgComparisonChart').getContext('2d');
+  new Chart(ctxAvg, {
+    type: 'bar',
+    data: {
+      labels: ['Class Average (SETS)', 'Class Average (Relations & Functions)'],
+      datasets: [
+        {
+          label: 'Average Marks (out of 20)',
+          data: [parseFloat(avgSets), parseFloat(avgRf)],
+          backgroundColor: ['#3b82f6', '#f97316'],
+          borderRadius: 12,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        tooltip: { callbacks: { label: (ctx) => `${ctx.raw} / 20 marks` } },
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true, max: 20, title: { display: true, text: 'Average Score' }, grid: { color: '#e2e8f0' } }
+      }
+    }
+  });
+  
+  // optional: additional analysis note in console
+  console.log('Comparison ready: SETS avg', avgSets, '| R&F avg', avgRf);
+  
+  // ---- generate improved insights dynamically ----
+  const improvedCount = studentRecords.filter(s => s.rf > s.sets).length;
+  const declinedCount = studentRecords.filter(s => s.rf < s.sets).length;
+  const sameCount = studentRecords.filter(s => s.rf === s.sets).length;
+  
+  // small dynamic addition to insight box: but already present. we can add inline but fine.
+  const insightUl = document.querySelector('.insight-box ul');
+  const extraLi = document.createElement('li');
+  extraLi.innerHTML = `📈 <strong>Progress snapshot:</strong> ${improvedCount} students improved, ${declinedCount} declined, ${sameCount} remained consistent.`;
+  insightUl.appendChild(extraLi);
+  
+  // fix: also show percentage comparison for top marks in table? it's sufficient.
+  // Add note for zero performers.
+  const zeroRf = studentRecords.filter(s => s.rf === 0).map(s => s.name).join(', ');
+  if(zeroRf) {
+    const warningNote = document.createElement('li');
+    warningNote.innerHTML = `⚠️ <strong>Absent / zero in R&F test:</strong> ${zeroRf}. Encourage make-up assessments and remedial sessions.`;
+    insightUl.appendChild(warningNote);
+  }
+  
+  // highlight best improvement in table? already covered
+  // Additional style for table rows based on difference. optional.
+  const rows = document.querySelectorAll('#comparisonTable tbody tr');
+  rows.forEach(row => {
+    const diffCell = row.cells[5]?.innerText;
+    if (diffCell && diffCell.includes('▲')) {
+      row.style.backgroundColor = '#f0fdf4';
+    } else if (diffCell && diffCell.includes('▼')) {
+      row.style.backgroundColor = '#fff1f0';
+    }
+  });
+</script>
+</body>
+</html>

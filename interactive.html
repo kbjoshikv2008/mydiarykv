@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
-  <meta name="description" content="Access conceptual interactive mathematics lessons, Class XII lesson plans, revision guides, and preboard exam preparation materials.">
+  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
@@ -15,7 +15,7 @@
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 24px;
-      margin-bottom: 32px;
+      margin-bottom: 20px;
       box-shadow: var(--glass-shadow);
       display: flex;
       flex-wrap: wrap;
@@ -36,12 +36,12 @@
       color: #1e1b18;
       font-size: 0.95em;
       font-weight: 500;
-      transition: var(--transition);
+      transition: var(--transition-smooth);
     }
     .search-box input:focus {
-      border-color: #4c1d95;
+      border-color: #7c3aed;
       outline: none;
-      box-shadow: 0 0 10px rgba(76, 29, 149, 0.1);
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.15);
     }
     .search-box i {
       position: absolute;
@@ -50,6 +50,24 @@
       transform: translateY(-50%);
       color: #bdaea2;
     }
+    
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .filter-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -64,28 +82,69 @@
       font-size: 0.88em;
       font-weight: 700;
       cursor: pointer;
-      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-smooth);
     }
     .filter-btn.active, .filter-btn:hover {
-      background: #4c1d95;
+      background: #7c3aed;
       color: #ffffff;
-      border-color: #4c1d95;
-      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.15);
+      border-color: #7c3aed;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
     }
 
+    /* Class levels container */
+    .class-filter-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--glass-shadow);
+      flex-wrap: wrap;
+    }
+    .class-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .class-btn {
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .class-btn:hover, .class-btn.active {
+      background: #7c3aed;
+      color: #ffffff;
+      border-color: #7c3aed;
+      box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
+    }
+
+    /* Lessons Grid & Cards */
     .lessons-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
       margin-bottom: 48px;
+      min-height: 200px;
     }
     .lesson-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
-      padding: 28px;
+      padding: 24px;
       box-shadow: var(--glass-shadow);
-      transition: var(--transition);
+      transition: var(--transition-smooth);
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -95,8 +154,8 @@
     }
     .lesson-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(74, 62, 53, 0.1);
-      border-color: #4c1d95;
+      box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
+      border-color: #7c3aed;
     }
     .lesson-card::after {
       content: '';
@@ -106,75 +165,132 @@
       width: 4px;
       height: 100%;
       background: #bdaea2;
-      transition: var(--transition);
+      transition: var(--transition-smooth);
     }
     .lesson-card:hover::after {
-      background: #4c1d95;
+      background: #7c3aed;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
     }
     .card-cat-badge {
-      align-self: flex-start;
       padding: 4px 12px;
       border-radius: 20px;
-      font-size: 0.72em;
+      font-size: 0.7em;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .badge-lp { background: rgba(76, 29, 149, 0.08); color: #4c1d95; border: 1px solid rgba(76, 29, 149, 0.15); }
-    .badge-study { background: rgba(15, 118, 110, 0.08); color: #0f766e; border: 1px solid rgba(15, 118, 110, 0.15); }
-    .badge-prep { background: rgba(185, 28, 28, 0.08); color: #b91c1c; border: 1px solid rgba(185, 28, 28, 0.15); }
+    .card-class-badge {
+      font-size: 0.72em;
+      font-weight: 800;
+      color: #a78bfa;
+      background: rgba(124, 58, 237, 0.12);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    /* Category Badges */
+    .badge-html { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .badge-mindmaps { background: rgba(6, 182, 212, 0.1); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.2); }
+    .badge-slides { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+    .badge-videos { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+    .badge-infographics { background: rgba(236, 72, 153, 0.1); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.2); }
 
     .lesson-card h3 {
       font-family: var(--font-head);
       font-size: 1.15rem;
       font-weight: 800;
-      color: #1e1b18;
+      color: var(--text-primary);
       margin: 0;
       line-height: 1.35;
     }
-    .lesson-card p {
-      font-size: 0.88em;
+    .file-path-desc {
+      font-size: 0.74em;
       color: var(--text-muted);
-      line-height: 1.5;
+      word-break: break-all;
       margin: 0;
-      flex-grow: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      line-height: 1.35;
     }
+    .file-path-desc i {
+      margin-top: 2px;
+      color: var(--primary-light);
+    }
+    
     .lesson-meta {
       display: flex;
       align-items: center;
       gap: 12px;
       font-size: 0.78em;
-      color: #a39589;
-      border-top: 1px solid rgba(189, 174, 162, 0.15);
+      color: var(--text-secondary);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 12px;
-      margin-top: 4px;
+      margin-top: auto;
     }
     .lesson-meta span {
       display: flex;
       align-items: center;
       gap: 5px;
     }
-    .lesson-btn {
+    .large-badge {
+      color: var(--accent);
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 0.8em;
+      margin-left: auto;
+    }
+
+    /* Dual Action Buttons */
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+    .action-btn {
+      flex: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background: #ffffff;
-      border: 2px solid var(--glass-border);
-      color: #1e1b18;
-      padding: 10px 20px;
+      gap: 6px;
+      padding: 10px 14px;
       border-radius: 30px;
-      font-size: 0.85em;
+      font-size: 0.82em;
       font-weight: 800;
       text-decoration: none;
-      transition: var(--transition);
-      width: 100%;
+      transition: var(--transition-smooth);
+      text-align: center;
+      cursor: pointer;
     }
-    .lesson-card:hover .lesson-btn {
-      background: #4c1d95;
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
       color: #ffffff !important;
-      border-color: #4c1d95;
-      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.15);
+      border: none;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.45);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary) !important;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
     }
 
     .back-link {
@@ -183,24 +299,180 @@
       gap: 8px;
       margin: 0 0 28px;
       padding: 9px 20px;
-      background: #ffffff;
-      color: #1e1b18;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
       text-decoration: none;
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.88em;
       border: 1px solid var(--glass-border);
-      transition: var(--transition);
+      transition: var(--transition-smooth);
     }
     .back-link:hover {
-      background: #4c1d95;
+      background: #7c3aed;
       color: #ffffff !important;
-      border-color: #4c1d95;
+      border-color: #7c3aed;
       transform: translateX(-3px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    }
+
+    /* Password Protection Screen Overlay */
+    #passwordGateOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #0f0e1e 0%, #030308 100%);
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(25px);
+      transition: opacity 0.5s ease;
+    }
+    .gate-card {
+      background: rgba(12, 11, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(124, 58, 237, 0.15);
+      text-align: center;
+      animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .gate-icon {
+      font-size: 3rem;
+      color: #7c3aed;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.6));
+      animation: pulseGlow 2s infinite alternate ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0% { filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.4)); }
+      100% { filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.8)); }
+    }
+    .gate-card h2 {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    .gate-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .gate-input-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .gate-input-wrapper input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      border: 2px solid var(--glass-border);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+    .gate-input-wrapper input:focus {
+      border-color: #7c3aed;
+      outline: none;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .gate-input-wrapper i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-light);
+      font-size: 1.1rem;
+    }
+    .gate-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+    }
+    .gate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.55);
+    }
+    .gate-error {
+      color: #ef4444;
+      font-size: 0.88rem;
+      margin-top: 15px;
+      min-height: 20px;
+      font-weight: 600;
+    }
+    .shake {
+      animation: shake 0.5s ease;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+      20%, 40%, 60%, 80% { transform: translateX(6px); }
+    }
+    
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--glass-shadow);
+    }
+    .no-results i {
+      font-size: 3.5rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .no-results h4 {
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      margin: 0 0 8px;
+      font-family: var(--font-head);
+    }
+    .no-results p {
+      color: var(--text-secondary);
+      margin: 0;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
+  <!-- Password Gate Overlay (Blocks loading content) -->
+  <div id="passwordGateOverlay">
+    <div class="gate-card">
+      <div class="gate-icon"><i class="fas fa-shield-halved"></i></div>
+      <h2>Interactive Lessons Access</h2>
+      <p>Please enter the authorization password to unlock the Interactive Mind Maps, Slide Decks, Videos, HTML Files, and Infographics.</p>
+      <div class="gate-input-wrapper">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="gatePasswordInput" placeholder="Secure Password Required">
+      </div>
+      <button class="gate-btn" id="submitGatePassword">Unlock Lab Content</button>
+      <div class="gate-error" id="gateErrorMessage"></div>
+    </div>
+  </div>
+
   <!-- Animated Background Blobs -->
   <div class="bg-blobs">
     <div class="blob blob-1"></div>
@@ -226,7 +498,7 @@
         
         <!-- Group 1: Teacher's Desk -->
         <div class="nav-item">
-          <a class="dropdown-trigger"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+          <a class="dropdown-trigger" id="profileLink"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
           <div class="dropdown-menu">
             <a href="profile.html"><i class="fas fa-user-shield"></i> Profile Access</a>
             <a href="analysis.html"><i class="fas fa-chart-line"></i> Performance Analysis</a>
@@ -296,7 +568,7 @@
     <div class="container">
       <span class="page-hero-icon">&#127918;</span>
       <h1>Interactive Lesson Hub</h1>
-      <p>Explore multimedia presentation guides, detailed syllabus lesson plans, and comprehensive study materials</p>
+      <p>Explore multimedia interactive lessons, detailed syllabus mind maps, slide decks, video walkthroughs, and infographics</p>
     </div>
   </div>
 
@@ -307,154 +579,39 @@
       <!-- Back Link & Filter Controls -->
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
+      <!-- Category Filter Tabs -->
       <div class="search-filter-container fade-in">
         <div class="search-box">
           <i class="fas fa-search"></i>
-          <input type="text" id="lessonSearch" placeholder="Search lessons or topics (e.g. Matrices, Integrals)...">
+          <input type="text" id="lessonSearch" placeholder="Search by topic, chapter, or file name (e.g. Integrals, Sets)...">
         </div>
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">All Files</button>
-          <button class="filter-btn" data-filter="lp">Lesson Plans</button>
-          <button class="filter-btn" data-filter="study">Study Guides</button>
-          <button class="filter-btn" data-filter="prep">Exam Prep</button>
+        <div class="filter-group">
+          <span class="filter-label"><i class="fas fa-sliders"></i> Resource:</span>
+          <div class="filter-buttons" id="categoryFilters">
+            <button class="filter-btn active" data-filter="all"><i class="fas fa-border-all"></i> All Files</button>
+            <button class="filter-btn" data-filter="html"><i class="fas fa-file-code"></i> HTML Plans</button>
+            <button class="filter-btn" data-filter="mindmaps"><i class="fas fa-project-diagram"></i> Mind Maps</button>
+            <button class="filter-btn" data-filter="slides"><i class="fas fa-file-powerpoint"></i> Slide Decks</button>
+            <button class="filter-btn" data-filter="videos"><i class="fas fa-play-circle"></i> Videos</button>
+            <button class="filter-btn" data-filter="infographics"><i class="fas fa-chart-pie"></i> Infographics</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Filter Tags -->
+      <div class="class-filter-container fade-in-1">
+        <span class="filter-label"><i class="fas fa-graduation-cap"></i> Class Filter:</span>
+        <div class="class-buttons" id="classFilters">
+          <button class="class-btn active" data-class="all">All Classes</button>
+          <button class="class-btn" data-class="class7">Class 7</button>
+          <button class="class-btn" data-class="class11">Class 11</button>
+          <button class="class-btn" data-class="class12">Class 12</button>
         </div>
       </div>
 
       <!-- Lessons Grid -->
-      <div class="lessons-grid fade-in-1" id="lessonsGrid">
-        
-        <!-- Matrices -->
-        <div class="lesson-card" data-category="lp" data-title="matrices">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>Matrices</h3>
-          <p>Interactive Class XII presentation on matrices. Detailed lesson progression covering concepts, operations, types, and mathematical properties of matrices.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
-          </div>
-          <a href="interactive lesson plans/matrices.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- Determinants -->
-        <div class="lesson-card" data-category="lp" data-title="determinants">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>Determinants</h3>
-          <p>Comprehensive lesson plan for determinants. Focuses on matrix determinants, properties of determinants, minors, cofactors, and system solutions.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
-          </div>
-          <a href="interactive lesson plans/determinants.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- Continuity and Differentiability -->
-        <div class="lesson-card" data-category="lp" data-title="continuity and differentiability">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>Continuity &amp; Differentiability</h3>
-          <p>Deep-dive lesson guide on mathematical limits, continuity checking, derivatives of functions, chain rule, and differentiability.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
-          </div>
-          <a href="interactive lesson plans/continuity and differentaibility.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- Indefinite Integral -->
-        <div class="lesson-card" data-category="lp" data-title="indefinite integral calculus">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>Indefinite Integral</h3>
-          <p>Detailed interactive lesson plan mapping integral calculus, antiderivative concepts, integration rules, and method guides.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
-          </div>
-          <a href="interactive lesson plans/interactive lesson plan indefinite integral.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- Inverse T Functions -->
-        <div class="lesson-card" data-category="lp" data-title="inverse trigonometric functions">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>Inverse Trigonometric Functions</h3>
-          <p>Study structure and interactive lesson slides detailing inverse trigonometry, domain/range constraints, and core properties.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Interactive HTML</span>
-          </div>
-          <a href="interactive lesson plans/inverse t functions plan.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- General LP1 -->
-        <div class="lesson-card" data-category="lp" data-title="general lesson plan lp1">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>General Lesson Plan (LP1)</h3>
-          <p>Structured mathematics lesson template LP1 mapping chapter outlines, teacher objectives, and pupil engagement activities.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Template HTML</span>
-          </div>
-          <a href="interactive lesson plans/LP1.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- General LP2 -->
-        <div class="lesson-card" data-category="lp" data-title="general lesson plan lp2">
-          <span class="card-cat-badge badge-lp">Lesson Plan</span>
-          <h3>General Lesson Plan (LP2)</h3>
-          <p>Structured mathematics lesson template LP2 detailing learning check tasks, homework assignments, and assessment parameters.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-code"></i> Template HTML</span>
-          </div>
-          <a href="interactive lesson plans/LP2.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Lesson Plan</a>
-        </div>
-
-        <!-- 7 Days Revision Plan -->
-        <div class="lesson-card" data-category="prep" data-title="7 days revision plan class 12 maths">
-          <span class="card-cat-badge badge-prep">Exam Prep</span>
-          <h3>7 Days Revision Plan</h3>
-          <p>Strategic, day-by-day revision guide for Class 12 Board Exams. Targets key topics, formulas, and high-yield scoring chapters.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-pdf"></i> Revision Sheet</span>
-          </div>
-          <a href="interactive lesson plans/7 days revision plan class 12 maths.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Revision Guide</a>
-        </div>
-
-        <!-- Study Material Core -->
-        <div class="lesson-card" data-category="study" data-title="12 maths study material core">
-          <span class="card-cat-badge badge-study">Study Guide</span>
-          <h3>Class XII Maths Study Material (Core)</h3>
-          <p>Detailed mathematical revision notes, standard worksheets, basic formulas, and exercises for CBSE Board Students.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-alt"></i> Study Material</span>
-          </div>
-          <a href="interactive lesson plans/12 maths study material.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Study Guide</a>
-        </div>
-
-        <!-- Study Material Extended -->
-        <div class="lesson-card" data-category="study" data-title="maths class 12 study material extended">
-          <span class="card-cat-badge badge-study">Study Guide</span>
-          <h3>Class XII Maths Study Material (Extended)</h3>
-          <p>Extended, chapterwise formulas, reference questions, practice sheets, and concept checklists for Board candidates.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-alt"></i> Study Material</span>
-          </div>
-          <a href="interactive lesson plans/MATHS CLASS 12 STUDY MATERIAL.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Study Guide</a>
-        </div>
-
-        <!-- Preboard Class 12 Summer -->
-        <div class="lesson-card" data-category="prep" data-title="preboard class 12 summer paper">
-          <span class="card-cat-badge badge-prep">Exam Prep</span>
-          <h3>Preboard Class XII Summer Paper</h3>
-          <p>Comprehensive preboard mock examination question paper aligned with the latest CBSE guidelines and weightage rules.</p>
-          <div class="lesson-meta">
-            <span><i class="fas fa-graduation-cap"></i> Class XII</span>
-            <span><i class="fas fa-file-signature"></i> Mock Paper</span>
-          </div>
-          <a href="interactive lesson plans/Preboard class 12 summer.html" target="_blank" class="lesson-btn"><i class="fas fa-external-link-alt"></i> Open Mock Exam</a>
-        </div>
-
+      <div class="lessons-grid fade-in-2" id="lessonsGrid">
+        <!-- Lessons will be dynamically rendered here via JS -->
       </div>
 
     </div>
@@ -484,43 +641,305 @@
     </div>
   </footer>
 
+  <!-- Standard Profile Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load file database -->
+  <script src="interactive_lessons_data.js"></script>
   <script>
-    // Search and Filter Functionality
-    const searchInput = document.getElementById('lessonSearch');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const lessonCards = document.querySelectorAll('.lesson-card');
+    // Safe check if database is loaded
+    const db = (typeof INTERACTIVE_LESSONS_DATA !== 'undefined') ? INTERACTIVE_LESSONS_DATA : [];
 
-    function filterLessons() {
-      const query = searchInput.value.toLowerCase().trim();
-      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+    // Category and Class filter states
+    let activeCategory = 'all';
+    let activeClass = 'all';
+    let searchQuery = '';
 
-      lessonCards.forEach(card => {
-        const title = card.getAttribute('data-title').toLowerCase();
-        const text = card.textContent.toLowerCase();
-        const category = card.getAttribute('data-category');
+    // Cache elements
+    const lessonsGrid = document.getElementById('lessonsGrid');
+    const lessonSearch = document.getElementById('lessonSearch');
+    const categoryButtons = document.querySelectorAll('#categoryFilters .filter-btn');
+    const classButtons = document.querySelectorAll('#classFilters .class-btn');
 
-        const matchesSearch = title.includes(query) || text.includes(query);
-        const matchesFilter = activeFilter === 'all' || category === activeFilter;
+    // Page-load Password Gate Access logic
+    const gateOverlay = document.getElementById('passwordGateOverlay');
+    const gateInput = document.getElementById('gatePasswordInput');
+    const gateSubmit = document.getElementById('submitGatePassword');
+    const gateError = document.getElementById('gateErrorMessage');
 
-        if (matchesSearch && matchesFilter) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+    function checkPasswordGate() {
+      // Check session state
+      if (sessionStorage.getItem('interactive_unlocked') === 'true') {
+        gateOverlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        renderLessons();
+      } else {
+        gateOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        gateInput.focus();
+      }
+    }
+
+    gateSubmit.addEventListener('click', function() {
+      const value = gateInput.value;
+      if (value === 'kvrktdigital') {
+        sessionStorage.setItem('interactive_unlocked', 'true');
+        gateOverlay.style.opacity = 0;
+        setTimeout(() => {
+          gateOverlay.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          renderLessons();
+        }, 500);
+      } else {
+        gateError.textContent = 'Incorrect password. Access denied.';
+        gateInput.value = '';
+        gateInput.focus();
+        gateSubmit.classList.add('shake');
+        setTimeout(() => gateSubmit.classList.remove('shake'), 500);
+      }
+    });
+
+    gateInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        gateSubmit.click();
+      }
+    });
+
+    // Helper: clean and capitalize category names
+    function getCategoryName(cat) {
+      switch(cat) {
+        case 'html': return '🌐 HTML Lesson';
+        case 'mindmaps': return '🗺️ Mind Map';
+        case 'slides': return '📊 Slide Deck';
+        case 'videos': return '🎥 Video';
+        case 'infographics': return '📈 Infographic';
+        default: return cat;
+      }
+    }
+
+    // Helper: highlight matched text
+    function highlightText(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<mark style="background: rgba(249, 115, 22, 0.3); color: inherit; padding: 0 2px; border-radius: 2px;">$1</mark>');
+    }
+
+    // Render lessons to grid
+    function renderLessons() {
+      lessonsGrid.innerHTML = '';
+      
+      const filtered = db.filter(item => {
+        const matchesCategory = (activeCategory === 'all' || item.category === activeCategory);
+        const matchesClass = (activeClass === 'all' || item.classKey === activeClass);
+        
+        let matchesSearch = true;
+        if (searchQuery) {
+          const titleLower = item.title.toLowerCase();
+          const nameLower = item.name.toLowerCase();
+          const pathLower = item.path.toLowerCase();
+          const queryLower = searchQuery.toLowerCase();
+          matchesSearch = titleLower.includes(queryLower) || nameLower.includes(queryLower) || pathLower.includes(queryLower);
         }
+        
+        return matchesCategory && matchesClass && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        lessonsGrid.innerHTML = `
+          <div class="no-results">
+            <i class="fas fa-search-minus"></i>
+            <h4>No Interactive Resources Found</h4>
+            <p>Try resetting the filters or adjusting your search keyword.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Sort files alphabetically by title
+      filtered.sort((a, b) => a.title.localeCompare(b.title));
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'lesson-card';
+        card.setAttribute('data-category', item.category);
+        card.setAttribute('data-class', item.classKey);
+
+        const highlightedTitle = highlightText(item.title, searchQuery);
+        
+        // Generate human-friendly descriptions based on folder and name metadata
+        let desc = `Interactive math resource on ${item.title} for ${item.class}. Aligned with school syllabus.`;
+        if (item.category === 'html') {
+          desc = `Offline lesson guide and activities for ${item.title}. Can be launched directly.`;
+        } else if (item.category === 'mindmaps') {
+          desc = `Comprehensive visual mind map structuring key sub-topics and formulas for ${item.title}.`;
+        } else if (item.category === 'slides') {
+          desc = `Classroom-ready presentation slide deck covering concepts, theories, and examples.`;
+        } else if (item.category === 'videos') {
+          desc = `Video demonstration and step-by-step walkthrough covering ${item.title}.`;
+        } else if (item.category === 'infographics') {
+          desc = `High-resolution infographics chart detailing ${item.title} key points.`;
+        }
+
+        // Action button configurations
+        let actionsHtml = '';
+        if (item.category === 'html') {
+          actionsHtml = `
+            <a href="${item.localLink}" target="_blank" class="action-btn btn-primary"><i class="fas fa-eye"></i> Open Lesson</a>
+            <a href="${item.dropboxUrl}" target="_blank" class="action-btn btn-secondary"><i class="fab fa-dropbox"></i> Dropbox</a>
+          `;
+        } else {
+          // Large files/media
+          actionsHtml = `
+            <a href="${item.localLink}" class="action-btn btn-primary" title="Open file from your local Dropbox folder"><i class="fas fa-file-alt"></i> Open Local</a>
+            <a href="${item.dropboxUrl}" target="_blank" class="action-btn btn-secondary" title="View or download from Dropbox Cloud"><i class="fas fa-cloud-download-alt"></i> Cloud File</a>
+          `;
+        }
+
+        const sizeMeta = `<i class="fas fa-hdd"></i> ${item.size}`;
+        const largeBadge = item.isLarge ? `<span class="large-badge"><i class="fas fa-weight-hanging"></i> Large File</span>` : '';
+
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="card-cat-badge badge-${item.category}">${getCategoryName(item.category)}</span>
+            <span class="card-class-badge">${item.class}</span>
+          </div>
+          <h3>${highlightedTitle}</h3>
+          <p class="file-path-desc"><i class="fas fa-folder-open"></i> ${item.path}</p>
+          <p style="font-size: 0.88em; color: var(--text-secondary); line-height: 1.5; margin: 0; flex-grow: 1;">${desc}</p>
+          <div class="lesson-meta">
+            <span>${sizeMeta}</span>
+            ${largeBadge}
+          </div>
+          <div class="card-actions">
+            ${actionsHtml}
+          </div>
+        `;
+
+        lessonsGrid.appendChild(card);
       });
     }
 
-    searchInput.addEventListener('input', filterLessons);
-
-    filterButtons.forEach(btn => {
+    // Set up filter click events
+    categoryButtons.forEach(btn => {
       btn.addEventListener('click', function() {
-        filterButtons.forEach(b => b.classList.remove('active'));
+        categoryButtons.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        filterLessons();
+        activeCategory = this.getAttribute('data-filter');
+        renderLessons();
       });
     });
 
-    // Dropdown toggles for mobile
+    classButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        classButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeClass = this.getAttribute('data-class');
+        renderLessons();
+      });
+    });
+
+    // Set up search event
+    lessonSearch.addEventListener('input', function() {
+      searchQuery = this.value;
+      renderLessons();
+    });
+
+    // Profile Link Password Modal (standard kbj2008 password checking)
+    document.addEventListener('DOMContentLoaded', function() {
+      checkPasswordGate();
+      
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitPassword');
+      const errorMessage = document.getElementById('errorMessage');
+
+      profileLink.addEventListener('click', function(e) { 
+        e.preventDefault(); 
+        modal.style.display = 'flex'; 
+        passwordInput.focus(); 
+      });
+      
+      closeModal.addEventListener('click', function() { 
+        modal.style.display = 'none'; 
+        passwordInput.value = ''; 
+        errorMessage.textContent = ''; 
+      });
+      
+      window.addEventListener('click', function(e) { 
+        if (e.target === modal) { 
+          modal.style.display = 'none'; 
+          passwordInput.value = ''; 
+          errorMessage.textContent = ''; 
+        } 
+      });
+      
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '👁️' : '🔒';
+      });
+      
+      submitBtn.addEventListener('click', function() {
+        const password = passwordInput.value;
+        errorMessage.textContent = '';
+        if (!password) { 
+          errorMessage.textContent = 'Please enter your access password'; 
+          return; 
+        }
+        if (password === 'kbj2008') {
+          submitBtn.textContent = 'Authenticating...'; 
+          submitBtn.disabled = true;
+          setTimeout(() => { 
+            window.location.href = 'profile.html'; 
+          }, 1200);
+        } else {
+          errorMessage.textContent = 'Incorrect password. Please try again.';
+          passwordInput.value = ''; 
+          passwordInput.focus();
+          submitBtn.classList.add('shake');
+          setTimeout(() => { 
+            submitBtn.classList.remove('shake'); 
+          }, 500);
+        }
+      });
+      
+      passwordInput.addEventListener('keypress', function(e) { 
+        if (e.key === 'Enter') { 
+          submitBtn.click(); 
+        } 
+      });
+    });
+
+    // Dropdown toggles for mobile nav
     document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
       trigger.addEventListener('click', function(e) {
         if (window.innerWidth <= 768) {

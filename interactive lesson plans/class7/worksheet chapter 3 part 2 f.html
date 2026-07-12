@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3 Worksheet: HCF and LCM - With Solutions</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9ff;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        h3 {
+            color: #16a085;
+            margin-top: 25px;
+        }
+        
+        .section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .mcq-options {
+            margin-left: 20px;
+        }
+        
+        .mcq-option {
+            margin-bottom: 8px;
+        }
+        
+        button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #27ae60;
+        }
+        
+        .solution-btn {
+            background-color: #9b59b6;
+        }
+        
+        .solution-btn:hover {
+            background-color: #8e44ad;
+        }
+        
+        .reset-btn {
+            background-color: #e74c3c;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .results {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .solution {
+            background-color: #e8f6f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #1abc9c;
+            display: none;
+        }
+        
+        .solution h4 {
+            color: #16a085;
+            margin-top: 0;
+        }
+        
+        .results h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .results-table th, .results-table td {
+            border: 1px solid #bdc3c7;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .results-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .results-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .note {
+            background-color: #fffde7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #f1c40f;
+            margin: 20px 0;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        @media print {
+            button, .results, .solution {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chapter 3 Worksheet: HCF and LCM</h1>
+        <h3 style="text-align: center; color: #7f8c8d;">With Interactive Solutions</h3>
+        
+        <div class="note">
+            <p><strong>Instructions:</strong> </p>
+            <ol>
+                <li>Try to solve each problem on your own first.</li>
+                <li>Use the "Show Solution" button for each question to check your answer.</li>
+                <li>The "Check My Answers" button will show your progress (which questions you've attempted).</li>
+                <li>Click "Show All Solutions" to reveal all answers at once.</li>
+                <li>Use "Hide All Solutions" to hide all answers and try again.</li>
+            </ol>
+        </div>
+        
+        <div class="section">
+            <h2>Part 1: Finding HCF (Highest Common Factor)</h2>
+            
+            <div class="question">
+                <div class="question-number">1</div>
+                <div class="question-text">
+                    <p>Lekhana purchases 84 kg of rice from one farm and 108 kg from another. She wants to pack the rice in bags with the same weight (a whole number of kg) using as few bags as possible. What should the weight of each bag be?</p>
+                    <label for="q1">Weight of each bag (in kg):</label>
+                    <input type="number" id="q1" min="1" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution1')">Show Solution</button>
+                    <div class="solution" id="solution1">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> Find the factors of 84 and 108.</p>
+                        <p>Factors of 84: 1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84</p>
+                        <p>Factors of 108: 1, 2, 3, 4, 6, 9, 12, 18, 27, 36, 54, 108</p>
+                        <p><strong>Step 2:</strong> Find common factors: 1, 2, 3, 4, 6, 12</p>
+                        <p><strong>Step 3:</strong> To use as few bags as possible, we need the largest bag size, which is the HCF.</p>
+                        <p><strong>Step 4:</strong> HCF(84, 108) = 12</p>
+                        <p><strong>Answer:</strong> Each bag should weigh <strong>12 kg</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">2</div>
+                <div class="question-text">
+                    <p>In the Jump Jackpot game, find the longest jump size (starting from 0) to land on both numbers:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q2a">(a) 14 and 30:</label>
+                            <input type="number" id="q2a" min="1" placeholder="Enter your answer">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q2b">(b) 7 and 11:</label>
+                            <input type="number" id="q2b" min="1" placeholder="Enter your answer">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q2c">(c) 30 and 50:</label>
+                            <input type="number" id="q2c" min="1" placeholder="Enter your answer">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q2d">(d) 28 and 42:</label>
+                            <input type="number" id="q2d" min="1" placeholder="Enter your answer">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution2')">Show Solution</button>
+                    <div class="solution" id="solution2">
+                        <h4>Solution:</h4>
+                        <p>The longest jump size is the HCF of the two numbers.</p>
+                        <p><strong>(a) 14 and 30:</strong></p>
+                        <p>Factors of 14: 1, 2, 7, 14</p>
+                        <p>Factors of 30: 1, 2, 3, 5, 6, 10, 15, 30</p>
+                        <p>HCF(14, 30) = 2 → <strong>Answer: 2</strong></p>
+                        
+                        <p><strong>(b) 7 and 11:</strong></p>
+                        <p>Both are prime numbers.</p>
+                        <p>HCF(7, 11) = 1 → <strong>Answer: 1</strong></p>
+                        
+                        <p><strong>(c) 30 and 50:</strong></p>
+                        <p>30 = 2 × 3 × 5</p>
+                        <p>50 = 2 × 5 × 5</p>
+                        <p>HCF = 2 × 5 = 10 → <strong>Answer: 10</strong></p>
+                        
+                        <p><strong>(d) 28 and 42:</strong></p>
+                        <p>28 = 2 × 2 × 7</p>
+                        <p>42 = 2 × 3 × 7</p>
+                        <p>HCF = 2 × 7 = 14 → <strong>Answer: 14</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">3</div>
+                <div class="question-text">
+                    <p>Find the prime factorization of 1200:</p>
+                    <label for="q3">Prime factorization (use format like 2×2×3×5):</label>
+                    <input type="text" id="q3" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution3')">Show Solution</button>
+                    <div class="solution" id="solution3">
+                        <h4>Solution:</h4>
+                        <p><strong>Step-by-step prime factorization:</strong></p>
+                        <p>1200 ÷ 2 = 600</p>
+                        <p>600 ÷ 2 = 300</p>
+                        <p>300 ÷ 2 = 150</p>
+                        <p>150 ÷ 2 = 75</p>
+                        <p>75 ÷ 3 = 25</p>
+                        <p>25 ÷ 5 = 5</p>
+                        <p>5 ÷ 5 = 1</p>
+                        <p><strong>Prime factorization:</strong> 2 × 2 × 2 × 2 × 3 × 5 × 5</p>
+                        <p>Or in exponent form: 2<sup>4</sup> × 3 × 5<sup>2</sup></p>
+                        <p><strong>Answer:</strong> <strong>2×2×2×2×3×5×5</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">4</div>
+                <div class="question-text">
+                    <p>List all the factors of the following numbers:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q4a">(a) 90:</label>
+                            <input type="text" id="q4a" placeholder="Enter factors separated by commas">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q4b">(b) 105:</label>
+                            <input type="text" id="q4b" placeholder="Enter factors separated by commas">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q4c">(c) 132:</label>
+                            <input type="text" id="q4c" placeholder="Enter factors separated by commas">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q4d">(d) 360:</label>
+                            <input type="text" id="q4d" placeholder="Enter factors separated by commas">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q4e">(e) 840:</label>
+                            <input type="text" id="q4e" placeholder="Enter factors separated by commas">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution4')">Show Solution</button>
+                    <div class="solution" id="solution4">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) Factors of 90:</strong> 1, 2, 3, 5, 6, 9, 10, 15, 18, 30, 45, 90</p>
+                        <p><strong>(b) Factors of 105:</strong> 1, 3, 5, 7, 15, 21, 35, 105</p>
+                        <p><strong>(c) Factors of 132:</strong> 1, 2, 3, 4, 6, 11, 12, 22, 33, 44, 66, 132</p>
+                        <p><strong>(d) Factors of 360:</strong> 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360</p>
+                        <p><strong>(e) Factors of 840:</strong> 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 15, 20, 21, 24, 28, 30, 35, 40, 42, 56, 60, 70, 84, 105, 120, 140, 168, 210, 280, 420, 840</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">5</div>
+                <div class="question-text">
+                    <p>Find the common factors and HCF of:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q5a">(a) 50 and 60 (HCF only):</label>
+                            <input type="number" id="q5a" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q5b">(b) 140 and 275 (HCF only):</label>
+                            <input type="number" id="q5b" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q5c">(c) 77 and 725 (HCF only):</label>
+                            <input type="number" id="q5c" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q5d">(d) 370 and 592 (HCF only):</label>
+                            <input type="number" id="q5d" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q5e">(e) 81 and 243 (HCF only):</label>
+                            <input type="number" id="q5e" min="1" placeholder="Enter HCF">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution5')">Show Solution</button>
+                    <div class="solution" id="solution5">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) 50 and 60:</strong></p>
+                        <p>50 = 2 × 5 × 5, 60 = 2 × 2 × 3 × 5</p>
+                        <p>HCF = 2 × 5 = 10 → <strong>Answer: 10</strong></p>
+                        
+                        <p><strong>(b) 140 and 275:</strong></p>
+                        <p>140 = 2 × 2 × 5 × 7, 275 = 5 × 5 × 11</p>
+                        <p>HCF = 5 → <strong>Answer: 5</strong></p>
+                        
+                        <p><strong>(c) 77 and 725:</strong></p>
+                        <p>77 = 7 × 11, 725 = 5 × 5 × 29</p>
+                        <p>No common prime factors, so HCF = 1 → <strong>Answer: 1</strong></p>
+                        
+                        <p><strong>(d) 370 and 592:</strong></p>
+                        <p>370 = 2 × 5 × 37, 592 = 2 × 2 × 2 × 2 × 37</p>
+                        <p>HCF = 2 × 37 = 74 → <strong>Answer: 74</strong></p>
+                        
+                        <p><strong>(e) 81 and 243:</strong></p>
+                        <p>81 = 3 × 3 × 3 × 3, 243 = 3 × 3 × 3 × 3 × 3</p>
+                        <p>HCF = 3 × 3 × 3 × 3 = 81 → <strong>Answer: 81</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">6</div>
+                <div class="question-text">
+                    <p>Find the HCF of:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q6a">(a) 24 and 180:</label>
+                            <input type="number" id="q6a" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q6b">(b) 42, 75, and 24:</label>
+                            <input type="number" id="q6b" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q6c">(c) 240 and 378:</label>
+                            <input type="number" id="q6c" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q6d">(d) 400 and 2500:</label>
+                            <input type="number" id="q6d" min="1" placeholder="Enter HCF">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q6e">(e) 300 and 800:</label>
+                            <input type="number" id="q6e" min="1" placeholder="Enter HCF">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution6')">Show Solution</button>
+                    <div class="solution" id="solution6">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) 24 and 180:</strong></p>
+                        <p>24 = 2 × 2 × 2 × 3, 180 = 2 × 2 × 3 × 3 × 5</p>
+                        <p>HCF = 2 × 2 × 3 = 12 → <strong>Answer: 12</strong></p>
+                        
+                        <p><strong>(b) 42, 75, and 24:</strong></p>
+                        <p>42 = 2 × 3 × 7, 75 = 3 × 5 × 5, 24 = 2 × 2 × 2 × 3</p>
+                        <p>Only common factor is 3 → <strong>Answer: 3</strong></p>
+                        
+                        <p><strong>(c) 240 and 378:</strong></p>
+                        <p>240 = 2 × 2 × 2 × 2 × 3 × 5, 378 = 2 × 3 × 3 × 3 × 7</p>
+                        <p>HCF = 2 × 3 = 6 → <strong>Answer: 6</strong></p>
+                        
+                        <p><strong>(d) 400 and 2500:</strong></p>
+                        <p>400 = 2 × 2 × 2 × 2 × 5 × 5, 2500 = 2 × 2 × 5 × 5 × 5 × 5</p>
+                        <p>HCF = 2 × 2 × 5 × 5 = 100 → <strong>Answer: 100</strong></p>
+                        
+                        <p><strong>(e) 300 and 800:</strong></p>
+                        <p>300 = 2 × 2 × 3 × 5 × 5, 800 = 2 × 2 × 2 × 2 × 2 × 5 × 5</p>
+                        <p>HCF = 2 × 2 × 5 × 5 = 100 → <strong>Answer: 100</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Part 2: Finding LCM (Lowest Common Multiple)</h2>
+            
+            <div class="question">
+                <div class="question-number">7</div>
+                <div class="question-text">
+                    <p>Anshu and Guna make torans. Anshu uses strips of 6 cm and Guna uses strips of 8 cm. What is the smallest possible length of toran that both can make?</p>
+                    <label for="q7">Smallest possible length (in cm):</label>
+                    <input type="number" id="q7" min="1" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution7')">Show Solution</button>
+                    <div class="solution" id="solution7">
+                        <h4>Solution:</h4>
+                        <p>We need to find the LCM of 6 and 8.</p>
+                        <p>Multiples of 6: 6, 12, 18, 24, 30, 36, 42, 48, ...</p>
+                        <p>Multiples of 8: 8, 16, 24, 32, 40, 48, 56, ...</p>
+                        <p>Common multiples: 24, 48, ...</p>
+                        <p>Smallest common multiple = 24</p>
+                        <p>Or using prime factorization: 6 = 2 × 3, 8 = 2 × 2 × 2</p>
+                        <p>LCM = 2 × 2 × 2 × 3 = 24</p>
+                        <p><strong>Answer:</strong> The smallest possible length is <strong>24 cm</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">8</div>
+                <div class="question-text">
+                    <p>Kabamai visits the sweet shop once every 10 days. The shop gives free sweets every Monday (every 7 days). Today is Monday. After how many days will Kabamai get free sweets again?</p>
+                    <label for="q8">Number of days:</label>
+                    <input type="number" id="q8" min="1" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution8')">Show Solution</button>
+                    <div class="solution" id="solution8">
+                        <h4>Solution:</h4>
+                        <p>We need to find the LCM of 7 (days between Mondays) and 10 (Kabamai's visit cycle).</p>
+                        <p>Multiples of 7: 7, 14, 21, 28, 35, 42, 49, 56, 63, 70, ...</p>
+                        <p>Multiples of 10: 10, 20, 30, 40, 50, 60, 70, 80, ...</p>
+                        <p>Common multiples: 70, 140, ...</p>
+                        <p>Smallest common multiple = 70</p>
+                        <p>Or using prime factorization: 7 is prime, 10 = 2 × 5</p>
+                        <p>LCM = 2 × 5 × 7 = 70</p>
+                        <p><strong>Answer:</strong> Kabamai will get free sweets again after <strong>70 days</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">9</div>
+                <div class="question-text">
+                    <p>In the 'Idli-Vada' game, find the first number for which 'idli-vada' will be called out:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q9a">(a) 4 and 6:</label>
+                            <input type="number" id="q9a" min="1" placeholder="Enter your answer">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q9b">(b) 7 and 11:</label>
+                            <input type="number" id="q9b" min="1" placeholder="Enter your answer">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q9c">(c) 14 and 30:</label>
+                            <input type="number" id="q9c" min="1" placeholder="Enter your answer">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q9d">(d) 15 and 55:</label>
+                            <input type="number" id="q9d" min="1" placeholder="Enter your answer">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution9')">Show Solution</button>
+                    <div class="solution" id="solution9">
+                        <h4>Solution:</h4>
+                        <p>The first number where 'idli-vada' is called is the LCM of the two numbers.</p>
+                        <p><strong>(a) 4 and 6:</strong></p>
+                        <p>4 = 2 × 2, 6 = 2 × 3</p>
+                        <p>LCM = 2 × 2 × 3 = 12 → <strong>Answer: 12</strong></p>
+                        
+                        <p><strong>(b) 7 and 11:</strong></p>
+                        <p>Both are prime numbers.</p>
+                        <p>LCM = 7 × 11 = 77 → <strong>Answer: 77</strong></p>
+                        
+                        <p><strong>(c) 14 and 30:</strong></p>
+                        <p>14 = 2 × 7, 30 = 2 × 3 × 5</p>
+                        <p>LCM = 2 × 3 × 5 × 7 = 210 → <strong>Answer: 210</strong></p>
+                        
+                        <p><strong>(d) 15 and 55:</strong></p>
+                        <p>15 = 3 × 5, 55 = 5 × 11</p>
+                        <p>LCM = 3 × 5 × 11 = 165 → <strong>Answer: 165</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">10</div>
+                <div class="question-text">
+                    <p>Find the LCM of:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q10a">(a) 30 and 72:</label>
+                            <input type="number" id="q10a" min="1" placeholder="Enter LCM">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q10b">(b) 36 and 54:</label>
+                            <input type="number" id="q10b" min="1" placeholder="Enter LCM">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q10c">(c) 105, 195, and 65:</label>
+                            <input type="number" id="q10c" min="1" placeholder="Enter LCM">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q10d">(d) 222 and 370:</label>
+                            <input type="number" id="q10d" min="1" placeholder="Enter LCM">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution10')">Show Solution</button>
+                    <div class="solution" id="solution10">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) 30 and 72:</strong></p>
+                        <p>30 = 2 × 3 × 5, 72 = 2 × 2 × 2 × 3 × 3</p>
+                        <p>LCM = 2 × 2 × 2 × 3 × 3 × 5 = 360 → <strong>Answer: 360</strong></p>
+                        
+                        <p><strong>(b) 36 and 54:</strong></p>
+                        <p>36 = 2 × 2 × 3 × 3, 54 = 2 × 3 × 3 × 3</p>
+                        <p>LCM = 2 × 2 × 3 × 3 × 3 = 108 → <strong>Answer: 108</strong></p>
+                        
+                        <p><strong>(c) 105, 195, and 65:</strong></p>
+                        <p>105 = 3 × 5 × 7, 195 = 3 × 5 × 13, 65 = 5 × 13</p>
+                        <p>LCM = 3 × 5 × 7 × 13 = 1365 → <strong>Answer: 1365</strong></p>
+                        
+                        <p><strong>(d) 222 and 370:</strong></p>
+                        <p>222 = 2 × 3 × 37, 370 = 2 × 5 × 37</p>
+                        <p>LCM = 2 × 3 × 5 × 37 = 1110 → <strong>Answer: 1110</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Part 3: Patterns and Properties</h2>
+            
+            <div class="question">
+                <div class="question-number">11</div>
+                <div class="question-text">
+                    <p>Make a general statement about the HCF for:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q11a">(a) Two consecutive even numbers:</label>
+                            <textarea id="q11a" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q11b">(b) Two consecutive odd numbers:</label>
+                            <textarea id="q11b" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q11c">(c) Two even numbers:</label>
+                            <textarea id="q11c" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q11d">(d) Two consecutive numbers:</label>
+                            <textarea id="q11d" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q11e">(e) Two co-prime numbers:</label>
+                            <textarea id="q11e" placeholder="Enter your general statement"></textarea>
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution11')">Show Solution</button>
+                    <div class="solution" id="solution11">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) Two consecutive even numbers:</strong> The HCF of two consecutive even numbers is always 2.</p>
+                        <p><strong>Example:</strong> 4 and 6 have HCF = 2, 10 and 12 have HCF = 2.</p>
+                        
+                        <p><strong>(b) Two consecutive odd numbers:</strong> The HCF of two consecutive odd numbers is always 1.</p>
+                        <p><strong>Example:</strong> 3 and 5 have HCF = 1, 15 and 17 have HCF = 1.</p>
+                        
+                        <p><strong>(c) Two even numbers:</strong> The HCF of two even numbers is always at least 2.</p>
+                        <p><strong>Example:</strong> 8 and 12 have HCF = 4, 6 and 10 have HCF = 2.</p>
+                        
+                        <p><strong>(d) Two consecutive numbers:</strong> The HCF of two consecutive numbers is always 1.</p>
+                        <p><strong>Example:</strong> 7 and 8 have HCF = 1, 14 and 15 have HCF = 1.</p>
+                        
+                        <p><strong>(e) Two co-prime numbers:</strong> By definition, the HCF of two co-prime numbers is 1.</p>
+                        <p><strong>Example:</strong> 8 and 9 have HCF = 1, 15 and 16 have HCF = 1.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">12</div>
+                <div class="question-text">
+                    <p>Find two numbers where the LCM is one of the two numbers. Then make a general statement about such numbers.</p>
+                    <label for="q12a">Example of such a pair:</label>
+                    <input type="text" id="q12a" placeholder="e.g., 3 and 24">
+                    <label for="q12b">General statement:</label>
+                    <textarea id="q12b" placeholder="Enter your general statement"></textarea>
+                    <button class="solution-btn" onclick="toggleSolution('solution12')">Show Solution</button>
+                    <div class="solution" id="solution12">
+                        <h4>Solution:</h4>
+                        <p><strong>Examples:</strong> (3, 24), (5, 15), (8, 16), (6, 18)</p>
+                        <p><strong>General statement:</strong> When one number is a multiple of the other, the LCM is the larger number (the multiple).</p>
+                        <p><strong>Explanation:</strong> If a is a factor of b (b is a multiple of a), then LCM(a, b) = b.</p>
+                        <p><strong>Algebraic form:</strong> If b = k × a, where k is an integer, then LCM(a, b) = b.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">13</div>
+                <div class="question-text">
+                    <p>Make a general statement about the LCM for:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q13a">(a) Two multiples of 3:</label>
+                            <textarea id="q13a" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q13b">(b) Two consecutive even numbers:</label>
+                            <textarea id="q13b" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q13c">(c) Two consecutive numbers:</label>
+                            <textarea id="q13c" placeholder="Enter your general statement"></textarea>
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q13d">(d) Two co-prime numbers:</label>
+                            <textarea id="q13d" placeholder="Enter your general statement"></textarea>
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution13')">Show Solution</button>
+                    <div class="solution" id="solution13">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) Two multiples of 3:</strong> The LCM of two multiples of 3 is also a multiple of 3.</p>
+                        <p><strong>Example:</strong> LCM(6, 9) = 18 (which is a multiple of 3).</p>
+                        
+                        <p><strong>(b) Two consecutive even numbers:</strong> The LCM of two consecutive even numbers is half their product.</p>
+                        <p><strong>Example:</strong> 4 and 6: Product = 24, LCM = 12 = 24 ÷ 2.</p>
+                        <p><strong>Explanation:</strong> Consecutive even numbers are of the form 2n and 2(n+1). Their LCM is 2 × n × (n+1), which is half of 2n × 2(n+1) = 4n(n+1).</p>
+                        
+                        <p><strong>(c) Two consecutive numbers:</strong> The LCM of two consecutive numbers is their product.</p>
+                        <p><strong>Example:</strong> 7 and 8: LCM = 56 = 7 × 8.</p>
+                        <p><strong>Explanation:</strong> Consecutive numbers are co-prime, so their LCM equals their product.</p>
+                        
+                        <p><strong>(d) Two co-prime numbers:</strong> The LCM of two co-prime numbers is their product.</p>
+                        <p><strong>Example:</strong> 8 and 9: LCM = 72 = 8 × 9.</p>
+                        <p><strong>Explanation:</strong> Since they have no common factors other than 1, their LCM must be their product.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Part 4: Problem Solving and Applications</h2>
+            
+            <div class="question">
+                <div class="question-number">14</div>
+                <div class="question-text">
+                    <p>Find the HCF and LCM (in prime factorisation form) for:</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <label for="q14a">(a) 3×3×5×7×7 and 12×7×11 (HCF):</label>
+                            <input type="text" id="q14a" placeholder="Enter prime factorisation">
+                            <label for="q14b">LCM for the same pair:</label>
+                            <input type="text" id="q14b" placeholder="Enter prime factorisation">
+                        </div>
+                        <div class="mcq-option">
+                            <label for="q14c">(b) 45 and 36 (HCF):</label>
+                            <input type="text" id="q14c" placeholder="Enter prime factorisation">
+                            <label for="q14d">LCM for 45 and 36:</label>
+                            <input type="text" id="q14d" placeholder="Enter prime factorisation">
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution14')">Show Solution</button>
+                    <div class="solution" id="solution14">
+                        <h4>Solution:</h4>
+                        <p><strong>(a) First number:</strong> 3×3×5×7×7 = 3² × 5 × 7²</p>
+                        <p><strong>Second number:</strong> 12×7×11 = (2×2×3)×7×11 = 2² × 3 × 7 × 11</p>
+                        <p><strong>HCF:</strong> Common factors are 3 and 7 (only once each) → 3 × 7</p>
+                        <p><strong>Answer (HCF):</strong> <strong>3×7</strong></p>
+                        <p><strong>LCM:</strong> Take all prime factors with highest powers: 2² × 3² × 5 × 7² × 11</p>
+                        <p><strong>Answer (LCM):</strong> <strong>2×2×3×3×5×7×7×11</strong></p>
+                        
+                        <p><strong>(b) 45 and 36:</strong></p>
+                        <p>45 = 3×3×5 = 3² × 5</p>
+                        <p>36 = 2×2×3×3 = 2² × 3²</p>
+                        <p><strong>HCF:</strong> Common factors: 3² = 3×3</p>
+                        <p><strong>Answer (HCF):</strong> <strong>3×3</strong></p>
+                        <p><strong>LCM:</strong> Take all prime factors with highest powers: 2² × 3² × 5</p>
+                        <p><strong>Answer (LCM):</strong> <strong>2×2×3×3×5</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">15</div>
+                <div class="question-text">
+                    <p>Find two numbers whose HCF is 1 and LCM is 66.</p>
+                    <label for="q15">The two numbers (separated by comma):</label>
+                    <input type="text" id="q15" placeholder="e.g., 6, 11">
+                    <button class="solution-btn" onclick="toggleSolution('solution15')">Show Solution</button>
+                    <div class="solution" id="solution15">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> Since HCF = 1, the numbers are co-prime.</p>
+                        <p><strong>Step 2:</strong> LCM = 66 = 2 × 3 × 11</p>
+                        <p><strong>Step 3:</strong> We need to split the prime factors into two groups such that they have no common factors.</p>
+                        <p><strong>Possible pairs:</strong></p>
+                        <ul>
+                            <li>2 and 33 (2 = 2, 33 = 3 × 11) → 2 and 33</li>
+                            <li>3 and 22 (3 = 3, 22 = 2 × 11) → 3 and 22</li>
+                            <li>6 and 11 (6 = 2 × 3, 11 = 11) → 6 and 11</li>
+                            <li>1 and 66 (1 = 1, 66 = 2 × 3 × 11) → 1 and 66</li>
+                        </ul>
+                        <p><strong>Answer:</strong> There are multiple correct answers. One possible pair is <strong>6 and 11</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">16</div>
+                <div class="question-text">
+                    <p>A cowherd had less than 200 cows. At three crossings with 3, 5, and 7 gates respectively, an equal number of cows passed through each gate each time. How many cows did he have?</p>
+                    <label for="q16">Number of cows:</label>
+                    <input type="number" id="q16" min="1" max="199" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution16')">Show Solution</button>
+                    <div class="solution" id="solution16">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> Since an equal number of cows passed through each gate, the total number of cows must be divisible by 3, 5, and 7.</p>
+                        <p><strong>Step 2:</strong> We need a common multiple of 3, 5, and 7 that is less than 200.</p>
+                        <p><strong>Step 3:</strong> Since 3, 5, and 7 are all prime, their LCM = 3 × 5 × 7 = 105.</p>
+                        <p><strong>Step 4:</strong> Check multiples of 105 less than 200: 105 and 210. Only 105 is less than 200.</p>
+                        <p><strong>Answer:</strong> The cowherd had <strong>105 cows</strong>.</p>
+                        <p><strong>Verification:</strong> 105 ÷ 3 = 35 cows per gate, 105 ÷ 5 = 21 cows per gate, 105 ÷ 7 = 15 cows per gate.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">17</div>
+                <div class="question-text">
+                    <p>A box has dimensions 12cm × 18cm × 36cm. Which of the following cube sizes can be packed without leaving gaps? (Select all that apply)</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q17a">
+                            <label for="q17a">(a) 9cm</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q17b">
+                            <label for="q17b">(b) 6cm</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q17c">
+                            <label for="q17c">(c) 4cm</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q17d">
+                            <label for="q17d">(d) 3cm</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q17e">
+                            <label for="q17e">(e) 2cm</label>
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution17')">Show Solution</button>
+                    <div class="solution" id="solution17">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> For cubes to fit perfectly without gaps, the side length must divide all three dimensions evenly.</p>
+                        <p><strong>Step 2:</strong> Find the common factors of 12, 18, and 36.</p>
+                        <p>Factors of 12: 1, 2, 3, 4, 6, 12</p>
+                        <p>Factors of 18: 1, 2, 3, 6, 9, 18</p>
+                        <p>Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36</p>
+                        <p><strong>Step 3:</strong> Common factors: 1, 2, 3, 6</p>
+                        <p><strong>Step 4:</strong> Check each option:</p>
+                        <ul>
+                            <li><strong>9cm:</strong> 9 is not a factor of 12 → <strong>NO</strong></li>
+                            <li><strong>6cm:</strong> 6 is a factor of all three → <strong>YES</strong></li>
+                            <li><strong>4cm:</strong> 4 is not a factor of 18 → <strong>NO</strong></li>
+                            <li><strong>3cm:</strong> 3 is a factor of all three → <strong>YES</strong></li>
+                            <li><strong>2cm:</strong> 2 is a factor of all three → <strong>YES</strong></li>
+                        </ul>
+                        <p><strong>Answer:</strong> Options (b) 6cm, (d) 3cm, and (e) 2cm.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">18</div>
+                <div class="question-text">
+                    <p>Which is the largest number that perfectly divides both 306 and 36?</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <input type="radio" id="q18a" name="q18">
+                            <label for="q18a">(a) 36</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q18b" name="q18">
+                            <label for="q18b">(b) 612</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q18c" name="q18">
+                            <label for="q18c">(c) 18</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q18d" name="q18">
+                            <label for="q18d">(d) 3</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q18e" name="q18">
+                            <label for="q18e">(e) 2</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q18f" name="q18">
+                            <label for="q18f">(f) 360</label>
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution18')">Show Solution</button>
+                    <div class="solution" id="solution18">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> We need to find the HCF of 306 and 36.</p>
+                        <p><strong>Step 2:</strong> Prime factorization:</p>
+                        <p>306 = 2 × 3 × 3 × 17 = 2 × 3² × 17</p>
+                        <p>36 = 2 × 2 × 3 × 3 = 2² × 3²</p>
+                        <p><strong>Step 3:</strong> Common factors: 2 and 3²</p>
+                        <p>HCF = 2 × 3 × 3 = 18</p>
+                        <p><strong>Step 4:</strong> Check the options: 18 is option (c).</p>
+                        <p><strong>Answer:</strong> <strong>(c) 18</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">19</div>
+                <div class="question-text">
+                    <p>Find the smallest number that is divisible by 3, 4, 5 and 7, but leaves a remainder of 10 when divided by 11.</p>
+                    <label for="q19">The number:</label>
+                    <input type="number" id="q19" min="1" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution19')">Show Solution</button>
+                    <div class="solution" id="solution19">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> Find the LCM of 3, 4, 5, and 7.</p>
+                        <p>3, 4, 5, and 7 are either prime or co-prime.</p>
+                        <p>LCM = 3 × 4 × 5 × 7 = 420</p>
+                        <p><strong>Step 2:</strong> We need a number that is a multiple of 420 and leaves remainder 10 when divided by 11.</p>
+                        <p>This means: Number = 420k, and (420k - 10) is divisible by 11.</p>
+                        <p><strong>Step 3:</strong> Test multiples of 420:</p>
+                        <ul>
+                            <li>420 × 1 = 420: 420 ÷ 11 = 38 remainder 2 (not 10)</li>
+                            <li>420 × 2 = 840: 840 ÷ 11 = 76 remainder 4 (not 10)</li>
+                            <li>420 × 3 = 1260: 1260 ÷ 11 = 114 remainder 6 (not 10)</li>
+                            <li>420 × 4 = 1680: 1680 ÷ 11 = 152 remainder 8 (not 10)</li>
+                            <li>420 × 5 = 2100: 2100 ÷ 11 = 190 remainder 10 ✓</li>
+                        </ul>
+                        <p><strong>Answer:</strong> The smallest number is <strong>2100</strong>.</p>
+                        <p><strong>Verification:</strong> 2100 ÷ 3 = 700, ÷ 4 = 525, ÷ 5 = 420, ÷ 7 = 300, and 2100 ÷ 11 = 190 with remainder 10.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">20</div>
+                <div class="question-text">
+                    <p>In 'Fire in the Mountain', when 6 or 9 was called, no one got out, but when 10 was called, some got out. How many children could have been playing initially?</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <input type="radio" id="q20a" name="q20">
+                            <label for="q20a">(a) 72</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q20b" name="q20">
+                            <label for="q20b">(b) 90</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q20c" name="q20">
+                            <label for="q20c">(c) 45</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q20d" name="q20">
+                            <label for="q20d">(d) 3</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q20e" name="q20">
+                            <label for="q20e">(e) 36</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="radio" id="q20f" name="q20">
+                            <label for="q20f">(f) None of these</label>
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution20')">Show Solution</button>
+                    <div class="solution" id="solution20">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> When 6 or 9 was called, no one got out. This means the number of children is a multiple of both 6 and 9.</p>
+                        <p><strong>Step 2:</strong> LCM of 6 and 9 is 18. So the number of children is a multiple of 18.</p>
+                        <p><strong>Step 3:</strong> When 10 was called, some got out. This means the number of children is NOT a multiple of 10.</p>
+                        <p><strong>Step 4:</strong> Check the options which are multiples of 18 but not multiples of 10:</p>
+                        <ul>
+                            <li>(a) 72: Multiple of 18? 72 ÷ 18 = 4 ✓. Multiple of 10? 72 ÷ 10 = 7.2 ✗. So 72 is a possible answer.</li>
+                            <li>(b) 90: Multiple of 18? 90 ÷ 18 = 5 ✓. Multiple of 10? 90 ÷ 10 = 9 ✓. So 90 is NOT a valid answer (no one would get out when 10 is called).</li>
+                            <li>(c) 45: Multiple of 18? 45 ÷ 18 = 2.5 ✗. So 45 is NOT valid.</li>
+                            <li>(d) 3: Multiple of 18? No ✗.</li>
+                            <li>(e) 36: Multiple of 18? 36 ÷ 18 = 2 ✓. Multiple of 10? 36 ÷ 10 = 3.6 ✗. So 36 is also a possible answer.</li>
+                        </ul>
+                        <p><strong>Step 5:</strong> Both 72 and 36 are valid. The question asks "How many children could have been playing?" and both are options. Looking at the options, both (a) 72 and (e) 36 are listed.</p>
+                        <p>However, typically in such games, there would be more than a few children. Also, the problem says "some got out" when 10 was called, implying more than 10 children. So 36 is more likely than 72, but both are mathematically valid.</p>
+                        <p><strong>Most likely answer:</strong> Since 36 is the smaller valid option and is listed, the answer is <strong>(e) 36</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">21</div>
+                <div class="question-text">
+                    <p>Which statements are true about the LCM of two different prime numbers (m, n)? (Select all that apply)</p>
+                    <div class="mcq-options">
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q21a">
+                            <label for="q21a">(a) Less than both numbers</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q21b">
+                            <label for="q21b">(b) In between the two numbers</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q21c">
+                            <label for="q21c">(c) Greater than both numbers</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q21d">
+                            <label for="q21d">(d) Less than m×n</label>
+                        </div>
+                        <div class="mcq-option">
+                            <input type="checkbox" id="q21e">
+                            <label for="q21e">(e) Greater than m×n</label>
+                        </div>
+                    </div>
+                    <button class="solution-btn" onclick="toggleSolution('solution21')">Show Solution</button>
+                    <div class="solution" id="solution21">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> For two different prime numbers m and n, their LCM is m × n.</p>
+                        <p><strong>Step 2:</strong> Analyze each statement:</p>
+                        <ul>
+                            <li><strong>(a) Less than both numbers:</strong> FALSE. m × n is greater than both m and n (since n > 1 and m > 1).</li>
+                            <li><strong>(b) In between the two numbers:</strong> FALSE. m × n is greater than both, not between them.</li>
+                            <li><strong>(c) Greater than both numbers:</strong> TRUE. m × n is greater than both m and n.</li>
+                            <li><strong>(d) Less than m×n:</strong> FALSE. The LCM equals m × n, so it's not less than m × n.</li>
+                            <li><strong>(e) Greater than m×n:</strong> FALSE. The LCM equals m × n, so it's not greater than m × n.</li>
+                        </ul>
+                        <p><strong>Answer:</strong> Only statement (c) is true.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">22</div>
+                <div class="question-text">
+                    <p>A dog is chasing a rabbit that has a head start of 150 feet. The dog jumps 9 feet each time while the rabbit jumps 7 feet. In how many leaps does the dog catch up with the rabbit?</p>
+                    <label for="q22">Number of leaps:</label>
+                    <input type="number" id="q22" min="1" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution22')">Show Solution</button>
+                    <div class="solution" id="solution22">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> Let x be the number of leaps when the dog catches the rabbit.</p>
+                        <p><strong>Step 2:</strong> Distance covered by dog in x leaps = 9x feet</p>
+                        <p>Distance covered by rabbit in x leaps = 7x feet</p>
+                        <p><strong>Step 3:</strong> When the dog catches the rabbit:</p>
+                        <p>Dog's distance = Rabbit's distance + Head start</p>
+                        <p>9x = 7x + 150</p>
+                        <p><strong>Step 4:</strong> Solve for x:</p>
+                        <p>9x - 7x = 150</p>
+                        <p>2x = 150</p>
+                        <p>x = 75</p>
+                        <p><strong>Answer:</strong> The dog catches up with the rabbit in <strong>75 leaps</strong>.</p>
+                        <p><strong>Verification:</strong> After 75 leaps, dog covers 9 × 75 = 675 feet, rabbit covers 7 × 75 = 525 feet. Difference = 675 - 525 = 150 feet (the head start).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">23</div>
+                <div class="question-text">
+                    <p>What is the smallest number that is a multiple of 1, 2, 3, 4, 5, 6, 8, 9, and 10?</p>
+                    <label for="q23">The number:</label>
+                    <input type="number" id="q23" min="1" placeholder="Enter your answer">
+                    <button class="solution-btn" onclick="toggleSolution('solution23')">Show Solution</button>
+                    <div class="solution" id="solution23">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> We need to find the LCM of these numbers.</p>
+                        <p><strong>Step 2:</strong> Note that if a number is a multiple of 8, it's automatically a multiple of 2 and 4.</p>
+                        <p>If it's a multiple of 9, it's automatically a multiple of 3.</p>
+                        <p>If it's a multiple of 10, it's automatically a multiple of 2 and 5.</p>
+                        <p>If it's a multiple of 8 and 9, it's automatically a multiple of 6 (since 6 = 2 × 3, and 8 provides 2, 9 provides 3).</p>
+                        <p><strong>Step 3:</strong> So we only need LCM of 5, 8, 9, and 10 (and 7 is not in the list).</p>
+                        <p>But wait, we need to include all primes with highest powers:</p>
+                        <p>Prime factorization:</p>
+                        <ul>
+                            <li>8 = 2³</li>
+                            <li>9 = 3²</li>
+                            <li>10 = 2 × 5</li>
+                            <li>5 = 5</li>
+                        </ul>
+                        <p><strong>Step 4:</strong> Highest powers: 2³, 3², 5</p>
+                        <p>LCM = 2³ × 3² × 5 = 8 × 9 × 5 = 360</p>
+                        <p><strong>Step 5:</strong> Check: 360 is divisible by all numbers in the list:</p>
+                        <p>360 ÷ 1 = 360, ÷ 2 = 180, ÷ 3 = 120, ÷ 4 = 90, ÷ 5 = 72, ÷ 6 = 60, ÷ 8 = 45, ÷ 9 = 40, ÷ 10 = 36.</p>
+                        <p><strong>Answer:</strong> The smallest number is <strong>360</strong>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <div class="question-number">24</div>
+                <div class="question-text">
+                    <p>Add the following fractions: 8/15, 1/20, 7/36, 11/63, and 1/21. Express your answer as a fraction in simplest form.</p>
+                    <label for="q24">Sum (as fraction like a/b):</label>
+                    <input type="text" id="q24" placeholder="e.g., 3/4">
+                    <button class="solution-btn" onclick="toggleSolution('solution24')">Show Solution</button>
+                    <div class="solution" id="solution24">
+                        <h4>Solution:</h4>
+                        <p><strong>Step 1:</strong> Find the LCM of denominators: 15, 20, 36, 63, 21</p>
+                        <p>Prime factorization:</p>
+                        <ul>
+                            <li>15 = 3 × 5</li>
+                            <li>20 = 2² × 5</li>
+                            <li>36 = 2² × 3²</li>
+                            <li>63 = 3² × 7</li>
+                            <li>21 = 3 × 7</li>
+                        </ul>
+                        <p><strong>Step 2:</strong> LCM = highest powers: 2² × 3² × 5 × 7 = 4 × 9 × 5 × 7 = 1260</p>
+                        <p><strong>Step 3:</strong> Convert each fraction to denominator 1260:</p>
+                        <ul>
+                            <li>8/15 = (8 × 84)/1260 = 672/1260 (since 1260 ÷ 15 = 84)</li>
+                            <li>1/20 = (1 × 63)/1260 = 63/1260 (since 1260 ÷ 20 = 63)</li>
+                            <li>7/36 = (7 × 35)/1260 = 245/1260 (since 1260 ÷ 36 = 35)</li>
+                            <li>11/63 = (11 × 20)/1260 = 220/1260 (since 1260 ÷ 63 = 20)</li>
+                            <li>1/21 = (1 × 60)/1260 = 60/1260 (since 1260 ÷ 21 = 60)</li>
+                        </ul>
+                        <p><strong>Step 4:</strong> Add numerators: 672 + 63 + 245 + 220 + 60 = 1260</p>
+                        <p>Sum = 1260/1260 = 1</p>
+                        <p><strong>Answer:</strong> The sum is <strong>1</strong> (or 1/1).</p>
+                        <p><strong>Interesting observation:</strong> The fractions add up to exactly 1!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button id="checkAnswers">Check My Progress</button>
+            <button id="showAllSolutions">Show All Solutions</button>
+            <button id="hideAllSolutions">Hide All Solutions</button>
+            <button id="resetForm" class="reset-btn">Reset All Answers</button>
+            <button onclick="window.print()">Print Worksheet</button>
+        </div>
+        
+        <div class="results" id="resultsSection">
+            <h3>Your Progress</h3>
+            <p>You have completed <span id="completedCount">0</span> out of <span id="totalCount">24</span> questions.</p>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Your Answer</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTable">
+                    <!-- Results will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkAnswersBtn = document.getElementById('checkAnswers');
+            const showAllBtn = document.getElementById('showAllSolutions');
+            const hideAllBtn = document.getElementById('hideAllSolutions');
+            const resetFormBtn = document.getElementById('resetForm');
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsTable = document.getElementById('resultsTable');
+            const completedCount = document.getElementById('completedCount');
+            const totalCount = document.getElementById('totalCount');
+            
+            // Set total count
+            totalCount.textContent = '24';
+            
+            // Function to toggle individual solution
+            window.toggleSolution = function(solutionId) {
+                const solution = document.getElementById(solutionId);
+                if (solution.style.display === 'block') {
+                    solution.style.display = 'none';
+                } else {
+                    solution.style.display = 'block';
+                }
+            };
+            
+            // Function to show all solutions
+            function showAllSolutions() {
+                const solutions = document.querySelectorAll('.solution');
+                solutions.forEach(solution => {
+                    solution.style.display = 'block';
+                });
+            }
+            
+            // Function to hide all solutions
+            function hideAllSolutions() {
+                const solutions = document.querySelectorAll('.solution');
+                solutions.forEach(solution => {
+                    solution.style.display = 'none';
+                });
+            }
+            
+            // Function to check if an answer is provided
+            function isAnswered(input) {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    // For checkboxes and radio buttons, check if any in group is checked
+                    const name = input.name;
+                    if (name) {
+                        const inputs = document.querySelectorAll(`input[name="${name}"]`);
+                        return Array.from(inputs).some(input => input.checked);
+                    }
+                    return input.checked;
+                }
+                return input.value.trim() !== '';
+            }
+            
+            // Function to get answer value
+            function getAnswerValue(input) {
+                if (input.type === 'checkbox') {
+                    const checkboxes = document.querySelectorAll(`input[type="checkbox"][id^="q${input.id.charAt(1)}"]`);
+                    const checkedValues = Array.from(checkboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.nextElementSibling.textContent.trim().charAt(1)); // Get letter (a), (b), etc.
+                    return checkedValues.sort().join(', ');
+                }
+                if (input.type === 'radio') {
+                    const selected = document.querySelector(`input[name="${input.name}"]:checked`);
+                    return selected ? selected.nextElementSibling.textContent.trim().charAt(1) : '';
+                }
+                return input.value.trim();
+            }
+            
+            // Function to check answers and show results
+            function checkAnswers() {
+                const questions = [];
+                let answeredCount = 0;
+                
+                // Get all input elements
+                const inputs = document.querySelectorAll('input, textarea');
+                
+                // Group inputs by question
+                const questionMap = new Map();
+                
+                inputs.forEach(input => {
+                    if (input.id && input.id.startsWith('q')) {
+                        const questionNum = parseInt(input.id.substring(1).replace(/[a-z]/g, ''));
+                        
+                        if (!questionMap.has(questionNum)) {
+                            questionMap.set(questionNum, []);
+                        }
+                        
+                        questionMap.get(questionNum).push(input);
+                    }
+                });
+                
+                // Process each question
+                for (let i = 1; i <= 24; i++) {
+                    if (questionMap.has(i)) {
+                        const questionInputs = questionMap.get(i);
+                        let isQuestionAnswered = false;
+                        let answerText = '';
+                        
+                        // Check if any input in this question is answered
+                        for (const input of questionInputs) {
+                            if (isAnswered(input)) {
+                                isQuestionAnswered = true;
+                                const value = getAnswerValue(input);
+                                if (value) {
+                                    if (answerText) {
+                                        answerText += '; ' + value;
+                                    } else {
+                                        answerText = value;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if (isQuestionAnswered) {
+                            answeredCount++;
+                        }
+                        
+                        questions.push({
+                            number: i,
+                            answered: isQuestionAnswered,
+                            answer: answerText || 'Not answered'
+                        });
+                    }
+                }
+                
+                // Update completed count
+                completedCount.textContent = answeredCount;
+                
+                // Build results table
+                resultsTable.innerHTML = '';
+                questions.forEach(q => {
+                    const row = document.createElement('tr');
+                    
+                    const questionCell = document.createElement('td');
+                    questionCell.textContent = `Question ${q.number}`;
+                    
+                    const answerCell = document.createElement('td');
+                    answerCell.textContent = q.answer;
+                    
+                    const statusCell = document.createElement('td');
+                    statusCell.textContent = q.answered ? '✓ Answered' : '✗ Not answered';
+                    statusCell.style.color = q.answered ? '#27ae60' : '#e74c3c';
+                    statusCell.style.fontWeight = 'bold';
+                    
+                    row.appendChild(questionCell);
+                    row.appendChild(answerCell);
+                    row.appendChild(statusCell);
+                    
+                    resultsTable.appendChild(row);
+                });
+                
+                // Show results section
+                resultsSection.style.display = 'block';
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Function to reset all answers
+            function resetForm() {
+                if (confirm('Are you sure you want to reset all answers? This cannot be undone.')) {
+                    // Clear all inputs
+                    const inputs = document.querySelectorAll('input, textarea');
+                    inputs.forEach(input => {
+                        if (input.type === 'checkbox' || input.type === 'radio') {
+                            input.checked = false;
+                        } else {
+                            input.value = '';
+                        }
+                    });
+                    
+                    // Hide all solutions
+                    hideAllSolutions();
+                    
+                    // Hide results
+                    resultsSection.style.display = 'none';
+                    
+                    // Reset completed count
+                    completedCount.textContent = '0';
+                }
+            }
+            
+            // Add event listeners
+            checkAnswersBtn.addEventListener('click', checkAnswers);
+            showAllBtn.addEventListener('click', showAllSolutions);
+            hideAllBtn.addEventListener('click', hideAllSolutions);
+            resetFormBtn.addEventListener('click', resetForm);
+        });
+    </script>
+</body>
+</html>

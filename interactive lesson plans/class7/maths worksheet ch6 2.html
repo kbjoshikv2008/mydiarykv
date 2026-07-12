@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Play - Grade 7 Interactive Worksheet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent1: #FFD166;
+            --accent2: #06D6A0;
+            --accent3: #118AB2;
+            --accent4: #EF476F;
+            --light: #F8F9FA;
+            --dark: #212529;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #FF9A8B 0%, #FAD0C4 100%);
+            margin: 0;
+            padding: 20px;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent1), var(--accent2), var(--accent3), var(--accent4));
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 5px dashed var(--secondary);
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            color: var(--accent3);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        h2 {
+            color: var(--accent4);
+            font-size: 2.5rem;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid;
+            border-image: linear-gradient(90deg, var(--primary), var(--secondary)) 1;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+        
+        h3 {
+            color: var(--accent3);
+            font-size: 1.8rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            background: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+            border: 3px solid var(--accent1);
+        }
+        
+        .section-1 {
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF0F0 100%);
+        }
+        
+        .section-2 {
+            background: linear-gradient(135deg, #E5FFF5 0%, #F0FFFA 100%);
+        }
+        
+        .section-3 {
+            background: linear-gradient(135deg, #E5F3FF 0%, #F0F9FF 100%);
+        }
+        
+        .section-4 {
+            background: linear-gradient(135deg, #FFF9E5 0%, #FFFDF0 100%);
+        }
+        
+        .section-5 {
+            background: linear-gradient(135deg, #F5E5FF 0%, #FBF0FF 100%);
+        }
+        
+        .section-6 {
+            background: linear-gradient(135deg, #E5FFFB 0%, #F0FFFD 100%);
+        }
+        
+        .question {
+            background-color: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            font-size: 1.4rem;
+            border-left: 8px solid var(--accent2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .question:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+        
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+            padding: 0 25px;
+            margin-top: 0;
+            border-radius: 15px;
+            border-left: 8px solid var(--accent3);
+            font-size: 1.3rem;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .answer.show {
+            max-height: 1000px;
+            padding: 25px;
+            margin-top: 20px;
+            opacity: 1;
+        }
+        
+        .toggle-btn {
+            background: linear-gradient(135deg, var(--accent3), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toggle-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        
+        .toggle-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .highlight {
+            background-color: var(--accent1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .grid-item {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--accent4);
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        
+        .grid-item h4 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            border-bottom: 2px dashed var(--accent2);
+            padding-bottom: 10px;
+        }
+        
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 50px;
+            margin: 30px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 5px dashed var(--accent1);
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .completed {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.5rem;
+            color: var(--accent3);
+            font-weight: bold;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary);
+            opacity: 0;
+            z-index: 1000;
+            border-radius: 0;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(1000px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .question {
+                font-size: 1.2rem;
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .bounce {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container pulse">
+        <header>
+            <h1><i class="fas fa-calculator icon"></i> Number Play <span class="bounce" style="color: var(--accent4);">Grade 7</span></h1>
+            <div class="subtitle">Interactive Mathematics Worksheet</div>
+            <p style="font-size: 1.5rem; color: var(--accent3);">Explore the fascinating world of numbers through these fun, interactive exercises!</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="completed" id="completedText">Complete 0% of the worksheet</div>
+        </header>
+
+        <section class="section section-1 floating">
+            <h2><i class="fas fa-chart-bar icon"></i> 6.1 Numbers Tell Us Things</h2>
+            <p style="font-size: 1.4rem;">In this section, we explore how numbers can represent information about arrangements and patterns.</p>
+            
+            <div class="question">
+                <span class="question-number">1</span>
+                <h3>Arrangement Puzzles</h3>
+                <p>Arrange stick figures or create a height arrangement so that the sequence of numbers (each representing the count of taller people in front) matches:</p>
+                <p>(a) <span class="highlight">0, 1, 1, 2, 4, 1, 5</span></p>
+                <p>(b) <span class="highlight">0, 0, 0, 0, 0, 0, 0</span></p>
+                <p>(c) <span class="highlight">0, 1, 2, 3, 4, 5, 6</span></p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer1')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer1" class="answer">
+                    <p><strong>Solutions:</strong></p>
+                    <p>(a) This arrangement has the tallest person at the end, with progressively shorter people in front.</p>
+                    <p>(b) All people are the same height in this arrangement.</p>
+                    <p>(c) People are arranged in increasing order of height from front to back.</p>
+                    <p><em>Tip: Try using actual objects or drawings to visualize these arrangements!</em></p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <span class="question-number">2</span>
+                <h3>True or False Statements</h3>
+                <p>For each statement, determine if it is Always True, Sometimes True, or Never True:</p>
+                <p>(a) If a person says '0', then they are the tallest in the group.</p>
+                <p>(b) If a person is the tallest, then their number is '0'.</p>
+                <p>(c) The first person's number is '0'.</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer2')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer2" class="answer">
+                    <p><strong>Analysis:</strong></p>
+                    <p>(a) <span class="highlight">Sometimes True</span> - A person saying '0' means no one in front is taller, but there could be people of equal height behind them.</p>
+                    <p>(b) <span class="highlight">Always True</span> - The tallest person has no one taller in front, so their number must be '0'.</p>
+                    <p>(c) <span class="highlight">Sometimes True</span> - The first person's number is '0' only if they are taller than everyone behind them.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-2 floating">
+            <h2><i class="fas fa-sort-amount-up icon"></i> 6.2 Picking Parity</h2>
+            <p style="font-size: 1.4rem;">Explore the properties of even and odd numbers and how they interact in sums and differences.</p>
+            
+            <div class="question">
+                <span class="question-number">3</span>
+                <h3>Parity of Sums</h3>
+                <p>Using your understanding of odd and even numbers, determine the parity of:</p>
+                <p>(a) Sum of 2 even numbers and 2 odd numbers</p>
+                <p>(b) Sum of 2 odd numbers and 3 even numbers</p>
+                <p>(c) Sum of 5 even numbers</p>
+                <p>(d) Sum of 8 odd numbers</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer3')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer3" class="answer">
+                    <p><strong>Solutions:</strong></p>
+                    <p>(a) <span class="highlight">Even</span> (even + even + odd + odd = even)</p>
+                    <p>(b) <span class="highlight">Even</span> (odd + odd + even + even + even = even)</p>
+                    <p>(c) <span class="highlight">Even</span> (any number of even numbers sum to even)</p>
+                    <p>(d) <span class="highlight">Even</span> (even number of odd numbers sum to even)</p>
+                    <p><em>Remember: Even + Even = Even, Odd + Odd = Even, Even + Odd = Odd</em></p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <span class="question-number">4</span>
+                <h3>Coin Problem</h3>
+                <p>Lakpa has an odd number of ₹1 coins, an odd number of ₹5 coins, and an even number of ₹10 coins. He calculated the total as ₹205. Did he make a mistake? Explain why.</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer4')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer4" class="answer">
+                    <p><strong>Analysis:</strong></p>
+                    <p>Yes, he made a mistake. Let's analyze:</p>
+                    <p>Odd × ₹1 = <span class="highlight">odd</span> amount</p>
+                    <p>Odd × ₹5 = <span class="highlight">odd</span> amount (since odd × odd = odd)</p>
+                    <p>Even × ₹10 = <span class="highlight">even</span> amount</p>
+                    <p>Sum: odd + odd + even = <span class="highlight">even</span> amount, but 205 is <span class="highlight">odd</span>.</p>
+                    <p>Therefore, there's a mistake in his calculation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-3 floating">
+            <h2><i class="fas fa-th icon"></i> Small Squares in Grids</h2>
+            <p style="font-size: 1.4rem;">Explore how the dimensions of grids affect the parity of the number of small squares.</p>
+            
+            <div class="question">
+                <span class="question-number">5</span>
+                <h3>Grid Parity</h3>
+                <p>Find the parity of the number of small squares in these grids without calculating the product:</p>
+                <p>(a) 27 × 13</p>
+                <p>(b) 42 × 78</p>
+                <p>(c) 135 × 654</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer5')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer5" class="answer">
+                    <p><strong>Solutions:</strong></p>
+                    <p>The parity of a product is even if at least one factor is even.</p>
+                    <p>(a) <span class="highlight">odd</span> × odd = <span class="highlight">odd</span></p>
+                    <p>(b) <span class="highlight">even</span> × even = <span class="highlight">even</span></p>
+                    <p>(c) <span class="highlight">odd</span> × even = <span class="highlight">even</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-4 floating">
+            <h2><i class="fas fa-magic icon"></i> 6.3 Magic Squares</h2>
+            <p style="font-size: 1.4rem;">Discover the fascinating world of magic squares and their properties.</p>
+            
+            <div class="question">
+                <span class="question-number">6</span>
+                <h3>Magic Square Properties</h3>
+                <p>Answer the following about 3×3 magic squares using numbers 1-9:</p>
+                <p>(a) How many different magic squares can be made?</p>
+                <p>(b) Create a magic square using numbers 2-10.</p>
+                <p>(c) What happens to a magic square if you increase each number by 1?</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer6')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer6" class="answer">
+                    <p><strong>Solutions:</strong></p>
+                    <p>(a) There are <span class="highlight">8</span> distinct 3×3 magic squares using numbers 1-9.</p>
+                    <p>(b) One example:</p>
+                    <pre style="font-size: 1.2rem; background: #f8f9fa; padding: 15px; border-radius: 10px;">
+  9  2  7
+  4  6  8
+  5  10 3
+                    </pre>
+                    <p>(c) The resulting grid is still a magic square, with magic sum increased by <span class="highlight">3</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-5 floating">
+            <h2><i class="fas fa-seedling icon"></i> 6.4 Virahänka-Fibonacci Numbers</h2>
+            <p style="font-size: 1.4rem;">Explore the fascinating sequence that appears throughout nature, art, and mathematics.</p>
+            
+            <div class="question">
+                <span class="question-number">7</span>
+                <h3>Sequence Exploration</h3>
+                <p>The Virahänka-Fibonacci sequence begins: 1, 2, 3, 5, 8, 13, 21, 34, 55, ...</p>
+                <p>(a) What are the next 3 numbers in the sequence?</p>
+                <p>(b) What is the 100th odd number?</p>
+                <p>(c) How many rhythms are possible with 8 beats using short (1 beat) and long (2 beats) syllables?</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer7')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer7" class="answer">
+                    <p><strong>Solutions:</strong></p>
+                    <p>(a) Next numbers: <span class="highlight">89, 144, 233</span> (each term is the sum of the two previous terms)</p>
+                    <p>(b) The 100th odd number is <span class="highlight">199</span> (2×100 - 1)</p>
+                    <p>(c) There are <span class="highlight">34</span> rhythms with 8 beats (the 8th term in the Virahänka sequence)</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-6 floating">
+            <h2><i class="fas fa-user-secret icon"></i> 6.5 Digits in Disguise</h2>
+            <p style="font-size: 1.4rem;">Become a math detective by solving cryptarithms where digits are replaced by letters.</p>
+            
+            <div class="question">
+                <span class="question-number">8</span>
+                <h3>Cryptarithm Solving</h3>
+                <p>Solve the following cryptarithm:</p>
+                <pre style="font-size: 1.5rem; background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+   T
+   T
++  T
+---
+  UT
+                </pre>
+                <p>Find the digits represented by T and U.</p>
+                <button class="toggle-btn" onclick="toggleAnswer('answer8')">
+                    <i class="fas fa-lightbulb"></i> Show Answer
+                </button>
+                <div id="answer8" class="answer">
+                    <p><strong>Solution:</strong></p>
+                    <p>T = <span class="highlight">5</span>, U = <span class="highlight">1</span></p>
+                    <p>Explanation: 5 + 5 + 5 = 15, so T=5 and UT=15, meaning U=1.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: linear-gradient(135deg, #E5FFE5 0%, #F0FFF0 100%);">
+            <h2><i class="fas fa-puzzle-piece icon"></i> Mixed Practice</h2>
+            <p style="font-size: 1.4rem;">Test your understanding with these mixed problems from the chapter.</p>
+            
+            <div class="grid">
+                <div class="grid-item">
+                    <h4><i class="fas fa-lightbulb icon"></i> Problem 1</h4>
+                    <p>A light bulb is ON. Dorjee toggles its switch 77 times. Will the bulb be on or off? Why?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('answer9')">
+                        <i class="fas fa-lightbulb"></i> Show Answer
+                    </button>
+                    <div id="answer9" class="answer">
+                        <p>The bulb will be <span class="highlight">OFF</span>. Starting from ON, after an odd number of toggles, the bulb is OFF. After an even number of toggles, the bulb is ON. 77 is odd, so the bulb will be OFF.</p>
+                    </div>
+                </div>
+                
+                <div class="grid-item">
+                    <h4><i class="fas fa-sigma icon"></i> Problem 2</h4>
+                    <p>What is the parity of the sum of numbers from 1 to 100?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('answer10')">
+                        <i class="fas fa-lightbulb"></i> Show Answer
+                    </button>
+                    <div id="answer10" class="answer">
+                        <p>The sum is <span class="highlight">even</span>. There are 50 odd numbers and 50 even numbers from 1 to 100. The sum of 50 odd numbers is even, and the sum of any number of even numbers is even, so the total is even.</p>
+                    </div>
+                </div>
+                
+                <div class="grid-item">
+                    <h4><i class="fas fa-running icon"></i> Problem 3</h4>
+                    <p>Angaan wants to climb an 8-step staircase. He can take either 1 or 2 steps at a time. In how many different ways can he reach the top?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('answer11')">
+                        <i class="fas fa-lightbulb"></i> Show Answer
+                    </button>
+                    <div id="answer11" class="answer">
+                        <p>There are <span class="highlight">34</span> ways. This is the 8th term in the Virahänka sequence (1, 2, 3, 5, 8, 13, 21, 34, ...).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p style="font-size: 1.3rem;"><i class="fas fa-star icon"></i> Interactive Math Worksheet - Based on Grade 7 Ganita Prakash Textbook <i class="fas fa-star icon"></i></p>
+            <p style="font-size: 1.2rem;">Use the toggle buttons to reveal answers after attempting each question.</p>
+            <button class="toggle-btn" onclick="celebrateCompletion()" style="margin-top: 20px;">
+                <i class="fas fa-trophy"></i> Celebrate My Progress!
+            </button>
+        </footer>
+    </div>
+
+    <script>
+        let answeredQuestions = new Set();
+        
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+            
+            // Update button text
+            const button = answer.previousElementSibling;
+            if (answer.classList.contains('show')) {
+                button.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Answer';
+                
+                // Track answered questions for progress
+                if (!answeredQuestions.has(id)) {
+                    answeredQuestions.add(id);
+                    updateProgress();
+                }
+            } else {
+                button.innerHTML = '<i class="fas fa-lightbulb"></i> Show Answer';
+            }
+        }
+        
+        function updateProgress() {
+            const totalQuestions = 11; // Total number of questions
+            const progress = (answeredQuestions.size / totalQuestions) * 100;
+            const progressBar = document.getElementById('progressBar');
+            const completedText = document.getElementById('completedText');
+            
+            progressBar.style.width = `${progress}%`;
+            completedText.textContent = `Complete ${Math.round(progress)}% of the worksheet`;
+            
+            // Change color based on progress
+            if (progress < 30) {
+                progressBar.style.background = 'linear-gradient(90deg, #FF6B6B, #FF8E8E)';
+            } else if (progress < 70) {
+                progressBar.style.background = 'linear-gradient(90deg, #FFD166, #FFE08E)';
+            } else {
+                progressBar.style.background = 'linear-gradient(90deg, #06D6A0, #4ECDC4)';
+            }
+            
+            // Show celebration if all questions are answered
+            if (progress === 100) {
+                celebrateCompletion();
+            }
+        }
+        
+        function celebrateCompletion() {
+            // Create confetti
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 20);
+            }
+            
+            // Show congratulatory message
+            alert('🎉 Amazing! You\'ve completed the worksheet! 🎉');
+        }
+        
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            
+            // Random position
+            confetti.style.left = Math.random() * 100 + 'vw';
+            
+            // Random color
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random size
+            const size = Math.random() * 15 + 5;
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            
+            // Random shape
+            if (Math.random() > 0.5) {
+                confetti.style.borderRadius = '50%';
+            }
+            
+            document.body.appendChild(confetti);
+            
+            // Animation
+            confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear forwards`;
+            
+            // Remove after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        
+        // Initialize progress bar
+        updateProgress();
+    </script>
+</body>
+</html>

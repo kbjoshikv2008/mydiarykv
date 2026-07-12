@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class XI SETS Test Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f9;margin:0;color:#111827;font-size:13px}
+.container{width:98%;margin:auto;padding:10px}
+.header{background:#dbeafe;border:2px solid #2563eb;border-radius:12px;padding:15px;text-align:center}
+.header h1{margin:0;font-size:28px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.card{padding:12px;border-radius:12px;text-align:center;font-weight:bold}
+.blue{background:#dbeafe;border:2px solid #2563eb}
+.purple{background:#ede9fe;border:2px solid #7c3aed}
+.orange{background:#fef3c7;border:2px solid #d97706}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.chart-box,.section,table{background:white;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.08)}
+.chart-box{padding:10px}
+.chart-box canvas{max-height:260px!important}
+table{width:100%;border-collapse:collapse;overflow:hidden}
+th{background:#cbd5e1;padding:8px}
+td{padding:7px;border-bottom:1px solid #e5e7eb;text-align:center}
+tr:nth-child(even){background:#f9fafb}
+.badge{padding:4px 8px;border-radius:12px;font-size:11px;font-weight:bold}
+.excellent{background:#bbf7d0;border:1px solid #15803d}
+.good{background:#bfdbfe;border:1px solid #1d4ed8}
+.average{background:#fde68a;border:1px solid #b45309}
+.poor{background:#fecaca;border:1px solid #b91c1c}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.section{padding:12px}
+@media print{body{background:white}.container{width:100%;padding:0}.chart-box,.section,table{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>📘 Class XI Mathematics Performance Dashboard</h1>
+<h2>PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+<p>Chapter Test Analysis : SETS (Maximum Marks 20)</p>
+</div>
+
+<div class="cards">
+<div class="card blue"><h2>📗 Class Average</h2><h1>6.46 / 20</h1></div>
+<div class="card purple"><h2>📙 Highest Marks</h2><h1>12 / 20</h1></div>
+<div class="card orange"><h2>🏆 Class Toppers</h2><h1>ARUN ARYA & NIHARIKA MOHAN</h1></div>
+</div>
+
+<div class="charts">
+<div class="chart-box">
+<h2>SETS Chapter Performance</h2>
+<canvas id="barChart"></canvas>
+</div>
+<div class="chart-box">
+<h2>Performance Distribution</h2>
+<canvas id="pieChart"></canvas>
+</div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Student Name</th>
+<th>SETS Marks</th>
+<th>Percentage</th>
+<th>Performance</th>
+</tr>
+</thead>
+<tbody id="studentTable"></tbody>
+</table>
+
+<div class="bottom">
+<div class="section">
+<h2>📊 Performance Insights</h2>
+<ul>
+<li>Overall class performance in SETS chapter was moderate.</li>
+<li>Two students secured the highest marks of 12 out of 20.</li>
+<li>Students need more practice in set operations and Venn diagram questions.</li>
+<li>Conceptual clarity in complements and subsets should be improved.</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🎯 Improvement Suggestions</h2>
+<ul>
+<li>Practice NCERT examples and exercises regularly.</li>
+<li>Revise union, intersection and complement of sets.</li>
+<li>Solve application-based Venn diagram questions daily.</li>
+<li>Attempt weekly quizzes for speed and accuracy.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<script>
+const students=[
+['ARUN ARYA',12],
+['NIHARIKA MOHAN',12],
+['DIKSHANT NEGI',11],
+['MANSI BHANDARI',9],
+['PRIYANSHU PANDEY',8],
+['RAJAT ADHIKARI',7],
+['JANVI',6],
+['PARAS SATI',6],
+['PRANAY SATI',4],
+['KARAN',4],
+['ADITYA NEGI',3],
+['MANAS BHAGAT',2],
+['ISHANT MEHRA',0]
+];
+
+students.sort((a,b)=>b[1]-a[1]);
+const table=document.getElementById('studentTable');
+
+students.forEach((s,index)=>{
+let percent=((s[1]/20)*100).toFixed(1);
+let performance='Needs Improvement';
+let cls='poor';
+if(percent>=75){performance='Excellent';cls='excellent';}
+else if(percent>=60){performance='Good';cls='good';}
+else if(percent>=40){performance='Average';cls='average';}
+
+table.innerHTML += `<tr>
+<td>${index+1}</td>
+<td><b>${s[0]}</b></td>
+<td>${s[1]}</td>
+<td>${percent}%</td>
+<td><span class="badge ${cls}">${performance}</span></td>
+</tr>`;
+});
+
+new Chart(document.getElementById('barChart'),{
+ type:'bar',
+ data:{
+ labels:students.map(s=>s[0].split(' ')[0]),
+ datasets:[{label:'SETS Marks',data:students.map(s=>s[1]),backgroundColor:'#60a5fa'}]
+ },
+ options:{responsive:true,plugins:{legend:{position:'top'}}}
+});
+
+new Chart(document.getElementById('pieChart'),{
+ type:'pie',
+ data:{
+ labels:['Excellent','Good','Average','Needs Improvement'],
+ datasets:[{data:[0,3,3,7],backgroundColor:['#86efac','#93c5fd','#fde68a','#fca5a5']}]
+ },
+ options:{responsive:true}
+});
+</script>
+</body>
+</html>

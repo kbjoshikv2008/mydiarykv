@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Class 7 Maths: Decimals | Interactive Plan + Worksheet</title>
+  <!-- MathJax for proper fraction rendering (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f7f0;
+      font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+      padding: 30px 24px;
+      color: #1e2a1c;
+    }
+
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    /* larger fonts for class demonstration */
+    html {
+      font-size: 20px;
+    }
+
+    @media (max-width: 700px) {
+      html {
+        font-size: 18px;
+      }
+      body {
+        padding: 16px;
+      }
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1f4f2b, #2e6b3e);
+      color: white;
+      padding: 1.8rem 2rem;
+    }
+
+    .header h1 {
+      font-size: 2.4rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .plan-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      padding: 2rem;
+    }
+
+    .learning-plan {
+      flex: 1.2;
+      min-width: 260px;
+      background: #fefcf0;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      border: 1px solid #dee6cf;
+      height: fit-content;
+    }
+
+    .worksheet-area {
+      flex: 3;
+      min-width: 300px;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      margin-bottom: 2rem;
+      padding: 1.2rem 1.6rem;
+      border: 1px solid #e2ebd2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .section-card h2 {
+      font-size: 1.8rem;
+      color: #2b5e3b;
+      border-left: 6px solid #88b04b;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-card h3 {
+      font-size: 1.4rem;
+      margin: 1rem 0 0.5rem 0;
+      color: #3c6b3a;
+    }
+
+    .activity-item {
+      background: #fbfef7;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border-radius: 1.2rem;
+      border: 1px solid #e0eace;
+    }
+
+    .question-text {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    input, select {
+      padding: 10px 18px;
+      font-size: 1rem;
+      border-radius: 60px;
+      border: 1px solid #becfae;
+      background: white;
+      font-family: monospace;
+      font-weight: 500;
+    }
+
+    button {
+      background: #2b5e3b;
+      border: none;
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      border-radius: 60px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #1f462c;
+      transform: scale(0.96);
+    }
+
+    .feedback {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .correct {
+      background: #cbe5c4;
+      color: #155724;
+    }
+
+    .wrong {
+      background: #ffe0db;
+      color: #b33;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: #6b735c;
+      margin-top: 8px;
+      background: #f7f9ef;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 30px;
+    }
+
+    .learning-plan ul {
+      margin-left: 1.2rem;
+      margin-top: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .learning-plan li {
+      margin: 0.6rem 0;
+      font-size: 0.95rem;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border-color: #e2e8d0;
+    }
+
+    .badge {
+      background: #fff1cf;
+      padding: 3px 10px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+<div class="main-container">
+  <div class="header">
+    <h1>📐 A Peek Beyond the Point</h1>
+    <p>Decimals · Tenths & Hundredths · Place Value · Measurement · Addition & Subtraction</p>
+    <p>📖 Based on NCERT Class 7 (Chapter 3) – exact problems from the textbook</p>
+  </div>
+
+  <div class="plan-grid">
+    <!-- LEFT: LEARNING PLAN (INTERACTIVE ROADMAP) -->
+    <div class="learning-plan">
+      <h2 style="font-size: 1.8rem;">📌 Interactive Plan</h2>
+      <ul>
+        <li>🔹 <strong>1. Tenths & hundredths</strong> – splitting units into 10 & 100 parts</li>
+        <li>🔹 <strong>2. Decimal place value</strong> – ones, tenths, hundredths, thousandths</li>
+        <li>🔹 <strong>3. Unit conversions</strong> – mm → cm, cm → m, g → kg, paise → rupee</li>
+        <li>🔹 <strong>4. Adding & subtracting decimals</strong> – (like 5.3+2.6, 18–8.8)</li>
+        <li>🔹 <strong>5. Comparing decimals & number line</strong> – closest to 1, ordering</li>
+        <li>🔹 <strong>6. Real-life word problems</strong> – honeybee, fish, arm length, folded paper</li>
+        <li>🔹 <strong>7. Decimal sequences & estimation</strong> – patterns and mental maths</li>
+      </ul>
+      <div class="hint" style="margin-top: 1rem;">✨ Try each activity below. Instant feedback helps you learn!</div>
+    </div>
+
+    <!-- RIGHT: INTERACTIVE WORKSHEET (PROBLEMS FROM CHAPTER) -->
+    <div class="worksheet-area">
+      
+      <!-- SECTION 1: TENTHS & HUNDREDTHS / MEASUREMENT -->
+      <div class="section-card">
+        <h2>📏 1. Tenths & Hundredths – Measuring lengths</h2>
+        <div class="activity-item">
+          <div class="question-text">🔩 Screw lengths (from textbook): First screw = \(2\frac{7}{10}\) cm. Write as decimal:</div>
+          <div class="flex-row">
+            <input type="text" id="screwDecimal" placeholder="e.g., 2.7" style="width:140px">
+            <button onclick="checkScrew()">Check</button>
+            <span id="fbScrew" class="feedback"></span>
+          </div>
+          <div class="hint">💡 \(2\frac{7}{10}\) means 2 + 7/10</div>
+        </div>
+
+        <div class="activity-item">
+          <div class="question-text">📏 Arrange in increasing order (use letters): <br> (a) \(\frac{9}{10}\) &nbsp; (b) \(1\frac{7}{10}\) &nbsp; (c) \(\frac{130}{10}\) &nbsp; (d) \(13\frac{1}{10}\) &nbsp; (e) \(10\frac{5}{10}\) &nbsp; (f) \(7\frac{6}{10}\) &nbsp; (g) \(6\frac{7}{10}\) &nbsp; (h) \(\frac{4}{10}\)</div>
+          <div class="flex-row">
+            <input type="text" id="ascendingOrder" placeholder="e.g., h,a,b,g,f,e,c,d" style="width:280px">
+            <button onclick="checkOrder()">Check order</button>
+            <span id="fbOrder" class="feedback"></span>
+          </div>
+          <div class="hint">📌 Values: 0.4, 0.9, 1.7, 6.7, 7.6, 10.5, 13.0, 13.1</div>
+        </div>
+
+        <div class="activity-item">
+          <div class="question-text">🐝 Honeybee body parts: Head = \(2\frac{3}{10}\) units, Thorax = \(5\frac{4}{10}\) units, Abdomen = \(7\frac{5}{10}\) units. Find total length.</div>
+          <div class="flex-row">
+            <input type="text" id="honeybee" placeholder="Total (decimal or fraction)" style="width:150px">
+            <button onclick="checkHoneybee()">Check</button>
+            <span id="fbBee" class="feedback"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: PLACE VALUE & DECIMAL NOTATION -->
+      <div class="section-card">
+        <h2>🔢 2. Decimal Place Value & Notation</h2>
+        <div class="activity-item">
+          <div class="question-text">Convert \(\frac{5}{100}\) to decimal:</div>
+          <div class="flex-row"><input type="text" id="frac1" style="width:120px"><button onclick="checkFrac1()">Check</button><span id="fbFrac1" class="feedback"></span></div>
+          <div class="question-text" style="margin-top:12px">Convert \(\frac{16}{1000}\) to decimal:</div>
+          <div class="flex-row"><input type="text" id="frac2" style="width:120px"><button onclick="checkFrac2()">Check</button><span id="fbFrac2" class="feedback"></span></div>
+        </div>
+        <div class="activity-item">
+          <div class="question-text">Write in decimal form: "2 ones, 3 tenths and 5 hundredths"</div>
+          <div class="flex-row"><input type="text" id="placeValue" placeholder="Decimal number"><button onclick="checkPlace()">Check</button><span id="fbPlace" class="feedback"></span></div>
+        </div>
+        <div class="activity-item">
+          <div class="question-text">📌 Which decimals are equal? (from textbook) 4.5, 4.05, 4.050, 4.50, 4.005. Pick the equal pair.</div>
+          <div class="flex-row"><input type="text" id="equalDec" placeholder="e.g., 4.5 and 4.50"><button onclick="checkEqualDec()">Check</button><span id="fbEqual" class="feedback"></span></div>
+          <div class="hint">🔍 Trailing zeros after decimal don't change value</div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: UNIT CONVERSIONS (mm, cm, m, kg, rupee-paise) -->
+      <div class="section-card">
+        <h2>⚖️ 3. Unit Conversions (from textbook)</h2>
+        <div class="activity-item">
+          <div class="question-text">Convert: 12 mm = ______ cm</div>
+          <div class="flex-row"><input type="text" id="mmToCm" style="width:100px"><button onclick="checkMmCm()">Check</button><span id="fbMmCm" class="feedback"></span></div>
+          <div class="question-text">Convert: 70 mm = ______ cm</div>
+          <div class="flex-row"><input type="text" id="mmToCm2" style="width:100px"><button onclick="checkMmCm2()">Check</button><span id="fbMmCm2" class="feedback"></span></div>
+          <div class="question-text">Convert: 15 cm = ______ m</div>
+          <div class="flex-row"><input type="text" id="cmToM" style="width:100px"><button onclick="checkCmM()">Check</button><span id="fbCmM" class="feedback"></span></div>
+        </div>
+        <div class="activity-item">
+          <div class="question-text">💰 75 paise = ______ rupees (in decimal)</div>
+          <div class="flex-row"><input type="text" id="paiseToRupee" style="width:120px"><button onclick="checkPaise()">Check</button><span id="fbPaise" class="feedback"></span></div>
+          <div class="question-text">⚖️ 254 g = ______ kg (decimal form)</div>
+          <div class="flex-row"><input type="text" id="gramToKg" style="width:120px"><button onclick="checkGramKg()">Check</button><span id="fbGram" class="feedback"></span></div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: ADDITION & SUBTRACTION OF DECIMALS (Figure it Out) -->
+      <div class="section-card">
+        <h2>➕➖ 4. Addition & Subtraction (Exact problems)</h2>
+        <div class="activity-item">
+          <div class="question-text">Find the sum: \(5.3 + 2.6\)</div>
+          <div class="flex-row"><input type="text" id="add1" style="width:100px"><button onclick="checkAdd1()">Check</button><span id="fbAdd1" class="feedback"></span></div>
+          <div class="question-text">\(18 + 8.8\)</div>
+          <div class="flex-row"><input type="text" id="add2" style="width:100px"><button onclick="checkAdd2()">Check</button><span id="fbAdd2" class="feedback"></span></div>
+          <div class="question-text">\(2.15 + 5.26\)</div>
+          <div class="flex-row"><input type="text" id="add3" style="width:100px"><button onclick="checkAdd3()">Check</button><span id="fbAdd3" class="feedback"></span></div>
+          <div class="question-text">Subtract: \(5.6 - 2.3\)</div>
+          <div class="flex-row"><input type="text" id="sub1" style="width:100px"><button onclick="checkSub1()">Check</button><span id="fbSub1" class="feedback"></span></div>
+          <div class="question-text">\(18 - 8.8\)</div>
+          <div class="flex-row"><input type="text" id="sub2" style="width:100px"><button onclick="checkSub2()">Check</button><span id="fbSub2" class="feedback"></span></div>
+          <div class="question-text">\(10.4 - 4.5\) (from textbook)</div>
+          <div class="flex-row"><input type="text" id="sub3" style="width:100px"><button onclick="checkSub3()">Check</button><span id="fbSub3" class="feedback"></span></div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: COMPARING DECIMALS & CLOSEST TO 1 -->
+      <div class="section-card">
+        <h2>📊 5. Compare & Closest Decimals</h2>
+        <div class="activity-item">
+          <div class="question-text">Which is greater? \(1.23\) or \(1.32\) ?</div>
+          <div class="flex-row">
+            <select id="compare1">
+              <option value="">Select</option>
+              <option value="1.23">1.23</option>
+              <option value="1.32">1.32</option>
+            </select>
+            <button onclick="checkCompare1()">Check</button>
+            <span id="fbComp1" class="feedback"></span>
+          </div>
+          <div class="question-text">Which is greater? \(6.456\) or \(6.465\) ?</div>
+          <div class="flex-row">
+            <select id="compare2">
+              <option value="">Select</option>
+              <option value="6.456">6.456</option>
+              <option value="6.465">6.465</option>
+            </select>
+            <button onclick="checkCompare2()">Check</button>
+            <span id="fbComp2" class="feedback"></span>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="question-text">✨ Among 0.9, 1.1, 1.01, 1.11 , which is closest to 1?</div>
+          <div class="flex-row">
+            <input type="text" id="closestTo1" placeholder="decimal number" style="width:130px">
+            <button onclick="checkClosest()">Check</button>
+            <span id="fbClosest" class="feedback"></span>
+          </div>
+          <div class="hint">💡 Compare distances: 1.01 is 0.01 away, 0.9 is 0.10 away</div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: WORD PROBLEMS (HONEYBEE, FISH, ARM LENGTH, FOLDED PAPER) -->
+      <div class="section-card">
+        <h2>📖 6. Real-life Word Problems (Textbook exact)</h2>
+        <div class="activity-item">
+          <div class="question-text">🐟 Celestial Pearl Danio length = \(2\frac{4}{10}\) cm, Philippine Goby = \(\frac{9}{10}\) cm. What is the difference in their lengths?</div>
+          <div class="flex-row"><input type="text" id="fishDiff" placeholder="cm"><button onclick="checkFish()">Check</button><span id="fbFish" class="feedback"></span></div>
+        </div>
+        <div class="activity-item">
+          <div class="question-text">🦾 Lower arm = \(2\frac{7}{10}\) units, Upper arm = \(3\frac{6}{10}\) units. Total arm length?</div>
+          <div class="flex-row"><input type="text" id="armTotal" placeholder="units"><button onclick="checkArm()">Check</button><span id="fbArm" class="feedback"></span></div>
+        </div>
+        <div class="activity-item">
+          <div class="question-text">📄 A sheet of paper length \(8\frac{9}{10}\) units is folded in half. Find its length (in decimal).</div>
+          <div class="flex-row"><input type="text" id="foldedPaper" placeholder="units"><button onclick="checkFolded()">Check</button><span id="fbFolded" class="feedback"></span></div>
+          <div class="hint">📘 From textbook: half of 8.9 = 4.45 units</div>
+        </div>
+      </div>
+
+      <!-- SECTION 7: DECIMAL SEQUENCES & PATTERNS -->
+      <div class="section-card">
+        <h2>🌀 7. Decimal Sequences (Extend the pattern)</h2>
+        <div class="activity-item">
+          <div class="question-text">Sequence: 4.4, 4.45, 4.5, ____, ____, ____ (next three terms)</div>
+          <div class="flex-row"><input type="text" id="seq1" placeholder="comma separated" style="width:200px"><button onclick="checkSeq1()">Check</button><span id="fbSeq1" class="feedback"></span></div>
+          <div class="question-text">Sequence: 13.5, 16, 18.5, ____, ____, ____ (next three)</div>
+          <div class="flex-row"><input type="text" id="seq2" placeholder="e.g., 21,23.5,26"><button onclick="checkSeq2()">Check</button><span id="fbSeq2" class="feedback"></span></div>
+        </div>
+      </div>
+
+      <!-- ADDITIONAL CHALLENGE: CLOSEST TO 25 USING DIGITS -->
+      <div class="section-card">
+        <h2>🏆 8. Challenge: Closest to 25 (digits 4,1,8,2,5)</h2>
+        <div class="activity-item">
+          <div class="question-text">Use digits 4,1,8,2,5 exactly once to make a decimal number as close as possible to 25. (Write decimal)</div>
+          <div class="flex-row"><input type="text" id="challenge25" placeholder="e.g., 25.184"><button onclick="checkChallenge()">Check idea</button><span id="fbChallenge" class="feedback"></span></div>
+          <div class="hint">💡 Possible answer: 25.184 or 25.148 etc (close to 25). Many answers, but we accept any reasonable close number using digits once.</div>
+        </div>
+      </div>
+
+    </div> <!-- end worksheet area -->
+  </div> <!-- end grid -->
+  <footer style="background: #f0f5ea; text-align: center; padding: 1rem; font-size: 0.8rem;">
+    🌟 Interactive worksheet based on NCERT Class 7 "A Peek Beyond the Point" – exact problems from the chapter. Check each answer for instant feedback!
+  </footer>
+</div>
+
+<script>
+  // Helper feedback function
+  function showFeedback(element, msg, isCorrect) {
+    element.innerHTML = msg;
+    element.className = "feedback " + (isCorrect ? "correct" : "wrong");
+    if(isCorrect) setTimeout(() => { if(element.innerHTML === msg) element.innerHTML = ""; }, 2000);
+    else setTimeout(() => { if(element.innerHTML === msg) element.innerHTML = ""; }, 2800);
+  }
+
+  // Section 1
+  function checkScrew() { let val = document.getElementById('screwDecimal').value.trim(); let fb = document.getElementById('fbScrew'); if(val === "2.7" || val === "2,7") showFeedback(fb, "✅ Correct! 2.7 cm", true); else showFeedback(fb, "❌ 2 7/10 = 2.7 cm", false); }
+  function checkOrder() { let ans = document.getElementById('ascendingOrder').value.trim().toLowerCase().replace(/\s/g,''); let fb = document.getElementById('fbOrder'); if(ans === "h,a,b,g,f,e,c,d" || ans === "h,a,b,g,f,e,c,d") showFeedback(fb, "✅ Correct: 0.4(h),0.9(a),1.7(b),6.7(g),7.6(f),10.5(e),13.0(c),13.1(d)", true); else showFeedback(fb, "❌ Order: h, a, b, g, f, e, c, d", false); }
+  function checkHoneybee() { let val = parseFloat(document.getElementById('honeybee').value); let fb = document.getElementById('fbBee'); if(val === 15.2) showFeedback(fb, "✅ Total = 15.2 units (2.3+5.4+7.5=15.2)", true); else showFeedback(fb, "❌ Add: 2.3+5.4=7.7, +7.5=15.2", false); }
+
+  // section 2
+  function checkFrac1() { let val = document.getElementById('frac1').value.trim(); let fb = document.getElementById('fbFrac1'); if(val === "0.05") showFeedback(fb, "✅ 5/100 = 0.05", true); else showFeedback(fb, "❌ 5/100 = 0.05", false); }
+  function checkFrac2() { let val = document.getElementById('frac2').value.trim(); let fb = document.getElementById('fbFrac2'); if(val === "0.016") showFeedback(fb, "✅ 16/1000 = 0.016", true); else showFeedback(fb, "❌ 16/1000 = 0.016", false); }
+  function checkPlace() { let val = document.getElementById('placeValue').value.trim(); let fb = document.getElementById('fbPlace'); if(val === "2.35") showFeedback(fb, "✅ 2 ones, 3 tenths, 5 hundredths = 2.35", true); else showFeedback(fb, "❌ Should be 2.35", false); }
+  function checkEqualDec() { let ans = document.getElementById('equalDec').value.trim().toLowerCase(); let fb = document.getElementById('fbEqual'); if(ans.includes("4.5 and 4.50") || ans.includes("4.5,4.50")) showFeedback(fb, "✅ Correct! 4.5 = 4.50", true); else showFeedback(fb, "❌ 4.5 and 4.50 are equal. Also 4.050 = 4.05", false); }
+
+  // section 3 conversions
+  function checkMmCm() { let v = parseFloat(document.getElementById('mmToCm').value); let fb = document.getElementById('fbMmCm'); if(v === 1.2) showFeedback(fb, "✅ 12 mm = 1.2 cm", true); else showFeedback(fb, "❌ 1 cm = 10 mm → 12 mm = 1.2 cm", false); }
+  function checkMmCm2() { let v = parseFloat(document.getElementById('mmToCm2').value); let fb = document.getElementById('fbMmCm2'); if(v === 7.0 || v === 7) showFeedback(fb, "✅ 70 mm = 7.0 cm", true); else showFeedback(fb, "❌ 70 mm = 7.0 cm", false); }
+  function checkCmM() { let v = parseFloat(document.getElementById('cmToM').value); let fb = document.getElementById('fbCmM'); if(v === 0.15) showFeedback(fb, "✅ 15 cm = 0.15 m", true); else showFeedback(fb, "❌ 1 m = 100 cm → 15 cm = 0.15 m", false); }
+  function checkPaise() { let v = parseFloat(document.getElementById('paiseToRupee').value); let fb = document.getElementById('fbPaise'); if(v === 0.75) showFeedback(fb, "✅ 75 paise = 0.75 rupees", true); else showFeedback(fb, "❌ 1 rupee = 100 paise → 75p = 0.75 ₹", false); }
+  function checkGramKg() { let v = parseFloat(document.getElementById('gramToKg').value); let fb = document.getElementById('fbGram'); if(v === 0.254) showFeedback(fb, "✅ 254 g = 0.254 kg", true); else showFeedback(fb, "❌ 254/1000 = 0.254 kg", false); }
+
+  // Addition & Subtraction
+  function checkAdd1() { let v = parseFloat(document.getElementById('add1').value); let fb = document.getElementById('fbAdd1'); if(v === 7.9) showFeedback(fb, "✅ 5.3+2.6 = 7.9", true); else showFeedback(fb, "❌ 5.3+2.6 = 7.9", false); }
+  function checkAdd2() { let v = parseFloat(document.getElementById('add2').value); let fb = document.getElementById('fbAdd2'); if(v === 26.8) showFeedback(fb, "✅ 18+8.8 = 26.8", true); else showFeedback(fb, "❌ 18+8.8 = 26.8", false); }
+  function checkAdd3() { let v = parseFloat(document.getElementById('add3').value); let fb = document.getElementById('fbAdd3'); if(Math.abs(v-7.41)<0.01) showFeedback(fb, "✅ 2.15+5.26 = 7.41", true); else showFeedback(fb, "❌ 2.15+5.26 = 7.41", false); }
+  function checkSub1() { let v = parseFloat(document.getElementById('sub1').value); let fb = document.getElementById('fbSub1'); if(v === 3.3) showFeedback(fb, "✅ 5.6-2.3 = 3.3", true); else showFeedback(fb, "❌ 5.6-2.3 = 3.3", false); }
+  function checkSub2() { let v = parseFloat(document.getElementById('sub2').value); let fb = document.getElementById('fbSub2'); if(v === 9.2) showFeedback(fb, "✅ 18 - 8.8 = 9.2", true); else showFeedback(fb, "❌ 18 - 8.8 = 9.2", false); }
+  function checkSub3() { let v = parseFloat(document.getElementById('sub3').value); let fb = document.getElementById('fbSub3'); if(v === 5.9) showFeedback(fb, "✅ 10.4 - 4.5 = 5.9", true); else showFeedback(fb, "❌ 10.4 - 4.5 = 5.9", false); }
+
+  // Compare decimals
+  function checkCompare1() { let sel = document.getElementById('compare1').value; let fb = document.getElementById('fbComp1'); if(sel === "1.32") showFeedback(fb, "✅ 1.32 > 1.23 (compare tenths)", true); else showFeedback(fb, "❌ 1.32 is greater", false); }
+  function checkCompare2() { let sel = document.getElementById('compare2').value; let fb = document.getElementById('fbComp2'); if(sel === "6.465") showFeedback(fb, "✅ 6.465 > 6.456 (thousandths place)", true); else showFeedback(fb, "❌ 6.465 is larger", false); }
+
+  function checkClosest() { let ans = document.getElementById('closestTo1').value.trim(); let fb = document.getElementById('fbClosest'); if(ans === "1.01") showFeedback(fb, "✅ 1.01 is only 0.01 away from 1", true); else showFeedback(fb, "❌ 1.01 is closest (distance 0.01)", false); }
+
+  // word problems
+  function checkFish() { let v = parseFloat(document.getElementById('fishDiff').value); let fb = document.getElementById('fbFish'); if(v === 1.5) showFeedback(fb, "✅ 2.4 - 0.9 = 1.5 cm", true); else showFeedback(fb, "❌ 2 4/10 = 2.4, 9/10 = 0.9, difference = 1.5", false); }
+  function checkArm() { let v = parseFloat(document.getElementById('armTotal').value); let fb = document.getElementById('fbArm'); if(v === 6.3) showFeedback(fb, "✅ 2.7 + 3.6 = 6.3 units", true); else showFeedback(fb, "❌ 2 7/10 + 3 6/10 = 6.3 units", false); }
+  function checkFolded() { let v = parseFloat(document.getElementById('foldedPaper').value); let fb = document.getElementById('fbFolded'); if(v === 4.45) showFeedback(fb, "✅ 8.9 ÷ 2 = 4.45 units", true); else showFeedback(fb, "❌ 8 9/10 = 8.9, half = 4.45", false); }
+
+  // sequences
+  function checkSeq1() { let ans = document.getElementById('seq1').value.trim().replace(/\s/g,''); let fb = document.getElementById('fbSeq1'); if(ans === "4.55,4.6,4.65" || ans === "4.55,4.60,4.65") showFeedback(fb, "✅ Pattern: +0.05 → 4.55, 4.6, 4.65", true); else showFeedback(fb, "❌ increments of 0.05: 4.55, 4.6, 4.65", false); }
+  function checkSeq2() { let ans = document.getElementById('seq2').value.trim().replace(/\s/g,''); let fb = document.getElementById('fbSeq2'); if(ans === "21,23.5,26" || ans === "21,23.5,26") showFeedback(fb, "✅ Pattern: +2.5 → 21, 23.5, 26", true); else showFeedback(fb, "❌ Add 2.5 each time: 21, 23.5, 26", false); }
+
+  // challenge (flexible, accept numbers like 25.184, 25.148 etc)
+  function checkChallenge() { let val = document.getElementById('challenge25').value.trim(); let fb = document.getElementById('fbChallenge'); let num = parseFloat(val);
+    if(!isNaN(num) && num >= 25 && num <= 26) showFeedback(fb, "✅ Great! Using digits once, 25.184 or 25.148 are close to 25. Well done!", true);
+    else showFeedback(fb, "❌ Try decimals like 25.184 (digits 1,8,4 after decimal) or 25.148. Must use 4,1,8,2,5 exactly once.", false);
+  }
+</script>
+</body>
+</html>
