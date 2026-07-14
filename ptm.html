@@ -61,6 +61,59 @@
       font-weight: 600;
       margin-bottom: 24px;
     }
+
+    /* AI Letter Generator Styling */
+    .letter-preview-card {
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+      border: 2px solid #bdaea2;
+      border-radius: 12px;
+      padding: 32px;
+      color: #1e1b18;
+      font-family: 'Outfit', 'Inter', sans-serif;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      position: relative;
+      min-height: 480px;
+      box-sizing: border-box;
+    }
+    
+    .letter-preview-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 10px;
+      pointer-events: none;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Print Stylesheet for Parent Letters */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #letterPrintArea, #letterPrintArea * {
+        visibility: visible !important;
+      }
+      #letterPrintArea {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 40px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+      }
+      .site-header, .nav-bar, .page-hero, main .container > a, main .container > div:not(#letterPrintArea), footer, #backToTop, .modal {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -180,6 +233,80 @@
 
       </div><!-- end editable -->
 
+      <!-- AI Parent Letter Generator Section -->
+      <div class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); position: relative; border-radius: 16px;">
+        <h2 class="class-header-title" style="margin-top:0;"><i class="fas fa-magic"></i> AI Parent Letter Generator</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95em;">Select a student to dynamically generate a personalized math progress report letter for Parent-Teacher consultations.</p>
+        
+        <div class="letter-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start;">
+          <!-- Controls Panel -->
+          <div class="letter-controls" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Select Class</label>
+                <select id="letterClassSelect" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; cursor: pointer; transition: var(--transition);">
+                  <option value="7C">Class 7C</option>
+                  <option value="11B">Class 11B</option>
+                  <option value="12">Class 12</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Select Student</label>
+                <select id="letterStudentSelect" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; cursor: pointer; transition: var(--transition);">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Letter Tone / Focus</label>
+                <select id="letterToneSelect" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; cursor: pointer; transition: var(--transition);">
+                  <option value="praise">🏆 Praise & Motivation</option>
+                  <option value="encouraging">💡 Encouraging & Growth</option>
+                  <option value="alert">⚠️ Performance Alert</option>
+                  <option value="ptm">📅 PTM Invitation Only</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Parent's Contact</label>
+                <input type="text" id="parentContactInput" placeholder="No contact logged" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; transition: var(--transition);">
+              </div>
+            </div>
+            
+            <div>
+              <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Custom Remarks / PTM Notes</label>
+              <textarea id="customRemarksTextarea" placeholder="Add specific notes, e.g. 'Showed improvement in trigonometry', 'Please sign the answer sheet'" style="width: 100%; height: 100px; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; resize: none; outline: none; transition: var(--transition);"></textarea>
+            </div>
+
+            <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 12px; font-size: 0.85em; color: #34d399; display: flex; align-items: flex-start; gap: 8px;">
+              <i class="fas fa-info-circle" style="margin-top: 2px;"></i>
+              <div>The letter automatically formats the student's Math exam grades, marks, and percentage dynamically based on the scores entered in the Performance Tab.</div>
+            </div>
+          </div>
+          
+          <!-- Letter Preview Area -->
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; text-transform: uppercase; margin-bottom: -10px;">Letter Preview (Math Graph Backdrop)</label>
+            
+            <div id="letterPrintArea" class="letter-preview-card">
+              <!-- Header Watermark -->
+              <div style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: rgba(124, 58, 237, 0.12); font-weight: 800; pointer-events: none; text-transform: uppercase; font-family: 'Poppins', sans-serif;">KV RANIKHET</div>
+              <!-- Letter Content -->
+              <div id="generatedLetterText" style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6; font-weight: 500; color: #1e1b18; margin-top: 10px;">Select a student to generate their progress letter...</div>
+            </div>
+            
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button id="whatsappShareBtn" class="btn-primary" style="background: #25d366; border-color: #25d366; color: #fff; font-weight: 700; flex: 1; min-width: 140px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: var(--transition); border-radius: 50px; padding: 12px;"><i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp Parent</button>
+              <button id="copyLetterBtn" class="btn-outline" style="border-color: #a78bfa; color: #c4b5fd; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: var(--transition); border-radius: 50px; padding: 12px;"><i class="fas fa-copy"></i> Copy Letter</button>
+              <button id="printLetterBtn" class="btn-outline" style="border-color: #94a3b8; color: #cbd5e1; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: var(--transition); border-radius: 50px; padding: 12px;"><i class="fas fa-print"></i> Print Letter</button>
+            </div>
+            
+            <div id="ptmStatusIndicator" style="font-size: 0.82rem; font-weight: 600; text-align: center; min-height: 20px;"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -288,6 +415,355 @@
       });
       passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
     });
+  </script>
+  </script>
+
+  <!-- PTM AI Parent Letter Generator Script -->
+  <script>
+    (function() {
+      // Dynamic test configurations (matching analysis.html)
+      const classTests = {
+        "7C": [
+          { id: "crm", label: "CRM", maxMarks: 20 },
+          { id: "ch1", label: "Ch 1", maxMarks: 10 },
+          { id: "ch2", label: "Ch 2", maxMarks: 10 },
+          { id: "ch3", label: "Ch 3", maxMarks: 10 },
+          ...Array.from({length: 12}, (_, i) => ({ id: `ch${i+4}`, label: `Ch ${i+4}`, maxMarks: 20 })),
+          { id: "pt1", label: "PT1", maxMarks: 40 },
+          { id: "pt2", label: "PT2", maxMarks: 40 },
+          { id: "hy", label: "HY", maxMarks: 60 },
+          { id: "see", label: "SEE", maxMarks: 60 }
+        ],
+        "11B": [
+          ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
+          { id: "pt1", label: "PT1", maxMarks: 40 },
+          { id: "pt2", label: "PT2", maxMarks: 40 },
+          { id: "hy", label: "HY", maxMarks: 80 },
+          { id: "see", label: "SEE", maxMarks: 80 }
+        ],
+        "12": [
+          ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
+          { id: "pt1", label: "PT1", maxMarks: 40 },
+          { id: "pt2", label: "PT2", maxMarks: 40 },
+          { id: "pb1", label: "PB1", maxMarks: 80 },
+          { id: "pb2", label: "PB2", maxMarks: 80 },
+          { id: "pb3", label: "PB3", maxMarks: 80 }
+        ]
+      };
+
+      const testFullNames = {
+        crm: "CRM (Classroom Readiness Module)",
+        pt1: "PT1 (Periodic Test 1)",
+        pt2: "PT2 (Periodic Test 2)",
+        hy: "HY (Half Yearly)",
+        see: "SEE (Session Ending Exam)",
+        pb1: "PB1 (Pre-Board 1)",
+        pb2: "PB2 (Pre-Board 2)",
+        pb3: "PB3 (Pre-Board 3)"
+      };
+
+      const defaultRosters = {
+        "7C": ["ABHAY", "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI", "DEEPIKA", "DISHA", "GEETA", "GUNJAN", "HARSHUL", "HIMANSHI", "KAMAL", "KARISHMA", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA", "NAMAN TAMTA", "MAULIK", "MOITRIKA", "MRITYUNJAY", "MUNKASHIF", "NAITIK", "NAMAN SATI", "NISHTHI", "PARIDHI", "PARTH", "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA", "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"],
+        "11B": ["ADITYA NEGI", "ARUN ARYA", "AYUSH ROY", "DIKSHANT NEGI", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
+        "12": ["ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA", "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT", "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ", "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT", "TANMAY ADHIKARI", "PALAK", "NISHANT"]
+      };
+
+      let studentData = {};
+      let testDates = {};
+
+      function loadData() {
+        try {
+          const savedData = localStorage.getItem("student_performance_data");
+          if (savedData) {
+            studentData = JSON.parse(savedData);
+          }
+          const savedDates = localStorage.getItem("student_performance_test_dates");
+          if (savedDates) {
+            testDates = JSON.parse(savedDates);
+          }
+        } catch(e) {
+          console.error("Error reading localStorage:", e);
+        }
+      }
+
+      function getStudentList(className) {
+        if (studentData[className] && studentData[className].length > 0) {
+          return [...studentData[className]].sort((a, b) => a.name.localeCompare(b.name));
+        }
+        // Fallback to default alphabetical rosters
+        return defaultRosters[className].map((name, idx) => ({
+          rollNo: idx + 1,
+          name: name,
+          mobile: "",
+          marks: {}
+        })).sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      function populateStudents() {
+        const classSelect = document.getElementById("letterClassSelect");
+        const studentSelect = document.getElementById("letterStudentSelect");
+        if (!classSelect || !studentSelect) return;
+
+        const activeClass = classSelect.value;
+        const students = getStudentList(activeClass);
+
+        studentSelect.innerHTML = "";
+        students.forEach((student, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.textContent = `${student.name} (Roll: ${student.rollNo})`;
+          studentSelect.appendChild(option);
+        });
+
+        // Initialize contact input for selected student
+        updateContactField();
+      }
+
+      function updateContactField() {
+        const classSelect = document.getElementById("letterClassSelect");
+        const studentSelect = document.getElementById("letterStudentSelect");
+        const contactInput = document.getElementById("parentContactInput");
+        if (!classSelect || !studentSelect || !contactInput) return;
+
+        const activeClass = classSelect.value;
+        const students = getStudentList(activeClass);
+        const selectedIndex = studentSelect.value;
+        const student = students[selectedIndex];
+
+        if (student && student.mobile) {
+          contactInput.value = student.mobile;
+        } else {
+          contactInput.value = "";
+        }
+
+        // Auto-generate letter when selection changes
+        generateLetter();
+      }
+
+      function getExamLabel(testId) {
+        return testFullNames[testId] || testId.toUpperCase().replace("CH", "Chapter ");
+      }
+
+      function getFormattedDate(testId, className) {
+        if (testDates[className] && testDates[className][testId]) {
+          const dateStr = testDates[className][testId];
+          const parts = dateStr.split("-");
+          if (parts.length === 3) {
+            return ` (${parts[2]}/${parts[1]}/${parts[0]})`;
+          }
+        }
+        return "";
+      }
+
+      function generateLetter() {
+        const classSelect = document.getElementById("letterClassSelect");
+        const studentSelect = document.getElementById("letterStudentSelect");
+        const toneSelect = document.getElementById("letterToneSelect");
+        const customRemarks = document.getElementById("customRemarksTextarea").value.trim();
+        const previewTextEl = document.getElementById("generatedLetterText");
+
+        if (!classSelect || !studentSelect || !toneSelect || !previewTextEl) return;
+
+        const activeClass = classSelect.value;
+        const students = getStudentList(activeClass);
+        const selectedIndex = studentSelect.value;
+        const student = students[selectedIndex];
+
+        if (!student) {
+          previewTextEl.textContent = "Please select a valid student.";
+          return;
+        }
+
+        const tests = classTests[activeClass] || [];
+        const scoreLines = [];
+        let totalScored = 0;
+        let totalPossible = 0;
+        let examCount = 0;
+
+        tests.forEach(test => {
+          const score = student.marks ? student.marks[test.id] : undefined;
+          if (score !== undefined && score !== null && score !== "") {
+            const numScore = Number(score);
+            const pct = ((numScore / test.maxMarks) * 100).toFixed(0);
+            const dateStr = getFormattedDate(test.id, activeClass);
+            const examLabel = getExamLabel(test.id);
+            scoreLines.push(`  • ${examLabel}${dateStr}: ${numScore}/${test.maxMarks} (${pct}%)`);
+            
+            totalScored += numScore;
+            totalPossible += test.maxMarks;
+            examCount++;
+          }
+        });
+
+        const overallPct = totalPossible > 0 ? ((totalScored / totalPossible) * 100) : 0;
+        const overallPctStr = totalPossible > 0 ? `${overallPct.toFixed(1)}%` : "N/A (No tests recorded yet)";
+
+        let performanceTier = "average";
+        if (totalPossible > 0) {
+          if (overallPct >= 75) performanceTier = "excellent";
+          else if (overallPct < 45) performanceTier = "support";
+        }
+
+        const tone = toneSelect.value;
+        let aiParagraph = "";
+
+        if (tone === "praise") {
+          if (performanceTier === "excellent") {
+            aiParagraph = `We are extremely proud of ${student.name}'s performance. They demonstrate deep conceptual clarity, logical reasoning, and active engagement in class sessions. This outstanding work highlights their consistent work ethic and strong mathematical aptitude.`;
+          } else if (performanceTier === "support") {
+            aiParagraph = `${student.name} has shown sincere efforts recently. We are encouraging them to channel this focus into regular practice, as we believe they possess the hidden potential to substantially improve their understanding and grades.`;
+          } else {
+            aiParagraph = `${student.name} has maintained a very solid and stable performance. They grasp key mathematical operations well, and with a slight increase in attention to trickier areas (like algebra or geometry proofs), they can easily elevate their scores to the top bracket.`;
+          }
+        } else if (tone === "encouraging") {
+          if (performanceTier === "excellent") {
+            aiParagraph = `${student.name} continues to show brilliant skill in Mathematics. I encourage them to stay curious and start exploring Olympiad-level or higher-order thinking skill (HOTS) questions to challenge themselves further.`;
+          } else if (performanceTier === "support") {
+            aiParagraph = `Mathematics requires regular practice and concept building. I encourage ${student.name} to revise daily classroom lessons, focus heavily on NCERT solved examples, and participate in peer study groups. Consistent efforts will boost their confidence.`;
+          } else {
+            aiParagraph = `${student.name} is working at a steady pace. Daily practice, prompt revision of formulas, and resolving arithmetic doubts immediately will help them bridge the remaining gaps and unlock their full capability.`;
+          }
+        } else if (tone === "alert") {
+          if (performanceTier === "excellent") {
+            aiParagraph = `While ${student.name} is currently performing at an excellent level, please ensure they avoid complacency. Maintaining a regular review schedule is key to sustaining these high scores in upcoming board/session exams.`;
+          } else if (performanceTier === "support") {
+            aiParagraph = `This is to bring to your attention that ${student.name} is currently struggling to secure passing marks and lacks confidence in mathematical formulas. We strongly recommend regular attendance in school remedial classes and daily parent supervision of homework.`;
+          } else {
+            aiParagraph = `While ${student.name} understands standard concepts, their scores show inconsistency across chapters. They must dedicate more structured focus to areas of difficulty and practice mock test sets under timed conditions.`;
+          }
+        } else {
+          // PTM Invitation
+          aiParagraph = `You are cordially invited to attend our upcoming Parent-Teacher Meeting (PTM) to discuss ${student.name}'s classroom conduct, self-study schedules, and methods to work together to support their progress in Mathematics.`;
+        }
+
+        // Date String for letter header
+        const today = new Date();
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const formattedDate = `${days[today.getDay()]}, ${today.getDate()}-${months[today.getMonth()]}-${today.getFullYear()}`;
+
+        let scoreBlock = scoreLines.length > 0 
+          ? scoreLines.join("\n") 
+          : "  • No assessments logged in database yet. (Visit Performance Analysis to enter marks)";
+
+        let letterText = `Date: ${formattedDate}\n\n`;
+        letterText += `To,\n`;
+        letterText += `The Parent/Guardian of ${student.name}\n`;
+        letterText += `Class: ${activeClass} | Roll No: ${student.rollNo}\n\n`;
+        letterText += `Subject: Mathematics Academic Performance & Progress Report\n\n`;
+        letterText += `Dear Parent,\n\n`;
+        letterText += `I am sharing a brief progress update regarding your child, ${student.name}'s, performance in Mathematics. Below is a detailed record of the assessments logged for the current academic session:\n\n`;
+        letterText += `${scoreBlock}\n\n`;
+        
+        if (examCount > 0) {
+          letterText += `Cumulative Average Score: ${overallPctStr}\n\n`;
+        }
+        
+        letterText += `${aiParagraph}\n\n`;
+        
+        if (customRemarks) {
+          letterText += `Additional Teacher Notes:\n"${customRemarks}"\n\n`;
+        }
+        
+        letterText += `Thank you for your continuous cooperation in supporting your ward's educational journey.\n\n`;
+        letterText += `Warm regards,\n\n`;
+        letterText += `K B Joshi\n`;
+        letterText += `PGT Mathematics, PM SHRI KV Ranikhet\n`;
+        letterText += `Contact: 9410121232`;
+
+        previewTextEl.textContent = letterText;
+      }
+
+      function shareOnWhatsApp() {
+        const contactInput = document.getElementById("parentContactInput");
+        const letterText = document.getElementById("generatedLetterText").textContent;
+        const statusEl = document.getElementById("ptmStatusIndicator");
+
+        if (!contactInput || !letterText) return;
+
+        let phone = contactInput.value.replace(/\D/g, "");
+        if (!phone) {
+          statusEl.style.color = "#ef4444";
+          statusEl.textContent = "⚠️ Please enter a parent phone number first!";
+          contactInput.focus();
+          setTimeout(() => { statusEl.textContent = ""; }, 3000);
+          return;
+        }
+
+        // If 10 digits, prepend India country code 91
+        if (phone.length === 10) {
+          phone = "91" + phone;
+        }
+
+        const encodedText = encodeURIComponent(letterText);
+        const url = `https://wa.me/${phone}?text=${encodedText}`;
+        window.open(url, '_blank');
+
+        statusEl.style.color = "#10b981";
+        statusEl.textContent = "✅ Redirecting to WhatsApp...";
+        setTimeout(() => { statusEl.textContent = ""; }, 3000);
+      }
+
+      function copyLetterToClipboard() {
+        const letterText = document.getElementById("generatedLetterText").textContent;
+        const statusEl = document.getElementById("ptmStatusIndicator");
+
+        navigator.clipboard.writeText(letterText).then(() => {
+          statusEl.style.color = "#10b981";
+          statusEl.textContent = "✅ Letter copied to clipboard successfully!";
+          setTimeout(() => { statusEl.textContent = ""; }, 3000);
+        }).catch(err => {
+          statusEl.style.color = "#ef4444";
+          statusEl.textContent = "❌ Failed to copy letter text.";
+          setTimeout(() => { statusEl.textContent = ""; }, 3000);
+        });
+      }
+
+      function printLetter() {
+        window.print();
+      }
+
+      // Event Listeners initialization
+      document.addEventListener("DOMContentLoaded", () => {
+        // Load data
+        loadData();
+
+        const classSelect = document.getElementById("letterClassSelect");
+        const studentSelect = document.getElementById("letterStudentSelect");
+        const toneSelect = document.getElementById("letterToneSelect");
+        const remarksTextarea = document.getElementById("customRemarksTextarea");
+
+        const whatsappBtn = document.getElementById("whatsappShareBtn");
+        const copyBtn = document.getElementById("copyLetterBtn");
+        const printBtn = document.getElementById("printLetterBtn");
+
+        if (classSelect) {
+          classSelect.addEventListener("change", populateStudents);
+        }
+        if (studentSelect) {
+          studentSelect.addEventListener("change", updateContactField);
+        }
+        if (toneSelect) {
+          toneSelect.addEventListener("change", generateLetter);
+        }
+        if (remarksTextarea) {
+          remarksTextarea.addEventListener("input", generateLetter);
+        }
+
+        if (whatsappBtn) {
+          whatsappBtn.addEventListener("click", shareOnWhatsApp);
+        }
+        if (copyBtn) {
+          copyBtn.addEventListener("click", copyLetterToClipboard);
+        }
+        if (printBtn) {
+          printBtn.addEventListener("click", printLetter);
+        }
+
+        // Initial populating
+        populateStudents();
+      });
+    })();
   </script>
 </body>
 </html>
