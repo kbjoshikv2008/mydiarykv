@@ -607,13 +607,15 @@
 
         tests.forEach(test => {
           const score = student.marks ? student.marks[test.id] : undefined;
-          const isConducted = testDates[activeClass] && testDates[activeClass][test.id];
+          const hasDate = testDates[activeClass] && testDates[activeClass][test.id];
+          const hasScore = score !== undefined && score !== null && score !== "";
+          const isConducted = hasDate || hasScore;
 
           if (isConducted) {
             const dateStr = getFormattedDate(test.id, activeClass);
             const examLabel = getExamLabel(test.id);
 
-            if (score === undefined || score === null || score === "") {
+            if (!hasScore) {
               const displayLabel = `${examLabel}${dateStr}`;
               absentTests.push(displayLabel);
               scoreLines.push(isHindi 
@@ -630,24 +632,6 @@
             }
           }
         });
-
-        // Fallback: if no exams are marked as conducted in database, list whichever exams have scores logged
-        if (scoreLines.length === 0) {
-          tests.forEach(test => {
-            const score = student.marks ? student.marks[test.id] : undefined;
-            if (score !== undefined && score !== null && score !== "") {
-              const numScore = Number(score);
-              const pct = ((numScore / test.maxMarks) * 100).toFixed(0);
-              const dateStr = getFormattedDate(test.id, activeClass);
-              const examLabel = getExamLabel(test.id);
-              scoreLines.push(`  • ${examLabel}${dateStr}: ${numScore}/${test.maxMarks} (${pct}%)`);
-              
-              totalScored += numScore;
-              totalPossible += test.maxMarks;
-              examCount++;
-            }
-          });
-        }
 
         const overallPct = totalPossible > 0 ? ((totalScored / totalPossible) * 100) : 0;
         const overallPctStr = totalPossible > 0 ? `${overallPct.toFixed(1)}%` : (isHindi ? "अनुपलब्ध (कोई परीक्षा दर्ज नहीं)" : "N/A (No tests recorded yet)");
