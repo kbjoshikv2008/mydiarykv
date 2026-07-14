@@ -106,27 +106,61 @@
     
     /* Print Stylesheet for Parent Letters */
     @media print {
-      body * {
-        visibility: hidden !important;
+      /* Hide navigation, hero headers, logs tables, background blobs, and generator form controls */
+      .site-header, 
+      .nav-bar, 
+      .page-hero, 
+      .bg-blobs, 
+      footer, 
+      #backToTop, 
+      .glass-card:first-of-type, 
+      .letter-controls, 
+      .letter-grid > div:first-of-type,
+      h2.class-header-title,
+      .glass-card > p,
+      .letter-grid label,
+      .letter-grid button,
+      #ptmStatusIndicator,
+      .bg-blobs * {
+        display: none !important;
       }
-      #letterPrintArea, #letterPrintArea * {
-        visibility: visible !important;
+      
+      /* Collapse body margins and background colors for standard black-on-white printing */
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
+      
+      main.container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+      }
+      
+      .glass-card {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      
+      .letter-grid {
+        display: block !important;
+        gap: 0 !important;
+      }
+      
       #letterPrintArea {
-        position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100% !important;
         border: none !important;
         box-shadow: none !important;
         background: #ffffff !important;
+        background-image: none !important;
         color: #000000 !important;
-        padding: 40px !important;
+        padding: 0 !important;
         margin: 0 !important;
-        box-sizing: border-box !important;
-      }
-      .site-header, .nav-bar, .page-hero, main .container > a, main .container > div:not(#letterPrintArea), footer, #backToTop, .modal {
-        display: none !important;
+        width: 100% !important;
       }
     }
   </style>
@@ -199,54 +233,7 @@
 
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
-      <div class="text-center">
-        <span class="edit-badge"><i class="fas fa-pen-fancy"></i> Editable Mode Active &mdash; Double click inside table cells to modify</span>
-      </div>
 
-      <!-- EDITABLE AREA -->
-      <div class="editable glass-card p-32 mb-48 fade-in-1" contenteditable="true">
-        
-        <!-- PTM Records -->
-        <h2 class="class-header-title" style="margin-top:0;"><i class="fas fa-calendar-check"></i> Session 2025 - 2026 PTM Log</h2>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th width="15%">Date</th>
-                <th>Class</th>
-                <th>Meeting Agenda / Focus Points</th>
-                <th>Feedback &amp; Action Taken</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>15/07/2025</strong></td>
-                <td>Class XII</td>
-                <td>Discussion on Unit Test 1 marks and board preparation checklist.</td>
-                <td>Parents advised to monitor self-study schedules. Extra remedial classes scheduled.</td>
-              </tr>
-              <tr>
-                <td><strong>18/07/2025</strong></td>
-                <td>Class XI</td>
-                <td>Orientation on new science syllabus, stream adjustments, and career pathways.</td>
-                <td>Addressed parents' queries about foundation math courses. Reference resources shared.</td>
-              </tr>
-              <tr>
-                <td><strong>22/07/2025</strong></td>
-                <td>Class 7-C</td>
-                <td>Assessment of conceptual understanding of integers and basic arithmetic operations.</td>
-                <td>Remedial practice tasks provided. Peer tutoring groups formed in class.</td>
-              </tr>
-              <tr><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div><!-- end editable -->
 
       <!-- AI Parent Letter Generator Section -->
       <div class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); position: relative; border-radius: 16px;">
@@ -841,7 +828,65 @@
       }
 
       function printLetter() {
-        window.print();
+        const letterText = document.getElementById("generatedLetterText").textContent;
+        const statusEl = document.getElementById("ptmStatusIndicator");
+
+        if (!letterText || letterText.trim() === "Select a student to generate their progress letter...") {
+          statusEl.style.color = "#ef4444";
+          statusEl.textContent = "⚠️ Please generate a letter first before printing!";
+          setTimeout(() => { statusEl.textContent = ""; }, 3000);
+          return;
+        }
+
+        // Open a clean blank window with ONLY the formatted letter
+        const printWin = window.open("", "_blank", "width=900,height=700");
+        if (!printWin) {
+          statusEl.style.color = "#ef4444";
+          statusEl.textContent = "❌ Pop-up blocked. Please allow pop-ups for this site.";
+          setTimeout(() => { statusEl.textContent = ""; }, 4000);
+          return;
+        }
+
+        // Escape HTML entities in the plain-text letter
+        const escaped = letterText
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+        printWin.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parent Progress Letter</title>
+  <style>
+    @page { size: A4; margin: 20mm 18mm; }
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13pt;
+      line-height: 1.8;
+      color: #000;
+      background: #fff;
+      padding: 0;
+      margin: 0;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <pre>${escaped}</pre>
+  <script>
+    window.onload = function() { window.print(); window.onafterprint = function() { window.close(); }; };
+  <\/script>
+</body>
+</html>`);
+        printWin.document.close();
       }
 
       // Event Listeners initialization
