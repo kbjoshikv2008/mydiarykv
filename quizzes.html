@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz & Assignments Portal | Math Lab</title>
+  
+  <!-- FontAwesome and Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styling -->
+  <link rel="stylesheet" href="premium.css">
+  
+  <style>
+    /* Custom layout modifications for Quiz Portal */
+    :root {
+      --radius-lg: 12px;
+      --radius-xl: 20px;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Filters Section */
+    .filter-wrapper {
+      margin: 40px auto 20px;
+      text-align: center;
+    }
+    
+    .filter-title {
+      font-size: 1.1rem;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      font-family: var(--font-head);
+      font-weight: 600;
+    }
+    
+    .class-pills {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    
+    .class-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      padding: 10px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition-smooth);
+      font-family: var(--font-head);
+    }
+    
+    .class-pill:hover {
+      background: rgba(124, 58, 237, 0.15);
+      border-color: var(--primary-light);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+    
+    .class-pill.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+    }
+
+    /* Integration Section */
+    .section-header-title {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      margin: 40px 0 20px;
+      text-align: center;
+      background: linear-gradient(to right, #fff, var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .integration-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--glass-shadow);
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .integration-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .integration-card.kahoot::before {
+      background: linear-gradient(90deg, #333399, #db2777);
+    }
+    
+    .integration-card.khan::before {
+      background: linear-gradient(90deg, #10b981, #0d9488);
+    }
+    
+    .integration-card.geogebra::before {
+      background: linear-gradient(90deg, #5c6bc0, var(--primary-light));
+    }
+    
+    .integration-card.cbse::before {
+      background: linear-gradient(90deg, var(--accent), #f97316);
+    }
+
+    .integration-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+    }
+
+    .kahoot .card-icon { color: #f43f5e; }
+    .khan .card-icon { color: #10b981; }
+    .geogebra .card-icon { color: #3b82f6; }
+    .cbse .card-icon { color: #f59e0b; }
+
+    .card-meta {
+      flex: 1;
+    }
+
+    .card-meta h3 {
+      font-family: var(--font-head);
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+    }
+
+    .card-meta span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .card-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      padding: 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .card-btn:hover {
+      background: var(--text-primary);
+      color: var(--bg-dark);
+      border-color: transparent;
+    }
+    
+    .kahoot .card-btn:hover { background: #f43f5e; color: #fff; }
+    .khan .card-btn:hover { background: #10b981; color: #fff; }
+    .geogebra .card-btn:hover { background: #3b82f6; color: #fff; }
+    .cbse .card-btn:hover { background: #f59e0b; color: #fff; }
+
+    /* Custom Embedded Quiz Sandbox */
+    .quiz-sandbox {
+      background: linear-gradient(135deg, rgba(20, 10, 50, 0.6) 0%, rgba(8, 6, 16, 0.8) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: var(--radius-xl);
+      padding: 35px;
+      margin-bottom: 70px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+    
+    .sandbox-tag {
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, var(--primary), var(--accent2));
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+    }
+
+    .quiz-intro {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .quiz-intro h2 {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .quiz-intro p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .quiz-start-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      border: none;
+      padding: 14px 35px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-head);
+      transition: var(--transition-smooth);
+      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+    }
+
+    .quiz-start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+    }
+
+    /* Active Quiz View */
+    .quiz-active {
+      display: none;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      font-family: var(--font-head);
+    }
+
+    .quiz-progress-text {
+      color: var(--primary-light);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .quiz-timer {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .progress-bar-container {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      margin-bottom: 35px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .question-card h3 {
+      font-family: var(--font-body);
+      font-size: 1.4rem;
+      line-height: 1.5;
+      margin: 0 0 25px;
+      color: var(--text-primary);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .options-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      padding: 18px 24px;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+    
+    .option-index {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: var(--success) !important;
+      color: #fff !important;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+    .option-btn.correct .option-index {
+      background: var(--success);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: var(--danger) !important;
+      color: #fff !important;
+      animation: optionShake 0.4s ease;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+    }
+    .option-btn.wrong .option-index {
+      background: var(--danger);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    @keyframes optionShake {
+      0%, 100% { transform: translateX(0); }
+      25%, 75% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+    }
+
+    .feedback-box {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 25px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .feedback-box strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .quiz-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .next-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      transition: var(--transition-smooth);
+    }
+
+    .next-btn:hover {
+      background: var(--primary-light);
+    }
+
+    /* Results Screen */
+    .quiz-results {
+      display: none;
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .results-icon {
+      font-size: 3.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .results-score {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 10px 0;
+      font-family: var(--font-head);
+    }
+
+    .results-score span {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .results-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-bottom: 12px;
+      font-family: var(--font-head);
+    }
+
+    .results-desc {
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 30px;
+      line-height: 1.5;
+    }
+
+    .results-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .retry-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .retry-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Confetti Effect Container */
+    #confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+      border-radius: var(--radius-xl);
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ffd300;
+      top: -10px;
+      opacity: 0;
+      animation: fall 3s infinite ease-out;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10px;
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+      }
+      100% {
+        top: 100%;
+        opacity: 0;
+        transform: translateX(100px) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container" style="position: relative;">
+      <div class="page-chip fade-in"><i class="fas fa-tasks"></i> Quiz & Assignments</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        
+        <!-- Group 1: Teacher's Desk -->
+        <div class="nav-item">
+          <a class="dropdown-trigger" id="profileLink"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="profile.html"><i class="fas fa-user-shield"></i> Profile Access</a>
+            <a href="analysis.html"><i class="fas fa-chart-line"></i> Performance Analysis</a>
+            <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+            <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
+            <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+          </div>
+        </div>
+
+        <!-- Group 2: Academics -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+            <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+            <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+            <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+            <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+            <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          </div>
+        </div>
+
+        <!-- Group 3: Students Corner -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="timetable.html"><i class="fas fa-clock"></i> Class Timetable</a>
+            <a href="homework.html"><i class="fas fa-home"></i> Holiday Homework</a>
+            <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+            <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+            <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+            <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+            <a href="quizzes.html" class="active"><i class="fas fa-tasks"></i> Quiz & Assignments</a>
+          </div>
+        </div>
+
+        <!-- Group 4: Exams & Prep -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
+            <a href="board.html"><i class="fas fa-question-circle"></i> CBSE BOARD QUESTION PAPER AND MARKING SCHEMES</a>
+            <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+            <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
+            <a href="https://www.cbse.gov.in/cbsenew/question-paper.html" target="_blank"><i class="fas fa-external-link-alt"></i> CBSE Question Papers</a>
+            <a href="https://www.cbse.gov.in/cbsenew/marking-scheme.html" target="_blank"><i class="fas fa-external-link-alt"></i> CBSE Marking Schemes</a>
+          </div>
+        </div>
+
+        <!-- Group 5: Math Labs -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Lab</a>
+            <a href="robocompass.html"><i class="fas fa-compass"></i> RoboCompass Lab</a>
+            <a href="simulations.html"><i class="fas fa-atom"></i> Simulations Center</a>
+            <a href="paperfoldingactivies.html"><i class="fas fa-folder"></i> Paper Folding Activities</a>
+            <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
+            <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lesson Hub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Body Content -->
+  <main class="container" style="padding-top: 30px;">
+    
+    <!-- Filter pills for classes -->
+    <div class="filter-wrapper">
+      <div class="filter-title">Select Mathematics Level</div>
+      <div class="class-pills">
+        <button class="class-pill active" onclick="selectClass('all')">All Levels</button>
+        <button class="class-pill" onclick="selectClass('class6')">Class 6</button>
+        <button class="class-pill" onclick="selectClass('class7')">Class 7</button>
+        <button class="class-pill" onclick="selectClass('class8')">Class 8</button>
+        <button class="class-pill" onclick="selectClass('class9')">Class 9</button>
+        <button class="class-pill" onclick="selectClass('class10')">Class 10</button>
+        <button class="class-pill" onclick="selectClass('class11')">Class 11</button>
+        <button class="class-pill" onclick="selectClass('class12')">Class 12</button>
+      </div>
+    </div>
+
+    <!-- Curated Platforms Grid -->
+    <div class="section-header-title" id="gridHeaderTitle">Curated Practice Channels</div>
+    <div class="integration-grid" id="integrationGrid">
+      <!-- Cards will be populated dynamically or static structures filtered by JS -->
+    </div>
+
+    <!-- Custom MCQ Quiz Engine Box -->
+    <div class="quiz-sandbox" id="quizSandboxContainer">
+      <div class="sandbox-tag"><i class="fas fa-bolt"></i> Interactive Sandbox</div>
+      
+      <div id="confetti-container"></div>
+
+      <!-- Quiz Intro View -->
+      <div class="quiz-intro" id="quizIntro">
+        <h2 id="quizIntroTitle">Mathematics Speed Run Challenge</h2>
+        <p id="quizIntroDesc">Test your concept strength with our built-in 5-question speed quiz. Select a class level above to match the difficulty of the challenge!</p>
+        <button class="quiz-start-btn" onclick="startQuiz()">Launch Speed Quiz</button>
+      </div>
+
+      <!-- Active Quiz View -->
+      <div class="quiz-active" id="quizActive">
+        <div class="quiz-header">
+          <div class="quiz-progress-text" id="quizProgressText">Question 1 of 5</div>
+          <div class="quiz-timer" id="quizTimerBox"><i class="far fa-clock"></i> <span id="timerVal">00:00</span></div>
+        </div>
+        
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+          <h3 id="questionText">Sample Question Text?</h3>
+          <div class="options-grid" id="optionsGrid">
+            <!-- Option buttons go here -->
+          </div>
+        </div>
+
+        <div class="feedback-box" id="feedbackBox">
+          <strong><i class="fas fa-info-circle"></i> Explanation:</strong>
+          <span id="feedbackText">Explanation text goes here.</span>
+        </div>
+
+        <div class="quiz-footer">
+          <button class="next-btn" id="nextQuestionBtn" onclick="nextQuestion()">Next Question <i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Results View -->
+      <div class="quiz-results" id="quizResults">
+        <div class="results-icon"><i class="fas fa-trophy"></i></div>
+        <div class="results-title" id="resultsTitle">Excellent Job!</div>
+        <div class="results-score" id="resultsScore">4 <span>/ 5</span></div>
+        <div class="results-desc" id="resultsDesc">You have displayed a solid grasp of these mathematical concepts. Continue practicing to achieve perfect fluency!</div>
+        <div class="results-buttons">
+          <button class="retry-btn" onclick="resetQuiz()">Try Another Quiz</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Script logic for page, integrations, and MCQ Engine -->
+  <script>
+    // Quiz Questions Database
+    const QUIZ_QUESTIONS = {
+      class6: [
+        {
+          question: "Which of the following is the additive identity for integers?",
+          options: ["1", "0", "-1", "None of these"],
+          answer: 1,
+          explanation: "0 is the additive identity because adding 0 to any integer keeps its value unchanged."
+        },
+        {
+          question: "Express 2/5 as a decimal.",
+          options: ["0.2", "0.4", "0.5", "2.5"],
+          answer: 1,
+          explanation: "2 divided by 5 equals 0.4."
+        },
+        {
+          question: "What is the smallest prime number?",
+          options: ["0", "1", "2", "3"],
+          answer: 2,
+          explanation: "2 is the smallest prime number, and it is the only even prime number."
+        },
+        {
+          question: "Find the perimeter of a square with side length 5 cm.",
+          options: ["10 cm", "20 cm", "25 cm", "15 cm"],
+          answer: 1,
+          explanation: "Perimeter of a square = 4 * side = 4 * 5 cm = 20 cm."
+        },
+        {
+          question: "What is the value of 15 - (-5)?",
+          options: ["10", "-10", "20", "-20"],
+          answer: 2,
+          explanation: "15 - (-5) = 15 + 5 = 20."
+        }
+      ],
+      class7: [
+        {
+          question: "The sum of a rational number and its additive inverse is:",
+          options: ["1", "0", "-1", "The number itself"],
+          answer: 1,
+          explanation: "A number added to its additive inverse (its negative counterpart) always equals 0."
+        },
+        {
+          question: "Solve for x: 3x - 5 = 10",
+          options: ["3", "5", "15", "1"],
+          answer: 1,
+          explanation: "3x = 10 + 5 => 3x = 15 => x = 5."
+        },
+        {
+          question: "The measure of a complementary angle of 60° is:",
+          options: ["30°", "120°", "90°", "180°"],
+          answer: 0,
+          explanation: "Complementary angles sum to 90°. So, 90° - 60° = 30°."
+        },
+        {
+          question: "If two angles are supplementary, their sum is:",
+          options: ["90°", "180°", "360°", "45°"],
+          answer: 1,
+          explanation: "Supplementary angles add up to 180°."
+        },
+        {
+          question: "The value of (-1) raised to an odd power is:",
+          options: ["1", "-1", "0", "None of these"],
+          answer: 1,
+          explanation: "-1 multiplied by itself an odd number of times is always -1."
+        }
+      ],
+      class8: [
+        {
+          question: "Which of the following is a perfect square?",
+          options: ["122", "169", "222", "88"],
+          answer: 1,
+          explanation: "13 * 13 = 169. It is a perfect square."
+        },
+        {
+          question: "The value of 5^-2 is:",
+          options: ["-25", "10", "1/25", "1/10"],
+          answer: 2,
+          explanation: "5^-2 = 1 / (5^2) = 1 / 25."
+        },
+        {
+          question: "How many diagonals does a regular hexagon have?",
+          options: ["6", "9", "12", "5"],
+          answer: 1,
+          explanation: "Number of diagonals = n(n-3)/2. For a hexagon (n=6), 6*(6-3)/2 = 9."
+        },
+        {
+          question: "Solve: x/3 + 1 = 7/15",
+          options: ["-8/5", "8/5", "-4/5", "4/5"],
+          answer: 0,
+          explanation: "x/3 = 7/15 - 1 => x/3 = -8/15 => x = -24/15 = -8/5."
+        },
+        {
+          question: "If the side of a cube is doubled, its volume becomes how many times?",
+          options: ["2 times", "4 times", "8 times", "6 times"],
+          answer: 2,
+          explanation: "Volume = side^3. If side becomes 2s, new volume is (2s)^3 = 8 * side^3."
+        }
+      ],
+      class9: [
+        {
+          question: "Every rational number is a:",
+          options: ["Natural number", "Integer", "Real number", "Whole number"],
+          answer: 2,
+          explanation: "All rational numbers can be represented on the real line, so they are real numbers."
+        },
+        {
+          question: "The degree of the constant polynomial 5 is:",
+          options: ["1", "0", "Not defined", "5"],
+          answer: 1,
+          explanation: "5 can be written as 5 * x^0, so its degree is 0."
+        },
+        {
+          question: "The coordinate axes divide the Cartesian plane into how many quadrants?",
+          options: ["2", "3", "4", "6"],
+          answer: 2,
+          explanation: "The axes divide the plane into four regions called quadrants."
+        },
+        {
+          question: "If two circles are congruent, then their ___ must be equal.",
+          options: ["Areas", "Radii", "Circumferences", "All of these"],
+          answer: 3,
+          explanation: "Congruent circles have equal radii, which makes their areas and circumferences also equal."
+        },
+        {
+          question: "What is the semi-perimeter (s) of a triangle with sides 6 cm, 8 cm, and 10 cm?",
+          options: ["24 cm", "12 cm", "14 cm", "10 cm"],
+          answer: 1,
+          explanation: "s = (a + b + c)/2 = (6 + 8 + 10)/2 = 24/2 = 12 cm."
+        }
+      ],
+      class10: [
+        {
+          question: "The decimal expansion of 14587/1250 will terminate after how many decimal places?",
+          options: ["1", "2", "3", "4"],
+          answer: 3,
+          explanation: "1250 = 2 * 5^4. The terminating factor is determined by the highest power of 2 or 5, which is 4. Thus, it terminates after 4 decimal places."
+        },
+        {
+          question: "If one root of the quadratic equation 2x^2 + kx - 6 = 0 is 2, then the value of k is:",
+          options: ["1", "-1", "2", "-2"],
+          answer: 1,
+          explanation: "Substitute x=2: 2(2^2) + k(2) - 6 = 0 => 8 + 2k - 6 = 0 => 2k = -2 => k = -1."
+        },
+        {
+          question: "What is the value of sin^2(30°) + cos^2(30°)?",
+          options: ["0", "1/2", "1", "sqrt(3)/2"],
+          answer: 2,
+          explanation: "By the basic trigonometric identity, sin^2(A) + cos^2(A) = 1 for any angle A."
+        },
+        {
+          question: "The distance of the point P(2, 3) from the x-axis is:",
+          options: ["2 units", "3 units", "sqrt(13) units", "5 units"],
+          answer: 1,
+          explanation: "The distance from the x-axis is given by the absolute value of the y-coordinate, which is 3."
+        },
+        {
+          question: "If the perimeter and the area of a circle are numerically equal, then the radius of the circle is:",
+          options: ["2 units", "pi units", "4 units", "7 units"],
+          answer: 0,
+          explanation: "2 * pi * r = pi * r^2 => 2 = r. So the radius is 2 units."
+        }
+      ],
+      class11: [
+        {
+          question: "If a set A has n elements, then the number of subsets (power set size) is:",
+          options: ["n^2", "2^n", "2n", "n!"],
+          answer: 1,
+          explanation: "The number of subsets of a set with n elements is 2^n."
+        },
+        {
+          question: "What is the value of i^24 (where i = sqrt(-1))?",
+          options: ["1", "-1", "i", "-i"],
+          answer: 0,
+          explanation: "i^24 = (i^4)^6 = 1^6 = 1."
+        },
+        {
+          question: "The slope of a line perpendicular to the line ax + by + c = 0 is:",
+          options: ["-a/b", "b/a", "-b/a", "a/b"],
+          answer: 1,
+          explanation: "The slope of the given line is -a/b. The perpendicular slope is the negative reciprocal, which is b/a."
+        },
+        {
+          question: "The value of limit (x->0) of (sin x)/x is:",
+          options: ["0", "1", "Not defined", "Infinity"],
+          answer: 1,
+          explanation: "This is a fundamental limit theorem in calculus: lim (x->0) (sin x)/x = 1."
+        },
+        {
+          question: "If A and B are two mutually exclusive events, then P(A ∩ B) is:",
+          options: ["P(A) + P(B)", "P(A) * P(B)", "0", "1"],
+          answer: 2,
+          explanation: "Mutually exclusive events cannot occur simultaneously, so their intersection is empty, giving a probability of 0."
+        }
+      ],
+      class12: [
+        {
+          question: "A relation R on set A is equivalence if it is:",
+          options: ["Reflexive only", "Reflexive & Symmetric only", "Reflexive, Symmetric & Transitive", "Symmetric & Transitive only"],
+          answer: 2,
+          explanation: "An equivalence relation must satisfy all three properties: reflexivity, symmetry, and transitivity."
+        },
+        {
+          question: "If A is a square matrix of order 3 such that det(A) = 4, then det(2A) is:",
+          options: ["8", "16", "32", "12"],
+          answer: 2,
+          explanation: "det(kA) = k^n * det(A) where n is the order of the matrix. For order 3, det(2A) = 2^3 * det(A) = 8 * 4 = 32."
+        },
+        {
+          question: "What is the derivative of e^(x^2) with respect to x?",
+          options: ["e^(x^2)", "2x * e^(x^2)", "x^2 * e^(x^2 - 1)", "2 * e^(x^2)"],
+          answer: 1,
+          explanation: "Using the chain rule: d/dx (e^(x^2)) = e^(x^2) * d/dx (x^2) = 2x * e^(x^2)."
+        },
+        {
+          question: "What is the value of ∫ (1/x) dx from 1 to e?",
+          options: ["e", "1", "0", "log(e)"],
+          answer: 1,
+          explanation: "∫ (1/x) dx = log|x|. Evaluated from 1 to e, log(e) - log(1) = 1 - 0 = 1."
+        },
+        {
+          question: "The order and degree of differential equation (d^2y/dx^2)^3 + (dy/dx)^2 = sin(y) are:",
+          options: ["Order 2, Degree 3", "Order 3, Degree 2", "Order 2, Degree 2", "Order 1, Degree 3"],
+          answer: 0,
+          explanation: "The highest derivative is d^2y/dx^2 (Order 2), and its power is 3 (Degree 3)."
+        }
+      ]
+    };
+
+    // Integration Cards Database
+    const INTEGRATION_CARDS = [
+      // Class 6
+      {
+        class: "class6",
+        title: "Class 6 Math Practice",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Interactive practice questions, video tutorials, and structured self-check assignments covering CBSE Class 6 Mathematics curriculum.",
+        link: "https://www.khanacademy.org/math/class-6-math-in"
+      },
+      {
+        class: "class6",
+        title: "Integers & Numbers Quiz",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Play exciting live gamified quizzes covering fractions, decimals, and prime numbers to boost speed and memory retention.",
+        link: "https://kahoot.com/explore/math-games-for-kids/"
+      },
+      {
+        class: "class6",
+        title: "Geometry Explorations",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-draw-polygon",
+        desc: "Visual geometric assignments that let students explore lines, line segments, rays, and simple shapes interactively.",
+        link: "https://www.geogebra.org/m/ycgmqn49"
+      },
+      
+      // Class 7
+      {
+        class: "class7",
+        title: "Class 7 Mathematics",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Master CBSE Class 7 topics like simple equations, integers, fractions, comparing quantities, and lines & angles with self-paced practices.",
+        link: "https://www.khanacademy.org/math/class-7-math-in"
+      },
+      {
+        class: "class7",
+        title: "Algebraic Formulas Game",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Challenge your peers in a Kahoot speedrun checking concepts of algebraic terms, exponents, powers, and symmetry.",
+        link: "https://kahoot.com/explore/math-games/"
+      },
+      {
+        class: "class7",
+        title: "Congruence Visualizer",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-shapes",
+        desc: "Interactive geometry sheets demonstrating congruence of triangles and symmetry, coupled with visual self-evaluations.",
+        link: "https://www.geogebra.org/m/jpfshxar"
+      },
+
+      // Class 8
+      {
+        class: "class8",
+        title: "Class 8 Self-Study",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Master linear equations, square roots, cubes, mensuration, and algebraic identities with customized student worksheets.",
+        link: "https://www.khanacademy.org/math/class-8-math-in"
+      },
+      {
+        class: "class8",
+        title: "Exponents & Squares quiz",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Join quiz games covering exponents, factorization, direct and inverse proportions, and practical geometry properties.",
+        link: "https://kahoot.com/explore/math/"
+      },
+      {
+        class: "class8",
+        title: "Visualizing Solid Shapes",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-cube",
+        desc: "Explore vertices, faces, edges of 3D polyhedrons, verify Euler's formula and calculate surface areas.",
+        link: "https://www.geogebra.org/m/xdty7jhu"
+      },
+
+      // Class 9
+      {
+        class: "class9",
+        title: "Class 9 Advanced Math",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Prepare for high school with interactive worksheets on polynomials, Euclid's geometry, coordinate geometry, and statistics.",
+        link: "https://www.khanacademy.org/math/class-9-math-in"
+      },
+      {
+        class: "class9",
+        title: "Quadrilaterals & Circles",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Practice theorems of circles, parallelograms, and coordinate axes values with gamified quick answer cards.",
+        link: "https://kahoot.com/explore/math-games-for-high-schoolers/"
+      },
+      {
+        class: "class9",
+        title: "Euclidean Postulates Lab",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-bezier-curve",
+        desc: "Draw and verify geometric theorems, angle sum properties, and midpoint theorem on dynamic worksheets.",
+        link: "https://www.geogebra.org/m/e3jptkfe"
+      },
+
+      // Class 10
+      {
+        class: "class10",
+        title: "CBSE Class 10 Board prep",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Solve comprehensive board prep quizzes, practice sets on trigonometry, arithmetic progressions, quadratic equations, and surface volumes.",
+        link: "https://www.khanacademy.org/math/class-10-math-in"
+      },
+      {
+        class: "class10",
+        title: "Trigonometry & AP Kahoot",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Participate in quick board prep kahoots covering standard trigonometric formulas, ratios, identities, and AP progressions.",
+        link: "https://create.kahoot.it/search?query=class%2010%20trigonometry"
+      },
+      {
+        class: "class10",
+        title: "Tangent to Circle Visual",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-circle",
+        desc: "Interactive geometrical constructions that let you see tangent behavior, proving circles properties dynamically.",
+        link: "https://www.geogebra.org/m/w5dbyzfe"
+      },
+
+      // Class 11
+      {
+        class: "class11",
+        title: "Class 11 CBSE Calculus",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Establish a foundation in calculus, straight lines, trigonometric functions, permutations & combinations, and complex numbers.",
+        link: "https://www.khanacademy.org/math/class-11-math-in"
+      },
+      {
+        class: "class11",
+        title: "Sets, Relations & Functions",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Play quick conceptual card games testing sets operations, Venn diagrams representations, relations, and functional mappings.",
+        link: "https://create.kahoot.it/search?query=sets%20and%20relations"
+      },
+      {
+        class: "class11",
+        title: "Conic Section Explorers",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-circle-nodes",
+        desc: "Dynamically trace ellipses, parabolas, hyperbolas, and circles by dragging sliders to edit their standard equations.",
+        link: "https://www.geogebra.org/m/aezch7a7"
+      },
+
+      // Class 12
+      {
+        class: "class12",
+        title: "CBSE Class 12 Core Math",
+        platform: "Khan Academy",
+        type: "khan",
+        icon: "fa-solid fa-graduation-cap",
+        desc: "Practice exercises covering relations, inverse trigonometry, matrices, integrals, differential equations, vectors, and probability.",
+        link: "https://www.khanacademy.org/math/class-12-math-in"
+      },
+      {
+        class: "class12",
+        title: "Matrices, Determinants & LPP",
+        platform: "Kahoot",
+        type: "kahoot",
+        icon: "fa-solid fa-gamepad",
+        desc: "Play competitive speed runs covering order, types, properties of determinants, matrix inversion, and linear programming equations.",
+        link: "https://create.kahoot.it/search?query=matrices%20class%2012"
+      },
+      {
+        class: "class12",
+        title: "3D Vectors & Integrals Lab",
+        platform: "GeoGebra",
+        type: "geogebra",
+        icon: "fa-solid fa-cubes",
+        desc: "Visualize vectors in 3-dimensional space, calculate cross products, plot lines and planes, and check Riemann sums of integrals.",
+        link: "https://www.geogebra.org/m/zctd5m3j"
+      },
+      
+      // Global CBSE Practice
+      {
+        class: "all",
+        title: "CBSE Official Practice Hub",
+        platform: "CBSE Academic",
+        type: "cbse",
+        icon: "fa-solid fa-file-invoice",
+        desc: "Access CBSE official question banks, MCQ practice sheets, syllabus assessments, and sample quiz materials.",
+        link: "https://cbseacademic.nic.in/manual.html"
+      }
+    ];
+
+    let currentSelectedClass = "all";
+
+    // Populate Integration Grid
+    function populateGrid() {
+      const grid = document.getElementById("integrationGrid");
+      grid.innerHTML = "";
+      
+      const filteredCards = INTEGRATION_CARDS.filter(card => {
+        if (currentSelectedClass === "all") return true;
+        return card.class === currentSelectedClass || card.class === "all";
+      });
+
+      if (filteredCards.length === 0) {
+        grid.innerHTML = `
+          <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+            <i class="fas fa-search" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 10px;"></i>
+            <h3>No practice channels listed for this level.</h3>
+            <p>Select another class level to check.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filteredCards.forEach(card => {
+        const cardEl = document.createElement("div");
+        cardEl.className = `integration-card ${card.type}`;
+        
+        let platformLabel = card.platform;
+        let ctaText = "Start Practice";
+        let ctaIcon = "fa-external-link-alt";
+
+        if (card.type === "kahoot") {
+          ctaText = "Play Kahoot Game";
+          ctaIcon = "fa-gamepad";
+        } else if (card.type === "khan") {
+          ctaText = "Open Khan Academy";
+          ctaIcon = "fa-graduation-cap";
+        } else if (card.type === "geogebra") {
+          ctaText = "Launch GeoGebra";
+          ctaIcon = "fa-play";
+        } else if (card.type === "cbse") {
+          ctaText = "View CBSE Materials";
+          ctaIcon = "fa-file-pdf";
+        }
+
+        let classTag = card.class === "all" ? "GLOBAL" : `CLASS ${card.class.replace("class", "")}`;
+
+        cardEl.innerHTML = `
+          <div class="card-top">
+            <div class="card-icon"><i class="${card.icon}"></i></div>
+            <div class="card-meta">
+              <h3>${card.title}</h3>
+              <span>${platformLabel} &bull; ${classTag}</span>
+            </div>
+          </div>
+          <div class="card-desc">${card.desc}</div>
+          <a href="${card.link}" target="_blank" class="card-btn">
+            <i class="fas ${ctaIcon}"></i> ${ctaText}
+          </a>
+        `;
+        grid.appendChild(cardEl);
+      });
+    }
+
+    // Handle Class Selection
+    function selectClass(classKey) {
+      currentSelectedClass = classKey;
+      
+      // Update pills UI
+      const pills = document.querySelectorAll(".class-pill");
+      pills.forEach(pill => {
+        const pillText = pill.textContent.toLowerCase().replace(" ", "");
+        if (classKey === "all" && pillText === "alllevels") {
+          pill.classList.add("active");
+        } else if (pillText === classKey) {
+          pill.classList.add("active");
+        } else {
+          pill.classList.remove("active");
+        }
+      });
+
+      // Update grid title
+      const gridHeader = document.getElementById("gridHeaderTitle");
+      if (classKey === "all") {
+        gridHeader.textContent = "Curated Practice Channels";
+      } else {
+        const classNum = classKey.replace("class", "");
+        gridHeader.textContent = `Practice Channels for Class ${classNum}`;
+      }
+
+      // Re-populate cards
+      populateGrid();
+
+      // Update Quiz Sandbox info if quiz is not active
+      if (quizState === "intro") {
+        updateQuizIntro();
+      }
+    }
+
+    // ==========================================
+    // INTERACTIVE MCQ QUIZ SANDBOX ENGINE
+    // ==========================================
+    let quizState = "intro"; // intro, active, results
+    let activeClassQuiz = "class6";
+    let activeQuestions = [];
+    let currentQuestionIdx = 0;
+    let userScore = 0;
+    let timerInterval = null;
+    let totalSeconds = 0;
+    let answerSelected = false;
+
+    function updateQuizIntro() {
+      const title = document.getElementById("quizIntroTitle");
+      const desc = document.getElementById("quizIntroDesc");
+      const startBtn = document.querySelector(".quiz-start-btn");
+      
+      let classKey = currentSelectedClass === "all" ? "class6" : currentSelectedClass;
+      activeClassQuiz = classKey;
+      
+      const className = classKey.replace("class", "Class ");
+      title.textContent = `${className} Mathematics Challenge`;
+      desc.textContent = `A quick evaluation on ${className} Math concepts. Answer 5 multiple-choice questions to test your accuracy and speed. Perfect scores unlock a visual reward!`;
+      startBtn.textContent = `Start ${className} Quiz`;
+    }
+
+    function startQuiz() {
+      // Determine class
+      let classKey = currentSelectedClass === "all" ? "class6" : currentSelectedClass;
+      activeClassQuiz = classKey;
+      
+      // Retrieve questions
+      activeQuestions = QUIZ_QUESTIONS[activeClassQuiz];
+      currentQuestionIdx = 0;
+      userScore = 0;
+      answerSelected = false;
+      
+      // Hide intro, show active
+      document.getElementById("quizIntro").style.display = "none";
+      document.getElementById("quizActive").style.display = "block";
+      document.getElementById("quizResults").style.display = "none";
+      
+      quizState = "active";
+      
+      // Timer setup
+      totalSeconds = 0;
+      document.getElementById("timerVal").textContent = "00:00";
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        totalSeconds++;
+        const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        const secs = String(totalSeconds % 60).padStart(2, '0');
+        document.getElementById("timerVal").textContent = `${mins}:${secs}`;
+      }, 1000);
+
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      answerSelected = false;
+      const q = activeQuestions[currentQuestionIdx];
+      
+      // Update header info
+      document.getElementById("quizProgressText").textContent = `Question ${currentQuestionIdx + 1} of 5`;
+      
+      // Update progress bar width
+      const pct = (currentQuestionIdx / 5) * 100;
+      document.getElementById("progressBar").style.width = `${pct}%`;
+      
+      // Update question text
+      document.getElementById("questionText").textContent = q.question;
+      
+      // Load options
+      const optionsGrid = document.getElementById("optionsGrid");
+      optionsGrid.innerHTML = "";
+      
+      const indices = ["A", "B", "C", "D"];
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.onclick = () => selectOption(idx, btn);
+        btn.innerHTML = `
+          <div class="option-index">${indices[idx]}</div>
+          <div class="option-content">${opt}</div>
+        `;
+        optionsGrid.appendChild(btn);
+      });
+      
+      // Reset feedback box & next button
+      document.getElementById("feedbackBox").style.display = "none";
+      document.getElementById("nextQuestionBtn").style.display = "none";
+    }
+
+    function selectOption(selectedIdx, btnElement) {
+      if (answerSelected) return; // Allow only one answer
+      answerSelected = true;
+      
+      const q = activeQuestions[currentQuestionIdx];
+      const correctIdx = q.answer;
+      
+      const options = document.querySelectorAll(".option-btn");
+      
+      if (selectedIdx === correctIdx) {
+        btnElement.classList.add("correct");
+        userScore++;
+      } else {
+        btnElement.classList.add("wrong");
+        // Highlight correct option
+        options[correctIdx].classList.add("correct");
+      }
+      
+      // Show feedback
+      document.getElementById("feedbackText").textContent = q.explanation;
+      document.getElementById("feedbackBox").style.display = "block";
+      
+      // Show next button
+      const nextBtn = document.getElementById("nextQuestionBtn");
+      if (currentQuestionIdx === 4) {
+        nextBtn.innerHTML = `Finish Quiz <i class="fas fa-check-circle"></i>`;
+      } else {
+        nextBtn.innerHTML = `Next Question <i class="fas fa-chevron-right"></i>`;
+      }
+      nextBtn.style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+      currentQuestionIdx++;
+      if (currentQuestionIdx < 5) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      quizState = "results";
+      
+      document.getElementById("quizActive").style.display = "none";
+      document.getElementById("quizResults").style.display = "block";
+      
+      // Score and progress calculations
+      document.getElementById("progressBar").style.width = "100%";
+      document.getElementById("resultsScore").innerHTML = `${userScore} <span>/ 5</span>`;
+      
+      // Set description text and icons based on score
+      const title = document.getElementById("resultsTitle");
+      const icon = document.querySelector(".results-icon");
+      const desc = document.getElementById("resultsDesc");
+      
+      if (userScore === 5) {
+        title.textContent = "Perfect Score! Math Wizard!";
+        icon.innerHTML = `<i class="fas fa-medal" style="color: #fbbf24;"></i>`;
+        desc.textContent = `Flawless work! You resolved all 5 challenges in ${formatTime(totalSeconds)}. You have achieved complete concept mastery.`;
+        triggerConfetti();
+      } else if (userScore >= 3) {
+        title.textContent = "Great Effort!";
+        icon.innerHTML = `<i class="fas fa-trophy" style="color: #60a5fa;"></i>`;
+        desc.textContent = `You scored ${userScore} out of 5 in ${formatTime(totalSeconds)}. A strong performance! Revise the concept explanations and try for a perfect score.`;
+      } else {
+        title.textContent = "Keep Practicing!";
+        icon.innerHTML = `<i class="fas fa-redo-alt" style="color: #f87171;"></i>`;
+        desc.textContent = `You scored ${userScore} out of 5 in ${formatTime(totalSeconds)}. Review the lessons under Math Labs, check out the Khan Academy guides, and test again!`;
+      }
+    }
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      if (m > 0) {
+        return `${m} minute(s) and ${s} second(s)`;
+      }
+      return `${s} seconds`;
+    }
+
+    function resetQuiz() {
+      document.getElementById("quizResults").style.display = "none";
+      document.getElementById("quizIntro").style.display = "block";
+      quizState = "intro";
+      updateQuizIntro();
+      clearConfetti();
+    }
+
+    // CONFETTI ANIMATION SYSTEM
+    let confettiTimer = null;
+    function triggerConfetti() {
+      const container = document.getElementById("confetti-container");
+      container.innerHTML = "";
+      const colors = ["#7c3aed", "#a78bfa", "#10b981", "#0d9488", "#f97316", "#db2777"];
+      
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = `${Math.random() * 2}s`;
+        piece.style.animationDuration = `${2 + Math.random() * 2}s`;
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        container.appendChild(piece);
+      }
+    }
+    
+    function clearConfetti() {
+      const container = document.getElementById("confetti-container");
+      container.innerHTML = "";
+    }
+
+    // Init page
+    window.addEventListener("DOMContentLoaded", () => {
+      populateGrid();
+      updateQuizIntro();
+    });
+  </script>
+</body>
+</html>

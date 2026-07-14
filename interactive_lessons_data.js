@@ -132,6 +132,42 @@
         "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive infographics\\CH 6 PERMUTATIONS AND COMBINATIONS.png"
     },
     {
+        "name":  "CH 7 SEQUENCE AND SERIES INFG.png",
+        "title":  "Chapter 7 Sequence And Series",
+        "category":  "infographics",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "4.3 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 7 SEQUENCE AND SERIES INFG.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%207%20SEQUENCE%20AND%20SERIES%20INFG.png",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive infographics\\CH 7 SEQUENCE AND SERIES INFG.png"
+    },
+    {
+        "name":  "CH 8 STRAIGHT LINES INFG.png",
+        "title":  "Chapter 8 Straight Lines",
+        "category":  "infographics",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "4.3 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 8 STRAIGHT LINES INFG.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%208%20STRAIGHT%20LINES%20INFG.png",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive infographics\\CH 8 STRAIGHT LINES INFG.png"
+    },
+    {
+        "name":  "CH 9 CONIC SECTION INFG.png",
+        "title":  "Chapter 9 Conic Section",
+        "category":  "infographics",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "4.5 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 9 CONIC SECTION INFG.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%209%20CONIC%20SECTION%20INFG.png",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive infographics\\CH 9 CONIC SECTION INFG.png"
+    },
+    {
         "name":  "CH 3 T FUNCTIONS.pptx",
         "title":  "Chapter 3 T Functions",
         "category":  "slides",
@@ -166,6 +202,42 @@
         "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 5 LINEAR INEQUALITIES.pptx",
         "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%205%20LINEAR%20INEQUALITIES.pptx",
         "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive ppt slide deck\\CH 5 LINEAR INEQUALITIES.pptx"
+    },
+    {
+        "name":  "CH 7 SEQUENCE AND SERIES PPT.pptx",
+        "title":  "Chapter 7 Sequence And Series",
+        "category":  "slides",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "18.7 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 7 SEQUENCE AND SERIES PPT.pptx",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%207%20SEQUENCE%20AND%20SERIES%20PPT.pptx",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive ppt slide deck\\CH 7 SEQUENCE AND SERIES PPT.pptx"
+    },
+    {
+        "name":  "CH 8 STRAIGHT LINES  PPT.pptx",
+        "title":  "Chapter 8 Straight Lines",
+        "category":  "slides",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "11.4 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 8 STRAIGHT LINES  PPT.pptx",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%208%20STRAIGHT%20LINES%20%20PPT.pptx",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive ppt slide deck\\CH 8 STRAIGHT LINES  PPT.pptx"
+    },
+    {
+        "name":  "CH 9 CONIC SECTION PPT.pptx",
+        "title":  "Chapter 9 Conic Section",
+        "category":  "slides",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "15.7 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 9 CONIC SECTION PPT.pptx",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%209%20CONIC%20SECTION%20PPT.pptx",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive ppt slide deck\\CH 9 CONIC SECTION PPT.pptx"
     },
     {
         "name":  "CH6 PERMUTATIONS AND COMBINATIONS.pptx",
@@ -214,6 +286,42 @@
         "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 6 PERMUATTIONS AND COMBINATIONS.mp4",
         "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%206%20PERMUATTIONS%20AND%20COMBINATIONS.mp4",
         "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive vedio\\CH 6 PERMUATTIONS AND COMBINATIONS.mp4"
+    },
+    {
+        "name":  "CH 7 SEQUNCE AND SERIES VIDEO.mp4",
+        "title":  "Chapter 7 Sequnce And Series Video",
+        "category":  "videos",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "38.4 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 7 SEQUNCE AND SERIES VIDEO.mp4",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%207%20SEQUNCE%20AND%20SERIES%20VIDEO.mp4",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive vedio\\CH 7 SEQUNCE AND SERIES VIDEO.mp4"
+    },
+    {
+        "name":  "CH 8 STRAIGHT LINE  VIDEO.mp4",
+        "title":  "Chapter 8 Straight Line  Video",
+        "category":  "videos",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "53 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 8 STRAIGHT LINE  VIDEO.mp4",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%208%20STRAIGHT%20LINE%20%20VIDEO.mp4",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive vedio\\CH 8 STRAIGHT LINE  VIDEO.mp4"
+    },
+    {
+        "name":  "CH 9 CONIC SECTIONS VIDEO.mp4",
+        "title":  "Chapter 9 Conic Sections Video",
+        "category":  "videos",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "64.6 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 9 CONIC SECTIONS VIDEO.mp4",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%209%20CONIC%20SECTIONS%20VIDEO.mp4",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\interactive vedio\\CH 9 CONIC SECTIONS VIDEO.mp4"
     },
     {
         "name":  "CH 1 SETS.png",
@@ -286,6 +394,42 @@
         "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 6 PERMUTATIONS AND COMBINATIONS.png",
         "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
         "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\mind map\\CH 6 PERMUTATIONS AND COMBINATIONS.png"
+    },
+    {
+        "name":  "CH 7 SEQUENCE AND SERIES MIND MAP.png",
+        "title":  "Chapter 7 Sequence And Series Mind Map",
+        "category":  "mindmaps",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "1.4 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 7 SEQUENCE AND SERIES MIND MAP.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%207%20SEQUENCE%20AND%20SERIES%20MIND%20MAP.png",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\mind map\\CH 7 SEQUENCE AND SERIES MIND MAP.png"
+    },
+    {
+        "name":  "CH 8 STRAIGHT LINES  MIND MAP.png",
+        "title":  "Chapter 8 Straight Lines  Mind Map",
+        "category":  "mindmaps",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "1.2 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 8 STRAIGHT LINES  MIND MAP.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%208%20STRAIGHT%20LINES%20%20MIND%20MAP.png",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\mind map\\CH 8 STRAIGHT LINES  MIND MAP.png"
+    },
+    {
+        "name":  "CH 9 CONIC SECTION MIND MAP.png",
+        "title":  "Chapter 9 Conic Section Mind Map",
+        "category":  "mindmaps",
+        "class":  "Class 11",
+        "classKey":  "class11",
+        "size":  "1.4 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 9 CONIC SECTION MIND MAP.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%209%20CONIC%20SECTION%20MIND%20MAP.png",
+        "path":  "11 ALL TEACHING LEARNING CONTENT\\interactive plans\\mind map\\CH 9 CONIC SECTION MIND MAP.png"
     },
     {
         "name":  "lesson plan ellipse.html",
@@ -672,6 +816,30 @@
         "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE INFOGRAPHICS\\CH 4 DETERMINANTS INFG.png"
     },
     {
+        "name":  "CH 5 CONT AND DIFF INFG.png",
+        "title":  "Chapter 5 Cont And Diff",
+        "category":  "infographics",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "3.8 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE INFOGRAPHICS/CH 5 CONT AND DIFF INFG.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20INFOGRAPHICS/CH%205%20CONT%20AND%20DIFF%20INFG.png",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE INFOGRAPHICS\\CH 5 CONT AND DIFF INFG.png"
+    },
+    {
+        "name":  "CH 6 APPL OF DERIV INFG.png",
+        "title":  "Chapter 6 Appl Of Deriv",
+        "category":  "infographics",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "4.1 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE INFOGRAPHICS/CH 6 APPL OF DERIV INFG.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20INFOGRAPHICS/CH%206%20APPL%20OF%20DERIV%20INFG.png",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE INFOGRAPHICS\\CH 6 APPL OF DERIV INFG.png"
+    },
+    {
         "name":  "CH 7 INTEGRALS.png",
         "title":  "Chapter 7 Integrals",
         "category":  "infographics",
@@ -802,6 +970,30 @@
         "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE MIND MAP/CH 4 DETERMINANTS MIND MAP.png",
         "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20MIND%20MAP/CH%204%20DETERMINANTS%20MIND%20MAP.png",
         "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE MIND MAP\\CH 4 DETERMINANTS MIND MAP.png"
+    },
+    {
+        "name":  "CH 5 CONT AND DIFF MIND MAP.png",
+        "title":  "Chapter 5 Cont And Diff Mind Map",
+        "category":  "mindmaps",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "1.6 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE MIND MAP/CH 5 CONT AND DIFF MIND MAP.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20MIND%20MAP/CH%205%20CONT%20AND%20DIFF%20MIND%20MAP.png",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE MIND MAP\\CH 5 CONT AND DIFF MIND MAP.png"
+    },
+    {
+        "name":  "CH 6 APPL OF DERIV MIND MAP.png",
+        "title":  "Chapter 6 Appl Of Deriv Mind Map",
+        "category":  "mindmaps",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "1.6 MB",
+        "isLarge":  false,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE MIND MAP/CH 6 APPL OF DERIV MIND MAP.png",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20MIND%20MAP/CH%206%20APPL%20OF%20DERIV%20MIND%20MAP.png",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE MIND MAP\\CH 6 APPL OF DERIV MIND MAP.png"
     },
     {
         "name":  "CH 7 INTEGRAL MIND MAP.png",
@@ -936,6 +1128,30 @@
         "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE SLIDE DECK PPT\\CH 4 DETERMINANTS PPT.pptx"
     },
     {
+        "name":  "CH 5 CONT AND DIFF PP.pptx",
+        "title":  "Chapter 5 Cont And Diff Pp",
+        "category":  "slides",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "17.6 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE SLIDE DECK PPT/CH 5 CONT AND DIFF PP.pptx",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%205%20CONT%20AND%20DIFF%20PP.pptx",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE SLIDE DECK PPT\\CH 5 CONT AND DIFF PP.pptx"
+    },
+    {
+        "name":  "CH 6 APPL OF DERIV PPT.pptx",
+        "title":  "Chapter 6 Appl Of Deriv",
+        "category":  "slides",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "20.9 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE SLIDE DECK PPT/CH 6 APPL OF DERIV PPT.pptx",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%206%20APPL%20OF%20DERIV%20PPT.pptx",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE SLIDE DECK PPT\\CH 6 APPL OF DERIV PPT.pptx"
+    },
+    {
         "name":  "CH 7 INTEGRALS PPT.pptx",
         "title":  "Chapter 7 Integrals",
         "category":  "slides",
@@ -1054,6 +1270,30 @@
         "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE VIDEO/CH 4 DETERMINANTS VIDEO.mp4",
         "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20VIDEO/CH%204%20DETERMINANTS%20VIDEO.mp4",
         "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE VIDEO\\CH 4 DETERMINANTS VIDEO.mp4"
+    },
+    {
+        "name":  "CH 5 CONT AND DIFF VIDEO.mp4",
+        "title":  "Chapter 5 Cont And Diff Video",
+        "category":  "videos",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "29.4 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE VIDEO/CH 5 CONT AND DIFF VIDEO.mp4",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20VIDEO/CH%205%20CONT%20AND%20DIFF%20VIDEO.mp4",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE VIDEO\\CH 5 CONT AND DIFF VIDEO.mp4"
+    },
+    {
+        "name":  "CH 6 APPL OF DERIV. VIDEO.mp4",
+        "title":  "Chapter 6 Appl Of Deriv. Video",
+        "category":  "videos",
+        "class":  "Class 12",
+        "classKey":  "class12",
+        "size":  "37.3 MB",
+        "isLarge":  true,
+        "localLink":  "file:///C:/Users/kirti/Dropbox/12 ALL TEACHING LEARNING CONTENT/interactive l plans/INTERACTIVE VIDEO/CH 6 APPL OF DERIV. VIDEO.mp4",
+        "dropboxUrl":  "https://www.dropbox.com/home/12%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20l%20plans/INTERACTIVE%20VIDEO/CH%206%20APPL%20OF%20DERIV.%20VIDEO.mp4",
+        "path":  "12 ALL TEACHING LEARNING CONTENT\\interactive l plans\\INTERACTIVE VIDEO\\CH 6 APPL OF DERIV. VIDEO.mp4"
     },
     {
         "name":  "CH 7 INTEGRALS.mp4",
