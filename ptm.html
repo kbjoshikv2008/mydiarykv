@@ -609,7 +609,14 @@
           const score = student.marks ? student.marks[test.id] : undefined;
           const hasDate = testDates[activeClass] && testDates[activeClass][test.id];
           const hasScore = score !== undefined && score !== null && score !== "";
-          const isConducted = hasDate || hasScore;
+          
+          let isConducted = hasDate || hasScore;
+          if (!isConducted) {
+            const classStudents = studentData[activeClass];
+            if (classStudents && classStudents.length > 0) {
+              isConducted = classStudents.some(s => s.marks && s.marks[test.id] !== undefined && s.marks[test.id] !== null && s.marks[test.id] !== "");
+            }
+          }
 
           if (isConducted) {
             const dateStr = getFormattedDate(test.id, activeClass);
