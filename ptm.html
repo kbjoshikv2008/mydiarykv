@@ -838,7 +838,6 @@
           return;
         }
 
-        // Open a clean blank window with ONLY the formatted letter
         const printWin = window.open("", "_blank", "width=900,height=700");
         if (!printWin) {
           statusEl.style.color = "#ef4444";
@@ -847,42 +846,114 @@
           return;
         }
 
-        // Escape HTML entities in the plain-text letter
+        // Escape HTML special chars in the plain-text letter
         const escaped = letterText
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
 
+        // Convert ⚠️ notice lines to bold red for visual emphasis when printed
+        const formatted = escaped
+          .replace(/(⚠️[^\n]*)/g, '<strong style="color:#b91c1c;">$1</strong>')
+          .replace(/(ABSENT ❌)/g, '<span style="color:#b91c1c;font-weight:700;">ABSENT ❌</span>');
+
         printWin.document.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Parent Progress Letter</title>
+  <title>Parent Progress Letter – PM SHRI KV Ranikhet</title>
   <style>
-    @page { size: A4; margin: 20mm 18mm; }
-    body {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 13pt;
-      line-height: 1.8;
-      color: #000;
-      background: #fff;
-      padding: 0;
-      margin: 0;
+    /* ---- Page Setup: strict A4, tight margins ---- */
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm 10mm 15mm;
     }
-    pre {
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      color: #111;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 10pt;
+      line-height: 1.45;
+      padding: 0;
+    }
+
+    /* ---- Letter wrapper: hard-clipped to A4 printable area ---- */
+    .letter-page {
+      width: 180mm;          /* A4 width (210mm) minus margins (15+15mm) */
+      min-height: 257mm;     /* A4 height (297mm) minus top+bottom margin */
+      max-height: 257mm;
+      overflow: hidden;
+      page-break-after: avoid;
+    }
+
+    /* ---- School letterhead ---- */
+    .letterhead {
+      border-bottom: 2px solid #1e3a5f;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .letterhead h1 {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #1e3a5f;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .letterhead p {
+      font-size: 8.5pt;
+      color: #555;
+    }
+
+    /* ---- Letter body ---- */
+    .letter-body {
+      font-size: 10pt;
+      line-height: 1.45;
+      color: #111;
       white-space: pre-wrap;
       word-break: break-word;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      margin: 0;
+    }
+
+    /* ---- Footer rule ---- */
+    .letter-footer {
+      border-top: 1px solid #ccc;
+      margin-top: 10px;
+      padding-top: 4px;
+      font-size: 8pt;
+      color: #888;
+      text-align: center;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
 <body>
-  <pre>${escaped}</pre>
+  <div class="letter-page">
+    <div class="letterhead">
+      <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+      <p>Mathematics Department &nbsp;|&nbsp; PGT Mathematics: K B Joshi &nbsp;|&nbsp; Contact: 9410121232</p>
+    </div>
+
+    <div class="letter-body">${formatted}</div>
+
+    <div class="letter-footer">PM SHRI KV Ranikhet — Confidential Parent Communication — Mathematics Department</div>
+  </div>
+
   <script>
-    window.onload = function() { window.print(); window.onafterprint = function() { window.close(); }; };
+    window.onload = function() {
+      window.print();
+      window.onafterprint = function() { window.close(); };
+    };
   <\/script>
 </body>
 </html>`);
