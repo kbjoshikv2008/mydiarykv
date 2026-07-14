@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Guidance & Counselling Portal | Math Lab</title>
+  
+  <!-- FontAwesome and Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styling -->
+  <link rel="stylesheet" href="premium.css">
+  
+  <style>
+    :root {
+      --radius-lg: 12px;
+      --radius-xl: 20px;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Subtabs Header */
+    .guidance-tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 40px auto 30px;
+    }
+    
+    .guidance-tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      padding: 6px;
+      border-radius: 40px;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .guidance-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 12px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: var(--font-head);
+      transition: var(--transition-smooth);
+    }
+    
+    .guidance-tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .guidance-tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.35);
+    }
+
+    .guidance-pane {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .guidance-pane.active {
+      display: block;
+    }
+
+    /* Grid Layouts */
+    .guidance-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 70px;
+    }
+
+    @media (min-width: 992px) {
+      .guidance-layout-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .info-pane-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 35px;
+      box-shadow: var(--glass-shadow);
+    }
+
+    .info-pane-card h2 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      margin-top: 0;
+      margin-bottom: 25px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 15px;
+    }
+
+    .info-pane-card h2 i {
+      color: var(--primary-light);
+    }
+
+    /* Highlight Banner */
+    .helpline-alert-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(219, 39, 119, 0.1));
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .helpline-alert-banner i {
+      font-size: 2rem;
+      color: var(--danger);
+    }
+
+    .helpline-alert-banner p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .helpline-alert-banner strong {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container" style="position: relative;">
+      <div class="page-chip fade-in"><i class="fas fa-hand-holding-heart"></i> Student Guidance Portal</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        
+        <!-- Group 1: Teacher's Desk -->
+        <div class="nav-item">
+          <a class="dropdown-trigger" id="profileLink"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="profile.html"><i class="fas fa-user-shield"></i> Profile Access</a>
+            <a href="analysis.html"><i class="fas fa-chart-line"></i> Performance Analysis</a>
+            <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+            <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
+            <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+          </div>
+        </div>
+
+        <!-- Group 2: Academics -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+            <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+            <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+            <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+            <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+            <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          </div>
+        </div>
+
+        <!-- Group 3: Students Corner -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="timetable.html"><i class="fas fa-clock"></i> Class Timetable</a>
+            <a href="homework.html"><i class="fas fa-home"></i> Holiday Homework</a>
+            <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+            <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+            <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+            <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+            <a href="quizzes.html"><i class="fas fa-tasks"></i> Quiz & Assignments</a>
+            <a href="guidance.html" class="active"><i class="fas fa-hand-holding-heart"></i> Guidance &amp; Counselling</a>
+          </div>
+        </div>
+
+        <!-- Group 4: Exams & Prep -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
+            <a href="board.html"><i class="fas fa-question-circle"></i> CBSE Board Question Papers</a>
+            <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+            <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
+            <a href="https://www.cbse.gov.in/cbsenew/question-paper.html" target="_blank"><i class="fas fa-external-link-alt"></i> CBSE Question Papers</a>
+            <a href="https://www.cbse.gov.in/cbsenew/marking-scheme.html" target="_blank"><i class="fas fa-external-link-alt"></i> CBSE Marking Schemes</a>
+          </div>
+        </div>
+
+        <!-- Group 5: Math Labs -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Lab</a>
+            <a href="robocompass.html"><i class="fas fa-compass"></i> RoboCompass Lab</a>
+            <a href="simulations.html"><i class="fas fa-atom"></i> Simulations Center</a>
+            <a href="paperfoldingactivies.html"><i class="fas fa-folder"></i> Paper Folding Activities</a>
+            <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
+            <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lesson Hub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Body Content -->
+  <main class="container" style="padding-top: 30px;">
+    
+    <!-- Subtabs Navigation -->
+    <div class="guidance-tabs-wrapper">
+      <div class="guidance-tabs">
+        <button class="guidance-tab-btn active" onclick="switchTab('self-care')">Self-Care &amp; Stress Relief</button>
+        <button class="guidance-tab-btn" onclick="switchTab('smart-prep')">Smart Prep Strategy</button>
+        <button class="guidance-tab-btn" onclick="switchTab('careers')">Career Explorer</button>
+        <button class="guidance-tab-btn" onclick="switchTab('helplines')">Helplines &amp; Portals</button>
+        <button class="guidance-tab-btn" onclick="switchTab('motivational')">Motivational Lounge</button>
+      </div>
+    </div>
+
+    <!-- PANE 1: Self-Care & Stress Relief -->
+    <div class="guidance-pane active" id="pane-self-care">
+      <div class="guidance-layout-grid">
+        
+        <!-- Column 1: Time & Emotion Management -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-hourglass-half"></i> Time &amp; Emotion Management</h2>
+          
+          <div class="technique-box">
+            <h4><i class="fas fa-history"></i> The Pomodoro Technique</h4>
+            <p>A classic time-management system that helps maintain peak mental focus and prevents academic fatigue.</p>
+            <ul class="technique-steps">
+              <li><strong>Study Block:</strong> Study intently with zero distractions for <strong>25 minutes</strong>.</li>
+              <li><strong>Short Break:</strong> Take a complete mental rest for <strong>5 minutes</strong> (stretch, hydrate).</li>
+              <li><strong>Cycle:</strong> Repeat this 4 times (4 Pomodoros = 2 hours of focused work).</li>
+              <li><strong>Long Break:</strong> After 4 cycles, reward yourself with a <strong>20-30 minute</strong> break.</li>
+            </ul>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-brain"></i> 5-4-3-2-1 Grounding Method</h4>
+            <p>An effective technique to manage strong emotions, panic, or anxiety before and during exam sessions.</p>
+            <ul class="technique-steps">
+              <li><strong>5 Things:</strong> Look around and name 5 things you can <strong>see</strong>.</li>
+              <li><strong>4 Things:</strong> Name 4 physical textures you can <strong>feel</strong> (e.g., your desk, clothes).</li>
+              <li><strong>3 Things:</strong> Listen closely and name 3 distinct sounds you can <strong>hear</strong>.</li>
+              <li><strong>2 Things:</strong> Focus on your environment and identify 2 things you can <strong>smell</strong>.</li>
+              <li><strong>1 Thing:</strong> Identify 1 positive thing you can <strong>taste</strong> or think about.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Column 2: Stress Management & Breathing -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-heartbeat"></i> Stress &amp; Anxiety Relief</h2>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-wind"></i> Box Breathing Technique</h4>
+            <p>Used by athletes and individuals in high-stress roles to slow down heart rate and activate the parasympathetic nervous system.</p>
+            <ul class="technique-steps">
+              <li><strong>Inhale:</strong> Breathe in slowly through your nose counting to <strong>4 seconds</strong>.</li>
+              <li><strong>Hold:</strong> Keep your lungs full of air for another <strong>4 seconds</strong>.</li>
+              <li><strong>Exhale:</strong> Release the breath smoothly through your mouth for <strong>4 seconds</strong>.</li>
+              <li><strong>Hold:</strong> Wait with empty lungs for a final count of <strong>4 seconds</strong> before repeating.</li>
+            </ul>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-dumbbell"></i> Progressive Muscle Relaxation (PMR)</h4>
+            <p>A physical stress-relief technique that releases tension built up in muscles during prolonged sitting.</p>
+            <ul class="technique-steps">
+              <li><strong>Tense:</strong> Tense a specific muscle group (e.g., your shoulders) for <strong>5 seconds</strong>.</li>
+              <li><strong>Release:</strong> Relax them suddenly and completely. Notice the sensation of tension flowing out.</li>
+              <li><strong>Flow:</strong> Move progressively from your toes, legs, abdomen, chest, to your neck and face.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PANE 2: Smart Prep Strategy -->
+    <div class="guidance-pane" id="pane-smart-prep">
+      <div class="guidance-layout-grid">
+        
+        <!-- Column 1: Active Learning -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-graduation-cap"></i> Smart Study Mechanics</h2>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-redo"></i> Active Recall &amp; Spaced Repetition</h4>
+            <p>Passively re-reading text is inefficient. These methods build strong neurological pathways for exams.</p>
+            <ul class="technique-steps">
+              <li><strong>Active Recall:</strong> Close your book and write down everything you remember, or solve questions without looking at guides.</li>
+              <li><strong>Spaced Repetition:</strong> Review concepts at expanding intervals (e.g., 1 day later, 3 days later, 1 week, 1 month) to prevent forgetting.</li>
+            </ul>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-chalkboard-teacher"></i> The Feynman Technique</h4>
+            <p>Named after physicist Richard Feynman, this method verifies if you actually understand a concept or are just memorizing words.</p>
+            <ul class="technique-steps">
+              <li><strong>Write:</strong> Write the concept name at the top of a sheet.</li>
+              <li><strong>Teach:</strong> Explain it as if teaching it to a <strong>10-year-old child</strong>. Use simple words and analogies.</li>
+              <li><strong>Identify:</strong> Pinpoint where you struggle to explain simply. Go back to NCERT/lessons to patch that gap.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Column 2: Exam & Preparation Frameworks -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-file-signature"></i> Smart Revision Systems</h2>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-book-reader"></i> The SQ3R Method</h4>
+            <p>A systematic reading framework designed to maximize comprehension of textbook chapters.</p>
+            <ul class="technique-steps">
+              <li><strong>Survey (S):</strong> Quick scan of headings, diagrams, and summary.</li>
+              <li><strong>Question (Q):</strong> Turn headings into questions (e.g. 'What is a Matrix?').</li>
+              <li><strong>Read (R1):</strong> Read to find answers to those questions.</li>
+              <li><strong>Recite (R2):</strong> Verbally summarize what you just read.</li>
+              <li><strong>Review (R3):</strong> Do quiz checkups to solidify memory.</li>
+            </ul>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-list-check"></i> CBSE Exam Smart Hacks</h4>
+            <p>How to maximize marks during board presentations.</p>
+            <ul class="technique-steps">
+              <li><strong>Reading Time:</strong> Use the 15-minute reading window to identify choices and sequence answers.</li>
+              <li><strong>Step Marking:</strong> CBSE awards marks for every step. Write formulas and step progressions clearly even if final calculations are unfinished.</li>
+              <li><strong>Formatting:</strong> Highlight final answers in boxes. Draw diagrams with pencils.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PANE 3: Career Explorer -->
+    <div class="guidance-pane" id="pane-careers">
+      <div class="guidance-layout-grid">
+        
+        <!-- Column 1: Math Core Careers -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-calculator"></i> Mathematical Career Tracks</h2>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-chart-line"></i> Data Science &amp; AI Engineering</h4>
+            <p>High-demand careers built directly on probability, linear algebra, and calculus.</p>
+            <ul class="technique-steps">
+              <li><strong>Roles:</strong> ML Engineer, Data Scientist, Quantitative Analyst.</li>
+              <li><strong>Skills:</strong> Python, Statistics, Calculus, Vectors &amp; Matrices.</li>
+            </ul>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-shield-alt"></i> Cryptography &amp; Operations Research</h4>
+            <p>Mathematics applied to cybersecurity, network modeling, and logistics optimization.</p>
+            <ul class="technique-steps">
+              <li><strong>Roles:</strong> Security Architect, Cryptographer, Logistics Planner.</li>
+              <li><strong>Skills:</strong> Number Theory, Linear Programming, Graph Theory.</li>
+            </ul>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-percentage"></i> Actuarial Science &amp; Financial Math</h4>
+            <p>Analyzing risk, insurance premiums, and investment assets using statistics and algorithms.</p>
+            <ul class="technique-steps">
+              <li><strong>Roles:</strong> Actuary, Risk Manager, Quantitative Trader.</li>
+              <li><strong>Skills:</strong> Probability, Calculus, Financial Modeling.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Column 2: Career Integration portals -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-compass"></i> National Career Channels</h2>
+          
+          <div class="integration-grid" style="grid-template-columns: 1fr; gap: 20px;">
+            <div class="integration-card cbse" style="margin: 0;">
+              <div class="card-top">
+                <div class="card-icon"><i class="fas fa-compass"></i></div>
+                <div class="card-meta">
+                  <h3>CBSE Career Guidance Portal</h3>
+                  <span>cbsecareerguidance.com</span>
+                </div>
+              </div>
+              <div class="card-desc">An extensive career guidance platform designed by CBSE to help students explore hundreds of career options based on subject combinations.</div>
+              <a href="https://cbsecareerguidance.com/" target="_blank" class="card-btn">
+                <i class="fas fa-external-link-alt"></i> Explore Careers
+              </a>
+            </div>
+
+            <div class="integration-card cbse" style="margin: 0; border-top: 4px solid var(--secondary);">
+              <div class="card-top">
+                <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="card-meta">
+                  <h3>National Career Service (NCS)</h3>
+                  <span>ncs.gov.in</span>
+                </div>
+              </div>
+              <div class="card-desc">A national digital portal from the Indian Government to guide students on skill acquisition, career options, and industry demands.</div>
+              <a href="https://www.ncs.gov.in/" target="_blank" class="card-btn">
+                <i class="fas fa-external-link-alt"></i> Open NCS Portal
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PANE 4: Helplines & Portals -->
+    <div class="guidance-pane" id="pane-helplines">
+      
+      <!-- Crucial Distress Helpline Banner -->
+      <div class="helpline-alert-banner">
+        <i class="fas fa-phone-volume"></i>
+        <div>
+          <p><strong>Are you experiencing exam panic or severe mental distress?</strong> Please call the free National Mental Health Helpline managed by NIMHANS at <strong>080 46110007</strong> or CBSE tele-counselling at <strong>1800-11-8004</strong>. Support is free, confidential, and available 24/7.</p>
+        </div>
+      </div>
+
+      <div class="guidance-layout-grid">
+        
+        <!-- Column 1: Official Helplines -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-phone-alt"></i> Call Helplines</h2>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-headset"></i> NIMHANS National Mental Health</h4>
+            <p>Managed by the National Institute of Mental Health and Neurosciences. Instant response for stress, depression, or general counseling.</p>
+            <a href="tel:08046110007" class="guidance-card-btn" style="background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: #fff;">
+              <i class="fas fa-phone"></i> Call 080-46110007
+            </a>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-phone-volume"></i> CBSE Tele-Counselling Helpline</h4>
+            <p>Free national IVRS support providing psychological assistance during examinations and result releases.</p>
+            <a href="tel:1800118004" class="guidance-card-btn">
+              <i class="fas fa-phone"></i> Call 1800-11-8004
+            </a>
+          </div>
+
+          <div class="technique-box">
+            <h4><i class="fas fa-handshake"></i> AASRA Suicide Prevention</h4>
+            <p>24/7 helpline providing active, non-judgmental listening to students going through academic distress.</p>
+            <a href="tel:919820466726" class="guidance-card-btn">
+              <i class="fas fa-phone"></i> Call +91-9820466726
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Web Portals -->
+        <div class="info-pane-card">
+          <h2><i class="fas fa-globe"></i> Interactive Portals</h2>
+
+          <div class="integration-grid" style="grid-template-columns: 1fr; gap: 20px;">
+            <div class="integration-card khan" style="margin: 0;">
+              <div class="card-top">
+                <div class="card-icon"><i class="fas fa-heart"></i></div>
+                <div class="card-meta">
+                  <h3>MANODARPAN Portal</h3>
+                  <span>manodarpan.education.gov.in</span>
+                </div>
+              </div>
+              <div class="card-desc">An initiative by the Ministry of Education, Govt of India, offering psychosocial support to students, teachers, and families for mental health and emotional well-being.</div>
+              <a href="https://manodarpan.education.gov.in/" target="_blank" class="card-btn">
+                <i class="fas fa-external-link-alt"></i> Visit Manodarpan
+              </a>
+            </div>
+
+            <div class="integration-card geogebra" style="margin: 0;">
+              <div class="card-top">
+                <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                <div class="card-meta">
+                  <h3>NCERT Counselling Support</h3>
+                  <span>ncert.nic.in</span>
+                </div>
+              </div>
+              <div class="card-desc">Official page detailing counseling services offered by NCERT, psychological guidance sheets, and contact details of regional coordinators.</div>
+              <a href="https://ncert.nic.in/counseling-services-for-students.php" target="_blank" class="card-btn">
+                <i class="fas fa-external-link-alt"></i> Visit NCERT Portal
+              </a>
+            </div>
+
+            <div class="integration-card cbse" style="margin: 0; border-top: 4px solid var(--accent2);">
+              <div class="card-top">
+                <div class="card-icon"><i class="fas fa-file-signature"></i></div>
+                <div class="card-meta">
+                  <h3>CBSE Counselling Portal</h3>
+                  <span>cbse.gov.in</span>
+                </div>
+              </div>
+              <div class="card-desc">Direct gateway to CBSE student counseling advisories, announcements, and tele-counseling schedule details.</div>
+              <a href="https://www.cbse.gov.in/cbsenew/counselling.html" target="_blank" class="card-btn">
+                <i class="fas fa-external-link-alt"></i> Visit CBSE Portal
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PANE 5: Motivational Lounge -->
+    <div class="guidance-pane" id="pane-motivational">
+      <div class="guidance-layout-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+        
+        <div class="guidance-card">
+          <div class="guidance-card-top">
+            <div class="guidance-card-icon"><i class="fas fa-play-circle"></i></div>
+            <div class="guidance-card-meta">
+              <h3>How to Handle Exam Stress</h3>
+              <span>Sonam Wangchuk &bull; Video Guide</span>
+            </div>
+          </div>
+          <div class="guidance-card-desc">An inspiring address for students on learning how to focus on understanding concepts rather than rote memorization, helping to eliminate pressure during exams.</div>
+          <a href="https://www.youtube.com/watch?v=2T7_Z3R1t68" target="_blank" class="guidance-card-btn">
+            <i class="fab fa-youtube"></i> Watch Video
+          </a>
+        </div>
+
+        <div class="guidance-card">
+          <div class="guidance-card-top">
+            <div class="guidance-card-icon"><i class="fas fa-lightbulb"></i></div>
+            <div class="guidance-card-meta">
+              <h3>A Message for Youth</h3>
+              <span>Dr. APJ Abdul Kalam &bull; Inspirational Speech</span>
+            </div>
+          </div>
+          <div class="guidance-card-desc">President Kalam’s timeless advice on defining your unique goals, accumulating knowledge, working hard, and developing perseverance to overcome obstacles.</div>
+          <a href="https://www.youtube.com/watch?v=J91c8g1Xm8E" target="_blank" class="guidance-card-btn">
+            <i class="fab fa-youtube"></i> Watch Video
+          </a>
+        </div>
+
+        <div class="guidance-card">
+          <div class="guidance-card-top">
+            <div class="guidance-card-icon"><i class="fas fa-brain"></i></div>
+            <div class="guidance-card-meta">
+              <h3>Unlocking Growth Mindset</h3>
+              <span>Carol Dweck Research &bull; Keynote Summary</span>
+            </div>
+          </div>
+          <div class="guidance-card-desc">Understand how intelligence can be developed through dedication and hard work. Learn to view failures as opportunities for learning and expansion.</div>
+          <a href="https://www.youtube.com/watch?v=hiiEeMN7upQ" target="_blank" class="guidance-card-btn">
+            <i class="fas fa-book-open"></i> Read Research
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function switchTab(tabId) {
+      // Hide all panes
+      const panes = document.querySelectorAll('.guidance-pane');
+      panes.forEach(pane => pane.classList.remove('active'));
+      
+      // Deactivate all buttons
+      const btns = document.querySelectorAll('.guidance-tab-btn');
+      btns.forEach(btn => btn.classList.remove('active'));
+      
+      // Show correct pane
+      const activePane = document.getElementById('pane-' + tabId);
+      if (activePane) {
+        activePane.classList.add('active');
+      }
+      
+      // Activate correct button
+      const activeBtn = Array.from(btns).find(btn => {
+        const attr = btn.getAttribute('onclick');
+        return attr && attr.includes(tabId);
+      });
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

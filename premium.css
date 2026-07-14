@@ -394,3 +394,98 @@ footer {
   color: #ffffff;
   border-color: transparent;
 }
+
+/* ── Homepage Guidance Preview ─────────────────────────────── */
+.guidance-preview-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  box-shadow: var(--glass-shadow);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: var(--transition-smooth);
+}
+
+.guidance-preview-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.guidance-preview-card p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.enter-portal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #ffffff;
+  padding: 14px 35px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.enter-portal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+  color: #ffffff;
+}
+
+/* ── Guidance Portal Rich Content ──────────────────────────── */
+.technique-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 25px;
+  transition: var(--transition-smooth);
+}
+
+.technique-box:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.technique-box h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
+  margin: 0 0 10px;
+  color: var(--primary-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.technique-box p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 15px;
+}
+
+.technique-steps {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.technique-steps li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.technique-steps li strong {
+  color: var(--text-primary);
+}
