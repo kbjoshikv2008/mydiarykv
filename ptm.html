@@ -88,6 +88,21 @@
       pointer-events: none;
       border: 1px solid rgba(0, 0, 0, 0.05);
     }
+
+    /* Style select options, text inputs, and textarea to guarantee high contrast visibility */
+    .letter-controls select, 
+    .letter-controls input, 
+    .letter-controls textarea {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      border: 1px solid rgba(255, 255, 255, 0.25) !important;
+      color: #ffffff !important;
+      font-size: 0.95em !important;
+    }
+
+    .letter-controls select option {
+      background-color: #0f0a21 !important;
+      color: #ffffff !important;
+    }
     
     /* Print Stylesheet for Parent Letters */
     @media print {
@@ -241,7 +256,7 @@
         <div class="letter-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start;">
           <!-- Controls Panel -->
           <div class="letter-controls" style="display: flex; flex-direction: column; gap: 16px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 12px;">
               <div>
                 <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Select Class</label>
                 <select id="letterClassSelect" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; cursor: pointer; transition: var(--transition);">
@@ -254,6 +269,13 @@
                 <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Select Student</label>
                 <select id="letterStudentSelect" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; cursor: pointer; transition: var(--transition);">
                   <!-- Populated dynamically -->
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">Language</label>
+                <select id="letterLangSelect" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; outline: none; cursor: pointer; transition: var(--transition);">
+                  <option value="en">🇬🇧 English</option>
+                  <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
                 </select>
               </div>
             </div>
@@ -559,6 +581,7 @@
         const classSelect = document.getElementById("letterClassSelect");
         const studentSelect = document.getElementById("letterStudentSelect");
         const toneSelect = document.getElementById("letterToneSelect");
+        const langSelect = document.getElementById("letterLangSelect");
         const customRemarks = document.getElementById("customRemarksTextarea").value.trim();
         const previewTextEl = document.getElementById("generatedLetterText");
 
@@ -568,35 +591,66 @@
         const students = getStudentList(activeClass);
         const selectedIndex = studentSelect.value;
         const student = students[selectedIndex];
+        const isHindi = langSelect && langSelect.value === "hi";
 
         if (!student) {
-          previewTextEl.textContent = "Please select a valid student.";
+          previewTextEl.textContent = isHindi ? "कृपया एक मान्य छात्र का चयन करें।" : "Please select a valid student.";
           return;
         }
 
         const tests = classTests[activeClass] || [];
         const scoreLines = [];
+        const absentTests = [];
         let totalScored = 0;
         let totalPossible = 0;
         let examCount = 0;
 
         tests.forEach(test => {
           const score = student.marks ? student.marks[test.id] : undefined;
-          if (score !== undefined && score !== null && score !== "") {
-            const numScore = Number(score);
-            const pct = ((numScore / test.maxMarks) * 100).toFixed(0);
+          const isConducted = testDates[activeClass] && testDates[activeClass][test.id];
+
+          if (isConducted) {
             const dateStr = getFormattedDate(test.id, activeClass);
             const examLabel = getExamLabel(test.id);
-            scoreLines.push(`  • ${examLabel}${dateStr}: ${numScore}/${test.maxMarks} (${pct}%)`);
-            
-            totalScored += numScore;
-            totalPossible += test.maxMarks;
-            examCount++;
+
+            if (score === undefined || score === null || score === "") {
+              const displayLabel = `${examLabel}${dateStr}`;
+              absentTests.push(displayLabel);
+              scoreLines.push(isHindi 
+                ? `  • ${examLabel}${dateStr}: अनुपस्थित (ABSENT) ❌` 
+                : `  • ${examLabel}${dateStr}: ABSENT ❌`);
+            } else {
+              const numScore = Number(score);
+              const pct = ((numScore / test.maxMarks) * 100).toFixed(0);
+              scoreLines.push(`  • ${examLabel}${dateStr}: ${numScore}/${test.maxMarks} (${pct}%)`);
+              
+              totalScored += numScore;
+              totalPossible += test.maxMarks;
+              examCount++;
+            }
           }
         });
 
+        // Fallback: if no exams are marked as conducted in database, list whichever exams have scores logged
+        if (scoreLines.length === 0) {
+          tests.forEach(test => {
+            const score = student.marks ? student.marks[test.id] : undefined;
+            if (score !== undefined && score !== null && score !== "") {
+              const numScore = Number(score);
+              const pct = ((numScore / test.maxMarks) * 100).toFixed(0);
+              const dateStr = getFormattedDate(test.id, activeClass);
+              const examLabel = getExamLabel(test.id);
+              scoreLines.push(`  • ${examLabel}${dateStr}: ${numScore}/${test.maxMarks} (${pct}%)`);
+              
+              totalScored += numScore;
+              totalPossible += test.maxMarks;
+              examCount++;
+            }
+          });
+        }
+
         const overallPct = totalPossible > 0 ? ((totalScored / totalPossible) * 100) : 0;
-        const overallPctStr = totalPossible > 0 ? `${overallPct.toFixed(1)}%` : "N/A (No tests recorded yet)";
+        const overallPctStr = totalPossible > 0 ? `${overallPct.toFixed(1)}%` : (isHindi ? "अनुपलब्ध (कोई परीक्षा दर्ज नहीं)" : "N/A (No tests recorded yet)");
 
         let performanceTier = "average";
         if (totalPossible > 0) {
@@ -607,69 +661,145 @@
         const tone = toneSelect.value;
         let aiParagraph = "";
 
-        if (tone === "praise") {
-          if (performanceTier === "excellent") {
-            aiParagraph = `We are extremely proud of ${student.name}'s performance. They demonstrate deep conceptual clarity, logical reasoning, and active engagement in class sessions. This outstanding work highlights their consistent work ethic and strong mathematical aptitude.`;
-          } else if (performanceTier === "support") {
-            aiParagraph = `${student.name} has shown sincere efforts recently. We are encouraging them to channel this focus into regular practice, as we believe they possess the hidden potential to substantially improve their understanding and grades.`;
+        if (isHindi) {
+          if (tone === "praise") {
+            if (performanceTier === "excellent") {
+              aiParagraph = `हमें ${student.name} के प्रदर्शन पर अत्यंत गर्व है। वे कक्षा में गणितीय अवधारणाओं को गहराई से समझते हैं, तार्किक सोच प्रदर्शित करते हैं और सक्रिय रूप से भाग लेते हैं। यह उनके निरंतर परिश्रम और मजबूत गणितीय योग्यता को दर्शाता है।`;
+            } else if (performanceTier === "support") {
+              aiParagraph = `${student.name} ने हाल ही में सकारात्मक प्रयास दिखाए हैं। हम उन्हें नियमित अभ्यास करने के लिए प्रेरित कर रहे हैं, क्योंकि हमारा मानना है कि उनमें अपने प्रदर्शन और समझ में सुधार करने की बहुत अच्छी क्षमता है।`;
+            } else {
+              aiParagraph = `${student.name} ने गणित में अच्छी समझ प्रदर्शित की है। यदि वे थोड़े अधिक कठिन विषयों पर थोड़ा और ध्यान केंद्रित करें, तो वे निश्चित रूप से उच्चतम अंक प्राप्त कर सकते हैं।`;
+            }
+          } else if (tone === "encouraging") {
+            if (performanceTier === "excellent") {
+              aiParagraph = `${student.name} गणित में उत्कृष्ट कौशल दिखाना जारी रख रहे हैं। मैं उन्हें अपनी जिज्ञासा बनाए रखने और स्वयं को और अधिक चुनौती देने के लिए ओलंपियाड स्तर के या उच्च-स्तरीय सोच कौशल (HOTS) के प्रश्नों को हल करने के लिए प्रोत्साहित करता हूँ।`;
+            } else if (performanceTier === "support") {
+              aiParagraph = `गणित के लिए नियमित अभ्यास और मजबूत आधार की आवश्यकता होती है। मैं ${student.name} को दैनिक कक्षा पाठों को दोहराने, एनसीईआरटी के हल किए गए उदाहरणों पर ध्यान देने और सहपाठियों के साथ अभ्यास करने की सलाह देता हूँ। इससे उनका आत्मविश्वास बढ़ेगा।`;
+            } else {
+              aiParagraph = `${student.name} लगातार प्रगति कर रहे हैं। हम कक्षा में सीखी गई अवधारणाओं को मजबूत करने के लिए उन्हें नियमित रूप से घर पर अभ्यास करने और वर्कशीट हल करने की सलाह देते हैं।`;
+            }
+          } else if (tone === "alert") {
+            if (performanceTier === "excellent") {
+              aiParagraph = `यद्यपि ${student.name} वर्तमान में उत्कृष्ट प्रदर्शन कर रहे हैं, कृपया ध्यान रखें कि वे किसी भी प्रकार की लापरवाही न बरतें। आने वाली परीक्षाओं में इन अच्छे अंकों को बनाए रखने के लिए नियमित रूप से दोहराव आवश्यक है।`;
+            } else if (performanceTier === "support") {
+              aiParagraph = `यह आपके ध्यान में लाना अत्यंत आवश्यक है कि ${student.name} को वर्तमान में गणित के बुनियादी सूत्रों और अवधारणाओं को समझने में कठिनाई हो रही है। हम उन्हें स्कूल में आयोजित उपचारात्मक (remedial) कक्षाओं में नियमित रूप से उपस्थित रहने और घर पर अभ्यास की निगरानी करने की दृढ़ सलाह देते हैं।`;
+            } else {
+              aiParagraph = `${student.name} का प्रदर्शन ठीक है, लेकिन कुछ ऐसे विषय हैं जहाँ वे और सुधार कर सकते हैं। कमजोर विषयों की नियमित समीक्षा करने की सलाह दी जाती है।`;
+            }
           } else {
-            aiParagraph = `${student.name} has maintained a very solid and stable performance. They grasp key mathematical operations well, and with a slight increase in attention to trickier areas (like algebra or geometry proofs), they can easily elevate their scores to the top bracket.`;
-          }
-        } else if (tone === "encouraging") {
-          if (performanceTier === "excellent") {
-            aiParagraph = `${student.name} continues to show brilliant skill in Mathematics. I encourage them to stay curious and start exploring Olympiad-level or higher-order thinking skill (HOTS) questions to challenge themselves further.`;
-          } else if (performanceTier === "support") {
-            aiParagraph = `Mathematics requires regular practice and concept building. I encourage ${student.name} to revise daily classroom lessons, focus heavily on NCERT solved examples, and participate in peer study groups. Consistent efforts will boost their confidence.`;
-          } else {
-            aiParagraph = `${student.name} is working at a steady pace. Daily practice, prompt revision of formulas, and resolving arithmetic doubts immediately will help them bridge the remaining gaps and unlock their full capability.`;
-          }
-        } else if (tone === "alert") {
-          if (performanceTier === "excellent") {
-            aiParagraph = `While ${student.name} is currently performing at an excellent level, please ensure they avoid complacency. Maintaining a regular review schedule is key to sustaining these high scores in upcoming board/session exams.`;
-          } else if (performanceTier === "support") {
-            aiParagraph = `This is to bring to your attention that ${student.name} is currently struggling to secure passing marks and lacks confidence in mathematical formulas. We strongly recommend regular attendance in school remedial classes and daily parent supervision of homework.`;
-          } else {
-            aiParagraph = `While ${student.name} understands standard concepts, their scores show inconsistency across chapters. They must dedicate more structured focus to areas of difficulty and practice mock test sets under timed conditions.`;
+            aiParagraph = `आपको ${student.name} के कक्षा आचरण, स्व-अध्ययन कार्यक्रम और गणित में उनकी प्रगति में सहयोग करने के तरीकों पर चर्चा करने के लिए हमारी आगामी अभिभावक-शिक्षक बैठक (PTM) में शामिल होने के लिए सादर आमंत्रित किया जाता है।`;
           }
         } else {
-          // PTM Invitation
-          aiParagraph = `You are cordially invited to attend our upcoming Parent-Teacher Meeting (PTM) to discuss ${student.name}'s classroom conduct, self-study schedules, and methods to work together to support their progress in Mathematics.`;
+          if (tone === "praise") {
+            if (performanceTier === "excellent") {
+              aiParagraph = `We are extremely proud of ${student.name}'s performance. They demonstrate deep conceptual clarity, logical reasoning, and active engagement in class sessions. This outstanding work highlights their consistent work ethic and strong mathematical aptitude.`;
+            } else if (performanceTier === "support") {
+              aiParagraph = `${student.name} has shown sincere efforts recently. We are encouraging them to channel this focus into regular practice, as we believe they possess the hidden potential to substantially improve their understanding and grades.`;
+            } else {
+              aiParagraph = `${student.name} has maintained a very solid and stable performance. They grasp key mathematical operations well, and with a slight increase in attention to trickier areas (like algebra or geometry proofs), they can easily elevate their scores to the top bracket.`;
+            }
+          } else if (tone === "encouraging") {
+            if (performanceTier === "excellent") {
+              aiParagraph = `${student.name} continues to show brilliant skill in Mathematics. I encourage them to stay curious and start exploring Olympiad-level or higher-order thinking skill (HOTS) questions to challenge themselves further.`;
+            } else if (performanceTier === "support") {
+              aiParagraph = `Mathematics requires regular practice and concept building. I encourage ${student.name} to revise daily classroom lessons, focus heavily on NCERT solved examples, and participate in peer study groups. Consistent efforts will boost their confidence.`;
+            } else {
+              aiParagraph = `${student.name} is working at a steady pace. Daily practice, prompt revision of formulas, and resolving arithmetic doubts immediately will help them bridge the remaining gaps and unlock their full capability.`;
+            }
+          } else if (tone === "alert") {
+            if (performanceTier === "excellent") {
+              aiParagraph = `While ${student.name} is currently performing at an excellent level, please ensure they avoid complacency. Maintaining a regular review schedule is key to sustaining these high scores in upcoming board/session exams.`;
+            } else if (performanceTier === "support") {
+              aiParagraph = `This is to bring to your attention that ${student.name} is currently struggling to secure passing marks and lacks confidence in mathematical formulas. We strongly recommend regular attendance in school remedial classes and daily parent supervision of homework.`;
+            } else {
+              aiParagraph = `While ${student.name} understands standard concepts, their scores show inconsistency across chapters. They must dedicate more structured focus to areas of difficulty and practice mock test sets under timed conditions.`;
+            }
+          } else {
+            aiParagraph = `You are cordially invited to attend our upcoming Parent-Teacher Meeting (PTM) to discuss ${student.name}'s classroom conduct, self-study schedules, and methods to work together to support their progress in Mathematics.`;
+          }
         }
 
         // Date String for letter header
         const today = new Date();
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const formattedDate = `${days[today.getDay()]}, ${today.getDate()}-${months[today.getMonth()]}-${today.getFullYear()}`;
+        const daysEN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const monthsEN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        
+        const daysHI = ['रविवार', 'सोमवार', 'मंगलवार', 'बुधवार', 'गुरुवार', 'शुक्रवार', 'शनिवार'];
+        const monthsHI = ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'];
+
+        const formattedDate = isHindi 
+          ? `दिनांक: ${today.getDate()}-${monthsHI[today.getMonth()]}-${today.getFullYear()} (${daysHI[today.getDay()]})`
+          : `Date: ${daysEN[today.getDay()]}, ${today.getDate()}-${monthsEN[today.getMonth()]}-${today.getFullYear()}`;
 
         let scoreBlock = scoreLines.length > 0 
           ? scoreLines.join("\n") 
-          : "  • No assessments logged in database yet. (Visit Performance Analysis to enter marks)";
+          : (isHindi ? "  • अभी तक कोई परीक्षा अंक दर्ज नहीं किए गए हैं।" : "  • No assessments logged in database yet. (Visit Performance Analysis to enter marks)");
 
-        let letterText = `Date: ${formattedDate}\n\n`;
-        letterText += `To,\n`;
-        letterText += `The Parent/Guardian of ${student.name}\n`;
-        letterText += `Class: ${activeClass} | Roll No: ${student.rollNo}\n\n`;
-        letterText += `Subject: Mathematics Academic Performance & Progress Report\n\n`;
-        letterText += `Dear Parent,\n\n`;
-        letterText += `I am sharing a brief progress update regarding your child, ${student.name}'s, performance in Mathematics. Below is a detailed record of the assessments logged for the current academic session:\n\n`;
-        letterText += `${scoreBlock}\n\n`;
-        
-        if (examCount > 0) {
-          letterText += `Cumulative Average Score: ${overallPctStr}\n\n`;
+        let letterText = "";
+
+        if (isHindi) {
+          letterText += `${formattedDate}\n\n`;
+          letterText += `सेवा में,\n`;
+          letterText += `${student.name} के माता-पिता/अभिभावक\n`;
+          letterText += `कक्षा: ${activeClass} | रोल नंबर: ${student.rollNo}\n\n`;
+          letterText += `विषय: गणित शैक्षणिक प्रदर्शन एवं प्रगति रिपोर्ट\n\n`;
+          letterText += `प्रिय अभिभावक,\n\n`;
+          letterText += `मैं आपके बच्चे, ${student.name} के गणित विषय के शैक्षणिक प्रदर्शन के संबंध में एक संक्षिप्त प्रगति रिपोर्ट साझा कर रहा हूँ। इस शैक्षणिक सत्र में दर्ज किए गए मूल्यांकन का विस्तृत विवरण नीचे दिया गया है:\n\n`;
+          letterText += `${scoreBlock}\n\n`;
+          
+          if (examCount > 0) {
+            letterText += `संचयी औसत प्रतिशत: ${overallPctStr}\n\n`;
+          }
+
+          if (absentTests.length > 0) {
+            letterText += `⚠️ विशेष ध्यान: यह देखा गया है कि ${student.name} निम्नलिखित आयोजित परीक्षाओं में अनुपस्थित (ABSENT) थे:\n`;
+            letterText += `${absentTests.map(t => `  - ${t}`).join("\n")}\n`;
+            letterText += `परीक्षाओं में अनुपस्थिति संचयी अंकों और प्रगति को प्रभावित करती है। कृपया सुनिश्चित करें कि वे भविष्य में सभी परीक्षाओं में उपस्थित रहें।\n\n`;
+          }
+          
+          letterText += `${aiParagraph}\n\n`;
+          
+          if (customRemarks) {
+            letterText += `शिक्षक की अतिरिक्त टिप्पणी:\n"${customRemarks}"\n\n`;
+          }
+          
+          letterText += `आपके बच्चे की शैक्षणिक प्रगति में आपके निरंतर सहयोग के लिए धन्यवाद।\n\n`;
+          letterText += `सादर,\n\n`;
+          letterText += `के. बी. जोशी\n`;
+          letterText += `स्नातकोत्तर शिक्षक (गणित), पी.एम. श्री के.वि. रानीखेत\n`;
+          letterText += `संपर्क: 9410121232`;
+        } else {
+          letterText += `${formattedDate}\n\n`;
+          letterText += `To,\n`;
+          letterText += `The Parent/Guardian of ${student.name}\n`;
+          letterText += `Class: ${activeClass} | Roll No: ${student.rollNo}\n\n`;
+          letterText += `Subject: Mathematics Academic Performance & Progress Report\n\n`;
+          letterText += `Dear Parent,\n\n`;
+          letterText += `I am sharing a brief progress update regarding your child, ${student.name}'s, performance in Mathematics. Below is a detailed record of the assessments logged for the current academic session:\n\n`;
+          letterText += `${scoreBlock}\n\n`;
+          
+          if (examCount > 0) {
+            letterText += `Cumulative Average Score: ${overallPctStr}\n\n`;
+          }
+
+          if (absentTests.length > 0) {
+            letterText += `⚠️ SPECIAL NOTICE: It has been observed that ${student.name} was ABSENT for the following conducted assessment(s):\n`;
+            letterText += `${absentTests.map(t => `  - ${t}`).join("\n")}\n`;
+            letterText += `Absence from assessments negatively impacts cumulative scores and academic progress. Please ensure their attendance in all future evaluations.\n\n`;
+          }
+          
+          letterText += `${aiParagraph}\n\n`;
+          
+          if (customRemarks) {
+            letterText += `Additional Teacher Notes:\n"${customRemarks}"\n\n`;
+          }
+          
+          letterText += `Thank you for your continuous cooperation in supporting your ward's educational journey.\n\n`;
+          letterText += `Warm regards,\n\n`;
+          letterText += `K B Joshi\n`;
+          letterText += `PGT Mathematics, PM SHRI KV Ranikhet\n`;
+          letterText += `Contact: 9410121232`;
         }
-        
-        letterText += `${aiParagraph}\n\n`;
-        
-        if (customRemarks) {
-          letterText += `Additional Teacher Notes:\n"${customRemarks}"\n\n`;
-        }
-        
-        letterText += `Thank you for your continuous cooperation in supporting your ward's educational journey.\n\n`;
-        letterText += `Warm regards,\n\n`;
-        letterText += `K B Joshi\n`;
-        letterText += `PGT Mathematics, PM SHRI KV Ranikhet\n`;
-        letterText += `Contact: 9410121232`;
 
         previewTextEl.textContent = letterText;
       }
@@ -748,6 +878,11 @@
         }
         if (remarksTextarea) {
           remarksTextarea.addEventListener("input", generateLetter);
+        }
+
+        const langSelect = document.getElementById("letterLangSelect");
+        if (langSelect) {
+          langSelect.addEventListener("change", generateLetter);
         }
 
         if (whatsappBtn) {
