@@ -1340,6 +1340,216 @@
       .tracker-charts-grid { grid-template-columns: 1fr; }
       .score-cards-row { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* ══ TRACKER MODAL OVERLAY ══════════════════════════════════════ */
+    .tracker-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(4, 2, 18, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      overflow-y: auto;
+      animation: modalFadeIn 0.35s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .tracker-modal-overlay.open { display: block; }
+
+    .tracker-modal-inner {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 16px 40px;
+    }
+
+    /* Modal header stripe */
+    .modal-header-stripe {
+      background: linear-gradient(135deg, #0d0520 0%, #140a30 40%, #090d28 100%);
+      border: 2px solid rgba(139,92,246,0.5);
+      border-radius: 20px;
+      padding: 28px 36px 24px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(124,58,237,0.25), 0 20px 60px rgba(0,0,0,0.7);
+    }
+    .modal-header-stripe::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #7c3aed, #06b6d4, #10b981, #f59e0b, #ef4444);
+    }
+    .modal-header-stripe::after {
+      content: '∑ ∫ π √ ∞ Δ θ';
+      position: absolute;
+      right: 30px; bottom: 14px;
+      font-size: 2.6rem;
+      color: rgba(139,92,246,0.07);
+      font-weight: 900;
+      letter-spacing: 10px;
+      pointer-events: none;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #e2e8f0;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      z-index: 2;
+    }
+    .modal-close-btn:hover { background: rgba(239,68,68,0.3); border-color: #ef4444; color: #fff; }
+
+    .modal-student-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .modal-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 0 30px rgba(124,58,237,0.6);
+    }
+    .modal-student-name {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #f0e6ff;
+      letter-spacing: 0.3px;
+    }
+    .modal-student-sub {
+      font-size: 1rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .modal-action-bar {
+      display: flex;
+      gap: 12px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    /* Modal section cards */
+    .modal-section {
+      background: linear-gradient(135deg, rgba(15,8,35,0.98) 0%, rgba(10,15,40,0.95) 100%);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 16px;
+      padding: 26px 28px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .modal-section-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(139,92,246,0.2);
+    }
+
+    /* Score cards in modal */
+    .modal-score-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+    .modal-score-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .modal-score-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .modal-sc-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+    .modal-sc-value {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .modal-sc-sub {
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .modal-sc-bar {
+      height: 5px;
+      border-radius: 3px;
+      margin-top: 12px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .modal-sc-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+
+    /* Curve chart height */
+    .curve-chart-wrap { position: relative; height: 300px; }
+
+    /* Performance table in modal */
+    .modal-tracker-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .modal-tracker-table thead th {
+      background: rgba(124,58,237,0.2);
+      color: #c4b5fd;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 13px 14px;
+      text-align: left;
+      border-bottom: 2px solid rgba(124,58,237,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .modal-tracker-table tbody td {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: #e2e8f0;
+      font-size: 0.93rem;
+      vertical-align: middle;
+    }
+    .modal-tracker-table tbody tr:hover { background: rgba(124,58,237,0.06); }
+    .modal-tracker-table .absent-row td { color: #f87171; font-style: italic; }
+
+    @media (max-width: 768px) {
+      .modal-student-name { font-size: 1.3rem; }
+      .modal-score-cards { grid-template-columns: repeat(2,1fr); }
+      .modal-action-bar { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
@@ -1458,64 +1668,91 @@
           </div>
         </div>
 
-        <!-- ══ TRACKER REPORT PANEL ══════════════════════════════════════ -->
-        <div id="trackerReport" class="glass-card" style="padding:28px;">
-          <div class="report-header-bar">
-            <div class="student-id-card">
-              <div class="student-avatar" id="trackerAvatar">—</div>
-              <div>
-                <div class="student-info-name" id="trackerStudentName">—</div>
-                <div class="student-info-sub" id="trackerStudentSub">—</div>
-                <div id="trackerTierBadge"></div>
+        <!-- ══ TRACKER REPORT MODAL ══════════════════════════════════════ -->
+        <div id="trackerModal" class="tracker-modal-overlay" role="dialog" aria-modal="true">
+          <div class="tracker-modal-inner">
+
+            <!-- Header stripe with student identity -->
+            <div class="modal-header-stripe">
+              <button class="modal-close-btn" onclick="closeTrackerModal()" title="Close">
+                <i class="fas fa-times"></i>
+              </button>
+              <div class="modal-student-row">
+                <div class="modal-avatar" id="trackerAvatar">—</div>
+                <div style="flex:1;">
+                  <div class="modal-student-name" id="trackerStudentName">—</div>
+                  <div class="modal-student-sub" id="trackerStudentSub">—</div>
+                  <div id="trackerTierBadge" style="margin-top:8px;"></div>
+                </div>
+                <div class="modal-action-bar">
+                  <button class="tracker-btn secondary" onclick="trackerShareWhatsApp()">
+                    <i class="fab fa-whatsapp" style="color:#25d366;"></i> Share WhatsApp
+                  </button>
+                  <button class="tracker-btn green" onclick="trackerPrintReport()">
+                    <i class="fas fa-print"></i> Print A4
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="tracker-action-bar" style="margin-top:0;">
-              <button class="tracker-btn secondary" onclick="trackerShareWhatsApp()">
-                <i class="fab fa-whatsapp" style="color:#25d366;"></i> Share on WhatsApp
-              </button>
-              <button class="tracker-btn green" onclick="trackerPrintReport()">
-                <i class="fas fa-print"></i> Print A4 Report
-              </button>
-            </div>
-          </div>
 
-          <!-- Score Summary Cards -->
-          <div class="score-cards-row" id="trackerScoreCards"></div>
+            <!-- Summary Score Cards -->
+            <div class="modal-section">
+              <div class="modal-section-title">
+                <i class="fas fa-tachometer-alt" style="color:#a78bfa;"></i>
+                Performance Summary
+              </div>
+              <div class="modal-score-cards" id="trackerScoreCards"></div>
+            </div>
 
-          <!-- Charts Row -->
-          <div class="tracker-charts-grid">
-            <div class="tracker-chart-box">
-              <div class="tracker-chart-title"><i class="fas fa-chart-radar" style="color:#a78bfa;"></i> Performance Radar</div>
-              <canvas id="trackerRadarChart" height="240"></canvas>
+            <!-- Performance Curve Chart -->
+            <div class="modal-section">
+              <div class="modal-section-title">
+                <i class="fas fa-chart-line" style="color:#06b6d4;"></i>
+                Performance Trend Curve — Score % Across Tests
+              </div>
+              <div class="curve-chart-wrap">
+                <canvas id="trackerLineChart"></canvas>
+              </div>
             </div>
-            <div class="tracker-chart-box">
-              <div class="tracker-chart-title"><i class="fas fa-chart-bar" style="color:#06b6d4;"></i> Score vs Max Marks — All Tests</div>
-              <canvas id="trackerBarChart" height="240"></canvas>
-            </div>
-          </div>
 
-          <!-- Detailed Score Table -->
-          <div class="tracker-chart-box" style="margin-bottom:0;">
-            <div class="tracker-chart-title"><i class="fas fa-table" style="color:#10b981;"></i> Detailed Test-wise Score Sheet</div>
-            <div style="overflow-x:auto;">
-              <table class="tracker-table" id="trackerScoreTable">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Exam / Test</th>
-                    <th>Date</th>
-                    <th>Score</th>
-                    <th>Max</th>
-                    <th>Percentage</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="trackerTableBody"></tbody>
-              </table>
+            <!-- Bar Chart -->
+            <div class="modal-section">
+              <div class="modal-section-title">
+                <i class="fas fa-chart-bar" style="color:#f59e0b;"></i>
+                Score vs Max Marks — All Conducted Tests
+              </div>
+              <div style="position:relative; height:260px;">
+                <canvas id="trackerBarChart"></canvas>
+              </div>
             </div>
+
+            <!-- Detailed Score Table -->
+            <div class="modal-section" style="margin-bottom:0;">
+              <div class="modal-section-title">
+                <i class="fas fa-table" style="color:#10b981;"></i>
+                Detailed Test-wise Score Sheet
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="modal-tracker-table" id="trackerScoreTable">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Exam / Test</th>
+                      <th>Date</th>
+                      <th>Score</th>
+                      <th>Max</th>
+                      <th>Percentage</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="trackerTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>
-        <!-- ══ END TRACKER ══════════════════════════════════════════════ -->
+        <!-- ══ END TRACKER MODAL ══════════════════════════════════════════ -->
 
         <div class="glass-card">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:15px;">
@@ -3613,70 +3850,21 @@
 
       // ── Score Summary Cards ──
       const summaryCards = [
-        { label: "Tests Taken",    value: examCount,                   sub: `of ${conducted.length} conducted`,  color: "#a78bfa", pct: (examCount/conducted.length)*100 },
-        { label: "Overall %",      value: overallPct.toFixed(1)+"%",   sub: `${totalScored}/${totalPossible}`,    color: overallPct>=75?"#10b981":overallPct>=45?"#f59e0b":"#ef4444", pct: overallPct },
-        { label: "Top Scorer",     value: highCount,                   sub: "tests ≥ 75%",                       color: "#10b981", pct: examCount>0?(highCount/examCount)*100:0 },
-        { label: "Absent",         value: absentCount,                 sub: "conducted tests missed",            color: absentCount>0?"#ef4444":"#10b981", pct: conducted.length>0?(absentCount/conducted.length)*100:0 },
+        { label: "Tests Taken",  value: examCount,               sub: `of ${conducted.length} conducted`, color: "#a78bfa", pct: (examCount/conducted.length)*100 },
+        { label: "Overall %",    value: overallPct.toFixed(1)+"%",sub: `${totalScored}/${totalPossible}`,  color: overallPct>=75?"#10b981":overallPct>=45?"#f59e0b":"#ef4444", pct: overallPct },
+        { label: "Top Scorer",   value: highCount,               sub: "tests ≥ 75%",                      color: "#10b981", pct: examCount>0?(highCount/examCount)*100:0 },
+        { label: "Absent",       value: absentCount,             sub: "conducted tests missed",           color: absentCount>0?"#ef4444":"#10b981", pct: conducted.length>0?(absentCount/conducted.length)*100:0 },
       ];
       const cardsEl = document.getElementById("trackerScoreCards");
       cardsEl.innerHTML = summaryCards.map(c => `
-        <div class="score-card">
-          <div class="sc-label">${c.label}</div>
-          <div class="sc-value" style="color:${c.color};">${c.value}</div>
-          <div class="sc-sub">${c.sub}</div>
-          <div class="sc-bar"><div class="sc-bar-fill" style="width:${Math.min(c.pct,100).toFixed(0)}%; background:${c.color};"></div></div>
+        <div class="modal-score-card">
+          <div class="modal-sc-label">${c.label}</div>
+          <div class="modal-sc-value" style="color:${c.color};">${c.value}</div>
+          <div class="modal-sc-sub">${c.sub}</div>
+          <div class="modal-sc-bar"><div class="modal-sc-bar-fill" style="width:${Math.min(c.pct,100).toFixed(0)}%; background:${c.color};"></div></div>
         </div>`).join("");
 
-      // ── Radar Chart ──
-      if (trackerRadarInstance) trackerRadarInstance.destroy();
-      const radarCtx = document.getElementById("trackerRadarChart").getContext("2d");
-      trackerRadarInstance = new Chart(radarCtx, {
-        type: "radar",
-        data: {
-          labels: radarLabels,
-          datasets: [{
-            label: "Score %",
-            data: radarData,
-            backgroundColor: "rgba(124,58,237,0.18)",
-            borderColor: "#7c3aed",
-            pointBackgroundColor: "#a78bfa",
-            borderWidth: 2,
-            pointRadius: 4
-          }]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          scales: { r: {
-            beginAtZero: true, max: 100,
-            ticks: { color: "#94a3b8", stepSize: 25 },
-            grid: { color: "rgba(255,255,255,0.07)" },
-            pointLabels: { color: "#c4b5fd", font: { size: 10, weight: "600" } }
-          }},
-          plugins: { legend: { labels: { color: "#e2e8f0" } } }
-        }
-      });
-
-      // ── Bar Chart ──
-      if (trackerBarInstance) trackerBarInstance.destroy();
-      const barCtx = document.getElementById("trackerBarChart").getContext("2d");
-      trackerBarInstance = new Chart(barCtx, {
-        type: "bar",
-        data: {
-          labels: barLabels,
-          datasets: [
-            { label: "Scored",    data: barScores, backgroundColor: barColors,             borderRadius: 6 },
-            { label: "Max Marks", data: barMax,    backgroundColor: "rgba(255,255,255,0.07)", borderRadius: 6 }
-          ]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: "#e2e8f0", font: { size: 11 } } } },
-          scales: {
-            x: { ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { color: "rgba(255,255,255,0.05)" } },
-            y: { beginAtZero: true, ticks: { color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.07)" } }
-          }
-        }
-      });
+      // ── (charts rendered inside setTimeout after modal opens) ──
 
       // ── Score Table ──
       const tbody = document.getElementById("trackerTableBody");
@@ -3692,16 +3880,153 @@
         return `
           <tr>
             <td>${i+1}</td><td>${r.label}</td><td>${r.date}</td>
-            <td><strong style="color:${r.color};">${r.score}</strong></td><td>${r.max}</td>
-            <td>${r.pct}%</td>
+            <td><strong style="color:${r.color}; font-size:1.05em;">${r.score}</strong></td><td>${r.max}</td>
+            <td><strong>${r.pct}%</strong></td>
             <td><span class="pct-pill ${pctClass}">${r.pct>=75?"Excellent ✓":r.pct>=45?"Average ●":"Below Par ▼"}</span></td>
           </tr>`;
       }).join("");
 
-      // Show panel
-      document.getElementById("trackerReport").style.display = "block";
-      document.getElementById("trackerReport").scrollIntoView({ behavior: "smooth", block: "start" });
+      // ── Open modal FIRST so canvases get real dimensions ──
+      const modal = document.getElementById("trackerModal");
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      modal.scrollTop = 0;
+
+      // ── Render charts AFTER modal is visible (next tick) ──
+      setTimeout(() => {
+
+        // --- Performance Curve (Line Chart) ---
+        if (trackerRadarInstance) { trackerRadarInstance.destroy(); trackerRadarInstance = null; }
+        const lineCanvas = document.getElementById("trackerLineChart");
+        const lineCtx = lineCanvas.getContext("2d");
+
+        const lineGrad = lineCtx.createLinearGradient(0, 0, 0, 280);
+        lineGrad.addColorStop(0,   "rgba(124,58,237,0.45)");
+        lineGrad.addColorStop(0.6, "rgba(6,182,212,0.12)");
+        lineGrad.addColorStop(1,   "rgba(6,182,212,0)");
+
+        const lineLabels = [], lineData = [], linePointColors = [], linePointSizes = [];
+        rows.forEach(r => {
+          lineLabels.push(r.label.substring(0, 16));
+          if (r.absent) {
+            lineData.push(null);
+            linePointColors.push("#ef4444");
+            linePointSizes.push(6);
+          } else {
+            const pVal = parseFloat(r.pct);
+            lineData.push(pVal);
+            linePointColors.push(pVal>=75?"#10b981":pVal>=45?"#f59e0b":"#ef4444");
+            linePointSizes.push(6);
+          }
+        });
+
+        trackerRadarInstance = new Chart(lineCtx, {
+          type: "line",
+          data: {
+            labels: lineLabels,
+            datasets: [
+              {
+                label: "Score %",
+                data: lineData,
+                fill: true,
+                backgroundColor: lineGrad,
+                borderColor: "#7c3aed",
+                borderWidth: 3,
+                pointBackgroundColor: linePointColors,
+                pointBorderColor: "#fff",
+                pointBorderWidth: 2,
+                pointRadius: linePointSizes,
+                pointHoverRadius: 10,
+                tension: 0.42,
+                spanGaps: false
+              },
+              {
+                label: "75% Benchmark",
+                data: Array(lineLabels.length).fill(75),
+                fill: false,
+                borderColor: "rgba(16,185,129,0.6)",
+                borderWidth: 2,
+                borderDash: [8,5],
+                pointRadius: 0,
+                tension: 0
+              },
+              {
+                label: "45% Threshold",
+                data: Array(lineLabels.length).fill(45),
+                fill: false,
+                borderColor: "rgba(239,68,68,0.5)",
+                borderWidth: 2,
+                borderDash: [5,5],
+                pointRadius: 0,
+                tension: 0
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+              legend: { labels: { color: "#e2e8f0", font: { size: 12, weight: "600" } } },
+              tooltip: {
+                backgroundColor: "rgba(10,5,30,0.95)",
+                borderColor: "rgba(139,92,246,0.5)",
+                borderWidth: 1,
+                titleColor: "#c4b5fd",
+                titleFont: { size: 13, weight: "800" },
+                bodyColor: "#e2e8f0",
+                bodyFont: { size: 12 },
+                padding: 12,
+                callbacks: {
+                  label: ctx => {
+                    if (ctx.datasetIndex !== 0) return ctx.dataset.label + ": " + ctx.parsed.y + "%";
+                    const val = ctx.parsed.y;
+                    if (val === null) return "Absent ❌";
+                    return `Score: ${val}% ${val>=75?"✓ Excellent":val>=45?"● Average":"▼ Below Par"}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: { ticks: { color: "#94a3b8", font: { size: 11 }, maxRotation: 45 }, grid: { color: "rgba(255,255,255,0.05)" } },
+              y: { beginAtZero: true, max: 105, ticks: { color: "#94a3b8", font: { size: 12 }, callback: v => v+"%" }, grid: { color: "rgba(255,255,255,0.06)" } }
+            }
+          }
+        });
+
+        // --- Bar Chart ---
+        if (trackerBarInstance) { trackerBarInstance.destroy(); trackerBarInstance = null; }
+        const barCtx = document.getElementById("trackerBarChart").getContext("2d");
+        trackerBarInstance = new Chart(barCtx, {
+          type: "bar",
+          data: {
+            labels: barLabels,
+            datasets: [
+              { label: "Scored",    data: barScores, backgroundColor: barColors, borderRadius: 6 },
+              { label: "Max Marks", data: barMax,    backgroundColor: "rgba(255,255,255,0.07)", borderRadius: 6 }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: "#e2e8f0", font: { size: 11 } } } },
+            scales: {
+              x: { ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { color: "rgba(255,255,255,0.05)" } },
+              y: { beginAtZero: true, ticks: { color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.07)" } }
+            }
+          }
+        });
+
+      }, 60); // end setTimeout
     }
+
+    function closeTrackerModal() {
+      document.getElementById("trackerModal").classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    // Close on Escape key
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeTrackerModal();
+    });
 
     /* ── WhatsApp Share ── */
     function trackerShareWhatsApp() {
@@ -3737,13 +4062,13 @@
       const sub     = document.getElementById("trackerStudentSub").textContent;
       const tier    = document.getElementById("trackerTierBadge").textContent.trim();
       const rows    = document.querySelectorAll("#trackerTableBody tr");
-      const cards   = document.querySelectorAll("#trackerScoreCards .score-card");
+      const cards   = document.querySelectorAll("#trackerScoreCards .modal-score-card");
 
       let summaryHtml = "";
       cards.forEach(c => {
-        const lbl = c.querySelector(".sc-label")?.textContent || "";
-        const val = c.querySelector(".sc-value")?.textContent || "";
-        const sub2= c.querySelector(".sc-sub")?.textContent  || "";
+        const lbl = c.querySelector(".modal-sc-label")?.textContent || "";
+        const val = c.querySelector(".modal-sc-value")?.textContent || "";
+        const sub2= c.querySelector(".modal-sc-sub")?.textContent  || "";
         summaryHtml += `<div class="scard"><div class="scard-val">${val}</div><div class="scard-lbl">${lbl}</div><div class="scard-sub">${sub2}</div></div>`;
       });
 
@@ -3830,9 +4155,20 @@
       win.document.close();
     }
 
-    // Initialise tracker selects on page load
+    // Initialise tracker selects — wait for studentData to be ready
     document.addEventListener("DOMContentLoaded", function() {
-      trackerPopulateStudents();
+      // Poll until studentData is loaded (loadData runs asynchronously)
+      const waitForData = setInterval(() => {
+        if (studentData && Object.keys(studentData).length > 0) {
+          clearInterval(waitForData);
+          trackerPopulateStudents();
+        }
+      }, 100);
+      // Fallback: populate after 1 second regardless
+      setTimeout(() => {
+        clearInterval(waitForData);
+        trackerPopulateStudents();
+      }, 1000);
     });
 
   </script>
