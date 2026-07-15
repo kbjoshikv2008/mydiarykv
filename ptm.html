@@ -463,6 +463,15 @@
           if (savedDates) {
             testDates = JSON.parse(savedDates);
           }
+          // Sort alphabetically and assign sequential S.No (rollNo)
+          for (const cls in studentData) {
+            if (Array.isArray(studentData[cls])) {
+              studentData[cls].sort((a, b) => a.name.localeCompare(b.name));
+              studentData[cls].forEach((student, index) => {
+                student.rollNo = index + 1; // S.No
+              });
+            }
+          }
         } catch(e) {
           console.error("Error reading localStorage:", e);
         }
@@ -493,7 +502,7 @@
         students.forEach((student, index) => {
           const option = document.createElement("option");
           option.value = index;
-          option.textContent = `${student.name} (Roll: ${student.rollNo})`;
+          option.textContent = `${student.name} (S.No: ${student.rollNo})`;
           studentSelect.appendChild(option);
         });
 
@@ -725,7 +734,7 @@
           letterText += `${formattedDate}\n\n`;
           letterText += `सेवा में,\n`;
           letterText += `${student.name} के माता-पिता/अभिभावक\n`;
-          letterText += `कक्षा: ${activeClass} | रोल नंबर: ${student.rollNo}\n\n`;
+          letterText += `कक्षा: ${activeClass} | क्रमांक: ${student.rollNo}\n\n`;
           letterText += `विषय: गणित शैक्षणिक प्रदर्शन एवं प्रगति रिपोर्ट\n\n`;
           letterText += `प्रिय अभिभावक,\n\n`;
           letterText += `मैं आपके बच्चे, ${student.name} के गणित विषय के शैक्षणिक प्रदर्शन के संबंध में एक संक्षिप्त प्रगति रिपोर्ट साझा कर रहा हूँ। इस शैक्षणिक सत्र में दर्ज किए गए मूल्यांकन का विस्तृत विवरण नीचे दिया गया है:\n\n`;
@@ -741,7 +750,9 @@
             letterText += `परीक्षाओं में अनुपस्थिति संचयी अंकों और प्रगति को प्रभावित करती है। कृपया सुनिश्चित करें कि वे भविष्य में सभी परीक्षाओं में उपस्थित रहें।\n\n`;
           }
           
-          letterText += `${aiParagraph}\n\n`;
+          if (aiParagraph) {
+            letterText += `${aiParagraph}\n\n`;
+          }
           
           if (customRemarks) {
             letterText += `शिक्षक की अतिरिक्त टिप्पणी:\n"${customRemarks}"\n\n`;
@@ -756,7 +767,7 @@
           letterText += `${formattedDate}\n\n`;
           letterText += `To,\n`;
           letterText += `The Parent/Guardian of ${student.name}\n`;
-          letterText += `Class: ${activeClass} | Roll No: ${student.rollNo}\n\n`;
+          letterText += `Class: ${activeClass} | S.No: ${student.rollNo}\n\n`;
           letterText += `Subject: Mathematics Academic Performance & Progress Report\n\n`;
           letterText += `Dear Parent,\n\n`;
           letterText += `I am sharing a brief progress update regarding your child, ${student.name}'s, performance in Mathematics. Below is a detailed record of the assessments logged for the current academic session:\n\n`;

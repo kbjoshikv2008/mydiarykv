@@ -1865,7 +1865,7 @@
         <h2 id="modalStudentName">Student Performance Analysis</h2>
         <div class="student-meta-details">
           <span><i class="fas fa-school"></i> Class: <strong id="modalClassName">--</strong></span>
-          <span><i class="fas fa-hashtag"></i> Roll No: <strong id="modalStudentRoll">--</strong></span>
+          <span><i class="fas fa-hashtag"></i> S.No: <strong id="modalStudentRoll">--</strong></span>
           <span><i class="fas fa-chart-line"></i> Aggregate Average: <strong id="modalStudentAvg">--%</strong></span>
           <span style="display:flex; align-items:center; gap:5px;"><i class="fas fa-phone-alt"></i> Parent Mobile: <input type="text" id="modalParentMobile" class="parent-mobile-input" style="width: 140px; padding: 2px 6px; font-size: 0.8rem; margin: 0; display: inline-block;" placeholder="Add Mobile" oninput="updateModalParentMobile(this.value)"></span>
         </div>
@@ -1939,7 +1939,7 @@
     <div class="print-student-info">
       <div>
         <div class="print-info-item"><strong>Student Name:</strong> <span id="printName">--</span></div>
-        <div class="print-info-item"><strong>Roll No:</strong> <span id="printRoll">--</span></div>
+        <div class="print-info-item"><strong>S.No:</strong> <span id="printRoll">--</span></div>
       </div>
       <div>
         <div class="print-info-item"><strong>Class:</strong> <span id="printClass">--</span></div>
@@ -2072,6 +2072,10 @@
         "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA",
         "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"
       ];
+
+      c11bNames.sort((a,b) => a.localeCompare(b));
+      c12bNames.sort((a,b) => a.localeCompare(b));
+      c7cNames.sort((a,b) => a.localeCompare(b));
 
       const pt1_11b = {
         "ADITYA NEGI": 17, "ARUN ARYA": 39, "AYUSH ROY": 3, "DIKSHANT NEGI": 31,
@@ -2339,6 +2343,17 @@
         
         localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
       }
+
+      // Sort alphabetically and assign sequential S.No (rollNo)
+      for (const cls in studentData) {
+        if (Array.isArray(studentData[cls])) {
+          studentData[cls].sort((a, b) => a.name.localeCompare(b.name));
+          studentData[cls].forEach((student, index) => {
+            student.rollNo = index + 1; // S.No
+          });
+        }
+      }
+      saveData();
 
       setupOriginalProfileModal();
       switchClass("7C");
@@ -2717,7 +2732,7 @@
         `;
       });
       trHead.innerHTML = `
-        <th class="sortable" onclick="sortTable('rollNo')">Roll No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('rollNo')">S.No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th>Parent's Mobile</th>
         ${testHeaders}
@@ -3391,7 +3406,7 @@
       const activeTests = classTests[activeClass] || [];
       
       // 1. Build CSV Headers
-      const headers = ["Roll No", "Student Name", "Parent Mobile"];
+      const headers = ["S.No", "Student Name", "Parent Mobile"];
       activeTests.forEach(test => {
         const testName = testFullNames[test.id] || test.label;
         headers.push(`${testName} (Max: ${test.maxMarks})`);
@@ -3594,7 +3609,7 @@
       students.forEach((s, idx) => {
         const opt = document.createElement("option");
         opt.value = idx;
-        opt.textContent = `${s.name} (Roll: ${s.rollNo})`;
+        opt.textContent = `${s.name} (S.No: ${s.rollNo})`;
         sel.appendChild(opt);
       });
     }
@@ -3692,7 +3707,7 @@
       const initials = student.name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
       document.getElementById("trackerAvatar").textContent = initials;
       document.getElementById("trackerStudentName").textContent = student.name;
-      document.getElementById("trackerStudentSub").textContent = `Class ${cls} | Roll No: ${student.rollNo}`;
+      document.getElementById("trackerStudentSub").textContent = `Class ${cls} | S.No: ${student.rollNo}`;
       document.getElementById("trackerTierBadge").innerHTML = `<span class="perf-tier-badge ${tierClass}">${tierText}</span>`;
       // Pre-fill parent mobile from saved data
       document.getElementById("trackerParentMobile").value = student.parentMobile || "";
