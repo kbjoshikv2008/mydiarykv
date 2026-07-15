@@ -2461,7 +2461,7 @@
       const errorMsg = document.getElementById("gateError");
       errorMsg.textContent = "";
 
-      if (pwd === "kvrkt2026") {
+      if (pwd === "kbj2008") {
         sessionStorage.setItem("analysis_access_granted", "yes");
         hideSecurityGate();
       } else {
@@ -3827,6 +3827,10 @@
 
       // ── Render charts AFTER modal is visible (next tick) ──
       setTimeout(() => {
+        if (!window.Chart) {
+          console.warn("Chart.js is not loaded. Skipping rendering individual student performance charts.");
+          return;
+        }
 
         // --- Performance Curve (Line Chart) ---
         if (trackerRadarInstance) { trackerRadarInstance.destroy(); trackerRadarInstance = null; }
@@ -4066,10 +4070,21 @@
       const today = new Date();
       const dateStr = `${today.getDate()}-${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][today.getMonth()]}-${today.getFullYear()}`;
 
-      const win = window.open("","_blank","width=900,height=700");
-      if (!win) { alert("Pop-up blocked. Please allow pop-ups."); return; }
+      // Create or reuse hidden iframe
+      let iframe = document.getElementById("trackerPrintIframe");
+      if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.id = "trackerPrintIframe";
+        iframe.style.position = "absolute";
+        iframe.style.width = "0px";
+        iframe.style.height = "0px";
+        iframe.style.border = "none";
+        document.body.appendChild(iframe);
+      }
 
-      win.document.write(`<!DOCTYPE html>
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -4124,10 +4139,14 @@
   </table>
 
   <div class="footer">PM SHRI KV Ranikhet — Confidential Academic Record — Mathematics Department — Session 2025-26</div>
+</body>
+</html>`);
+      doc.close();
 
-  <script>window.onload=function(){window.print();window.onafterprint=function(){window.close();};};<\/script>
-</body></html>`);
-      win.document.close();
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }, 150);
     }
 
     // Initialise tracker selects — wait for studentData to be ready

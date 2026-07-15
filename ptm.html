@@ -811,12 +811,16 @@
           return;
         }
 
-        const printWin = window.open("", "_blank", "width=900,height=700");
-        if (!printWin) {
-          statusEl.style.color = "#ef4444";
-          statusEl.textContent = "❌ Pop-up blocked. Please allow pop-ups for this site.";
-          setTimeout(() => { statusEl.textContent = ""; }, 4000);
-          return;
+        // Create or reuse hidden iframe
+        let iframe = document.getElementById("ptmPrintIframe");
+        if (!iframe) {
+          iframe = document.createElement("iframe");
+          iframe.id = "ptmPrintIframe";
+          iframe.style.position = "absolute";
+          iframe.style.width = "0px";
+          iframe.style.height = "0px";
+          iframe.style.border = "none";
+          document.body.appendChild(iframe);
         }
 
         // Escape HTML special chars in the plain-text letter
@@ -830,7 +834,9 @@
           .replace(/(⚠️[^\n]*)/g, '<strong style="color:#b91c1c;">$1</strong>')
           .replace(/(ABSENT ❌)/g, '<span style="color:#b91c1c;font-weight:700;">ABSENT ❌</span>');
 
-        printWin.document.write(`<!DOCTYPE html>
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -921,16 +927,15 @@
 
     <div class="letter-footer">PM SHRI KV Ranikhet — Confidential Parent Communication — Mathematics Department</div>
   </div>
-
-  <script>
-    window.onload = function() {
-      window.print();
-      window.onafterprint = function() { window.close(); };
-    };
-  <\/script>
 </body>
 </html>`);
-        printWin.document.close();
+        doc.close();
+
+        // Print iframe content
+        setTimeout(() => {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+        }, 150);
       }
 
       // Event Listeners initialization
