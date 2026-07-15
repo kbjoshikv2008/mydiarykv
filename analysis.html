@@ -2357,6 +2357,19 @@
           });
         }
       }
+      // Force sync Class 12 Priyanka & Harshita Negi phone numbers
+      if (studentData["12"]) {
+        const priy = studentData["12"].find(s => s.name === "PRIYANKA");
+        if (priy) {
+          priy.parentMobile = "9759421398";
+          priy.mobile = "9759421398";
+        }
+        const hars = studentData["12"].find(s => s.name === "HARSHITA NEGI");
+        if (hars) {
+          hars.parentMobile = "8006819873";
+          hars.mobile = "8006819873";
+        }
+      }
       saveData();
 
       setupOriginalProfileModal();
