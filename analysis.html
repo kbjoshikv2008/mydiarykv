@@ -1683,6 +1683,20 @@
                   <div class="modal-student-name" id="trackerStudentName">—</div>
                   <div class="modal-student-sub" id="trackerStudentSub">—</div>
                   <div id="trackerTierBadge" style="margin-top:8px;"></div>
+                  <!-- Parent Mobile Row -->
+                  <div style="display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                    <i class="fab fa-whatsapp" style="color:#25d366; font-size:1rem;"></i>
+                    <span style="font-size:0.8rem; color:#94a3b8; font-weight:600;">Parent Mobile:</span>
+                    <input id="trackerParentMobile" type="tel" maxlength="10" placeholder="Enter 10-digit number"
+                      style="background:rgba(255,255,255,0.08); border:1px solid rgba(139,92,246,0.4); border-radius:8px;
+                             color:#fff; font-size:0.88rem; font-weight:700; padding:5px 10px; width:150px; outline:none;"
+                      oninput="this.value=this.value.replace(/\D/g,'')"
+                    />
+                    <button onclick="trackerSaveMobile()" style="background:rgba(16,185,129,0.2); border:1px solid #10b981;
+                      color:#10b981; border-radius:8px; padding:5px 12px; font-size:0.8rem; font-weight:700; cursor:pointer;">
+                      <i class="fas fa-save"></i> Save
+                    </button>
+                  </div>
                 </div>
                 <div class="modal-action-bar">
                   <button class="tracker-btn secondary" onclick="trackerShareWhatsApp()">
@@ -3160,81 +3174,19 @@
     }
 
     function openStudentAnalysisModal(rollNo) {
-      const students = studentData[activeClass] || [];
-      const student = students.find(s => s.rollNo === rollNo);
-      if (!student) return;
-
-      currentSelectedStudentIndex = students.indexOf(student);
-      const activeTests = classTests[activeClass];
-      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
-
-      document.getElementById("modalStudentName").textContent = student.name;
-      document.getElementById("modalClassName").textContent = "Class " + activeClass;
-      document.getElementById("modalStudentRoll").textContent = student.rollNo;
-      document.getElementById("modalParentMobile").value = student.parentMobile || "";
-      document.getElementById("reportTypeAll").checked = true;
+      const cls = activeClass;
+      document.getElementById("trackerClassSel").value = cls;
+      trackerPopulateStudents();
       
-      let studentSum = 0;
-      let studentMaxPossible = 0;
-      activeTests.forEach(t => {
-        const val = student.marks[t.id];
-        if (val !== undefined && val !== null && val !== "") {
-          studentSum += Number(val);
-          studentMaxPossible += t.maxMarks;
-        }
-      });
+      const students = (studentData[cls] && studentData[cls].length > 0)
+        ? [...studentData[cls]].sort((a,b) => a.name.localeCompare(b.name))
+        : [];
       
-      const studentPct = studentMaxPossible > 0 ? (studentSum / studentMaxPossible) * 100 : null;
-      document.getElementById("modalStudentAvg").textContent = studentPct !== null ? studentPct.toFixed(1) + "%" : "--%";
-
-      let grade = "No marks entered";
-      if (studentPct !== null) {
-        if (studentPct >= 75) grade = "A (Excellent)";
-        else if (studentPct >= 60) grade = "B (Good)";
-        else if (studentPct >= 45) grade = "C (Satisfactory)";
-        else if (studentPct >= 33) grade = "D (Average)";
-        else grade = "E/Fail";
+      const sidx = students.findIndex(s => s.rollNo === rollNo);
+      if (sidx !== -1) {
+        document.getElementById("trackerStudentSel").value = sidx;
+        renderTrackerReport();
       }
-      document.getElementById("studentOverallGrade").textContent = grade;
-
-      let highestTest = "";
-      let highestPct = -1;
-      activeTests.forEach(t => {
-        const score = student.marks[t.id];
-        if (score !== undefined && score !== null && score !== "") {
-          const testPct = t.maxMarks > 0 ? (score / t.maxMarks) * 100 : 0;
-          if (testPct > highestPct) {
-            highestPct = testPct;
-            highestTest = t.label;
-          }
-        }
-      });
-      
-      if (highestPct !== -1) {
-        document.getElementById("studentHighestScore").textContent = highestPct.toFixed(0) + "% (" + highestTest + ")";
-      } else {
-        document.getElementById("studentHighestScore").textContent = "N/A";
-      }
-      
-      document.getElementById("studentRemarks").value = student.remarks || "";
-
-      let summaryText = "";
-      if (studentPct !== null) {
-        summaryText = `${student.name} is working at an aggregate marks percentage of ${studentPct.toFixed(1)}% in Class ${activeClass} Mathematics. `;
-        if (studentPct >= 75) {
-          summaryText += `They demonstrate outstanding mathematical proficiency, showing consistent excellence. Their peak performance was in ${highestTest} at ${highestPct.toFixed(0)}%.`;
-        } else if (studentPct >= 48) {
-          summaryText += `They have a satisfactory understanding of the syllabus, but there is room for improvement. Best efforts were shown in ${highestTest}. Practice is recommended in topics where scores were lower.`;
-        } else {
-          summaryText += `Special attention is required to bridge learning gaps. Consistent practice on board structures and basic concepts is highly encouraged to enhance outcomes.`;
-        }
-      } else {
-        summaryText = `No exam results have been entered for ${student.name} yet. Enter scores in the spreadsheet table to generate their progress report card.`;
-      }
-      document.getElementById("studentAnalysisText").textContent = summaryText;
-
-      renderStudentComparisonChart(student);
-      document.getElementById("studentAnalysisModal").style.display = "flex";
     }
 
     function closeStudentAnalysisModal() {
@@ -3734,6 +3686,8 @@
     ══════════════════════════════════════════════════════════════ */
     let trackerRadarInstance = null;
     let trackerBarInstance = null;
+    let trackerCurrentStudent = null;  // holds the active student object for share/print
+    let trackerCurrentClass = null;
 
     function trackerPopulateStudents() {
       const cls = document.getElementById("trackerClassSel").value;
@@ -3770,6 +3724,10 @@
 
       const student = trackerGetStudentOriginalIndex(cls, parseInt(sidx));
       if (!student) { alert("Student not found."); return; }
+
+      // Store globally for share / print / save-mobile
+      trackerCurrentStudent = student;
+      trackerCurrentClass   = cls;
 
       const tests   = classTests[cls] || [];
       const today   = new Date();
@@ -3847,6 +3805,8 @@
       document.getElementById("trackerStudentName").textContent = student.name;
       document.getElementById("trackerStudentSub").textContent = `Class ${cls} | Roll No: ${student.rollNo}`;
       document.getElementById("trackerTierBadge").innerHTML = `<span class="perf-tier-badge ${tierClass}">${tierText}</span>`;
+      // Pre-fill parent mobile from saved data
+      document.getElementById("trackerParentMobile").value = student.parentMobile || "";
 
       // ── Score Summary Cards ──
       const summaryCards = [
@@ -4028,12 +3988,39 @@
       if (e.key === "Escape") closeTrackerModal();
     });
 
+    /* ── Save parent mobile back to studentData ── */
+    function trackerSaveMobile() {
+      if (!trackerCurrentStudent) return;
+      const raw = document.getElementById("trackerParentMobile").value.replace(/\D/g, "");
+      if (raw.length !== 10) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+      }
+      trackerCurrentStudent.parentMobile = raw;
+      // Also update matching student in studentData array
+      if (trackerCurrentClass && studentData[trackerCurrentClass]) {
+        const idx = studentData[trackerCurrentClass].findIndex(s => s.rollNo === trackerCurrentStudent.rollNo);
+        if (idx !== -1) studentData[trackerCurrentClass][idx].parentMobile = raw;
+      }
+      saveData();
+      // Visual confirmation
+      const btn = event.currentTarget;
+      btn.style.background = "rgba(16,185,129,0.4)";
+      btn.innerHTML = "<i class='fas fa-check'></i> Saved!";
+      setTimeout(() => {
+        btn.style.background = "rgba(16,185,129,0.2)";
+        btn.innerHTML = "<i class='fas fa-save'></i> Save";
+      }, 2000);
+    }
+
     /* ── WhatsApp Share ── */
     function trackerShareWhatsApp() {
       const name    = document.getElementById("trackerStudentName").textContent;
       const sub     = document.getElementById("trackerStudentSub").textContent;
       const tier    = document.getElementById("trackerTierBadge").textContent.trim();
       const rows    = document.querySelectorAll("#trackerTableBody tr");
+
+      // Build message
       let msg = `📊 *Performance Report — PM SHRI KV Ranikhet*\n`;
       msg += `*Student:* ${name}  |  ${sub}\n`;
       msg += `*Performance Tier:* ${tier}\n\n`;
@@ -4049,9 +4036,18 @@
           msg += `• ${exam}${date !== "—" ? " ("+date+")" : ""}: ${score}${max ? "/"+max : ""} ${pct !== "—" ? "("+pct+")" : "(Absent)"}\n`;
         }
       });
-      msg += `\n_PGT Mathematics: K B Joshi | 9410121232_`;
-      const phone = (prompt("Enter parent WhatsApp number (10 digits):") || "").replace(/\D/g,"");
-      if (!phone) return;
+      msg += `\nRegards,\n*K B Joshi* | PGT Mathematics | PM SHRI KV Ranikhet | 9410121232`;
+
+      // Resolve phone: saved mobile > input field > prompt
+      let savedMobile = document.getElementById("trackerParentMobile").value.replace(/\D/g, "");
+      if (!savedMobile && trackerCurrentStudent) savedMobile = (trackerCurrentStudent.parentMobile || "").replace(/\D/g, "");
+
+      let phone = savedMobile;
+      if (!phone || phone.length !== 10) {
+        const entered = (prompt("Parent mobile not saved.\nEnter 10-digit WhatsApp number:") || "").replace(/\D/g, "");
+        if (!entered) return;
+        phone = entered;
+      }
       const finalPhone = phone.length === 10 ? "91"+phone : phone;
       window.open(`https://wa.me/${finalPhone}?text=${encodeURIComponent(msg)}`, "_blank");
     }
@@ -4061,6 +4057,7 @@
       const name    = document.getElementById("trackerStudentName").textContent;
       const sub     = document.getElementById("trackerStudentSub").textContent;
       const tier    = document.getElementById("trackerTierBadge").textContent.trim();
+      const mobile  = document.getElementById("trackerParentMobile").value || (trackerCurrentStudent?.parentMobile || "");
       const rows    = document.querySelectorAll("#trackerTableBody tr");
       const cards   = document.querySelectorAll("#trackerScoreCards .modal-score-card");
 
@@ -4138,7 +4135,12 @@
 
   <div class="student-row">
     <div class="ava">${name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase()}</div>
-    <div><div class="sname">${name}</div><div class="ssub">${sub}</div><div class="tier">${tier}</div></div>
+    <div style="flex:1;">
+      <div class="sname">${name}</div>
+      <div class="ssub">${sub}</div>
+      ${mobile ? `<div style="font-size:8pt;color:#374151;margin-top:2px;"><strong>Parent Mobile:</strong> ${mobile} &nbsp;|&nbsp; <a href="https://wa.me/91${mobile}" style="color:#065f46;text-decoration:none;font-weight:700;">WhatsApp</a></div>` : ''}
+      <div class="tier">${tier}</div>
+    </div>
   </div>
 
   <div class="cards">${summaryHtml}</div>
