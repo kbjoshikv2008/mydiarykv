@@ -265,6 +265,10 @@
               <i class="fas fa-info-circle" style="margin-top: 2px;"></i>
               <div>The letter automatically formats the student's Math exam grades, marks, and percentage dynamically based on the scores entered in the Performance Tab.</div>
             </div>
+            
+            <button class="btn-action" onclick="syncFromGoogleSheets()" style="width: 100%; margin-top: 12px; background: linear-gradient(135deg, #10b981, #059669); border: none; padding: 12px; border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(16,185,129,0.25); transition: all 0.2s;">
+              <i class="fas fa-sync-alt"></i> Sync Contacts from Google Sheet
+            </button>
           </div>
           
           <!-- Letter Preview Area -->
@@ -980,6 +984,94 @@
           iframe.contentWindow.focus();
           iframe.contentWindow.print();
         }, 150);
+      }
+
+      async function syncFromGoogleSheets() {
+        const sheetUrl = "https://docs.google.com/spreadsheets/d/1fnzmo97RcueH4KpLNoJtpqNECGBDt3mAxF7FPn62I7I/export?format=csv&gid=0";
+        const btn = event?.currentTarget || document.querySelector("button[onclick='syncFromGoogleSheets()']");
+        const originalText = btn ? btn.innerHTML : "Sync Contacts from Google Sheet";
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Syncing...';
+        }
+        
+        try {
+          const response = await fetch(sheetUrl);
+          if (!response.ok) throw new Error("Network response was not OK");
+          const csvText = await response.text();
+          
+          // Parse CSV
+          const lines = csvText.split(/\r?\n/);
+          let updatedCount = 0;
+          
+          lines.forEach(line => {
+            const cells = line.split(",").map(c => c.trim());
+            if (cells.length < 5) return;
+            
+            let name = "";
+            let className = "";
+            let mobile = "";
+            
+            if (cells[0] === "" && cells.length >= 5) {
+              name = cells[2];
+              className = cells[3];
+              mobile = cells[4];
+            } else {
+              name = cells[1];
+              className = cells[2];
+              mobile = cells[3];
+            }
+            
+            if (!name || !className || !mobile || name === "Student Name") return;
+            
+            let targetClass = className.toUpperCase().replace(/\s+/g, "");
+            if (targetClass === "12B") targetClass = "12";
+            if (targetClass === "11") targetClass = "11B";
+            if (targetClass === "7") targetClass = "7C";
+            
+            if (studentData[targetClass]) {
+              const normalizedSearchName = name.toUpperCase().replace(/[^A-Z]/g, "");
+              const student = studentData[targetClass].find(s => {
+                const normName = s.name.toUpperCase().replace(/[^A-Z]/g, "");
+                if (normName === normalizedSearchName) return true;
+                
+                const searchFirst = normalizedSearchName.slice(0, 4);
+                const normFirst = normName.slice(0, 4);
+                if (searchFirst === normFirst && (normName.includes(normalizedSearchName) || normalizedSearchName.includes(normName))) return true;
+                
+                if (normalizedSearchName === "HARSITANEGI" && normName === "HARSHITANEGI") return true;
+                return false;
+              });
+              
+              if (student) {
+                const cleanedMobile = mobile.replace(/\D/g, "");
+                if (cleanedMobile.length === 10) {
+                  student.parentMobile = cleanedMobile;
+                  student.mobile = cleanedMobile;
+                  updatedCount++;
+                }
+              }
+            }
+          });
+          
+          if (updatedCount > 0) {
+            localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+            loadData();
+            populateStudents();
+            updateContactField();
+            alert(`Successfully updated mobile numbers for ${updatedCount} students from Google Sheet!`);
+          } else {
+            alert("Sync finished: No matching student records with valid 10-digit mobile numbers were found in the Google Sheet.");
+          }
+        } catch (err) {
+          console.error("Google Sheet Sync Error:", err);
+          alert("Failed to fetch data from the Google Sheet. Please make sure the sheet is shared as 'Anyone with the link can view' and that you have an active internet connection.");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+          }
+        }
       }
 
       // Event Listeners initialization
