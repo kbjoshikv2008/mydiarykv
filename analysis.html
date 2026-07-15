@@ -2247,7 +2247,8 @@
               marks[test.id] = "";
             }
           });
-          return { rollNo: i + 1, name, marks, remarks: "" };
+          const pMobile = name === "PRIYANKA" ? "9759421398" : name === "HARSHITA NEGI" ? "8006819873" : "";
+          return { rollNo: i + 1, name, marks, remarks: "", parentMobile: pMobile, mobile: pMobile };
         }),
         "11B": c11bNames.map((name, i) => {
           const marks = {};

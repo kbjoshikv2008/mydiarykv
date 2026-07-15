@@ -486,12 +486,16 @@
           return [...studentData[className]].sort((a, b) => a.name.localeCompare(b.name));
         }
         // Fallback to default alphabetical rosters
-        return defaultRosters[className].map((name, idx) => ({
-          rollNo: idx + 1,
-          name: name,
-          mobile: "",
-          marks: {}
-        })).sort((a, b) => a.name.localeCompare(b.name));
+        return defaultRosters[className].map((name, idx) => {
+          const pMobile = name === "PRIYANKA" ? "9759421398" : name === "HARSHITA NEGI" ? "8006819873" : "";
+          return {
+            rollNo: idx + 1,
+            name: name,
+            mobile: pMobile,
+            parentMobile: pMobile,
+            marks: {}
+          };
+        }).sort((a, b) => a.name.localeCompare(b.name));
       }
 
       function populateStudents() {
