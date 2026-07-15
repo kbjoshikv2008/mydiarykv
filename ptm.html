@@ -514,12 +514,45 @@
 
         if (student && student.mobile) {
           contactInput.value = student.mobile;
+        } else if (student && student.parentMobile) {
+          contactInput.value = student.parentMobile;
         } else {
           contactInput.value = "";
         }
 
         // Auto-generate letter when selection changes
         generateLetter();
+      }
+
+      function saveContactField() {
+        const classSelect = document.getElementById("letterClassSelect");
+        const studentSelect = document.getElementById("letterStudentSelect");
+        const contactInput = document.getElementById("parentContactInput");
+        if (!classSelect || !studentSelect || !contactInput) return;
+
+        const activeClass = classSelect.value;
+        const students = getStudentList(activeClass);
+        const selectedIndex = studentSelect.value;
+        const student = students[selectedIndex];
+
+        if (student) {
+          const val = contactInput.value.trim();
+          student.mobile = val;
+          student.parentMobile = val;
+
+          // Save back to studentData globally loaded
+          if (studentData[activeClass]) {
+            const origStudent = studentData[activeClass].find(s => s.rollNo === student.rollNo);
+            if (origStudent) {
+              origStudent.mobile = val;
+              origStudent.parentMobile = val;
+            }
+          }
+          localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+          
+          // Regenerate letter to update any dynamic content
+          generateLetter();
+        }
       }
 
       function getExamLabel(testId) {
@@ -968,6 +1001,11 @@
         const langSelect = document.getElementById("letterLangSelect");
         if (langSelect) {
           langSelect.addEventListener("change", generateLetter);
+        }
+
+        const contactInput = document.getElementById("parentContactInput");
+        if (contactInput) {
+          contactInput.addEventListener("input", saveContactField);
         }
 
         if (whatsappBtn) {

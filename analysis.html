@@ -3284,17 +3284,39 @@
       });
     }
 
+    function syncParentMobile(rollNo, mobile) {
+      // 1. Update in table rows (if rendered)
+      const tableInputs = document.querySelectorAll(".parent-mobile-input");
+      tableInputs.forEach(input => {
+        const tr = input.closest("tr");
+        if (tr) {
+          const firstTd = tr.querySelector("td");
+          if (firstTd && Number(firstTd.textContent) === rollNo) {
+            input.value = mobile;
+          }
+        }
+      });
+      // 2. Update in tracker modal (if open)
+      const trackerInput = document.getElementById("trackerParentMobile");
+      if (trackerInput && trackerCurrentStudent && trackerCurrentStudent.rollNo === rollNo) {
+        trackerInput.value = mobile;
+      }
+      // 3. Update in old modal (if open)
+      const oldModalInput = document.getElementById("modalParentMobile");
+      if (oldModalInput) {
+        oldModalInput.value = mobile;
+      }
+    }
+
     function updateParentMobile(rollNo, newMobile) {
       const students = studentData[activeClass] || [];
       const student = students.find(s => s.rollNo === rollNo);
       if (student) {
-        student.parentMobile = newMobile.trim();
+        const val = newMobile.trim();
+        student.parentMobile = val;
+        student.mobile = val;
         saveData();
-        // If modal is open for this student, update it
-        if (currentSelectedStudentIndex !== -1 && students[currentSelectedStudentIndex].rollNo === rollNo) {
-          const modalInput = document.getElementById("modalParentMobile");
-          if (modalInput) modalInput.value = student.parentMobile;
-        }
+        syncParentMobile(rollNo, val);
       }
     }
 
@@ -3302,19 +3324,11 @@
       const students = studentData[activeClass] || [];
       const student = students[currentSelectedStudentIndex];
       if (student) {
-        student.parentMobile = value.trim();
+        const val = value.trim();
+        student.parentMobile = val;
+        student.mobile = val;
         saveData();
-        // Update table input too
-        const tableInputs = document.querySelectorAll(".parent-mobile-input");
-        tableInputs.forEach(input => {
-          const tr = input.closest("tr");
-          if (tr) {
-            const firstTd = tr.querySelector("td");
-            if (firstTd && Number(firstTd.textContent) === student.rollNo) {
-              input.value = student.parentMobile;
-            }
-          }
-        });
+        syncParentMobile(student.rollNo, val);
       }
     }
 
@@ -3866,7 +3880,6 @@
       if (e.key === "Escape") closeTrackerModal();
     });
 
-    /* ── Save parent mobile back to studentData ── */
     function trackerSaveMobile() {
       if (!trackerCurrentStudent) return;
       const raw = document.getElementById("trackerParentMobile").value.replace(/\D/g, "");
@@ -3875,12 +3888,17 @@
         return;
       }
       trackerCurrentStudent.parentMobile = raw;
+      trackerCurrentStudent.mobile = raw;
       // Also update matching student in studentData array
       if (trackerCurrentClass && studentData[trackerCurrentClass]) {
         const idx = studentData[trackerCurrentClass].findIndex(s => s.rollNo === trackerCurrentStudent.rollNo);
-        if (idx !== -1) studentData[trackerCurrentClass][idx].parentMobile = raw;
+        if (idx !== -1) {
+          studentData[trackerCurrentClass][idx].parentMobile = raw;
+          studentData[trackerCurrentClass][idx].mobile = raw;
+        }
       }
       saveData();
+      syncParentMobile(trackerCurrentStudent.rollNo, raw);
       // Visual confirmation
       const btn = event.currentTarget;
       btn.style.background = "rgba(16,185,129,0.4)";
