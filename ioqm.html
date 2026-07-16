@@ -233,6 +233,298 @@
         </div>
       </div>
 
+      <!-- IOQM 2026 Enrolled Students Card -->
+      <div class="glass-card info-card fade-in-2" style="margin-bottom: 24px;">
+        <div class="glass-card-inner" style="display: flex; flex-direction: column; gap: 15px;">
+          <h3 style="margin-bottom: 5px;"><i class="fas fa-user-graduate"></i> Enrolled Students Registry (IOQM 2026)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.92em;">
+            The following students from <strong>PM SHRI KV Ranikhet</strong> are officially enrolled and registered under Centre Code <strong>UKK00900</strong> for the Indian Olympiad Qualifier in Mathematics (IOQM) 2026:
+          </p>
+          
+          <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+            <input type="text" id="ioqmSearchInput" placeholder="Search by student name..." style="flex: 1; min-width: 200px; padding: 10px 16px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 0.9em; outline: none; transition: var(--transition);">
+            <select id="ioqmClassFilter" style="padding: 10px 16px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-family: 'Poppins', sans-serif; font-size: 0.9em; outline: none; cursor: pointer;">
+              <option value="">All Classes</option>
+              <option value="8th">8th Class</option>
+              <option value="9th">9th Class</option>
+              <option value="10th">10th Class</option>
+              <option value="11th">11th Class</option>
+              <option value="12th">12th Class</option>
+            </select>
+          </div>
+          
+          <div style="overflow-x: auto; max-height: 420px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
+            <table id="ioqmRegistryTable" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9em; min-width: 500px;">
+              <thead>
+                <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); color: #a78bfa; background: rgba(0,0,0,0.4); position: sticky; top: 0; z-index: 10;">
+                  <th style="padding: 12px 10px; font-weight: 700; width: 60px;">S.No.</th>
+                  <th style="padding: 12px 10px; font-weight: 700; width: 120px;">Center/Enroll.</th>
+                  <th style="padding: 12px 10px; font-weight: 700;">Student Name</th>
+                  <th style="padding: 12px 10px; font-weight: 700; width: 110px;">Date of Birth</th>
+                  <th style="padding: 12px 10px; font-weight: 700; width: 80px;">Class</th>
+                  <th style="padding: 12px 10px; font-weight: 700; width: 80px;">Gender</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="ioqm-row" data-name="ASHWIN JOSHI" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">1</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">ASHWIN JOSHI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">07-10-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="EKAGRATA" data-class="8th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">2</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">EKAGRATA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">24-09-2013</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">8th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Female</td>
+                </tr>
+                <tr class="ioqm-row" data-name="SAMRIDDHI" data-class="8th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">3</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">SAMRIDDHI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">24-09-2013</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">8th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Female</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PRIYANSHU" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">4</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PRIYANSHU</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10-12-2010</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="AROHI YADAV" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">5</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">AROHI YADAV</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">05-02-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Female</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PARINIDHI" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">6</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PARINIDHI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">27-09-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Female</td>
+                </tr>
+                <tr class="ioqm-row" data-name="DEVANSH" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">7</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">DEVANSH</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">08-11-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="GAUTAM RAWAT" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">8</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">GAUTAM RAWAT</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">24-05-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="SHIVAM PANDEY" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">9</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">SHIVAM PANDEY</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">27-09-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="SHAURYA" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">10</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">SHAURYA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">15-05-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="ANUJ GOSWAMI" data-class="12th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">11</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">ANUJ GOSWAMI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">08-09-2009</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">12th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="HARSHIT ARYA" data-class="12th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">12</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">HARSHIT ARYA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">08-09-2009</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">12th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="BHAVYA SATI" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">13</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">BHAVYA SATI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">21-01-2013</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Female</td>
+                </tr>
+                <tr class="ioqm-row" data-name="SIDDHARTH" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">14</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">SIDDHARTH</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">21-03-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="ARUN ARYA" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">15</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">ARUN ARYA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">28-09-2010</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="SURAJ SINGH" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">16</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">SURAJ SINGH</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">04-11-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PARTH UPADHYAY" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">17</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PARTH UPADHYAY</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">25-08-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PRANAY SATI" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">18</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PRANAY SATI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">03-11-2010</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="JANVI" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">19</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">JANVI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">02-03-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Female</td>
+                </tr>
+                <tr class="ioqm-row" data-name="TEJAS BINWAL" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">20</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">TEJAS BINWAL</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">13-02-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PARTH JOSHI" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">21</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PARTH JOSHI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11-11-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PARTH CHANDRA" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">22</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PARTH CHANDRA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">04-11-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="ISHAAN BHATT" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">23</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">ISHAAN BHATT</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">16-03-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="YASHWANT" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">24</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">YASHWANT</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">04-03-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="PARAS SATI" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">25</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">PARAS SATI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">07-01-2010</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="TANISHK KARKI" data-class="9th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">26</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">TANISHK KARKI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">05-10-2012</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">9th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="DIKSHANT NEGI" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">27</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">DIKSHANT NEGI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">06-02-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="GAURAV KARKI" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">28</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">GAURAV KARKI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10-07-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="ADITYA NEGI" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">29</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">ADITYA NEGI</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">20-01-2011</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="KARAN CHANDRA" data-class="11th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">30</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">KARAN CHANDRA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">28-01-2010</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">11th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+                <tr class="ioqm-row" data-name="MOHIT ARYA" data-class="10th" style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;">
+                  <td style="padding: 10px; color: var(--text-muted);">31</td>
+                  <td style="padding: 10px; font-family: monospace; color: #a78bfa;">UKK00900</td>
+                  <td style="padding: 10px; font-weight: 600; color: #fff;">MOHIT ARYA</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">06-10-2010</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">10th</td>
+                  <td style="padding: 10px; color: var(--text-secondary);">Male</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div style="background: rgba(109,40,217,0.05); border: 1px solid rgba(109,40,217,0.15); border-radius: 8px; padding: 12px; font-size: 0.85em; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px; margin-top: 5px;">
+            <i class="fas fa-info-circle" style="color: #a78bfa; margin-top: 2px;"></i>
+            <div>Center Code <strong>UKK00900</strong> designates the PM SHRI Kendriya Vidyalaya Ranikhet test center under Mathematics Teachers' Association (India).</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Detail Info Cards -->
       <div class="info-grid fade-in-2">
         <!-- What's included -->
@@ -385,6 +677,33 @@
         }
       });
       passwordInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtn.click(); } });
+
+      // Search & Filter registry logic
+      const searchInput = document.getElementById("ioqmSearchInput");
+      const classFilter = document.getElementById("ioqmClassFilter");
+      const rows = document.querySelectorAll(".ioqm-row");
+
+      function filterRegistry() {
+        const query = (searchInput.value || "").toUpperCase();
+        const selectedClass = classFilter.value;
+        
+        rows.forEach(row => {
+          const name = row.getAttribute("data-name").toUpperCase();
+          const cls = row.getAttribute("data-class");
+          
+          const matchesSearch = name.includes(query);
+          const matchesClass = !selectedClass || cls === selectedClass;
+          
+          if (matchesSearch && matchesClass) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      if (searchInput) searchInput.addEventListener("input", filterRegistry);
+      if (classFilter) classFilter.addEventListener("change", filterRegistry);
     });
   </script>
 </body>

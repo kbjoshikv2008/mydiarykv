@@ -451,7 +451,7 @@
       const defaultRosters = {
         "7C": ["ABHAY", "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI", "DEEPIKA", "DISHA", "GEETA", "GUNJAN", "HARSHUL", "HIMANSHI", "KAMAL", "KARISHMA", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA", "NAMAN TAMTA", "MAULIK", "MOITRIKA", "MRITYUNJAY", "MUNKASHIF", "NAITIK", "NAMAN SATI", "NISHTHI", "PARIDHI", "PARTH", "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA", "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"],
         "11B": ["ADITYA NEGI", "ARUN ARYA", "AYUSH ROY", "DIKSHANT NEGI", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
-        "12": ["ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA", "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT", "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ", "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SPARSH BHATT", "TANMAY ADHIKARI", "PALAK", "NISHANT"]
+        "12": ["ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA", "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT", "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ", "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SOUVIK SAHA", "SPARSH BHATT", "TANMAY ADHIKARI", "PALAK", "NISHANT"]
       };
 
       let studentData = {};
@@ -476,18 +476,41 @@
               });
             }
           }
-          // Force sync Class 12 Priyanka & Harshita Negi phone numbers
+          // Force sync all Class 12 parent mobile numbers from Google Sheet directory
           if (studentData["12"]) {
-            const priy = studentData["12"].find(s => s.name === "PRIYANKA");
-            if (priy) {
-              priy.parentMobile = "9759421398";
-              priy.mobile = "9759421398";
-            }
-            const hars = studentData["12"].find(s => s.name === "HARSHITA NEGI");
-            if (hars) {
-              hars.parentMobile = "8006819873";
-              hars.mobile = "8006819873";
-            }
+            const class12Contacts = {
+              "PRIYANKA": "9759421398",
+              "HARSHITA NEGI": "8006819873",
+              "BHUMI SATI": "8630964002",
+              "RITIKA": "7248286865",
+              "SIYA SUYAL": "9675585905",
+              "HARSHIT ARYA": "7351161744",
+              "ABHIMANYU SINGH": "9897371714",
+              "HARDIK PHULARA": "9756691859",
+              "SADHNA": "9411143085",
+              "KANIKA BISHT": "8439264126",
+              "PALAK": "7895720470",
+              "NITIN BISHT": "7579104260",
+              "HITESH UPADHYAY": "9528864141",
+              "NISHANT": "9410310581",
+              "SAKSHAM NEGI": "9761479477",
+              "SPARSH BHATT": "7505386980",
+              "KAMAL JOSHI": "7453010993",
+              "ANUJ GOSWAMI": "7251056350",
+              "RAJ": "9548919339",
+              "KARAN": "7302525179",
+              "TANMAY ADHIKARI": "7409724243",
+              "SOUVIK SAHA": "9892570352",
+              "AYUSH NEGI": "9627250240",
+              "PARTH": "9568467573"
+            };
+            studentData["12"].forEach(function(student) {
+              const phone = class12Contacts[student.name];
+              if (phone) {
+                student.parentMobile = phone;
+                student.mobile = phone;
+              }
+            });
           }
           localStorage.setItem("student_performance_data", JSON.stringify(studentData));
         } catch(e) {
@@ -499,9 +522,19 @@
         if (studentData[className] && studentData[className].length > 0) {
           return [...studentData[className]].sort((a, b) => a.name.localeCompare(b.name));
         }
-        // Fallback to default alphabetical rosters
+        // Fallback to default alphabetical rosters with full contact directory
+        const class12FallbackContacts = {
+          "PRIYANKA": "9759421398", "HARSHITA NEGI": "8006819873", "BHUMI SATI": "8630964002",
+          "RITIKA": "7248286865", "SIYA SUYAL": "9675585905", "HARSHIT ARYA": "7351161744",
+          "ABHIMANYU SINGH": "9897371714", "HARDIK PHULARA": "9756691859", "SADHNA": "9411143085",
+          "KANIKA BISHT": "8439264126", "PALAK": "7895720470", "NITIN BISHT": "7579104260",
+          "HITESH UPADHYAY": "9528864141", "NISHANT": "9410310581", "SAKSHAM NEGI": "9761479477",
+          "SPARSH BHATT": "7505386980", "KAMAL JOSHI": "7453010993", "ANUJ GOSWAMI": "7251056350",
+          "RAJ": "9548919339", "KARAN": "7302525179", "TANMAY ADHIKARI": "7409724243",
+          "SOUVIK SAHA": "9892570352", "AYUSH NEGI": "9627250240", "PARTH": "9568467573"
+        };
         return defaultRosters[className].map((name, idx) => {
-          const pMobile = name === "PRIYANKA" ? "9759421398" : name === "HARSHITA NEGI" ? "8006819873" : "";
+          const pMobile = (className === "12" && class12FallbackContacts[name]) ? class12FallbackContacts[name] : "";
           return {
             rollNo: idx + 1,
             name: name,
