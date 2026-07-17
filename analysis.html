@@ -2177,6 +2177,14 @@
         "RAJAT ADHIKARI": 12, "SPARSH DUBEY": 5
       };
 
+      const ch5_11b = {
+        "ADITYA NEGI": 4, "ARUN ARYA": 11, "AYUSH ROY": 6, "DIKSHANT NEGI": 16, "GAURAV KUMAR": "ab",
+        "ISHANT MEHRA": 2, "JANVI": 12, "KARAN CHANDRA": 12, "KARTIKEY PHARTIYAL": 9, "MANAS BHAGAT": 2,
+        "MANSI BHANDARI": 11, "NEHA NEGI": 2, "PARAS SATI": 18,
+        "PRANAY SATI": 9, "PRIYANSHU KANDPAL": 12, "PRIYANSHU PANDEY": 8,
+        "RAJAT ADHIKARI": 8, "SPARSH DUBEY": 14
+      };
+
       const pt1_7c = {
         "ABHINAY": 1, "ANAIKA": 29, "ARYAN": 13, "BHAVIKA": 32, "CHANDNI": 3,
         "DEEPIKA": 4, "DISHA": 13, "GEETA": 6, "GUNJAN": 25, "HARSHUL": 6,
@@ -2299,6 +2307,8 @@
               marks[test.id] = ch3_11b[name];
             } else if (test.id === "ch4" && ch4_11b[name] !== undefined) {
               marks[test.id] = ch4_11b[name];
+            } else if (test.id === "ch5" && ch5_11b[name] !== undefined) {
+              marks[test.id] = ch5_11b[name];
             } else {
               marks[test.id] = "";
             }
@@ -2380,7 +2390,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v16") {
+      if (savedData && dbVersion === "v17") {
         try {
           studentData = JSON.parse(savedData);
             // Force sync SOUVIK SAHA in Class 12 (marked absent in all tests)
@@ -2424,7 +2434,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v16");
+        localStorage.setItem("student_performance_db_version", "v17");
         
         // Also pre-seed the Class 12 and Class 11B test dates
         testDates["12"].ch1 = "2026-04-13";
@@ -2438,6 +2448,7 @@
         testDates["11B"].ch2 = "2026-06-09";
         testDates["11B"].ch3 = "2026-06-26";
         testDates["11B"].ch4 = "2026-07-15";
+        testDates["11B"].ch5 = "2026-07-17";
 
         testDates["7C"].crm = "2026-04-02";
         testDates["7C"].ch1 = "2026-04-24";
