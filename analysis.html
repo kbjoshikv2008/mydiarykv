@@ -2051,7 +2051,7 @@
 
     function generateInitialData() {
       const c11bNames = [
-        "ADITYA NEGI", "ARUN ARYA", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA",
+        "ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA",
         "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI",
         "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY",
         "RAJAT ADHIKARI", "SPARSH DUBEY"
@@ -2162,11 +2162,11 @@
       };
 
       const ch3_11b = {
-        "ADITYA NEGI": 3, "ARUN ARYA": 12, "AYUSH ROY": 0, "DIKSHANT NEGI": 8, "GAURAV KUMAR": "AB",
+        "ADITYA NEGI": 3, "ARUN ARYA": 12, "AYUSH ROY": 0, "DIKSHANT NEGI": 8, "GAURAV KUMAR": "",
         "ISHANT MEHRA": 0, "JANVI": 6, "KARAN CHANDRA": 3, "KARTIKEY PHARTIYAL": 0, "MANAS BHAGAT": 5,
         "MANSI BHANDARI": 8, "NEHA NEGI": 0, "NIHARIKA MOHAN": "", "PARAS SATI": 10,
         "PRANAY SATI": 4, "PRIYANSHU KANDPAL": 0, "PRIYANSHU PANDEY": 2,
-        "RAJAT ADHIKARI": "AB", "SPARSH DUBEY": "AB"
+        "RAJAT ADHIKARI": "", "SPARSH DUBEY": ""
       };
 
       const ch4_11b = {
@@ -2303,7 +2303,29 @@
               marks[test.id] = "";
             }
           });
-          return { rollNo: i + 1, name, marks, remarks: "" };
+          const class11Contacts = {
+            "MANSI BHANDARI": "7252841973",
+            "NEHA NEGI": "7818833724",
+            "ADITYA NEGI": "7060886257",
+            "KARAN CHANDRA": "9557564144",
+            "KARTIKEY PHARTIYAL": "9627420107",
+            "MANAS BHAGAT": "9758904789",
+            "PARAS SATI": "9675636697",
+            "ISHANT MEHRA": "9759824143",
+            "SPARSH DUBEY": "8899262774",
+            "PRIYANSHU PANDEY": "8954171204",
+            "PRIYANSHU KANDPAL": "7579275530",
+            "PRANAY SATI": "9456742382",
+            "AYUSH ROY": "8084524828",
+            "RAJAT ADHIKARI": "7819010105",
+            "JANVI": "8171267486",
+            "DIKSHANT NEGI": "7895987527",
+            "ARUN ARYA": "9758003999",
+            "GAURAV KUMAR": "8439619025",
+            "ASHUTOSH": "7060596475"
+          };
+          const pMobile11 = class11Contacts[name] || "";
+          return { rollNo: i + 1, name, marks, remarks: "", parentMobile: pMobile11, mobile: pMobile11 };
         })
       };
 
@@ -2352,7 +2374,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v15") {
+      if (savedData && dbVersion === "v16") {
         try {
           studentData = JSON.parse(savedData);
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
@@ -2368,7 +2390,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v15");
+        localStorage.setItem("student_performance_db_version", "v16");
         
         // Also pre-seed the Class 12 and Class 11B test dates
         testDates["12"].ch1 = "2026-04-13";
