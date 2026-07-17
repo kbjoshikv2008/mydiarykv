@@ -138,27 +138,30 @@ const fallbackDates = {
 // Available conducted tests per class configuration
 const classTests = {
   "7C": [
-    {id:"crm",label:"CRM",maxMarks:20},
-    {id:"ch1",label:"Ch 1",maxMarks:10},
-    {id:"ch2",label:"Ch 2",maxMarks:10},
-    {id:"ch3",label:"Ch 3",maxMarks:10},
-    {id:"pt1",label:"PT1",maxMarks:40}
+    { id: "crm", label: "CRM", maxMarks: 20 },
+    { id: "ch1", label: "Ch 1", maxMarks: 10 },
+    { id: "ch2", label: "Ch 2", maxMarks: 10 },
+    { id: "ch3", label: "Ch 3", maxMarks: 10 },
+    ...Array.from({length: 12}, (_, i) => ({ id: `ch${i+4}`, label: `Ch ${i+4}`, maxMarks: 20 })),
+    { id: "pt1", label: "PT1", maxMarks: 40 },
+    { id: "pt2", label: "PT2", maxMarks: 40 },
+    { id: "hy", label: "HY", maxMarks: 60 },
+    { id: "see", label: "SEE", maxMarks: 60 }
   ],
   "11B": [
-    {id:"ch1",label:"Ch 1",maxMarks:15},
-    {id:"ch2",label:"Ch 2",maxMarks:15},
-    {id:"ch3",label:"Ch 3",maxMarks:15},
-    {id:"ch4",label:"Ch 4",maxMarks:15},
-    {id:"pt1",label:"PT1",maxMarks:30}
+    ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
+    { id: "pt1", label: "PT1", maxMarks: 40 },
+    { id: "pt2", label: "PT2", maxMarks: 40 },
+    { id: "hy", label: "HY", maxMarks: 80 },
+    { id: "see", label: "SEE", maxMarks: 80 }
   ],
   "12": [
-    {id:"ch1",label:"Ch 1",maxMarks:20},
-    {id:"ch2",label:"Ch 2",maxMarks:20},
-    {id:"ch3",label:"Ch 3",maxMarks:20},
-    {id:"ch4",label:"Ch 4",maxMarks:20},
-    {id:"ch5",label:"Ch 5",maxMarks:20},
-    {id:"ch6",label:"Ch 6",maxMarks:20},
-    {id:"pt1",label:"PT1",maxMarks:40}
+    ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
+    { id: "pt1", label: "PT1", maxMarks: 40 },
+    { id: "pt2", label: "PT2", maxMarks: 40 },
+    { id: "pb1", label: "PB1", maxMarks: 80 },
+    { id: "pb2", label: "PB2", maxMarks: 80 },
+    { id: "pb3", label: "PB3", maxMarks: 80 }
   ]
 };
 
