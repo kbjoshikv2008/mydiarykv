@@ -517,6 +517,16 @@
           </button>
         </div>
 
+        <!-- View Mode Toggle -->
+        <div class="cs-class-tabs" style="margin-bottom:14px;">
+          <button class="cs-view-btn cs-tab-btn active" id="csViewSheet" onclick="csSetView('sheet', this)" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);border-color:#7c3aed;color:#fff;">
+            <i class="fas fa-table"></i> Marks Sheet
+          </button>
+          <button class="cs-view-btn cs-tab-btn" id="csViewRank" onclick="csSetView('rank', this)">
+            <i class="fas fa-trophy"></i> Rank &amp; Award List
+          </button>
+        </div>
+
         <!-- Info bar: stats + print button -->
         <div class="cs-info-bar">
           <div class="cs-stats" id="csStatsBar">
@@ -1575,248 +1585,264 @@
   <!-- ===== Consolidated PTM Sheet Script ===== -->
   <script>
   (function() {
-    // --- Config (mirrors analysis.html) ---
+    /* ── Test config (mirrors analysis.html) ── */
     const classTests = {
       "7C": [
-        { id: "crm", label: "CRM",  maxMarks: 20 },
-        { id: "ch1", label: "Ch 1", maxMarks: 10 },
-        { id: "ch2", label: "Ch 2", maxMarks: 10 },
-        { id: "ch3", label: "Ch 3", maxMarks: 10 },
-        ...Array.from({length: 12}, (_, i) => ({ id: `ch${i+4}`, label: `Ch ${i+4}`, maxMarks: 20 })),
-        { id: "pt1", label: "PT1", maxMarks: 40 },
-        { id: "pt2", label: "PT2", maxMarks: 40 },
-        { id: "hy",  label: "HY",  maxMarks: 60 },
-        { id: "see", label: "SEE", maxMarks: 60 }
+        { id:"crm",  label:"CRM",   maxMarks:20 },
+        { id:"ch1",  label:"Ch 1",  maxMarks:10 },
+        { id:"ch2",  label:"Ch 2",  maxMarks:10 },
+        { id:"ch3",  label:"Ch 3",  maxMarks:10 },
+        ...Array.from({length:12},(_,i)=>({ id:`ch${i+4}`, label:`Ch ${i+4}`, maxMarks:20 })),
+        { id:"pt1", label:"PT1", maxMarks:40 },
+        { id:"pt2", label:"PT2", maxMarks:40 },
+        { id:"hy",  label:"HY",  maxMarks:60 },
+        { id:"see", label:"SEE", maxMarks:60 }
       ],
       "11B": [
-        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
-        { id: "pt1", label: "PT1", maxMarks: 40 },
-        { id: "pt2", label: "PT2", maxMarks: 40 },
-        { id: "hy",  label: "HY",  maxMarks: 80 },
-        { id: "see", label: "SEE", maxMarks: 80 }
+        ...Array.from({length:15},(_,i)=>({ id:`ch${i+1}`, label:`Ch ${i+1}`, maxMarks:20 })),
+        { id:"pt1", label:"PT1", maxMarks:40 },
+        { id:"pt2", label:"PT2", maxMarks:40 },
+        { id:"hy",  label:"HY",  maxMarks:80 },
+        { id:"see", label:"SEE", maxMarks:80 }
       ],
       "12": [
-        ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
-        { id: "pt1", label: "PT1", maxMarks: 40 },
-        { id: "pt2", label: "PT2", maxMarks: 40 },
-        { id: "pb1", label: "PB1", maxMarks: 80 },
-        { id: "pb2", label: "PB2", maxMarks: 80 },
-        { id: "pb3", label: "PB3", maxMarks: 80 }
+        ...Array.from({length:15},(_,i)=>({ id:`ch${i+1}`, label:`Ch ${i+1}`, maxMarks:20 })),
+        { id:"pt1", label:"PT1", maxMarks:40 },
+        { id:"pt2", label:"PT2", maxMarks:40 },
+        { id:"pb1", label:"PB1", maxMarks:80 },
+        { id:"pb2", label:"PB2", maxMarks:80 },
+        { id:"pb3", label:"PB3", maxMarks:80 }
       ]
     };
 
-    const classLabels = { "7C": "Class 7C", "11B": "Class 11B", "12": "Class 12" };
+    /* ── Embedded fallback marks (same as analysis.html) ── */
+    const fallbackMarks = {
+      "12": {
+        pt1:  {"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26},
+        ch1:  {"ABHIMANYU SINGH":11,"ANUJ GOSWAMI":11,"AYUSH NEGI":10,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":18,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":16,"KARAN":11,"NITIN BISHT":14,"PARTH":15,"PRIYANKA":16,"RAJ":4,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":10,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":13,"PALAK":"","NISHANT":13},
+        ch2:  {"ABHIMANYU SINGH":10,"ANUJ GOSWAMI":13,"AYUSH NEGI":11,"BHUMI SATI":"","HARDIK PHULARA":9,"HARSHIT ARYA":16,"HARSHITA NEGI":18,"HITESH UPADHYAY":4,"KAMAL JOSHI":8,"KANIKA BISHT":15,"KARAN":2,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":15,"RAJ":5,"RITIKA":15,"SADHNA":9,"SAKSHAM NEGI":8,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":11,"PALAK":"","NISHANT":""},
+        ch3:  {"ABHIMANYU SINGH":15,"ANUJ GOSWAMI":20,"AYUSH NEGI":"","BHUMI SATI":15,"HARDIK PHULARA":12,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":0,"KAMAL JOSHI":"","KANIKA BISHT":17,"KARAN":6,"NITIN BISHT":15,"PARTH":19,"PRIYANKA":20,"RAJ":4,"RITIKA":15,"SADHNA":"","SAKSHAM NEGI":13,"SIYA SUYAL":15,"SOUVIK SAHA":"","SPARSH BHATT":20,"TANMAY ADHIKARI":17,"PALAK":"","NISHANT":15},
+        ch4:  {"ABHIMANYU SINGH":13,"ANUJ GOSWAMI":11,"AYUSH NEGI":8,"BHUMI SATI":10.5,"HARDIK PHULARA":2,"HARSHIT ARYA":20,"HARSHITA NEGI":13,"HITESH UPADHYAY":3,"KAMAL JOSHI":5.5,"KANIKA BISHT":6,"KARAN":8,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":16,"RAJ":5,"RITIKA":"","SADHNA":0,"SAKSHAM NEGI":1,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":11,"TANMAY ADHIKARI":8,"PALAK":3,"NISHANT":11},
+        ch5:  {"ABHIMANYU SINGH":5,"ANUJ GOSWAMI":4,"AYUSH NEGI":0,"BHUMI SATI":5,"HARDIK PHULARA":3,"HARSHIT ARYA":20,"HARSHITA NEGI":14,"HITESH UPADHYAY":"","KAMAL JOSHI":2,"KANIKA BISHT":"","KARAN":5,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":4,"RAJ":0,"RITIKA":2,"SADHNA":4,"SAKSHAM NEGI":4,"SIYA SUYAL":3,"SOUVIK SAHA":"","SPARSH BHATT":10,"TANMAY ADHIKARI":9,"PALAK":0,"NISHANT":8},
+        ch6:  {"ABHIMANYU SINGH":9,"ANUJ GOSWAMI":13,"AYUSH NEGI":15,"BHUMI SATI":8,"HARDIK PHULARA":5,"HARSHIT ARYA":20,"HARSHITA NEGI":17,"HITESH UPADHYAY":3,"KAMAL JOSHI":13,"KANIKA BISHT":"","KARAN":6,"NITIN BISHT":4,"PARTH":10,"PRIYANKA":"","RAJ":2,"RITIKA":"","SADHNA":6,"SAKSHAM NEGI":7,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":15,"TANMAY ADHIKARI":12,"PALAK":0,"NISHANT":9}
+      },
+      "11B": {
+        pt1:  {"ADITYA NEGI":17,"ARUN ARYA":39,"AYUSH ROY":3,"DIKSHANT NEGI":31,"ISHANT MEHRA":4,"JANVI":32,"KARAN CHANDRA":13,"KARTIKEY PHARTIYAL":21,"MANAS BHAGAT":6,"MANSI BHANDARI":20,"NEHA NEGI":9,"PARAS SATI":29,"PRANAY SATI":28,"PRIYANSHU KANDPAL":23,"PRIYANSHU PANDEY":24,"RAJAT ADHIKARI":24,"SPARSH DUBEY":11},
+        ch1:  {"ADITYA NEGI":3,"ARUN ARYA":12,"DIKSHANT NEGI":11,"ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":4,"KARTIKEY PHARTIYAL":"","MANAS BHAGAT":2,"MANSI BHANDARI":9,"NEHA NEGI":"","NIHARIKA MOHAN":12,"PARAS SATI":6,"PRANAY SATI":4,"PRIYANSHU PANDEY":8,"RAJAT ADHIKARI":7,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
+        ch2:  {"ADITYA NEGI":3,"ARUN ARYA":11,"DIKSHANT NEGI":7,"ISHANT MEHRA":3.5,"JANVI":5,"KARAN CHANDRA":5.5,"KARTIKEY PHARTIYAL":1,"MANAS BHAGAT":3,"MANSI BHANDARI":5,"NEHA NEGI":2,"NIHARIKA MOHAN":"","PARAS SATI":10,"PRANAY SATI":12.5,"PRIYANSHU PANDEY":5,"RAJAT ADHIKARI":5,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
+        ch3:  {"ADITYA NEGI":3,"ARUN ARYA":12,"AYUSH ROY":0,"DIKSHANT NEGI":8,"GAURAV KUMAR":"","ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":3,"KARTIKEY PHARTIYAL":0,"MANAS BHAGAT":5,"MANSI BHANDARI":8,"NEHA NEGI":0,"NIHARIKA MOHAN":"","PARAS SATI":10,"PRANAY SATI":4,"PRIYANSHU KANDPAL":0,"PRIYANSHU PANDEY":2,"RAJAT ADHIKARI":"","SPARSH DUBEY":""},
+        ch4:  {"ADITYA NEGI":6,"ARUN ARYA":13,"AYUSH ROY":1,"DIKSHANT NEGI":12,"GAURAV KUMAR":3,"ISHANT MEHRA":0,"JANVI":8,"KARAN CHANDRA":6,"KARTIKEY PHARTIYAL":14,"MANAS BHAGAT":"","MANSI BHANDARI":12,"NEHA NEGI":4,"NIHARIKA MOHAN":"","PARAS SATI":19,"PRANAY SATI":17,"PRIYANSHU KANDPAL":17,"PRIYANSHU PANDEY":13,"RAJAT ADHIKARI":12,"SPARSH DUBEY":5}
+      },
+      "7C": {
+        pt1:  {"ABHINAY":1,"ANAIKA":29,"ARYAN":13,"BHAVIKA":32,"CHANDNI":3,"DEEPIKA":4,"DISHA":13,"GEETA":6,"GUNJAN":25,"HARSHUL":6,"HIMANSHI":7,"KAMAL":3,"KARTIK":10,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":20,"KARISHMA":16,"LAKSHIT RAWAT":7,"LAKSHIT SINGH":24,"MALVIKA":20,"MAULIK":25,"MOITRIKA":30,"MRITYUNJAY":24,"MUNKASHIF":20,"NAITIK":31,"NAMAN SATI":26,"NAMAN TAMTA":23,"NISHTHI":23,"PARIDHI":4,"PARTH":16,"PRACHI":17,"PRASUN DEV":8,"RUDRA":22,"SHRAVANI":13,"TANISHA":8,"YAMAN":14,"YASHPAL":22,"ARPITA":12,"PARTH BISHT":29,"MAANSHA":23,"ABHAY":""},
+        crm:  {"ABHAY":6,"ABHINAY":4,"ANAIKA":19,"ARYAN":7,"BHAVIKA":14,"CHANDNI":2,"DEEPIKA":0,"DISHA":8,"GEETA":2,"GUNJAN":10,"HARSHUL":0,"HIMANSHI":2,"KAMAL":0,"KARISHMA":12,"KARTIK":"","KRITIKA GODIYAL":2,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":6,"LAKSHIT SINGH":14,"MALVIKA":12,"NAMAN TAMTA":"","MAULIK":12,"MOITRIKA":12,"MRITYUNJAY":10,"MUNKASHIF":14,"NAITIK":14,"NAMAN SATI":18,"NISHTHI":14,"PARIDHI":4,"PARTH":14,"PRACHI":10,"PRASUN DEV":2,"RUDRA":6,"SHRAVANI":2,"TANISHA":10,"YAMAN":4,"YASHPAL":10,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+        ch1:  {"ABHAY":3,"ABHINAY":2,"ANAIKA":6,"ARYAN":2,"BHAVIKA":10,"CHANDNI":1,"DEEPIKA":0,"DISHA":3,"GEETA":1,"GUNJAN":3,"HARSHUL":"","HIMANSHI":"","KAMAL":4,"KARISHMA":2,"KARTIK":2,"KRITIKA GODIYAL":0,"KRITIKA RAWAT":6,"LAKSHIT RAWAT":0,"LAKSHIT SINGH":4,"MALVIKA":"","NAMAN TAMTA":8,"MAULIK":7,"MOITRIKA":5,"MRITYUNJAY":8,"MUNKASHIF":8,"NAITIK":8,"NAMAN SATI":5,"NISHTHI":6,"PARIDHI":2,"PARTH":5,"PRACHI":5,"PRASUN DEV":4,"RUDRA":3,"SHRAVANI":3,"TANISHA":1,"YAMAN":2,"YASHPAL":7,"ARPITA":2,"MAANSHA":"","PARTH BISHT":""},
+        ch2:  {"ABHAY":1,"ABHINAY":0,"ANAIKA":"","ARYAN":5,"BHAVIKA":7,"CHANDNI":1,"DEEPIKA":"","DISHA":3,"GEETA":1,"GUNJAN":5,"HARSHUL":3.5,"HIMANSHI":0,"KAMAL":6,"KARISHMA":4,"KARTIK":"","KRITIKA GODIYAL":0,"KRITIKA RAWAT":3,"LAKSHIT RAWAT":5,"LAKSHIT SINGH":8.5,"MALVIKA":1,"NAMAN TAMTA":8.5,"MAULIK":6,"MOITRIKA":6,"MRITYUNJAY":4,"MUNKASHIF":5.5,"NAITIK":8,"NAMAN SATI":6,"NISHTHI":6,"PARIDHI":0,"PARTH":5.5,"PRACHI":5,"PRASUN DEV":0,"RUDRA":3,"SHRAVANI":1,"TANISHA":3,"YAMAN":4,"YASHPAL":5,"ARPITA":"","MAANSHA":8,"PARTH BISHT":4.5},
+        ch3:  {"ABHAY":4,"ABHINAY":0,"ANAIKA":7,"ARYAN":1,"BHAVIKA":8,"CHANDNI":3,"DEEPIKA":2,"DISHA":5,"GEETA":3,"GUNJAN":8,"HARSHUL":2,"HIMANSHI":3,"KAMAL":4,"KARISHMA":6,"KARTIK":6,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":"","LAKSHIT SINGH":5,"MALVIKA":7,"NAMAN TAMTA":8,"MAULIK":7.5,"MOITRIKA":10,"MRITYUNJAY":"","MUNKASHIF":"","NAITIK":7.5,"NAMAN SATI":7,"NISHTHI":5,"PARIDHI":4,"PARTH":4,"PRACHI":9,"PRASUN DEV":6,"RUDRA":7,"SHRAVANI":0,"TANISHA":1,"YAMAN":1,"YASHPAL":3,"ARPITA":7,"MAANSHA":10,"PARTH BISHT":6}
+      }
+    };
+
+    const fallbackDates = {
+      "12":  { ch1:"2026-04-13", ch2:"2026-04-20", ch3:"2026-04-02", ch4:"2026-04-08", ch5:"2026-06-09", ch6:"2026-07-16" },
+      "11B": { ch1:"2026-04-08", ch2:"2026-06-09", ch3:"2026-06-26", ch4:"2026-07-15" },
+      "7C":  { crm:"2026-04-02", ch1:"2026-04-24", ch2:"2026-05-08", ch3:"2026-06-12" }
+    };
+
+    const fallbackRosters = {
+      "12":  ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
+      "11B": ["ADITYA NEGI","ARUN ARYA","ASHUTOSH","AYUSH ROY","DIKSHANT NEGI","GAURAV KUMAR","ISHANT MEHRA","JANVI","KARAN CHANDRA","KARTIKEY PHARTIYAL","MANAS BHAGAT","MANSI BHANDARI","NEHA NEGI","NIHARIKA MOHAN","PARAS SATI","PRANAY SATI","PRIYANSHU KANDPAL","PRIYANSHU PANDEY","RAJAT ADHIKARI","SPARSH DUBEY"],
+      "7C":  ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
+    };
+
+    const classLabels = { "7C":"Class 7C", "11B":"Class 11B", "12":"Class 12" };
 
     let csActiveClass = "7C";
+    let csViewMode    = "sheet";
     let csStudentData = {};
     let csTestDates   = {};
 
-    // --- Load from localStorage ---
+    /* ── Load data: localStorage first, fallback to embedded ── */
     function csLoadData() {
       try {
         const sd = localStorage.getItem("student_performance_data");
         if (sd) csStudentData = JSON.parse(sd);
         const td = localStorage.getItem("student_performance_test_dates");
         if (td) csTestDates = JSON.parse(td);
-      } catch(e) { console.error("CS load error", e); }
+      } catch(e) {}
+
+      ["7C","11B","12"].forEach(cls => {
+        if (!csStudentData[cls] || csStudentData[cls].length === 0) {
+          const roster = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b));
+          csStudentData[cls] = roster.map((name,i) => {
+            const marks = {};
+            Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{
+              if (tmap[name] !== undefined) marks[tid] = tmap[name];
+            });
+            return { rollNo:i+1, name, marks, remarks:"" };
+          });
+        }
+        if (!csTestDates[cls] || Object.keys(csTestDates[cls]).length === 0) {
+          csTestDates[cls] = { ...(fallbackDates[cls]||{}) };
+        }
+      });
     }
 
-    // --- Format date: YYYY-MM-DD → DD/MM/YY ---
+    /* ── Helpers ── */
     function csFmtDate(raw) {
       if (!raw) return "";
       const p = raw.split("-");
-      if (p.length === 3) return `${p[2]}/${p[1]}/${p[0].slice(2)}`;
-      return raw;
+      return p.length===3 ? `${p[2]}/${p[1]}/${p[0].slice(2)}` : raw;
     }
-
-    // --- Determine which tests were conducted for the given class ---
     function csConductedTests(cls) {
-      const allTests = classTests[cls] || [];
-      const students = csStudentData[cls] || [];
-      const dates    = csTestDates[cls]  || {};
-      return allTests.filter(t => {
-        if (dates[t.id]) return true; // has a date
-        return students.some(s => s.marks && s.marks[t.id] !== undefined && s.marks[t.id] !== null && s.marks[t.id] !== "");
+      const all = classTests[cls]||[];
+      const sts = csStudentData[cls]||[];
+      const dts = csTestDates[cls]||{};
+      return all.filter(t => {
+        if (dts[t.id]) return true;
+        return sts.some(s => s.marks && s.marks[t.id] !== undefined && s.marks[t.id] !== null && s.marks[t.id] !== "");
       });
     }
-
-    // --- PCT colour class ---
-    function csPctClass(pct) {
-      if (pct >= 75) return "good";
-      if (pct >= 45) return "avg";
-      return "low";
+    function pctClass(p){ return p>=75?"good":p>=45?"avg":"low"; }
+    function gradeLabel(p){
+      if(p>=90)return"A1";if(p>=80)return"A2";if(p>=70)return"B1";
+      if(p>=60)return"B2";if(p>=50)return"C1";if(p>=40)return"C2";
+      if(p>=33)return"D"; return"E";
     }
 
-    // --- Build and render the table ---
-    function csBuildTable() {
-      const cls      = csActiveClass;
-      const students = (csStudentData[cls] || []).slice().sort((a,b) => a.name.localeCompare(b.name));
-      students.forEach((s, i) => s.rollNo = i + 1);
+    /* ── Compute all row data ── */
+    function csComputeRows(cls) {
       const conducted = csConductedTests(cls);
-      const dates     = csTestDates[cls] || {};
-      const container = document.getElementById("csTableContainer");
+      const students  = (csStudentData[cls]||[]).slice().sort((a,b)=>a.name.localeCompare(b.name));
+      students.forEach((s,i)=>s.rollNo=i+1);
+      const dates = csTestDates[cls]||{};
+      const classColTotals = conducted.map(()=>({sum:0,count:0}));
+      let classGrandSum=0,classGrandPoss=0,classGrandCount=0;
 
-      // Update stats bar
+      const rows = students.map(student => {
+        let total=0,possible=0;
+        const cells = conducted.map((t,ci)=>{
+          const score = student.marks?student.marks[t.id]:undefined;
+          const has = score!==undefined&&score!==null&&score!=="";
+          if(has){ const n=Number(score); total+=n; possible+=t.maxMarks; classColTotals[ci].sum+=n; classColTotals[ci].count+=1; }
+          return {has,score};
+        });
+        const pct = possible>0?(total/possible*100):null;
+        if(possible>0){classGrandSum+=total;classGrandPoss+=possible;classGrandCount++;}
+        return {student,cells,total,possible,pct};
+      });
+
+      const classAvgPct = classGrandPoss>0?(classGrandSum/classGrandPoss*100):null;
+      return {conducted,students,rows,classColTotals,classGrandSum,classGrandPoss,classGrandCount,classAvgPct,dates};
+    }
+
+    /* ── Build Marks Sheet view ── */
+    function csBuildSheet() {
+      const cls = csActiveClass;
+      const container = document.getElementById("csTableContainer");
+      const {conducted,students,rows,classColTotals,classGrandSum,classGrandPoss,classGrandCount,classAvgPct,dates} = csComputeRows(cls);
+
       document.getElementById("csStatStudents").textContent = students.length;
       document.getElementById("csStatTests").textContent    = conducted.length;
+      document.getElementById("csStatAvg").textContent      = classAvgPct!==null?`${classAvgPct.toFixed(1)}%`:"—";
 
-      if (students.length === 0) {
-        container.innerHTML = `<div class="cs-empty-msg"><i class="fas fa-database" style="margin-right:8px"></i>No data found for ${classLabels[cls]}. Please open the Performance Analysis page first to initialise data.</div>`;
-        document.getElementById("csStatAvg").textContent = "—";
-        return;
-      }
-      if (conducted.length === 0) {
-        container.innerHTML = `<div class="cs-empty-msg"><i class="fas fa-info-circle" style="margin-right:8px"></i>No tests have been conducted yet for ${classLabels[cls]}.</div>`;
-        document.getElementById("csStatAvg").textContent = "—";
-        return;
-      }
+      if(!students.length){ container.innerHTML=`<div class="cs-empty-msg">No student data for ${classLabels[cls]}.</div>`; return; }
+      if(!conducted.length){ container.innerHTML=`<div class="cs-empty-msg">No tests conducted yet for ${classLabels[cls]}.</div>`; return; }
 
-      // Accumulate class totals for average row
-      const classColTotals = conducted.map(() => ({ sum: 0, count: 0 }));
-      let classGrandSum = 0, classGrandPoss = 0, classGrandCount = 0;
+      let h=`<table class="cs-table"><thead>`;
+      h+=`<tr class="cs-head-label"><th style="width:44px">S.No</th><th style="min-width:150px">Student Name</th>`;
+      conducted.forEach(t=>h+=`<th>${t.label}<br><span style="font-size:0.68em;opacity:0.7">MM:${t.maxMarks}</span></th>`);
+      h+=`<th>Total</th><th>%</th><th>Grade</th></tr>`;
+      h+=`<tr class="cs-head-date"><th></th><th></th>`;
+      conducted.forEach(t=>{const d=dates[t.id]?csFmtDate(dates[t.id]):"—";h+=`<th>${d}</th>`;});
+      h+=`<th></th><th></th><th></th></tr></thead><tbody>`;
 
-      // Build rows
-      let rows = students.map(student => {
-        let total = 0, possible = 0, attempted = 0;
-        const cells = conducted.map((t, ci) => {
-          const score = student.marks ? student.marks[t.id] : undefined;
-          const hasScore = score !== undefined && score !== null && score !== "";
-          if (hasScore) {
-            const n = Number(score);
-            total    += n;
-            possible += t.maxMarks;
-            attempted++;
-            classColTotals[ci].sum   += n;
-            classColTotals[ci].count += 1;
-          }
-          return { hasScore, score };
-        });
-        const pct = possible > 0 ? (total / possible * 100) : null;
-        if (possible > 0) { classGrandSum += total; classGrandPoss += possible; classGrandCount++; }
-        return { student, cells, total, possible, pct, attempted };
+      rows.forEach(r=>{
+        h+=`<tr><td>${r.student.rollNo}</td><td>${r.student.name}</td>`;
+        r.cells.forEach(c=>{ h+=c.has?`<td>${c.score}</td>`:`<td class="td-absent">AB</td>`; });
+        h+=`<td class="td-total">${r.possible>0?r.total+'/'+r.possible:"—"}</td>`;
+        h+=r.pct!==null?`<td class="td-pct ${pctClass(r.pct)}">${r.pct.toFixed(1)}%</td>`:`<td class="td-absent">AB</td>`;
+        h+=r.pct!==null?`<td class="td-pct ${pctClass(r.pct)}">${gradeLabel(r.pct)}</td>`:`<td class="td-absent">—</td>`;
+        h+=`</tr>`;
       });
-
-      // Class average
-      const classAvgPct = classGrandPoss > 0 ? (classGrandSum / classGrandPoss * 100) : null;
-      document.getElementById("csStatAvg").textContent = classAvgPct !== null ? `${classAvgPct.toFixed(1)}%` : "—";
-
-      // --- Build HTML ---
-      let html = `<table class="cs-table" id="csMainTable">`;
-
-      // Header row 1 — labels
-      html += `<thead><tr class="cs-head-label">`;
-      html += `<th style="width:44px">S.No</th><th style="min-width:140px">Student Name</th>`;
-      conducted.forEach(t => html += `<th>${t.label}<br><span style="font-size:0.7em;opacity:0.7">MM:${t.maxMarks}</span></th>`);
-      html += `<th>Total</th><th>%</th></tr>`;
-
-      // Header row 2 — dates
-      html += `<tr class="cs-head-date">`;
-      html += `<th></th><th></th>`;
-      conducted.forEach(t => {
-        const d = dates[t.id] ? csFmtDate(dates[t.id]) : "—";
-        html += `<th>${d}</th>`;
-      });
-      html += `<th></th><th></th></tr></thead>`;
-
-      // Body rows
-      html += `<tbody>`;
-      rows.forEach(r => {
-        html += `<tr>`;
-        html += `<td>${r.student.rollNo}</td>`;
-        html += `<td>${r.student.name}</td>`;
-        r.cells.forEach(c => {
-          if (c.hasScore) {
-            html += `<td>${c.score}</td>`;
-          } else {
-            html += `<td class="td-absent">AB</td>`;
-          }
-        });
-        html += `<td class="td-total">${r.possible > 0 ? r.total + '/' + r.possible : '—'}</td>`;
-        if (r.pct !== null) {
-          html += `<td class="td-pct ${csPctClass(r.pct)}">${r.pct.toFixed(1)}%</td>`;
-        } else {
-          html += `<td class="td-absent">AB</td>`;
-        }
-        html += `</tr>`;
-      });
-      html += `</tbody>`;
-
-      // Footer — class averages
-      html += `<tfoot><tr>`;
-      html += `<td colspan="2">📊 Class Average</td>`;
-      classColTotals.forEach((ct, ci) => {
-        if (ct.count > 0) {
-          html += `<td>${(ct.sum / ct.count).toFixed(1)}</td>`;
-        } else {
-          html += `<td>—</td>`;
-        }
-      });
-      if (classAvgPct !== null) {
-        html += `<td style="color:#a78bfa">${(classGrandSum/classGrandCount).toFixed(1)}</td>`;
-        html += `<td style="color:${classAvgPct>=75?'#34d399':classAvgPct>=45?'#fbbf24':'#f87171'}">${classAvgPct.toFixed(1)}%</td>`;
-      } else {
-        html += `<td>—</td><td>—</td>`;
-      }
-      html += `</tr></tfoot></table>`;
-
-      container.innerHTML = html;
+      h+=`</tbody><tfoot><tr><td colspan="2">📊 Class Average</td>`;
+      classColTotals.forEach(ct=>h+=`<td>${ct.count>0?(ct.sum/ct.count).toFixed(1):"—"}</td>`);
+      h+=classAvgPct!==null
+        ?`<td style="color:#a78bfa">${(classGrandSum/classGrandCount).toFixed(1)}</td><td style="color:${classAvgPct>=75?"#34d399":classAvgPct>=45?"#fbbf24":"#f87171"}">${classAvgPct.toFixed(1)}%</td><td>${gradeLabel(classAvgPct)}</td>`
+        :`<td>—</td><td>—</td><td>—</td>`;
+      h+=`</tr></tfoot></table>`;
+      container.innerHTML=h;
     }
 
-    // --- Switch class tab ---
+    /* ── Build Rank / Award List view ── */
+    function csBuildRankList() {
+      const cls = csActiveClass;
+      const container = document.getElementById("csTableContainer");
+      const {conducted,students,rows,classAvgPct} = csComputeRows(cls);
+
+      document.getElementById("csStatStudents").textContent = students.length;
+      document.getElementById("csStatTests").textContent    = conducted.length;
+      document.getElementById("csStatAvg").textContent      = classAvgPct!==null?`${classAvgPct.toFixed(1)}%`:"—";
+
+      if(!students.length){ container.innerHTML=`<div class="cs-empty-msg">No student data for ${classLabels[cls]}.</div>`; return; }
+      if(!conducted.length){ container.innerHTML=`<div class="cs-empty-msg">No tests conducted yet for ${classLabels[cls]}.</div>`; return; }
+
+      const ranked = rows.slice().sort((a,b)=>{
+        if(a.pct===null&&b.pct===null)return 0;
+        if(a.pct===null)return 1; if(b.pct===null)return-1;
+        return b.pct-a.pct;
+      });
+      let rank=1;
+      ranked.forEach((r,i)=>{
+        if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct) rank=i+1;
+        r.rank = r.pct!==null?rank:"-";
+      });
+      const medals=["🥇","🥈","🥉"];
+
+      let h=`<table class="cs-table"><thead><tr class="cs-head-label">`;
+      h+=`<th style="width:60px">Rank</th><th style="width:44px">S.No</th><th style="min-width:170px">Student Name</th>`;
+      h+=`<th>Scored</th><th>Out Of</th><th>%</th><th>Grade</th><th style="min-width:120px">Remark</th></tr></thead><tbody>`;
+
+      ranked.forEach(r=>{
+        const rnk = typeof r.rank==="number"&&r.rank<=3?medals[r.rank-1]:r.rank;
+        const g = r.pct!==null?gradeLabel(r.pct):"—";
+        const cl2 = r.pct!==null?pctClass(r.pct):"";
+        const rm = r.pct===null?"Absent in all tests":r.pct>=75?"Excellent 🌟":r.pct>=60?"Good 👍":r.pct>=45?"Average":"Needs Improvement ⚠️";
+        h+=`<tr>`;
+        h+=`<td style="font-size:1.1em;font-weight:800;color:#f59e0b;text-align:center">${rnk}</td>`;
+        h+=`<td>${r.student.rollNo}</td>`;
+        h+=`<td style="text-align:left;padding-left:12px;font-weight:700">${r.student.name}</td>`;
+        h+=`<td class="td-total">${r.possible>0?r.total:"—"}</td>`;
+        h+=`<td style="color:#94a3b8">${r.possible>0?r.possible:"—"}</td>`;
+        h+=r.pct!==null?`<td class="td-pct ${cl2}">${r.pct.toFixed(1)}%</td>`:`<td class="td-absent">—</td>`;
+        h+=r.pct!==null?`<td class="td-pct ${cl2}">${g}</td>`:`<td class="td-absent">—</td>`;
+        h+=`<td style="font-size:0.8em;color:#94a3b8;text-align:left;padding-left:8px">${rm}</td>`;
+        h+=`</tr>`;
+      });
+      h+=`</tbody></table>`;
+      container.innerHTML=h;
+    }
+
+    /* ── Master render ── */
+    function csRender() {
+      if(csViewMode==="rank") csBuildRankList(); else csBuildSheet();
+    }
+
+    /* ── Exposed globals ── */
     window.csSetClass = function(cls, btn) {
       csActiveClass = cls;
-      document.querySelectorAll(".cs-tab-btn").forEach(b => b.classList.remove("active"));
-      if (btn) btn.classList.add("active");
-      csBuildTable();
+      document.querySelectorAll(".cs-tab-btn").forEach(b=>b.classList.remove("active"));
+      if(btn) btn.classList.add("active");
+      csRender();
     };
 
-    // --- Print the sheet in a clean iframe ---
+    window.csSetView = function(mode, btn) {
+      csViewMode = mode;
+      document.querySelectorAll(".cs-view-btn").forEach(b=>b.classList.remove("active"));
+      if(btn) btn.classList.add("active");
+      csRender();
+    };
+
     window.csPrintSheet = function() {
-      const cls       = csActiveClass;
-      const clsLabel  = classLabels[cls];
-      const conducted = csConductedTests(cls);
-      const students  = (csStudentData[cls] || []).slice().sort((a,b) => a.name.localeCompare(b.name));
-      students.forEach((s,i) => s.rollNo = i+1);
-      const dates     = csTestDates[cls] || {};
-
-      if (students.length === 0 || conducted.length === 0) {
-        alert("No data to print for " + clsLabel);
-        return;
-      }
-
-      const today = new Date();
-      const dateStr = `${today.getDate().toString().padStart(2,'0')}/${(today.getMonth()+1).toString().padStart(2,'0')}/${today.getFullYear()}`;
-
-      // Build print table HTML
-      let tHTML = `<table><thead>`;
-      tHTML += `<tr class="h1"><th>S.No</th><th>Student Name</th>`;
-      conducted.forEach(t => tHTML += `<th>${t.label}<br><small>MM:${t.maxMarks}</small></th>`);
-      tHTML += `<th>Total</th><th>%</th></tr>`;
-      tHTML += `<tr class="h2"><th></th><th></th>`;
-      conducted.forEach(t => { const d = dates[t.id] ? csFmtDate(dates[t.id]) : "—"; tHTML += `<th>${d}</th>`; });
-      tHTML += `<th></th><th></th></tr></thead><tbody>`;
-
-      const classColTotals = conducted.map(() => ({ sum:0, count:0 }));
-      let classGrandSum=0, classGrandPoss=0, classGrandCount=0;
-
-      students.forEach(student => {
-        let total=0, possible=0;
-        tHTML += `<tr><td>${student.rollNo}</td><td class="name">${student.name}</td>`;
-        conducted.forEach((t,ci) => {
-          const score = student.marks ? student.marks[t.id] : undefined;
-          const has = score !== undefined && score !== null && score !== "";
-          if (has) {
-            tHTML += `<td>${score}</td>`;
-            total    += Number(score);
-            possible += t.maxMarks;
-            classColTotals[ci].sum   += Number(score);
-            classColTotals[ci].count += 1;
-          } else {
-            tHTML += `<td class="ab">AB</td>`;
-          }
-        });
-        const pct = possible > 0 ? (total/possible*100) : null;
-        if (possible > 0) { classGrandSum+=total; classGrandPoss+=possible; classGrandCount++; }
         tHTML += `<td class="tot">${possible>0?total+'/'+possible:'—'}</td>`;
         tHTML += pct!==null ? `<td class="pct ${pct>=75?'good':pct>=45?'avg':'low'}">${pct.toFixed(1)}%</td>` : `<td class="ab">AB</td>`;
         tHTML += `</tr>`;
