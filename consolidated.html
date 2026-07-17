@@ -219,7 +219,7 @@ const rows = students.map(student => {
   let tot=0,pos=0;
   const cells = conducted.map((t, ci) => {
     const score = student.marks[t.id];
-    const has = score!==undefined&&score!==null&&score!=="";
+    const has = isValidScore(score);
     if(has){const n=Number(score);tot+=n;pos+=t.maxMarks;colTotals[ci].sum+=n;colTotals[ci].count+=1;}
     return {has,score};
   });
@@ -232,6 +232,7 @@ const avgPct = gP>0?(gS/gP*100):null;
 const isClassTest = id => id === 'crm' || id.startsWith('ch');
 const ctTests = conducted.filter(t => isClassTest(t.id));
 const ptTests = conducted.filter(t => !isClassTest(t.id));
+const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && !isNaN(Number(score));
 
 function fmtDate(raw){if(!raw)return'';const p=raw.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0].slice(2):raw;}
 function pc(p){return p>=75?'good':p>=45?'avg':'low';}
@@ -240,7 +241,7 @@ function getColAvg(testId) {
   let sum = 0, count = 0;
   rows.forEach(r => {
     const score = r.marks[testId];
-    if (score !== undefined && score !== null && score !== "") {
+    if (isValidScore(score)) {
       sum += Number(score);
       count++;
     }
@@ -293,7 +294,7 @@ function buildSheet(){
     let ctTotal = 0, ctPossible = 0;
     ctTests.forEach(t => {
       const score = r.marks[t.id];
-      const has = score !== undefined && score !== null && score !== "";
+      const has = isValidScore(score);
       if (has) {
         h += '<td>' + score + '</td>';
         ctTotal += Number(score);
@@ -310,7 +311,7 @@ function buildSheet(){
     
     ptTests.forEach(t => {
       const score = r.marks[t.id];
-      const has = score !== undefined && score !== null && score !== "";
+      const has = isValidScore(score);
       if (has) {
         h += '<td>' + score + '</td>';
       } else {
@@ -321,7 +322,7 @@ function buildSheet(){
     let overTotal = 0, overPossible = 0;
     conducted.forEach(t => {
       const score = r.marks[t.id];
-      if (score !== undefined && score !== null && score !== "") {
+      if (isValidScore(score)) {
         overTotal += Number(score);
         overPossible += t.maxMarks;
       }
@@ -346,7 +347,7 @@ function buildSheet(){
     rows.forEach(r => {
       ctTests.forEach(t => {
         const score = r.marks[t.id];
-        if (score !== undefined && score !== null && score !== "") {
+        if (isValidScore(score)) {
           sumCTObt += Number(score);
           sumCTPoss += t.maxMarks;
         }
@@ -364,7 +365,7 @@ function buildSheet(){
   rows.forEach(r => {
     conducted.forEach(t => {
       const score = r.marks[t.id];
-      if (score !== undefined && score !== null && score !== "") {
+      if (isValidScore(score)) {
         sumObt += Number(score);
         sumPoss += t.maxMarks;
       }
@@ -452,7 +453,7 @@ function downloadExcel(){
       let ctTotal = 0, ctPossible = 0;
       const ctMarks = ctTests.map(t => {
         const score = r.marks[t.id];
-        if (score !== undefined && score !== null && score !== "") {
+        if (isValidScore(score)) {
           ctTotal += Number(score);
           ctPossible += t.maxMarks;
           return score;
@@ -463,7 +464,7 @@ function downloadExcel(){
       let ptTotal = 0, ptPossible = 0;
       const ptMarks = ptTests.map(t => {
         const score = r.marks[t.id];
-        if (score !== undefined && score !== null && score !== "") {
+        if (isValidScore(score)) {
           ptTotal += Number(score);
           ptPossible += t.maxMarks;
           return score;
@@ -474,7 +475,7 @@ function downloadExcel(){
       let overTotal = 0, overPossible = 0;
       conducted.forEach(t => {
         const score = r.marks[t.id];
-        if (score !== undefined && score !== null && score !== "") {
+        if (isValidScore(score)) {
           overTotal += Number(score);
           overPossible += t.maxMarks;
         }
@@ -497,7 +498,7 @@ function downloadExcel(){
       rows.forEach(r => {
         ctTests.forEach(t => {
           const score = r.marks[t.id];
-          if (score !== undefined && score !== null && score !== "") {
+          if (isValidScore(score)) {
             sumCTObt += Number(score);
             sumCTPoss += t.maxMarks;
           }
@@ -513,7 +514,7 @@ function downloadExcel(){
     rows.forEach(r => {
       conducted.forEach(t => {
         const score = r.marks[t.id];
-        if (score !== undefined && score !== null && score !== "") {
+        if (isValidScore(score)) {
           sumObt += Number(score);
           sumPoss += t.maxMarks;
         }

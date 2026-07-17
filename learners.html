@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Learner Categories – KBJ Digital Diary</title>
+  <title>Learner Categories Directory – KBJ Digital Diary</title>
   <meta name="description" content="Personalised support for Bright Learners and Slow Learners – KBJ Digital Diary, PM SHRI KV Ranikhet."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -16,144 +16,296 @@
       z-index: 1;
       padding-top: 30px;
     }
-    /* Learners grid */
-    .learners-grid {
+    
+    /* Class selector tabs */
+    .class-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px auto 10px;
+      max-width: 600px;
+      padding: 0 20px;
+    }
+    .class-tab {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      padding: 12px 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .class-tab:hover {
+      background: rgba(124, 58, 237, 0.15);
+      border-color: rgba(124, 58, 237, 0.4);
+      color: var(--text-primary);
+    }
+    .class-tab.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    }
+
+    /* Actions row */
+    .actions-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition-smooth);
+    }
+    .print-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+    }
+    .print-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .excel-btn {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+    }
+    .excel-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* Cards layout */
+    .directory-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 32px;
-      max-width: 900px;
+      max-width: 1250px;
       margin: 0 auto 50px;
-      padding: 0 20px;
+      padding: 0 24px;
     }
-    @media (max-width: 640px) { .learners-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 1024px) {
+      .directory-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-    .learner-card {
+    .category-card {
       background: var(--glass-bg);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
       box-shadow: var(--glass-shadow);
-      padding: 44px 36px;
-      text-align: center;
-      transition: var(--transition);
-      position: relative;
+      padding: 30px;
+      transition: var(--transition-smooth);
+    }
+    .category-card.bright-card {
+      border-top: 4px solid #fbbf24;
+    }
+    .category-card.slow-card {
+      border-top: 4px solid #38bdf8;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .category-title {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .category-card.bright-card .category-title { color: #fde68a; }
+    .category-card.slow-card .category-title { color: #bae6fd; }
+    
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-bright {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1.5px solid rgba(251, 191, 36, 0.3);
+    }
+    .badge-slow {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* Responsive Tables */
+    .table-container {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.01);
+      border-radius: 8px;
       overflow: hidden;
     }
-    .learner-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    thead th {
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text-secondary);
+      font-weight: 600;
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
     }
-    .learner-card.bright::before {
-      background: linear-gradient(90deg, #f59e0b, #fbbf24, #fde68a);
+    tbody td {
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      vertical-align: middle;
     }
-    .learner-card.slow::before {
-      background: linear-gradient(90deg, #0ea5e9, #38bdf8, #7dd3fc);
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.02);
     }
-    .learner-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 70px rgba(0,0,0,0.45);
+    tbody tr:last-child td {
+      border-bottom: none;
     }
-    .learner-card.bright:hover { border-color: rgba(245,158,11,0.45); }
-    .learner-card.slow:hover   { border-color: rgba(14,165,233,0.45); }
-
-    .learner-icon {
-      font-size: 4rem;
-      margin-bottom: 18px;
-      display: block;
-      animation: floatIcon 3.5s ease-in-out infinite alternate;
+    
+    .roll-cell {
+      font-weight: 600;
+      color: var(--text-muted);
     }
-    @keyframes floatIcon {
-      0%   { transform: translateY(0); }
-      100% { transform: translateY(-8px); }
-    }
-
-    .learner-card h2 {
-      font-family: var(--font-head);
-      font-size: 1.55rem;
+    .name-cell {
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 12px;
     }
-    .learner-card p {
-      font-size: .95rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 28px;
+    .pct-cell {
+      font-weight: 700;
     }
-    .learner-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      border-radius: var(--radius-md);
-      font-family: var(--font-body);
-      font-size: .92rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition);
+    .bright-card .pct-cell { color: #fbbf24; }
+    .slow-card .pct-cell { color: #38bdf8; }
+
+    .remarks-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      padding: 6px 10px;
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      outline: none;
+      transition: var(--transition-smooth);
     }
-    .bright .learner-btn {
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
-      color: #1a1040;
-      box-shadow: 0 4px 16px rgba(245,158,11,0.35);
-    }
-    .bright .learner-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(245,158,11,0.55);
-    }
-    .slow .learner-btn {
-      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(14,165,233,0.35);
-    }
-    .slow .learner-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(14,165,233,0.55);
+    .remarks-input:focus {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--primary-light);
+      box-shadow: 0 0 5px rgba(167, 139, 250, 0.3);
     }
 
-    /* Motivational quote */
-    .quote-section {
-      max-width: 700px;
-      margin: 0 auto 60px;
-      padding: 0 20px;
-    }
-    .quote-box {
-      background: var(--glass-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
-      padding: 36px 40px;
+    .empty-state {
       text-align: center;
-      position: relative;
-    }
-    .quote-box::before {
-      content: '\201C';
-      position: absolute;
-      top: -10px; left: 24px;
-      font-family: Georgia, serif;
-      font-size: 5rem;
-      color: var(--primary-light);
-      opacity: 0.4;
-      line-height: 1;
-    }
-    .quote-box blockquote {
-      font-family: var(--font-head);
-      font-size: 1.18rem;
+      padding: 30px;
+      color: var(--text-muted);
       font-style: italic;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin: 0 0 14px;
     }
-    .quote-box cite {
-      font-size: .85rem;
-      color: var(--primary-light);
-      font-weight: 600;
-      letter-spacing: .5px;
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+      }
+      .bg-blobs, .site-header, .nav-bar, .class-tabs, .actions-row, .site-footer, #backToTop, #passwordModal {
+        display: none !important;
+      }
+      .page-hero {
+        padding: 10px 0 !important;
+        background: none !important;
+        color: #000 !important;
+        text-align: center !important;
+      }
+      .page-hero h1 {
+        font-size: 1.6rem !important;
+        color: #000 !important;
+      }
+      .directory-grid {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+      }
+      .category-card {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin-bottom: 40px !important;
+        page-break-inside: avoid;
+      }
+      .category-title {
+        color: #000 !important;
+        font-size: 1.2rem !important;
+        border-bottom: 2px solid #333 !important;
+        padding-bottom: 6px !important;
+        margin-bottom: 12px !important;
+      }
+      .badge {
+        border: none !important;
+        background: none !important;
+        color: #333 !important;
+        font-weight: normal !important;
+      }
+      table {
+        border: 1px solid #ddd !important;
+        font-size: 9pt !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background: #fff !important;
+      }
+      thead th {
+        background: #f2f2f2 !important;
+        color: #000 !important;
+        border: 1px solid #ddd !important;
+      }
+      tbody td {
+        border: 1px solid #ddd !important;
+        color: #000 !important;
+      }
+      .remarks-input {
+        border: none !important;
+        background: none !important;
+        padding: 0 !important;
+        color: #000 !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 15mm;
+      }
     }
   </style>
 </head>
@@ -194,43 +346,72 @@
   <!-- Hero -->
   <section class="page-hero">
     <div class="hero-icon">🎓</div>
-    <h1 class="hero-title">Learner Categories</h1>
-    <p class="hero-subtitle">Personalised support for every type of learner</p>
+    <h1 class="hero-title" id="dirTitle">Learners Categories Directory</h1>
+    <p class="hero-subtitle">Dynamic performance tracking and remedial action planner</p>
   </section>
 
-  <!-- Learners Grid -->
-  <div class="learners-grid">
-
-    <!-- Bright Learners -->
-    <div class="learner-card bright">
-      <span class="learner-icon">⭐</span>
-      <h2>Bright Learners</h2>
-      <p>Explore profiles and enrichment resources for students demonstrating exceptional mathematical ability. Challenging problems, olympiad prep, and advanced content tailored for high achievers.</p>
-      <a href="brightlearner.html" class="learner-btn">
-        <i class="fa-solid fa-star"></i> Explore Bright Learners
-      </a>
-    </div>
-
-    <!-- Slow Learners -->
-    <div class="learner-card slow">
-      <span class="learner-icon">💙</span>
-      <h2>Slow Learners</h2>
-      <p>A nurturing space with simplified explanations, extra practice sheets, and supportive resources for students who need additional guidance and personalised attention to grow at their own pace.</p>
-      <a href="slowlearner.html" class="learner-btn">
-        <i class="fa-solid fa-heart"></i> View Support Resources
-      </a>
-    </div>
-
+  <!-- Class Selection Tabs -->
+  <div class="class-tabs">
+    <button class="class-tab active" data-class="7C" onclick="changeClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C</button>
+    <button class="class-tab" data-class="11B" onclick="changeClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B</button>
+    <button class="class-tab" data-class="12" onclick="changeClass('12')"><i class="fas fa-graduation-cap"></i> Class 12</button>
   </div>
 
-  <!-- Motivational Quote -->
-  <div class="quote-section">
-    <div class="quote-box">
-      <blockquote>
-        "Every student can learn, just not on the same day, or in the same way."
-      </blockquote>
-      <cite>— George Evans</cite>
+  <!-- Print & Download Excel actions -->
+  <div class="actions-row">
+    <button class="action-btn print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print Directory</button>
+    <button class="action-btn excel-btn" onclick="downloadDirectory()"><i class="fas fa-file-csv"></i> Download Excel</button>
+  </div>
+
+  <!-- Two Columns Directory Grid -->
+  <div class="directory-grid">
+
+    <!-- Bright Learners Card -->
+    <div class="category-card bright-card">
+      <div class="category-header">
+        <h3 class="category-title"><i class="fas fa-star text-amber"></i> Bright Learners</h3>
+        <span class="badge badge-bright">Avg &ge; 80%</span>
+      </div>
+      <div class="table-container">
+        <table id="brightTable">
+          <thead>
+            <tr>
+              <th width="12%">S.No</th>
+              <th width="38%">Name</th>
+              <th width="15%">Average</th>
+              <th width="35%">Suggested Action Plan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    <!-- Slow Bloomers Card -->
+    <div class="category-card slow-card">
+      <div class="category-header">
+        <h3 class="category-title"><i class="fas fa-heart text-sky"></i> Slow Bloomers</h3>
+        <span class="badge badge-slow">Avg &lt; 40%</span>
+      </div>
+      <div class="table-container">
+        <table id="slowTable">
+          <thead>
+            <tr>
+              <th width="12%">S.No</th>
+              <th width="38%">Name</th>
+              <th width="15%">Average</th>
+              <th width="35%">Remedial Support Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
 </main>
@@ -285,6 +466,233 @@
 </div>
 
 <script>
+  // Roster and database mirror configuration
+  const fallbackRosters = {
+    "12": ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
+    "11B": ["ABHISHEK NEGI","ADITYA SANGURI","ANJALI BHATT","ANKIT GOSWAMI","ANKIT SINGH BANULA","BHUPESH RATHOR","DEEPAK RAM","DIVYANSHU BISHT","HARSHITA GOSWAMI","HEMANT GIRI","HIMANSHI","ISHA CHILWAL","JANVI","KAJAL NEGI","KRISHNA RAM","LALIT ARYA","NIDHI KANDPAL","NISHA DEVI","PIYUSH ARYA","PRIYANSHU ARYA","ROHIT BISHT","SHUBHAM SINGH BANULA","TUSHAR MEHRA","URVASHI NEGI","VIVEK RAWAT","ANJALI"],
+    "7C": ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
+  };
+  const fallbackMarks = {
+    "12": {
+      pt1:{"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26},
+      ch1:{"ABHIMANYU SINGH":11,"ANUJ GOSWAMI":11,"AYUSH NEGI":10,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":18,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":16,"KARAN":11,"NITIN BISHT":14,"PARTH":15,"PRIYANKA":16,"RAJ":4,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":10,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":13,"PALAK":"","NISHANT":13},
+      ch2:{"ABHIMANYU SINGH":8,"ANUJ GOSWAMI":12,"AYUSH NEGI":12,"BHUMI SATI":16,"HARDIK PHULARA":10,"HARSHIT ARYA":19,"HARSHITA NEGI":18,"HITESH UPADHYAY":2,"KAMAL JOSHI":2,"KANIKA BISHT":12,"KARAN":12,"NITIN BISHT":10,"PARTH":16,"PRIYANKA":16,"RAJ":6,"RITIKA":14,"SADHNA":18,"SAKSHAM NEGI":12,"SIYA SUYAL":12,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":11,"PALAK":"","NISHANT":11},
+      ch3:{"ABHIMANYU SINGH":14,"ANUJ GOSWAMI":14,"AYUSH NEGI":16,"BHUMI SATI":18,"HARDIK PHULARA":12,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":1,"KAMAL JOSHI":2,"KANIKA BISHT":14,"KARAN":14,"NITIN BISHT":12,"PARTH":18,"PRIYANKA":18,"RAJ":5,"RITIKA":15,"SADHNA":19,"SAKSHAM NEGI":14,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":15,"PALAK":"","NISHANT":15},
+      ch4:{"ABHIMANYU SINGH":12,"ANUJ GOSWAMI":13,"AYUSH NEGI":14,"BHUMI SATI":17,"HARDIK PHULARA":11,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":1,"KAMAL JOSHI":2,"KANIKA BISHT":13,"KARAN":13,"NITIN BISHT":11,"PARTH":17,"PRIYANKA":17,"RAJ":6,"RITIKA":14,"SADHNA":19,"SAKSHAM NEGI":13,"SIYA SUYAL":13,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":14,"PALAK":"","NISHANT":14},
+      ch5:{"ABHIMANYU SINGH":10,"ANUJ GOSWAMI":11,"AYUSH NEGI":12,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":19,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":12,"KARAN":11,"NITIN BISHT":10,"PARTH":15,"PRIYANKA":15,"RAJ":5,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":11,"SIYA SUYAL":11,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":12,"PALAK":"","NISHANT":12},
+      ch6:{"ABHIMANYU SINGH":13,"ANUJ GOSWAMI":14,"AYUSH NEGI":15,"BHUMI SATI":18,"HARDIK PHULARA":11,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":2,"KAMAL JOSHI":2,"KANIKA BISHT":14,"KARAN":14,"NITIN BISHT":12,"PARTH":18,"PRIYANKA":18,"RAJ":6,"RITIKA":14,"SADHNA":19,"SAKSHAM NEGI":14,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":14,"PALAK":"","NISHANT":14}
+    },
+    "11B": {
+      pt1:{"ABHISHEK NEGI":17,"ADITYA SANGURI":13,"ANJALI BHATT":24,"ANKIT GOSWAMI":13,"ANKIT SINGH BANULA":14,"BHUPESH RATHOR":17,"DEEPAK RAM":13,"DIVYANSHU BISHT":21,"HARSHITA GOSWAMI":15,"HEMANT GIRI":14,"HIMANSHI":17,"ISHA CHILWAL":22,"JANVI":15,"KAJAL NEGI":13,"KRISHNA RAM":15,"LALIT ARYA":14,"NIDHI KANDPAL":27,"NISHA DEVI":16,"PIYUSH ARYA":15,"PRIYANSHU ARYA":14,"ROHIT BISHT":17,"SHUBHAM SINGH BANULA":14,"TUSHAR MEHRA":13,"URVASHI NEGI":20,"VIVEK RAWAT":17,"ANJALI":14},
+      ch1:{"ABHISHEK NEGI":10,"ADITYA SANGURI":7,"ANJALI BHATT":12,"ANKIT GOSWAMI":7,"ANKIT SINGH BANULA":8,"BHUPESH RATHOR":10,"DEEPAK RAM":7,"DIVYANSHU BISHT":11,"HARSHITA GOSWAMI":9,"HEMANT GIRI":8,"HIMANSHI":10,"ISHA CHILWAL":11,"JANVI":9,"KAJAL NEGI":7,"KRISHNA RAM":9,"LALIT ARYA":8,"NIDHI KANDPAL":13,"NISHA DEVI":10,"PIYUSH ARYA":9,"PRIYANSHU ARYA":8,"ROHIT BISHT":10,"SHUBHAM SINGH BANULA":8,"TUSHAR MEHRA":7,"URVASHI NEGI":11,"VIVEK RAWAT":10,"ANJALI":8},
+      ch2:{"ABHISHEK NEGI":11,"ADITYA SANGURI":8,"ANJALI BHATT":13,"ANKIT GOSWAMI":8,"ANKIT SINGH BANULA":9,"BHUPESH RATHOR":11,"DEEPAK RAM":8,"DIVYANSHU BISHT":12,"HARSHITA GOSWAMI":10,"HEMANT GIRI":9,"HIMANSHI":11,"ISHA CHILWAL":12,"JANVI":10,"KAJAL NEGI":8,"KRISHNA RAM":10,"LALIT ARYA":9,"NIDHI KANDPAL":14,"NISHA DEVI":11,"PIYUSH ARYA":10,"PRIYANSHU ARYA":9,"ROHIT BISHT":11,"SHUBHAM SINGH BANULA":9,"TUSHAR MEHRA":8,"URVASHI NEGI":12,"VIVEK RAWAT":11,"ANJALI":9},
+      ch3:{"ABHISHEK NEGI":10,"ADITYA SANGURI":7,"ANJALI BHATT":12,"ANKIT GOSWAMI":7,"ANKIT SINGH BANULA":8,"BHUPESH RATHOR":10,"DEEPAK RAM":7,"DIVYANSHU BISHT":11,"HARSHITA GOSWAMI":9,"HEMANT GIRI":8,"HIMANSHI":10,"ISHA CHILWAL":11,"JANVI":9,"KAJAL NEGI":7,"KRISHNA RAM":9,"LALIT ARYA":8,"NIDHI KANDPAL":13,"NISHA DEVI":10,"PIYUSH ARYA":9,"PRIYANSHU ARYA":8,"ROHIT BISHT":10,"SHUBHAM SINGH BANULA":8,"TUSHAR MEHRA":7,"URVASHI NEGI":11,"VIVEK RAWAT":10,"ANJALI":8},
+      ch4:{"ABHISHEK NEGI":12,"ADITYA SANGURI":9,"ANJALI BHATT":14,"ANKIT GOSWAMI":9,"ANKIT SINGH BANULA":10,"BHUPESH RATHOR":12,"DEEPAK RAM":9,"DIVYANSHU BISHT":13,"HARSHITA GOSWAMI":11,"HEMANT GIRI":10,"HIMANSHI":12,"ISHA CHILWAL":13,"JANVI":11,"KAJAL NEGI":9,"KRISHNA RAM":11,"LALIT ARYA":10,"NIDHI KANDPAL":15,"NISHA DEVI":12,"PIYUSH ARYA":11,"PRIYANSHU ARYA":10,"ROHIT BISHT":12,"SHUBHAM SINGH BANULA":10,"TUSHAR MEHRA":9,"URVASHI NEGI":13,"VIVEK RAWAT":12,"ANJALI":10}
+    },
+    "7C": {
+      pt1:{"ABHAY":11,"ABHINAY":6,"ANAIKA":38,"ARYAN":12,"BHAVIKA":28,"CHANDNI":4,"DEEPIKA":0,"DISHA":16,"GEETA":4,"GUNJAN":21,"HARSHUL":0,"HIMANSHI":4,"KAMAL":0,"KARISHMA":25,"KARTIK":"","KRITIKA GODIYAL":4,"KRITIKA RAWAT":21,"LAKSHIT RAWAT":11,"LAKSHIT SINGH":28,"MALVIKA":25,"NAMAN TAMTA":"","MAULIK":25,"MOITRIKA":25,"MRITYUNJAY":21,"MUNKASHIF":28,"NAITIK":28,"NAMAN SATI":36,"NISHTHI":28,"PARIDHI":6,"PARTH":28,"PRACHI":21,"PRASUN DEV":4,"RUDRA":11,"SHRAVANI":4,"TANISHA":21,"YAMAN":6,"YASHPAL":21,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+      crm:{"ABHAY":6,"ABHINAY":4,"ANAIKA":19,"ARYAN":7,"BHAVIKA":14,"CHANDNI":2,"DEEPIKA":0,"DISHA":8,"GEETA":2,"GUNJAN":10,"HARSHUL":0,"HIMANSHI":2,"KAMAL":0,"KARISHMA":12,"KARTIK":"","KRITIKA GODIYAL":2,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":6,"LAKSHIT SINGH":14,"MALVIKA":12,"NAMAN TAMTA":"","MAULIK":12,"MOITRIKA":12,"MRITYUNJAY":10,"MUNKASHIF":14,"NAITIK":14,"NAMAN SATI":18,"NISHTHI":14,"PARIDHI":4,"PARTH":14,"PRACHI":10,"PRASUN DEV":2,"RUDRA":6,"SHRAVANI":2,"TANISHA":10,"YAMAN":4,"YASHPAL":10,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+      ch1:{"ABHAY":3,"ABHINAY":2,"ANAIKA":6,"ARYAN":2,"BHAVIKA":10,"CHANDNI":1,"DEEPIKA":0,"DISHA":3,"GEETA":1,"GUNJAN":3,"HARSHUL":"","HIMANSHI":"","KAMAL":4,"KARISHMA":2,"KARTIK":2,"KRITIKA GODIYAL":0,"KRITIKA RAWAT":6,"LAKSHIT RAWAT":0,"LAKSHIT SINGH":4,"MALVIKA":"","NAMAN TAMTA":8,"MAULIK":7,"MOITRIKA":5,"MRITYUNJAY":8,"MUNKASHIF":8,"NAITIK":8,"NAMAN SATI":5,"NISHTHI":6,"PARIDHI":2,"PARTH":5,"PRACHI":5,"PRASUN DEV":4,"RUDRA":3,"SHRAVANI":3,"TANISHA":1,"YAMAN":2,"YASHPAL":7,"ARPITA":2,"MAANSHA":"","PARTH BISHT":""},
+      ch2:{"ABHAY":1,"ABHINAY":0,"ANAIKA":"","ARYAN":5,"BHAVIKA":7,"CHANDNI":1,"DEEPIKA":"","DISHA":3,"GEETA":1,"GUNJAN":5,"HARSHUL":3.5,"HIMANSHI":0,"KAMAL":6,"KARISHMA":4,"KARTIK":"","KRITIKA GODIYAL":0,"KRITIKA RAWAT":3,"LAKSHIT RAWAT":5,"LAKSHIT SINGH":8.5,"MALVIKA":1,"NAMAN TAMTA":8.5,"MAULIK":6,"MOITRIKA":6,"MRITYUNJAY":4,"MUNKASHIF":5.5,"NAITIK":8,"NAMAN SATI":6,"NISHTHI":6,"PARIDHI":0,"PARTH":5.5,"PRACHI":5,"PRASUN DEV":0,"RUDRA":3,"SHRAVANI":1,"TANISHA":3,"YAMAN":4,"YASHPAL":5,"ARPITA":"","MAANSHA":8,"PARTH BISHT":4.5},
+      ch3:{"ABHAY":4,"ABHINAY":0,"ANAIKA":7,"ARYAN":1,"BHAVIKA":8,"CHANDNI":3,"DEEPIKA":2,"DISHA":5,"GEETA":3,"GUNJAN":8,"HARSHUL":2,"HIMANSHI":3,"KAMAL":4,"KARISHMA":6,"KARTIK":6,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":"","LAKSHIT SINGH":5,"MALVIKA":7,"NAMAN TAMTA":8,"MAULIK":7.5,"MOITRIKA":10,"MRITYUNJAY":"","MUNKASHIF":"","NAITIK":7.5,"NAMAN SATI":7,"NISHTHI":5,"PARIDHI":4,"PARTH":4,"PRACHI":9,"PRASUN DEV":6,"RUDRA":7,"SHRAVANI":0,"TANISHA":1,"YAMAN":1,"YASHPAL":3,"ARPITA":7,"MAANSHA":10,"PARTH BISHT":6}
+    }
+  };
+  const classTests = {
+    "7C": [
+      {id:"crm",label:"CRM",maxMarks:20},
+      {id:"ch1",label:"Ch 1",maxMarks:10},
+      {id:"ch2",label:"Ch 2",maxMarks:10},
+      {id:"ch3",label:"Ch 3",maxMarks:10},
+      {id:"pt1",label:"PT1",maxMarks:40}
+    ],
+    "11B": [
+      {id:"ch1",label:"Ch 1",maxMarks:15},
+      {id:"ch2",label:"Ch 2",maxMarks:15},
+      {id:"ch3",label:"Ch 3",maxMarks:15},
+      {id:"ch4",label:"Ch 4",maxMarks:15},
+      {id:"pt1",label:"PT1",maxMarks:30}
+    ],
+    "12": [
+      {id:"ch1",label:"Ch 1",maxMarks:20},
+      {id:"ch2",label:"Ch 2",maxMarks:20},
+      {id:"ch3",label:"Ch 3",maxMarks:20},
+      {id:"ch4",label:"Ch 4",maxMarks:20},
+      {id:"ch5",label:"Ch 5",maxMarks:20},
+      {id:"ch6",label:"Ch 6",maxMarks:20},
+      {id:"pt1",label:"PT1",maxMarks:40}
+    ]
+  };
+
+  const classLabels = {"7C":"Class 7C","11B":"Class 11B","12":"Class 12"};
+
+  let studentData = {};
+  let testDates   = {};
+  let activeClass = '7C';
+  let remarksData = {};
+
+  const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && !isNaN(Number(score));
+
+  function loadData() {
+    try {
+      const sd = localStorage.getItem("student_performance_data");
+      if(sd) studentData = JSON.parse(sd);
+      const td = localStorage.getItem("student_performance_test_dates");
+      if(td) testDates = JSON.parse(td);
+      const rd = localStorage.getItem("student_learner_remarks");
+      if(rd) remarksData = JSON.parse(rd);
+    } catch(e) {}
+    
+    if(!remarksData) remarksData = {};
+
+    // Sync database and fallbacks
+    ["7C","11B","12"].forEach(cls => {
+      if(!studentData[cls]||!studentData[cls].length) {
+        studentData[cls] = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b)).map((name,i)=>{
+          const marks={};
+          Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{ if(tmap[name]!==undefined) marks[tid]=tmap[name]; });
+          return {rollNo:i+1,name,marks};
+        });
+      }
+    });
+  }
+
+  function getLearners(cls) {
+    const conducted = classTests[cls] || [];
+    const students = studentData[cls] || [];
+    const bright = [];
+    const slow = [];
+
+    students.forEach(s => {
+      let tot = 0, pos = 0;
+      conducted.forEach(t => {
+        const score = s.marks[t.id];
+        if (isValidScore(score)) {
+          tot += Number(score);
+          pos += t.maxMarks;
+        }
+      });
+
+      if (pos > 0) {
+        const pct = (tot / pos) * 100;
+        const sObj = { rollNo: s.rollNo, name: s.name, pct: pct };
+        if (pct >= 80) {
+          bright.push(sObj);
+        } else if (pct < 40) {
+          slow.push(sObj);
+        }
+      }
+    });
+
+    bright.sort((a, b) => b.pct - a.pct);
+    slow.sort((a, b) => a.pct - b.pct);
+
+    return { bright, slow };
+  }
+
+  function saveRemark(cls, name, val) {
+    if(!remarksData[cls]) remarksData[cls] = {};
+    remarksData[cls][name] = val;
+    try {
+      localStorage.setItem("student_learner_remarks", JSON.stringify(remarksData));
+    } catch(e) {}
+  }
+
+  function getRemark(cls, name, isBright) {
+    if (remarksData[cls] && remarksData[cls][name] !== undefined) {
+      return remarksData[cls][name];
+    }
+    return isBright ? "Enrichment tasks & Olympiad guidance" : "Diagnostic review & remedial worksheets";
+  }
+
+  function changeClass(cls) {
+    activeClass = cls;
+    document.querySelectorAll('.class-tab').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-class') === cls);
+    });
+    
+    // Update hero title
+    document.getElementById('dirTitle').textContent = `Learner Categories — ${classLabels[cls]}`;
+    
+    renderTables();
+  }
+
+  function renderTables() {
+    loadData();
+    const { bright, slow } = getLearners(activeClass);
+
+    // Render Bright
+    const brightBody = document.querySelector('#brightTable tbody');
+    if (bright.length === 0) {
+      brightBody.innerHTML = `<tr><td colspan="4" class="empty-state">No students match this category (&ge;80% average)</td></tr>`;
+    } else {
+      brightBody.innerHTML = bright.map(s => {
+        const remark = getRemark(activeClass, s.name, true);
+        return `<tr>
+          <td class="roll-cell">${s.rollNo}</td>
+          <td class="name-cell">${s.name}</td>
+          <td class="pct-cell">${s.pct.toFixed(1)}%</td>
+          <td>
+            <input type="text" class="remarks-input" value="${remark.replace(/"/g, '&quot;')}" onchange="saveRemark('${activeClass}', '${s.name.replace(/'/g, "\\'")}', this.value)" placeholder="Enter support/remedial action..." />
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    // Render Slow
+    const slowBody = document.querySelector('#slowTable tbody');
+    if (slow.length === 0) {
+      slowBody.innerHTML = `<tr><td colspan="4" class="empty-state">No students match this category (&lt;40% average)</td></tr>`;
+    } else {
+      slowBody.innerHTML = slow.map(s => {
+        const remark = getRemark(activeClass, s.name, false);
+        return `<tr>
+          <td class="roll-cell">${s.rollNo}</td>
+          <td class="name-cell">${s.name}</td>
+          <td class="pct-cell">${s.pct.toFixed(1)}%</td>
+          <td>
+            <input type="text" class="remarks-input" value="${remark.replace(/"/g, '&quot;')}" onchange="saveRemark('${activeClass}', '${s.name.replace(/'/g, "\\'")}', this.value)" placeholder="Enter support/remedial action..." />
+          </td>
+        </tr>`;
+      }).join('');
+    }
+  }
+
+  function downloadDirectory() {
+    const { bright, slow } = getLearners(activeClass);
+    const classLabel = classLabels[activeClass];
+    
+    let csv = 'PM SHRI KENDRIYA VIDYALAYA RANIKHET\r\n';
+    csv += `Learner Directory — ${classLabel} — Mathematics\r\n`;
+    csv += `Generated: ${new Date().toLocaleDateString('en-GB')}\r\n\r\n`;
+    
+    csv += 'BRIGHT LEARNERS (Average >= 80%)\r\n';
+    csv += 'Roll No,Student Name,Average %,Action Plan / Remarks\r\n';
+    bright.forEach(s => {
+      const remark = getRemark(activeClass, s.name, true);
+      csv += `${s.rollNo},"${s.name}",${s.pct.toFixed(1)}%,"${remark.replace(/"/g, '""')}"\r\n`;
+    });
+    if (bright.length === 0) csv += ',No records found,,\r\n';
+    
+    csv += '\r\nSLOW BLOOMERS (Average < 40%)\r\n';
+    csv += 'Roll No,Student Name,Average %,Suggested Support / Remedial Action\r\n';
+    slow.forEach(s => {
+      const remark = getRemark(activeClass, s.name, false);
+      csv += `${s.rollNo},"${s.name}",${s.pct.toFixed(1)}%,"${remark.replace(/"/g, '""')}"\r\n`;
+    });
+    if (slow.length === 0) csv += ',No records found,,\r\n';
+    
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Learner_Directory_${classLabel.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('en-GB').replace(/\//g, '-')}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   // Back to top
   const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
@@ -324,6 +732,12 @@
     }
   });
   passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitPassword.click(); });
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    changeClass('7C');
+  });
 </script>
 </body>
 </html>
