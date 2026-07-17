@@ -2369,6 +2369,12 @@
       if (!testDates["11B"]) testDates["11B"] = {};
       if (!testDates["12"]) testDates["12"] = {};
 
+      // Force sync PT1 dates everywhere
+      testDates["12"].pt1 = "2026-07-03";
+      testDates["11B"].pt1 = "2026-07-02";
+      testDates["7C"].pt1 = "2026-07-06";
+      localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
+
       // Load Data (with version check for new subtabs schema)
       const savedData = localStorage.getItem("student_performance_data");
       const dbVersion = localStorage.getItem("student_performance_db_version");

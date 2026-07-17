@@ -498,51 +498,25 @@
 
 
       <!-- ===== Consolidated PTM Sheet Section ===== -->
-      <div class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); position: relative; border-radius: 16px;" id="consolidatedSheetCard">
+      <div class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); border-radius: 16px;" id="consolidatedSheetCard">
         <h2 class="class-header-title" style="margin-top:0;">
           <i class="fas fa-table"></i> Consolidated PTM Marks Sheet
         </h2>
-        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95em;">Classwise record of all conducted tests — with dates, marks, totals, and percentages. Ready to print for PTM.</p>
-
-        <!-- Class Selector Tabs -->
+        <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95em;">
+          Click a class below to open the full consolidated sheet in a new window — includes marks table, rank list, print &amp; Excel download.
+        </p>
         <div class="cs-class-tabs">
-          <button class="cs-tab-btn active" id="csTab7C" onclick="csSetClass('7C', this)">
+          <button class="cs-tab-btn" onclick="csOpenSheet('7C', this)" style="padding:14px 32px;font-size:1rem;">
             <i class="fas fa-graduation-cap"></i> Class 7C
           </button>
-          <button class="cs-tab-btn" id="csTab11B" onclick="csSetClass('11B', this)">
+          <button class="cs-tab-btn" onclick="csOpenSheet('11B', this)" style="padding:14px 32px;font-size:1rem;">
             <i class="fas fa-graduation-cap"></i> Class 11B
           </button>
-          <button class="cs-tab-btn" id="csTab12" onclick="csSetClass('12', this)">
+          <button class="cs-tab-btn" onclick="csOpenSheet('12', this)" style="padding:14px 32px;font-size:1rem;">
             <i class="fas fa-graduation-cap"></i> Class 12
           </button>
         </div>
-
-        <!-- View Mode Toggle -->
-        <div class="cs-class-tabs" style="margin-bottom:14px;">
-          <button class="cs-view-btn cs-tab-btn active" id="csViewSheet" onclick="csSetView('sheet', this)" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);border-color:#7c3aed;color:#fff;">
-            <i class="fas fa-table"></i> Marks Sheet
-          </button>
-          <button class="cs-view-btn cs-tab-btn" id="csViewRank" onclick="csSetView('rank', this)">
-            <i class="fas fa-trophy"></i> Rank &amp; Award List
-          </button>
-        </div>
-
-        <!-- Info bar: stats + print button -->
-        <div class="cs-info-bar">
-          <div class="cs-stats" id="csStatsBar">
-            <span>Students: <strong id="csStatStudents">—</strong></span>
-            <span>Tests Conducted: <strong id="csStatTests">—</strong></span>
-            <span>Class Avg: <strong id="csStatAvg">—</strong></span>
-          </div>
-          <button class="cs-print-btn" onclick="csPrintSheet()">
-            <i class="fas fa-print"></i> Print Consolidated Sheet
-          </button>
-        </div>
-
-        <!-- Table Container -->
-        <div class="cs-table-wrap">
-          <div id="csTableContainer"><div class="cs-empty-msg"><i class="fas fa-spinner fa-spin"></i> Loading data...</div></div>
-        </div>
+        <p style="color:#4b5563;font-size:0.8rem;margin-top:14px;"><i class="fas fa-external-link-alt" style="margin-right:5px;"></i>Opens in a new window — use Print or Download Excel from there.</p>
       </div>
       <!-- ===== End Consolidated PTM Sheet Section ===== -->
 
@@ -871,6 +845,13 @@
           if (savedDates) {
             testDates = JSON.parse(savedDates);
           }
+          if (!testDates["7C"]) testDates["7C"] = {};
+          if (!testDates["11B"]) testDates["11B"] = {};
+          if (!testDates["12"]) testDates["12"] = {};
+          testDates["12"].pt1 = "2026-07-03";
+          testDates["11B"].pt1 = "2026-07-02";
+          testDates["7C"].pt1 = "2026-07-06";
+          localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
           // Sort alphabetically and assign sequential S.No (rollNo)
           for (const cls in studentData) {
             if (Array.isArray(studentData[cls])) {
@@ -1585,375 +1566,550 @@
   <!-- ===== Consolidated PTM Sheet Script ===== -->
   <script>
   (function() {
-    /* ── Test config (mirrors analysis.html) ── */
+    /* ── Test config ── */
     const classTests = {
       "7C": [
-        { id:"crm",  label:"CRM",   maxMarks:20 },
-        { id:"ch1",  label:"Ch 1",  maxMarks:10 },
-        { id:"ch2",  label:"Ch 2",  maxMarks:10 },
-        { id:"ch3",  label:"Ch 3",  maxMarks:10 },
-        ...Array.from({length:12},(_,i)=>({ id:`ch${i+4}`, label:`Ch ${i+4}`, maxMarks:20 })),
-        { id:"pt1", label:"PT1", maxMarks:40 },
-        { id:"pt2", label:"PT2", maxMarks:40 },
-        { id:"hy",  label:"HY",  maxMarks:60 },
-        { id:"see", label:"SEE", maxMarks:60 }
+        {id:"crm",label:"CRM",maxMarks:20},{id:"ch1",label:"Ch 1",maxMarks:10},{id:"ch2",label:"Ch 2",maxMarks:10},{id:"ch3",label:"Ch 3",maxMarks:10},
+        ...Array.from({length:12},(_,i)=>({id:`ch${i+4}`,label:`Ch ${i+4}`,maxMarks:20})),
+        {id:"pt1",label:"PT1",maxMarks:40},{id:"pt2",label:"PT2",maxMarks:40},{id:"hy",label:"HY",maxMarks:60},{id:"see",label:"SEE",maxMarks:60}
       ],
       "11B": [
-        ...Array.from({length:15},(_,i)=>({ id:`ch${i+1}`, label:`Ch ${i+1}`, maxMarks:20 })),
-        { id:"pt1", label:"PT1", maxMarks:40 },
-        { id:"pt2", label:"PT2", maxMarks:40 },
-        { id:"hy",  label:"HY",  maxMarks:80 },
-        { id:"see", label:"SEE", maxMarks:80 }
+        ...Array.from({length:15},(_,i)=>({id:`ch${i+1}`,label:`Ch ${i+1}`,maxMarks:20})),
+        {id:"pt1",label:"PT1",maxMarks:40},{id:"pt2",label:"PT2",maxMarks:40},{id:"hy",label:"HY",maxMarks:80},{id:"see",label:"SEE",maxMarks:80}
       ],
       "12": [
-        ...Array.from({length:15},(_,i)=>({ id:`ch${i+1}`, label:`Ch ${i+1}`, maxMarks:20 })),
-        { id:"pt1", label:"PT1", maxMarks:40 },
-        { id:"pt2", label:"PT2", maxMarks:40 },
-        { id:"pb1", label:"PB1", maxMarks:80 },
-        { id:"pb2", label:"PB2", maxMarks:80 },
-        { id:"pb3", label:"PB3", maxMarks:80 }
+        ...Array.from({length:15},(_,i)=>({id:`ch${i+1}`,label:`Ch ${i+1}`,maxMarks:20})),
+        {id:"pt1",label:"PT1",maxMarks:40},{id:"pt2",label:"PT2",maxMarks:40},
+        {id:"pb1",label:"PB1",maxMarks:80},{id:"pb2",label:"PB2",maxMarks:80},{id:"pb3",label:"PB3",maxMarks:80}
       ]
     };
 
-    /* ── Embedded fallback marks (same as analysis.html) ── */
+    /* ── Fallback data ── */
     const fallbackMarks = {
-      "12": {
-        pt1:  {"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26},
-        ch1:  {"ABHIMANYU SINGH":11,"ANUJ GOSWAMI":11,"AYUSH NEGI":10,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":18,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":16,"KARAN":11,"NITIN BISHT":14,"PARTH":15,"PRIYANKA":16,"RAJ":4,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":10,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":13,"PALAK":"","NISHANT":13},
-        ch2:  {"ABHIMANYU SINGH":10,"ANUJ GOSWAMI":13,"AYUSH NEGI":11,"BHUMI SATI":"","HARDIK PHULARA":9,"HARSHIT ARYA":16,"HARSHITA NEGI":18,"HITESH UPADHYAY":4,"KAMAL JOSHI":8,"KANIKA BISHT":15,"KARAN":2,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":15,"RAJ":5,"RITIKA":15,"SADHNA":9,"SAKSHAM NEGI":8,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":11,"PALAK":"","NISHANT":""},
-        ch3:  {"ABHIMANYU SINGH":15,"ANUJ GOSWAMI":20,"AYUSH NEGI":"","BHUMI SATI":15,"HARDIK PHULARA":12,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":0,"KAMAL JOSHI":"","KANIKA BISHT":17,"KARAN":6,"NITIN BISHT":15,"PARTH":19,"PRIYANKA":20,"RAJ":4,"RITIKA":15,"SADHNA":"","SAKSHAM NEGI":13,"SIYA SUYAL":15,"SOUVIK SAHA":"","SPARSH BHATT":20,"TANMAY ADHIKARI":17,"PALAK":"","NISHANT":15},
-        ch4:  {"ABHIMANYU SINGH":13,"ANUJ GOSWAMI":11,"AYUSH NEGI":8,"BHUMI SATI":10.5,"HARDIK PHULARA":2,"HARSHIT ARYA":20,"HARSHITA NEGI":13,"HITESH UPADHYAY":3,"KAMAL JOSHI":5.5,"KANIKA BISHT":6,"KARAN":8,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":16,"RAJ":5,"RITIKA":"","SADHNA":0,"SAKSHAM NEGI":1,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":11,"TANMAY ADHIKARI":8,"PALAK":3,"NISHANT":11},
-        ch5:  {"ABHIMANYU SINGH":5,"ANUJ GOSWAMI":4,"AYUSH NEGI":0,"BHUMI SATI":5,"HARDIK PHULARA":3,"HARSHIT ARYA":20,"HARSHITA NEGI":14,"HITESH UPADHYAY":"","KAMAL JOSHI":2,"KANIKA BISHT":"","KARAN":5,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":4,"RAJ":0,"RITIKA":2,"SADHNA":4,"SAKSHAM NEGI":4,"SIYA SUYAL":3,"SOUVIK SAHA":"","SPARSH BHATT":10,"TANMAY ADHIKARI":9,"PALAK":0,"NISHANT":8},
-        ch6:  {"ABHIMANYU SINGH":9,"ANUJ GOSWAMI":13,"AYUSH NEGI":15,"BHUMI SATI":8,"HARDIK PHULARA":5,"HARSHIT ARYA":20,"HARSHITA NEGI":17,"HITESH UPADHYAY":3,"KAMAL JOSHI":13,"KANIKA BISHT":"","KARAN":6,"NITIN BISHT":4,"PARTH":10,"PRIYANKA":"","RAJ":2,"RITIKA":"","SADHNA":6,"SAKSHAM NEGI":7,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":15,"TANMAY ADHIKARI":12,"PALAK":0,"NISHANT":9}
+      "12":{
+        pt1:{"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26},
+        ch1:{"ABHIMANYU SINGH":11,"ANUJ GOSWAMI":11,"AYUSH NEGI":10,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":18,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":16,"KARAN":11,"NITIN BISHT":14,"PARTH":15,"PRIYANKA":16,"RAJ":4,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":10,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":13,"PALAK":"","NISHANT":13},
+        ch2:{"ABHIMANYU SINGH":10,"ANUJ GOSWAMI":13,"AYUSH NEGI":11,"BHUMI SATI":"","HARDIK PHULARA":9,"HARSHIT ARYA":16,"HARSHITA NEGI":18,"HITESH UPADHYAY":4,"KAMAL JOSHI":8,"KANIKA BISHT":15,"KARAN":2,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":15,"RAJ":5,"RITIKA":15,"SADHNA":9,"SAKSHAM NEGI":8,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":11,"PALAK":"","NISHANT":""},
+        ch3:{"ABHIMANYU SINGH":15,"ANUJ GOSWAMI":20,"AYUSH NEGI":"","BHUMI SATI":15,"HARDIK PHULARA":12,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":0,"KAMAL JOSHI":"","KANIKA BISHT":17,"KARAN":6,"NITIN BISHT":15,"PARTH":19,"PRIYANKA":20,"RAJ":4,"RITIKA":15,"SADHNA":"","SAKSHAM NEGI":13,"SIYA SUYAL":15,"SOUVIK SAHA":"","SPARSH BHATT":20,"TANMAY ADHIKARI":17,"PALAK":"","NISHANT":15},
+        ch4:{"ABHIMANYU SINGH":13,"ANUJ GOSWAMI":11,"AYUSH NEGI":8,"BHUMI SATI":10.5,"HARDIK PHULARA":2,"HARSHIT ARYA":20,"HARSHITA NEGI":13,"HITESH UPADHYAY":3,"KAMAL JOSHI":5.5,"KANIKA BISHT":6,"KARAN":8,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":16,"RAJ":5,"RITIKA":"","SADHNA":0,"SAKSHAM NEGI":1,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":11,"TANMAY ADHIKARI":8,"PALAK":3,"NISHANT":11},
+        ch5:{"ABHIMANYU SINGH":5,"ANUJ GOSWAMI":4,"AYUSH NEGI":0,"BHUMI SATI":5,"HARDIK PHULARA":3,"HARSHIT ARYA":20,"HARSHITA NEGI":14,"HITESH UPADHYAY":"","KAMAL JOSHI":2,"KANIKA BISHT":"","KARAN":5,"NITIN BISHT":9,"PARTH":19,"PRIYANKA":4,"RAJ":0,"RITIKA":2,"SADHNA":4,"SAKSHAM NEGI":4,"SIYA SUYAL":3,"SOUVIK SAHA":"","SPARSH BHATT":10,"TANMAY ADHIKARI":9,"PALAK":0,"NISHANT":8},
+        ch6:{"ABHIMANYU SINGH":9,"ANUJ GOSWAMI":13,"AYUSH NEGI":15,"BHUMI SATI":8,"HARDIK PHULARA":5,"HARSHIT ARYA":20,"HARSHITA NEGI":17,"HITESH UPADHYAY":3,"KAMAL JOSHI":13,"KANIKA BISHT":"","KARAN":6,"NITIN BISHT":4,"PARTH":10,"PRIYANKA":"","RAJ":2,"RITIKA":"","SADHNA":6,"SAKSHAM NEGI":7,"SIYA SUYAL":16,"SOUVIK SAHA":"","SPARSH BHATT":15,"TANMAY ADHIKARI":12,"PALAK":0,"NISHANT":9}
       },
-      "11B": {
-        pt1:  {"ADITYA NEGI":17,"ARUN ARYA":39,"AYUSH ROY":3,"DIKSHANT NEGI":31,"ISHANT MEHRA":4,"JANVI":32,"KARAN CHANDRA":13,"KARTIKEY PHARTIYAL":21,"MANAS BHAGAT":6,"MANSI BHANDARI":20,"NEHA NEGI":9,"PARAS SATI":29,"PRANAY SATI":28,"PRIYANSHU KANDPAL":23,"PRIYANSHU PANDEY":24,"RAJAT ADHIKARI":24,"SPARSH DUBEY":11},
-        ch1:  {"ADITYA NEGI":3,"ARUN ARYA":12,"DIKSHANT NEGI":11,"ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":4,"KARTIKEY PHARTIYAL":"","MANAS BHAGAT":2,"MANSI BHANDARI":9,"NEHA NEGI":"","NIHARIKA MOHAN":12,"PARAS SATI":6,"PRANAY SATI":4,"PRIYANSHU PANDEY":8,"RAJAT ADHIKARI":7,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
-        ch2:  {"ADITYA NEGI":3,"ARUN ARYA":11,"DIKSHANT NEGI":7,"ISHANT MEHRA":3.5,"JANVI":5,"KARAN CHANDRA":5.5,"KARTIKEY PHARTIYAL":1,"MANAS BHAGAT":3,"MANSI BHANDARI":5,"NEHA NEGI":2,"NIHARIKA MOHAN":"","PARAS SATI":10,"PRANAY SATI":12.5,"PRIYANSHU PANDEY":5,"RAJAT ADHIKARI":5,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
-        ch3:  {"ADITYA NEGI":3,"ARUN ARYA":12,"AYUSH ROY":0,"DIKSHANT NEGI":8,"GAURAV KUMAR":"","ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":3,"KARTIKEY PHARTIYAL":0,"MANAS BHAGAT":5,"MANSI BHANDARI":8,"NEHA NEGI":0,"NIHARIKA MOHAN":"","PARAS SATI":10,"PRANAY SATI":4,"PRIYANSHU KANDPAL":0,"PRIYANSHU PANDEY":2,"RAJAT ADHIKARI":"","SPARSH DUBEY":""},
-        ch4:  {"ADITYA NEGI":6,"ARUN ARYA":13,"AYUSH ROY":1,"DIKSHANT NEGI":12,"GAURAV KUMAR":3,"ISHANT MEHRA":0,"JANVI":8,"KARAN CHANDRA":6,"KARTIKEY PHARTIYAL":14,"MANAS BHAGAT":"","MANSI BHANDARI":12,"NEHA NEGI":4,"NIHARIKA MOHAN":"","PARAS SATI":19,"PRANAY SATI":17,"PRIYANSHU KANDPAL":17,"PRIYANSHU PANDEY":13,"RAJAT ADHIKARI":12,"SPARSH DUBEY":5}
+      "11B":{
+        pt1:{"ADITYA NEGI":17,"ARUN ARYA":39,"AYUSH ROY":3,"DIKSHANT NEGI":31,"ISHANT MEHRA":4,"JANVI":32,"KARAN CHANDRA":13,"KARTIKEY PHARTIYAL":21,"MANAS BHAGAT":6,"MANSI BHANDARI":20,"NEHA NEGI":9,"PARAS SATI":29,"PRANAY SATI":28,"PRIYANSHU KANDPAL":23,"PRIYANSHU PANDEY":24,"RAJAT ADHIKARI":24,"SPARSH DUBEY":11},
+        ch1:{"ADITYA NEGI":3,"ARUN ARYA":12,"DIKSHANT NEGI":11,"ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":4,"KARTIKEY PHARTIYAL":"","MANAS BHAGAT":2,"MANSI BHANDARI":9,"NEHA NEGI":"","NIHARIKA MOHAN":12,"PARAS SATI":6,"PRANAY SATI":4,"PRIYANSHU PANDEY":8,"RAJAT ADHIKARI":7,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
+        ch2:{"ADITYA NEGI":3,"ARUN ARYA":11,"DIKSHANT NEGI":7,"ISHANT MEHRA":3.5,"JANVI":5,"KARAN CHANDRA":5.5,"KARTIKEY PHARTIYAL":1,"MANAS BHAGAT":3,"MANSI BHANDARI":5,"NEHA NEGI":2,"NIHARIKA MOHAN":"","PARAS SATI":10,"PRANAY SATI":12.5,"PRIYANSHU PANDEY":5,"RAJAT ADHIKARI":5,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
+        ch3:{"ADITYA NEGI":3,"ARUN ARYA":12,"AYUSH ROY":0,"DIKSHANT NEGI":8,"GAURAV KUMAR":"","ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":3,"KARTIKEY PHARTIYAL":0,"MANAS BHAGAT":5,"MANSI BHANDARI":8,"NEHA NEGI":0,"NIHARIKA MOHAN":"","PARAS SATI":10,"PRANAY SATI":4,"PRIYANSHU KANDPAL":0,"PRIYANSHU PANDEY":2,"RAJAT ADHIKARI":"","SPARSH DUBEY":""},
+        ch4:{"ADITYA NEGI":6,"ARUN ARYA":13,"AYUSH ROY":1,"DIKSHANT NEGI":12,"GAURAV KUMAR":3,"ISHANT MEHRA":0,"JANVI":8,"KARAN CHANDRA":6,"KARTIKEY PHARTIYAL":14,"MANAS BHAGAT":"","MANSI BHANDARI":12,"NEHA NEGI":4,"NIHARIKA MOHAN":"","PARAS SATI":19,"PRANAY SATI":17,"PRIYANSHU KANDPAL":17,"PRIYANSHU PANDEY":13,"RAJAT ADHIKARI":12,"SPARSH DUBEY":5}
       },
-      "7C": {
-        pt1:  {"ABHINAY":1,"ANAIKA":29,"ARYAN":13,"BHAVIKA":32,"CHANDNI":3,"DEEPIKA":4,"DISHA":13,"GEETA":6,"GUNJAN":25,"HARSHUL":6,"HIMANSHI":7,"KAMAL":3,"KARTIK":10,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":20,"KARISHMA":16,"LAKSHIT RAWAT":7,"LAKSHIT SINGH":24,"MALVIKA":20,"MAULIK":25,"MOITRIKA":30,"MRITYUNJAY":24,"MUNKASHIF":20,"NAITIK":31,"NAMAN SATI":26,"NAMAN TAMTA":23,"NISHTHI":23,"PARIDHI":4,"PARTH":16,"PRACHI":17,"PRASUN DEV":8,"RUDRA":22,"SHRAVANI":13,"TANISHA":8,"YAMAN":14,"YASHPAL":22,"ARPITA":12,"PARTH BISHT":29,"MAANSHA":23,"ABHAY":""},
-        crm:  {"ABHAY":6,"ABHINAY":4,"ANAIKA":19,"ARYAN":7,"BHAVIKA":14,"CHANDNI":2,"DEEPIKA":0,"DISHA":8,"GEETA":2,"GUNJAN":10,"HARSHUL":0,"HIMANSHI":2,"KAMAL":0,"KARISHMA":12,"KARTIK":"","KRITIKA GODIYAL":2,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":6,"LAKSHIT SINGH":14,"MALVIKA":12,"NAMAN TAMTA":"","MAULIK":12,"MOITRIKA":12,"MRITYUNJAY":10,"MUNKASHIF":14,"NAITIK":14,"NAMAN SATI":18,"NISHTHI":14,"PARIDHI":4,"PARTH":14,"PRACHI":10,"PRASUN DEV":2,"RUDRA":6,"SHRAVANI":2,"TANISHA":10,"YAMAN":4,"YASHPAL":10,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
-        ch1:  {"ABHAY":3,"ABHINAY":2,"ANAIKA":6,"ARYAN":2,"BHAVIKA":10,"CHANDNI":1,"DEEPIKA":0,"DISHA":3,"GEETA":1,"GUNJAN":3,"HARSHUL":"","HIMANSHI":"","KAMAL":4,"KARISHMA":2,"KARTIK":2,"KRITIKA GODIYAL":0,"KRITIKA RAWAT":6,"LAKSHIT RAWAT":0,"LAKSHIT SINGH":4,"MALVIKA":"","NAMAN TAMTA":8,"MAULIK":7,"MOITRIKA":5,"MRITYUNJAY":8,"MUNKASHIF":8,"NAITIK":8,"NAMAN SATI":5,"NISHTHI":6,"PARIDHI":2,"PARTH":5,"PRACHI":5,"PRASUN DEV":4,"RUDRA":3,"SHRAVANI":3,"TANISHA":1,"YAMAN":2,"YASHPAL":7,"ARPITA":2,"MAANSHA":"","PARTH BISHT":""},
-        ch2:  {"ABHAY":1,"ABHINAY":0,"ANAIKA":"","ARYAN":5,"BHAVIKA":7,"CHANDNI":1,"DEEPIKA":"","DISHA":3,"GEETA":1,"GUNJAN":5,"HARSHUL":3.5,"HIMANSHI":0,"KAMAL":6,"KARISHMA":4,"KARTIK":"","KRITIKA GODIYAL":0,"KRITIKA RAWAT":3,"LAKSHIT RAWAT":5,"LAKSHIT SINGH":8.5,"MALVIKA":1,"NAMAN TAMTA":8.5,"MAULIK":6,"MOITRIKA":6,"MRITYUNJAY":4,"MUNKASHIF":5.5,"NAITIK":8,"NAMAN SATI":6,"NISHTHI":6,"PARIDHI":0,"PARTH":5.5,"PRACHI":5,"PRASUN DEV":0,"RUDRA":3,"SHRAVANI":1,"TANISHA":3,"YAMAN":4,"YASHPAL":5,"ARPITA":"","MAANSHA":8,"PARTH BISHT":4.5},
-        ch3:  {"ABHAY":4,"ABHINAY":0,"ANAIKA":7,"ARYAN":1,"BHAVIKA":8,"CHANDNI":3,"DEEPIKA":2,"DISHA":5,"GEETA":3,"GUNJAN":8,"HARSHUL":2,"HIMANSHI":3,"KAMAL":4,"KARISHMA":6,"KARTIK":6,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":"","LAKSHIT SINGH":5,"MALVIKA":7,"NAMAN TAMTA":8,"MAULIK":7.5,"MOITRIKA":10,"MRITYUNJAY":"","MUNKASHIF":"","NAITIK":7.5,"NAMAN SATI":7,"NISHTHI":5,"PARIDHI":4,"PARTH":4,"PRACHI":9,"PRASUN DEV":6,"RUDRA":7,"SHRAVANI":0,"TANISHA":1,"YAMAN":1,"YASHPAL":3,"ARPITA":7,"MAANSHA":10,"PARTH BISHT":6}
+      "7C":{
+        pt1:{"ABHINAY":1,"ANAIKA":29,"ARYAN":13,"BHAVIKA":32,"CHANDNI":3,"DEEPIKA":4,"DISHA":13,"GEETA":6,"GUNJAN":25,"HARSHUL":6,"HIMANSHI":7,"KAMAL":3,"KARTIK":10,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":20,"KARISHMA":16,"LAKSHIT RAWAT":7,"LAKSHIT SINGH":24,"MALVIKA":20,"MAULIK":25,"MOITRIKA":30,"MRITYUNJAY":24,"MUNKASHIF":20,"NAITIK":31,"NAMAN SATI":26,"NAMAN TAMTA":23,"NISHTHI":23,"PARIDHI":4,"PARTH":16,"PRACHI":17,"PRASUN DEV":8,"RUDRA":22,"SHRAVANI":13,"TANISHA":8,"YAMAN":14,"YASHPAL":22,"ARPITA":12,"PARTH BISHT":29,"MAANSHA":23,"ABHAY":""},
+        crm:{"ABHAY":6,"ABHINAY":4,"ANAIKA":19,"ARYAN":7,"BHAVIKA":14,"CHANDNI":2,"DEEPIKA":0,"DISHA":8,"GEETA":2,"GUNJAN":10,"HARSHUL":0,"HIMANSHI":2,"KAMAL":0,"KARISHMA":12,"KARTIK":"","KRITIKA GODIYAL":2,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":6,"LAKSHIT SINGH":14,"MALVIKA":12,"NAMAN TAMTA":"","MAULIK":12,"MOITRIKA":12,"MRITYUNJAY":10,"MUNKASHIF":14,"NAITIK":14,"NAMAN SATI":18,"NISHTHI":14,"PARIDHI":4,"PARTH":14,"PRACHI":10,"PRASUN DEV":2,"RUDRA":6,"SHRAVANI":2,"TANISHA":10,"YAMAN":4,"YASHPAL":10,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+        ch1:{"ABHAY":3,"ABHINAY":2,"ANAIKA":6,"ARYAN":2,"BHAVIKA":10,"CHANDNI":1,"DEEPIKA":0,"DISHA":3,"GEETA":1,"GUNJAN":3,"HARSHUL":"","HIMANSHI":"","KAMAL":4,"KARISHMA":2,"KARTIK":2,"KRITIKA GODIYAL":0,"KRITIKA RAWAT":6,"LAKSHIT RAWAT":0,"LAKSHIT SINGH":4,"MALVIKA":"","NAMAN TAMTA":8,"MAULIK":7,"MOITRIKA":5,"MRITYUNJAY":8,"MUNKASHIF":8,"NAITIK":8,"NAMAN SATI":5,"NISHTHI":6,"PARIDHI":2,"PARTH":5,"PRACHI":5,"PRASUN DEV":4,"RUDRA":3,"SHRAVANI":3,"TANISHA":1,"YAMAN":2,"YASHPAL":7,"ARPITA":2,"MAANSHA":"","PARTH BISHT":""},
+        ch2:{"ABHAY":1,"ABHINAY":0,"ANAIKA":"","ARYAN":5,"BHAVIKA":7,"CHANDNI":1,"DEEPIKA":"","DISHA":3,"GEETA":1,"GUNJAN":5,"HARSHUL":3.5,"HIMANSHI":0,"KAMAL":6,"KARISHMA":4,"KARTIK":"","KRITIKA GODIYAL":0,"KRITIKA RAWAT":3,"LAKSHIT RAWAT":5,"LAKSHIT SINGH":8.5,"MALVIKA":1,"NAMAN TAMTA":8.5,"MAULIK":6,"MOITRIKA":6,"MRITYUNJAY":4,"MUNKASHIF":5.5,"NAITIK":8,"NAMAN SATI":6,"NISHTHI":6,"PARIDHI":0,"PARTH":5.5,"PRACHI":5,"PRASUN DEV":0,"RUDRA":3,"SHRAVANI":1,"TANISHA":3,"YAMAN":4,"YASHPAL":5,"ARPITA":"","MAANSHA":8,"PARTH BISHT":4.5},
+        ch3:{"ABHAY":4,"ABHINAY":0,"ANAIKA":7,"ARYAN":1,"BHAVIKA":8,"CHANDNI":3,"DEEPIKA":2,"DISHA":5,"GEETA":3,"GUNJAN":8,"HARSHUL":2,"HIMANSHI":3,"KAMAL":4,"KARISHMA":6,"KARTIK":6,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":"","LAKSHIT SINGH":5,"MALVIKA":7,"NAMAN TAMTA":8,"MAULIK":7.5,"MOITRIKA":10,"MRITYUNJAY":"","MUNKASHIF":"","NAITIK":7.5,"NAMAN SATI":7,"NISHTHI":5,"PARIDHI":4,"PARTH":4,"PRACHI":9,"PRASUN DEV":6,"RUDRA":7,"SHRAVANI":0,"TANISHA":1,"YAMAN":1,"YASHPAL":3,"ARPITA":7,"MAANSHA":10,"PARTH BISHT":6}
       }
     };
-
     const fallbackDates = {
-      "12":  { ch1:"2026-04-13", ch2:"2026-04-20", ch3:"2026-04-02", ch4:"2026-04-08", ch5:"2026-06-09", ch6:"2026-07-16" },
-      "11B": { ch1:"2026-04-08", ch2:"2026-06-09", ch3:"2026-06-26", ch4:"2026-07-15" },
-      "7C":  { crm:"2026-04-02", ch1:"2026-04-24", ch2:"2026-05-08", ch3:"2026-06-12" }
+      "12":  {ch1:"2026-04-13",ch2:"2026-04-20",ch3:"2026-04-02",ch4:"2026-04-08",ch5:"2026-06-09",ch6:"2026-07-16",pt1:"2026-07-03"},
+      "11B": {ch1:"2026-04-08",ch2:"2026-06-09",ch3:"2026-06-26",ch4:"2026-07-15",pt1:"2026-07-02"},
+      "7C":  {crm:"2026-04-02",ch1:"2026-04-24",ch2:"2026-05-08",ch3:"2026-06-12",pt1:"2026-07-06"}
     };
-
     const fallbackRosters = {
       "12":  ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
       "11B": ["ADITYA NEGI","ARUN ARYA","ASHUTOSH","AYUSH ROY","DIKSHANT NEGI","GAURAV KUMAR","ISHANT MEHRA","JANVI","KARAN CHANDRA","KARTIKEY PHARTIYAL","MANAS BHAGAT","MANSI BHANDARI","NEHA NEGI","NIHARIKA MOHAN","PARAS SATI","PRANAY SATI","PRIYANSHU KANDPAL","PRIYANSHU PANDEY","RAJAT ADHIKARI","SPARSH DUBEY"],
       "7C":  ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
     };
+    const classLabels = {"7C":"Class 7C","11B":"Class 11B","12":"Class 12"};
 
-    const classLabels = { "7C":"Class 7C", "11B":"Class 11B", "12":"Class 12" };
-
-    let csActiveClass = "7C";
-    let csViewMode    = "sheet";
     let csStudentData = {};
     let csTestDates   = {};
 
-    /* ── Load data: localStorage first, fallback to embedded ── */
     function csLoadData() {
       try {
         const sd = localStorage.getItem("student_performance_data");
-        if (sd) csStudentData = JSON.parse(sd);
+        if(sd) csStudentData = JSON.parse(sd);
         const td = localStorage.getItem("student_performance_test_dates");
-        if (td) csTestDates = JSON.parse(td);
+        if(td) csTestDates = JSON.parse(td);
       } catch(e) {}
-
+      if(!csTestDates["7C"]) csTestDates["7C"] = {};
+      if(!csTestDates["11B"]) csTestDates["11B"] = {};
+      if(!csTestDates["12"]) csTestDates["12"] = {};
+      csTestDates["12"].pt1 = "2026-07-03";
+      csTestDates["11B"].pt1 = "2026-07-02";
+      csTestDates["7C"].pt1 = "2026-07-06";
+      try {
+        localStorage.setItem("student_performance_test_dates", JSON.stringify(csTestDates));
+      } catch(e) {}
       ["7C","11B","12"].forEach(cls => {
-        if (!csStudentData[cls] || csStudentData[cls].length === 0) {
-          const roster = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b));
-          csStudentData[cls] = roster.map((name,i) => {
-            const marks = {};
-            Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{
-              if (tmap[name] !== undefined) marks[tid] = tmap[name];
-            });
-            return { rollNo:i+1, name, marks, remarks:"" };
+        if(!csStudentData[cls]||!csStudentData[cls].length) {
+          csStudentData[cls] = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b)).map((name,i)=>{
+            const marks={};
+            Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{ if(tmap[name]!==undefined) marks[tid]=tmap[name]; });
+            return {rollNo:i+1,name,marks};
           });
         }
-        if (!csTestDates[cls] || Object.keys(csTestDates[cls]).length === 0) {
-          csTestDates[cls] = { ...(fallbackDates[cls]||{}) };
-        }
+        if(!csTestDates[cls]||!Object.keys(csTestDates[cls]).length)
+          csTestDates[cls]={...(fallbackDates[cls]||{})};
       });
     }
 
-    /* ── Helpers ── */
-    function csFmtDate(raw) {
-      if (!raw) return "";
-      const p = raw.split("-");
-      return p.length===3 ? `${p[2]}/${p[1]}/${p[0].slice(2)}` : raw;
+    function csFmtDate(raw){
+      if(!raw) return "";
+      const p=raw.split("-");
+      return p.length===3?`${p[2]}/${p[1]}/${p[0].slice(2)}`:raw;
     }
-    function csConductedTests(cls) {
-      const all = classTests[cls]||[];
-      const sts = csStudentData[cls]||[];
-      const dts = csTestDates[cls]||{};
-      return all.filter(t => {
-        if (dts[t.id]) return true;
-        return sts.some(s => s.marks && s.marks[t.id] !== undefined && s.marks[t.id] !== null && s.marks[t.id] !== "");
-      });
+    function csConductedTests(cls){
+      const all=classTests[cls]||[],sts=csStudentData[cls]||[],dts=csTestDates[cls]||{};
+      return all.filter(t=>dts[t.id]||sts.some(s=>s.marks&&s.marks[t.id]!==undefined&&s.marks[t.id]!==null&&s.marks[t.id]!==""));
     }
-    function pctClass(p){ return p>=75?"good":p>=45?"avg":"low"; }
     function gradeLabel(p){
       if(p>=90)return"A1";if(p>=80)return"A2";if(p>=70)return"B1";
       if(p>=60)return"B2";if(p>=50)return"C1";if(p>=40)return"C2";
       if(p>=33)return"D"; return"E";
     }
+    function pctCls(p){return p>=75?"good":p>=45?"avg":"low";}
 
-    /* ── Compute all row data ── */
-    function csComputeRows(cls) {
-      const conducted = csConductedTests(cls);
-      const students  = (csStudentData[cls]||[]).slice().sort((a,b)=>a.name.localeCompare(b.name));
+    function csComputeRows(cls){
+      const conducted=csConductedTests(cls);
+      const students=(csStudentData[cls]||[]).slice().sort((a,b)=>a.name.localeCompare(b.name));
       students.forEach((s,i)=>s.rollNo=i+1);
-      const dates = csTestDates[cls]||{};
-      const classColTotals = conducted.map(()=>({sum:0,count:0}));
-      let classGrandSum=0,classGrandPoss=0,classGrandCount=0;
-
-      const rows = students.map(student => {
-        let total=0,possible=0;
-        const cells = conducted.map((t,ci)=>{
-          const score = student.marks?student.marks[t.id]:undefined;
-          const has = score!==undefined&&score!==null&&score!=="";
-          if(has){ const n=Number(score); total+=n; possible+=t.maxMarks; classColTotals[ci].sum+=n; classColTotals[ci].count+=1; }
+      const dates=csTestDates[cls]||{};
+      const colTotals=conducted.map(()=>({sum:0,count:0}));
+      let gS=0,gP=0,gC=0;
+      const rows=students.map(student=>{
+        let tot=0,pos=0;
+        const cells=conducted.map((t,ci)=>{
+          const score=student.marks?student.marks[t.id]:undefined;
+          const has=score!==undefined&&score!==null&&score!=="";
+          if(has){const n=Number(score);tot+=n;pos+=t.maxMarks;colTotals[ci].sum+=n;colTotals[ci].count+=1;}
           return {has,score};
         });
-        const pct = possible>0?(total/possible*100):null;
-        if(possible>0){classGrandSum+=total;classGrandPoss+=possible;classGrandCount++;}
-        return {student,cells,total,possible,pct};
+        const pct=pos>0?(tot/pos*100):null;
+        if(pos>0){gS+=tot;gP+=pos;gC++;}
+        return {student,cells,tot,pos,pct};
       });
-
-      const classAvgPct = classGrandPoss>0?(classGrandSum/classGrandPoss*100):null;
-      return {conducted,students,rows,classColTotals,classGrandSum,classGrandPoss,classGrandCount,classAvgPct,dates};
+      const avgPct=gP>0?(gS/gP*100):null;
+      return {conducted,students,rows,colTotals,gS,gP,gC,avgPct,dates};
     }
 
-    /* ── Build Marks Sheet view ── */
-    function csBuildSheet() {
-      const cls = csActiveClass;
-      const container = document.getElementById("csTableContainer");
-      const {conducted,students,rows,classColTotals,classGrandSum,classGrandPoss,classGrandCount,classAvgPct,dates} = csComputeRows(cls);
-
-      document.getElementById("csStatStudents").textContent = students.length;
-      document.getElementById("csStatTests").textContent    = conducted.length;
-      document.getElementById("csStatAvg").textContent      = classAvgPct!==null?`${classAvgPct.toFixed(1)}%`:"—";
-
-      if(!students.length){ container.innerHTML=`<div class="cs-empty-msg">No student data for ${classLabels[cls]}.</div>`; return; }
-      if(!conducted.length){ container.innerHTML=`<div class="cs-empty-msg">No tests conducted yet for ${classLabels[cls]}.</div>`; return; }
-
-      let h=`<table class="cs-table"><thead>`;
-      h+=`<tr class="cs-head-label"><th style="width:44px">S.No</th><th style="min-width:150px">Student Name</th>`;
-      conducted.forEach(t=>h+=`<th>${t.label}<br><span style="font-size:0.68em;opacity:0.7">MM:${t.maxMarks}</span></th>`);
-      h+=`<th>Total</th><th>%</th><th>Grade</th></tr>`;
-      h+=`<tr class="cs-head-date"><th></th><th></th>`;
-      conducted.forEach(t=>{const d=dates[t.id]?csFmtDate(dates[t.id]):"—";h+=`<th>${d}</th>`;});
-      h+=`<th></th><th></th><th></th></tr></thead><tbody>`;
-
-      rows.forEach(r=>{
-        h+=`<tr><td>${r.student.rollNo}</td><td>${r.student.name}</td>`;
-        r.cells.forEach(c=>{ h+=c.has?`<td>${c.score}</td>`:`<td class="td-absent">AB</td>`; });
-        h+=`<td class="td-total">${r.possible>0?r.total+'/'+r.possible:"—"}</td>`;
-        h+=r.pct!==null?`<td class="td-pct ${pctClass(r.pct)}">${r.pct.toFixed(1)}%</td>`:`<td class="td-absent">AB</td>`;
-        h+=r.pct!==null?`<td class="td-pct ${pctClass(r.pct)}">${gradeLabel(r.pct)}</td>`:`<td class="td-absent">—</td>`;
-        h+=`</tr>`;
-      });
-      h+=`</tbody><tfoot><tr><td colspan="2">📊 Class Average</td>`;
-      classColTotals.forEach(ct=>h+=`<td>${ct.count>0?(ct.sum/ct.count).toFixed(1):"—"}</td>`);
-      h+=classAvgPct!==null
-        ?`<td style="color:#a78bfa">${(classGrandSum/classGrandCount).toFixed(1)}</td><td style="color:${classAvgPct>=75?"#34d399":classAvgPct>=45?"#fbbf24":"#f87171"}">${classAvgPct.toFixed(1)}%</td><td>${gradeLabel(classAvgPct)}</td>`
-        :`<td>—</td><td>—</td><td>—</td>`;
-      h+=`</tr></tfoot></table>`;
-      container.innerHTML=h;
-    }
-
-    /* ── Build Rank / Award List view ── */
-    function csBuildRankList() {
-      const cls = csActiveClass;
-      const container = document.getElementById("csTableContainer");
-      const {conducted,students,rows,classAvgPct} = csComputeRows(cls);
-
-      document.getElementById("csStatStudents").textContent = students.length;
-      document.getElementById("csStatTests").textContent    = conducted.length;
-      document.getElementById("csStatAvg").textContent      = classAvgPct!==null?`${classAvgPct.toFixed(1)}%`:"—";
-
-      if(!students.length){ container.innerHTML=`<div class="cs-empty-msg">No student data for ${classLabels[cls]}.</div>`; return; }
-      if(!conducted.length){ container.innerHTML=`<div class="cs-empty-msg">No tests conducted yet for ${classLabels[cls]}.</div>`; return; }
-
-      const ranked = rows.slice().sort((a,b)=>{
-        if(a.pct===null&&b.pct===null)return 0;
-        if(a.pct===null)return 1; if(b.pct===null)return-1;
-        return b.pct-a.pct;
-      });
-      let rank=1;
-      ranked.forEach((r,i)=>{
-        if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct) rank=i+1;
-        r.rank = r.pct!==null?rank:"-";
-      });
-      const medals=["🥇","🥈","🥉"];
-
-      let h=`<table class="cs-table"><thead><tr class="cs-head-label">`;
-      h+=`<th style="width:60px">Rank</th><th style="width:44px">S.No</th><th style="min-width:170px">Student Name</th>`;
-      h+=`<th>Scored</th><th>Out Of</th><th>%</th><th>Grade</th><th style="min-width:120px">Remark</th></tr></thead><tbody>`;
-
-      ranked.forEach(r=>{
-        const rnk = typeof r.rank==="number"&&r.rank<=3?medals[r.rank-1]:r.rank;
-        const g = r.pct!==null?gradeLabel(r.pct):"—";
-        const cl2 = r.pct!==null?pctClass(r.pct):"";
-        const rm = r.pct===null?"Absent in all tests":r.pct>=75?"Excellent 🌟":r.pct>=60?"Good 👍":r.pct>=45?"Average":"Needs Improvement ⚠️";
-        h+=`<tr>`;
-        h+=`<td style="font-size:1.1em;font-weight:800;color:#f59e0b;text-align:center">${rnk}</td>`;
-        h+=`<td>${r.student.rollNo}</td>`;
-        h+=`<td style="text-align:left;padding-left:12px;font-weight:700">${r.student.name}</td>`;
-        h+=`<td class="td-total">${r.possible>0?r.total:"—"}</td>`;
-        h+=`<td style="color:#94a3b8">${r.possible>0?r.possible:"—"}</td>`;
-        h+=r.pct!==null?`<td class="td-pct ${cl2}">${r.pct.toFixed(1)}%</td>`:`<td class="td-absent">—</td>`;
-        h+=r.pct!==null?`<td class="td-pct ${cl2}">${g}</td>`:`<td class="td-absent">—</td>`;
-        h+=`<td style="font-size:0.8em;color:#94a3b8;text-align:left;padding-left:8px">${rm}</td>`;
-        h+=`</tr>`;
-      });
-      h+=`</tbody></table>`;
-      container.innerHTML=h;
-    }
-
-    /* ── Master render ── */
-    function csRender() {
-      if(csViewMode==="rank") csBuildRankList(); else csBuildSheet();
-    }
-
-    /* ── Exposed globals ── */
-    window.csSetClass = function(cls, btn) {
-      csActiveClass = cls;
-      document.querySelectorAll(".cs-tab-btn").forEach(b=>b.classList.remove("active"));
-      if(btn) btn.classList.add("active");
-      csRender();
-    };
-
-    window.csSetView = function(mode, btn) {
-      csViewMode = mode;
-      document.querySelectorAll(".cs-view-btn").forEach(b=>b.classList.remove("active"));
-      if(btn) btn.classList.add("active");
-      csRender();
-    };
-
-    window.csPrintSheet = function() {
-      const cls      = csActiveClass;
-      const clsLabel = classLabels[cls];
-      const {conducted,students,rows,classColTotals,classGrandSum,classGrandPoss,classGrandCount,classAvgPct,dates} = csComputeRows(cls);
-      if(!students.length||!conducted.length){ alert("No data to print for "+clsLabel); return; }
-      const today=new Date();
-      const ds=`${String(today.getDate()).padStart(2,'0')}/${String(today.getMonth()+1).padStart(2,'0')}/${today.getFullYear()}`;
-
-      let tHTML="";
-
-      if(csViewMode==="rank"){
-        // Rank / Award List print
-        const ranked=rows.slice().sort((a,b)=>{
-          if(a.pct===null&&b.pct===null)return 0;
-          if(a.pct===null)return 1; if(b.pct===null)return-1;
-          return b.pct-a.pct;
-        });
-        let rk=1;
-        ranked.forEach((r,i)=>{
-          if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct)rk=i+1;
-          r.rank=r.pct!==null?rk:"-";
-        });
-        tHTML=`<table><thead><tr class="h1"><th>Rank</th><th>S.No</th><th>Student Name</th><th>Scored</th><th>Out Of</th><th>%</th><th>Grade</th><th>Remark</th></tr></thead><tbody>`;
-        ranked.forEach(r=>{
-          const p=r.pct,g=p!==null?gradeLabel(p):"—",cl=p!==null?pctClass(p):"";
-          const rm=p===null?"Absent":p>=75?"Excellent":p>=60?"Good":p>=45?"Average":"Needs Improvement";
-          tHTML+=`<tr><td style="font-weight:800">${r.rank}</td><td>${r.student.rollNo}</td><td class="name">${r.student.name}</td><td class="tot">${r.possible>0?r.total:"—"}</td><td>${r.possible>0?r.possible:"—"}</td><td class="pct ${cl}">${p!==null?p.toFixed(1)+"%":"—"}</td><td class="pct ${cl}">${g}</td><td>${rm}</td></tr>`;
-        });
-        tHTML+=`</tbody></table>`;
-      } else {
-        // Full marks sheet print
-        tHTML=`<table><thead><tr class="h1"><th>S.No</th><th>Student Name</th>`;
-        conducted.forEach(t=>tHTML+=`<th>${t.label}<br><small>MM:${t.maxMarks}</small></th>`);
-        tHTML+=`<th>Total</th><th>%</th><th>Grade</th></tr>`;
-        tHTML+=`<tr class="h2"><th></th><th></th>`;
-        conducted.forEach(t=>{const d=dates[t.id]?csFmtDate(dates[t.id]):"—";tHTML+=`<th>${d}</th>`;});
-        tHTML+=`<th></th><th></th><th></th></tr></thead><tbody>`;
-        const cct=conducted.map(()=>({sum:0,count:0}));
-        let gS=0,gP=0,gC=0;
-        rows.forEach(r=>{
-          let tot=0,pos=0;
-          tHTML+=`<tr><td>${r.student.rollNo}</td><td class="name">${r.student.name}</td>`;
-          conducted.forEach((t,ci)=>{
-            const s=r.student.marks?r.student.marks[t.id]:undefined;
-            const has=s!==undefined&&s!==null&&s!=="";
-            if(has){tHTML+=`<td>${s}</td>`;tot+=Number(s);pos+=t.maxMarks;cct[ci].sum+=Number(s);cct[ci].count+=1;}
-            else tHTML+=`<td class="ab">AB</td>`;
-          });
-          const p=pos>0?(tot/pos*100):null;
-          if(pos>0){gS+=tot;gP+=pos;gC++;}
-          tHTML+=`<td class="tot">${pos>0?tot+"/"+pos:"—"}</td>`;
-          tHTML+=p!==null?`<td class="pct ${pctClass(p)}">${p.toFixed(1)}%</td><td class="pct ${pctClass(p)}">${gradeLabel(p)}</td>`:`<td class="ab">AB</td><td class="ab">—</td>`;
-          tHTML+=`</tr>`;
-        });
-        tHTML+=`</tbody><tfoot><tr><td colspan="2">Class Average</td>`;
-        cct.forEach(ct=>tHTML+=`<td>${ct.count>0?(ct.sum/ct.count).toFixed(1):"—"}</td>`);
-        const ca=gP>0?(gS/gP*100):null;
-        tHTML+=ca!==null?`<td class="tot">${(gS/gC).toFixed(1)}</td><td class="pct ${pctClass(ca)}">${ca.toFixed(1)}%</td><td class="pct ${pctClass(ca)}">${gradeLabel(ca)}</td>`:`<td>—</td><td>—</td><td>—</td>`;
-        tHTML+=`</tr></tfoot></table>`;
-      }
-
-      const vt=csViewMode==="rank"?"Rank & Award List":"Consolidated Test Record";
-      const printHTML=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<title>PTM ${vt} — ${clsLabel} — KV Ranikhet</title>
-<style>
-  @page { size: A4 landscape; margin: 10mm 12mm; }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  body{ font-family:Arial,sans-serif; font-size:9pt; color:#111; background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .hdr{ text-align:center; border-bottom:2.5px solid #1e3a5f; padding-bottom:7px; margin-bottom:8px; }
-  .hdr h1{ font-size:13pt; font-weight:800; color:#1e3a5f; }
-  .hdr p{ font-size:8.5pt; color:#444; margin-top:2px; }
-  .meta{ display:flex; justify-content:space-between; font-size:8pt; color:#555; margin-bottom:8px; border-bottom:1px solid #ddd; padding-bottom:5px; }
-  table{ width:100%; border-collapse:collapse; font-size:8.5pt; }
-  thead tr.h1 th{ background:#1e3a5f; color:#fff; padding:6px 5px; text-align:center; font-weight:700; border:1px solid #1e3a5f; white-space:nowrap; }
-  thead tr.h1 th:nth-child(1),thead tr.h1 th:nth-child(2){ text-align:left; padding-left:8px; }
-  thead tr.h2 th{ background:#d1dce8; color:#1e3a5f; padding:4px 5px; text-align:center; font-size:7.5pt; font-style:italic; border:1px solid #b0bec5; white-space:nowrap; }
-  thead tr.h2 th:nth-child(2){ text-align:left; padding-left:8px; }
-  tbody tr:nth-child(even){ background:#f5f5f5; }
-  tbody td{ padding:5px; border:1px solid #ddd; text-align:center; }
-  td.name{ text-align:left; padding-left:8px; font-weight:700; white-space:nowrap; }
-  td.ab{ color:#c0392b; font-style:italic; font-weight:700; }
-  td.tot{ font-weight:700; color:#1e3a5f; }
-  td.pct{ font-weight:700; } td.pct.good{ color:#0a7c3e; } td.pct.avg{ color:#b07b00; } td.pct.low{ color:#c0392b; }
-  tfoot tr td{ background:#1e3a5f; color:#fff; font-weight:700; padding:6px 5px; border:1px solid #1e3a5f; text-align:center; }
-  tfoot tr td:nth-child(1),tfoot tr td:nth-child(2){ text-align:left; padding-left:8px; }
-  .foot{ margin-top:8px; font-size:7.5pt; color:#777; text-align:center; border-top:1px solid #ddd; padding-top:5px; }
-</style></head><body>
-<div class="hdr"><h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
-<p>${vt} — ${clsLabel} &nbsp;|&nbsp; Mathematics &nbsp;|&nbsp; K B Joshi, PGT Mathematics &nbsp;|&nbsp; Academic Session 2025-26</p></div>
-<div class="meta"><span>Tests Conducted: <strong>${conducted.length}</strong> &nbsp;|&nbsp; Students: <strong>${students.length}</strong></span><span>Printed: <strong>${ds}</strong></span></div>
-${tHTML}
-<div class="foot">PM SHRI KV Ranikhet — Mathematics Dept — Confidential PTM Document — ${ds}</div>
-</body></html>`;
-
-      let iframe=document.getElementById("csPrintIframe");
-      if(!iframe){
-        iframe=document.createElement("iframe");
-        iframe.id="csPrintIframe";
-        Object.assign(iframe.style,{position:"absolute",width:"0",height:"0",border:"none",left:"-9999px"});
-        document.body.appendChild(iframe);
-      }
-      const doc=iframe.contentWindow.document;
-      doc.open(); doc.write(printHTML); doc.close();
-      setTimeout(()=>{iframe.contentWindow.focus();iframe.contentWindow.print();},220);
-    };
-
-    // --- Init on DOM ready ---
-    document.addEventListener("DOMContentLoaded", function() {
+    /* ── Open new window for a class ── */
+    window.csOpenSheet = function(cls, btn) {
       csLoadData();
-      csRender();
+      const clsLabel = classLabels[cls];
+      const D = csComputeRows(cls);
+      const today = new Date();
+      const ds = `${String(today.getDate()).padStart(2,'0')}/${String(today.getMonth()+1).padStart(2,'0')}/${today.getFullYear()}`;
+
+      /* ── Serialise all data for the new window ── */
+      const payload = JSON.stringify({
+        cls, clsLabel, ds,
+        conducted: D.conducted,
+        dates: D.dates,
+        rows: D.rows.map(r=>({sno:r.student.rollNo,name:r.student.name,marks:r.student.marks,cells:r.cells,tot:r.tot,pos:r.pos,pct:r.pct})),
+        colTotals: D.colTotals,
+        gS:D.gS, gP:D.gP, gC:D.gC, avgPct:D.avgPct
+      });
+
+      /* ── Build the standalone new-window HTML ── */
+      const winHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PTM Sheet — ${clsLabel} — KV Ranikhet</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#0f0a2e;color:#e2e8f0;min-height:100vh;padding:0 0 40px 0;}
+.top-bar{background:linear-gradient(90deg,#1e1060 0%,#2d1b6b 100%);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:2px solid rgba(139,92,246,0.3);position:sticky;top:0;z-index:100;}
+.top-bar h1{font-size:1.1rem;font-weight:800;color:#c4b5fd;letter-spacing:.03em;}
+.top-bar .sub{font-size:0.78rem;color:#7c6fa0;margin-top:2px;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:50px;border:none;font-family:"Segoe UI",sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.btn-view{background:rgba(139,92,246,.13);border:1.5px solid rgba(139,92,246,.35);color:#c4b5fd;}
+.btn-view:hover{background:rgba(139,92,246,.25);}
+.btn-view.active{background:linear-gradient(135deg,#7c3aed,#4f46e5);border-color:#7c3aed;color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.4);}
+.btn-print{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;box-shadow:0 3px 12px rgba(14,165,233,.35);}
+.btn-print:hover{opacity:.88;transform:translateY(-1px);}
+.btn-excel{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;box-shadow:0 3px 12px rgba(22,163,74,.35);}
+.btn-excel:hover{opacity:.88;transform:translateY(-1px);}
+.meta-bar{display:flex;gap:22px;flex-wrap:wrap;padding:12px 32px;background:rgba(0,0,0,.18);border-bottom:1px solid rgba(255,255,255,.05);font-size:0.83rem;color:#94a3b8;}
+.meta-bar strong{color:#c4b5fd;}
+.tbl-wrap{overflow-x:auto;padding:24px 24px 0 24px;}
+table{border-collapse:collapse;font-size:0.82rem;min-width:600px;background:rgba(0,0,0,.2);border-radius:10px;overflow:hidden;}
+thead tr.h-lbl th{background:linear-gradient(135deg,#2d1b6b,#1e1060);color:#c4b5fd;font-weight:700;padding:10px 8px;text-align:center;border-bottom:2px solid rgba(139,92,246,.4);white-space:nowrap;font-size:.78rem;}
+thead tr.h-lbl th:nth-child(1),thead tr.h-lbl th:nth-child(2){text-align:left;padding-left:14px;}
+thead tr.h-date th{background:rgba(30,16,80,.85);color:#7c6fa0;font-size:.72rem;font-weight:500;padding:5px 8px;text-align:center;border-bottom:1px solid rgba(139,92,246,.2);white-space:nowrap;font-style:italic;}
+thead tr.h-date th:nth-child(1),thead tr.h-date th:nth-child(2){text-align:left;padding-left:14px;}
+tbody tr:nth-child(even){background:rgba(255,255,255,.02);}
+tbody tr:hover{background:rgba(139,92,246,.06);}
+tbody td{padding:8px;text-align:center;color:#e2e8f0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.82rem;}
+tbody td:nth-child(1){color:#94a3b8;font-weight:600;}
+tbody td:nth-child(2){text-align:left;padding-left:14px;font-weight:700;color:#f1f5f9;white-space:nowrap;}
+td.ab{color:#f87171!important;font-style:italic;font-weight:700;}
+td.tot{font-weight:700;color:#a78bfa;}
+td.pct{font-weight:700;}
+td.pct.good{color:#34d399;}td.pct.avg{color:#fbbf24;}td.pct.low{color:#f87171;}td.sign-cell{border-left:1.5px solid rgba(139,92,246,.3)!important;width:130px;min-width:130px;background:rgba(255,255,255,0.01);}
+tfoot td{background:rgba(124,58,237,.15);color:#c4b5fd;font-weight:700;padding:9px 8px;border-top:2px solid rgba(139,92,246,.3);text-align:center;font-size:.82rem;}
+tfoot td:nth-child(1),tfoot td:nth-child(2){text-align:left;padding-left:14px;}
+.rank-gold{color:#f59e0b;font-size:1.1em;font-weight:800;text-align:center;}
+@media print{
+  body{background:#fff!important;color:#111!important;padding:0!important;}
+  .top-bar{background:#1e3a5f!important;color:#fff!important;position:static!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .top-bar h1{color:#fff!important;} .top-bar .sub{color:#ccc!important;}
+  .btn-row,.meta-bar{display:none!important;}
+  .tbl-wrap{padding:0!important;overflow:visible!important;}
+  table{font-size:8pt!important;background:#fff!important;}
+  thead tr.h-lbl th{background:#1e3a5f!important;color:#fff!important;border:1px solid #1e3a5f!important;}
+  thead tr.h-date th{background:#d1dce8!important;color:#1e3a5f!important;border:1px solid #b0bec5!important;}
+  tbody tr:nth-child(even){background:#f5f5f5!important;}
+  tbody td{border:1px solid #ddd!important;color:#111!important;}
+  tbody td:nth-child(2){color:#000!important;}
+  td.ab{color:#c0392b!important;}
+  td.pct.good{color:#0a7c3e!important;}td.pct.avg{color:#b07b00!important;}td.pct.low{color:#c0392b!important;}td.sign-cell{border:1px solid #ddd!important;width:130px!important;min-width:130px!important;background:#fff!important;}
+  tfoot td{background:#1e3a5f!important;color:#fff!important;border:1px solid #1e3a5f!important;}
+  td.tot{color:#1e3a5f!important;}
+  @page{size:A4 landscape;margin:10mm 12mm;}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div>
+    <div class="h1">PM SHRI KENDRIYA VIDYALAYA RANIKHET &nbsp;&mdash;&nbsp; ${clsLabel} PTM Sheet</div>
+    <div class="sub">Mathematics &nbsp;|&nbsp; K B Joshi, PGT Mathematics &nbsp;|&nbsp; Academic Session 2025-26 &nbsp;|&nbsp; Generated: ${ds}</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-view active" id="btnSheet" onclick="setView('sheet',this)">&#9776; Marks Sheet</button>
+    <button class="btn btn-view" id="btnRank" onclick="setView('rank',this)">&#127942; Rank &amp; Award List</button>
+    <button class="btn btn-print" onclick="window.print()">&#128424; Print</button>
+    <button class="btn btn-excel" onclick="downloadExcel()">&#8595; Download Excel</button>
+  </div>
+</div>
+<div class="meta-bar" id="metaBar"></div>
+<div class="tbl-wrap" id="tblWrap"></div>
+
+<script>
+const D = ${payload};
+const conducted = D.conducted;
+const dates     = D.dates;
+const rows      = D.rows;
+const colTotals = D.colTotals;
+const avgPct    = D.avgPct;
+let viewMode    = 'sheet';
+
+const isClassTest = id => id === 'crm' || id.startsWith('ch');
+const ctTests = conducted.filter(t => isClassTest(t.id));
+const ptTests = conducted.filter(t => !isClassTest(t.id));
+
+function fmtDate(raw){if(!raw)return'';const p=raw.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0].slice(2):raw;}
+function pc(p){return p>=75?'good':p>=45?'avg':'low';}
+
+function getColAvg(testId) {
+  let sum = 0, count = 0;
+  rows.forEach(r => {
+    const score = r.marks[testId];
+    if (score !== undefined && score !== null && score !== "") {
+      sum += Number(score);
+      count++;
+    }
+  });
+  return count > 0 ? (sum / count).toFixed(1) : '—';
+}
+
+function updateMeta(){
+  const avg = avgPct!==null?avgPct.toFixed(1)+'%':'—';
+  document.getElementById('metaBar').innerHTML =
+    '<span>Students: <strong>'+rows.length+'</strong></span>'+
+    '<span>Class Tests: <strong>'+ctTests.length+'</strong></span>'+
+    '<span>Periodic Tests: <strong>'+ptTests.length+'</strong></span>'+
+    '<span>Class Average: <strong>'+avg+'</strong></span>';
+}
+
+function buildSheet(){
+  let h = '<table style="width:100%;border-collapse:collapse;"><thead><tr class="h-lbl">';
+  h += '<th rowspan="2" style="width:40px">S.No</th>';
+  h += '<th rowspan="2" style="min-width:140px">Student Name</th>';
+  
+  if (ctTests.length > 0) {
+    h += `<th colspan="${ctTests.length}" style="background:#1e1b4b;border-bottom:1px solid rgba(255,255,255,0.1)">Class Tests</th>`;
+    h += `<th rowspan="2" style="background:#1e1b4b">CT Total</th>`;
+    h += `<th rowspan="2" style="background:#1e1b4b">CT Avg</th>`;
+  }
+  
+  if (ptTests.length > 0) {
+    h += `<th colspan="${ptTests.length}" style="background:#0c4a6e;border-bottom:1px solid rgba(255,255,255,0.1)">Periodic Tests / Exams</th>`;
+  }
+  h += '<th rowspan="2">Overall Total</th>';
+  h += '<th rowspan="2">Percentage</th>';
+  h += '<th rowspan="2" style="width:130px;min-width:130px;">Parent\'s Sign</th>';
+  h += '</tr>';
+
+  h += '<tr class="h-date">';
+  ctTests.forEach(t => {
+    const d = dates[t.id] ? fmtDate(dates[t.id]) : '';
+    h += `<th>${t.label}<br><span style="font-size:0.75em;opacity:0.6">MM:${t.maxMarks}</span>${d ? '<br><span style="font-size:0.7em;font-weight:normal">'+d+'</span>' : ''}</th>`;
+  });
+  ptTests.forEach(t => {
+    const d = dates[t.id] ? fmtDate(dates[t.id]) : '';
+    h += `<th>${t.label}<br><span style="font-size:0.75em;opacity:0.6">MM:${t.maxMarks}</span>${d ? '<br><span style="font-size:0.7em;font-weight:normal">'+d+'</span>' : ''}</th>`;
+  });
+  h += '</tr></thead><tbody>';
+
+  rows.forEach(r => {
+    h += `<tr><td>${r.sno}</td><td>${r.name}</td>`;
+    
+    let ctTotal = 0, ctPossible = 0;
+    ctTests.forEach(t => {
+      const score = r.marks[t.id];
+      const has = score !== undefined && score !== null && score !== "";
+      if (has) {
+        h += `<td>${score}</td>`;
+        ctTotal += Number(score);
+        ctPossible += t.maxMarks;
+      } else {
+        h += `<td class="ab">AB</td>`;
+      }
+    });
+    
+    if (ctTests.length > 0) {
+      h += `<td class="tot">${ctPossible > 0 ? ctTotal + '/' + ctPossible : '—'}</td>`;
+      h += `<td class="pct ${pc(ctPossible > 0 ? (ctTotal / ctPossible * 100) : 0)}">${ctPossible > 0 ? (ctTotal / ctPossible * 100).toFixed(1) + '%' : '—'}</td>`;
+    }
+    
+    ptTests.forEach(t => {
+      const score = r.marks[t.id];
+      const has = score !== undefined && score !== null && score !== "";
+      if (has) {
+        h += `<td>${score}</td>`;
+      } else {
+        h += `<td class="ab">AB</td>`;
+      }
     });
 
+    let overTotal = 0, overPossible = 0;
+    conducted.forEach(t => {
+      const score = r.marks[t.id];
+      if (score !== undefined && score !== null && score !== "") {
+        overTotal += Number(score);
+        overPossible += t.maxMarks;
+      }
+    });
+    
+    const pctVal = overPossible > 0 ? (overTotal / overPossible * 100) : null;
+    
+    h += `<td class="tot">${overPossible > 0 ? overTotal + '/' + overPossible : '—'}</td>`;
+    h += pctVal !== null ? `<td class="pct ${pc(pctVal)}">${pctVal.toFixed(1)}%</td>` : `<td class="ab">AB</td>`;
+    h += `<td class="sign-cell"></td>`;
+    h += '</tr>';
+  });
+
+  h += '</tbody><tfoot><tr><td colspan="2">📊 Class Average</td>';
+  
+  ctTests.forEach(t => {
+    h += `<td>${getColAvg(t.id)}</td>`;
+  });
+  
+  if (ctTests.length > 0) {
+    let sumCTObt = 0, sumCTPoss = 0;
+    rows.forEach(r => {
+      ctTests.forEach(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          sumCTObt += Number(score);
+          sumCTPoss += t.maxMarks;
+        }
+      });
+    });
+    h += `<td class="tot">${sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—'}</td>`;
+    h += `<td class="pct">${sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—'}</td>`;
+  }
+  
+  ptTests.forEach(t => {
+    h += `<td>${getColAvg(t.id)}</td>`;
+  });
+  
+  let sumObt = 0, sumPoss = 0;
+  rows.forEach(r => {
+    conducted.forEach(t => {
+      const score = r.marks[t.id];
+      if (score !== undefined && score !== null && score !== "") {
+        sumObt += Number(score);
+        sumPoss += t.maxMarks;
+      }
+    });
+  });
+  h += `<td class="tot">${sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—'}</td>`;
+  h += `<td class="pct">${sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—'}</td>`;
+  h += '<td></td>';
+  
+  h += '</tr></tfoot></table>';
+  return h;
+}
+
+function buildRank(){
+  const ranked=rows.slice().sort((a,b)=>{if(a.pct===null&&b.pct===null)return 0;if(a.pct===null)return 1;if(b.pct===null)return-1;return b.pct-a.pct;});
+  let rk=1;
+  ranked.forEach((r,i)=>{if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct)rk=i+1;r.rank=r.pct!==null?rk:'-';});
+  const med=['&#127945;','&#127946;','&#127947;'];
+  let h='<table><thead><tr class="h-lbl"><th>Rank</th><th>Student Name</th><th>S.No</th><th>Scored</th><th>Out Of</th><th>%</th><th>Remark</th><th style="width:130px;min-width:130px;">Parent\'s Sign</th></tr></thead><tbody>';
+  ranked.forEach(r=>{
+    const rnk=typeof r.rank==='number'&&r.rank<=3?med[r.rank-1]:r.rank;
+    const c2=r.pct!==null?pc(r.pct):'';
+    const rm=r.pct===null?'Absent in all tests':r.pct>=75?'Excellent &#127775;':r.pct>=60?'Good &#128077;':r.pct>=45?'Average':'Needs Improvement &#9888;';
+    h+='<tr><td class="rank-gold">'+rnk+'</td><td>'+r.name+'</td><td>'+r.sno+'</td>';
+    h+='<td class="tot">'+(r.pos>0?r.tot:'—')+'</td><td style="color:#94a3b8">'+(r.pos>0?r.pos:'—')+'</td>';
+    h+=r.pct!==null?'<td class="pct '+c2+'">'+r.pct.toFixed(1)+'%</td>':'<td class="ab">—</td>';
+    h+='<td style="font-size:.8em;color:#94a3b8;text-align:left;padding-left:8px">'+rm+'</td>';
+    h+='<td class="sign-cell"></td></tr>';
+  });
+  h+='</tbody></table>';
+  return h;
+}
+
+function render(){
+  document.getElementById('tblWrap').innerHTML = viewMode==='rank'?buildRank():buildSheet();
+}
+
+function setView(mode,btn){
+  viewMode=mode;
+  document.querySelectorAll('.btn-view').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  render();
+}
+
+function downloadExcel(){
+  const ranked = viewMode==='rank'?
+    rows.slice().sort((a,b)=>{if(a.pct===null&&b.pct===null)return 0;if(a.pct===null)return 1;if(b.pct===null)return-1;return b.pct-a.pct;})
+    : null;
+  if(ranked){let rk=1;ranked.forEach((r,i)=>{if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct)rk=i+1;r.rank=r.pct!==null?rk:'-';});}
+
+  const vt=viewMode==='rank'?'Rank_Award_List':'Marks_Sheet';
+  let csv='PM SHRI KENDRIYA VIDYALAYA RANIKHET\\r\\n';
+  csv+=D.clsLabel+' — Mathematics — '+vt+'\\r\\nPrinted: '+D.ds+'\\r\\n\\r\\n';
+
+  if(viewMode==='rank'){
+    csv+='Rank,S.No,Student Name,Total Scored,Max Possible,Percentage,Remark,Parent\'s Sign\\r\\n';
+    (ranked||[]).forEach(r=>{
+      const rm=r.pct===null?'Absent':r.pct>=75?'Excellent':r.pct>=60?'Good':r.pct>=45?'Average':'Needs Improvement';
+      csv+=[
+        r.rank, r.sno, '"'+r.name+'"',
+        r.pos>0?r.tot:'',
+        r.pos>0?r.pos:'',
+        r.pct!==null?r.pct.toFixed(1)+'%':'',
+        rm,
+        ''
+      ].join(',')+'\\r\\n';
+    });
+  } else {
+    const ctHeaders = ctTests.map(t => `${t.label}(MM:${t.maxMarks})`).join(',');
+    const ptHeaders = ptTests.map(t => `${t.label}(MM:${t.maxMarks})`).join(',');
+    
+    csv += 'S.No,Student Name,';
+    if(ctHeaders) csv += ctHeaders + ',CT Total,CT Average,';
+    if(ptHeaders) csv += ptHeaders + ',';
+    csv += 'Overall Total,Percentage,Parent\'s Sign\\r\\n';
+
+    const ctDates = ctTests.map(t => dates[t.id] ? fmtDate(dates[t.id]) : '').join(',');
+    const ptDates = ptTests.map(t => dates[t.id] ? fmtDate(dates[t.id]) : '').join(',');
+    csv += ',,' + (ctDates ? ctDates + ',,' : '') + (ptDates ? ptDates + ',' : '') + ',,\\r\\n';
+
+    rows.forEach(r=>{
+      let ctTotal = 0, ctPossible = 0;
+      const ctMarks = ctTests.map(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          ctTotal += Number(score);
+          ctPossible += t.maxMarks;
+          return score;
+        }
+        return 'AB';
+      }).join(',');
+
+      let ptTotal = 0, ptPossible = 0;
+      const ptMarks = ptTests.map(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          ptTotal += Number(score);
+          ptPossible += t.maxMarks;
+          return score;
+        }
+        return 'AB';
+      }).join(',');
+
+      let overTotal = 0, overPossible = 0;
+      conducted.forEach(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          overTotal += Number(score);
+          overPossible += t.maxMarks;
+        }
+      });
+
+      csv += r.sno + ',"' + r.name + '",';
+      if(ctTests.length > 0) {
+        csv += ctMarks + ',' + (ctPossible > 0 ? ctTotal + '/' + ctPossible : '—') + ',' + (ctPossible > 0 ? (ctTotal / ctPossible * 100).toFixed(1) + '%' : '—') + ',';
+      }
+      if(ptTests.length > 0) {
+        csv += ptMarks + ',';
+      }
+      csv += (overPossible > 0 ? overTotal + '/' + overPossible : '—') + ',' + (overPossible > 0 ? (overTotal / overPossible * 100).toFixed(1) + '%' : '—') + ',\\r\\n';
+    });
+
+    csv += ',"Class Average",';
+    if(ctTests.length > 0) {
+      const ctAverages = ctTests.map(t => getColAvg(t.id)).join(',');
+      let sumCTObt = 0, sumCTPoss = 0;
+      rows.forEach(r => {
+        ctTests.forEach(t => {
+          const score = r.marks[t.id];
+          if (score !== undefined && score !== null && score !== "") {
+            sumCTObt += Number(score);
+            sumCTPoss += t.maxMarks;
+          }
+        });
+      });
+      csv += ctAverages + ',' + (sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—') + ',' + (sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—') + ',';
+    }
+    if(ptTests.length > 0) {
+      const ptAverages = ptTests.map(t => getColAvg(t.id)).join(',');
+      csv += ptAverages + ',';
+    }
+    let sumObt = 0, sumPoss = 0;
+    rows.forEach(r => {
+      conducted.forEach(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          sumObt += Number(score);
+          sumPoss += t.maxMarks;
+        }
+      });
+    });
+    csv += (sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—') + ',' + (sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—') + ',\\r\\n';
+  }
+
+  const bom='\\uFEFF';
+  const blob=new Blob([bom+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='PTM_'+D.clsLabel.replace(/\\s+/g,'_')+'_'+vt+'_'+D.ds.replace(/\\//g,'-')+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+updateMeta();
+render();
+<\/script>
+</body></html>`;
+
+      const win = window.open('', '_blank');
+      if(!win){ alert('Pop-up blocked! Please allow pop-ups for this page and try again.'); return; }
+      win.document.open();
+      win.document.write(winHTML);
+      win.document.close();
+    };
+
+    document.addEventListener("DOMContentLoaded", csLoadData);
   })();
   </script>
 </body>
