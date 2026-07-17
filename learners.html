@@ -376,10 +376,11 @@
         <table id="brightTable">
           <thead>
             <tr>
-              <th width="12%">S.No</th>
-              <th width="38%">Name</th>
+              <th width="8%">S.No.</th>
+              <th width="12%">Roll No.</th>
+              <th width="33%">Name</th>
               <th width="15%">Average</th>
-              <th width="35%">Suggested Action Plan</th>
+              <th width="32%">Suggested Action Plan</th>
             </tr>
           </thead>
           <tbody>
@@ -399,10 +400,11 @@
         <table id="slowTable">
           <thead>
             <tr>
-              <th width="12%">S.No</th>
-              <th width="38%">Name</th>
+              <th width="8%">S.No.</th>
+              <th width="12%">Roll No.</th>
+              <th width="33%">Name</th>
               <th width="15%">Average</th>
-              <th width="35%">Remedial Support Remarks</th>
+              <th width="32%">Remedial Support Remarks</th>
             </tr>
           </thead>
           <tbody>
@@ -661,14 +663,19 @@
     loadData();
     const { bright, slow } = getLearners(activeClass);
 
+    // Update counts in card headers
+    document.querySelector('.bright-card .category-title').innerHTML = `<i class="fas fa-star text-amber"></i> Bright Learners (${bright.length})`;
+    document.querySelector('.slow-card .category-title').innerHTML = `<i class="fas fa-heart text-sky"></i> Slow Bloomers (${slow.length})`;
+
     // Render Bright
     const brightBody = document.querySelector('#brightTable tbody');
     if (bright.length === 0) {
-      brightBody.innerHTML = `<tr><td colspan="4" class="empty-state">No students match this category (&ge;80% average)</td></tr>`;
+      brightBody.innerHTML = `<tr><td colspan="5" class="empty-state">No students match this category (&ge;80% average)</td></tr>`;
     } else {
-      brightBody.innerHTML = bright.map(s => {
+      brightBody.innerHTML = bright.map((s, idx) => {
         const remark = getRemark(activeClass, s.name, true);
         return `<tr>
+          <td class="roll-cell">${idx + 1}</td>
           <td class="roll-cell">${s.rollNo}</td>
           <td class="name-cell">${s.name}</td>
           <td class="pct-cell">${s.pct.toFixed(1)}%</td>
@@ -682,11 +689,12 @@
     // Render Slow
     const slowBody = document.querySelector('#slowTable tbody');
     if (slow.length === 0) {
-      slowBody.innerHTML = `<tr><td colspan="4" class="empty-state">No students match this category (&lt;40% average)</td></tr>`;
+      slowBody.innerHTML = `<tr><td colspan="5" class="empty-state">No students match this category (&lt;40% average)</td></tr>`;
     } else {
-      slowBody.innerHTML = slow.map(s => {
+      slowBody.innerHTML = slow.map((s, idx) => {
         const remark = getRemark(activeClass, s.name, false);
         return `<tr>
+          <td class="roll-cell">${idx + 1}</td>
           <td class="roll-cell">${s.rollNo}</td>
           <td class="name-cell">${s.name}</td>
           <td class="pct-cell">${s.pct.toFixed(1)}%</td>
