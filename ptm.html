@@ -1831,13 +1831,13 @@ function buildSheet(){
   h += '<th rowspan="2" style="min-width:140px">Student Name</th>';
   
   if (ctTests.length > 0) {
-    h += `<th colspan="${ctTests.length}" style="background:#1e1b4b;border-bottom:1px solid rgba(255,255,255,0.1)">Class Tests</th>`;
-    h += `<th rowspan="2" style="background:#1e1b4b">CT Total</th>`;
-    h += `<th rowspan="2" style="background:#1e1b4b">CT Avg</th>`;
+    h += '<th colspan="' + ctTests.length + '" style="background:#1e1b4b;border-bottom:1px solid rgba(255,255,255,0.1)">Class Tests</th>';
+    h += '<th rowspan="2" style="background:#1e1b4b">CT Total</th>';
+    h += '<th rowspan="2" style="background:#1e1b4b">CT Avg</th>';
   }
   
   if (ptTests.length > 0) {
-    h += `<th colspan="${ptTests.length}" style="background:#0c4a6e;border-bottom:1px solid rgba(255,255,255,0.1)">Periodic Tests / Exams</th>`;
+    h += '<th colspan="' + ptTests.length + '" style="background:#0c4a6e;border-bottom:1px solid rgba(255,255,255,0.1)">Periodic Tests / Exams</th>';
   }
   h += '<th rowspan="2">Overall Total</th>';
   h += '<th rowspan="2">Percentage</th>';
@@ -1847,42 +1847,42 @@ function buildSheet(){
   h += '<tr class="h-date">';
   ctTests.forEach(t => {
     const d = dates[t.id] ? fmtDate(dates[t.id]) : '';
-    h += `<th>${t.label}<br><span style="font-size:0.75em;opacity:0.6">MM:${t.maxMarks}</span>${d ? '<br><span style="font-size:0.7em;font-weight:normal">'+d+'</span>' : ''}</th>`;
+    h += '<th>' + t.label + '<br><span style="font-size:0.75em;opacity:0.6">MM:' + t.maxMarks + '</span>' + (d ? '<br><span style="font-size:0.7em;font-weight:normal">' + d + '</span>' : '') + '</th>';
   });
   ptTests.forEach(t => {
     const d = dates[t.id] ? fmtDate(dates[t.id]) : '';
-    h += `<th>${t.label}<br><span style="font-size:0.75em;opacity:0.6">MM:${t.maxMarks}</span>${d ? '<br><span style="font-size:0.7em;font-weight:normal">'+d+'</span>' : ''}</th>`;
+    h += '<th>' + t.label + '<br><span style="font-size:0.75em;opacity:0.6">MM:' + t.maxMarks + '</span>' + (d ? '<br><span style="font-size:0.7em;font-weight:normal">' + d + '</span>' : '') + '</th>';
   });
   h += '</tr></thead><tbody>';
 
   rows.forEach(r => {
-    h += `<tr><td>${r.sno}</td><td>${r.name}</td>`;
+    h += '<tr><td>' + r.sno + '</td><td>' + r.name + '</td>';
     
     let ctTotal = 0, ctPossible = 0;
     ctTests.forEach(t => {
       const score = r.marks[t.id];
       const has = score !== undefined && score !== null && score !== "";
       if (has) {
-        h += `<td>${score}</td>`;
+        h += '<td>' + score + '</td>';
         ctTotal += Number(score);
         ctPossible += t.maxMarks;
       } else {
-        h += `<td class="ab">AB</td>`;
+        h += '<td class="ab">AB</td>';
       }
     });
     
     if (ctTests.length > 0) {
-      h += `<td class="tot">${ctPossible > 0 ? ctTotal + '/' + ctPossible : '—'}</td>`;
-      h += `<td class="pct ${pc(ctPossible > 0 ? (ctTotal / ctPossible * 100) : 0)}">${ctPossible > 0 ? (ctTotal / ctPossible * 100).toFixed(1) + '%' : '—'}</td>`;
+      h += '<td class="tot">' + (ctPossible > 0 ? ctTotal + '/' + ctPossible : '—') + '</td>';
+      h += '<td class="pct ' + pc(ctPossible > 0 ? (ctTotal / ctPossible * 100) : 0) + '">' + (ctPossible > 0 ? (ctTotal / ctPossible * 100).toFixed(1) + '%' : '—') + '</td>';
     }
     
     ptTests.forEach(t => {
       const score = r.marks[t.id];
       const has = score !== undefined && score !== null && score !== "";
       if (has) {
-        h += `<td>${score}</td>`;
+        h += '<td>' + score + '</td>';
       } else {
-        h += `<td class="ab">AB</td>`;
+        h += '<td class="ab">AB</td>';
       }
     });
 
@@ -1897,16 +1897,16 @@ function buildSheet(){
     
     const pctVal = overPossible > 0 ? (overTotal / overPossible * 100) : null;
     
-    h += `<td class="tot">${overPossible > 0 ? overTotal + '/' + overPossible : '—'}</td>`;
-    h += pctVal !== null ? `<td class="pct ${pc(pctVal)}">${pctVal.toFixed(1)}%</td>` : `<td class="ab">AB</td>`;
-    h += `<td class="sign-cell"></td>`;
+    h += '<td class="tot">' + (overPossible > 0 ? overTotal + '/' + overPossible : '—') + '</td>';
+    h += pctVal !== null ? '<td class="pct ' + pc(pctVal) + '">' + pctVal.toFixed(1) + '%</td>' : '<td class="ab">AB</td>';
+    h += '<td class="sign-cell"></td>';
     h += '</tr>';
   });
 
   h += '</tbody><tfoot><tr><td colspan="2">📊 Class Average</td>';
   
   ctTests.forEach(t => {
-    h += `<td>${getColAvg(t.id)}</td>`;
+    h += '<td>' + getColAvg(t.id) + '</td>';
   });
   
   if (ctTests.length > 0) {
@@ -1920,12 +1920,12 @@ function buildSheet(){
         }
       });
     });
-    h += `<td class="tot">${sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—'}</td>`;
-    h += `<td class="pct">${sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—'}</td>`;
+    h += '<td class="tot">' + (sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—') + '</td>';
+    h += '<td class="pct">' + (sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—') + '</td>';
   }
   
   ptTests.forEach(t => {
-    h += `<td>${getColAvg(t.id)}</td>`;
+    h += '<td>' + getColAvg(t.id) + '</td>';
   });
   
   let sumObt = 0, sumPoss = 0;
@@ -1938,8 +1938,8 @@ function buildSheet(){
       }
     });
   });
-  h += `<td class="tot">${sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—'}</td>`;
-  h += `<td class="pct">${sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—'}</td>`;
+  h += '<td class="tot">' + (sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—') + '</td>';
+  h += '<td class="pct">' + (sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—') + '</td>';
   h += '<td></td>';
   
   h += '</tr></tfoot></table>';
@@ -2001,8 +2001,8 @@ function downloadExcel(){
       ].join(',')+'\\r\\n';
     });
   } else {
-    const ctHeaders = ctTests.map(t => `${t.label}(MM:${t.maxMarks})`).join(',');
-    const ptHeaders = ptTests.map(t => `${t.label}(MM:${t.maxMarks})`).join(',');
+    const ctHeaders = ctTests.map(t => t.label + '(MM:' + t.maxMarks + ')').join(',');
+    const ptHeaders = ptTests.map(t => t.label + '(MM:' + t.maxMarks + ')').join(',');
     
     csv += 'S.No,Student Name,';
     if(ctHeaders) csv += ctHeaders + ',CT Total,CT Average,';
