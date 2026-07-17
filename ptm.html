@@ -1843,77 +1843,115 @@
     };
 
     window.csPrintSheet = function() {
-        tHTML += `<td class="tot">${possible>0?total+'/'+possible:'—'}</td>`;
-        tHTML += pct!==null ? `<td class="pct ${pct>=75?'good':pct>=45?'avg':'low'}">${pct.toFixed(1)}%</td>` : `<td class="ab">AB</td>`;
-        tHTML += `</tr>`;
-      });
+      const cls      = csActiveClass;
+      const clsLabel = classLabels[cls];
+      const {conducted,students,rows,classColTotals,classGrandSum,classGrandPoss,classGrandCount,classAvgPct,dates} = csComputeRows(cls);
+      if(!students.length||!conducted.length){ alert("No data to print for "+clsLabel); return; }
+      const today=new Date();
+      const ds=`${String(today.getDate()).padStart(2,'0')}/${String(today.getMonth()+1).padStart(2,'0')}/${today.getFullYear()}`;
 
-      tHTML += `</tbody><tfoot><tr><td colspan="2">Class Average</td>`;
-      classColTotals.forEach(ct => tHTML += `<td>${ct.count>0?(ct.sum/ct.count).toFixed(1):'—'}</td>`);
-      const cavg = classGrandPoss > 0 ? (classGrandSum/classGrandPoss*100) : null;
-      tHTML += cavg!==null
-        ? `<td class="tot">${(classGrandSum/classGrandCount).toFixed(1)}</td><td class="pct ${cavg>=75?'good':cavg>=45?'avg':'low'}">${cavg.toFixed(1)}%</td>`
-        : `<td>—</td><td>—</td>`;
-      tHTML += `</tr></tfoot></table>`;
+      let tHTML="";
 
-      const printHTML = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<title>PTM Sheet — ${clsLabel} — KV Ranikhet</title>
+      if(csViewMode==="rank"){
+        // Rank / Award List print
+        const ranked=rows.slice().sort((a,b)=>{
+          if(a.pct===null&&b.pct===null)return 0;
+          if(a.pct===null)return 1; if(b.pct===null)return-1;
+          return b.pct-a.pct;
+        });
+        let rk=1;
+        ranked.forEach((r,i)=>{
+          if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct)rk=i+1;
+          r.rank=r.pct!==null?rk:"-";
+        });
+        tHTML=`<table><thead><tr class="h1"><th>Rank</th><th>S.No</th><th>Student Name</th><th>Scored</th><th>Out Of</th><th>%</th><th>Grade</th><th>Remark</th></tr></thead><tbody>`;
+        ranked.forEach(r=>{
+          const p=r.pct,g=p!==null?gradeLabel(p):"—",cl=p!==null?pctClass(p):"";
+          const rm=p===null?"Absent":p>=75?"Excellent":p>=60?"Good":p>=45?"Average":"Needs Improvement";
+          tHTML+=`<tr><td style="font-weight:800">${r.rank}</td><td>${r.student.rollNo}</td><td class="name">${r.student.name}</td><td class="tot">${r.possible>0?r.total:"—"}</td><td>${r.possible>0?r.possible:"—"}</td><td class="pct ${cl}">${p!==null?p.toFixed(1)+"%":"—"}</td><td class="pct ${cl}">${g}</td><td>${rm}</td></tr>`;
+        });
+        tHTML+=`</tbody></table>`;
+      } else {
+        // Full marks sheet print
+        tHTML=`<table><thead><tr class="h1"><th>S.No</th><th>Student Name</th>`;
+        conducted.forEach(t=>tHTML+=`<th>${t.label}<br><small>MM:${t.maxMarks}</small></th>`);
+        tHTML+=`<th>Total</th><th>%</th><th>Grade</th></tr>`;
+        tHTML+=`<tr class="h2"><th></th><th></th>`;
+        conducted.forEach(t=>{const d=dates[t.id]?csFmtDate(dates[t.id]):"—";tHTML+=`<th>${d}</th>`;});
+        tHTML+=`<th></th><th></th><th></th></tr></thead><tbody>`;
+        const cct=conducted.map(()=>({sum:0,count:0}));
+        let gS=0,gP=0,gC=0;
+        rows.forEach(r=>{
+          let tot=0,pos=0;
+          tHTML+=`<tr><td>${r.student.rollNo}</td><td class="name">${r.student.name}</td>`;
+          conducted.forEach((t,ci)=>{
+            const s=r.student.marks?r.student.marks[t.id]:undefined;
+            const has=s!==undefined&&s!==null&&s!=="";
+            if(has){tHTML+=`<td>${s}</td>`;tot+=Number(s);pos+=t.maxMarks;cct[ci].sum+=Number(s);cct[ci].count+=1;}
+            else tHTML+=`<td class="ab">AB</td>`;
+          });
+          const p=pos>0?(tot/pos*100):null;
+          if(pos>0){gS+=tot;gP+=pos;gC++;}
+          tHTML+=`<td class="tot">${pos>0?tot+"/"+pos:"—"}</td>`;
+          tHTML+=p!==null?`<td class="pct ${pctClass(p)}">${p.toFixed(1)}%</td><td class="pct ${pctClass(p)}">${gradeLabel(p)}</td>`:`<td class="ab">AB</td><td class="ab">—</td>`;
+          tHTML+=`</tr>`;
+        });
+        tHTML+=`</tbody><tfoot><tr><td colspan="2">Class Average</td>`;
+        cct.forEach(ct=>tHTML+=`<td>${ct.count>0?(ct.sum/ct.count).toFixed(1):"—"}</td>`);
+        const ca=gP>0?(gS/gP*100):null;
+        tHTML+=ca!==null?`<td class="tot">${(gS/gC).toFixed(1)}</td><td class="pct ${pctClass(ca)}">${ca.toFixed(1)}%</td><td class="pct ${pctClass(ca)}">${gradeLabel(ca)}</td>`:`<td>—</td><td>—</td><td>—</td>`;
+        tHTML+=`</tr></tfoot></table>`;
+      }
+
+      const vt=csViewMode==="rank"?"Rank & Award List":"Consolidated Test Record";
+      const printHTML=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>PTM ${vt} — ${clsLabel} — KV Ranikhet</title>
 <style>
   @page { size: A4 landscape; margin: 10mm 12mm; }
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body { font-family: Arial, sans-serif; font-size: 9pt; color: #111; background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .school-header { text-align:center; border-bottom: 2.5px solid #1e3a5f; padding-bottom:7px; margin-bottom:10px; }
-  .school-header h1 { font-size:13pt; font-weight:800; color:#1e3a5f; letter-spacing:.4px; }
-  .school-header p  { font-size:8.5pt; color:#444; margin-top:2px; }
-  .sheet-meta { display:flex; justify-content:space-between; font-size:8pt; color:#555; margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:6px; }
-  table { width:100%; border-collapse:collapse; font-size:8.5pt; }
-  thead tr.h1 th { background:#1e3a5f; color:#fff; padding:6px 5px; text-align:center; font-weight:700; font-size:8pt; border:1px solid #1e3a5f; white-space:nowrap; }
-  thead tr.h1 th:nth-child(1), thead tr.h1 th:nth-child(2) { text-align:left; padding-left:8px; }
-  thead tr.h2 th { background:#d1dce8; color:#1e3a5f; padding:4px 5px; text-align:center; font-size:7.5pt; font-style:italic; border:1px solid #b0bec5; white-space:nowrap; }
-  thead tr.h2 th:nth-child(2) { text-align:left; padding-left:8px; }
-  tbody tr:nth-child(even) { background:#f5f5f5; }
-  tbody td { padding:5px 5px; border:1px solid #ddd; text-align:center; }
-  tbody td:nth-child(1) { color:#666; font-weight:600; }
-  tbody td.name { text-align:left; padding-left:8px; font-weight:700; white-space:nowrap; }
-  td.ab { color:#c0392b; font-style:italic; font-weight:700; }
-  td.tot { font-weight:700; color:#1e3a5f; }
-  td.pct { font-weight:700; }
-  td.pct.good { color:#0a7c3e; }
-  td.pct.avg  { color:#b07b00; }
-  td.pct.low  { color:#c0392b; }
-  tfoot tr td { background:#1e3a5f; color:#fff; font-weight:700; padding:6px 5px; border:1px solid #1e3a5f; text-align:center; }
-  tfoot tr td:nth-child(1), tfoot tr td:nth-child(2) { text-align:left; padding-left:8px; }
-  .footer-note { margin-top:10px; font-size:7.5pt; color:#777; text-align:center; border-top:1px solid #ddd; padding-top:5px; }
-  @media print { body { margin:0; } }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:Arial,sans-serif; font-size:9pt; color:#111; background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .hdr{ text-align:center; border-bottom:2.5px solid #1e3a5f; padding-bottom:7px; margin-bottom:8px; }
+  .hdr h1{ font-size:13pt; font-weight:800; color:#1e3a5f; }
+  .hdr p{ font-size:8.5pt; color:#444; margin-top:2px; }
+  .meta{ display:flex; justify-content:space-between; font-size:8pt; color:#555; margin-bottom:8px; border-bottom:1px solid #ddd; padding-bottom:5px; }
+  table{ width:100%; border-collapse:collapse; font-size:8.5pt; }
+  thead tr.h1 th{ background:#1e3a5f; color:#fff; padding:6px 5px; text-align:center; font-weight:700; border:1px solid #1e3a5f; white-space:nowrap; }
+  thead tr.h1 th:nth-child(1),thead tr.h1 th:nth-child(2){ text-align:left; padding-left:8px; }
+  thead tr.h2 th{ background:#d1dce8; color:#1e3a5f; padding:4px 5px; text-align:center; font-size:7.5pt; font-style:italic; border:1px solid #b0bec5; white-space:nowrap; }
+  thead tr.h2 th:nth-child(2){ text-align:left; padding-left:8px; }
+  tbody tr:nth-child(even){ background:#f5f5f5; }
+  tbody td{ padding:5px; border:1px solid #ddd; text-align:center; }
+  td.name{ text-align:left; padding-left:8px; font-weight:700; white-space:nowrap; }
+  td.ab{ color:#c0392b; font-style:italic; font-weight:700; }
+  td.tot{ font-weight:700; color:#1e3a5f; }
+  td.pct{ font-weight:700; } td.pct.good{ color:#0a7c3e; } td.pct.avg{ color:#b07b00; } td.pct.low{ color:#c0392b; }
+  tfoot tr td{ background:#1e3a5f; color:#fff; font-weight:700; padding:6px 5px; border:1px solid #1e3a5f; text-align:center; }
+  tfoot tr td:nth-child(1),tfoot tr td:nth-child(2){ text-align:left; padding-left:8px; }
+  .foot{ margin-top:8px; font-size:7.5pt; color:#777; text-align:center; border-top:1px solid #ddd; padding-top:5px; }
 </style></head><body>
-<div class="school-header">
-  <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
-  <p>Consolidated Test Record — ${clsLabel} &nbsp;|&nbsp; Mathematics &nbsp;|&nbsp; K B Joshi, PGT Mathematics &nbsp;|&nbsp; Academic Session 2025-26</p>
-</div>
-<div class="sheet-meta">
-  <span>Tests Conducted: <strong>${conducted.length}</strong> &nbsp;|&nbsp; Total Students: <strong>${students.length}</strong></span>
-  <span>Printed on: <strong>${dateStr}</strong></span>
-</div>
+<div class="hdr"><h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+<p>${vt} — ${clsLabel} &nbsp;|&nbsp; Mathematics &nbsp;|&nbsp; K B Joshi, PGT Mathematics &nbsp;|&nbsp; Academic Session 2025-26</p></div>
+<div class="meta"><span>Tests Conducted: <strong>${conducted.length}</strong> &nbsp;|&nbsp; Students: <strong>${students.length}</strong></span><span>Printed: <strong>${ds}</strong></span></div>
 ${tHTML}
-<div class="footer-note">PM SHRI KV Ranikhet — Mathematics Department — Confidential PTM Document — Printed: ${dateStr}</div>
+<div class="foot">PM SHRI KV Ranikhet — Mathematics Dept — Confidential PTM Document — ${ds}</div>
 </body></html>`;
 
-      let iframe = document.getElementById("csPrintIframe");
-      if (!iframe) {
-        iframe = document.createElement("iframe");
-        iframe.id = "csPrintIframe";
-        Object.assign(iframe.style, { position:"absolute", width:"0", height:"0", border:"none", left:"-9999px" });
+      let iframe=document.getElementById("csPrintIframe");
+      if(!iframe){
+        iframe=document.createElement("iframe");
+        iframe.id="csPrintIframe";
+        Object.assign(iframe.style,{position:"absolute",width:"0",height:"0",border:"none",left:"-9999px"});
         document.body.appendChild(iframe);
       }
-      const doc = iframe.contentWindow.document;
+      const doc=iframe.contentWindow.document;
       doc.open(); doc.write(printHTML); doc.close();
-      setTimeout(() => { iframe.contentWindow.focus(); iframe.contentWindow.print(); }, 200);
+      setTimeout(()=>{iframe.contentWindow.focus();iframe.contentWindow.print();},220);
     };
 
     // --- Init on DOM ready ---
     document.addEventListener("DOMContentLoaded", function() {
       csLoadData();
-      csBuildTable();
+      csRender();
     });
 
   })();
