@@ -267,6 +267,10 @@
         margin-bottom: 40px !important;
         page-break-inside: avoid;
       }
+      .category-card:not(:last-child) {
+        page-break-after: always;
+        break-after: page;
+      }
       .category-title {
         color: #000 !important;
         font-size: 1.2rem !important;
@@ -647,7 +651,7 @@
     if (remarksData[cls] && remarksData[cls][name] !== undefined) {
       return remarksData[cls][name];
     }
-    return isBright ? "Enrichment tasks & Olympiad guidance" : "Diagnostic review & remedial worksheets";
+    return "";
   }
 
   function changeClass(cls) {
