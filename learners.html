@@ -304,7 +304,19 @@
         border: none !important;
         background: none !important;
         padding: 0 !important;
-        color: #000 !important;
+        color: transparent !important; /* Hide text in print so it is blank for manual writing */
+      }
+      .remarks-input::placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
+      }
+      .remarks-input::-webkit-input-placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
+      }
+      .remarks-input::-moz-placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
       }
       @page {
         size: A4 portrait;
@@ -651,7 +663,7 @@
     if (remarksData[cls] && remarksData[cls][name] !== undefined) {
       return remarksData[cls][name];
     }
-    return "";
+    return isBright ? "Enrichment tasks & Olympiad guidance" : "Diagnostic review & remedial worksheets";
   }
 
   function changeClass(cls) {
