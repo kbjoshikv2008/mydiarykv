@@ -544,6 +544,35 @@
             return true;
           });
         }
+
+      // Force sync SOUVIK SAHA in Class 12 (marked absent in all tests)
+      if (studentData["12"]) {
+        let hasSouvik = studentData["12"].some(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
+        if (!hasSouvik) {
+          studentData["12"].push({
+            rollNo: 1,
+            name: "SOUVIK SAHA",
+            marks: {}
+          });
+        }
+        const souvik = studentData["12"].find(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
+        if (souvik) {
+          if (!souvik.marks) souvik.marks = {};
+          // Clear/mark absent all test scores
+          Object.keys(souvik.marks).forEach(k => {
+            souvik.marks[k] = "";
+          });
+          if (!souvik.mobile) souvik.mobile = "9892570352";
+          if (!souvik.parentMobile) souvik.parentMobile = "9892570352";
+        }
+        // Sort and re-index S.No
+        studentData["12"].sort((a, b) => a.name.localeCompare(b.name));
+        studentData["12"].forEach((s, idx) => {
+          s.rollNo = idx + 1;
+        });
+        localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+      }
+
       }
       const td = localStorage.getItem("student_performance_test_dates");
       if(td) testDates = JSON.parse(td);

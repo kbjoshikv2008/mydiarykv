@@ -2383,6 +2383,34 @@
       if (savedData && dbVersion === "v16") {
         try {
           studentData = JSON.parse(savedData);
+            // Force sync SOUVIK SAHA in Class 12 (marked absent in all tests)
+            if (studentData["12"]) {
+              let hasSouvik = studentData["12"].some(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
+              if (!hasSouvik) {
+                studentData["12"].push({
+                  rollNo: 1,
+                  name: "SOUVIK SAHA",
+                  marks: {}
+                });
+              }
+              const souvik = studentData["12"].find(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
+              if (souvik) {
+                if (!souvik.marks) souvik.marks = {};
+                // Clear/mark absent all test scores
+                Object.keys(souvik.marks).forEach(k => {
+                  souvik.marks[k] = "";
+                });
+                if (!souvik.mobile) souvik.mobile = "9892570352";
+                if (!souvik.parentMobile) souvik.parentMobile = "9892570352";
+              }
+              // Sort and re-index S.No
+              studentData["12"].sort((a, b) => a.name.localeCompare(b.name));
+              studentData["12"].forEach((s, idx) => {
+                s.rollNo = idx + 1;
+              });
+              localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+            }
+
           if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
             resetNeeded = true;
           }
@@ -2975,6 +3003,126 @@
         `;
         tbody.appendChild(tr);
       });
+
+      // 4. Generate Footer Rows (Statistics)
+      let tfoot = document.getElementById("tableFoot");
+      if (!tfoot) {
+        tfoot = document.createElement("tfoot");
+        tfoot.id = "tableFoot";
+        tbody.parentNode.appendChild(tfoot);
+      }
+      tfoot.innerHTML = "";
+
+      const enrolledCount = students.length;
+
+      function getAnalysisTestStats(test) {
+        let appeared = 0;
+        let passed = 0;
+        let failed = 0;
+        students.forEach(s => {
+          const val = s.marks[test.id];
+          if (val !== undefined && val !== null && val !== "" && val !== 'AB') {
+            const score = Number(val);
+            if (!isNaN(score)) {
+              appeared++;
+              if ((score / test.maxMarks) * 100 >= 33) {
+                passed++;
+              } else {
+                failed++;
+              }
+            }
+          }
+        });
+        const pct = appeared > 0 ? ((passed / appeared) * 100).toFixed(1) + "%" : "0.0%";
+        return { enrolled: enrolledCount, appeared, passed, failed, pct };
+      }
+
+      function getAnalysisOverallStats() {
+        let appeared = 0;
+        let passed = 0;
+        let failed = 0;
+        students.forEach(s => {
+          if (s.pct !== null) {
+            appeared++;
+            if (s.pct >= 33) {
+              passed++;
+            } else {
+              failed++;
+            }
+          }
+        });
+        const pct = appeared > 0 ? ((passed / appeared) * 100).toFixed(1) + "%" : "0.0%";
+        return { enrolled: enrolledCount, appeared, passed, failed, pct };
+      }
+
+      function buildAnalysisFooterRow(title, cellValFn) {
+        let cells = "";
+        categoryTests.forEach(test => {
+          cells += `<td style="text-align: center; font-weight: 600; padding: 10px 8px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem;">${cellValFn('test', test)}</td>`;
+        });
+        // Overall cell
+        cells += `<td style="text-align: center; font-weight: 600; padding: 10px 8px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem;">${cellValFn('overall')}</td>`;
+        
+        return `
+          <tr style="background: rgba(255, 255, 255, 0.03);">
+            <td colspan="3" style="text-align: left; font-weight: 600; padding: 10px 12px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem; color: var(--primary-light);">${title}</td>
+            ${cells}
+            <td style="border-top: 1px solid rgba(255,255,255,0.08);"></td>
+          </tr>
+        `;
+      }
+
+      // Row 1: Average
+      const rowAvg = buildAnalysisFooterRow("📊 Class Average", (type, test) => {
+        if (type === 'test') {
+          let sum = 0, count = 0;
+          students.forEach(s => {
+            const val = s.marks[test.id];
+            if (val !== undefined && val !== null && val !== "" && val !== 'AB') {
+              const num = Number(val);
+              if (!isNaN(num)) {
+                sum += num;
+                count++;
+              }
+            }
+          });
+          return count > 0 ? (sum / count).toFixed(1) : "—";
+        } else {
+          let sum = 0, count = 0;
+          students.forEach(s => {
+            if (s.pct !== null) {
+              sum += s.pct;
+              count++;
+            }
+          });
+          return count > 0 ? (sum / count).toFixed(1) + "%" : "—";
+        }
+      });
+
+      // Row 2: Enrolled
+      const rowEnroll = buildAnalysisFooterRow("👥 Enrolled Students", () => enrolledCount);
+
+      // Row 3: Appeared
+      const rowAppear = buildAnalysisFooterRow("📝 Appeared in Test", (type, test) => {
+        return type === 'test' ? getAnalysisTestStats(test).appeared : getAnalysisOverallStats().appeared;
+      });
+
+      // Row 4: Passed
+      const rowPass = buildAnalysisFooterRow("✅ Passed (≥ 33%)", (type, test) => {
+        return type === 'test' ? getAnalysisTestStats(test).passed : getAnalysisOverallStats().passed;
+      });
+
+      // Row 5: Failed
+      const rowFail = buildAnalysisFooterRow("❌ Failed (&lt; 33%)", (type, test) => {
+        return type === 'test' ? getAnalysisTestStats(test).failed : getAnalysisOverallStats().failed;
+      });
+
+      // Row 6: Pass Percentage
+      const rowPassPct = buildAnalysisFooterRow("📈 Pass Percentage", (type, test) => {
+        return type === 'test' ? getAnalysisTestStats(test).pct : getAnalysisOverallStats().pct;
+      });
+
+      tfoot.innerHTML = rowAvg + rowEnroll + rowAppear + rowPass + rowFail + rowPassPct;
     }
 
     function updateStudentName(rollNo, newName) {

@@ -55,8 +55,8 @@
   
   td.sign-cell{border-left:1.5px solid rgba(255,255,255,.08)!important;width:130px;min-width:130px;background:rgba(255,255,255,0.005);}
   
-  tfoot td{background:#111827;color:#c084fc;font-weight:700;padding:12px 8px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.8rem;}
-  tfoot td:nth-child(1),tfoot td:nth-child(2){text-align:left;padding-left:16px;}
+  tfoot td{background:#111827;color:#c084fc;font-weight:700;padding:8px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.8rem;}
+  tfoot td.label-cell{text-align:left;padding-left:16px;}
   
   .rank-gold{color:#fbbf24;font-size:1.05rem;font-weight:800;text-align:center;}
 
@@ -176,7 +176,6 @@ let viewMode    = 'sheet';
 function loadData() {
   try {
     const sd = localStorage.getItem("student_performance_data");
-        const sd = localStorage.getItem("student_performance_data");
     if(sd) {
       studentData = JSON.parse(sd);
       if (studentData["11B"]) {
@@ -268,6 +267,82 @@ function updateMeta(){
     '<span>Class Average: <strong>'+avg+'</strong></span>';
 }
 
+
+function getStatsForTest(testId, maxMarks) {
+  let enrolled = rows.length;
+  let appeared = 0;
+  let passed = 0;
+  let failed = 0;
+  rows.forEach(r => {
+    const score = r.marks[testId];
+    if (isValidScore(score)) {
+      appeared++;
+      const val = Number(score);
+      if ((val / maxMarks) * 100 >= 33) {
+        passed++;
+      } else {
+        failed++;
+      }
+    }
+  });
+  const pct = appeared > 0 ? ((passed / appeared) * 100).toFixed(1) + '%' : '0.0%';
+  return { enrolled, appeared, passed, failed, pct };
+}
+
+function getStatsForCTTotal() {
+  let enrolled = rows.length;
+  let appeared = 0;
+  let passed = 0;
+  let failed = 0;
+  rows.forEach(r => {
+    let sumVal = 0, sumPoss = 0;
+    ctTests.forEach(t => {
+      const score = r.marks[t.id];
+      if (isValidScore(score)) {
+        sumVal += Number(score);
+        sumPoss += t.maxMarks;
+      }
+    });
+    if (sumPoss > 0) {
+      appeared++;
+      if ((sumVal / sumPoss) * 100 >= 33) {
+        passed++;
+      } else {
+        failed++;
+      }
+    }
+  });
+  const pct = appeared > 0 ? ((passed / appeared) * 100).toFixed(1) + '%' : '0.0%';
+  return { enrolled, appeared, passed, failed, pct };
+}
+
+function getStatsForOverall() {
+  let enrolled = rows.length;
+  let appeared = 0;
+  let passed = 0;
+  let failed = 0;
+  rows.forEach(r => {
+    let sumVal = 0, sumPoss = 0;
+    conducted.forEach(t => {
+      const score = r.marks[t.id];
+      if (isValidScore(score)) {
+        sumVal += Number(score);
+        sumPoss += t.maxMarks;
+      }
+    });
+    if (sumPoss > 0) {
+      appeared++;
+      if ((sumVal / sumPoss) * 100 >= 33) {
+        passed++;
+      } else {
+        failed++;
+      }
+    }
+  });
+  const pct = appeared > 0 ? ((passed / appeared) * 100).toFixed(1) + '%' : '0.0%';
+  return { enrolled, appeared, passed, failed, pct };
+}
+
 function buildSheet(){
   let h = '<table style="width:100%;border-collapse:collapse;"><thead><tr class="h-lbl">';
   h += '<th rowspan="2" style="width:40px">S.No</th>';
@@ -346,31 +421,19 @@ function buildSheet(){
     h += '</tr>';
   });
 
-  h += '</tbody><tfoot><tr><td colspan="2">📊 Class Average</td>';
-  
-  ctTests.forEach(t => {
-    h += '<td>' + getColAvg(t.id) + '</td>';
-  });
-  
-  if (ctTests.length > 0) {
-    let sumCTObt = 0, sumCTPoss = 0;
-    rows.forEach(r => {
-      ctTests.forEach(t => {
-        const score = r.marks[t.id];
-        if (isValidScore(score)) {
-          sumCTObt += Number(score);
-          sumCTPoss += t.maxMarks;
-        }
-      });
+  // Calculate CT total values for aggregate averages
+  let sumCTObt = 0, sumCTPoss = 0;
+  rows.forEach(r => {
+    ctTests.forEach(t => {
+      const score = r.marks[t.id];
+      if (isValidScore(score)) {
+        sumCTObt += Number(score);
+        sumCTPoss += t.maxMarks;
+      }
     });
-    h += '<td class="tot">' + (sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—') + '</td>';
-    h += '<td class="pct">' + (sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—') + '</td>';
-  }
-  
-  ptTests.forEach(t => {
-    h += '<td>' + getColAvg(t.id) + '</td>';
   });
-  
+
+  // Calculate Overall total values for aggregate averages
   let sumObt = 0, sumPoss = 0;
   rows.forEach(r => {
     conducted.forEach(t => {
@@ -381,11 +444,72 @@ function buildSheet(){
       }
     });
   });
-  h += '<td class="tot">' + (sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—') + '</td>';
-  h += '<td class="pct">' + (sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—') + '</td>';
-  h += '<td></td>';
+
+  // Helper row builder
+  function buildFooterRow(title, cellBuilder) {
+    let rowHtml = '<tr><td colspan="2" class="label-cell">' + title + '</td>';
+    // CT columns
+    ctTests.forEach(t => {
+      rowHtml += '<td>' + cellBuilder('ct_test', t.id, t.maxMarks) + '</td>';
+    });
+    if (ctTests.length > 0) {
+      rowHtml += '<td class="tot">' + cellBuilder('ct_tot') + '</td>';
+      rowHtml += '<td class="pct">' + cellBuilder('ct_avg') + '</td>';
+    }
+    // PT columns
+    ptTests.forEach(t => {
+      rowHtml += '<td>' + cellBuilder('pt_test', t.id, t.maxMarks) + '</td>';
+    });
+    // Overall columns
+    rowHtml += '<td class="tot">' + cellBuilder('over_tot') + '</td>';
+    rowHtml += '<td class="pct">' + cellBuilder('over_pct') + '</td>';
+    rowHtml += '<td></td></tr>'; // blank for signature
+    return rowHtml;
+  }
+
+  h += '</tbody><tfoot>';
   
-  h += '</tr></tfoot></table>';
+  // 1. Class Average Row
+  h += buildFooterRow('📊 Class Average', (type, id, mm) => {
+    if (type === 'ct_test' || type === 'pt_test') return getColAvg(id);
+    if (type === 'ct_tot') return sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—';
+    if (type === 'ct_avg') return sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—';
+    if (type === 'over_tot') return sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—';
+    if (type === 'over_pct') return sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—';
+  });
+
+  // 2. Enrolled Students Row
+  h += buildFooterRow('👥 Enrolled Students', () => rows.length);
+
+  // 3. Appeared in Test Row
+  h += buildFooterRow('📝 Appeared in Test', (type, id, mm) => {
+    if (type === 'ct_test' || type === 'pt_test') return getStatsForTest(id, mm).appeared;
+    if (type === 'ct_tot' || type === 'ct_avg') return getStatsForCTTotal().appeared;
+    if (type === 'over_tot' || type === 'over_pct') return getStatsForOverall().appeared;
+  });
+
+  // 4. Passed (>= 33%) Row
+  h += buildFooterRow('✅ Passed (≥ 33%)', (type, id, mm) => {
+    if (type === 'ct_test' || type === 'pt_test') return getStatsForTest(id, mm).passed;
+    if (type === 'ct_tot' || type === 'ct_avg') return getStatsForCTTotal().passed;
+    if (type === 'over_tot' || type === 'over_pct') return getStatsForOverall().passed;
+  });
+
+  // 5. Failed (< 33%) Row
+  h += buildFooterRow('❌ Failed (&lt; 33%)', (type, id, mm) => {
+    if (type === 'ct_test' || type === 'pt_test') return getStatsForTest(id, mm).failed;
+    if (type === 'ct_tot' || type === 'ct_avg') return getStatsForCTTotal().failed;
+    if (type === 'over_tot' || type === 'over_pct') return getStatsForOverall().failed;
+  });
+
+  // 6. Pass Percentage Row
+  h += buildFooterRow('📈 Pass Percentage', (type, id, mm) => {
+    if (type === 'ct_test' || type === 'pt_test') return getStatsForTest(id, mm).pct;
+    if (type === 'ct_tot' || type === 'ct_avg') return getStatsForCTTotal().pct;
+    if (type === 'over_tot' || type === 'over_pct') return getStatsForOverall().pct;
+  });
+
+  h += '</tfoot></table>';
   return h;
 }
 
@@ -501,36 +625,84 @@ function downloadExcel(){
       csv += (overPossible > 0 ? overTotal + '/' + overPossible : '—') + ',' + (overPossible > 0 ? (overTotal / overPossible * 100).toFixed(1) + '%' : '—') + ',\r\n';
     });
 
-    csv += ',"Class Average",';
-    if(ctTests.length > 0) {
-      const ctAverages = ctTests.map(t => getColAvg(t.id)).join(',');
-      let sumCTObt = 0, sumCTPoss = 0;
-      rows.forEach(r => {
-        ctTests.forEach(t => {
-          const score = r.marks[t.id];
-          if (isValidScore(score)) {
-            sumCTObt += Number(score);
-            sumCTPoss += t.maxMarks;
-          }
-        });
+    // Calculate CT/Overall totals for CSV averages
+    let sumCTObt_csv = 0, sumCTPoss_csv = 0;
+    rows.forEach(r => {
+      ctTests.forEach(t => {
+        const score = r.marks[t.id];
+        if (isValidScore(score)) {
+          sumCTObt_csv += Number(score);
+          sumCTPoss_csv += t.maxMarks;
+        }
       });
-      csv += ctAverages + ',' + (sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—') + ',' + (sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—') + ',';
-    }
-    if(ptTests.length > 0) {
-      const ptAverages = ptTests.map(t => getColAvg(t.id)).join(',');
-      csv += ptAverages + ',';
-    }
-    let sumObt = 0, sumPoss = 0;
+    });
+
+    let sumObt_csv = 0, sumPoss_csv = 0;
     rows.forEach(r => {
       conducted.forEach(t => {
         const score = r.marks[t.id];
         if (isValidScore(score)) {
-          sumObt += Number(score);
-          sumPoss += t.maxMarks;
+          sumObt_csv += Number(score);
+          sumPoss_csv += t.maxMarks;
         }
       });
     });
-    csv += (sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—') + ',' + (sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—') + ',\r\n';
+
+    // Row 1: Average
+    csv += ',"📊 Class Average",';
+    if (ctTests.length > 0) {
+      ctTests.forEach(t => { csv += getColAvg(t.id) + ','; });
+      csv += (sumCTPoss_csv > 0 ? (sumCTObt_csv / rows.length).toFixed(1) : '—') + ',';
+      csv += (sumCTPoss_csv > 0 ? (sumCTObt_csv / sumCTPoss_csv * 100).toFixed(1) + '%' : '—') + ',';
+    }
+    ptTests.forEach(t => { csv += getColAvg(t.id) + ','; });
+    csv += (sumPoss_csv > 0 ? (sumObt_csv / rows.length).toFixed(1) : '—') + ',';
+    csv += (sumPoss_csv > 0 ? (sumObt_csv / sumPoss_csv * 100).toFixed(1) + '%' : '—') + ',\r\n';
+
+    // Row 2: Enrolled
+    csv += ',"👥 Enrolled Students",';
+    if (ctTests.length > 0) {
+      ctTests.forEach(() => { csv += rows.length + ','; });
+      csv += rows.length + ',' + rows.length + ',';
+    }
+    ptTests.forEach(() => { csv += rows.length + ','; });
+    csv += rows.length + ',' + rows.length + ',\r\n';
+
+    // Row 3: Appeared
+    csv += ',"📝 Appeared in Test",';
+    if (ctTests.length > 0) {
+      ctTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).appeared + ','; });
+      csv += getStatsForCTTotal().appeared + ',' + getStatsForCTTotal().appeared + ',';
+    }
+    ptTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).appeared + ','; });
+    csv += getStatsForOverall().appeared + ',' + getStatsForOverall().appeared + ',\r\n';
+
+    // Row 4: Passed
+    csv += ',"✅ Passed (>= 33%)",';
+    if (ctTests.length > 0) {
+      ctTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).passed + ','; });
+      csv += getStatsForCTTotal().passed + ',' + getStatsForCTTotal().passed + ',';
+    }
+    ptTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).passed + ','; });
+    csv += getStatsForOverall().passed + ',' + getStatsForOverall().passed + ',\r\n';
+
+    // Row 5: Failed
+    csv += ',"❌ Failed (< 33%)",';
+    if (ctTests.length > 0) {
+      ctTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).failed + ','; });
+      csv += getStatsForCTTotal().failed + ',' + getStatsForCTTotal().failed + ',';
+    }
+    ptTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).failed + ','; });
+    csv += getStatsForOverall().failed + ',' + getStatsForOverall().failed + ',\r\n';
+
+    // Row 6: Pass Percentage
+    csv += ',"📈 Pass Percentage",';
+    if (ctTests.length > 0) {
+      ctTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).pct + ','; });
+      csv += getStatsForCTTotal().pct + ',' + getStatsForCTTotal().pct + ',';
+    }
+    ptTests.forEach(t => { csv += getStatsForTest(t.id, t.maxMarks).pct + ','; });
+    csv += getStatsForOverall().pct + ',' + getStatsForOverall().pct + ',\r\n';
   }
 
   const bom='\uFEFF';
