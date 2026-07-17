@@ -221,6 +221,9 @@ function loadData() {
 
 loadData();
 
+const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && !isNaN(Number(score));
+const isClassTest = id => id === 'crm' || id.startsWith('ch');
+
 // Compute active class rows data
 const conducted = classTests[activeClass] || [];
 const dates     = testDates[activeClass] || {};
@@ -242,10 +245,8 @@ const rows = students.map(student => {
 });
 const avgPct = gP>0?(gS/gP*100):null;
 
-const isClassTest = id => id === 'crm' || id.startsWith('ch');
 const ctTests = conducted.filter(t => isClassTest(t.id));
 const ptTests = conducted.filter(t => !isClassTest(t.id));
-const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && !isNaN(Number(score));
 
 function fmtDate(raw){if(!raw)return'';const p=raw.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0].slice(2):raw;}
 function pc(p){return p>=75?'good':p>=45?'avg':'low';}
