@@ -323,9 +323,160 @@
         margin: 15mm;
       }
     }
+
+    /* ===== Learners Security Gate Overlay ===== */
+    #learnersSecurityGate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #0d0820 0%, #120a2e 40%, #0a1628 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #learnersSecurityGate .gate-card {
+      background: linear-gradient(145deg, rgba(30,15,70,0.95) 0%, rgba(15,8,40,0.98) 100%);
+      border: 1px solid rgba(139,92,246,0.35);
+      border-radius: 20px;
+      padding: 44px 48px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 0 60px rgba(109,40,217,0.25), 0 20px 60px rgba(0,0,0,0.6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #learnersSecurityGate .gate-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #learnersSecurityGate .gate-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #learnersSecurityGate .gate-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+    }
+    #learnersSecurityGate h2 {
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    #learnersSecurityGate .gate-subtitle {
+      color: #94a3b8;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    #learnersSecurityGate .gate-input-wrap {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    #learnersSecurityGate #learnersGatePassword {
+      width: 100%;
+      padding: 14px 50px 14px 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    #learnersSecurityGate #learnersGatePassword:focus {
+      border-color: rgba(139,92,246,0.6);
+      box-shadow: 0 0 12px rgba(139,92,246,0.25);
+      background: rgba(255,255,255,0.1);
+    }
+    #learnersSecurityGate #learnersToggleGate {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #a78bfa;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
+    }
+    #learnersSecurityGate #learnersToggleGate:hover { color: #c4b5fd; }
+    #learnersSecurityGate #learnersGateError {
+      color: #f87171;
+      font-size: 0.85rem;
+      min-height: 20px;
+      margin-bottom: 18px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    #learnersSecurityGate #learnersSubmitGate {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(109,40,217,0.3);
+      transition: all 0.3s ease;
+    }
+    #learnersSecurityGate #learnersSubmitGate:hover { opacity: 0.9; transform: translateY(-1px); }
+    #learnersSecurityGate #learnersSubmitGate:disabled { opacity: 0.6; cursor: default; transform: none; }
+    #learnersSecurityGate .gate-badge {
+      margin-top: 24px;
+      color: #64748b;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Learners Security Gate Overlay -->
+  <div id="learnersSecurityGate">
+    <div class="gate-card">
+      <div class="gate-icon">🎓</div>
+      <h2>Learners Directory — Secure Access</h2>
+      <p class="gate-subtitle">Enter the access password to unlock the Learners Categories Directory</p>
+      <div class="gate-input-wrap">
+        <input type="password" id="learnersGatePassword" placeholder="Enter access password" autocomplete="off">
+        <button id="learnersToggleGate" type="button" title="Show/hide password"><i class="fas fa-eye"></i></button>
+      </div>
+      <div id="learnersGateError"></div>
+      <button id="learnersSubmitGate">🔓 UNLOCK DIRECTORY</button>
+      <div class="gate-badge"><i class="fas fa-shield-alt"></i> Access is session-secured and monitored</div>
+    </div>
+  </div>
 
 <!-- ── Background Blobs ───────────────────────────────────── -->
 <div class="bg-blobs">
@@ -810,6 +961,72 @@
     }
   });
   passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitPassword.click(); });
+
+  // Learners Security Gate Functions
+  function hideLearnersGate() {
+    const gate = document.getElementById('learnersSecurityGate');
+    if (gate) {
+      gate.style.transition = 'opacity 0.5s ease';
+      gate.style.opacity = '0';
+      setTimeout(() => { gate.style.display = 'none'; }, 500);
+    }
+  }
+
+  // Auto-unlock if already authenticated this session
+  if (sessionStorage.getItem('learners_access_granted') === 'yes') {
+    document.addEventListener('DOMContentLoaded', hideLearnersGate);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const gate = document.getElementById('learnersSecurityGate');
+    const pwdInput = document.getElementById('learnersGatePassword');
+    const toggleBtn = document.getElementById('learnersToggleGate');
+    const submitBtn = document.getElementById('learnersSubmitGate');
+    const errorDiv = document.getElementById('learnersGateError');
+
+    if (!gate) return;
+
+    if (sessionStorage.getItem('learners_access_granted') === 'yes') {
+      hideLearnersGate();
+      return;
+    }
+
+    if (pwdInput) pwdInput.focus();
+
+    if (toggleBtn && pwdInput) {
+      toggleBtn.addEventListener('click', () => {
+        const icon = toggleBtn.querySelector('i');
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+          pwdInput.type = 'password';
+          icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+        pwdInput.focus();
+      });
+    }
+
+    function verifyLearnersGate() {
+      const val = pwdInput ? pwdInput.value : '';
+      if (errorDiv) errorDiv.textContent = '';
+      if (!val) {
+        if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
+        return;
+      }
+      if (val === 'kvrkt2026') {
+        sessionStorage.setItem('learners_access_granted', 'yes');
+        if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
+        setTimeout(hideLearnersGate, 800);
+      } else {
+        if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect password. Please try again.';
+        if (pwdInput) { pwdInput.value = ''; pwdInput.focus(); }
+      }
+    }
+
+    if (submitBtn) submitBtn.addEventListener('click', verifyLearnersGate);
+    if (pwdInput) pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') verifyLearnersGate(); });
+  });
 
   // Initialize
   document.addEventListener('DOMContentLoaded', () => {
