@@ -225,7 +225,12 @@ const isValidScore = score => score !== undefined && score !== null && score !==
 const isClassTest = id => id === 'crm' || id.startsWith('ch');
 
 // Compute active class rows data
-const conducted = classTests[activeClass] || [];
+const conducted = (classTests[activeClass] || []).filter(t => {
+  const hasDate = testDates[activeClass] && testDates[activeClass][t.id];
+  if (hasDate) return true;
+  const classStudents = studentData[activeClass] || [];
+  return classStudents.some(s => s.marks && s.marks[t.id] !== undefined && s.marks[t.id] !== null && s.marks[t.id] !== "");
+});
 const dates     = testDates[activeClass] || {};
 const students  = studentData[activeClass] || [];
 const colTotals = conducted.map(()=>({sum:0,count:0}));
