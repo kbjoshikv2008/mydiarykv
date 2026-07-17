@@ -347,7 +347,7 @@
   <section class="page-hero">
     <div class="hero-icon">🎓</div>
     <h1 class="hero-title" id="dirTitle">Learners Categories Directory</h1>
-    <p class="hero-subtitle">Dynamic performance tracking and remedial action planner</p>
+    <p class="hero-subtitle">Dynamic performance tracking and remedial action planner (excluding class tests)</p>
   </section>
 
   <!-- Class Selection Tabs -->
@@ -370,7 +370,7 @@
     <div class="category-card bright-card">
       <div class="category-header">
         <h3 class="category-title"><i class="fas fa-star text-amber"></i> Bright Learners</h3>
-        <span class="badge badge-bright">Avg &ge; 80%</span>
+        <span class="badge badge-bright">Avg &ge; 80% (PT/Exams)</span>
       </div>
       <div class="table-container">
         <table id="brightTable">
@@ -393,7 +393,7 @@
     <div class="category-card slow-card">
       <div class="category-header">
         <h3 class="category-title"><i class="fas fa-heart text-sky"></i> Slow Bloomers</h3>
-        <span class="badge badge-slow">Avg &lt; 40%</span>
+        <span class="badge badge-slow">Avg &lt; 40% (PT/Exams)</span>
       </div>
       <div class="table-container">
         <table id="slowTable">
@@ -535,7 +535,16 @@
   function loadData() {
     try {
       const sd = localStorage.getItem("student_performance_data");
-      if(sd) studentData = JSON.parse(sd);
+      if(sd) {
+        studentData = JSON.parse(sd);
+        if (studentData["11B"]) {
+          studentData["11B"] = studentData["11B"].filter(s => {
+            if (typeof s === "string") return s.toUpperCase() !== "NIHARIKA MOHAN";
+            if (s && s.name) return s.name.toUpperCase() !== "NIHARIKA MOHAN";
+            return true;
+          });
+        }
+      }
       const td = localStorage.getItem("student_performance_test_dates");
       if(td) testDates = JSON.parse(td);
       const rd = localStorage.getItem("student_learner_remarks");
@@ -556,15 +565,18 @@
     });
   }
 
+  const isClassTest = id => id === 'crm' || id.startsWith('ch');
+
   function getLearners(cls) {
     const conducted = classTests[cls] || [];
+    const majorTests = conducted.filter(t => !isClassTest(t.id));
     const students = studentData[cls] || [];
     const bright = [];
     const slow = [];
 
     students.forEach(s => {
       let tot = 0, pos = 0;
-      conducted.forEach(t => {
+      majorTests.forEach(t => {
         const score = s.marks[t.id];
         if (isValidScore(score)) {
           tot += Number(score);
@@ -665,7 +677,7 @@
     csv += `Learner Directory — ${classLabel} — Mathematics\r\n`;
     csv += `Generated: ${new Date().toLocaleDateString('en-GB')}\r\n\r\n`;
     
-    csv += 'BRIGHT LEARNERS (Average >= 80%)\r\n';
+    csv += 'BRIGHT LEARNERS (Average >= 80% based on PT/Exams)\r\n';
     csv += 'Roll No,Student Name,Average %,Action Plan / Remarks\r\n';
     bright.forEach(s => {
       const remark = getRemark(activeClass, s.name, true);
@@ -673,7 +685,7 @@
     });
     if (bright.length === 0) csv += ',No records found,,\r\n';
     
-    csv += '\r\nSLOW BLOOMERS (Average < 40%)\r\n';
+    csv += '\r\nSLOW BLOOMERS (Average < 40% based on PT/Exams)\r\n';
     csv += 'Roll No,Student Name,Average %,Suggested Support / Remedial Action\r\n';
     slow.forEach(s => {
       const remark = getRemark(activeClass, s.name, false);

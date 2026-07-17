@@ -176,7 +176,17 @@ let viewMode    = 'sheet';
 function loadData() {
   try {
     const sd = localStorage.getItem("student_performance_data");
-    if(sd) studentData = JSON.parse(sd);
+        const sd = localStorage.getItem("student_performance_data");
+    if(sd) {
+      studentData = JSON.parse(sd);
+      if (studentData["11B"]) {
+        studentData["11B"] = studentData["11B"].filter(s => {
+          if (typeof s === "string") return s.toUpperCase() !== "NIHARIKA MOHAN";
+          if (s && s.name) return s.name.toUpperCase() !== "NIHARIKA MOHAN";
+          return true;
+        });
+      }
+    }
     const td = localStorage.getItem("student_performance_test_dates");
     if(td) testDates = JSON.parse(td);
   } catch(e) {}
