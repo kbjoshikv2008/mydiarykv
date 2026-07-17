@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consolidated PTM Sheet</title>
+<!-- Google Fonts & FontAwesome -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Inter",sans-serif;background:#0b0f19;color:#f3f4f6;min-height:100vh;padding-bottom:40px;}
+  
+  .top-bar{background:linear-gradient(135deg,#111827 0%,#1f2937 100%);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.35);}
+  .top-bar h1{font-size:1.15rem;font-weight:800;color:#f3f4f6;letter-spacing:-0.02em;}
+  .top-bar .sub{font-size:0.78rem;color:#9ca3af;margin-top:2px;}
+  
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:6px;border:none;font-family:inherit;font-weight:600;font-size:0.83rem;cursor:pointer;transition:all .15s;white-space:nowrap;}
+  
+  .btn-view{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#d1d5db;}
+  .btn-view:hover{background:rgba(255,255,255,.1);color:#fff;}
+  .btn-view.active{background:#3b82f6;border-color:#3b82f6;color:#fff;box-shadow:0 4px 12px rgba(59,130,246,.3);}
+  
+  .btn-print{background:#10b981;color:#fff;box-shadow:0 3px 10px rgba(16,185,129,.25);}
+  .btn-print:hover{opacity:.9;transform:translateY(-1px);}
+  
+  .btn-excel{background:#8b5cf6;color:#fff;box-shadow:0 3px 10px rgba(139,92,246,.25);}
+  .btn-excel:hover{opacity:.9;transform:translateY(-1px);}
+  
+  .meta-bar{display:flex;gap:22px;flex-wrap:wrap;padding:12px 32px;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(255,255,255,.04);font-size:0.8rem;color:#9ca3af;}
+  .meta-bar strong{color:#f3f4f6;}
+  
+  .tbl-wrap{overflow-x:auto;padding:24px 24px 0 24px;}
+  table{width:100%;border-collapse:collapse;font-size:0.8rem;min-width:600px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.2);}
+  
+  thead tr.h-lbl th{background:#111827;color:#3b82f6;font-weight:700;padding:12px 8px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08);font-size:.78rem;}
+  thead tr.h-lbl th:first-child,thead tr.h-lbl th:nth-child(2){text-align:left;padding-left:16px;}
+  
+  thead tr.h-date th{background:rgba(17,24,39,0.7);color:#9ca3af;font-size:.72rem;font-weight:500;padding:6px 8px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);font-style:italic;}
+  thead tr.h-date th:first-child,thead tr.h-date th:nth-child(2){text-align:left;padding-left:16px;}
+  
+  tbody tr:nth-child(even){background:rgba(255,255,255,.01);}
+  tbody tr:hover{background:rgba(255,255,255,.03);}
+  tbody td{padding:10px 8px;text-align:center;color:#d1d5db;border-bottom:1px solid rgba(255,255,255,.04);font-size:.8rem;}
+  tbody td:nth-child(1){color:#9ca3af;font-weight:600;}
+  tbody td:nth-child(2){text-align:left;padding-left:16px;font-weight:700;color:#fff;white-space:nowrap;}
+  
+  td.ab{color:#f87171!important;font-style:italic;font-weight:700;}
+  td.tot{font-weight:700;color:#c084fc;}
+  td.pct{font-weight:700;}
+  td.pct.good{color:#34d399;}
+  td.pct.avg{color:#fbbf24;}
+  td.pct.low{color:#f87171;}
+  
+  td.sign-cell{border-left:1.5px solid rgba(255,255,255,.08)!important;width:130px;min-width:130px;background:rgba(255,255,255,0.005);}
+  
+  tfoot td{background:#111827;color:#c084fc;font-weight:700;padding:12px 8px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.8rem;}
+  tfoot td:nth-child(1),tfoot td:nth-child(2){text-align:left;padding-left:16px;}
+  
+  .rank-gold{color:#fbbf24;font-size:1.05rem;font-weight:800;text-align:center;}
+
+  @media print{
+    body{background:#fff!important;color:#111!important;padding:0!important;}
+    .top-bar{background:#1e3a5f!important;color:#fff!important;position:static!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .top-bar h1{color:#fff!important;} .top-bar .sub{color:#ccc!important;}
+    .btn-row,.meta-bar{display:none!important;}
+    .tbl-wrap{padding:0!important;overflow:visible!important;}
+    table{width:100%;border-collapse:collapse;font-size:8pt!important;background:#fff!important;box-shadow:none!important;border:1px solid #ddd!important;}
+    thead tr.h-lbl th{background:#1e3a5f!important;color:#fff!important;border:1px solid #1e3a5f!important;}
+    thead tr.h-date th{background:#d1dce8!important;color:#1e3a5f!important;border:1px solid #b0bec5!important;}
+    tbody tr:nth-child(even){background:#f5f5f5!important;}
+    tbody td{border:1px solid #ddd!important;color:#111!important;}
+    tbody td:nth-child(2){color:#000!important;}
+    td.ab{color:#c0392b!important;}
+    td.pct.good{color:#0a7c3e!important;}td.pct.avg{color:#b07b00!important;}td.pct.low{color:#c0392b!important;}
+    td.sign-cell{border:1px solid #ddd!important;width:130px!important;min-width:130px!important;background:#fff!important;}
+    tfoot td{background:#1e3a5f!important;color:#fff!important;border:1px solid #1e3a5f!important;}
+    td.tot{color:#1e3a5f!important;}
+    @page{size:A4 landscape;margin:10mm 12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div>
+    <h1 id="pageTitle">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+    <div class="sub" id="pageSub">Mathematics Consolidated PTM Sheet</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-view active" id="btnSheet" onclick="setView('sheet',this)"><i class="fas fa-list-ol"></i> Marks Sheet</button>
+    <button class="btn btn-view" id="btnRank" onclick="setView('rank',this)"><i class="fas fa-trophy"></i> Rank &amp; Award List</button>
+    <button class="btn btn-print" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+    <button class="btn btn-excel" onclick="downloadExcel()"><i class="fas fa-file-csv"></i> Download Excel</button>
+  </div>
+</div>
+<div class="meta-bar" id="metaBar">Loading metadata...</div>
+<div class="tbl-wrap" id="tblWrap">Loading sheet data...</div>
+
+<script>
+// Fallback local structures mirroring database
+const fallbackRosters = {
+  "12": ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
+  "11B": ["ABHISHEK NEGI","ADITYA SANGURI","ANJALI BHATT","ANKIT GOSWAMI","ANKIT SINGH BANULA","BHUPESH RATHOR","DEEPAK RAM","DIVYANSHU BISHT","HARSHITA GOSWAMI","HEMANT GIRI","HIMANSHI","ISHA CHILWAL","JANVI","KAJAL NEGI","KRISHNA RAM","LALIT ARYA","NIDHI KANDPAL","NISHA DEVI","PIYUSH ARYA","PRIYANSHU ARYA","ROHIT BISHT","SHUBHAM SINGH BANULA","TUSHAR MEHRA","URVASHI NEGI","VIVEK RAWAT","ANJALI"],
+  "7C": ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
+};
+const fallbackMarks = {
+  "12": {
+    pt1:{"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26},
+    ch1:{"ABHIMANYU SINGH":11,"ANUJ GOSWAMI":11,"AYUSH NEGI":10,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":18,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":16,"KARAN":11,"NITIN BISHT":14,"PARTH":15,"PRIYANKA":16,"RAJ":4,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":10,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":13,"PALAK":"","NISHANT":13},
+    ch2:{"ABHIMANYU SINGH":8,"ANUJ GOSWAMI":12,"AYUSH NEGI":12,"BHUMI SATI":16,"HARDIK PHULARA":10,"HARSHIT ARYA":19,"HARSHITA NEGI":18,"HITESH UPADHYAY":2,"KAMAL JOSHI":2,"KANIKA BISHT":12,"KARAN":12,"NITIN BISHT":10,"PARTH":16,"PRIYANKA":16,"RAJ":6,"RITIKA":14,"SADHNA":18,"SAKSHAM NEGI":12,"SIYA SUYAL":12,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":11,"PALAK":"","NISHANT":11},
+    ch3:{"ABHIMANYU SINGH":14,"ANUJ GOSWAMI":14,"AYUSH NEGI":16,"BHUMI SATI":18,"HARDIK PHULARA":12,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":1,"KAMAL JOSHI":2,"KANIKA BISHT":14,"KARAN":14,"NITIN BISHT":12,"PARTH":18,"PRIYANKA":18,"RAJ":5,"RITIKA":15,"SADHNA":19,"SAKSHAM NEGI":14,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":15,"PALAK":"","NISHANT":15},
+    ch4:{"ABHIMANYU SINGH":12,"ANUJ GOSWAMI":13,"AYUSH NEGI":14,"BHUMI SATI":17,"HARDIK PHULARA":11,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":1,"KAMAL JOSHI":2,"KANIKA BISHT":13,"KARAN":13,"NITIN BISHT":11,"PARTH":17,"PRIYANKA":17,"RAJ":6,"RITIKA":14,"SADHNA":19,"SAKSHAM NEGI":13,"SIYA SUYAL":13,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":14,"PALAK":"","NISHANT":14},
+    ch5:{"ABHIMANYU SINGH":10,"ANUJ GOSWAMI":11,"AYUSH NEGI":12,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":19,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":12,"KARAN":11,"NITIN BISHT":10,"PARTH":15,"PRIYANKA":15,"RAJ":5,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":11,"SIYA SUYAL":11,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":12,"PALAK":"","NISHANT":12},
+    ch6:{"ABHIMANYU SINGH":13,"ANUJ GOSWAMI":14,"AYUSH NEGI":15,"BHUMI SATI":18,"HARDIK PHULARA":11,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":2,"KAMAL JOSHI":2,"KANIKA BISHT":14,"KARAN":14,"NITIN BISHT":12,"PARTH":18,"PRIYANKA":18,"RAJ":6,"RITIKA":14,"SADHNA":19,"SAKSHAM NEGI":14,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":14,"PALAK":"","NISHANT":14}
+  },
+  "11B": {
+    pt1:{"ABHISHEK NEGI":17,"ADITYA SANGURI":13,"ANJALI BHATT":24,"ANKIT GOSWAMI":13,"ANKIT SINGH BANULA":14,"BHUPESH RATHOR":17,"DEEPAK RAM":13,"DIVYANSHU BISHT":21,"HARSHITA GOSWAMI":15,"HEMANT GIRI":14,"HIMANSHI":17,"ISHA CHILWAL":22,"JANVI":15,"KAJAL NEGI":13,"KRISHNA RAM":15,"LALIT ARYA":14,"NIDHI KANDPAL":27,"NISHA DEVI":16,"PIYUSH ARYA":15,"PRIYANSHU ARYA":14,"ROHIT BISHT":17,"SHUBHAM SINGH BANULA":14,"TUSHAR MEHRA":13,"URVASHI NEGI":20,"VIVEK RAWAT":17,"ANJALI":14},
+    ch1:{"ABHISHEK NEGI":10,"ADITYA SANGURI":7,"ANJALI BHATT":12,"ANKIT GOSWAMI":7,"ANKIT SINGH BANULA":8,"BHUPESH RATHOR":10,"DEEPAK RAM":7,"DIVYANSHU BISHT":11,"HARSHITA GOSWAMI":9,"HEMANT GIRI":8,"HIMANSHI":10,"ISHA CHILWAL":11,"JANVI":9,"KAJAL NEGI":7,"KRISHNA RAM":9,"LALIT ARYA":8,"NIDHI KANDPAL":13,"NISHA DEVI":10,"PIYUSH ARYA":9,"PRIYANSHU ARYA":8,"ROHIT BISHT":10,"SHUBHAM SINGH BANULA":8,"TUSHAR MEHRA":7,"URVASHI NEGI":11,"VIVEK RAWAT":10,"ANJALI":8},
+    ch2:{"ABHISHEK NEGI":11,"ADITYA SANGURI":8,"ANJALI BHATT":13,"ANKIT GOSWAMI":8,"ANKIT SINGH BANULA":9,"BHUPESH RATHOR":11,"DEEPAK RAM":8,"DIVYANSHU BISHT":12,"HARSHITA GOSWAMI":10,"HEMANT GIRI":9,"HIMANSHI":11,"ISHA CHILWAL":12,"JANVI":10,"KAJAL NEGI":8,"KRISHNA RAM":10,"LALIT ARYA":9,"NIDHI KANDPAL":14,"NISHA DEVI":11,"PIYUSH ARYA":10,"PRIYANSHU ARYA":9,"ROHIT BISHT":11,"SHUBHAM SINGH BANULA":9,"TUSHAR MEHRA":8,"URVASHI NEGI":12,"VIVEK RAWAT":11,"ANJALI":9},
+    ch3:{"ABHISHEK NEGI":10,"ADITYA SANGURI":7,"ANJALI BHATT":12,"ANKIT GOSWAMI":7,"ANKIT SINGH BANULA":8,"BHUPESH RATHOR":10,"DEEPAK RAM":7,"DIVYANSHU BISHT":11,"HARSHITA GOSWAMI":9,"HEMANT GIRI":8,"HIMANSHI":10,"ISHA CHILWAL":11,"JANVI":9,"KAJAL NEGI":7,"KRISHNA RAM":9,"LALIT ARYA":8,"NIDHI KANDPAL":13,"NISHA DEVI":10,"PIYUSH ARYA":9,"PRIYANSHU ARYA":8,"ROHIT BISHT":10,"SHUBHAM SINGH BANULA":8,"TUSHAR MEHRA":7,"URVASHI NEGI":11,"VIVEK RAWAT":10,"ANJALI":8},
+    ch4:{"ABHISHEK NEGI":12,"ADITYA SANGURI":9,"ANJALI BHATT":14,"ANKIT GOSWAMI":9,"ANKIT SINGH BANULA":10,"BHUPESH RATHOR":12,"DEEPAK RAM":9,"DIVYANSHU BISHT":13,"HARSHITA GOSWAMI":11,"HEMANT GIRI":10,"HIMANSHI":12,"ISHA CHILWAL":13,"JANVI":11,"KAJAL NEGI":9,"KRISHNA RAM":11,"LALIT ARYA":10,"NIDHI KANDPAL":15,"NISHA DEVI":12,"PIYUSH ARYA":11,"PRIYANSHU ARYA":10,"ROHIT BISHT":12,"SHUBHAM SINGH BANULA":10,"TUSHAR MEHRA":9,"URVASHI NEGI":13,"VIVEK RAWAT":12,"ANJALI":10}
+  },
+  "7C": {
+    pt1:{"ABHAY":11,"ABHINAY":6,"ANAIKA":38,"ARYAN":12,"BHAVIKA":28,"CHANDNI":4,"DEEPIKA":0,"DISHA":16,"GEETA":4,"GUNJAN":21,"HARSHUL":0,"HIMANSHI":4,"KAMAL":0,"KARISHMA":25,"KARTIK":"","KRITIKA GODIYAL":4,"KRITIKA RAWAT":21,"LAKSHIT RAWAT":11,"LAKSHIT SINGH":28,"MALVIKA":25,"NAMAN TAMTA":"","MAULIK":25,"MOITRIKA":25,"MRITYUNJAY":21,"MUNKASHIF":28,"NAITIK":28,"NAMAN SATI":36,"NISHTHI":28,"PARIDHI":6,"PARTH":28,"PRACHI":21,"PRASUN DEV":4,"RUDRA":11,"SHRAVANI":4,"TANISHA":21,"YAMAN":6,"YASHPAL":21,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+    crm:{"ABHAY":6,"ABHINAY":4,"ANAIKA":19,"ARYAN":7,"BHAVIKA":14,"CHANDNI":2,"DEEPIKA":0,"DISHA":8,"GEETA":2,"GUNJAN":10,"HARSHUL":0,"HIMANSHI":2,"KAMAL":0,"KARISHMA":12,"KARTIK":"","KRITIKA GODIYAL":2,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":6,"LAKSHIT SINGH":14,"MALVIKA":12,"NAMAN TAMTA":"","MAULIK":12,"MOITRIKA":12,"MRITYUNJAY":10,"MUNKASHIF":14,"NAITIK":14,"NAMAN SATI":18,"NISHTHI":14,"PARIDHI":4,"PARTH":14,"PRACHI":10,"PRASUN DEV":2,"RUDRA":6,"SHRAVANI":2,"TANISHA":10,"YAMAN":4,"YASHPAL":10,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+    ch1:{"ABHAY":3,"ABHINAY":2,"ANAIKA":6,"ARYAN":2,"BHAVIKA":10,"CHANDNI":1,"DEEPIKA":0,"DISHA":3,"GEETA":1,"GUNJAN":3,"HARSHUL":"","HIMANSHI":"","KAMAL":4,"KARISHMA":2,"KARTIK":2,"KRITIKA GODIYAL":0,"KRITIKA RAWAT":6,"LAKSHIT RAWAT":0,"LAKSHIT SINGH":4,"MALVIKA":"","NAMAN TAMTA":8,"MAULIK":7,"MOITRIKA":5,"MRITYUNJAY":8,"MUNKASHIF":8,"NAITIK":8,"NAMAN SATI":5,"NISHTHI":6,"PARIDHI":2,"PARTH":5,"PRACHI":5,"PRASUN DEV":4,"RUDRA":3,"SHRAVANI":3,"TANISHA":1,"YAMAN":2,"YASHPAL":7,"ARPITA":2,"MAANSHA":"","PARTH BISHT":""},
+    ch2:{"ABHAY":1,"ABHINAY":0,"ANAIKA":"","ARYAN":5,"BHAVIKA":7,"CHANDNI":1,"DEEPIKA":"","DISHA":3,"GEETA":1,"GUNJAN":5,"HARSHUL":3.5,"HIMANSHI":0,"KAMAL":6,"KARISHMA":4,"KARTIK":"","KRITIKA GODIYAL":0,"KRITIKA RAWAT":3,"LAKSHIT RAWAT":5,"LAKSHIT SINGH":8.5,"MALVIKA":1,"NAMAN TAMTA":8.5,"MAULIK":6,"MOITRIKA":6,"MRITYUNJAY":4,"MUNKASHIF":5.5,"NAITIK":8,"NAMAN SATI":6,"NISHTHI":6,"PARIDHI":0,"PARTH":5.5,"PRACHI":5,"PRASUN DEV":0,"RUDRA":3,"SHRAVANI":1,"TANISHA":3,"YAMAN":4,"YASHPAL":5,"ARPITA":"","MAANSHA":8,"PARTH BISHT":4.5},
+    ch3:{"ABHAY":4,"ABHINAY":0,"ANAIKA":7,"ARYAN":1,"BHAVIKA":8,"CHANDNI":3,"DEEPIKA":2,"DISHA":5,"GEETA":3,"GUNJAN":8,"HARSHUL":2,"HIMANSHI":3,"KAMAL":4,"KARISHMA":6,"KARTIK":6,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":"","LAKSHIT SINGH":5,"MALVIKA":7,"NAMAN TAMTA":8,"MAULIK":7.5,"MOITRIKA":10,"MRITYUNJAY":"","MUNKASHIF":"","NAITIK":7.5,"NAMAN SATI":7,"NISHTHI":5,"PARIDHI":4,"PARTH":4,"PRACHI":9,"PRASUN DEV":6,"RUDRA":7,"SHRAVANI":0,"TANISHA":1,"YAMAN":1,"YASHPAL":3,"ARPITA":7,"MAANSHA":10,"PARTH BISHT":6}
+  }
+};
+const fallbackDates = {
+  "12":  {ch1:"2026-04-13",ch2:"2026-04-20",ch3:"2026-04-02",ch4:"2026-04-08",ch5:"2026-06-09",ch6:"2026-07-16",pt1:"2026-07-03"},
+  "11B": {ch1:"2026-04-08",ch2:"2026-06-09",ch3:"2026-06-26",ch4:"2026-07-15",pt1:"2026-07-02"},
+  "7C":  {crm:"2026-04-02",ch1:"2026-04-24",ch2:"2026-05-08",ch3:"2026-06-12",pt1:"2026-07-06"}
+};
+
+// Available conducted tests per class configuration
+const classTests = {
+  "7C": [
+    {id:"crm",label:"CRM",maxMarks:20},
+    {id:"ch1",label:"Ch 1",maxMarks:10},
+    {id:"ch2",label:"Ch 2",maxMarks:10},
+    {id:"ch3",label:"Ch 3",maxMarks:10},
+    {id:"pt1",label:"PT1",maxMarks:40}
+  ],
+  "11B": [
+    {id:"ch1",label:"Ch 1",maxMarks:15},
+    {id:"ch2",label:"Ch 2",maxMarks:15},
+    {id:"ch3",label:"Ch 3",maxMarks:15},
+    {id:"ch4",label:"Ch 4",maxMarks:15},
+    {id:"pt1",label:"PT1",maxMarks:30}
+  ],
+  "12": [
+    {id:"ch1",label:"Ch 1",maxMarks:20},
+    {id:"ch2",label:"Ch 2",maxMarks:20},
+    {id:"ch3",label:"Ch 3",maxMarks:20},
+    {id:"ch4",label:"Ch 4",maxMarks:20},
+    {id:"ch5",label:"Ch 5",maxMarks:20},
+    {id:"ch6",label:"Ch 6",maxMarks:20},
+    {id:"pt1",label:"PT1",maxMarks:40}
+  ]
+};
+
+const classLabels = {"7C":"Class 7C","11B":"Class 11B","12":"Class 12"};
+
+// Extract class query parameter
+const urlParams = new URLSearchParams(window.location.search);
+const activeClass = urlParams.get('cls') || '12';
+const activeClassLabel = classLabels[activeClass] || 'Class 12';
+
+let studentData = {};
+let testDates   = {};
+let viewMode    = 'sheet';
+
+function loadData() {
+  try {
+    const sd = localStorage.getItem("student_performance_data");
+    if(sd) studentData = JSON.parse(sd);
+    const td = localStorage.getItem("student_performance_test_dates");
+    if(td) testDates = JSON.parse(td);
+  } catch(e) {}
+  
+  // Force sync PT1 dates
+  if(!testDates["7C"]) testDates["7C"] = {};
+  if(!testDates["11B"]) testDates["11B"] = {};
+  if(!testDates["12"]) testDates["12"] = {};
+  testDates["12"].pt1 = "2026-07-03";
+  testDates["11B"].pt1 = "2026-07-02";
+  testDates["7C"].pt1 = "2026-07-06";
+  try {
+    localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
+  } catch(e) {}
+
+  // Fill in studentData and testDates with fallbacks if empty
+  ["7C","11B","12"].forEach(cls => {
+    if(!studentData[cls]||!studentData[cls].length) {
+      studentData[cls] = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b)).map((name,i)=>{
+        const marks={};
+        Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{ if(tmap[name]!==undefined) marks[tid]=tmap[name]; });
+        return {rollNo:i+1,name,marks};
+      });
+    }
+    if(!testDates[cls]||!Object.keys(testDates[cls]).length)
+      testDates[cls]={...(fallbackDates[cls]||{})};
+  });
+}
+
+loadData();
+
+// Compute active class rows data
+const conducted = classTests[activeClass] || [];
+const dates     = testDates[activeClass] || {};
+const students  = studentData[activeClass] || [];
+const colTotals = conducted.map(()=>({sum:0,count:0}));
+let gS=0, gP=0, gC=0;
+
+const rows = students.map(student => {
+  let tot=0,pos=0;
+  const cells = conducted.map((t, ci) => {
+    const score = student.marks[t.id];
+    const has = score!==undefined&&score!==null&&score!=="";
+    if(has){const n=Number(score);tot+=n;pos+=t.maxMarks;colTotals[ci].sum+=n;colTotals[ci].count+=1;}
+    return {has,score};
+  });
+  const pct = pos>0?(tot/pos*100):null;
+  if(pos>0){gS+=tot;gP+=pos;gC++;}
+  return {sno:student.rollNo,name:student.name,marks:student.marks,cells,tot,pos,pct};
+});
+const avgPct = gP>0?(gS/gP*100):null;
+
+const isClassTest = id => id === 'crm' || id.startsWith('ch');
+const ctTests = conducted.filter(t => isClassTest(t.id));
+const ptTests = conducted.filter(t => !isClassTest(t.id));
+
+function fmtDate(raw){if(!raw)return'';const p=raw.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0].slice(2):raw;}
+function pc(p){return p>=75?'good':p>=45?'avg':'low';}
+
+function getColAvg(testId) {
+  let sum = 0, count = 0;
+  rows.forEach(r => {
+    const score = r.marks[testId];
+    if (score !== undefined && score !== null && score !== "") {
+      sum += Number(score);
+      count++;
+    }
+  });
+  return count > 0 ? (sum / count).toFixed(1) : '—';
+}
+
+function updateMeta(){
+  const avg = avgPct!==null?avgPct.toFixed(1)+'%':'—';
+  document.getElementById('metaBar').innerHTML =
+    '<span>Students: <strong>'+rows.length+'</strong></span>'+
+    '<span>Class Tests: <strong>'+ctTests.length+'</strong></span>'+
+    '<span>Periodic Tests: <strong>'+ptTests.length+'</strong></span>'+
+    '<span>Class Average: <strong>'+avg+'</strong></span>';
+}
+
+function buildSheet(){
+  let h = '<table style="width:100%;border-collapse:collapse;"><thead><tr class="h-lbl">';
+  h += '<th rowspan="2" style="width:40px">S.No</th>';
+  h += '<th rowspan="2" style="min-width:140px">Student Name</th>';
+  
+  if (ctTests.length > 0) {
+    h += '<th colspan="' + ctTests.length + '" style="background:#111827;border-bottom:1px solid rgba(255,255,255,0.08)">Class Tests</th>';
+    h += '<th rowspan="2" style="background:#111827">CT Total</th>';
+    h += '<th rowspan="2" style="background:#111827">CT Avg</th>';
+  }
+  
+  if (ptTests.length > 0) {
+    h += '<th colspan="' + ptTests.length + '" style="background:rgba(59,130,246,0.15);border-bottom:1px solid rgba(255,255,255,0.08)">Periodic Tests / Exams</th>';
+  }
+  h += '<th rowspan="2">Overall Total</th>';
+  h += '<th rowspan="2">Percentage</th>';
+  h += '<th rowspan="2" style="width:130px;min-width:130px;">Parent\'s Sign</th>';
+  h += '</tr>';
+
+  h += '<tr class="h-date">';
+  ctTests.forEach(t => {
+    const d = dates[t.id] ? fmtDate(dates[t.id]) : '';
+    h += '<th>' + t.label + '<br><span style="font-size:0.75em;opacity:0.6">MM:' + t.maxMarks + '</span>' + (d ? '<br><span style="font-size:0.7em;font-weight:normal">' + d + '</span>' : '') + '</th>';
+  });
+  ptTests.forEach(t => {
+    const d = dates[t.id] ? fmtDate(dates[t.id]) : '';
+    h += '<th>' + t.label + '<br><span style="font-size:0.75em;opacity:0.6">MM:' + t.maxMarks + '</span>' + (d ? '<br><span style="font-size:0.7em;font-weight:normal">' + d + '</span>' : '') + '</th>';
+  });
+  h += '</tr></thead><tbody>';
+
+  rows.forEach(r => {
+    h += '<tr><td>' + r.sno + '</td><td>' + r.name + '</td>';
+    
+    let ctTotal = 0, ctPossible = 0;
+    ctTests.forEach(t => {
+      const score = r.marks[t.id];
+      const has = score !== undefined && score !== null && score !== "";
+      if (has) {
+        h += '<td>' + score + '</td>';
+        ctTotal += Number(score);
+        ctPossible += t.maxMarks;
+      } else {
+        h += '<td class="ab">AB</td>';
+      }
+    });
+    
+    if (ctTests.length > 0) {
+      h += '<td class="tot">' + (ctPossible > 0 ? ctTotal + '/' + ctPossible : '—') + '</td>';
+      h += '<td class="pct ' + pc(ctPossible > 0 ? (ctTotal / ctPossible * 100) : 0) + '">' + (ctPossible > 0 ? (ctTotal / ctPossible * 100).toFixed(1) + '%' : '—') + '</td>';
+    }
+    
+    ptTests.forEach(t => {
+      const score = r.marks[t.id];
+      const has = score !== undefined && score !== null && score !== "";
+      if (has) {
+        h += '<td>' + score + '</td>';
+      } else {
+        h += '<td class="ab">AB</td>';
+      }
+    });
+
+    let overTotal = 0, overPossible = 0;
+    conducted.forEach(t => {
+      const score = r.marks[t.id];
+      if (score !== undefined && score !== null && score !== "") {
+        overTotal += Number(score);
+        overPossible += t.maxMarks;
+      }
+    });
+    
+    const pctVal = overPossible > 0 ? (overTotal / overPossible * 100) : null;
+    
+    h += '<td class="tot">' + (overPossible > 0 ? overTotal + '/' + overPossible : '—') + '</td>';
+    h += pctVal !== null ? '<td class="pct ' + pc(pctVal) + '">' + pctVal.toFixed(1) + '%</td>' : '<td class="ab">AB</td>';
+    h += '<td class="sign-cell"></td>';
+    h += '</tr>';
+  });
+
+  h += '</tbody><tfoot><tr><td colspan="2">📊 Class Average</td>';
+  
+  ctTests.forEach(t => {
+    h += '<td>' + getColAvg(t.id) + '</td>';
+  });
+  
+  if (ctTests.length > 0) {
+    let sumCTObt = 0, sumCTPoss = 0;
+    rows.forEach(r => {
+      ctTests.forEach(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          sumCTObt += Number(score);
+          sumCTPoss += t.maxMarks;
+        }
+      });
+    });
+    h += '<td class="tot">' + (sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—') + '</td>';
+    h += '<td class="pct">' + (sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—') + '</td>';
+  }
+  
+  ptTests.forEach(t => {
+    h += '<td>' + getColAvg(t.id) + '</td>';
+  });
+  
+  let sumObt = 0, sumPoss = 0;
+  rows.forEach(r => {
+    conducted.forEach(t => {
+      const score = r.marks[t.id];
+      if (score !== undefined && score !== null && score !== "") {
+        sumObt += Number(score);
+        sumPoss += t.maxMarks;
+      }
+    });
+  });
+  h += '<td class="tot">' + (sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—') + '</td>';
+  h += '<td class="pct">' + (sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—') + '</td>';
+  h += '<td></td>';
+  
+  h += '</tr></tfoot></table>';
+  return h;
+}
+
+function buildRank(){
+  const ranked=rows.slice().sort((a,b)=>{if(a.pct===null&&b.pct===null)return 0;if(a.pct===null)return 1;if(b.pct===null)return-1;return b.pct-a.pct;});
+  let rk=1;
+  ranked.forEach((r,i)=>{if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct)rk=i+1;r.rank=r.pct!==null?rk:'-';});
+  const med=['&#127945;','&#127946;','&#127947;'];
+  let h='<table><thead><tr class="h-lbl"><th>Rank</th><th>Student Name</th><th>S.No</th><th>Scored</th><th>Out Of</th><th>%</th><th>Remark</th><th style="width:130px;min-width:130px;">Parent\'s Sign</th></tr></thead><tbody>';
+  ranked.forEach(r=>{
+    const rnk=typeof r.rank==='number'&&r.rank<=3?med[r.rank-1]:r.rank;
+    const c2=r.pct!==null?pc(r.pct):'';
+    const rm=r.pct===null?'Absent in all tests':r.pct>=75?'Excellent &#127775;':r.pct>=60?'Good &#128077;':r.pct>=45?'Average':'Needs Improvement &#9888;';
+    h+='<tr><td class="rank-gold">'+rnk+'</td><td>'+r.name+'</td><td>'+r.sno+'</td>';
+    h+='<td class="tot">'+(r.pos>0?r.tot:'—')+'</td><td style="color:#9ca3af">'+(r.pos>0?r.pos:'—')+'</td>';
+    h+=r.pct!==null?'<td class="pct '+c2+'">'+r.pct.toFixed(1)+'%</td>':'<td class="ab">—</td>';
+    h+='<td style="font-size:.8em;color:#9ca3af;text-align:left;padding-left:8px">'+rm+'</td>';
+    h+='<td class="sign-cell"></td></tr>';
+  });
+  h+='</tbody></table>';
+  return h;
+}
+
+function render(){
+  document.getElementById('pageTitle').textContent = "PM SHRI KENDRIYA VIDYALAYA RANIKHET — " + activeClassLabel + " PTM Sheet";
+  document.getElementById('pageSub').textContent = "Mathematics | Generated: " + fmtDate(new Date().toISOString().split('T')[0]);
+  document.getElementById('tblWrap').innerHTML = viewMode==='rank'?buildRank():buildSheet();
+}
+
+function setView(mode,btn){
+  viewMode=mode;
+  document.querySelectorAll('.btn-view').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  render();
+}
+
+function downloadExcel(){
+  const ranked = viewMode==='rank'?
+    rows.slice().sort((a,b)=>{if(a.pct===null&&b.pct===null)return 0;if(a.pct===null)return 1;if(b.pct===null)return-1;return b.pct-a.pct;})
+    : null;
+  if(ranked){let rk=1;ranked.forEach((r,i)=>{if(i>0&&r.pct!==null&&ranked[i-1].pct!==null&&r.pct<ranked[i-1].pct)rk=i+1;r.rank=r.pct!==null?rk:'-';});}
+
+  const vt=viewMode==='rank'?'Rank_Award_List':'Marks_Sheet';
+  let csv='PM SHRI KENDRIYA VIDYALAYA RANIKHET\r\n';
+  const today = new Date().toLocaleDateString('en-GB');
+  csv+=activeClassLabel+' — Mathematics — '+vt+'\r\nPrinted: '+today+'\r\n\r\n';
+
+  if(viewMode==='rank'){
+    csv+='Rank,S.No,Student Name,Total Scored,Max Possible,Percentage,Remark,Parent\'s Sign\r\n';
+    (ranked||[]).forEach(r=>{
+      const rm=r.pct===null?'Absent':r.pct>=75?'Excellent':r.pct>=60?'Good':r.pct>=45?'Average':'Needs Improvement';
+      csv+=[
+        r.rank, r.sno, '"'+r.name+'"',
+        r.pos>0?r.tot:'',
+        r.pos>0?r.pos:'',
+        r.pct!==null?r.pct.toFixed(1)+'%':'',
+        rm,
+        ''
+      ].join(',')+'\r\n';
+    });
+  } else {
+    const ctHeaders = ctTests.map(t => t.label + '(MM:' + t.maxMarks + ')').join(',');
+    const ptHeaders = ptTests.map(t => t.label + '(MM:' + t.maxMarks + ')').join(',');
+    
+    csv += 'S.No,Student Name,';
+    if(ctHeaders) csv += ctHeaders + ',CT Total,CT Average,';
+    if(ptHeaders) csv += ptHeaders + ',';
+    csv += 'Overall Total,Percentage,Parent\'s Sign\r\n';
+
+    const ctDates = ctTests.map(t => dates[t.id] ? fmtDate(dates[t.id]) : '').join(',');
+    const ptDates = ptTests.map(t => dates[t.id] ? fmtDate(dates[t.id]) : '').join(',');
+    csv += ',,' + (ctDates ? ctDates + ',,' : '') + (ptDates ? ptDates + ',' : '') + ',,\r\n';
+
+    rows.forEach(r=>{
+      let ctTotal = 0, ctPossible = 0;
+      const ctMarks = ctTests.map(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          ctTotal += Number(score);
+          ctPossible += t.maxMarks;
+          return score;
+        }
+        return 'AB';
+      }).join(',');
+
+      let ptTotal = 0, ptPossible = 0;
+      const ptMarks = ptTests.map(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          ptTotal += Number(score);
+          ptPossible += t.maxMarks;
+          return score;
+        }
+        return 'AB';
+      }).join(',');
+
+      let overTotal = 0, overPossible = 0;
+      conducted.forEach(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          overTotal += Number(score);
+          overPossible += t.maxMarks;
+        }
+      });
+
+      csv += r.sno + ',"' + r.name + '",';
+      if(ctTests.length > 0) {
+        csv += ctMarks + ',' + (ctPossible > 0 ? ctTotal + '/' + ctPossible : '—') + ',' + (ctPossible > 0 ? (ctTotal / ctPossible * 100).toFixed(1) + '%' : '—') + ',';
+      }
+      if(ptTests.length > 0) {
+        csv += ptMarks + ',';
+      }
+      csv += (overPossible > 0 ? overTotal + '/' + overPossible : '—') + ',' + (overPossible > 0 ? (overTotal / overPossible * 100).toFixed(1) + '%' : '—') + ',\r\n';
+    });
+
+    csv += ',"Class Average",';
+    if(ctTests.length > 0) {
+      const ctAverages = ctTests.map(t => getColAvg(t.id)).join(',');
+      let sumCTObt = 0, sumCTPoss = 0;
+      rows.forEach(r => {
+        ctTests.forEach(t => {
+          const score = r.marks[t.id];
+          if (score !== undefined && score !== null && score !== "") {
+            sumCTObt += Number(score);
+            sumCTPoss += t.maxMarks;
+          }
+        });
+      });
+      csv += ctAverages + ',' + (sumCTPoss > 0 ? (sumCTObt / rows.length).toFixed(1) : '—') + ',' + (sumCTPoss > 0 ? (sumCTObt / sumCTPoss * 100).toFixed(1) + '%' : '—') + ',';
+    }
+    if(ptTests.length > 0) {
+      const ptAverages = ptTests.map(t => getColAvg(t.id)).join(',');
+      csv += ptAverages + ',';
+    }
+    let sumObt = 0, sumPoss = 0;
+    rows.forEach(r => {
+      conducted.forEach(t => {
+        const score = r.marks[t.id];
+        if (score !== undefined && score !== null && score !== "") {
+          sumObt += Number(score);
+          sumPoss += t.maxMarks;
+        }
+      });
+    });
+    csv += (sumPoss > 0 ? (sumObt / rows.length).toFixed(1) : '—') + ',' + (sumPoss > 0 ? (sumObt / sumPoss * 100).toFixed(1) + '%' : '—') + ',\r\n';
+  }
+
+  const bom='\uFEFF';
+  const blob=new Blob([bom+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='PTM_'+activeClassLabel.replace(/\s+/g,'_')+'_'+vt+'_'+today.replace(/\//g,'-')+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+updateMeta();
+render();
+</script>
+</body>
+</html>
