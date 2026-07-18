@@ -35,15 +35,42 @@ const server = http.createServer((req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const totalSize = stats.size;
 
-    // Set headers to allow content rendering or attachment downloads
-    const headers = { 'Content-Type': contentType };
-    if (ext === '.pdf') {
-      headers['Content-Disposition'] = 'inline';
+    // Support standard HTTP range requests (required by Chromium for PDF parsing)
+    const range = req.headers.range;
+    if (range) {
+      const parts = range.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : totalSize - 1;
+      
+      if (start >= totalSize || end >= totalSize) {
+        res.writeHead(416, { 'Content-Range': `bytes */${totalSize}` });
+        return res.end();
+      }
+
+      const chunksize = (end - start) + 1;
+      const fileStream = fs.createReadStream(filePath, { start, end });
+      
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${totalSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': contentType,
+        'Content-Disposition': ext === '.pdf' ? 'inline' : 'attachment'
+      });
+      
+      fileStream.pipe(res);
+    } else {
+      res.writeHead(200, {
+        'Content-Length': totalSize,
+        'Accept-Ranges': 'bytes',
+        'Content-Type': contentType,
+        'Content-Disposition': ext === '.pdf' ? 'inline' : 'attachment'
+      });
+      
+      fs.createReadStream(filePath).pipe(res);
     }
-
-    res.writeHead(200, headers);
-    fs.createReadStream(filePath).pipe(res);
   });
 });
 
