@@ -819,14 +819,16 @@
         if (requests[path]) {
           const req = requests[path];
           if (req.status === 'approved') {
-            btn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+            btn.innerHTML = '<i class="fas fa-download"></i> Open & Download';
             btn.style.background = 'rgba(16, 185, 129, 0.15)';
             btn.style.color = '#34d399';
             btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
-            btn.onclick = null;
-            btn.href = encodeURI(path);
-            btn.setAttribute('download', '');
-            btn.removeAttribute('target');
+            btn.onclick = (e) => {
+              e.preventDefault();
+              window.open(encodeURI(path), '_blank');
+            };
+            btn.removeAttribute('download');
+            btn.removeAttribute('href');
           }
         }
       });
@@ -861,89 +863,97 @@
       const submitBtnProfile = document.getElementById('submitPassword');
       const errorMessageProfile = document.getElementById('errorMessage');
 
-      if (profileLink) {
+      if (profileLink && modal && passwordInputProfile) {
         profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
       }
-      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
-      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      if (closeModal && modal && passwordInputProfile && errorMessageProfile) {
+        closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      }
+      if (modal && passwordInputProfile && errorMessageProfile) {
+        window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      }
       
-      togglePasswordProfile.addEventListener('click', function() {
-        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInputProfile.setAttribute('type', type);
-        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
-      });
+      if (togglePasswordProfile && passwordInputProfile) {
+        togglePasswordProfile.addEventListener('click', function() {
+          const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInputProfile.setAttribute('type', type);
+          this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+        });
+      }
 
-      submitBtnProfile.addEventListener('click', function() {
-        const password = passwordInputProfile.value;
-        errorMessageProfile.textContent = '';
-        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-        if (password === 'kvrkt2026') {
-          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
-          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
-        } else {
-          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
-          passwordInputProfile.value = ''; passwordInputProfile.focus();
-          submitBtnProfile.classList.add('shake');
-          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
-        }
-      });
-      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+      if (submitBtnProfile && passwordInputProfile && errorMessageProfile) {
+        submitBtnProfile.addEventListener('click', function() {
+          const password = passwordInputProfile.value;
+          errorMessageProfile.textContent = '';
+          if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+          if (password === 'kvrkt2026') {
+            submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+            setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+          } else {
+            errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+            passwordInputProfile.value = ''; passwordInputProfile.focus();
+            submitBtnProfile.classList.add('shake');
+            setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+          }
+        });
+      }
+      if (passwordInputProfile && submitBtnProfile) {
+        passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+      }
 
       // 2. Setup download password modal close buttons
       const requestModal = document.getElementById('requestDownloadModal');
       const closeReqBtn = document.getElementById('closeRequestModal');
-      if (closeReqBtn) {
+      if (closeReqBtn && requestModal) {
         closeReqBtn.addEventListener('click', function() {
           requestModal.style.display = 'none';
         });
       }
 
       // 3. Setup form submit listener for download password
-      document.getElementById('downloadRequestForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const btnSubmit = document.getElementById('btnSubmitRequest');
-        const chapterName = document.getElementById('requestChapterName').value;
-        const chapterPath = document.getElementById('requestChapterPath').value;
-        const pwd = document.getElementById('downloadPassword').value.trim();
-        const pwdError = document.getElementById('downloadPasswordError');
-        
-        pwdError.style.display = 'none';
-        btnSubmit.disabled = true;
+      const downloadForm = document.getElementById('downloadRequestForm');
+      if (downloadForm) {
+        downloadForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const btnSubmit = document.getElementById('btnSubmitRequest');
+          const chapterName = document.getElementById('requestChapterName').value;
+          const chapterPath = document.getElementById('requestChapterPath').value;
+          const pwd = document.getElementById('downloadPassword').value.trim();
+          const pwdError = document.getElementById('downloadPasswordError');
+          
+          pwdError.style.display = 'none';
+          btnSubmit.disabled = true;
 
-        if (pwd === 'kbj@2008') {
-          btnSubmit.textContent = 'Verifying...';
-          setTimeout(() => {
-            // Save request as approved
-            const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
-            requests[chapterPath] = {
-              chapter: chapterName,
-              status: 'approved',
-              timestamp: new Date().toISOString()
-            };
-            localStorage.setItem('pyq_requests', JSON.stringify(requests));
-            
-            updateRequestButtons();
-            
-            // Hide modal
-            requestModal.style.display = 'none';
-            btnSubmit.textContent = 'DOWNLOAD FILE';
+          if (pwd === 'kbj@2008') {
+            btnSubmit.textContent = 'Verifying...';
+            setTimeout(() => {
+              // Save request as approved
+              const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+              requests[chapterPath] = {
+                chapter: chapterName,
+                status: 'approved',
+                timestamp: new Date().toISOString()
+              };
+              localStorage.setItem('pyq_requests', JSON.stringify(requests));
+              
+              updateRequestButtons();
+              
+              // Hide modal
+              if (requestModal) requestModal.style.display = 'none';
+              btnSubmit.textContent = 'DOWNLOAD FILE';
+              btnSubmit.disabled = false;
+              
+              // Open document directly in a new tab (bypasses browser local download sandbox policy blocks)
+              window.open(encodeURI(chapterPath), '_blank');
+              
+              alert(`Access Authorized!\n\nThe PDF has been opened in a new tab. You can now save, print, or download it using the browser's view toolbar.`);
+            }, 800);
+          } else {
+            pwdError.style.display = 'block';
             btnSubmit.disabled = false;
-            
-            // Trigger direct local download
-            const a = document.createElement('a');
-            a.href = encodeURI(chapterPath);
-            a.download = '';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            
-            alert(`Access Authorized!\n\nDownloading file:\n"${chapterName.replace(' - PDF', '')}.pdf"`);
-          }, 800);
-        } else {
-          pwdError.style.display = 'block';
-          btnSubmit.disabled = false;
-        }
-      });
+          }
+        });
+      }
 
       // 4. Transform all download buttons to View / Request actions dynamically
       const downloadButtons = document.querySelectorAll('.download-btn[download]');
@@ -1007,9 +1017,9 @@
       
       // Close modal on clicking outside content box
       window.addEventListener('click', function(e) {
-        if (e.target === viewModal) {
+        if (viewModal && e.target === viewModal) {
           viewModal.style.display = 'none';
-          iframe.src = '';
+          if (iframe) iframe.src = '';
         }
       });
 
