@@ -694,9 +694,14 @@
       <h2 id="pdfViewerTitle" style="font-family: var(--font-head); font-size: 1.3rem; margin-bottom: 12px; color: #fff; padding-right: 40px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
         <i class="fas fa-file-pdf" style="color: #ef4444;"></i> View PDF (View-Only Mode)
       </h2>
-      <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: #fca5a5; font-size: 0.85em;">
-        <i class="fas fa-lock"></i>
-        <span>This document is in View-Only mode. Downloading, printing, and copying are restricted.</span>
+      <div style="display: flex; gap: 12px; margin-bottom: 15px; flex-wrap: wrap;">
+        <div style="flex: 1; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; color: #fca5a5; font-size: 0.85em;">
+          <i class="fas fa-lock"></i>
+          <span>View-Only Mode. Downloading, printing, and copying are restricted.</span>
+        </div>
+        <button id="btnOpenNewTab" class="download-btn" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3); cursor: pointer; padding: 10px 18px; border-radius: 8px; font-size: 0.85em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+          <i class="fas fa-external-link-alt"></i> Open in New Tab
+        </button>
       </div>
       <div id="pdfViewerContainer" style="flex: 1; border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; background: #000;">
         <!-- Iframe will be injected here -->
@@ -736,6 +741,12 @@
         <div style="margin-bottom: 20px; text-align: left;">
           <label for="requestReason" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Purpose of Download *</label>
           <textarea id="requestReason" required rows="3" placeholder="Explain why you need to download this file (e.g. offline self-study, print compilation)" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; resize: none; font-family: inherit; box-sizing: border-box;"></textarea>
+        </div>
+
+        <div style="margin-bottom: 20px; text-align: left;">
+          <label for="downloadPassword" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Bypass Password (Enter 'kbj@2008' to download immediately)</label>
+          <input type="password" id="downloadPassword" placeholder="Enter download password (optional)" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
+          <div id="downloadPasswordError" style="color: #f87171; font-size: 0.8em; margin-top: 5px; display: none;"><i class="fas fa-times-circle"></i> Incorrect password. Please try again or leave blank.</div>
         </div>
         
         <button type="submit" id="btnSubmitRequest" class="submit-btn" style="width: 100%; padding: 13px; background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(124,58,237,0.3); font-size: 0.9em; letter-spacing: 0.5px;">
@@ -786,8 +797,18 @@
       const iframeContainer = document.getElementById('pdfViewerContainer');
       document.getElementById('pdfViewerTitle').textContent = `View PDF: ${title} (View-Only Mode)`;
       
+      const encodedPath = encodeURI(path);
+      
       // Inject iframe with toolbar=0 and navpanes=0 to disable downloading/printing tools
-      iframeContainer.innerHTML = `<iframe src="${path}#toolbar=0&navpanes=0&scrollbar=1" style="width: 100%; height: 100%; border: none;"></iframe>`;
+      iframeContainer.innerHTML = `<iframe src="${encodedPath}#toolbar=0&navpanes=0&scrollbar=1" style="width: 100%; height: 100%; border: none;"></iframe>`;
+      
+      // Set new tab button action as a fallback
+      const btnNewTab = document.getElementById('btnOpenNewTab');
+      btnNewTab.onclick = (e) => {
+        e.preventDefault();
+        window.open(encodedPath, '_blank');
+      };
+      
       modal.style.display = 'flex';
     }
 
@@ -906,6 +927,56 @@
         const chapterName = document.getElementById('requestChapterName').value;
         const chapterPath = document.getElementById('requestChapterPath').value;
         
+        const pwd = document.getElementById('downloadPassword').value.trim();
+        const pwdError = document.getElementById('downloadPasswordError');
+        pwdError.style.display = 'none';
+
+        if (pwd !== '') {
+          if (pwd === 'kbj@2008') {
+            // Immediate approval and download!
+            setTimeout(() => {
+              document.getElementById('downloadRequestForm').style.display = 'none';
+              const successState = document.getElementById('requestSuccessState');
+              successState.style.display = 'block';
+              
+              const successMsg = `Access Authorized! The bypass password is correct. Your download of <strong>"${chapterName}"</strong> has been approved and started automatically.<br><br>If it didn't start, please click here: <a href="${encodeURI(chapterPath)}" download style="color:#10b981;font-weight:700;text-decoration:underline;">Download Now</a>`;
+              document.getElementById('successMessageText').innerHTML = successMsg;
+              
+              btnSubmit.textContent = 'SUBMIT DOWNLOAD REQUEST';
+              btnSubmit.disabled = false;
+
+              // Save request as approved
+              const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+              requests[chapterPath] = {
+                name: name,
+                email: email,
+                chapter: chapterName,
+                status: 'approved',
+                timestamp: new Date().toISOString()
+              };
+              localStorage.setItem('pyq_requests', JSON.stringify(requests));
+              
+              updateRequestButtons();
+
+              // Trigger download
+              const a = document.createElement('a');
+              a.href = encodeURI(chapterPath);
+              a.download = '';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            }, 1000);
+            return;
+          } else {
+            // Wrong password error!
+            pwdError.style.display = 'block';
+            btnSubmit.textContent = 'SUBMIT DOWNLOAD REQUEST';
+            btnSubmit.disabled = false;
+            return;
+          }
+        }
+
+        // Standard pending request (if password is empty)
         setTimeout(() => {
           document.getElementById('downloadRequestForm').style.display = 'none';
           const successState = document.getElementById('requestSuccessState');
