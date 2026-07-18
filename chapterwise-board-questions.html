@@ -151,10 +151,15 @@
       transform: translateX(-3px);
     }
 
-    @media (max-width: 600px) {
-      .chapter-row { flex-direction: column; align-items: stretch; text-align: center; }
-      .chapter-info { flex-direction: column; }
-      .download-btn { justify-content: center; }
+    /* Dropdown select and option dark mode styling override */
+    #chapterSelectDropdown {
+      background-color: #140f2d !important;
+      color: #c4b5fd !important;
+    }
+    #chapterSelectDropdown option {
+      background-color: #140f2d !important;
+      color: #fff !important;
+      padding: 10px;
     }
   </style>
 </head>
@@ -811,11 +816,13 @@
       { name: "Class 11 - Chapter 14: Probability", path: "all chapters pdf/class11/Chapter 14 Probability.pdf" }
     ];
 
+    const DROPBOX_FOLDER_URL = "https://www.dropbox.com/scl/fo/tybzinx3rt6xbqb97vps1/ACIoidwrnFeZ9Qf7nWZ7Su4?rlkey=63443bpuc7k7jasjdyotofg4u&st=7m5cf8ku&dl=0";
+
     // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
-      // Resolve path to a fully qualified URL to prevent double-encoding/relative resolution errors
-      const absoluteUrl = new URL(path, window.location.href).href;
-      window.open(absoluteUrl, '_blank');
+      // Alert user with file details and redirect to Dropbox shared folder
+      alert(`Opening Dropbox Repository.\n\nPlease open the folder ("class11" or "class12") and select the file:\n"${title.replace(' - PDF', '.pdf')}"`);
+      window.open(DROPBOX_FOLDER_URL, '_blank');
     }
 
     function requestDownload(title, path) {
@@ -856,8 +863,9 @@
             btn.style.color = '#34d399';
             btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
             btn.onclick = null;
-            btn.href = path;
-            btn.setAttribute('download', '');
+            btn.href = DROPBOX_FOLDER_URL;
+            btn.setAttribute('target', '_blank');
+            btn.removeAttribute('download');
           }
         }
       });
@@ -960,13 +968,9 @@
             btnSubmit.textContent = 'DOWNLOAD FILE';
             btnSubmit.disabled = false;
             
-            // Trigger download
-            const a = document.createElement('a');
-            a.href = encodeURI(chapterPath);
-            a.download = '';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            // Alert and Redirect to Dropbox
+            alert(`Access Authorized!\n\nWe are opening the Dropbox folder. You can download the file from there:\n"${chapterName.replace(' - PDF', '')}.pdf"`);
+            window.open(DROPBOX_FOLDER_URL, '_blank');
           }, 800);
         } else {
           pwdError.style.display = 'block';
