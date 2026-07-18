@@ -204,38 +204,12 @@
 
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
-      <!-- Dropbox and Permission disclaimer -->
-      <div class="alert alert-info fade-in-1" id="dropboxBanner" style="background: rgba(0, 97, 254, 0.1); border: 1px solid rgba(0, 97, 254, 0.25); display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
-        <i class="fab fa-dropbox" style="font-size: 2.2rem; color: #0061fe; flex-shrink: 0; margin-top: 2px;"></i>
-        <div style="flex: 1;">
-          <strong style="color:#60a5fa; font-family:var(--font-head); font-size: 1.1em; display: block; margin-bottom: 6px;">Dropbox Compiled PYQs Folder</strong>
-          <div id="dropboxLockedState">
-            <p style="margin: 0; line-height: 1.5; color: var(--text-secondary); font-size: 0.95em;">
-              Direct access to the compiled Dropbox repository is restricted. Please enter the access password or submit a request to unlock the shared folder link.
-            </p>
-            <button id="btnUnlockDropbox" class="download-btn" style="background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; border: none; padding: 8px 16px; border-radius: 50px; cursor: pointer; font-size: 0.85em; font-weight: 600; margin-top: 10px; display: inline-flex; align-items: center; gap: 6px;">
-              <i class="fas fa-lock"></i> Unlock Folder Link
-            </button>
-          </div>
-          <div id="dropboxUnlockedState" style="display: none;">
-            <p style="margin: 0; line-height: 1.5; color: var(--text-secondary); font-size: 0.95em;">
-              Access Authorized! You can now open the cloud repository directly on Dropbox: 
-              <a href="https://www.dropbox.com/scl/fo/tybzinx3rt6xbqb97vps1/ACIoidwrnFeZ9Qf7nWZ7Su4?rlkey=63443bpuc7k7jasjdyotofg4u&st=7m5cf8ku&dl=0" target="_blank" style="color: #34d399; text-decoration: underline; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
-                Open Dropbox Folder <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>
-              </a>
-            </p>
-          </div>
-          <p style="margin: 12px 0 0 0; line-height: 1.5; color: var(--text-muted); font-size: 0.85em; display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
-            <i class="fas fa-shield-alt" style="color: #34d399;"></i>
-            <span>Click <strong>"View PDF"</strong> to read online in view-only mode, or click <strong>"Request Download"</strong> to submit a permission request for offline access.</span>
-          </p>
-        </div>
-      </div>
+
 
       <!-- Tab Bar -->
       <div class="tabs fade-in-2">
         <button class="tab-btn active" data-tab="class-12">Class XII Mathematics</button>
-        <button class="tab-btn" data-tab="class-11">Class XI Mathematics</button>
+        <button class="tab-btn" data-tab="class-11" data-disabled="true" style="opacity: 0.5; cursor: not-allowed;" title="Coming Soon">Class XI (Coming Soon)</button>
       </div>
 
       <!-- Class XII Tab -->
@@ -735,27 +709,20 @@
     </div>
   </div>
 
-  <!-- Unlock Dropbox Folder Modal -->
-  <div class="modal" id="unlockFolderModal" style="display:none; z-index: 10000; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);">
-    <div class="modal-content" style="max-width: 400px; width: 90%; padding: 36px 30px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
-      <span class="close-btn" id="closeUnlockModal" style="position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
-      <div style="text-align: center; margin-bottom: 24px;">
-        <div style="font-size: 2.5rem; margin-bottom: 10px; color: #0061fe;"><i class="fab fa-dropbox"></i></div>
-        <h2 style="font-family: var(--font-head); font-size: 1.3rem; color: #fff; margin-bottom: 6px; font-weight: 700;">Unlock Dropbox Folder</h2>
-        <p style="color: var(--text-secondary); font-size: 0.85em;">Enter the access password to unlock the Dropbox repository link.</p>
+  <!-- View PDF Modal (Protected Uneditable Viewer overlay) -->
+  <div id="viewPdfModal" class="modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 12, 41, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 10000; justify-content: center; align-items: center; padding: 20px;">
+    <div style="background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: 16px; width: 95%; max-width: 1000px; height: 90%; display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--glass-shadow); position: relative;">
+      <!-- Modal Header -->
+      <div style="padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02);">
+        <h3 id="viewPdfTitle" style="margin: 0; color: #fff; font-family: var(--font-head); font-size: 1.15rem; font-weight: 600;">Chapter PDF Viewer</h3>
+        <span class="close-btn" id="closeViewPdfModal" style="font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
       </div>
-      
-      <form id="unlockFolderForm" onsubmit="return false;">
-        <div style="margin-bottom: 20px; text-align: left;">
-          <label for="unlockPassword" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Access Password</label>
-          <input type="password" id="unlockPassword" required placeholder="Enter password to unlock" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; box-sizing: border-box;">
-          <div id="unlockPasswordError" style="color: #f87171; font-size: 0.85em; margin-top: 5px; display: none;"><i class="fas fa-times-circle"></i> Incorrect password. Please try again.</div>
-        </div>
-        
-        <button type="submit" id="btnSubmitUnlock" class="submit-btn" style="width: 100%; padding: 13px; background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(124,58,237,0.3); font-size: 0.9em; letter-spacing: 0.5px;">
-          UNLOCK REPOSITORY LINK
-        </button>
-      </form>
+      <!-- Modal Body (Iframe container) -->
+      <div style="flex: 1; position: relative; background: #000;">
+        <iframe id="pdfViewerIframe" src="" style="width: 100%; height: 100%; border: none;" allow="autoplay"></iframe>
+        <!-- Overlay to protect right-clicks and selection -->
+        <div style="position: absolute; inset: 0; pointer-events: none;" oncontextmenu="return false;"></div>
+      </div>
     </div>
   </div>
 
@@ -769,20 +736,25 @@
     });
 
     // Tab Switching
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const tabBtns = document.querySelectorAll('.tab-btn')    const tabContents = document.querySelectorAll('.tab-content');
     
     tabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabBtns.forEach(b => b.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
-        
-        btn.classList.add('active');
-        
-        const tabId = btn.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
-      });
-    });    const ALL_CHAPTERS = [
+       btn.addEventListener('click', () => {
+         if (btn.getAttribute('data-disabled') === 'true') {
+           alert("Class XI Board Questions are not yet available. Please check back later!");
+           return;
+         }
+         tabBtns.forEach(b => b.classList.remove('active'));
+         tabContents.forEach(c => c.classList.remove('active'));
+         
+         btn.classList.add('active');
+         
+         const tabId = btn.getAttribute('data-tab');
+         document.getElementById(tabId).classList.add('active');
+       });
+    });
+
+    const ALL_CHAPTERS = [
       // Class 12
       { name: "Class 12 - Chapter 1: Relations and Functions", path: "all chapters pdf/class12/Chapter 1 Relations and Functions.pdf" },
       { name: "Class 12 - Chapter 2: Inverse Trigonometric Functions", path: "all chapters pdf/class12/2 INVERSE TRIGONOMETRIC FUNCTIONS.pdf" },
@@ -797,32 +769,21 @@
       { name: "Class 12 - Chapter 10: Vector Algebra", path: "all chapters pdf/class12/11 VECTORS.pdf" },
       { name: "Class 12 - Chapter 11: Three Dimensional Geometry", path: "all chapters pdf/class12/12 3-DIMENSIONAL GEOMETRY.pdf" },
       { name: "Class 12 - Chapter 12: Linear Programming", path: "all chapters pdf/class12/13 LINEAR PRAGRAMMING.pdf" },
-      { name: "Class 12 - Chapter 13: Probability", path: "all chapters pdf/class12/14 PROBABILITY.pdf" },
-      
-      // Class 11
-      { name: "Class 11 - Chapter 1: Sets", path: "all chapters pdf/class11/Chapter 1 Sets.pdf" },
-      { name: "Class 11 - Chapter 2: Relations and Functions", path: "all chapters pdf/class11/Chapter 2 Relations and Functions.pdf" },
-      { name: "Class 11 - Chapter 3: Trigonometric Functions", path: "all chapters pdf/class11/Chapter 3 Trigonometric Functions.pdf" },
-      { name: "Class 11 - Chapter 4: Complex Numbers", path: "all chapters pdf/class11/Chapter 4 Complex Numbers.pdf" },
-      { name: "Class 11 - Chapter 5: Linear Inequalities", path: "all chapters pdf/class11/Chapter 5 Linear Inequalities.pdf" },
-      { name: "Class 11 - Chapter 6: Permutations and Combinations", path: "all chapters pdf/class11/Chapter 6 Permutations and Combinations.pdf" },
-      { name: "Class 11 - Chapter 7: Binomial Theorem", path: "all chapters pdf/class11/Chapter 7 Binomial Theorem.pdf" },
-      { name: "Class 11 - Chapter 8: Sequences and Series", path: "all chapters pdf/class11/Chapter 8 Sequences and Series.pdf" },
-      { name: "Class 11 - Chapter 9: Straight Lines", path: "all chapters pdf/class11/Chapter 9 Straight Lines.pdf" },
-      { name: "Class 11 - Chapter 10: Conic Sections", path: "all chapters pdf/class11/Chapter 10 Conic Sections.pdf" },
-      { name: "Class 11 - Chapter 11: Introduction to Three Dimensional Geometry", path: "all chapters pdf/class11/Chapter 11 Introduction to Three Dimensional Geometry.pdf" },
-      { name: "Class 11 - Chapter 12: Limits and Derivatives", path: "all chapters pdf/class11/Chapter 12 Limits and Derivatives.pdf" },
-      { name: "Class 11 - Chapter 13: Statistics", path: "all chapters pdf/class11/Chapter 13 Statistics.pdf" },
-      { name: "Class 11 - Chapter 14: Probability", path: "all chapters pdf/class11/Chapter 14 Probability.pdf" }
+      { name: "Class 12 - Chapter 13: Probability", path: "all chapters pdf/class12/14 PROBABILITY.pdf" }
     ];
-
-    const DROPBOX_FOLDER_URL = "https://www.dropbox.com/scl/fo/tybzinx3rt6xbqb97vps1/ACIoidwrnFeZ9Qf7nWZ7Su4?rlkey=63443bpuc7k7jasjdyotofg4u&st=7m5cf8ku&dl=0";
 
     // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
-      // Alert user with file details and redirect to Dropbox shared folder
-      alert(`Opening Dropbox Repository.\n\nPlease open the folder ("class11" or "class12") and select the file:\n"${title.replace(' - PDF', '.pdf')}"`);
-      window.open(DROPBOX_FOLDER_URL, '_blank');
+      const modal = document.getElementById('viewPdfModal');
+      const iframe = document.getElementById('pdfViewerIframe');
+      const headerTitle = document.getElementById('viewPdfTitle');
+      
+      if (headerTitle) headerTitle.textContent = title.replace(' - PDF', '');
+      if (iframe) {
+        // Append #toolbar=0&navpanes=0 to hide built-in browser UI controls (like save/print buttons)
+        iframe.src = encodeURI(path) + "#toolbar=0&navpanes=0";
+      }
+      if (modal) modal.style.display = 'flex';
     }
 
     function requestDownload(title, path) {
@@ -863,9 +824,9 @@
             btn.style.color = '#34d399';
             btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
             btn.onclick = null;
-            btn.href = DROPBOX_FOLDER_URL;
-            btn.setAttribute('target', '_blank');
-            btn.removeAttribute('download');
+            btn.href = encodeURI(path);
+            btn.setAttribute('download', '');
+            btn.removeAttribute('target');
           }
         }
       });
@@ -968,9 +929,15 @@
             btnSubmit.textContent = 'DOWNLOAD FILE';
             btnSubmit.disabled = false;
             
-            // Alert and Redirect to Dropbox
-            alert(`Access Authorized!\n\nWe are opening the Dropbox folder. You can download the file from there:\n"${chapterName.replace(' - PDF', '')}.pdf"`);
-            window.open(DROPBOX_FOLDER_URL, '_blank');
+            // Trigger direct local download
+            const a = document.createElement('a');
+            a.href = encodeURI(chapterPath);
+            a.download = '';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert(`Access Authorized!\n\nDownloading file:\n"${chapterName.replace(' - PDF', '')}.pdf"`);
           }, 800);
         } else {
           pwdError.style.display = 'block';
@@ -1027,66 +994,25 @@
         btn.parentNode.replaceChild(wrapper, btn);
       });
       
-      // 5. Setup Dropbox folder unlock logic
-      const unlockModal = document.getElementById('unlockFolderModal');
-      const btnUnlockDropbox = document.getElementById('btnUnlockDropbox');
-      const closeUnlockBtn = document.getElementById('closeUnlockModal');
-      const unlockForm = document.getElementById('unlockFolderForm');
-
-      function updateDropboxBannerUI() {
-        const status = localStorage.getItem('dropbox_folder_unlocked');
-        const lockedState = document.getElementById('dropboxLockedState');
-        const unlockedState = document.getElementById('dropboxUnlockedState');
-        
-        if (status === 'approved') {
-          if (lockedState) lockedState.style.display = 'none';
-          if (unlockedState) unlockedState.style.display = 'block';
+      // 5. Setup View PDF Modal close listener
+      const closeViewBtn = document.getElementById('closeViewPdfModal');
+      const viewModal = document.getElementById('viewPdfModal');
+      const iframe = document.getElementById('pdfViewerIframe');
+      if (closeViewBtn && viewModal && iframe) {
+        closeViewBtn.addEventListener('click', function() {
+          viewModal.style.display = 'none';
+          iframe.src = ''; // Clear iframe to release resources
+        });
+      }
+      
+      // Close modal on clicking outside content box
+      window.addEventListener('click', function(e) {
+        if (e.target === viewModal) {
+          viewModal.style.display = 'none';
+          iframe.src = '';
         }
-      }
+      });
 
-      if (btnUnlockDropbox) {
-        btnUnlockDropbox.addEventListener('click', function(e) {
-          e.preventDefault();
-          unlockForm.reset();
-          document.getElementById('unlockPasswordError').style.display = 'none';
-          unlockModal.style.display = 'flex';
-        });
-      }
-
-      if (closeUnlockBtn) {
-        closeUnlockBtn.addEventListener('click', function() {
-          unlockModal.style.display = 'none';
-        });
-      }
-
-      if (unlockForm) {
-        unlockForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const btnSubmit = document.getElementById('btnSubmitUnlock');
-          const pwd = document.getElementById('unlockPassword').value.trim();
-          const pwdError = document.getElementById('unlockPasswordError');
-          
-          pwdError.style.display = 'none';
-          btnSubmit.disabled = true;
-
-          if (pwd === 'kbj@2008') {
-            btnSubmit.textContent = 'Verifying...';
-            setTimeout(() => {
-              localStorage.setItem('dropbox_folder_unlocked', 'approved');
-              updateDropboxBannerUI();
-              unlockModal.style.display = 'none';
-              btnSubmit.textContent = 'UNLOCK REPOSITORY LINK';
-              btnSubmit.disabled = false;
-            }, 800);
-          } else {
-            pwdError.style.display = 'block';
-            btnSubmit.disabled = false;
-          }
-        });
-      }
-
-      // Check current unlock status on load
-      updateDropboxBannerUI();
       updateRequestButtons();
     });
   </script>
