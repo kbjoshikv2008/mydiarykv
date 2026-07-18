@@ -199,12 +199,22 @@
 
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
-      <!-- Alert disclaimer -->
-      <div class="alert alert-info fade-in-1">
-        <i class="fas fa-info-circle"></i>
+      <!-- Dropbox and Permission disclaimer -->
+      <div class="alert alert-info fade-in-1" style="background: rgba(0, 97, 254, 0.1); border: 1px solid rgba(0, 97, 254, 0.25); display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+        <i class="fab fa-dropbox" style="font-size: 2.2rem; color: #0061fe; flex-shrink: 0; margin-top: 2px;"></i>
         <div>
-          <strong style="color:#60a5fa; font-family:var(--font-head);">Compiles CBSE Board Exam PDFs</strong>
-          <p style="margin-top:4px;">These worksheets are hosted in the local <code>all chapters pdf</code> folder inside the directory. Clicking any download button will retrieve the PDF compilation directly onto your device.</p>
+          <strong style="color:#60a5fa; font-family:var(--font-head); font-size: 1.1em; display: block; margin-bottom: 6px;">Dropbox Compiled PYQs Folder</strong>
+          <p style="margin: 0; line-height: 1.5; color: var(--text-secondary); font-size: 0.95em;">
+            All previous year board question compilations (PYQs) are stored in our cloud repository. 
+            You can access the parent folder directly on Dropbox: 
+            <a href="https://www.dropbox.com/scl/fo/tybzinx3rt6xbqb97vps1/ACIoidwrnFeZ9Qf7nWZ7Su4?rlkey=63443bpuc7k7jasjdyotofg4u&st=7m5cf8ku&dl=0" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+              Open Dropbox Folder <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>
+            </a>
+          </p>
+          <p style="margin: 8px 0 0 0; line-height: 1.5; color: var(--text-muted); font-size: 0.85em; display: flex; align-items: center; gap: 6px;">
+            <i class="fas fa-shield-alt" style="color: #34d399;"></i>
+            <span>Click <strong>"View PDF"</strong> to read online in view-only mode, or click <strong>"Request Download"</strong> to submit a permission request for offline access.</span>
+          </p>
         </div>
       </div>
 
@@ -677,6 +687,74 @@
     </div>
   </div>
 
+  <!-- PDF View Only Modal -->
+  <div class="modal" id="pdfViewerModal" style="display:none; z-index: 10000; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);">
+    <div class="modal-content" style="max-width: 1000px; width: 95%; height: 90vh; display: flex; flex-direction: column; padding: 25px; background: rgba(20,15,45,0.95); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
+      <span class="close-btn" id="closePdfViewer" style="position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
+      <h2 id="pdfViewerTitle" style="font-family: var(--font-head); font-size: 1.3rem; margin-bottom: 12px; color: #fff; padding-right: 40px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-file-pdf" style="color: #ef4444;"></i> View PDF (View-Only Mode)
+      </h2>
+      <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 10px 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: #fca5a5; font-size: 0.85em;">
+        <i class="fas fa-lock"></i>
+        <span>This document is in View-Only mode. Downloading, printing, and copying are restricted.</span>
+      </div>
+      <div id="pdfViewerContainer" style="flex: 1; border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; background: #000;">
+        <!-- Iframe will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Request Download Permission Modal -->
+  <div class="modal" id="requestDownloadModal" style="display:none; z-index: 10000; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);">
+    <div class="modal-content" style="max-width: 480px; width: 90%; padding: 36px 30px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
+      <span class="close-btn" id="closeRequestModal" style="position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="font-size: 2.5rem; margin-bottom: 10px; color: #a78bfa;"><i class="fas fa-file-signature"></i></div>
+        <h2 style="font-family: var(--font-head); font-size: 1.4rem; color: #fff; margin-bottom: 6px; font-weight: 700;">Request Download Permission</h2>
+        <p style="color: var(--text-secondary); font-size: 0.85em;">Please submit your request below. Permission is required to download this compilation compilation.</p>
+      </div>
+      
+      <form id="downloadRequestForm" onsubmit="return false;">
+        <input type="hidden" id="requestChapterPath">
+        <input type="hidden" id="requestChapterName">
+        
+        <div style="margin-bottom: 16px; text-align: left;">
+          <label style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Chapter Selected</label>
+          <input type="text" id="displayChapterName" readonly style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #c4b5fd; font-weight: 600; outline: none; box-sizing: border-box;">
+        </div>
+        
+        <div style="margin-bottom: 16px; text-align: left;">
+          <label for="studentName" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Your Full Name *</label>
+          <input type="text" id="studentName" required placeholder="Enter your full name" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
+        </div>
+        
+        <div style="margin-bottom: 16px; text-align: left;">
+          <label for="studentEmail" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email Address *</label>
+          <input type="email" id="studentEmail" required placeholder="name@example.com" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
+        </div>
+
+        <div style="margin-bottom: 20px; text-align: left;">
+          <label for="requestReason" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Purpose of Download *</label>
+          <textarea id="requestReason" required rows="3" placeholder="Explain why you need to download this file (e.g. offline self-study, print compilation)" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; resize: none; font-family: inherit; box-sizing: border-box;"></textarea>
+        </div>
+        
+        <button type="submit" id="btnSubmitRequest" class="submit-btn" style="width: 100%; padding: 13px; background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(124,58,237,0.3); font-size: 0.9em; letter-spacing: 0.5px;">
+          SUBMIT DOWNLOAD REQUEST
+        </button>
+      </form>
+      
+      <!-- Success Message Container -->
+      <div id="requestSuccessState" style="display: none; text-align: center; animation: fadeIn 0.4s ease;">
+        <div style="font-size: 3rem; color: #10b981; margin-bottom: 16px;"><i class="fas fa-check-circle"></i></div>
+        <h3 style="font-family: var(--font-head); font-size: 1.2rem; color: #fff; margin-bottom: 8px; font-weight: 700;">Request Sent!</h3>
+        <p id="successMessageText" style="color: var(--text-secondary); font-size: 0.9em; line-height: 1.5; margin-bottom: 24px; text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 15px; border-radius: 8px;"></p>
+        <button id="btnDismissSuccess" class="submit-btn" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px; cursor: pointer; font-weight: 600;">
+          CLOSE
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Back to Top Button -->
   <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
@@ -702,8 +780,66 @@
       });
     });
 
-    // Profile auth password modal
+    // Custom PDF Viewer and Permission Request Handlers
+    function viewPdf(title, path) {
+      const modal = document.getElementById('pdfViewerModal');
+      const iframeContainer = document.getElementById('pdfViewerContainer');
+      document.getElementById('pdfViewerTitle').textContent = `View PDF: ${title} (View-Only Mode)`;
+      
+      // Inject iframe with toolbar=0 and navpanes=0 to disable downloading/printing tools
+      iframeContainer.innerHTML = `<iframe src="${path}#toolbar=0&navpanes=0&scrollbar=1" style="width: 100%; height: 100%; border: none;"></iframe>`;
+      modal.style.display = 'flex';
+    }
+
+    function requestDownload(title, path) {
+      const modal = document.getElementById('requestDownloadModal');
+      const form = document.getElementById('downloadRequestForm');
+      const successState = document.getElementById('requestSuccessState');
+      
+      document.getElementById('requestChapterPath').value = path;
+      document.getElementById('requestChapterName').value = title;
+      document.getElementById('displayChapterName').value = title;
+      
+      // Reset form states
+      form.style.display = 'block';
+      successState.style.display = 'none';
+      form.reset();
+      
+      modal.style.display = 'flex';
+    }
+
+    function updateRequestButtons() {
+      const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+      const buttons = document.querySelectorAll('.request-dl-btn');
+      buttons.forEach(btn => {
+        const path = btn.getAttribute('data-path');
+        if (requests[path]) {
+          const req = requests[path];
+          if (req.status === 'pending') {
+            btn.innerHTML = '<i class="fas fa-hourglass-half"></i> Request Sent';
+            btn.style.background = 'rgba(245, 158, 11, 0.15)';
+            btn.style.color = '#fbbf24';
+            btn.style.borderColor = 'rgba(245, 158, 11, 0.35)';
+            btn.onclick = (e) => {
+              e.preventDefault();
+              alert(`Your request to download this compilation is currently pending review by Mr. K B Joshi.`);
+            };
+          } else if (req.status === 'approved') {
+            btn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+            btn.style.background = 'rgba(16, 185, 129, 0.15)';
+            btn.style.color = '#34d399';
+            btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+            btn.onclick = null;
+            btn.href = path;
+            btn.setAttribute('download', '');
+          }
+        }
+      });
+    }
+
+    // Profile auth password modal and Document Load setups
     document.addEventListener('DOMContentLoaded', function() {
+      // 1. Profile modal setup
       const modal = document.getElementById('passwordModal');
       const profileLink = document.getElementById('profileLink');
       const closeModal = document.getElementById('closeModal');
@@ -712,7 +848,9 @@
       const submitBtnProfile = document.getElementById('submitPassword');
       const errorMessageProfile = document.getElementById('errorMessage');
 
-      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      if (profileLink) {
+        profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      }
       closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
       window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
       
@@ -737,6 +875,124 @@
         }
       });
       passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+
+      // 2. Setup pdf view/request modals close buttons
+      const pdfModal = document.getElementById('pdfViewerModal');
+      const closePdfBtn = document.getElementById('closePdfViewer');
+      closePdfBtn.addEventListener('click', function() {
+        pdfModal.style.display = 'none';
+        document.getElementById('pdfViewerContainer').innerHTML = '';
+      });
+
+      const requestModal = document.getElementById('requestDownloadModal');
+      const closeReqBtn = document.getElementById('closeRequestModal');
+      closeReqBtn.addEventListener('click', function() {
+        requestModal.style.display = 'none';
+      });
+      
+      document.getElementById('btnDismissSuccess').addEventListener('click', function() {
+        requestModal.style.display = 'none';
+      });
+
+      // 3. Setup form submit listener
+      document.getElementById('downloadRequestForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btnSubmit = document.getElementById('btnSubmitRequest');
+        btnSubmit.textContent = 'Sending Request...';
+        btnSubmit.disabled = true;
+        
+        const name = document.getElementById('studentName').value;
+        const email = document.getElementById('studentEmail').value;
+        const chapterName = document.getElementById('requestChapterName').value;
+        const chapterPath = document.getElementById('requestChapterPath').value;
+        
+        setTimeout(() => {
+          document.getElementById('downloadRequestForm').style.display = 'none';
+          const successState = document.getElementById('requestSuccessState');
+          successState.style.display = 'block';
+          
+          const successMsg = `Your request to download <strong>"${chapterName}"</strong> has been sent successfully to the diary administrator (Mr. K B Joshi).<br><br>Once approved, the download permission will be registered and the direct download link will be emailed to you at <strong>${email}</strong>.<br><br><em>Status: PENDING REVIEW</em><br><br><span style="font-size:0.85em;color:#38bdf8;">💡 Demo Note: For testing purposes, this request will automatically auto-approve in 10 seconds!</span>`;
+          document.getElementById('successMessageText').innerHTML = successMsg;
+          
+          btnSubmit.textContent = 'SUBMIT DOWNLOAD REQUEST';
+          btnSubmit.disabled = false;
+
+          // Save request
+          const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+          requests[chapterPath] = {
+            name: name,
+            email: email,
+            chapter: chapterName,
+            status: 'pending',
+            timestamp: new Date().toISOString()
+          };
+          localStorage.setItem('pyq_requests', JSON.stringify(requests));
+          
+          updateRequestButtons();
+
+          // Auto approve after 10s for demo/UX purposes
+          setTimeout(() => {
+            const reqs = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+            if (reqs[chapterPath]) {
+              reqs[chapterPath].status = 'approved';
+              localStorage.setItem('pyq_requests', JSON.stringify(reqs));
+              updateRequestButtons();
+            }
+          }, 10000);
+
+        }, 1200);
+      });
+
+      // 4. Transform all download buttons to View / Request actions dynamically
+      const downloadButtons = document.querySelectorAll('.download-btn[download]');
+      downloadButtons.forEach(btn => {
+        const path = btn.getAttribute('href');
+        let title = "Document";
+        const row = btn.closest('.chapter-row');
+        if (row) {
+          const h3 = row.querySelector('.chapter-details h3');
+          if (h3) {
+            title = h3.textContent.trim();
+          }
+        }
+        
+        const labelText = btn.textContent.replace('Download', '').trim() || 'PDF';
+        
+        const wrapper = document.createElement('div');
+        wrapper.style.display = 'flex';
+        wrapper.style.gap = '8px';
+        wrapper.style.flexWrap = 'wrap';
+        
+        const viewBtn = document.createElement('button');
+        viewBtn.className = 'download-btn';
+        viewBtn.style.background = 'rgba(14, 165, 233, 0.1)';
+        viewBtn.style.color = '#0ea5e9';
+        viewBtn.style.borderColor = 'rgba(14, 165, 233, 0.25)';
+        viewBtn.style.cursor = 'pointer';
+        viewBtn.innerHTML = `<i class="fas fa-eye"></i> View ${labelText}`;
+        viewBtn.onclick = (e) => {
+          e.preventDefault();
+          viewPdf(title + ' - ' + labelText, path);
+        };
+        
+        const reqBtn = document.createElement('a');
+        reqBtn.className = 'download-btn request-dl-btn';
+        reqBtn.style.cursor = 'pointer';
+        reqBtn.setAttribute('data-path', path);
+        reqBtn.innerHTML = `<i class="fas fa-lock"></i> Request ${labelText}`;
+        reqBtn.href = '#';
+        reqBtn.onclick = (e) => {
+          e.preventDefault();
+          requestDownload(title + ' - ' + labelText, path);
+        };
+        
+        wrapper.appendChild(viewBtn);
+        wrapper.appendChild(reqBtn);
+        
+        btn.parentNode.replaceChild(wrapper, btn);
+      });
+      
+      updateRequestButtons();
     });
   </script>
 </body>
