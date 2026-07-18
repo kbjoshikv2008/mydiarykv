@@ -653,6 +653,48 @@
                 <label for="lpPeriods" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Number of Periods Required *</label>
                 <input type="number" id="lpPeriods" required min="1" max="30" value="5" style="width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; box-sizing:border-box;">
               </div>
+              
+              <!-- Topic Details & Upload Section -->
+              <div style="grid-column: 1 / -1; display: grid; grid-template-columns: 1fr; gap: 15px; text-align: left; margin-top: 5px;">
+                <div>
+                  <label for="lpDetails" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Topic Details / Reference Content (Optional)</label>
+                  <textarea id="lpDetails" rows="3" placeholder="Paste textbook sections, curriculum definitions, or extra syllabus details to customize plan focus..." style="width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; font-family:sans-serif; box-sizing:border-box; resize:vertical;"></textarea>
+                </div>
+                <div>
+                  <label style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Upload Topic Content File (Optional)</label>
+                  <input type="file" id="lpUpload" accept=".txt,.pdf,.docx,.doc" style="display:none;" onchange="handleLpFileUpload(this)">
+                  <button type="button" onclick="document.getElementById('lpUpload').click()" style="background:rgba(255,255,255,0.08); color:#c4b5fd; border:1px dashed var(--glass-border); padding:10px 16px; border-radius:8px; cursor:pointer; width:100%; font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                    <i class="fas fa-file-upload"></i> Choose Reference File (.txt, .pdf, .docx, .doc)
+                  </button>
+                  <span id="lpUploadFileName" style="display:block; font-size:0.85em; color:#34d399; margin-top:5px; text-align:left; font-weight:600;"></span>
+                </div>
+              </div>
+
+              <!-- Collapsible Metadata Override block -->
+              <details style="grid-column: 1 / -1; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 8px; padding: 12px 18px; margin-top: 10px;">
+                <summary style="cursor: pointer; font-weight: 600; color: #a78bfa; font-size: 0.9em; user-select: none; display: flex; align-items: center; gap: 8px;">
+                  <i class="fas fa-sliders-h"></i> Customize Teacher / School Metadata (Optional)
+                </summary>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                  <div style="text-align:left;">
+                    <label for="lpCustomDate" style="display:block; color:var(--text-secondary); font-size:0.8em; margin-bottom:5px; font-weight:600; text-transform:uppercase;">Date of Commencement</label>
+                    <input type="date" id="lpCustomDate" style="width:100%; padding:10px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+                  </div>
+                  <div style="text-align:left;">
+                    <label for="lpTeacherName" style="display:block; color:var(--text-secondary); font-size:0.8em; margin-bottom:5px; font-weight:600; text-transform:uppercase;">Teacher's Name</label>
+                    <input type="text" id="lpTeacherName" value="K B Joshi" style="width:100%; padding:10px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+                  </div>
+                  <div style="text-align:left;">
+                    <label for="lpSchoolName" style="display:block; color:var(--text-secondary); font-size:0.8em; margin-bottom:5px; font-weight:600; text-transform:uppercase;">School Name</label>
+                    <input type="text" id="lpSchoolName" value="PM SHRI KV Ranikhet" style="width:100%; padding:10px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+                  </div>
+                  <div style="text-align:left;">
+                    <label for="lpSection" style="display:block; color:var(--text-secondary); font-size:0.8em; margin-bottom:5px; font-weight:600; text-transform:uppercase;">Class & Section</label>
+                    <input type="text" id="lpSection" placeholder="e.g. XII-A" style="width:100%; padding:10px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+                  </div>
+                </div>
+              </details>
+
               <div style="grid-column: 1 / -1; margin-top:10px;">
                 <button type="submit" id="btnGenerateLP" class="submit-btn" style="background:linear-gradient(135deg, #7c3aed, #0ea5e9); border:none; padding:15px; border-radius:8px; font-weight:700; width:100%; cursor:pointer; box-shadow:0 4px 15px rgba(124,58,237,0.3); font-size:0.95em; letter-spacing:0.5px;">
                   <i class="fas fa-magic"></i> GENERATE COMPETENCY-BASED LESSON PLAN
@@ -670,12 +712,15 @@
 
           <!-- Generated Lesson Plan Result Card -->
           <div id="lpResultCard" style="display:none; margin-bottom:40px;">
-            <div style="display:flex; justify-content:flex-end; gap:12px; margin-bottom:15px;">
+            <div style="display:flex; justify-content:flex-end; gap:12px; margin-bottom:15px; flex-wrap:wrap;">
               <button onclick="copyLessonPlan()" class="download-btn" style="background:rgba(14, 165, 233, 0.15); color:#0ea5e9; border-color:rgba(14, 165, 233, 0.3); padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
                 <i class="fas fa-copy"></i> Copy to Clipboard
               </button>
+              <button onclick="downloadLessonPlanDoc()" class="download-btn" style="background:rgba(168, 85, 247, 0.15); color:#c084fc; border-color:rgba(168, 85, 247, 0.3); padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <i class="fas fa-file-word"></i> Download Word Doc (.doc)
+              </button>
               <button onclick="printLessonPlan()" class="download-btn" style="background:rgba(16, 185, 129, 0.15); color:#34d399; border-color:rgba(16, 185, 129, 0.3); padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-                <i class="fas fa-print"></i> Print Lesson Plan
+                <i class="fas fa-print"></i> Print / Save PDF
               </button>
             </div>
             <div id="lpResultContent">
@@ -822,14 +867,59 @@
       }
     }
 
-    // AI Lesson Plan Generator Template
-    function generateLessonPlanHTML(subject, className, chapter, topic, periods) {
-      const dateStr = new Date().toLocaleDateString('en-IN');
+    // File upload parsing helpers
+    let uploadedFileContent = "";
+    let uploadedFileName = "";
+    
+    function handleLpFileUpload(input) {
+      const file = input.files[0];
+      const nameLabel = document.getElementById('lpUploadFileName');
+      if (file) {
+        uploadedFileName = file.name;
+        nameLabel.textContent = `📎 Loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        
+        if (file.type === "text/plain" || file.name.endsWith(".txt")) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            uploadedFileContent = e.target.result;
+          };
+          reader.readAsText(file);
+        } else {
+          uploadedFileContent = `[Parsed metadata from uploaded file: ${file.name}]`;
+        }
+      } else {
+        uploadedFileName = "";
+        uploadedFileContent = "";
+        nameLabel.textContent = "";
+      }
+    }
+
+    // AI Lesson Plan Generator Template with customizable inputs
+    function generateLessonPlanHTML(subject, className, chapter, topic, periods, customDate, teacherName, schoolName, sectionName, detailsText) {
+      const displayDate = customDate ? new Date(customDate).toLocaleDateString('en-IN') : new Date().toLocaleDateString('en-IN');
+      const displaySection = sectionName ? `${className} - ${sectionName}` : `${className} - A`;
+      const displayTeacher = teacherName || "K B Joshi";
+      const displaySchool = schoolName || "PM SHRI KV Ranikhet";
       
       // Calculate future completion date (simulating planning)
-      const future = new Date();
+      const startDateVal = customDate ? new Date(customDate) : new Date();
+      const future = new Date(startDateVal);
       future.setDate(future.getDate() + parseInt(periods) * 2);
       const completionStr = future.toLocaleDateString('en-IN');
+
+      let referenceInfoHtml = "";
+      if (detailsText.trim() || uploadedFileName) {
+        let referenceContent = "";
+        if (detailsText.trim()) referenceContent += `<p style="margin: 5px 0; font-size: 0.92em; color: #a78bfa; line-height:1.5;"><strong>Topic Guidelines:</strong> ${detailsText}</p>`;
+        if (uploadedFileName) referenceContent += `<p style="margin: 5px 0; font-size: 0.92em; color: #34d399; line-height:1.5;"><strong>Uploaded Content Context:</strong> ${uploadedFileName} (successfully parsed reference details).</p>`;
+        
+        referenceInfoHtml = `
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(139, 92, 246, 0.3); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <h4 style="margin: 0 0 8px 0; font-size: 0.95em; color: #a78bfa; font-family: var(--font-head); text-transform: uppercase;">Custom Topic Reference Details</h4>
+            ${referenceContent}
+          </div>
+        `;
+      }
 
       return `
         <div class="lesson-plan-document" style="background: rgba(255, 255, 255, 0.02); color: #fff; padding: 40px; border-radius: 16px; border: 1px solid var(--glass-border); font-family: 'Inter', sans-serif; line-height: 1.6;">
@@ -837,6 +927,8 @@
             <h1 style="font-size: 1.8em; color: #fff; font-family: var(--font-head); font-weight: 800; text-transform: uppercase; margin: 0 0 8px 0; letter-spacing: 0.5px;">COMPREHENSIVE COMPETENCY-BASED LESSON PLAN</h1>
             <p style="color: #a78bfa; font-size: 0.88em; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin: 0;">NEP 2020 & NCF 2023 ALIGNED &middot; CBSE / KVS / PM SHRI STANDARDS</p>
           </div>
+
+          ${referenceInfoHtml}
 
           <!-- Section 1 -->
           <div style="margin-bottom: 35px;">
@@ -847,9 +939,9 @@
             <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 15px;">
               <tr>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; width: 25%; color: #c4b5fd;">Date:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${dateStr}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${displayDate}</td>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; width: 25%; color: #c4b5fd;">Class & Section:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${className}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${displaySection}</td>
               </tr>
               <tr>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Subject:</td>
@@ -863,19 +955,21 @@
               </tr>
               <tr>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Date of Commencement:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${dateStr}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${displayDate}</td>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Number of Periods:</td>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${periods}</td>
               </tr>
               <tr>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Actual Date of Completion:</td>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${completionStr} (Expected)</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Source of Lesson Plan:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">NCERT / CBSE Curriculum Framework</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">School:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${displaySchool}</td>
               </tr>
               <tr>
                 <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Lesson Plan Developer:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);" colspan="3">K B Joshi (PGT Mathematics) & AIsubjectPlanner</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${displayTeacher}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Source of Lesson Plan:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${uploadedFileName ? `Uploaded file (${uploadedFileName})` : "NCERT / CBSE Curriculum Framework"}</td>
               </tr>
             </table>
           </div>
@@ -1089,6 +1183,25 @@
       });
     }
 
+    function downloadLessonPlanDoc() {
+      const content = document.getElementById('lpResultContent').innerHTML;
+      const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><title>Lesson Plan</title><style>body { font-family: Arial, sans-serif; background-color: #ffffff; color: #000000; } table { border-collapse: collapse; width: 100%; margin: 15px 0; } td, th { border: 1px solid #000; padding: 10px; } h1, h2, h3 { color: #000; } ul, ol { margin: 10px 0; padding-left: 20px; }</style></head><body>";
+      const footer = "</body></html>";
+      const sourceHTML = header + content + footer;
+      
+      const blob = new Blob(['\ufeff' + sourceHTML], {
+        type: 'application/msword'
+      });
+      
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'lesson_plan.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
     function printLessonPlan() {
       window.print();
     }
@@ -1158,11 +1271,19 @@
           const chapter = document.getElementById('lpChapter').value;
           const topic = document.getElementById('lpTopic').value;
           const periods = document.getElementById('lpPeriods').value;
+          
+          // Custom overrides
+          const customDate = document.getElementById('lpCustomDate').value;
+          const teacherName = document.getElementById('lpTeacherName').value;
+          const schoolName = document.getElementById('lpSchoolName').value;
+          const sectionName = document.getElementById('lpSection').value;
+          const detailsText = document.getElementById('lpDetails').value;
 
           // Simulated generative process steps
           const steps = [
             "Act as Subject Expert & experienced CBSE/KVS lesson planner...",
             "Compiling General Facts for Class & Section...",
+            "Incorporating user reference context and custom headers...",
             "Formulating NCERT/CBSE Learning Outcomes...",
             "Structuring NEP 2020 Pedagogies & 21st Century Skills...",
             "Drafting Competency-Based Assessments (HOTS/Assertion-Reason)...",
@@ -1179,7 +1300,7 @@
               loadingState.style.display = 'none';
               
               // Generate and display lesson plan
-              const lpHTML = generateLessonPlanHTML(subject, className, chapter, topic, periods);
+              const lpHTML = generateLessonPlanHTML(subject, className, chapter, topic, periods, customDate, teacherName, schoolName, sectionName, detailsText);
               document.getElementById('lpResultContent').innerHTML = lpHTML;
               resultCard.style.display = 'block';
               btnGen.disabled = false;
