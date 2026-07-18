@@ -696,36 +696,14 @@
     </div>
   </div>
 
-  <!-- PDF View Only Modal -->
-  <div class="modal" id="pdfViewerModal" style="display:none; z-index: 10000; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);">
-    <div class="modal-content" style="max-width: 1000px; width: 95%; height: 90vh; display: flex; flex-direction: column; padding: 25px; background: rgba(20,15,45,0.95); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
-      <span class="close-btn" id="closePdfViewer" style="position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
-      <h2 id="pdfViewerTitle" style="font-family: var(--font-head); font-size: 1.3rem; margin-bottom: 12px; color: #fff; padding-right: 40px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-        <i class="fas fa-file-pdf" style="color: #ef4444;"></i> View PDF (View-Only Mode)
-      </h2>
-      <div style="display: flex; gap: 12px; margin-bottom: 15px; flex-wrap: wrap;">
-        <div style="flex: 1; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; gap: 10px; color: #fca5a5; font-size: 0.85em;">
-          <i class="fas fa-lock"></i>
-          <span>View-Only Mode. Downloading, printing, and copying are restricted.</span>
-        </div>
-        <button id="btnOpenNewTab" class="download-btn" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3); cursor: pointer; padding: 10px 18px; border-radius: 8px; font-size: 0.85em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-          <i class="fas fa-external-link-alt"></i> Open in New Tab
-        </button>
-      </div>
-      <div id="pdfViewerContainer" style="flex: 1; border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; background: #000;">
-        <!-- Iframe will be injected here -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Request Download Permission Modal -->
+  <!-- Download Password Modal -->
   <div class="modal" id="requestDownloadModal" style="display:none; z-index: 10000; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);">
-    <div class="modal-content" style="max-width: 480px; width: 90%; padding: 36px 30px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
+    <div class="modal-content" style="max-width: 400px; width: 90%; padding: 36px 30px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
       <span class="close-btn" id="closeRequestModal" style="position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
       <div style="text-align: center; margin-bottom: 24px;">
-        <div style="font-size: 2.5rem; margin-bottom: 10px; color: #a78bfa;"><i class="fas fa-file-signature"></i></div>
-        <h2 style="font-family: var(--font-head); font-size: 1.4rem; color: #fff; margin-bottom: 6px; font-weight: 700;">Request Download Permission</h2>
-        <p style="color: var(--text-secondary); font-size: 0.85em;">Please submit your request below. Permission is required to download this compilation compilation.</p>
+        <div style="font-size: 2.5rem; margin-bottom: 10px; color: #a78bfa;"><i class="fas fa-lock"></i></div>
+        <h2 style="font-family: var(--font-head); font-size: 1.3rem; color: #fff; margin-bottom: 6px; font-weight: 700;">Enter Download Password</h2>
+        <p style="color: var(--text-secondary); font-size: 0.85em;">Enter the access password to download this PDF file.</p>
       </div>
       
       <form id="downloadRequestForm" onsubmit="return false;">
@@ -737,84 +715,42 @@
           <input type="text" id="displayChapterName" readonly style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #c4b5fd; font-weight: 600; outline: none; box-sizing: border-box;">
         </div>
         
-        <div style="margin-bottom: 16px; text-align: left;">
-          <label for="studentName" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Your Full Name *</label>
-          <input type="text" id="studentName" required placeholder="Enter your full name" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
-        </div>
-        
-        <div style="margin-bottom: 16px; text-align: left;">
-          <label for="studentEmail" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email Address *</label>
-          <input type="email" id="studentEmail" required placeholder="name@example.com" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
-        </div>
-
         <div style="margin-bottom: 20px; text-align: left;">
-          <label for="requestReason" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Purpose of Download *</label>
-          <textarea id="requestReason" required rows="3" placeholder="Explain why you need to download this file (e.g. offline self-study, print compilation)" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; resize: none; font-family: inherit; box-sizing: border-box;"></textarea>
-        </div>
-
-        <div style="margin-bottom: 20px; text-align: left;">
-          <label for="downloadPassword" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Bypass Password (Enter 'kbj@2008' to download immediately)</label>
-          <input type="password" id="downloadPassword" placeholder="Enter download password (optional)" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; transition: border-color 0.3s; box-sizing: border-box;">
-          <div id="downloadPasswordError" style="color: #f87171; font-size: 0.8em; margin-top: 5px; display: none;"><i class="fas fa-times-circle"></i> Incorrect password. Please try again or leave blank.</div>
+          <label for="downloadPassword" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Access Password</label>
+          <input type="password" id="downloadPassword" required placeholder="Enter password to download" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; box-sizing: border-box;">
+          <div id="downloadPasswordError" style="color: #f87171; font-size: 0.85em; margin-top: 5px; display: none;"><i class="fas fa-times-circle"></i> Incorrect password. Please try again.</div>
         </div>
         
         <button type="submit" id="btnSubmitRequest" class="submit-btn" style="width: 100%; padding: 13px; background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(124,58,237,0.3); font-size: 0.9em; letter-spacing: 0.5px;">
-          SUBMIT DOWNLOAD REQUEST
+          DOWNLOAD FILE
         </button>
       </form>
-      
-      <!-- Success Message Container -->
-      <div id="requestSuccessState" style="display: none; text-align: center; animation: fadeIn 0.4s ease;">
-        <div style="font-size: 3rem; color: #10b981; margin-bottom: 16px;"><i class="fas fa-check-circle"></i></div>
-        <h3 style="font-family: var(--font-head); font-size: 1.2rem; color: #fff; margin-bottom: 8px; font-weight: 700;">Request Sent!</h3>
-        <p id="successMessageText" style="color: var(--text-secondary); font-size: 0.9em; line-height: 1.5; margin-bottom: 24px; text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 15px; border-radius: 8px;"></p>
-        <button id="btnDismissSuccess" class="submit-btn" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px; cursor: pointer; font-weight: 600;">
-          CLOSE
-        </button>
-      </div>
     </div>
   </div>
 
   <!-- Unlock Dropbox Folder Modal -->
   <div class="modal" id="unlockFolderModal" style="display:none; z-index: 10000; align-items: center; justify-content: center; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);">
-    <div class="modal-content" style="max-width: 440px; width: 90%; padding: 36px 30px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
+    <div class="modal-content" style="max-width: 400px; width: 90%; padding: 36px 30px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); box-shadow: 0 25px 70px rgba(0,0,0,0.7); position: relative;">
       <span class="close-btn" id="closeUnlockModal" style="position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
       <div style="text-align: center; margin-bottom: 24px;">
         <div style="font-size: 2.5rem; margin-bottom: 10px; color: #0061fe;"><i class="fab fa-dropbox"></i></div>
         <h2 style="font-family: var(--font-head); font-size: 1.3rem; color: #fff; margin-bottom: 6px; font-weight: 700;">Unlock Dropbox Folder</h2>
-        <p style="color: var(--text-secondary); font-size: 0.85em;">Enter the bypass password 'kbj@2008' or submit your details to request access to the Dropbox repository.</p>
+        <p style="color: var(--text-secondary); font-size: 0.85em;">Enter the access password to unlock the Dropbox repository link.</p>
       </div>
       
       <form id="unlockFolderForm" onsubmit="return false;">
-        <div style="margin-bottom: 16px; text-align: left;">
-          <label for="unlockName" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Your Name *</label>
-          <input type="text" id="unlockName" required placeholder="Enter your name" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; box-sizing: border-box;">
-        </div>
-        <div style="margin-bottom: 16px; text-align: left;">
-          <label for="unlockEmail" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email Address *</label>
-          <input type="email" id="unlockEmail" required placeholder="name@example.com" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; box-sizing: border-box;">
-        </div>
         <div style="margin-bottom: 20px; text-align: left;">
-          <label for="unlockPassword" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Bypass Password (Optional)</label>
-          <input type="password" id="unlockPassword" placeholder="Enter password to unlock instantly" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; box-sizing: border-box;">
-          <div id="unlockPasswordError" style="color: #f87171; font-size: 0.85em; margin-top: 5px; display: none;"><i class="fas fa-times-circle"></i> Incorrect password. Try again or leave blank to submit a request.</div>
+          <label for="unlockPassword" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Access Password</label>
+          <input type="password" id="unlockPassword" required placeholder="Enter password to unlock" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none; box-sizing: border-box;">
+          <div id="unlockPasswordError" style="color: #f87171; font-size: 0.85em; margin-top: 5px; display: none;"><i class="fas fa-times-circle"></i> Incorrect password. Please try again.</div>
         </div>
         
         <button type="submit" id="btnSubmitUnlock" class="submit-btn" style="width: 100%; padding: 13px; background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(124,58,237,0.3); font-size: 0.9em; letter-spacing: 0.5px;">
-          REQUEST ACCESS / UNLOCK
+          UNLOCK REPOSITORY LINK
         </button>
       </form>
-      
-      <!-- Success Message Container -->
-      <div id="unlockSuccessState" style="display: none; text-align: center;">
-        <div style="font-size: 3rem; color: #10b981; margin-bottom: 16px;"><i class="fas fa-check-circle"></i></div>
-        <h3 style="font-family: var(--font-head); font-size: 1.2rem; color: #fff; margin-bottom: 8px; font-weight: 700;">Request Submitted!</h3>
-        <p id="unlockSuccessText" style="color: var(--text-secondary); font-size: 0.9em; line-height: 1.5; margin-bottom: 24px; text-align: left; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 15px; border-radius: 8px;"></p>
-        <button id="btnDismissUnlock" class="submit-btn" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px; cursor: pointer; font-weight: 600;">
-          CLOSE
-        </button>
-      </div>
     </div>
+  </div>
 
   <!-- Back to Top Button -->
   <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
@@ -839,42 +775,23 @@
         const tabId = btn.getAttribute('data-tab');
         document.getElementById(tabId).classList.add('active');
       });
-    });
-
-    // Custom PDF Viewer and Permission Request Handlers
+    });    // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
-      const modal = document.getElementById('pdfViewerModal');
-      const iframeContainer = document.getElementById('pdfViewerContainer');
-      document.getElementById('pdfViewerTitle').textContent = `View PDF: ${title} (View-Only Mode)`;
-      
-      const encodedPath = encodeURI(path);
-      
-      // Inject iframe with toolbar=0 and navpanes=0 to disable downloading/printing tools
-      iframeContainer.innerHTML = `<iframe src="${encodedPath}#toolbar=0&navpanes=0&scrollbar=1" style="width: 100%; height: 100%; border: none;"></iframe>`;
-      
-      // Set new tab button action as a fallback
-      const btnNewTab = document.getElementById('btnOpenNewTab');
-      btnNewTab.onclick = (e) => {
-        e.preventDefault();
-        window.open(encodedPath, '_blank');
-      };
-      
-      modal.style.display = 'flex';
+      // Enabled for all in a separate window
+      window.open(encodeURI(path), '_blank');
     }
 
     function requestDownload(title, path) {
       const modal = document.getElementById('requestDownloadModal');
       const form = document.getElementById('downloadRequestForm');
-      const successState = document.getElementById('requestSuccessState');
       
       document.getElementById('requestChapterPath').value = path;
       document.getElementById('requestChapterName').value = title;
       document.getElementById('displayChapterName').value = title;
       
       // Reset form states
-      form.style.display = 'block';
-      successState.style.display = 'none';
       form.reset();
+      document.getElementById('downloadPasswordError').style.display = 'none';
       
       modal.style.display = 'flex';
     }
@@ -886,16 +803,7 @@
         const path = btn.getAttribute('data-path');
         if (requests[path]) {
           const req = requests[path];
-          if (req.status === 'pending') {
-            btn.innerHTML = '<i class="fas fa-hourglass-half"></i> Request Sent';
-            btn.style.background = 'rgba(245, 158, 11, 0.15)';
-            btn.style.color = '#fbbf24';
-            btn.style.borderColor = 'rgba(245, 158, 11, 0.35)';
-            btn.onclick = (e) => {
-              e.preventDefault();
-              alert(`Your request to download this compilation is currently pending review by Mr. K B Joshi.`);
-            };
-          } else if (req.status === 'approved') {
+          if (req.status === 'approved') {
             btn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
             btn.style.background = 'rgba(16, 185, 129, 0.15)';
             btn.style.color = '#34d399';
@@ -947,121 +855,58 @@
       });
       passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
 
-      // 2. Setup pdf view/request modals close buttons
-      const pdfModal = document.getElementById('pdfViewerModal');
-      const closePdfBtn = document.getElementById('closePdfViewer');
-      closePdfBtn.addEventListener('click', function() {
-        pdfModal.style.display = 'none';
-        document.getElementById('pdfViewerContainer').innerHTML = '';
-      });
-
+      // 2. Setup download password modal close buttons
       const requestModal = document.getElementById('requestDownloadModal');
       const closeReqBtn = document.getElementById('closeRequestModal');
-      closeReqBtn.addEventListener('click', function() {
-        requestModal.style.display = 'none';
-      });
-      
-      document.getElementById('btnDismissSuccess').addEventListener('click', function() {
-        requestModal.style.display = 'none';
-      });
+      if (closeReqBtn) {
+        closeReqBtn.addEventListener('click', function() {
+          requestModal.style.display = 'none';
+        });
+      }
 
-      // 3. Setup form submit listener
+      // 3. Setup form submit listener for download password
       document.getElementById('downloadRequestForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btnSubmit = document.getElementById('btnSubmitRequest');
-        btnSubmit.textContent = 'Sending Request...';
-        btnSubmit.disabled = true;
-        
-        const name = document.getElementById('studentName').value;
-        const email = document.getElementById('studentEmail').value;
         const chapterName = document.getElementById('requestChapterName').value;
         const chapterPath = document.getElementById('requestChapterPath').value;
-        
         const pwd = document.getElementById('downloadPassword').value.trim();
         const pwdError = document.getElementById('downloadPasswordError');
+        
         pwdError.style.display = 'none';
+        btnSubmit.disabled = true;
 
-        if (pwd !== '') {
-          if (pwd === 'kbj@2008') {
-            // Immediate approval and download!
-            setTimeout(() => {
-              document.getElementById('downloadRequestForm').style.display = 'none';
-              const successState = document.getElementById('requestSuccessState');
-              successState.style.display = 'block';
-              
-              const successMsg = `Access Authorized! The bypass password is correct. Your download of <strong>"${chapterName}"</strong> has been approved and started automatically.<br><br>If it didn't start, please click here: <a href="${encodeURI(chapterPath)}" download style="color:#10b981;font-weight:700;text-decoration:underline;">Download Now</a>`;
-              document.getElementById('successMessageText').innerHTML = successMsg;
-              
-              btnSubmit.textContent = 'SUBMIT DOWNLOAD REQUEST';
-              btnSubmit.disabled = false;
-
-              // Save request as approved
-              const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
-              requests[chapterPath] = {
-                name: name,
-                email: email,
-                chapter: chapterName,
-                status: 'approved',
-                timestamp: new Date().toISOString()
-              };
-              localStorage.setItem('pyq_requests', JSON.stringify(requests));
-              
-              updateRequestButtons();
-
-              // Trigger download
-              const a = document.createElement('a');
-              a.href = encodeURI(chapterPath);
-              a.download = '';
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-            }, 1000);
-            return;
-          } else {
-            // Wrong password error!
-            pwdError.style.display = 'block';
-            btnSubmit.textContent = 'SUBMIT DOWNLOAD REQUEST';
-            btnSubmit.disabled = false;
-            return;
-          }
-        }
-
-        // Standard pending request (if password is empty)
-        setTimeout(() => {
-          document.getElementById('downloadRequestForm').style.display = 'none';
-          const successState = document.getElementById('requestSuccessState');
-          successState.style.display = 'block';
-          
-          const successMsg = `Your request to download <strong>"${chapterName}"</strong> has been sent successfully to the diary administrator (Mr. K B Joshi).<br><br>Once approved, the download permission will be registered and the direct download link will be emailed to you at <strong>${email}</strong>.<br><br><em>Status: PENDING REVIEW</em><br><br><span style="font-size:0.85em;color:#38bdf8;">💡 Demo Note: For testing purposes, this request will automatically auto-approve in 10 seconds!</span>`;
-          document.getElementById('successMessageText').innerHTML = successMsg;
-          
-          btnSubmit.textContent = 'SUBMIT DOWNLOAD REQUEST';
-          btnSubmit.disabled = false;
-
-          // Save request
-          const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
-          requests[chapterPath] = {
-            name: name,
-            email: email,
-            chapter: chapterName,
-            status: 'pending',
-            timestamp: new Date().toISOString()
-          };
-          localStorage.setItem('pyq_requests', JSON.stringify(requests));
-          
-          updateRequestButtons();
-
-          // Auto approve after 10s for demo/UX purposes
+        if (pwd === 'kbj@2008') {
+          btnSubmit.textContent = 'Verifying...';
           setTimeout(() => {
-            const reqs = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
-            if (reqs[chapterPath]) {
-              reqs[chapterPath].status = 'approved';
-              localStorage.setItem('pyq_requests', JSON.stringify(reqs));
-              updateRequestButtons();
-            }
-          }, 10000);
-
-        }, 1200);
+            // Save request as approved
+            const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+            requests[chapterPath] = {
+              chapter: chapterName,
+              status: 'approved',
+              timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('pyq_requests', JSON.stringify(requests));
+            
+            updateRequestButtons();
+            
+            // Hide modal
+            requestModal.style.display = 'none';
+            btnSubmit.textContent = 'DOWNLOAD FILE';
+            btnSubmit.disabled = false;
+            
+            // Trigger download
+            const a = document.createElement('a');
+            a.href = encodeURI(chapterPath);
+            a.download = '';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }, 800);
+        } else {
+          pwdError.style.display = 'block';
+          btnSubmit.disabled = false;
+        }
       });
 
       // 4. Transform all download buttons to View / Request actions dynamically
@@ -1100,7 +945,7 @@
         reqBtn.className = 'download-btn request-dl-btn';
         reqBtn.style.cursor = 'pointer';
         reqBtn.setAttribute('data-path', path);
-        reqBtn.innerHTML = `<i class="fas fa-lock"></i> Request ${labelText}`;
+        reqBtn.innerHTML = `<i class="fas fa-lock"></i> Download ${labelText}`;
         reqBtn.href = '#';
         reqBtn.onclick = (e) => {
           e.preventDefault();
@@ -1117,10 +962,7 @@
       const unlockModal = document.getElementById('unlockFolderModal');
       const btnUnlockDropbox = document.getElementById('btnUnlockDropbox');
       const closeUnlockBtn = document.getElementById('closeUnlockModal');
-      const btnDismissUnlock = document.getElementById('btnDismissUnlock');
       const unlockForm = document.getElementById('unlockFolderForm');
-      const unlockSuccessState = document.getElementById('unlockSuccessState');
-      const unlockSuccessText = document.getElementById('unlockSuccessText');
 
       function updateDropboxBannerUI() {
         const status = localStorage.getItem('dropbox_folder_unlocked');
@@ -1130,21 +972,12 @@
         if (status === 'approved') {
           if (lockedState) lockedState.style.display = 'none';
           if (unlockedState) unlockedState.style.display = 'block';
-        } else if (status === 'pending') {
-          // If pending, show a status info instead of button
-          if (lockedState) {
-            lockedState.innerHTML = `<p style="margin: 0; line-height: 1.5; color: var(--text-secondary); font-size: 0.95em;">
-              🔒 Request Status: <strong>PENDING REVIEW</strong>. Mr. K B Joshi is reviewing your access request.
-            </p>`;
-          }
         }
       }
 
       if (btnUnlockDropbox) {
         btnUnlockDropbox.addEventListener('click', function(e) {
           e.preventDefault();
-          unlockForm.style.display = 'block';
-          unlockSuccessState.style.display = 'none';
           unlockForm.reset();
           document.getElementById('unlockPasswordError').style.display = 'none';
           unlockModal.style.display = 'flex';
@@ -1157,75 +990,34 @@
         });
       }
 
-      if (btnDismissUnlock) {
-        btnDismissUnlock.addEventListener('click', function() {
-          unlockModal.style.display = 'none';
-        });
-      }
-
       if (unlockForm) {
         unlockForm.addEventListener('submit', function(e) {
           e.preventDefault();
           const btnSubmit = document.getElementById('btnSubmitUnlock');
-          btnSubmit.textContent = 'Verifying...';
-          btnSubmit.disabled = true;
-
-          const name = document.getElementById('unlockName').value;
-          const email = document.getElementById('unlockEmail').value;
           const pwd = document.getElementById('unlockPassword').value.trim();
           const pwdError = document.getElementById('unlockPasswordError');
+          
           pwdError.style.display = 'none';
+          btnSubmit.disabled = true;
 
-          if (pwd !== '') {
-            if (pwd === 'kbj@2008') {
-              setTimeout(() => {
-                unlockForm.style.display = 'none';
-                unlockSuccessState.style.display = 'block';
-                
-                const linkHTML = `<a href="https://www.dropbox.com/scl/fo/tybzinx3rt6xbqb97vps1/ACIoidwrnFeZ9Qf7nWZ7Su4?rlkey=63443bpuc7k7jasjdyotofg4u&st=7m5cf8ku&dl=0" target="_blank" style="color: #34d399; font-weight: 700; text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;">Open Dropbox Folder <i class="fas fa-external-link-alt" style="font-size: 0.85em;"></i></a>`;
-                unlockSuccessText.innerHTML = `Access Authorized! The bypass password is correct. You can now open the cloud repository directly here: ${linkHTML}`;
-                
-                btnSubmit.textContent = 'REQUEST ACCESS / UNLOCK';
-                btnSubmit.disabled = false;
-
-                localStorage.setItem('dropbox_folder_unlocked', 'approved');
-                updateDropboxBannerUI();
-              }, 1000);
-              return;
-            } else {
-              pwdError.style.display = 'block';
-              btnSubmit.textContent = 'REQUEST ACCESS / UNLOCK';
-              btnSubmit.disabled = false;
-              return;
-            }
-          }
-
-          // If password is blank, handle as a standard request
-          setTimeout(() => {
-            unlockForm.style.display = 'none';
-            unlockSuccessState.style.display = 'block';
-            
-            unlockSuccessText.innerHTML = `Your request to access the Dropbox folder has been sent successfully to the diary administrator (Mr. K B Joshi).<br><br>The access link will be sent to your email <strong>${email}</strong> once approved.<br><br><em>Status: PENDING REVIEW</em><br><br><span style="font-size:0.85em;color:#38bdf8;">💡 Demo Note: For testing purposes, this request will auto-approve in 10 seconds!</span>`;
-            
-            btnSubmit.textContent = 'REQUEST ACCESS / UNLOCK';
-            btnSubmit.disabled = false;
-
-            localStorage.setItem('dropbox_folder_unlocked', 'pending');
-            updateDropboxBannerUI();
-
-            // Auto approve after 10s for demo/UX purposes
+          if (pwd === 'kbj@2008') {
+            btnSubmit.textContent = 'Verifying...';
             setTimeout(() => {
               localStorage.setItem('dropbox_folder_unlocked', 'approved');
               updateDropboxBannerUI();
-            }, 10000);
-
-          }, 1200);
+              unlockModal.style.display = 'none';
+              btnSubmit.textContent = 'UNLOCK REPOSITORY LINK';
+              btnSubmit.disabled = false;
+            }, 800);
+          } else {
+            pwdError.style.display = 'block';
+            btnSubmit.disabled = false;
+          }
         });
       }
 
       // Check current unlock status on load
       updateDropboxBannerUI();
-
       updateRequestButtons();
     });
   </script>
