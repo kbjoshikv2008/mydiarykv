@@ -1,8 +1,9 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
-const PORT = 8080;
+const START_PORT = 8080;
 
 const MIME_TYPES = {
   '.html': 'text/html',
@@ -74,8 +75,29 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Teacher's Digital Diary Server is running!`);
-  console.log(`Open your browser and navigate to: http://localhost:${PORT}/`);
-  console.log(`Press Ctrl+C inside this window to stop the server.`);
+let port = START_PORT;
+function startServer() {
+  server.listen(port, () => {
+    console.log(`=============================================================`);
+    console.log(` Teacher's Digital Diary Server is running!`);
+    console.log(` URL: http://localhost:${port}/`);
+    console.log(`=============================================================`);
+    console.log(`Opening your portal page in browser...`);
+    console.log(`Press Ctrl+C inside this window to stop the server.`);
+    
+    // Automatically launch browser to the dynamic port
+    exec(`start http://localhost:${port}/`);
+  });
+}
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.log(`Port ${port} is already in use. Trying next port...`);
+    port++;
+    startServer();
+  } else {
+    console.error(`Server error:`, err);
+  }
 });
+
+startServer();
