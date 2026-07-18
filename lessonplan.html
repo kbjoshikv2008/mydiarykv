@@ -332,6 +332,176 @@
         color: #000 !important;
       }
     }
+
+    /* Vault Customizer Stylings */
+    .vault-lp-canvas table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .vault-lp-canvas th, .vault-lp-canvas td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+      color: #333 !important;
+    }
+    .vault-lp-canvas th {
+      background-color: #e3eaf3;
+      font-weight: bold;
+      color: #1c4587 !important;
+    }
+    .vault-lp-canvas .english {
+      font-weight: bold;
+      color: #1c4587 !important;
+      margin-bottom: 3px;
+    }
+    .vault-lp-canvas .hindi {
+      font-family: 'Nirmala UI', 'Arial Unicode MS', sans-serif;
+      color: #333 !important;
+      font-size: 16px;
+    }
+    .vault-lp-canvas .title-section {
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1c4587;
+    }
+    .vault-lp-canvas .title-section h1 {
+      color: #1c4587 !important;
+      font-size: 28px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .vault-lp-canvas .title-section h2 {
+      color: #333 !important;
+      font-size: 20px;
+      font-weight: normal;
+    }
+    .vault-lp-canvas .prefilled {
+      background-color: #f8f9fa;
+      padding: 5px;
+      min-height: 20px;
+      color: #000 !important;
+    }
+    .vault-lp-canvas .input-field {
+      width: 100%;
+      border: none;
+      padding: 5px;
+      font-size: 14px;
+      background-color: transparent;
+      color: #000 !important;
+      border-bottom: 1px dashed #ccc !important;
+    }
+    .vault-lp-canvas .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    .vault-lp-canvas .checkbox-group input {
+      margin-right: 5px;
+    }
+    .vault-lp-canvas .signature-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .vault-lp-canvas .signature-box {
+      width: 45%;
+      padding: 15px;
+      border: 1px dashed #999;
+      text-align: center;
+    }
+    .vault-lp-canvas .signature-box p {
+      margin: 0;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    /* Compact Mode overrides */
+    .vault-lp-compact table {
+      margin-bottom: 6px !important;
+    }
+    .vault-lp-compact th, .vault-lp-compact td {
+      padding: 5px 8px !important;
+      font-size: 13px !important;
+    }
+    .vault-lp-compact .title-section {
+      margin-bottom: 12px !important;
+      padding-bottom: 5px !important;
+    }
+    .vault-lp-compact .title-section h1 {
+      font-size: 20px !important;
+    }
+    .vault-lp-compact .title-section h2 {
+      font-size: 15px !important;
+    }
+    .vault-lp-compact textarea.input-field {
+      height: 40px !important;
+    }
+    .vault-lp-compact .signature-row {
+      margin-top: 10px !important;
+    }
+    .vault-lp-compact .signature-box {
+      padding: 8px !important;
+    }
+    
+    /* Language filters */
+    .vault-lp-english .hindi {
+      display: none !important;
+    }
+    .vault-lp-hindi .english {
+      display: none !important;
+    }
+    
+    /* Printing support */
+    @media print {
+      body.printing-vault-lp {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      body.printing-vault-lp > *:not(#vaultLpModal) {
+        display: none !important;
+      }
+      body.printing-vault-lp #vaultLpModal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: #fff !important;
+        padding: 0 !important;
+      }
+      body.printing-vault-lp #vaultLpModal > div {
+        border: none !important;
+        box-shadow: none !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      body.printing-vault-lp .vault-control-bar {
+        display: none !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas {
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas input, 
+      body.printing-vault-lp .vault-lp-canvas textarea {
+        border: none !important;
+        padding: 0 !important;
+        font-family: inherit !important;
+        font-size: inherit !important;
+        background: transparent !important;
+        color: #000 !important;
+        border-bottom: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -729,6 +899,54 @@
           </div>
 
       </div>
+
+      <!-- Vault Lesson Plan Editor Modal -->
+      <div id="vaultLpModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.85); backdrop-filter:blur(8px); z-index:2000; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+        <div style="width:100%; max-width:1100px; height:90%; background:#1e1b4b; border:1px solid rgba(255,255,255,0.1); border-radius:16px; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.5); display:flex; flex-direction:column; overflow:hidden;">
+          <!-- Control Bar -->
+          <div class="vault-control-bar" style="background:#14113c; padding:15px 25px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:15px;">
+            <div style="text-align:left;">
+              <h3 style="margin:0; font-size:1.1em; color:#fff; font-family:var(--font-head); font-weight:700;"><i class="fas fa-edit" style="color:#a78bfa; margin-right:8px;"></i>Vault Lesson Plan Customizer</h3>
+              <p style="margin:2px 0 0 0; font-size:0.78em; color:var(--text-secondary);">Modify content directly below, then download or print</p>
+            </div>
+            
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <!-- Language Filters -->
+              <select id="vaultLangFilter" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#fff; padding:6px 12px; font-size:0.85em; outline:none; cursor:pointer;" onchange="updateVaultLpLanguageFilter()">
+                <option value="bilingual">Bilingual (English & Hindi)</option>
+                <option value="english">English Only</option>
+                <option value="hindi">Hindi Only</option>
+              </select>
+              
+              <!-- Compact View Toggle -->
+              <label style="display:flex; align-items:center; gap:6px; color:#c4b5fd; font-size:0.85em; cursor:pointer; user-select:none;">
+                <input type="checkbox" id="vaultCompactToggle" onchange="updateVaultLpCompactFilter()" style="cursor:pointer;">
+                Compact Teaching Layout
+              </label>
+              
+              <button onclick="downloadVaultLpDoc()" class="download-btn" style="background:rgba(168, 85, 247, 0.15); color:#c084fc; border-color:rgba(168, 85, 247, 0.3); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+                <i class="fas fa-file-word"></i> Download .doc
+              </button>
+              
+              <button onclick="printVaultLp()" class="download-btn" style="background:rgba(16, 185, 129, 0.15); color:#34d399; border-color:rgba(16, 185, 129, 0.3); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+                <i class="fas fa-print"></i> Print / PDF
+              </button>
+              
+              <button onclick="closeVaultLpModal()" style="background:rgba(239, 68, 68, 0.15); color:#f87171; border:1px solid rgba(239, 68, 68, 0.25); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer;">
+                Close
+              </button>
+            </div>
+          </div>
+          
+          <!-- Editor Canvas Wrapper -->
+          <div style="flex:1; overflow-y:auto; background:#f3f4f6; padding:30px; display:flex; justify-content:center;">
+            <div id="vaultLpEditorBody" class="vault-lp-canvas" style="width:100%; max-width:850px; background:#fff; color:#333; padding:40px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border-radius:4px; box-sizing:border-box; text-align:left;">
+              <!-- Loaded Lesson Plan is injected here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
 
     <!-- Footer -->
@@ -1206,6 +1424,187 @@
       window.print();
     }
 
+    // Vault Lesson Plan Editor controls
+    function openVaultLpEditor(url) {
+      // Fetch the chapter file content
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error("Failed to load document.");
+          return response.text();
+        })
+        .then(htmlText => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlText, 'text/html');
+          const lpContainer = doc.querySelector('.container');
+          
+          if (!lpContainer) {
+            alert("Could not load lesson plan layout structure.");
+            return;
+          }
+          
+          const modal = document.getElementById('vaultLpModal');
+          const editorBody = document.getElementById('vaultLpEditorBody');
+          
+          // Clear language and compact filter resets
+          document.getElementById('vaultLangFilter').value = 'bilingual';
+          document.getElementById('vaultCompactToggle').checked = false;
+          editorBody.className = 'vault-lp-canvas';
+          
+          // Inject content
+          editorBody.innerHTML = lpContainer.innerHTML;
+          
+          // Make prefilled blocks editable
+          editorBody.querySelectorAll('.prefilled').forEach(el => {
+            el.setAttribute('contenteditable', 'true');
+            el.style.border = '1px dashed rgba(124, 58, 237, 0.2)';
+            el.style.borderRadius = '4px';
+            el.style.padding = '5px';
+            el.style.outline = 'none';
+          });
+          
+          // Set default dates if inputs are empty
+          const todayStr = new Date().toLocaleDateString('en-IN');
+          editorBody.querySelectorAll('input').forEach(input => {
+            if (input.classList.contains('input-field') && !input.value) {
+              if (input.type === 'date') {
+                input.value = new Date().toISOString().split('T')[0];
+              } else {
+                input.value = todayStr;
+              }
+            }
+          });
+          
+          modal.style.display = 'flex';
+          modal.setAttribute('data-title', doc.title || "Lesson Plan");
+        })
+        .catch(err => {
+          alert("Error loading lesson plan file: " + err.message);
+        });
+    }
+
+    function updateVaultLpLanguageFilter() {
+      const filterVal = document.getElementById('vaultLangFilter').value;
+      const editorBody = document.getElementById('vaultLpEditorBody');
+      
+      // Reset classes
+      editorBody.classList.remove('vault-lp-english', 'vault-lp-hindi');
+      
+      if (filterVal === 'english') {
+        editorBody.classList.add('vault-lp-english');
+      } else if (filterVal === 'hindi') {
+        editorBody.classList.add('vault-lp-hindi');
+      }
+    }
+
+    function updateVaultLpCompactFilter() {
+      const isCompact = document.getElementById('vaultCompactToggle').checked;
+      const editorBody = document.getElementById('vaultLpEditorBody');
+      
+      if (isCompact) {
+        editorBody.classList.add('vault-lp-compact');
+      } else {
+        editorBody.classList.remove('vault-lp-compact');
+      }
+    }
+
+    function closeVaultLpModal() {
+      document.getElementById('vaultLpModal').style.display = 'none';
+      document.getElementById('vaultLpEditorBody').innerHTML = '';
+    }
+
+    function printVaultLp() {
+      document.body.classList.add('printing-vault-lp');
+      window.print();
+      // Use setTimeout to clean body classes after print sheet dialog completes
+      setTimeout(() => {
+        document.body.classList.remove('printing-vault-lp');
+      }, 1000);
+    }
+
+    function downloadVaultLpDoc() {
+      const editorBody = document.getElementById('vaultLpEditorBody');
+      const clone = editorBody.cloneNode(true);
+      
+      // 1. Convert text/number inputs to spans with plain text value
+      clone.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+        const textSpan = document.createElement('span');
+        textSpan.textContent = input.value || "________";
+        input.parentNode.replaceChild(textSpan, input);
+      });
+      
+      // 2. Convert date inputs
+      clone.querySelectorAll('input[type="date"]').forEach(input => {
+        const textSpan = document.createElement('span');
+        textSpan.textContent = input.value ? new Date(input.value).toLocaleDateString('en-IN') : "________";
+        input.parentNode.replaceChild(textSpan, input);
+      });
+
+      // 3. Convert checkboxes
+      clone.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        const span = document.createElement('span');
+        const isChecked = cb.checked;
+        
+        // Find next label or text sibling
+        let labelText = "Option";
+        let sibling = cb.nextSibling;
+        if (sibling && sibling.nodeType === 3) { // text node
+          labelText = sibling.textContent.trim();
+          sibling.remove();
+        } else if (sibling && sibling.tagName === 'LABEL') {
+          labelText = sibling.textContent.trim();
+          sibling.remove();
+        }
+        
+        span.textContent = isChecked ? `[x] ${labelText}` : `[ ] ${labelText}`;
+        cb.parentNode.replaceChild(span, cb);
+      });
+
+      // 4. Remove contenteditable attributes
+      clone.querySelectorAll('[contenteditable]').forEach(el => {
+        el.removeAttribute('contenteditable');
+      });
+
+      const docTitle = document.getElementById('vaultLpModal').getAttribute('data-title') || "Lesson Plan";
+      const filterVal = document.getElementById('vaultLangFilter').value;
+      const isCompact = document.getElementById('vaultCompactToggle').checked;
+
+      // Construct inline Word doc styling mapping
+      const header = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <title>${docTitle}</title>
+          <style>
+            body { font-family: Arial, sans-serif; background-color: #ffffff; color: #000000; }
+            table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+            td, th { border: 1px solid #000000; padding: ${isCompact ? '5px' : '8px'}; font-size: ${isCompact ? '9.5pt' : '11pt'}; }
+            th { background-color: #e3eaf3; font-weight: bold; color: #1c4587; }
+            .english { font-weight: bold; color: #1c4587; ${filterVal === 'hindi' ? 'display:none;' : ''} }
+            .hindi { color: #333333; ${filterVal === 'english' ? 'display:none;' : ''} }
+            h1 { font-size: 18pt; text-align: center; color: #1c4587; margin-bottom: 5px; }
+            h2 { font-size: 14pt; text-align: center; color: #333333; margin-bottom: 20px; }
+            .signature-row { display: table; width: 100%; margin-top: 30px; }
+            .signature-box { display: table-cell; width: 50%; border: 1px dashed #999999; padding: 15px; text-align: center; }
+            .prefilled { background-color: #f8f9fa; padding: 5px; min-height: 20px; }
+          </style>
+        </head>
+        <body>
+      `;
+      const footer = "</body></html>";
+      const sourceHTML = header + clone.innerHTML + footer;
+      
+      const blob = new Blob(['\ufeff' + sourceHTML], {
+        type: 'application/msword'
+      });
+      
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
     // Shared Profile password modal and Document Load setups
     document.addEventListener('DOMContentLoaded', function() {
       // 1. Profile modal setup
@@ -1311,6 +1710,16 @@
           }, 450);
         });
       }
+
+      // 3. Bind vault chapter links to the dynamic editor
+      const chapterLinks = document.querySelectorAll('#lessonPlanVaultSection .chapter-link');
+      chapterLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const url = this.getAttribute('href');
+          openVaultLpEditor(url);
+        });
+      });
     });
 
     // Add shake animation for errors
