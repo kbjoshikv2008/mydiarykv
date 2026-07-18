@@ -777,7 +777,41 @@
         const tabId = btn.getAttribute('data-tab');
         document.getElementById(tabId).classList.add('active');
       });
-    });    // Custom PDF Viewer and Permission Request Handlers
+    });    const ALL_CHAPTERS = [
+      // Class 12
+      { name: "Class 12 - Chapter 1: Relations and Functions", path: "all chapters pdf/class12/Chapter 1 Relations and Functions.pdf" },
+      { name: "Class 12 - Chapter 2: Inverse Trigonometric Functions", path: "all chapters pdf/class12/2 INVERSE TRIGONOMETRIC FUNCTIONS.pdf" },
+      { name: "Class 12 - Chapter 3: Matrices", path: "all chapters pdf/class12/3 MATRICES.pdf" },
+      { name: "Class 12 - Chapter 4: Determinants", path: "all chapters pdf/class12/4 DETERMINANTS.pdf" },
+      { name: "Class 12 - Chapter 5: Continuity and Differentiability", path: "all chapters pdf/class12/5 CONTINUITY AND DIFFERENTIABILITY.pdf" },
+      { name: "Class 12 - Chapter 6: Applications of Derivatives", path: "all chapters pdf/class12/6 APPLICATIONS OF DERIVATIVES.pdf" },
+      { name: "Class 12 - Chapter 7: Integrals Indefinite", path: "all chapters pdf/class12/7 INTEGRALS INDEFINITE.pdf" },
+      { name: "Class 12 - Chapter 7: Integrals Definite", path: "all chapters pdf/class12/8 INTEGRALS DEFINITE.pdf" },
+      { name: "Class 12 - Chapter 8: Applications of Integrals", path: "all chapters pdf/class12/9 APPLICATIONS OF INTEGRALS.pdf" },
+      { name: "Class 12 - Chapter 9: Differential Equations", path: "all chapters pdf/class12/10 DIFFERENTIAL EQUATIONS.pdf" },
+      { name: "Class 12 - Chapter 10: Vector Algebra", path: "all chapters pdf/class12/11 VECTORS.pdf" },
+      { name: "Class 12 - Chapter 11: Three Dimensional Geometry", path: "all chapters pdf/class12/12 3-DIMENSIONAL GEOMETRY.pdf" },
+      { name: "Class 12 - Chapter 12: Linear Programming", path: "all chapters pdf/class12/13 LINEAR PRAGRAMMING.pdf" },
+      { name: "Class 12 - Chapter 13: Probability", path: "all chapters pdf/class12/14 PROBABILITY.pdf" },
+      
+      // Class 11
+      { name: "Class 11 - Chapter 1: Sets", path: "all chapters pdf/class11/Chapter 1 Sets.pdf" },
+      { name: "Class 11 - Chapter 2: Relations and Functions", path: "all chapters pdf/class11/Chapter 2 Relations and Functions.pdf" },
+      { name: "Class 11 - Chapter 3: Trigonometric Functions", path: "all chapters pdf/class11/Chapter 3 Trigonometric Functions.pdf" },
+      { name: "Class 11 - Chapter 4: Complex Numbers", path: "all chapters pdf/class11/Chapter 4 Complex Numbers.pdf" },
+      { name: "Class 11 - Chapter 5: Linear Inequalities", path: "all chapters pdf/class11/Chapter 5 Linear Inequalities.pdf" },
+      { name: "Class 11 - Chapter 6: Permutations and Combinations", path: "all chapters pdf/class11/Chapter 6 Permutations and Combinations.pdf" },
+      { name: "Class 11 - Chapter 7: Binomial Theorem", path: "all chapters pdf/class11/Chapter 7 Binomial Theorem.pdf" },
+      { name: "Class 11 - Chapter 8: Sequences and Series", path: "all chapters pdf/class11/Chapter 8 Sequences and Series.pdf" },
+      { name: "Class 11 - Chapter 9: Straight Lines", path: "all chapters pdf/class11/Chapter 9 Straight Lines.pdf" },
+      { name: "Class 11 - Chapter 10: Conic Sections", path: "all chapters pdf/class11/Chapter 10 Conic Sections.pdf" },
+      { name: "Class 11 - Chapter 11: Introduction to Three Dimensional Geometry", path: "all chapters pdf/class11/Chapter 11 Introduction to Three Dimensional Geometry.pdf" },
+      { name: "Class 11 - Chapter 12: Limits and Derivatives", path: "all chapters pdf/class11/Chapter 12 Limits and Derivatives.pdf" },
+      { name: "Class 11 - Chapter 13: Statistics", path: "all chapters pdf/class11/Chapter 13 Statistics.pdf" },
+      { name: "Class 11 - Chapter 14: Probability", path: "all chapters pdf/class11/Chapter 14 Probability.pdf" }
+    ];
+
+    // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
       // Resolve path to a fully qualified URL to prevent double-encoding/relative resolution errors
       const absoluteUrl = new URL(path, window.location.href).href;
@@ -787,14 +821,24 @@
     function requestDownload(title, path) {
       const modal = document.getElementById('requestDownloadModal');
       const form = document.getElementById('downloadRequestForm');
+      const dropdown = document.getElementById('chapterSelectDropdown');
       
       document.getElementById('requestChapterPath').value = path;
       document.getElementById('requestChapterName').value = title;
-      document.getElementById('displayChapterName').value = title;
       
       // Reset form states
       form.reset();
       document.getElementById('downloadPasswordError').style.display = 'none';
+      
+      // Pre-select the correct option
+      if (dropdown) {
+        for (let i = 0; i < dropdown.options.length; i++) {
+          if (dropdown.options[i].value === path) {
+            dropdown.selectedIndex = i;
+            break;
+          }
+        }
+      }
       
       modal.style.display = 'flex';
     }
@@ -821,6 +865,24 @@
 
     // Profile auth password modal and Document Load setups
     document.addEventListener('DOMContentLoaded', function() {
+      // 0. Populate chapterSelectDropdown dynamically
+      const chapterSelect = document.getElementById('chapterSelectDropdown');
+      if (chapterSelect) {
+        chapterSelect.innerHTML = '';
+        ALL_CHAPTERS.forEach(ch => {
+          const opt = document.createElement('option');
+          opt.value = ch.path;
+          opt.textContent = ch.name;
+          chapterSelect.appendChild(opt);
+        });
+
+        chapterSelect.addEventListener('change', function() {
+          const selectedOption = this.options[this.selectedIndex];
+          document.getElementById('requestChapterPath').value = selectedOption.value;
+          document.getElementById('requestChapterName').value = selectedOption.text;
+        });
+      }
+
       // 1. Profile modal setup
       const modal = document.getElementById('passwordModal');
       const profileLink = document.getElementById('profileLink');
