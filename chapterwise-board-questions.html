@@ -880,16 +880,8 @@
 
     // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
-      const modal = document.getElementById('viewPdfModal');
-      const iframe = document.getElementById('pdfViewerIframe');
-      const headerTitle = document.getElementById('viewPdfTitle');
-      
-      if (headerTitle) headerTitle.textContent = title.replace(' - PDF', '');
-      if (iframe) {
-        // Append #toolbar=0&navpanes=0 to hide built-in browser UI controls (like save/print buttons)
-        iframe.src = encodeURI(path) + "#toolbar=0&navpanes=0";
-      }
-      if (modal) modal.style.display = 'flex';
+      // Open local file directly in a new tab (bypasses browser iframe restrictions for local file:/// protocol)
+      window.open(encodeURI(path), '_blank');
     }
 
     function requestDownload(title, path) {
@@ -1028,35 +1020,28 @@
           const pwdError = document.getElementById('downloadPasswordError');
           
           pwdError.style.display = 'none';
-          btnSubmit.disabled = true;
 
           if (pwd === 'kbj@2008') {
-            btnSubmit.textContent = 'Verifying...';
-            setTimeout(() => {
-              // Save request as approved
-              const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
-              requests[chapterPath] = {
-                chapter: chapterName,
-                status: 'approved',
-                timestamp: new Date().toISOString()
-              };
-              localStorage.setItem('pyq_requests', JSON.stringify(requests));
-              
-              updateRequestButtons();
-              
-              // Hide modal
-              if (requestModal) requestModal.style.display = 'none';
-              btnSubmit.textContent = 'DOWNLOAD FILE';
-              btnSubmit.disabled = false;
-              
-              // Open document directly in a new tab (bypasses browser local download sandbox policy blocks)
-              window.open(encodeURI(chapterPath), '_blank');
-              
-              alert(`Access Authorized!\n\nThe PDF has been opened in a new tab. You can now save, print, or download it using the browser's view toolbar.`);
-            }, 800);
+            // Save request as approved
+            const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+            requests[chapterPath] = {
+              chapter: chapterName,
+              status: 'approved',
+              timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('pyq_requests', JSON.stringify(requests));
+            
+            updateRequestButtons();
+            
+            // Hide modal
+            if (requestModal) requestModal.style.display = 'none';
+            
+            // Open document directly in a new tab (bypasses browser local download sandbox policy blocks)
+            window.open(encodeURI(chapterPath), '_blank');
+            
+            alert(`Access Authorized!\n\nThe PDF has been opened in a new tab. You can now save, print, or download it using the browser's view toolbar.`);
           } else {
             pwdError.style.display = 'block';
-            btnSubmit.disabled = false;
           }
         });
       }
