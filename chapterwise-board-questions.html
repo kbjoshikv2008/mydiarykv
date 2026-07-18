@@ -841,8 +841,8 @@
       if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
     });
 
-    // Tab Switching
-    const tabBtns = document.querySelectorAll('.tab-btn')    const tabContents = document.querySelectorAll('.tab-content');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
     
     tabBtns.forEach(btn => {
        btn.addEventListener('click', () => {
