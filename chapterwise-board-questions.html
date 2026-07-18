@@ -777,8 +777,9 @@
       });
     });    // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
-      // Enabled for all in a separate window
-      window.open(encodeURI(path), '_blank');
+      // Resolve path to a fully qualified URL to prevent double-encoding/relative resolution errors
+      const absoluteUrl = new URL(path, window.location.href).href;
+      window.open(absoluteUrl, '_blank');
     }
 
     function requestDownload(title, path) {
