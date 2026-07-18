@@ -264,8 +264,73 @@
       transform: translateX(-3px);
     }
 
-    @media (max-width: 768px) {
-      .class-container { grid-template-columns: 1fr; }
+    /* Tab buttons active state styling */
+    .tab-btn {
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent !important;
+      border-radius: 0 !important;
+      font-weight: 600;
+    }
+    .tab-btn:hover {
+      color: #fff;
+    }
+    .tab-btn.active {
+      color: #a78bfa !important;
+      border-bottom-color: #8b5cf6 !important;
+    }
+
+    /* Option styling for dark theme selectors */
+    #lpClass {
+      background-color: #140f2d !important;
+      color: #fff !important;
+    }
+    #lpClass option {
+      background-color: #140f2d !important;
+      color: #fff !important;
+      padding: 10px;
+    }
+
+    /* Spinning Loader */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Print styles */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #lpResultContent, #lpResultContent * {
+        visibility: visible;
+      }
+      #lpResultContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        color: #000 !important;
+        background: #fff !important;
+      }
+      .lesson-plan-document {
+        background: #fff !important;
+        color: #000 !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+      .lesson-plan-document table, .lesson-plan-document td, .lesson-plan-document th {
+        border-color: #000 !important;
+        color: #000 !important;
+      }
+      .lesson-plan-document h2 {
+        color: #000 !important;
+        border-bottom-color: #000 !important;
+      }
+      .lesson-plan-document span {
+        background: none !important;
+        border: 1px solid #000 !important;
+        color: #000 !important;
+      }
     }
   </style>
 </head>
@@ -341,194 +406,282 @@
         <div class="floating-math" style="bottom: 220px; left: 8%;">&infin;</div>
         <div class="floating-math" style="bottom: 380px; right: 10%;">&Delta;</div>
 
-        <div class="class-container">
-          <!-- Class 7 Card -->
-          <div class="class-card class-7 fade-in-1">
-            <div class="class-header">
-              <i class="fas fa-calculator"></i>
-              <h2 class="class-title">Class 7 Mathematics</h2>
-            </div>
-            <div class="chapter-list">
-              <h3><i class="fas fa-book"></i> Chapters</h3>
-              <div class="chapters">
-                <a href="Lesson plan/class7_chapter1.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 1:</span> Large Numbers Around Us
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter2.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 2:</span> Arithmetic Expressions
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter3.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 3:</span> A Peek Beyond the Point
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter4.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 4:</span> Expressions using Letter-Numbers
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter5.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 5:</span> Parallel and Intersecting Lines
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter6.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 6:</span> Number Play
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter7.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 7:</span> A Tale of Three Intersecting Lines
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class7_chapter8.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 8:</span> Working with Fractions
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+        <!-- Tab Switcher -->
+        <div class="tabs fade-in-2" style="display: flex; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+          <button class="tab-btn active" id="btnVaultTab" style="background:none; border:none; color:#c4b5fd; font-family:var(--font-head); font-weight:700; font-size:1.1em; cursor:pointer; padding:10px 20px; border-radius:8px; transition:all 0.3s;" onclick="switchLessonPlanTab('vault')">
+            <i class="fas fa-folder-open"></i> Lesson Plan Vault
+          </button>
+          <button class="tab-btn" id="btnGeneratorTab" style="background:none; border:none; color:var(--text-secondary); font-family:var(--font-head); font-weight:700; font-size:1.1em; cursor:pointer; padding:10px 20px; border-radius:8px; transition:all 0.3s;" onclick="switchLessonPlanTab('generator')">
+            <i class="fas fa-robot"></i> AI Lesson Plan Planner (CBSE/NEP)
+          </button>
+        </div>
 
-          <!-- Class 11 Card -->
-          <div class="class-card class-11 fade-in-2">
-            <div class="class-header">
-              <i class="fas fa-chart-line"></i>
-              <h2 class="class-title">Class 11 Mathematics</h2>
-            </div>
-            <div class="chapter-list">
-              <h3><i class="fas fa-book"></i> Chapters</h3>
-              <div class="chapters">
-                <a href="Lesson plan/class11_chapter1.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 1:</span> Sets
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter2.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 2:</span> Relations and Functions
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter3.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 3:</span> Trigonometric Functions
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter4.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 4:</span> Complex Numbers and Quadratic Equations
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter5.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 5:</span> Linear Inequalities
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter6.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 6:</span> Permutations and Combinations
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter7.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 7:</span> Binomial Theorem
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter8.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 8:</span> Sequences and Series
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter9.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 9:</span> Straight Lines
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter10.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 10:</span> Conic Sections
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter11.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 11:</span> Introduction to Three Dimensional Geometry
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter12.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 12:</span> Limits and Derivatives
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter13.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 13:</span> Statistics
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class11_chapter14.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 14:</span> Probability
-                  <i class="fas fa-chevron-right"></i>
-                </a>
+        <!-- Section 1: Original Lesson Plan Vault -->
+        <div id="lessonPlanVaultSection" class="lp-tab-content">
+          <div class="class-container">
+            <!-- Class 7 Card -->
+            <div class="class-card class-7 fade-in-1">
+              <div class="class-header">
+                <i class="fas fa-calculator"></i>
+                <h2 class="class-title">Class 7 Mathematics</h2>
+              </div>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> Chapters</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class7_chapter1.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Large Numbers Around Us
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter2.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Arithmetic Expressions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter3.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> A Peek Beyond the Point
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter4.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Expressions using Letter-Numbers
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter5.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Parallel and Intersecting Lines
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter6.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Number Play
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter7.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> A Tale of Three Intersecting Lines
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class7_chapter8.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Working with Fractions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Class 12 Card -->
-          <div class="class-card class-12 fade-in-3">
-            <div class="class-header">
-              <i class="fas fa-infinity"></i>
-              <h2 class="class-title">Class 12 Mathematics</h2>
-            </div>
-            <div class="chapter-list">
-              <h3><i class="fas fa-book"></i> Part I</h3>
-              <div class="chapters mb-16">
-                <a href="Lesson plan/class12_part1_chapter1.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 1:</span> Relations and Functions
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part1_chapter2.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 2:</span> Inverse Trigonometric Functions
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part1_chapter3.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 3:</span> Matrices
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part1_chapter4.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 4:</span> Determinants
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part1_chapter5.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 5:</span> Continuity and Differentiability
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part1_chapter6.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 6:</span> Application of Derivatives
-                  <i class="fas fa-chevron-right"></i>
-                </a>
+            <!-- Class 11 Card -->
+            <div class="class-card class-11 fade-in-2">
+              <div class="class-header">
+                <i class="fas fa-chart-line"></i>
+                <h2 class="class-title">Class 11 Mathematics</h2>
               </div>
-              
-              <h3><i class="fas fa-book"></i> Part II</h3>
-              <div class="chapters">
-                <a href="Lesson plan/class12_part2_chapter7_Indefinite.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 7:</span> Indefinite Integrals
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter7_definite.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 7:</span> Definite Integrals
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter8.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 8:</span> Application of Integrals
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter9.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 9:</span> Differential Equations
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter10.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 10:</span> Vector Algebra
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter11.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 11:</span> Three Dimensional Geometry
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter12.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 12:</span> Linear Programming
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="Lesson plan/class12_part2_chapter13.html" class="chapter-link">
-                  <span class="chapter-num">Chapter 13:</span> Probability
-                  <i class="fas fa-chevron-right"></i>
-                </a>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> Chapters</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class11_chapter1.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Sets
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter2.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Relations and Functions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter3.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Trigonometric Functions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter4.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Complex Numbers and Quadratic Equations
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter5.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Linear Inequalities
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter6.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Permutations and Combinations
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter7.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Binomial Theorem
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter8.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Sequences and Series
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter9.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Straight Lines
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter10.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Conic Sections
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter11.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 11:</span> Introduction to Three Dimensional Geometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter12.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 12:</span> Limits and Derivatives
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter13.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 13:</span> Statistics
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter14.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 14:</span> Probability
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Class 12 Card -->
+            <div class="class-card class-12 fade-in-3">
+              <div class="class-header">
+                <i class="fas fa-infinity"></i>
+                <h2 class="class-title">Class 12 Mathematics</h2>
+              </div>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> Part I</h3>
+                <div class="chapters mb-16">
+                  <a href="Lesson plan/class12_part1_chapter1.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Relations and Functions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part1_chapter2.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Inverse Trigonometric Functions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part1_chapter3.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Matrices
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part1_chapter4.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Determinants
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part1_chapter5.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Continuity and Differentiability
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part1_chapter6.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Application of Derivatives
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+                
+                <h3><i class="fas fa-book"></i> Part II</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class12_part2_chapter7_Indefinite.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Indefinite Integrals
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter7_definite.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Definite Integrals
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter8.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Application of Integrals
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter9.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Differential Equations
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter10.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Vector Algebra
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter11.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 11:</span> Three Dimensional Geometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter12.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 12:</span> Linear Programming
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class12_part2_chapter13.html" class="chapter-link">
+                    <span class="chapter-num">Chapter 13:</span> Probability
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Section 2: AI Lesson Plan Planner -->
+        <div id="lessonPlanGeneratorSection" class="lp-tab-content" style="display:none;">
+          <div class="class-card" style="padding:40px; margin-bottom:30px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-xl); box-shadow:var(--glass-shadow);">
+            <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:15px;">
+              <i class="fas fa-robot" style="font-size:2.2rem; color:#a78bfa;"></i>
+              <div>
+                <h2 class="class-title" style="margin:0;">AI Lesson Plan Planner</h2>
+                <p style="color:var(--text-secondary); font-size:0.85em; margin:4px 0 0 0;">Competency-based, NEP 2020 & NCF 2023 aligned lesson planner</p>
+              </div>
+            </div>
+            
+            <form id="aiPlannerForm" onsubmit="return false;" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:20px;">
+              <div style="text-align:left;">
+                <label for="lpSubject" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Subject *</label>
+                <input type="text" id="lpSubject" required value="Mathematics" style="width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; box-sizing:border-box;">
+              </div>
+              <div style="text-align:left;">
+                <label for="lpClass" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Class *</label>
+                <select id="lpClass" style="width:100%; padding:12px; background:rgba(20,15,45,0.98); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; box-sizing:border-box; cursor:pointer;">
+                  <option value="Class 1">Class I</option>
+                  <option value="Class 2">Class II</option>
+                  <option value="Class 3">Class III</option>
+                  <option value="Class 4">Class IV</option>
+                  <option value="Class 5">Class V</option>
+                  <option value="Class 6">Class VI</option>
+                  <option value="Class 7" selected>Class VII</option>
+                  <option value="Class 8">Class VIII</option>
+                  <option value="Class 9">Class IX</option>
+                  <option value="Class 10">Class X</option>
+                  <option value="Class 11">Class XI</option>
+                  <option value="Class 12">Class XII</option>
+                </select>
+              </div>
+              <div style="text-align:left;">
+                <label for="lpChapter" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Chapter Name *</label>
+                <input type="text" id="lpChapter" required placeholder="e.g. Chapter 1: Sets" style="width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; box-sizing:border-box;">
+              </div>
+              <div style="text-align:left;">
+                <label for="lpTopic" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Topic *</label>
+                <input type="text" id="lpTopic" required placeholder="e.g. Subsets and Venn Diagrams" style="width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; box-sizing:border-box;">
+              </div>
+              <div style="text-align:left;">
+                <label for="lpPeriods" style="display:block; color:var(--text-secondary); font-size:0.82em; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Number of Periods Required *</label>
+                <input type="number" id="lpPeriods" required min="1" max="30" value="5" style="width:100%; padding:12px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:8px; color:#fff; outline:none; box-sizing:border-box;">
+              </div>
+              <div style="grid-column: 1 / -1; margin-top:10px;">
+                <button type="submit" id="btnGenerateLP" class="submit-btn" style="background:linear-gradient(135deg, #7c3aed, #0ea5e9); border:none; padding:15px; border-radius:8px; font-weight:700; width:100%; cursor:pointer; box-shadow:0 4px 15px rgba(124,58,237,0.3); font-size:0.95em; letter-spacing:0.5px;">
+                  <i class="fas fa-magic"></i> GENERATE COMPETENCY-BASED LESSON PLAN
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Loading State -->
+          <div id="lpLoadingState" style="display:none; text-align:center; padding:40px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-xl); box-shadow:var(--glass-shadow); margin-bottom:30px;">
+            <div style="font-size:3rem; color:#8b5cf6; margin-bottom:20px; animation: spin 2s linear infinite;"><i class="fas fa-circle-notch"></i></div>
+            <h3 style="color:#fff; font-family:var(--font-head); font-size:1.2rem; margin-bottom:8px;" id="lpLoadingText">Act as subject expert & lesson planner...</h3>
+            <p style="color:var(--text-secondary); font-size:0.85em;">Compiling General Facts, NEP pedagogies, and Bloom's objectives...</p>
+          </div>
+
+          <!-- Generated Lesson Plan Result Card -->
+          <div id="lpResultCard" style="display:none; margin-bottom:40px;">
+            <div style="display:flex; justify-content:flex-end; gap:12px; margin-bottom:15px;">
+              <button onclick="copyLessonPlan()" class="download-btn" style="background:rgba(14, 165, 233, 0.15); color:#0ea5e9; border-color:rgba(14, 165, 233, 0.3); padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <i class="fas fa-copy"></i> Copy to Clipboard
+              </button>
+              <button onclick="printLessonPlan()" class="download-btn" style="background:rgba(16, 185, 129, 0.15); color:#34d399; border-color:rgba(16, 185, 129, 0.3); padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <i class="fas fa-print"></i> Print Lesson Plan
+              </button>
+            </div>
+            <div id="lpResultContent">
+              <!-- Rendered Lesson Plan HTML will go here -->
+            </div>
+          </div>
 
       </div>
     </main>
@@ -649,8 +802,300 @@
       }
     });
 
-    // Shared Profile password modal
+    // Tab switcher
+    function switchLessonPlanTab(tab) {
+      const vaultSection = document.getElementById('lessonPlanVaultSection');
+      const generatorSection = document.getElementById('lessonPlanGeneratorSection');
+      const vaultBtn = document.getElementById('btnVaultTab');
+      const generatorBtn = document.getElementById('btnGeneratorTab');
+      
+      if (tab === 'vault') {
+        vaultSection.style.display = 'block';
+        generatorSection.style.display = 'none';
+        vaultBtn.classList.add('active');
+        generatorBtn.classList.remove('active');
+      } else {
+        vaultSection.style.display = 'none';
+        generatorSection.style.display = 'block';
+        vaultBtn.classList.remove('active');
+        generatorBtn.classList.add('active');
+      }
+    }
+
+    // AI Lesson Plan Generator Template
+    function generateLessonPlanHTML(subject, className, chapter, topic, periods) {
+      const dateStr = new Date().toLocaleDateString('en-IN');
+      
+      // Calculate future completion date (simulating planning)
+      const future = new Date();
+      future.setDate(future.getDate() + parseInt(periods) * 2);
+      const completionStr = future.toLocaleDateString('en-IN');
+
+      return `
+        <div class="lesson-plan-document" style="background: rgba(255, 255, 255, 0.02); color: #fff; padding: 40px; border-radius: 16px; border: 1px solid var(--glass-border); font-family: 'Inter', sans-serif; line-height: 1.6;">
+          <div style="border-bottom: 3px solid #8b5cf6; padding-bottom: 20px; margin-bottom: 35px; text-align: center;">
+            <h1 style="font-size: 1.8em; color: #fff; font-family: var(--font-head); font-weight: 800; text-transform: uppercase; margin: 0 0 8px 0; letter-spacing: 0.5px;">COMPREHENSIVE COMPETENCY-BASED LESSON PLAN</h1>
+            <p style="color: #a78bfa; font-size: 0.88em; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin: 0;">NEP 2020 & NCF 2023 ALIGNED &middot; CBSE / KVS / PM SHRI STANDARDS</p>
+          </div>
+
+          <!-- Section 1 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">1</span>
+              1. GENERAL FACTS
+            </h2>
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 15px;">
+              <tr>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; width: 25%; color: #c4b5fd;">Date:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${dateStr}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; width: 25%; color: #c4b5fd;">Class & Section:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${className}</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Subject:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${subject}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Number of Students:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">40</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Chapter / Topic:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);" colspan="3"><strong>${chapter}</strong> &middot; ${topic}</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Date of Commencement:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${dateStr}</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Number of Periods:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${periods}</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Actual Date of Completion:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${completionStr} (Expected)</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Source of Lesson Plan:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">NCERT / CBSE Curriculum Framework</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Lesson Plan Developer:</td>
+                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);" colspan="3">K B Joshi (PGT Mathematics) & AIsubjectPlanner</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Section 2 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">2</span>
+              2. CONTENT AND CONCEPTS
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Important Concepts:</strong> Key conceptual pillars of <em>${topic}</em> within <em>${chapter}</em>.</li>
+              <li style="margin-bottom: 6px;"><strong>Key Ideas:</strong> Conceptual definitions, mathematical formulas/laws, boundary condition validations, and logical theorems.</li>
+              <li style="margin-bottom: 6px;"><strong>Sequence of Content:</strong> Review of Prerequisites &rarr; Conceptual Introduction &rarr; Core Derivation/Logical Explanations &rarr; Class Exercises &rarr; Competency Assessment &rarr; Exit Ticket evaluation.</li>
+              <li style="margin-bottom: 6px;"><strong>Concept Map:</strong> prior_knowledge &rarr; core_definition &rarr; visual_representation &rarr; competency_questions &rarr; real_world_application.</li>
+            </ul>
+          </div>
+
+          <!-- Section 3 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">3</span>
+              3. LEARNING OUTCOMES (NCERT/CBSE)
+            </h2>
+            <p style="margin: 0 0 10px 0;">By the end of this lesson, students will achieve the following measurable outcomes:</p>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Cognitive/Recall (LO1):</strong> State, write, and identify the primary rules and definitions governing <em>${topic}</em>.</li>
+              <li style="margin-bottom: 6px;"><strong>Understanding (LO2):</strong> Explain the conceptual relation of <em>${topic}</em> and illustrate it with examples.</li>
+              <li style="margin-bottom: 6px;"><strong>Application (LO3):</strong> Solve multi-step mathematical problems and competency cases involving <em>${topic}</em> with high procedural accuracy.</li>
+              <li style="margin-bottom: 6px;"><strong>Analysis (LO4):</strong> Compare different solution methods to select the most efficient logical pathway.</li>
+            </ul>
+          </div>
+
+          <!-- Section 4 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">4</span>
+              4. PEDAGOGICAL STRATEGIES
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Discussion:</strong> Peer dialogues analyzing boundary edge cases.</li>
+              <li style="margin-bottom: 6px;"><strong>Demonstration:</strong> Graphical/algebraic demonstrations of <em>${topic}</em> on the interactive smart panel.</li>
+              <li style="margin-bottom: 6px;"><strong>Activity-Based & Experiential Learning:</strong> Hands-on activity where students model and solve worksheets collaboratively.</li>
+              <li style="margin-bottom: 6px;"><strong>ICT Integration:</strong> Using digital slides, YouTube videos, and interactive applets (like GeoGebra) to explore concepts dynamically.</li>
+            </ul>
+          </div>
+
+          <!-- Section 5 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">5</span>
+              5. 21st CENTURY SKILLS / VALUE EDUCATION / VOCATIONAL SKILLS
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Critical Thinking & Problem Solving:</strong> Evaluating mathematical assertions and explaining reasoning.</li>
+              <li style="margin-bottom: 6px;"><strong>Collaboration & Communication:</strong> Team projects drafting real-world examples and presenting them to the class.</li>
+              <li style="margin-bottom: 6px;"><strong>Ethical Values & Life Skills:</strong> Intellectual honesty, respecting divergent peer opinions, and collaborating productively.</li>
+            </ul>
+          </div>
+
+          <!-- Section 6 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">6</span>
+              6. EXTENSION / REAL-LIFE APPLICATIONS
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Everyday Life & Society:</strong> How <em>${topic}</em> helps organize information, schedule timetables, or partition groups.</li>
+              <li style="margin-bottom: 6px;"><strong>Careers & Technology:</strong> Foundations in Data Science, Software Engineering algorithms, Economics forecasting, and Physics modeling.</li>
+            </ul>
+          </div>
+
+          <!-- Section 7 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">7</span>
+              7. INTEGRATION WITH OTHER SUBJECTS
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Computer Science:</strong> Linking <em>${topic}</em> directly with array collections, function definitions, database relations, and Boolean logic systems.</li>
+              <li style="margin-bottom: 6px;"><strong>Physics & Chemistry:</strong> Modeling vector systems, thermodynamic properties, and reaction rates.</li>
+            </ul>
+          </div>
+
+          <!-- Section 8 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">8</span>
+              8. ASSESSMENT (COMPETENCY-BASED)
+            </h2>
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 8px;">
+              <p style="margin: 0 0 10px 0;"><strong>Diagnostic:</strong> 3-question warm-up at the start on prerequisite concepts from <em>${chapter}</em>.</p>
+              <p style="margin: 0 0 10px 0;"><strong>Formative:</strong> Continuous evaluation during group activities, monitoring student board work, and peer discussions.</p>
+              <p style="margin: 0 0 10px 0;"><strong>Summative (Competency-Based Tasks):</strong></p>
+              <ul style="margin: 0 0 12px 0; padding-left: 20px;">
+                <li style="margin-bottom: 4px;"><em>MCQs:</em> Selecting correct properties of <em>${topic}</em> from dynamic option sets.</li>
+                <li style="margin-bottom: 4px;"><em>Assertion-Reason:</em> Critical validation of mathematical claims and logical proofs.</li>
+                <li style="margin-bottom: 4px;"><em>Case-based:</em> A contextual worksheet showing real data and requiring students to apply <em>${topic}</em> properties to solve it.</li>
+                <li style="margin-bottom: 4px;"><em>HOTS Questions:</em> Devising complex generalizations from specific mathematical observations.</li>
+              </ul>
+              <p style="margin: 0;"><strong>Exit Ticket:</strong> A quick, 2-minute card problem solved individually and handed in before leaving class.</p>
+            </div>
+          </div>
+
+          <!-- Section 9 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">9</span>
+              9. RESOURCES (DIGITAL & PHYSICAL)
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;">NCERT Textbook & KVS/PM SHRI Teacher Handbooks.</li>
+              <li style="margin-bottom: 6px;"><strong>Digital Tools:</strong> Presentation PPT slides, interactive GeoGebra applets, YouTube videos, and smart boards.</li>
+              <li style="margin-bottom: 6px;"><strong>Physical Tools:</strong> Coordinate charts, geometric models, physical card sets, and custom worksheets.</li>
+            </ul>
+          </div>
+
+          <!-- Section 10 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">10</span>
+              10. OBJECTIVES (BLOOM'S TAXONOMY)
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Knowledge:</strong> Recall key definitions, terminology, and standard formulas of <em>${topic}</em>.</li>
+              <li style="margin-bottom: 6px;"><strong>Understanding:</strong> Distinguish between different forms and representations of the topic.</li>
+              <li style="margin-bottom: 6px;"><strong>Application:</strong> Apply properties to compute values in numerical assignments.</li>
+              <li style="margin-bottom: 6px;"><strong>Analysis & Evaluation:</strong> Criticize mathematical arguments and verify correctness using logic.</li>
+              <li style="margin-bottom: 6px;"><strong>Creation:</strong> Devise new situational contexts and problem frameworks based on <em>${topic}</em>.</li>
+            </ul>
+          </div>
+
+          <!-- Section 11 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">11</span>
+              11. TEACHING METHODOLOGY
+            </h2>
+            <p style="margin: 0 0 10px 0;">Combining multiple active-pedagogical methodologies:</p>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 4px;">Think-Pair-Share during conceptual discussions.</li>
+              <li style="margin-bottom: 4px;">Guided discovery where student exercises lead to deduction of mathematical properties.</li>
+              <li style="margin-bottom: 4px;">Flipped classroom structures prompting pre-reading of <em>${chapter}</em>.</li>
+              <li style="margin-bottom: 4px;">Cooperative and competency-based peer learning configurations.</li>
+            </ul>
+          </div>
+
+          <!-- Section 12 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">12</span>
+              12. SKILLS AND ATTITUDE
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Conceptual & Analytical Skills:</strong> Logical deduction, pattern extraction, and structural reasoning.</li>
+              <li style="margin-bottom: 6px;"><strong>Communication & Collaboration:</strong> Explaining mathematical logic to peers and coordinating in teams.</li>
+              <li style="margin-bottom: 6px;"><strong>Attitude:</strong> Resilience when solving complex problems, scientific curiosity, and positive response to corrections.</li>
+            </ul>
+          </div>
+
+          <!-- Section 13 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">13</span>
+              13. COMPETENCY-BASED LESSON PLAN FOCUS
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Conceptual Understanding:</strong> Focusing on core principles instead of rote formula application.</li>
+              <li style="margin-bottom: 6px;"><strong>Procedural Fluency:</strong> Selecting optimal derivation routes.</li>
+              <li style="margin-bottom: 6px;"><strong>Problem Solving & Reasoning:</strong> Formulating mathematical models for complex word challenges.</li>
+            </ul>
+          </div>
+
+          <!-- Section 14 -->
+          <div style="margin-bottom: 35px;">
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">14</span>
+              14. POST TEACHING REFLECTION
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Actual Periods Taken:</strong> ${periods} (Planned).</li>
+              <li style="margin-bottom: 6px;"><strong>Difficult Concepts Identified:</strong> Resolving edge/boundary cases for complex topics in <em>${topic}</em>.</li>
+              <li style="margin-bottom: 6px;"><strong>Remedial Plan:</strong> Small-group mentoring and simplified worksheets for slow/average learners.</li>
+              <li style="margin-bottom: 6px;"><strong>Enrichment Activities:</strong> Complex challenge sets and extension research tasks for gifted learners.</li>
+            </ul>
+          </div>
+
+          <!-- Section 15 -->
+          <div>
+            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
+              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">15</span>
+              15. TEACHER SELF-ASSESSMENT
+            </h2>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li style="margin-bottom: 6px;"><strong>Engagement:</strong> Evaluating student participation rates during GeoGebra visualizations.</li>
+              <li style="margin-bottom: 6px;"><strong>Outcomes:</strong> Assessing achievement rates of the learning outcomes based on formative assessment grades.</li>
+              <li style="margin-bottom: 6px;"><strong>Time Management:</strong> Balancing lectures and student activities.</li>
+              <li style="margin-bottom: 6px;"><strong>ICT Effectiveness:</strong> Reviewing the impact of the interactive panels and tools.</li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyLessonPlan() {
+      const content = document.getElementById('lpResultContent').innerText;
+      navigator.clipboard.writeText(content).then(() => {
+        alert("Lesson plan copied to clipboard successfully!");
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    }
+
+    function printLessonPlan() {
+      window.print();
+    }
+
+    // Shared Profile password modal and Document Load setups
     document.addEventListener('DOMContentLoaded', function() {
+      // 1. Profile modal setup
       const modal = document.getElementById('passwordModal');
       const profileLink = document.getElementById('profileLink');
       const closeModal = document.getElementById('closeModal');
@@ -659,29 +1104,92 @@
       const submitBtnProfile = document.getElementById('submitPassword');
       const errorMessageProfile = document.getElementById('errorMessage');
 
-      profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
-      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      if (profileLink) {
+        profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      }
+      if (closeModal) {
+        closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      }
       window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
-      togglePassword.addEventListener('click', function() {
-        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInputProfile.setAttribute('type', type);
-        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
-      });
-      submitBtnProfile.addEventListener('click', function() {
-        const password = passwordInputProfile.value;
-        errorMessageProfile.textContent = '';
-        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-        if (password === 'kvrkt2026') {
-          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
-          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
-        } else {
-          errorMessageProfile.textContent = 'Incorrect password. Please try again.';
-          passwordInputProfile.value = ''; passwordInputProfile.focus();
-          submitBtnProfile.classList.add('shake');
-          setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
-        }
-      });
-      passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+      
+      if (togglePassword) {
+        togglePassword.addEventListener('click', function() {
+          const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInputProfile.setAttribute('type', type);
+          this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+        });
+      }
+      if (submitBtnProfile) {
+        submitBtnProfile.addEventListener('click', function() {
+          const password = passwordInputProfile.value;
+          errorMessageProfile.textContent = '';
+          if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+          if (password === 'kvrkt2026') {
+            submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+            setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+          } else {
+            errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+            passwordInputProfile.value = ''; passwordInputProfile.focus();
+            submitBtnProfile.classList.add('shake');
+            setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+          }
+        });
+      }
+      if (passwordInputProfile) {
+        passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+      }
+
+      // 2. Setup AI lesson planner form listener
+      const aiPlannerForm = document.getElementById('aiPlannerForm');
+      if (aiPlannerForm) {
+        aiPlannerForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const btnGen = document.getElementById('btnGenerateLP');
+          const loadingState = document.getElementById('lpLoadingState');
+          const loadingText = document.getElementById('lpLoadingText');
+          const resultCard = document.getElementById('lpResultCard');
+          
+          btnGen.disabled = true;
+          resultCard.style.display = 'none';
+          loadingState.style.display = 'block';
+
+          const subject = document.getElementById('lpSubject').value;
+          const className = document.getElementById('lpClass').value;
+          const chapter = document.getElementById('lpChapter').value;
+          const topic = document.getElementById('lpTopic').value;
+          const periods = document.getElementById('lpPeriods').value;
+
+          // Simulated generative process steps
+          const steps = [
+            "Act as Subject Expert & experienced CBSE/KVS lesson planner...",
+            "Compiling General Facts for Class & Section...",
+            "Formulating NCERT/CBSE Learning Outcomes...",
+            "Structuring NEP 2020 Pedagogies & 21st Century Skills...",
+            "Drafting Competency-Based Assessments (HOTS/Assertion-Reason)...",
+            "Synthesizing final comprehensive Lesson Plan..."
+          ];
+
+          let stepIdx = 0;
+          const timer = setInterval(() => {
+            if (stepIdx < steps.length) {
+              loadingText.textContent = steps[stepIdx];
+              stepIdx++;
+            } else {
+              clearInterval(timer);
+              loadingState.style.display = 'none';
+              
+              // Generate and display lesson plan
+              const lpHTML = generateLessonPlanHTML(subject, className, chapter, topic, periods);
+              document.getElementById('lpResultContent').innerHTML = lpHTML;
+              resultCard.style.display = 'block';
+              btnGen.disabled = false;
+              
+              // Scroll to result smoothly
+              resultCard.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 450);
+        });
+      }
     });
 
     // Add shake animation for errors
