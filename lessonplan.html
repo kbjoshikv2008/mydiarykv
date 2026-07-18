@@ -900,53 +900,6 @@
       </div>
     </main>
 
-      <!-- Vault Lesson Plan Editor Modal -->
-      <div id="vaultLpModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.85); backdrop-filter:blur(8px); z-index:2000; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
-        <div style="width:100%; max-width:1100px; height:90%; background:#1e1b4b; border:1px solid rgba(255,255,255,0.1); border-radius:16px; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.5); display:flex; flex-direction:column; overflow:hidden;">
-          <!-- Control Bar -->
-          <div class="vault-control-bar" style="background:#14113c; padding:15px 25px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:15px;">
-            <div style="text-align:left;">
-              <h3 style="margin:0; font-size:1.1em; color:#fff; font-family:var(--font-head); font-weight:700;"><i class="fas fa-edit" style="color:#a78bfa; margin-right:8px;"></i>Vault Lesson Plan Customizer</h3>
-              <p style="margin:2px 0 0 0; font-size:0.78em; color:var(--text-secondary);">Modify content directly below, then download or print</p>
-            </div>
-            
-            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-              <!-- Language Filters -->
-              <select id="vaultLangFilter" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#fff; padding:6px 12px; font-size:0.85em; outline:none; cursor:pointer;" onchange="updateVaultLpLanguageFilter()">
-                <option value="bilingual">Bilingual (English & Hindi)</option>
-                <option value="english">English Only</option>
-                <option value="hindi">Hindi Only</option>
-              </select>
-              
-              <!-- Compact View Toggle -->
-              <label style="display:flex; align-items:center; gap:6px; color:#c4b5fd; font-size:0.85em; cursor:pointer; user-select:none;">
-                <input type="checkbox" id="vaultCompactToggle" onchange="updateVaultLpCompactFilter()" style="cursor:pointer;">
-                Compact Teaching Layout
-              </label>
-              
-              <button onclick="downloadVaultLpDoc()" class="download-btn" style="background:rgba(168, 85, 247, 0.15); color:#c084fc; border-color:rgba(168, 85, 247, 0.3); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
-                <i class="fas fa-file-word"></i> Download .doc
-              </button>
-              
-              <button onclick="printVaultLp()" class="download-btn" style="background:rgba(16, 185, 129, 0.15); color:#34d399; border-color:rgba(16, 185, 129, 0.3); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
-                <i class="fas fa-print"></i> Print / PDF
-              </button>
-              
-              <button onclick="closeVaultLpModal()" style="background:rgba(239, 68, 68, 0.15); color:#f87171; border:1px solid rgba(239, 68, 68, 0.25); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer;">
-                Close
-              </button>
-            </div>
-          </div>
-          
-          <!-- Editor Canvas Wrapper -->
-          <div style="flex:1; overflow-y:auto; background:#f3f4f6; padding:30px; display:flex; justify-content:center;">
-            <div id="vaultLpEditorBody" class="vault-lp-canvas" style="width:100%; max-width:850px; background:#fff; color:#333; padding:40px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border-radius:4px; box-sizing:border-box; text-align:left;">
-              <!-- Loaded Lesson Plan is injected here -->
-            </div>
-          </div>
-        </div>
-      </div>
-
     <!-- Footer -->
     <footer class="site-footer">
       <div class="container">
@@ -1014,6 +967,53 @@
     <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
   </div><!-- end content -->
+
+  <!-- Vault Lesson Plan Editor Modal -->
+  <div id="vaultLpModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.85); backdrop-filter:blur(8px); z-index:2000; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+    <div style="width:100%; max-width:1100px; height:90%; background:#1e1b4b; border:1px solid rgba(255,255,255,0.1); border-radius:16px; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.5); display:flex; flex-direction:column; overflow:hidden;">
+      <!-- Control Bar -->
+      <div class="vault-control-bar" style="background:#14113c; padding:15px 25px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:15px;">
+        <div style="text-align:left;">
+          <h3 style="margin:0; font-size:1.1em; color:#fff; font-family:var(--font-head); font-weight:700;"><i class="fas fa-edit" style="color:#a78bfa; margin-right:8px;"></i>Vault Lesson Plan Customizer</h3>
+          <p style="margin:2px 0 0 0; font-size:0.78em; color:var(--text-secondary);">Modify content directly below, then download or print</p>
+        </div>
+        
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <!-- Language Filters -->
+          <select id="vaultLangFilter" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#fff; padding:6px 12px; font-size:0.85em; outline:none; cursor:pointer;" onchange="updateVaultLpLanguageFilter()">
+            <option value="bilingual">Bilingual (English & Hindi)</option>
+            <option value="english">English Only</option>
+            <option value="hindi">Hindi Only</option>
+          </select>
+          
+          <!-- Compact View Toggle -->
+          <label style="display:flex; align-items:center; gap:6px; color:#c4b5fd; font-size:0.85em; cursor:pointer; user-select:none;">
+            <input type="checkbox" id="vaultCompactToggle" onchange="updateVaultLpCompactFilter()" style="cursor:pointer;">
+            Compact Teaching Layout
+          </label>
+          
+          <button onclick="downloadVaultLpDoc()" class="download-btn" style="background:rgba(168, 85, 247, 0.15); color:#c084fc; border-color:rgba(168, 85, 247, 0.3); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+            <i class="fas fa-file-word"></i> Download .doc
+          </button>
+          
+          <button onclick="printVaultLp()" class="download-btn" style="background:rgba(16, 185, 129, 0.15); color:#34d399; border-color:rgba(16, 185, 129, 0.3); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+            <i class="fas fa-print"></i> Print / PDF
+          </button>
+          
+          <button onclick="closeVaultLpModal()" style="background:rgba(239, 68, 68, 0.15); color:#f87171; border:1px solid rgba(239, 68, 68, 0.25); padding:8px 14px; border-radius:6px; font-size:0.85em; font-weight:600; cursor:pointer;">
+            Close
+          </button>
+        </div>
+      </div>
+      
+      <!-- Editor Canvas Wrapper -->
+      <div style="flex:1; overflow-y:auto; background:#f3f4f6; padding:30px; display:flex; justify-content:center;">
+        <div id="vaultLpEditorBody" class="vault-lp-canvas" style="width:100%; max-width:850px; background:#fff; color:#333; padding:40px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border-radius:4px; box-sizing:border-box; text-align:left;">
+          <!-- Loaded Lesson Plan is injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Back to top
