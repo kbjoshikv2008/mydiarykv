@@ -711,8 +711,10 @@
         <input type="hidden" id="requestChapterName">
         
         <div style="margin-bottom: 16px; text-align: left;">
-          <label style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Chapter Selected</label>
-          <input type="text" id="displayChapterName" readonly style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #c4b5fd; font-weight: 600; outline: none; box-sizing: border-box;">
+          <label for="chapterSelectDropdown" style="display: block; color: var(--text-secondary); font-size: 0.82em; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Chapter Selected</label>
+          <select id="chapterSelectDropdown" style="width: 100%; padding: 12px; background: rgba(20,15,45,0.98); border: 1px solid var(--glass-border); border-radius: 8px; color: #c4b5fd; font-weight: 600; outline: none; box-sizing: border-box; cursor: pointer;">
+            <!-- Will be dynamically populated via Javascript -->
+          </select>
         </div>
         
         <div style="margin-bottom: 20px; text-align: left;">
