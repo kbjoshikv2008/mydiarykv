@@ -890,7 +890,7 @@
     // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
       // Open local file directly in a new tab (bypasses browser iframe restrictions for local file:/// protocol)
-      window.open(encodeURI(path), '_blank');
+      window.open(path, '_blank');
     }
 
     function requestDownload(title, path) {
@@ -938,7 +938,7 @@
             btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
             btn.onclick = (e) => {
               e.preventDefault();
-              window.open(encodeURI(path), '_blank');
+              window.open(path, '_blank');
             };
             btn.removeAttribute('download');
             btn.removeAttribute('href');
@@ -1055,7 +1055,7 @@
             
             // Setup the direct unblocked download link
             const dlLink = document.getElementById('modalDownloadLink');
-            dlLink.href = encodeURI(chapterPath);
+            dlLink.href = chapterPath;
             dlLink.download = chapterName.replace('Class 12 - ', '').replace('Class 11 - ', '') + '.pdf';
             
             // Reveal success container
