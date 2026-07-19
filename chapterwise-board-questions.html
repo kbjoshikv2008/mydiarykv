@@ -889,16 +889,22 @@
 
     // Custom PDF Viewer and Permission Request Handlers
     function viewPdf(title, path) {
-      const modal = document.getElementById('viewPdfModal');
-      const iframe = document.getElementById('pdfViewerIframe');
-      const headerTitle = document.getElementById('viewPdfTitle');
-      
-      if (headerTitle) headerTitle.textContent = title.replace(' - PDF', '');
-      if (iframe) {
-        // Properly encode the URI so that spaces do not cause Chrome/Edge loading bugs
-        iframe.src = encodeURI(path) + "#toolbar=0&navpanes=0";
+      if (window.location.protocol === 'file:') {
+        // In local file mode, browsers block loading local PDFs inside iframes due to Same-Origin security policies.
+        // We open the PDF directly in a new tab instead for offline compatibility.
+        window.open(encodeURI(path), '_blank');
+      } else {
+        const modal = document.getElementById('viewPdfModal');
+        const iframe = document.getElementById('pdfViewerIframe');
+        const headerTitle = document.getElementById('viewPdfTitle');
+        
+        if (headerTitle) headerTitle.textContent = title.replace(' - PDF', '');
+        if (iframe) {
+          // Properly encode the URI so that spaces do not cause Chrome/Edge loading bugs
+          iframe.src = encodeURI(path) + "#toolbar=0&navpanes=0";
+        }
+        if (modal) modal.style.display = 'flex';
       }
-      if (modal) modal.style.display = 'flex';
     }
 
     function requestDownload(title, path) {
@@ -946,7 +952,16 @@
             btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
             btn.onclick = (e) => {
               e.preventDefault();
-              window.open(encodeURI(path), '_blank');
+              if (window.location.protocol === 'file:') {
+                window.open(encodeURI(path), '_blank');
+              } else {
+                const a = document.createElement('a');
+                a.href = encodeURI(path) + "?download=true";
+                a.download = req.chapter.replace('Class 12 - ', '').replace('Class 11 - ', '').replace(/:/g, ' -') + '.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+              }
             };
             btn.removeAttribute('download');
             btn.removeAttribute('href');
@@ -1063,14 +1078,18 @@
             
             // Setup the direct unblocked download link
             const dlLink = document.getElementById('modalDownloadLink');
-            dlLink.href = encodeURI(chapterPath);
+            dlLink.href = encodeURI(chapterPath) + (window.location.protocol === 'file:' ? '' : '?download=true');
             dlLink.download = chapterName.replace('Class 12 - ', '').replace('Class 11 - ', '').replace(/:/g, ' -') + '.pdf';
             
             // Reveal success container
             document.getElementById('modalSuccessContainer').style.display = 'block';
             
-            // Automatically attempt click for seamless experience (fallback is the manual button)
-            dlLink.click();
+            // Automatically attempt click or open new tab depending on protocol
+            if (window.location.protocol === 'file:') {
+              window.open(encodeURI(chapterPath), '_blank');
+            } else {
+              dlLink.click();
+            }
           } else {
             pwdError.style.display = 'block';
           }
