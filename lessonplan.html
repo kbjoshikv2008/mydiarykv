@@ -465,8 +465,13 @@
       body.printing-vault-lp > *:not(#vaultLpModal) {
         display: none !important;
       }
+      body.printing-vault-lp #vaultLpModal,
+      body.printing-vault-lp #vaultLpModal * {
+        visibility: visible !important;
+      }
       body.printing-vault-lp #vaultLpModal {
         position: absolute !important;
+        display: block !important;
         left: 0 !important;
         top: 0 !important;
         width: 100% !important;
@@ -476,15 +481,27 @@
         padding: 0 !important;
       }
       body.printing-vault-lp #vaultLpModal > div {
+        display: block !important;
+        background: transparent !important;
         border: none !important;
         box-shadow: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
         height: auto !important;
         overflow: visible !important;
       }
       body.printing-vault-lp .vault-control-bar {
         display: none !important;
       }
+      body.printing-vault-lp .vault-editor-wrapper {
+        display: block !important;
+        padding: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+        height: auto !important;
+      }
       body.printing-vault-lp .vault-lp-canvas {
+        background: transparent !important;
         box-shadow: none !important;
         padding: 0 !important;
         margin: 0 !important;
@@ -1007,7 +1024,7 @@
       </div>
       
       <!-- Editor Canvas Wrapper -->
-      <div style="flex:1; overflow-y:auto; background:#f3f4f6; padding:30px; display:flex; justify-content:center;">
+      <div class="vault-editor-wrapper" style="flex:1; overflow-y:auto; background:#f3f4f6; padding:30px; display:flex; justify-content:center;">
         <div id="vaultLpEditorBody" class="vault-lp-canvas" style="width:100%; max-width:850px; background:#fff; color:#333; padding:40px; box-shadow:0 4px 20px rgba(0,0,0,0.08); border-radius:4px; box-sizing:border-box; text-align:left;">
           <!-- Loaded Lesson Plan is injected here -->
         </div>
