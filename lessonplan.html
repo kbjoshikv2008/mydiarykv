@@ -533,20 +533,21 @@
       /* Basic table styles */
       body.printing-vault-lp .vault-lp-canvas table {
         border-collapse: collapse !important;
-        margin-bottom: 8px !important;
+        margin-bottom: 10px !important;
         page-break-inside: avoid !important;
       }
       body.printing-vault-lp .vault-lp-canvas th,
       body.printing-vault-lp .vault-lp-canvas td {
-        padding: 4px 6px !important;
+        padding: 6px 10px !important;
         border: 1px solid #000 !important;
-        font-size: 9.5px !important;
-        line-height: 1.3 !important;
+        font-size: 11px !important; /* Highly legible when printed */
+        line-height: 1.35 !important;
       }
       body.printing-vault-lp .vault-lp-canvas th {
         background: #f3f4f6 !important;
         color: #000 !important;
         font-weight: bold !important;
+        font-size: 11.5px !important;
       }
 
       /* Full width tables */
@@ -568,10 +569,18 @@
         width: 49.2% !important;
       }
 
+      /* Force page breaks to divide the document into exactly 4 balanced pages for 2 double-sided A4 papers */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(3), /* End of Page 1 (Content & Outcomes) */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(5), /* End of Page 2 (Pedagogical & Integration) */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(6)  /* End of Page 3 (Learning Activities) */ {
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+
       /* Signature and other non-table blocks */
       body.printing-vault-lp .vault-lp-canvas .signature-row {
         width: 100% !important;
-        margin-top: 10px !important;
+        margin-top: 15px !important;
         page-break-inside: avoid !important;
       }
 
