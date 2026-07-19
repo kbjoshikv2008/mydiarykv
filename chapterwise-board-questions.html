@@ -910,7 +910,14 @@
           iframe.src = encodeURI(path) + "#toolbar=0&navpanes=0";
         }
         if (openTabBtn) {
-          openTabBtn.href = encodeURI(path);
+          const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
+          const isApproved = requests[path] && requests[path].status === 'approved';
+          if (isApproved) {
+            openTabBtn.href = encodeURI(path);
+            openTabBtn.style.display = 'inline-flex';
+          } else {
+            openTabBtn.style.display = 'none';
+          }
         }
         if (modal) modal.style.display = 'flex';
       }
