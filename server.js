@@ -20,8 +20,10 @@ const MIME_TYPES = {
 
 const server = http.createServer((req, res) => {
   // Decode URL to handle spaces and special characters
-  let urlPath = decodeURIComponent(req.url.split('?')[0]);
+  const urlParts = req.url.split('?');
+  let urlPath = decodeURIComponent(urlParts[0]);
   let filePath = path.join(__dirname, urlPath);
+  const isDownload = urlParts[1] && urlParts[1].includes('download=true');
   
   if (urlPath === '/' || urlPath === '') {
     filePath = path.join(__dirname, 'index.html');
@@ -37,6 +39,11 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const totalSize = stats.size;
+
+    let contentDisposition = ext === '.pdf' ? 'inline' : 'attachment';
+    if (isDownload) {
+      contentDisposition = `attachment; filename="${path.basename(filePath)}"`;
+    }
 
     // Support standard HTTP range requests (required by Chromium for PDF parsing)
     const range = req.headers.range;
@@ -58,7 +65,7 @@ const server = http.createServer((req, res) => {
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
         'Content-Type': contentType,
-        'Content-Disposition': ext === '.pdf' ? 'inline' : 'attachment'
+        'Content-Disposition': contentDisposition
       });
       
       fileStream.pipe(res);
@@ -67,7 +74,7 @@ const server = http.createServer((req, res) => {
         'Content-Length': totalSize,
         'Accept-Ranges': 'bytes',
         'Content-Type': contentType,
-        'Content-Disposition': ext === '.pdf' ? 'inline' : 'attachment'
+        'Content-Disposition': contentDisposition
       });
       
       fs.createReadStream(filePath).pipe(res);
