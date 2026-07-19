@@ -943,7 +943,7 @@
     togglePassword.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
   });
   submitPassword.addEventListener('click', () => {
-    if (passwordInput.value === 'kvrkt2026') {
+    if (passwordInput.value === 'kbj@2008') {
       modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {
@@ -1005,7 +1005,7 @@
         if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
         return;
       }
-      if (val === 'kvrkt2026') {
+      if (val === 'kbj@2008') {
         sessionStorage.setItem('learners_access_granted', 'yes');
         if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
         setTimeout(hideLearnersGate, 800);
