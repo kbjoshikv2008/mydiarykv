@@ -490,6 +490,132 @@
       color: #c4b5fd !important;
       border: 1px solid rgba(124, 58, 237, 0.3) !important;
     }
+
+    /* --- CPD ACCORDION & DASHBOARD STYLES --- */
+    .cpd-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .cpd-stat-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .cpd-stat-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(124, 58, 237, 0.25);
+    }
+    .cpd-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 4px;
+      font-family: var(--font-head);
+    }
+    .cpd-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cpd-accordion-item {
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      margin-bottom: 18px;
+      background: rgba(12, 11, 24, 0.4);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .cpd-accordion-item.active {
+      border-color: rgba(124, 58, 237, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    }
+    .cpd-accordion-header {
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+    .cpd-accordion-header:hover {
+      background: rgba(124, 58, 237, 0.08);
+    }
+    .cpd-accordion-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+    }
+    .cpd-accordion-icon {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: transform 0.3s ease;
+    }
+    .cpd-accordion-item.active .cpd-accordion-icon {
+      transform: rotate(180deg);
+      color: #c4b5fd;
+    }
+    .cpd-accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+    }
+    .cpd-accordion-item.active .cpd-accordion-content {
+      max-height: 2000px;
+      transition: max-height 0.4s cubic-bezier(1, 0, 1, 0);
+    }
+    .cpd-accordion-body {
+      padding: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .role-badge.participant {
+      background: rgba(13, 148, 136, 0.12);
+      color: #2dd4bf;
+      border: 1px solid rgba(13, 148, 136, 0.25);
+    }
+    .role-badge.resource {
+      background: rgba(249, 115, 22, 0.12);
+      color: #fdba74;
+      border: 1px solid rgba(249, 115, 22, 0.25);
+    }
+    .mode-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .mode-badge.online {
+      background: rgba(124, 58, 237, 0.15);
+      color: #a78bfa;
+    }
+    .mode-badge.offline {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+    }
   </style>
 </head>
 <body>
@@ -538,6 +664,7 @@
         <button class="tab-btn active" data-tab="tab-overview"><i class="fas fa-id-card"></i> Profile Overview</button>
         <button class="tab-btn" data-tab="tab-timeline"><i class="fas fa-history"></i> Career Timeline</button>
         <button class="tab-btn" data-tab="tab-academics"><i class="fas fa-graduation-cap"></i> Academics & Board Records</button>
+        <button class="tab-btn" data-tab="tab-cpd"><i class="fas fa-certificate"></i> CPD Record</button>
         <button class="tab-btn" data-tab="tab-documents" id="documentsTabBtn"><i class="fas fa-folder-open"></i> Documents Directory</button>
       </div>
 
@@ -918,6 +1045,203 @@
         </div>
       </div>
 
+      <!-- TAB 3.5: CPD (CONTINUOUS PROFESSIONAL DEVELOPMENT) RECORD -->
+      <div class="tab-content" id="tab-cpd">
+        <!-- 2026 ACCORDION -->
+        <div class="cpd-accordion-item">
+          <div class="cpd-accordion-header">
+            <h3 class="cpd-accordion-title"><i class="fas fa-calendar-alt" style="color:var(--primary-light);"></i> Training & CPD Courses (Session 2026)</h3>
+            <span class="cpd-accordion-icon"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="cpd-accordion-content">
+            <div class="cpd-accordion-body">
+              <!-- Summary Dashboard 2026 -->
+              <div class="cpd-dashboard">
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">11</div>
+                  <div class="cpd-stat-label">Total Courses</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">62.0 Hrs</div>
+                  <div class="cpd-stat-label">Training Hours</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">9 / 2</div>
+                  <div class="cpd-stat-label">Online / Offline</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">0</div>
+                  <div class="cpd-stat-label">Resource Person</div>
+                </div>
+              </div>
+              
+              <!-- Table 2026 -->
+              <div class="table-wrapper">
+                <table class="compact-table">
+                  <thead>
+                    <tr>
+                      <th width="5%">S.No</th>
+                      <th width="35%">Course Name</th>
+                      <th width="15%">Organiser</th>
+                      <th width="15%">Duration Dates</th>
+                      <th width="10%">Hours</th>
+                      <th width="10%">Mode</th>
+                      <th width="10%">Role</th>
+                      <th width="10%">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>31</td><td>AI Led Digital Transformation in Education</td><td>IGOT Karmayogi</td><td>24-01-2026</td><td>1.0 Hr</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>32</td><td>Effective Techniques to Manage Stress</td><td>IGOT Karmayogi</td><td>24-01-2026</td><td>2.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>33</td><td>e Ustad POCSO Act</td><td>IGOT Karmayogi</td><td>31-01-2026</td><td>2.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>34</td><td>POSH (Prevention of Sexual Harassment)</td><td>IGOT Karmayogi</td><td>02-02-2026</td><td>2.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>35</td><td>Preventing Cybercrime - AI Based Threats & Measures</td><td>IGOT Karmayogi</td><td>29-01-2026</td><td>0.5 Hr</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>36</td><td>Comprehensive APAR Assessment for Teachers</td><td>IGOT Karmayogi</td><td>06-04-2026 - 15-04-2026</td><td>9.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>37</td><td>Governing with Artificial Intelligence</td><td>IGOT Karmayogi</td><td>08-04-2026 - 11-04-2026</td><td>4.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>38</td><td>Pariksha Karmayogi</td><td>IGOT Karmayogi</td><td>15-06-2026</td><td>1.5 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>39</td><td>Yuva AI for All</td><td>IGOT Karmayogi</td><td>06-04-2026 - 07-04-2026</td><td>4.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                    <tr><td>40</td><td>STEM Workshop</td><td>MNNIT Prayagraj</td><td>29-06-2026 - 03-07-2026</td><td>30.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>41</td><td>Capacity Building of Stakeholders for Nationwide Rollout</td><td>Kumaun University Nainital</td><td>27-02-2026</td><td>6.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Completed</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025 ACCORDION -->
+        <div class="cpd-accordion-item">
+          <div class="cpd-accordion-header">
+            <h3 class="cpd-accordion-title"><i class="fas fa-calendar-alt" style="color:#2dd4bf;"></i> Training & CPD Courses (Session 2025)</h3>
+            <span class="cpd-accordion-icon"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="cpd-accordion-content">
+            <div class="cpd-accordion-body">
+              <!-- Summary Dashboard 2025 -->
+              <div class="cpd-dashboard">
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">16</div>
+                  <div class="cpd-stat-label">Total Courses</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">79.0 Hrs</div>
+                  <div class="cpd-stat-label">Training Hours</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">3 / 13</div>
+                  <div class="cpd-stat-label">Online / Offline</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">5</div>
+                  <div class="cpd-stat-label">Resource Person</div>
+                </div>
+              </div>
+              
+              <!-- Table 2025 -->
+              <div class="table-wrapper">
+                <table class="compact-table">
+                  <thead>
+                    <tr>
+                      <th width="5%">S.No</th>
+                      <th width="35%">Course Name</th>
+                      <th width="15%">Organiser</th>
+                      <th width="15%">Duration Dates</th>
+                      <th width="10%">Hours</th>
+                      <th width="10%">Mode</th>
+                      <th width="10%">Role</th>
+                      <th width="10%">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>15</td><td>CPD_Cyber Hygiene Practices_ Personal Digital Devices</td><td>NCERT</td><td>06-03-2025 - 07-03-2025</td><td>5.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Qualified</td></tr>
+                    <tr><td>16</td><td>Digital Initiatives in School Education</td><td>NCERT</td><td>09-03-2025 - 10-03-2025</td><td>5.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Qualified</td></tr>
+                    <tr><td>17</td><td>Regional Level Online Subject Enrichment Workshop for PGT Math</td><td>KVS RO Dehradun</td><td>22-09-2025 - 24-09-2025</td><td>6.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge resource">Resource Person</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>18</td><td>The Art of Visualisation with GeoGebra</td><td>KVS HQ</td><td>22-04-2025 - 26-04-2025</td><td>30.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>19</td><td>Social Media Behaviour and Cyber Safety</td><td>KV School Ranikhet</td><td>05-03-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>20</td><td>Preparation of Session Ending Question Paper with CBQ</td><td>KV School Ranikhet</td><td>31-01-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>21</td><td>Competence Based Education</td><td>KV School Ranikhet</td><td>21-03-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>22</td><td>Assessment and Evaluation (CBA)</td><td>KV School Ranikhet</td><td>30-06-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>23</td><td>Updation of Student Data & School Profile on Samagam Portal</td><td>KV School Ranikhet</td><td>03-06-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge resource">Resource Person</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>24</td><td>Logical Reasoning, Critical Thinking & Problem Solving</td><td>KV School Ranikhet</td><td>30-04-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge resource">Resource Person</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>25</td><td>Rashtriya Karmayogi Large Scale Jan Seva Program</td><td>KVS HQ</td><td>23-08-2025</td><td>6.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>26</td><td>Classroom Management & Students Engagement</td><td>KV School Ranikhet</td><td>30-07-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>27</td><td>Vigilance Awareness and Office Procedures</td><td>KV School Ranikhet</td><td>31-10-2025</td><td>1.0 Hr</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>28</td><td>Effective Use of Interactive Panel</td><td>KV School Ranikhet</td><td>31-10-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge resource">Resource Person</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>29</td><td>Action Research and Innovation in Teaching Learning</td><td>KV School Ranikhet</td><td>14-11-2025</td><td>1.5 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Successfully Completed</td></tr>
+                    <tr><td>30</td><td>Enhancing Students Engagement and Achievement by Effective Panel Use</td><td>KVS RO Dehradun</td><td>13-10-2025 - 14-10-2025</td><td>12.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge resource">Resource Person</span></td><td>Successfully Completed</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2024 ACCORDION -->
+        <div class="cpd-accordion-item">
+          <div class="cpd-accordion-header">
+            <h3 class="cpd-accordion-title"><i class="fas fa-calendar-alt" style="color:#fdba74;"></i> Training & CPD Courses (Session 2024)</h3>
+            <span class="cpd-accordion-icon"><i class="fas fa-chevron-down"></i></span>
+          </div>
+          <div class="cpd-accordion-content">
+            <div class="cpd-accordion-body">
+              <!-- Summary Dashboard 2024 -->
+              <div class="cpd-dashboard">
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">14</div>
+                  <div class="cpd-stat-label">Total Courses</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">107.0 Hrs</div>
+                  <div class="cpd-stat-label">Training Hours</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">8 / 6</div>
+                  <div class="cpd-stat-label">Online / Offline</div>
+                </div>
+                <div class="cpd-stat-card">
+                  <div class="cpd-stat-value">1</div>
+                  <div class="cpd-stat-label">Resource Person</div>
+                </div>
+              </div>
+              
+              <!-- Table 2024 -->
+              <div class="table-wrapper">
+                <table class="compact-table">
+                  <thead>
+                    <tr>
+                      <th width="5%">S.No</th>
+                      <th width="35%">Course Name</th>
+                      <th width="15%">Organiser</th>
+                      <th width="15%">Duration Dates</th>
+                      <th width="10%">Hours</th>
+                      <th width="10%">Mode</th>
+                      <th width="10%">Role</th>
+                      <th width="10%">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1</td><td>CPD Action Research Batch 8</td><td>NCERT</td><td>15-08-2024 - 19-08-2024</td><td>15.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>2</td><td>CPD_Cyber Hygiene Practices_ Personal Digital Devices</td><td>NCERT</td><td>29-08-2024 - 02-09-2024</td><td>5.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>3</td><td>CPD Action Research Batch 7</td><td>NCERT</td><td>05-03-2024 - 09-03-2024</td><td>5.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>4</td><td>CPD Cyber Hygiene Practices Personal Digital Devices Batch 4</td><td>NCERT</td><td>03-03-2024 - 07-03-2024</td><td>5.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>5</td><td>CPD Environmental Hazards of Electronic Waste (E-Waste)</td><td>NCERT</td><td>06-03-2024 - 07-03-2024</td><td>2.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>6</td><td>CPD Environmental Hazards of Electronic Waste (E-Waste)</td><td>NCERT</td><td>31-08-2024 - 01-09-2024</td><td>2.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>7</td><td>CPD Catch the Rain Batch 2</td><td>NCERT</td><td>03-03-2024 - 07-03-2024</td><td>5.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>8</td><td>Learning Difficulties - Understanding & Management Level</td><td>Sri Aurobindo Society</td><td>03-08-2024 - 19-08-2024</td><td>17.0 Hrs</td><td><span class="mode-badge online">Online</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>9</td><td>Regional Level Subject Enrichment Workshop for PGT Math</td><td>KVS RO Dehradun</td><td>08-08-2024 - 09-08-2024</td><td>12.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge resource">Resource Person</span></td><td>Grade A</td></tr>
+                    <tr><td>10</td><td>Question Paper Setting Pre-Board Class 12 (Maths)</td><td>KVS RO Dehradun</td><td>11-09-2024</td><td>3.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>11</td><td>Assessment of Answer Sheets of Class 11 (Central Evaluation)</td><td>KVS RO Dehradun</td><td>12-03-2024 - 14-03-2024</td><td>18.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>12</td><td>NCF-SE 2023 School Level Rollout</td><td>KV School Ranikhet</td><td>31-08-2024 - 06-09-2024</td><td>9.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>13</td><td>NEP-2020 School Level Rollout</td><td>KV School Ranikhet</td><td>22-03-2024 - 23-03-2024</td><td>3.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                    <tr><td>14</td><td>Hindi Rajbhasha Workshop</td><td>KV School Ranikhet</td><td>06-03-2024 - 09-12-2024</td><td>6.0 Hrs</td><td><span class="mode-badge offline">Offline</span></td><td><span class="role-badge participant">Participant</span></td><td>Grade A</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- TAB 4: DOCUMENTS DIRECTORY -->
       <div class="tab-content" id="tab-documents">
         <div class="glass-card">
@@ -1060,6 +1384,35 @@
           }
         });
       });
+
+      // --- CPD ACCORDION LOGIC ---
+      const accordionHeaders = document.querySelectorAll('.cpd-accordion-header');
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+          const item = header.closest('.cpd-accordion-item');
+          const isActive = item.classList.contains('active');
+          
+          // Collapse all other items
+          document.querySelectorAll('.cpd-accordion-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('active');
+            }
+          });
+          
+          // Toggle current item
+          if (isActive) {
+            item.classList.remove('active');
+          } else {
+            item.classList.add('active');
+          }
+        });
+      });
+      
+      // Auto-expand the first accordion item (2026) by default
+      const firstCPDItem = document.querySelector('.cpd-accordion-item');
+      if (firstCPDItem) {
+        firstCPDItem.classList.add('active');
+      }
 
       // Allow switching via URL hash (e.g. profile.html#timeline)
       const hash = window.location.hash;
