@@ -946,7 +946,7 @@
             btn.style.borderColor = 'rgba(16, 185, 129, 0.35)';
             btn.onclick = (e) => {
               e.preventDefault();
-              window.open(encodeURI(path) + "?download=true", '_blank');
+              window.open(encodeURI(path), '_blank');
             };
             btn.removeAttribute('download');
             btn.removeAttribute('href');
@@ -1063,7 +1063,7 @@
             
             // Setup the direct unblocked download link
             const dlLink = document.getElementById('modalDownloadLink');
-            dlLink.href = encodeURI(chapterPath) + "?download=true";
+            dlLink.href = encodeURI(chapterPath);
             dlLink.download = chapterName.replace('Class 12 - ', '').replace('Class 11 - ', '').replace(/:/g, ' -') + '.pdf';
             
             // Reveal success container
