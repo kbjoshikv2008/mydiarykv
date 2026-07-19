@@ -22,6 +22,54 @@ const server = http.createServer((req, res) => {
   // Decode URL to handle spaces and special characters
   const urlParts = req.url.split('?');
   let urlPath = decodeURIComponent(urlParts[0]);
+  
+  if (urlPath === '/api/profile-files') {
+    const profileDir = path.join(__dirname, 'profile');
+    if (!fs.existsSync(profileDir)) {
+      fs.mkdirSync(profileDir, { recursive: true });
+    }
+    fs.readdir(profileDir, { withFileTypes: true }, (err, entries) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Failed to read profile directory' }));
+        return;
+      }
+      const filesList = [];
+      let pending = entries.length;
+      if (pending === 0) {
+        res.writeHead(200, {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store'
+        });
+        res.end(JSON.stringify([]));
+        return;
+      }
+      entries.forEach(entry => {
+        const fullPath = path.join(profileDir, entry.name);
+        fs.stat(fullPath, (statErr, stats) => {
+          if (!statErr && entry.isFile() && !entry.name.startsWith('.')) {
+            filesList.push({
+              name: entry.name,
+              size: stats.size,
+              mtime: stats.mtime,
+              ext: path.extname(entry.name).toLowerCase()
+            });
+          }
+          pending--;
+          if (pending === 0) {
+            filesList.sort((a, b) => new Date(b.mtime) - new Date(a.mtime));
+            res.writeHead(200, {
+              'Content-Type': 'application/json',
+              'Cache-Control': 'no-store'
+            });
+            res.end(JSON.stringify(filesList));
+          }
+        });
+      });
+    });
+    return;
+  }
+  
   let filePath = path.join(__dirname, urlPath);
   const isDownload = urlParts[1] && urlParts[1].includes('download=true');
   
