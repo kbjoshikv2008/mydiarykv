@@ -616,6 +616,423 @@
       background: rgba(255, 255, 255, 0.06);
       color: #e2e8f0;
     }
+
+    /* --- RESUME BUILDER & PRINT STYLES --- */
+    .resume-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    @media (max-width: 992px) {
+      .resume-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-group-custom {
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group-custom label {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-group-custom input[type="text"],
+    .form-group-custom textarea {
+      width: 100%;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    .form-group-custom input:focus,
+    .form-group-custom textarea:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.15);
+    }
+    .achievements-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .achievement-input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .achievement-input-row input {
+      flex-grow: 1;
+    }
+    .btn-delete-row {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      color: #fca5a5;
+      padding: 11px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    .btn-delete-row:hover {
+      background: rgba(244, 63, 94, 0.3);
+      color: #fff;
+    }
+    .btn-add-row {
+      background: rgba(13, 148, 136, 0.12);
+      border: 1px dashed rgba(13, 148, 136, 0.35);
+      color: #2dd4bf;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s ease;
+      display: block;
+      width: 100%;
+    }
+    .btn-add-row:hover {
+      background: rgba(13, 148, 136, 0.25);
+      color: #fff;
+    }
+    
+    /* Document Compiler Screen */
+    .preview-panel {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+    .preview-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      text-align: center;
+      color: var(--text-secondary);
+      padding: 40px;
+      border: 2px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.005);
+    }
+    .preview-placeholder i {
+      font-size: 3.5rem;
+      color: var(--primary-light);
+      opacity: 0.6;
+      margin-bottom: 18px;
+    }
+    
+    .resume-loader {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      padding: 40px;
+      text-align: center;
+    }
+    .resume-loader i {
+      font-size: 3rem;
+      color: var(--primary-light);
+      margin-bottom: 20px;
+      animation: spin 1.2s linear infinite;
+    }
+    .resume-loader h4 {
+      font-family: var(--font-head);
+      color: #fff;
+      font-size: 1.15rem;
+      margin: 0 0 8px 0;
+    }
+    .resume-loader p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      margin: 0;
+    }
+    
+    /* Compiled Resume Styles */
+    .cv-document-wrapper {
+      display: none;
+      flex-grow: 1;
+    }
+    .cv-actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .btn-print-cv {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-print-cv:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.45);
+    }
+    .btn-generate-cv {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border: none;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      width: 100%;
+      margin-top: 10px;
+    }
+    .btn-generate-cv:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.5);
+    }
+    
+    .cv-document {
+      background: #ffffff;
+      color: #1e293b;
+      padding: 45px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.45;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .cv-header {
+      border-bottom: 2px solid #334155;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .cv-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .cv-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+    .cv-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 2px 0 0 0;
+    }
+    .cv-contact {
+      text-align: right;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .cv-contact div {
+      margin-bottom: 3px;
+    }
+    .cv-section {
+      margin-bottom: 22px;
+    }
+    .cv-section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f172a;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cv-objective-text {
+      color: #334155;
+      text-align: justify;
+      font-size: 0.88rem;
+      margin: 0;
+    }
+    .cv-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cv-timeline-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .cv-time-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.88rem;
+    }
+    .cv-time-sub {
+      color: #64748b;
+      font-size: 0.82rem;
+      margin-top: 1px;
+    }
+    .cv-time-desc {
+      color: #475569;
+      font-size: 0.82rem;
+      margin-top: 4px;
+    }
+    .cv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 0.8rem;
+    }
+    .cv-table th, .cv-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    .cv-table th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .cv-table td {
+      color: #334155;
+    }
+    .cv-skills-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      color: #334155;
+      font-size: 0.85rem;
+    }
+    .cv-skills-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cv-skills-item::before {
+      content: '■';
+      color: #64748b;
+      font-size: 0.6rem;
+    }
+    .cv-bullet-list {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cv-bullet-list li {
+      color: #334155;
+      font-size: 0.85rem;
+    }
+    .cv-cpd-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 15px;
+    }
+    .cv-cpd-stat {
+      text-align: center;
+    }
+    .cv-cpd-val {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .cv-cpd-lbl {
+      font-size: 0.72rem;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* Print styling rules */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .bg-blobs,
+      .site-header,
+      .nav-bar,
+      .page-hero,
+      .profile-tabs,
+      .back-link,
+      .tab-content:not(#tab-resume),
+      .resume-form-panel,
+      .cv-actions-bar,
+      .site-footer,
+      #backToTop {
+        display: none !important;
+      }
+      main, .container, #tab-resume, .resume-layout {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        display: block !important;
+      }
+      .preview-panel {
+        display: block !important;
+        width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: none !important;
+      }
+      .cv-document {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      a {
+        text-decoration: none !important;
+        color: #000000 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -665,6 +1082,7 @@
         <button class="tab-btn" data-tab="tab-timeline"><i class="fas fa-history"></i> Career Timeline</button>
         <button class="tab-btn" data-tab="tab-academics"><i class="fas fa-graduation-cap"></i> Academics & Board Records</button>
         <button class="tab-btn" data-tab="tab-cpd"><i class="fas fa-certificate"></i> CPD Record</button>
+        <button class="tab-btn" data-tab="tab-resume"><i class="fas fa-file-invoice"></i> Resume Builder</button>
       </div>
 
       <!-- TAB 1: OVERVIEW -->
@@ -1241,7 +1659,90 @@
         </div>
       </div>
 
-      <!-- TAB 4: DOCUMENTS DIRECTORY REMOVED -->
+      <!-- TAB 5: RESUME & CAREER PROGRESS REPORT GENERATOR -->
+      <div class="tab-content" id="tab-resume">
+        <div class="resume-layout">
+          <!-- Left: Editor Panel -->
+          <div class="glass-card resume-form-panel" style="width: 100%;">
+            <div class="glass-card-inner">
+              <div class="section-title"><i class="fas fa-edit"></i> Customize Resume Details</div>
+              <p style="color: var(--text-secondary); font-size: 0.84rem; margin: -10px 0 20px 0;">Add, modify, or emphasize achievements and key objectives before running the AI Compiler.</p>
+
+              <!-- Form objective -->
+              <div class="form-group-custom">
+                <label for="formObjective"><i class="fas fa-bullseye"></i> Professional Summary Objective</label>
+                <textarea id="formObjective" rows="5" placeholder="Define your teaching objective and vision...">Dedicated and result-oriented PGT Mathematics with 15+ years of teaching excellence across CBSE schools. Expert in interactive geometry visualization, digital mathematics pedagogy, and data-driven student performance optimization. Committed to fostering analytical reasoning and mathematical inquiry through hybrid learning toolkits.</textarea>
+              </div>
+
+              <!-- Form skills -->
+              <div class="form-group-custom">
+                <label for="formSkills"><i class="fas fa-tags"></i> Core Skills (Comma Separated)</label>
+                <input type="text" id="formSkills" value="Interactive Geometry (GeoGebra), Robocompass digital tools, LaTeX typesetting, Python programming, Data-driven analytics, Interactive Flat Panel pedagogy, Competency-Based Assessment (CBA), Creative lesson planning" placeholder="List core skills...">
+              </div>
+
+              <!-- Form achievements -->
+              <div class="form-group-custom">
+                <label><i class="fas fa-award"></i> Additional Responsibilities & Accomplishments</label>
+                <div class="achievements-list" id="formAchievementsList">
+                  <div class="achievement-input-row">
+                    <input type="text" class="achievement-item-input" value="Appointed as Head Examiner & External Examiner for CBSE Class 12 Board Mathematics Practical evaluations.">
+                    <button class="btn-delete-row" onclick="removeAchievementRow(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                  <div class="achievement-input-row">
+                    <input type="text" class="achievement-item-input" value="Coordinated PM SHRI school digitisation initiatives, deploying interactive panels and digital content.">
+                    <button class="btn-delete-row" onclick="removeAchievementRow(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                  <div class="achievement-input-row">
+                    <input type="text" class="achievement-item-input" value="Conducted regional and school-level workshops as a Resource Person on Geogebra modeling and Interactive panels.">
+                    <button class="btn-delete-row" onclick="removeAchievementRow(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                </div>
+                <button class="btn-add-row" id="btnAddAchievement"><i class="fas fa-plus"></i> Add Custom Achievement</button>
+              </div>
+
+              <!-- Compile button -->
+              <button class="btn-generate-cv" id="btnCompileResume">
+                <i class="fas fa-cogs"></i> Compile &amp; Generate Resume
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Preview Panel -->
+          <div class="glass-card preview-panel" style="width: 100%;">
+            <div class="glass-card-inner" style="display: flex; flex-direction: column; flex-grow: 1;">
+              
+              <!-- Placeholder State -->
+              <div class="preview-placeholder" id="cvPlaceholder">
+                <i class="far fa-file-pdf"></i>
+                <h3>Resume Preview &amp; Progress Report</h3>
+                <p>Verify and customize the data on the left panel, then click "Compile &amp; Generate" to compile the formal, print-ready document.</p>
+              </div>
+
+              <!-- Loading State -->
+              <div class="resume-loader" id="cvLoader">
+                <i class="fas fa-sync-alt"></i>
+                <h4 id="cvLoaderText">Scanning teacher profile...</h4>
+                <p>Synthesizing professional record &amp; board statistics</p>
+              </div>
+
+              <!-- Content State -->
+              <div class="cv-document-wrapper" id="cvContentWrapper">
+                <div class="cv-actions-bar">
+                  <span style="font-size: 0.85rem; color: var(--text-secondary);"><i class="fas fa-check-circle" style="color:#10b981;"></i> Document Compiled Successfully!</span>
+                  <button class="btn-print-cv" id="btnPrintResume">
+                    <i class="fas fa-print"></i> Print / Save as PDF
+                  </button>
+                </div>
+                <!-- Formal Printed Page Container -->
+                <div class="cv-document" id="cvDocument">
+                  <!-- JS will dynamically populate this formal structure -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </main>
@@ -1366,6 +1867,216 @@
       const firstCPDItem = document.querySelector('.cpd-accordion-item');
       if (firstCPDItem) {
         firstCPDItem.classList.add('active');
+      }
+
+      // --- RESUME BUILDER LOGIC ---
+      window.removeAchievementRow = function(button) {
+        button.closest('.achievement-input-row').remove();
+      };
+
+      const btnAddAchievement = document.getElementById('btnAddAchievement');
+      if (btnAddAchievement) {
+        btnAddAchievement.addEventListener('click', () => {
+          const container = document.getElementById('formAchievementsList');
+          const row = document.createElement('div');
+          row.className = 'achievement-input-row';
+          row.innerHTML = `
+            <input type="text" class="achievement-item-input" placeholder="Enter custom achievement or role...">
+            <button class="btn-delete-row" onclick="removeAchievementRow(this)"><i class="fas fa-trash-alt"></i></button>
+          `;
+          container.appendChild(row);
+          row.querySelector('input').focus();
+        });
+      }
+
+      const btnCompileResume = document.getElementById('btnCompileResume');
+      const cvPlaceholder = document.getElementById('cvPlaceholder');
+      const cvLoader = document.getElementById('cvLoader');
+      const cvLoaderText = document.getElementById('cvLoaderText');
+      const cvContentWrapper = document.getElementById('cvContentWrapper');
+      const cvDocument = document.getElementById('cvDocument');
+
+      if (btnCompileResume) {
+        btnCompileResume.addEventListener('click', () => {
+          // Hide previous states, show loader
+          cvPlaceholder.style.display = 'none';
+          cvContentWrapper.style.display = 'none';
+          cvLoader.style.display = 'flex';
+          
+          // Simulation steps
+          cvLoaderText.textContent = "Scanning teacher profile data...";
+          
+          setTimeout(() => {
+            cvLoaderText.textContent = "Processing Class 12 Board Results (2020-2026)...";
+          }, 600);
+          
+          setTimeout(() => {
+            cvLoaderText.textContent = "Summarizing Continuous Professional Development (CPD) training records...";
+          }, 1200);
+
+          setTimeout(() => {
+            cvLoaderText.textContent = "Formatting print-ready document layouts...";
+          }, 1800);
+
+          setTimeout(() => {
+            // Render document
+            compileCV();
+            
+            // Hide loader, show document
+            cvLoader.style.display = 'none';
+            cvContentWrapper.style.display = 'block';
+          }, 2400);
+        });
+      }
+
+      function compileCV() {
+        const objective = document.getElementById('formObjective').value;
+        const skillsRaw = document.getElementById('formSkills').value.split(',');
+        const skillsHTML = skillsRaw.map(s => `<div class="cv-skills-item">${s.trim()}</div>`).join('');
+        
+        const achievementInputs = document.querySelectorAll('.achievement-item-input');
+        const achievements = [];
+        achievementInputs.forEach(input => {
+          if (input.value.trim()) achievements.push(input.value.trim());
+        });
+        const achievementsHTML = achievements.map(a => `<li>${a}</li>`).join('');
+
+        const cvHTML = `
+          <div class="cv-header">
+            <div class="cv-header-top">
+              <div>
+                <h2 class="cv-name">KIRTI BALLABH JOSHI</h2>
+                <div class="cv-title">PGT Mathematics · PM SHRI KV Ranikhet</div>
+              </div>
+              <div class="cv-contact">
+                <div><i class="fas fa-envelope"></i> kbjoshikv2008@gmail.com</div>
+                <div><i class="fas fa-phone"></i> +91-XXXXXXXXXX</div>
+                <div><i class="fas fa-map-marker-alt"></i> Ranikhet, Uttarakhand, India</div>
+                <div>Employee ID: 54244</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Professional Summary</div>
+            <p class="cv-objective-text">${objective}</p>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Core Expertise & Skills</div>
+            <div class="cv-skills-flex">
+              ${skillsHTML}
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Employment & Career History</div>
+            <div class="cv-timeline">
+              <div class="cv-timeline-item">
+                <div class="cv-time-header">
+                  <span>PGT Mathematics (Post Graduate Teacher)</span>
+                  <span>Dec 2021 – Present</span>
+                </div>
+                <div class="cv-time-sub">PM SHRI Kendriya Vidyalaya Ranikhet</div>
+                <div class="cv-time-desc">Leading Senior Secondary Mathematics division (Classes 11 & 12). Expert in CBSE board curriculum design, student assessment, and interactive technology integration.</div>
+              </div>
+              <div class="cv-timeline-item" style="margin-top: 10px;">
+                <div class="cv-time-header">
+                  <span>PGT Mathematics</span>
+                  <span>Jul 2018 – Dec 2021</span>
+                </div>
+                <div class="cv-time-sub">Kendriya Vidyalaya Banbasa (Uttarakhand)</div>
+                <div class="cv-time-desc">Delivered CBSE board syllabus, achieved high performance scores, and ran extra-curricular analytical problem-solving clubs.</div>
+              </div>
+              <div class="cv-timeline-item" style="margin-top: 10px;">
+                <div class="cv-time-header">
+                  <span>PGT Mathematics</span>
+                  <span>May 2016 – Jul 2018</span>
+                </div>
+                <div class="cv-time-sub">Kendriya Vidyalaya AFS Highgrounds, Bareilly (UP)</div>
+                <div class="cv-time-desc">Taught secondary board classes and served as coordinator for in-school workshops.</div>
+              </div>
+              <div class="cv-timeline-item" style="margin-top: 10px;">
+                <div class="cv-time-header">
+                  <span>TGT Mathematics (Trained Graduate Teacher)</span>
+                  <span>Aug 2008 – May 2016</span>
+                </div>
+                <div class="cv-time-sub">Kendriya Vidyalaya Almora / KV 1 Kota / KV Mukhyalaya</div>
+                <div class="cv-time-desc">Fostered fundamental mathematical competencies for Class 6 to 10 students. Managed secondary exam divisions and student co-scholastic activities.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-section" style="page-break-before: always;">
+            <div class="cv-section-title">CBSE Board Performance Records (Class 12 Maths)</div>
+            <p style="font-size: 0.8rem; color: #475569; margin: 0 0 6px 0;">Yearwise Performance Index (PI) indicating student achievements in mathematics board examinations:</p>
+            <table class="cv-table">
+              <thead>
+                <tr>
+                  <th>Academic Session</th>
+                  <th>Subject Code & Subject</th>
+                  <th>Appeared Students</th>
+                  <th>Passed Students</th>
+                  <th>Pass Percentage</th>
+                  <th>Performance Index (PI)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>2025-2026</td><td>041 - MATHEMATICS</td><td>23</td><td>23</td><td>100%</td><td><strong>77.20</strong></td></tr>
+                <tr><td>2024-2025</td><td>041 - MATHEMATICS</td><td>14</td><td>14</td><td>100%</td><td><strong>71.43</strong></td></tr>
+                <tr><td>2023-2024</td><td>041 - MATHEMATICS</td><td>24</td><td>24</td><td>100%</td><td><strong>76.88</strong></td></tr>
+                <tr><td>2022-2023</td><td>041 - MATHEMATICS</td><td>26</td><td>26</td><td>100%</td><td><strong>65.13</strong></td></tr>
+                <tr><td>2021-2022</td><td>041 - MATHEMATICS</td><td>31</td><td>31</td><td>100%</td><td><strong>61.61</strong></td></tr>
+                <tr><td>2020-2021</td><td>041 - MATHEMATICS</td><td>30</td><td>30</td><td>100%</td><td><strong>70.67</strong></td></tr>
+                <tr><td>2019-2020</td><td>041 - MATHEMATICS</td><td>23</td><td>23</td><td>100%</td><td><strong>68.38</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Continuous Professional Development (CPD) Summary</div>
+            <div class="cv-cpd-summary">
+              <div class="cv-cpd-stat">
+                <div class="cv-cpd-val">41</div>
+                <div class="cv-cpd-lbl">Total Training Courses</div>
+              </div>
+              <div class="cv-cpd-stat">
+                <div class="cv-cpd-val">248 Hours</div>
+                <div class="cv-cpd-lbl">CPD Training Hours</div>
+              </div>
+              <div class="cv-cpd-stat">
+                <div class="cv-cpd-val">20 Online / 21 Offline</div>
+                <div class="cv-cpd-lbl">Session Delivery Split</div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #475569; margin: 0 0 6px 0;">Major training highlights include:</p>
+            <ul class="cv-bullet-list">
+              <li>NCERT Action Research Certifications (Batch 7 & 8) - 20 Hours total.</li>
+              <li>In-depth 30-Hour Offline Workshop on "The Art of Visualisation with GeoGebra" at IIT Gandhinagar (KVS HQ).</li>
+              <li>30-Hour Offline STEM Workshop at MNNIT Prayagraj (2026).</li>
+              <li>9-Hour IGOT Karmayogi course on "Comprehensive APAR Assessment for Teachers" (2026).</li>
+              <li>6 Resource Person roles delivered at Regional-level Subject Enrichment and school panel workshops.</li>
+            </ul>
+          </div>
+
+          ${achievements.length > 0 ? `
+          <div class="cv-section">
+            <div class="cv-section-title">Key Accomplishments & Responsibilities</div>
+            <ul class="cv-bullet-list">
+              ${achievementsHTML}
+            </ul>
+          </div>
+          ` : ''}
+        `;
+        
+        cvDocument.innerHTML = cvHTML;
+      }
+
+      const btnPrintResume = document.getElementById('btnPrintResume');
+      if (btnPrintResume) {
+        btnPrintResume.addEventListener('click', () => {
+          window.print();
+        });
       }
 
       // Allow switching via URL hash (e.g. profile.html#timeline)
