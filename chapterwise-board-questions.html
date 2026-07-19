@@ -830,7 +830,12 @@
       <!-- Modal Header -->
       <div style="padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02);">
         <h3 id="viewPdfTitle" style="margin: 0; color: #fff; font-family: var(--font-head); font-size: 1.15rem; font-weight: 600;">Chapter PDF Viewer</h3>
-        <span class="close-btn" id="closeViewPdfModal" style="font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <a id="modalOpenNewTabBtn" href="#" target="_blank" style="color: #c4b5fd; text-decoration: none; font-size: 0.85em; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; background: rgba(196, 181, 253, 0.1); padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(196, 181, 253, 0.2); transition: all 0.3s;" onmouseover="this.style.background='rgba(196, 181, 253, 0.2)'" onmouseout="this.style.background='rgba(196, 181, 253, 0.1)'">
+            <i class="fas fa-external-link-alt"></i> Open in New Tab
+          </a>
+          <span class="close-btn" id="closeViewPdfModal" style="font-size: 1.8rem; cursor: pointer; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">&times;</span>
+        </div>
       </div>
       <!-- Modal Body (Iframe container) -->
       <div style="flex: 1; position: relative; background: #000;">
@@ -897,11 +902,15 @@
         const modal = document.getElementById('viewPdfModal');
         const iframe = document.getElementById('pdfViewerIframe');
         const headerTitle = document.getElementById('viewPdfTitle');
+        const openTabBtn = document.getElementById('modalOpenNewTabBtn');
         
         if (headerTitle) headerTitle.textContent = title.replace(' - PDF', '');
         if (iframe) {
           // Properly encode the URI so that spaces do not cause Chrome/Edge loading bugs
           iframe.src = encodeURI(path) + "#toolbar=0&navpanes=0";
+        }
+        if (openTabBtn) {
+          openTabBtn.href = encodeURI(path);
         }
         if (modal) modal.style.display = 'flex';
       }
@@ -956,7 +965,8 @@
                 window.open(encodeURI(path), '_blank');
               } else {
                 const a = document.createElement('a');
-                a.href = encodeURI(path) + "?download=true";
+                const isLocalServer = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+                a.href = encodeURI(path) + (isLocalServer ? "?download=true" : "");
                 a.download = req.chapter.replace('Class 12 - ', '').replace('Class 11 - ', '').replace(/:/g, ' -') + '.pdf';
                 document.body.appendChild(a);
                 a.click();
@@ -1078,7 +1088,8 @@
             
             // Setup the direct unblocked download link
             const dlLink = document.getElementById('modalDownloadLink');
-            dlLink.href = encodeURI(chapterPath) + (window.location.protocol === 'file:' ? '' : '?download=true');
+            const isLocalServer = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+            dlLink.href = encodeURI(chapterPath) + (isLocalServer ? "?download=true" : "");
             dlLink.download = chapterName.replace('Class 12 - ', '').replace('Class 11 - ', '').replace(/:/g, ' -') + '.pdf';
             
             // Reveal success container
