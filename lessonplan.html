@@ -507,16 +507,41 @@
         margin: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+        font-size: 11px !important;
       }
-      body.printing-vault-lp .vault-lp-canvas input, 
-      body.printing-vault-lp .vault-lp-canvas textarea {
-        border: none !important;
-        padding: 0 !important;
-        font-family: inherit !important;
-        font-size: inherit !important;
-        background: transparent !important;
+      body.printing-vault-lp .vault-lp-canvas table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-bottom: 10px !important;
+        page-break-inside: avoid !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas th,
+      body.printing-vault-lp .vault-lp-canvas td {
+        padding: 5px 8px !important;
+        border: 1px solid #000 !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas th {
+        background: #f3f4f6 !important;
         color: #000 !important;
-        border-bottom: none !important;
+        font-weight: bold !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas .title-section {
+        text-align: center !important;
+        margin-bottom: 12px !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas .title-section h1 {
+        font-size: 16px !important;
+        margin: 0 0 4px 0 !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas .title-section h2 {
+        font-size: 12px !important;
+        margin: 0 !important;
+      }
+      @page {
+        size: A4 landscape;
+        margin: 0.8cm;
       }
     }
   </style>
@@ -1468,6 +1493,13 @@
           // Inject content
           editorBody.innerHTML = lpContainer.innerHTML;
           
+          // Remove mandatory fields note at the bottom
+          editorBody.querySelectorAll('p').forEach(p => {
+            if (p.textContent.includes('mandatory') && p.textContent.includes('अनिवार्य')) {
+              p.remove();
+            }
+          });
+          
           // Make prefilled blocks editable
           editorBody.querySelectorAll('.prefilled').forEach(el => {
             el.setAttribute('contenteditable', 'true');
@@ -1477,14 +1509,52 @@
             el.style.outline = 'none';
           });
           
-          // Set default dates if inputs are empty
+          // Prefill the Lesson Plan Developer field if present
+          const defaultTeacherName = document.getElementById('lpTeacherName').value || "K B Joshi";
+          let foundDeveloperInput = false;
+          
+          editorBody.querySelectorAll('td').forEach(td => {
+            const text = td.textContent.toLowerCase();
+            const isDeveloperLabel = text.includes('lesson plan developer') || text.includes('विकासकर्ता');
+            if (isDeveloperLabel) {
+              const nextTd = td.nextElementSibling;
+              if (nextTd) {
+                const input = nextTd.querySelector('input[type="text"]');
+                if (input) {
+                  input.value = defaultTeacherName;
+                  foundDeveloperInput = true;
+                }
+              }
+            }
+          });
+          
+          // Set default dates and defaults for inputs
           const todayStr = new Date().toLocaleDateString('en-IN');
           editorBody.querySelectorAll('input').forEach(input => {
-            if (input.classList.contains('input-field') && !input.value) {
-              if (input.type === 'date') {
-                input.value = new Date().toISOString().split('T')[0];
-              } else {
-                input.value = todayStr;
+            if (input.classList.contains('input-field')) {
+              // Populate developer name if it is the Developer input
+              if (input.placeholder === 'Teacher Name' && !input.value) {
+                input.value = defaultTeacherName;
+                return;
+              }
+              
+              if (!input.value) {
+                if (input.type === 'date') {
+                  input.value = new Date().toISOString().split('T')[0];
+                } else {
+                  // Only fill with todayStr if it's actually the Date input
+                  const cellIndex = input.parentElement.cellIndex;
+                  const row = input.parentElement.parentElement;
+                  if (row && row.cells) {
+                    const prevCell = row.cells[cellIndex - 1];
+                    if (prevCell) {
+                      const prevText = prevCell.textContent.toLowerCase();
+                      if (prevText.includes('date') || prevText.includes('दिनांक')) {
+                        input.value = todayStr;
+                      }
+                    }
+                  }
+                }
               }
             }
           });
@@ -1528,12 +1598,87 @@
     }
 
     function printVaultLp() {
+      const editorBody = document.getElementById('vaultLpEditorBody');
+      const originalHTML = editorBody.innerHTML;
+      
+      // Store current input/textarea/checkbox values
+      const textValues = [];
+      editorBody.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+        textValues.push({
+          el: input,
+          val: input.value
+        });
+      });
+      const dateValues = [];
+      editorBody.querySelectorAll('input[type="date"]').forEach(input => {
+        dateValues.push({
+          el: input,
+          val: input.value
+        });
+      });
+      const cbValues = [];
+      editorBody.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cbValues.push({
+          el: cb,
+          checked: cb.checked
+        });
+      });
+
+      // 1. Convert text/number inputs to spans with plain text value
+      editorBody.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+        const textSpan = document.createElement('span');
+        textSpan.textContent = input.value || "";
+        input.parentNode.replaceChild(textSpan, input);
+      });
+      
+      // 2. Convert date inputs
+      editorBody.querySelectorAll('input[type="date"]').forEach(input => {
+        const textSpan = document.createElement('span');
+        textSpan.textContent = input.value ? new Date(input.value).toLocaleDateString('en-IN') : "";
+        input.parentNode.replaceChild(textSpan, input);
+      });
+
+      // 3. Convert checkboxes
+      editorBody.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        const span = document.createElement('span');
+        span.textContent = cb.checked ? "☑" : "☐";
+        cb.parentNode.replaceChild(span, cb);
+      });
+
       document.body.classList.add('printing-vault-lp');
       window.print();
-      // Use setTimeout to clean body classes after print sheet dialog completes
-      setTimeout(() => {
-        document.body.classList.remove('printing-vault-lp');
-      }, 1000);
+      
+      // Restore original editable controls immediately after print
+      document.body.classList.remove('printing-vault-lp');
+      editorBody.innerHTML = originalHTML;
+
+      // Re-apply the stored values to the restored inputs
+      let idx = 0;
+      editorBody.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+        if (textValues[idx]) input.value = textValues[idx].val;
+        idx++;
+      });
+      
+      let dateIdx = 0;
+      editorBody.querySelectorAll('input[type="date"]').forEach(input => {
+        if (dateValues[dateIdx]) input.value = dateValues[dateIdx].val;
+        dateIdx++;
+      });
+      
+      let cbIdx = 0;
+      editorBody.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        if (cbValues[cbIdx]) cb.checked = cbValues[cbIdx].checked;
+        cbIdx++;
+      });
+      
+      // Re-enable contenteditable on prefilled blocks
+      editorBody.querySelectorAll('.prefilled').forEach(el => {
+        el.setAttribute('contenteditable', 'true');
+        el.style.border = '1px dashed rgba(124, 58, 237, 0.2)';
+        el.style.borderRadius = '4px';
+        el.style.padding = '5px';
+        el.style.outline = 'none';
+      });
     }
 
     function downloadVaultLpDoc() {
