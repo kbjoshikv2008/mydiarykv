@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher's AI Tools Portal | Teacher's Digital Diary</title>
+  <meta name="description" content="Dedicated directory of AI tools for educators, supporting presentation making, mind maps, gamified quizzes, lesson plans, 3D design, and mathematics calculations.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="premium.css">
+  <style>
+    /* Custom Styling for AI Tools Portal */
+    .search-container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    
+    .search-box-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-box-wrapper i {
+      position: absolute;
+      left: 20px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
+    }
+    
+    .tag-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .tag-filters-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-right: 8px;
+      font-weight: 500;
+    }
+    
+    .filter-tag-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      padding: 6px 14px;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-weight: 500;
+    }
+    
+    .filter-tag-btn:hover {
+      background: rgba(124, 58, 237, 0.15);
+      color: var(--primary-light);
+      border-color: rgba(124, 58, 237, 0.3);
+    }
+    
+    .filter-tag-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+    }
+    
+    .tabs-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 50px;
+      padding: 6px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 14px 20px;
+      background: transparent;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: var(--transition-smooth);
+      min-width: 160px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-family: var(--font-head);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white !important;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+    }
+    
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .ai-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    
+    .ai-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(167, 139, 250, 0.45);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), 0 0 20px rgba(124, 58, 237, 0.2);
+    }
+    
+    .ai-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .ai-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    
+    .gradient-purple { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
+    .gradient-blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .gradient-pink { background: linear-gradient(135deg, #db2777, #9d174d); }
+    .gradient-teal { background: linear-gradient(135deg, #0d9488, #115e59); }
+    .gradient-amber { background: linear-gradient(135deg, #d97706, #92400e); }
+    .gradient-cyan { background: linear-gradient(135deg, #0891b2, #0e7490); }
+    .gradient-emerald { background: linear-gradient(135deg, #059669, #065f46); }
+    .gradient-red { background: linear-gradient(135deg, #dc2626, #991b1b); }
+    .gradient-orange { background: linear-gradient(135deg, #ea580c, #9a3412); }
+    
+    .ai-title-block {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .ai-title {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    
+    .ai-category-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary-light);
+      margin-top: 2px;
+    }
+    
+    .ai-desc {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin: 0 0 18px 0;
+      flex-grow: 1;
+    }
+    
+    .ai-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    
+    .ai-tag {
+      font-size: 0.74rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    
+    .ai-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+    
+    .ai-action-btn:hover {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.6), rgba(13, 148, 136, 0.4));
+      border-color: rgba(124, 58, 237, 0.45);
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25);
+      transform: translateY(-1px);
+      color: #fff;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 50px 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      color: var(--text-secondary);
+      display: none;
+      margin-bottom: 40px;
+    }
+    
+    .no-results i {
+      font-size: 2.5rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    
+    .no-results h3 {
+      font-family: var(--font-head);
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-robot"></i> Teacher's Desk</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav"><a href="index.html" class="active"><i class="fas fa-home"></i> Return to Home</a></div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">&#129302;</span>
+      <h1>AI Tools Portal</h1>
+      <p>A curated portal of Artificial Intelligence utilities for educators. Simplify lesson planning, create interactive slide decks, design diagrams, generate quizzes, and compute mathematical solutions.</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Search & Filter Section -->
+      <section class="search-container fade-in-1">
+        <div class="search-box-wrapper">
+          <i class="fas fa-search"></i>
+          <input type="text" id="toolSearch" class="search-input" placeholder="Search AI tools by name, description, use cases or tags (e.g. PPT, mind map, quiz)...">
+        </div>
+        <div class="tag-filters">
+          <span class="tag-filters-label">Quick Filters:</span>
+          <button class="filter-tag-btn active" data-tag="all">All Tools</button>
+          <button class="filter-tag-btn" data-tag="ppt">PPT &amp; Slides</button>
+          <button class="filter-tag-btn" data-tag="mind map">Mind Maps</button>
+          <button class="filter-tag-btn" data-tag="quiz">Quizzes</button>
+          <button class="filter-tag-btn" data-tag="lesson plan">Lesson Plans</button>
+          <button class="filter-tag-btn" data-tag="infographic">Infographics</button>
+          <button class="filter-tag-btn" data-tag="math">Math solver</button>
+        </div>
+      </section>
+
+      <!-- Category Tabs Navigation -->
+      <div class="tabs-wrapper fade-in-2">
+        <button class="tab-btn active" data-category="all"><i class="fas fa-th-large"></i> All Categories</button>
+        <button class="tab-btn" data-category="presentations"><i class="fas fa-file-powerpoint"></i> PPT &amp; Slide Decks</button>
+        <button class="tab-btn" data-category="design"><i class="fas fa-sitemap"></i> Mind Maps &amp; Design</button>
+        <button class="tab-btn" data-category="lessons"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans &amp; LMS</button>
+        <button class="tab-btn" data-category="quizzes"><i class="fas fa-trophy"></i> Quizzes &amp; Games</button>
+        <button class="tab-btn" data-category="assistants"><i class="fas fa-sparkles"></i> AI Assistants</button>
+      </div>
+
+      <!-- No Results Card -->
+      <div class="no-results" id="noResultsCard">
+        <i class="fas fa-search-minus"></i>
+        <h3>No matching AI tools found</h3>
+        <p>Try searching with another keyword or selecting a different tab.</p>
+      </div>
+
+      <!-- AI Cards Grid -->
+      <div class="ai-grid fade-in-3" id="aiGrid">
+        
+        <!-- Category: Presentations & Slides -->
+        <div class="ai-card" data-category="presentations">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-purple"><i class="fas fa-file-powerpoint"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Gamma AI</h3>
+                <span class="ai-category-badge">PPT &amp; Slide Decks</span>
+              </div>
+            </div>
+            <p class="ai-desc">An AI-powered presentation, document, and webpage generator. Create gorgeous visual slide decks, lesson overviews, and student materials from simple text prompts in seconds.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#PPT</span>
+              <span class="ai-tag">#SlideDeck</span>
+              <span class="ai-tag">#LessonPlan</span>
+            </div>
+            <a href="https://gamma.app/" target="_blank" class="ai-action-btn">Open Gamma AI <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="presentations">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-blue"><i class="fas fa-tv"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Prezi AI</h3>
+                <span class="ai-category-badge">PPT &amp; Slide Decks</span>
+              </div>
+            </div>
+            <p class="ai-desc">Creates highly dynamic zooming presentations and slide structures using generative AI. Excellent for building interactive, non-linear classroom stories that keep students focused.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#PPT</span>
+              <span class="ai-tag">#InteractiveSlides</span>
+              <span class="ai-tag">#Visuals</span>
+            </div>
+            <a href="https://prezi.com/ai/" target="_blank" class="ai-action-btn">Open Prezi AI <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="presentations">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-pink"><i class="fas fa-images"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Prezent AI</h3>
+                <span class="ai-category-badge">PPT &amp; Slide Decks</span>
+              </div>
+            </div>
+            <p class="ai-desc">An enterprise-focused AI slide creation assistant. Quickly structures slides, applies brand designs, and translates ideas into professional visual presentations and curriculum templates.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#SlideDeck</span>
+              <span class="ai-tag">#PPT</span>
+              <span class="ai-tag">#Templates</span>
+            </div>
+            <a href="https://prezent.ai/" target="_blank" class="ai-action-btn">Open Prezent AI <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="presentations">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-teal"><i class="fas fa-book-reader"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">NotebookLM</h3>
+                <span class="ai-category-badge">PPT &amp; Slide Decks</span>
+              </div>
+            </div>
+            <p class="ai-desc">Google's personalized AI collaborator. Upload course materials, books, or NCERT PDFs to generate outlines, content summaries, interactive lecture slides, and audio guides.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#SlideOutline</span>
+              <span class="ai-tag">#LessonPrep</span>
+              <span class="ai-tag">#Summary</span>
+            </div>
+            <a href="https://notebooklm.google/" target="_blank" class="ai-action-btn">Open NotebookLM <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Category: Mind Maps & Design -->
+        <div class="ai-card" data-category="design">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-amber"><i class="fas fa-sitemap"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Napkin AI</h3>
+                <span class="ai-category-badge">Mind Maps &amp; Design</span>
+              </div>
+            </div>
+            <p class="ai-desc">Transforms text directly into mind maps, workflow diagrams, charts, and schema. Great for visually demonstrating mathematical formulas, hierarchies, and step-by-step logic.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#MindMap</span>
+              <span class="ai-tag">#Diagrams</span>
+              <span class="ai-tag">#Infographic</span>
+            </div>
+            <a href="https://www.napkin.ai/" target="_blank" class="ai-action-btn">Open Napkin AI <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="design">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-cyan"><i class="fas fa-cubes"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Tinkercad</h3>
+                <span class="ai-category-badge">Mind Maps &amp; Design</span>
+              </div>
+            </div>
+            <p class="ai-desc">Autodesk's web app for 3D modeling, coding, and basic circuit design. Excellent for modeling geometric figures, 3D math coordinates, and designing shapes for classroom lessons.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#3DDesign</span>
+              <span class="ai-tag">#Geometry</span>
+              <span class="ai-tag">#Simulation</span>
+            </div>
+            <a href="https://www.tinkercad.com/" target="_blank" class="ai-action-btn">Open Tinkercad <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="design">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-pink"><i class="fas fa-palette"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Canva AI</h3>
+                <span class="ai-category-badge">Mind Maps &amp; Design</span>
+              </div>
+            </div>
+            <p class="ai-desc">Online design suite with advanced generative AI. Build educational mind maps, student profile infographics, class schedules, and visually stunning slide background images.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Infographic</span>
+              <span class="ai-tag">#MindMap</span>
+              <span class="ai-tag">#Images</span>
+            </div>
+            <a href="https://www.canva.com/" target="_blank" class="ai-action-btn">Open Canva <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Category: Lesson Plans & LMS -->
+        <div class="ai-card" data-category="lessons">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-red"><i class="fas fa-apple-alt"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Brisk Teaching</h3>
+                <span class="ai-category-badge">Lesson Plans &amp; LMS</span>
+              </div>
+            </div>
+            <p class="ai-desc">An AI tool built directly into Chrome for teachers. Instantly drafts customized lesson plans, formats quiz worksheets, creates feedback, and alters text reading levels on any article.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#LessonPlan</span>
+              <span class="ai-tag">#Quiz</span>
+              <span class="ai-tag">#Grading</span>
+            </div>
+            <a href="https://www.briskteaching.com/" target="_blank" class="ai-action-btn">Open Brisk Teaching <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="lessons">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-purple"><i class="fas fa-brain"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Medha AI</h3>
+                <span class="ai-category-badge">Lesson Plans &amp; LMS</span>
+              </div>
+            </div>
+            <p class="ai-desc">Advanced AI educational assistant. Assists teachers in designing aligned lesson plans, reviewing course curricula, compiling test question sheets, and tracking student performance.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#LessonPlan</span>
+              <span class="ai-tag">#Worksheets</span>
+              <span class="ai-tag">#CBSE</span>
+            </div>
+            <a href="https://medha.ai/" target="_blank" class="ai-action-btn">Open Medha AI <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="lessons">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-amber"><i class="fas fa-calculator"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Wolfram Alpha</h3>
+                <span class="ai-category-badge">Lesson Plans &amp; LMS</span>
+              </div>
+            </div>
+            <p class="ai-desc">Computational engine providing step-by-step mathematical problem solving. Generates formulas, interactive calculus graphs, and algebraic answers to integrate into lesson plans.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Math</span>
+              <span class="ai-tag">#Calculations</span>
+              <span class="ai-tag">#Graphs</span>
+            </div>
+            <a href="https://www.wolframalpha.com/" target="_blank" class="ai-action-btn">Open Wolfram Alpha <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="lessons">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-emerald"><i class="fas fa-graduation-cap"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Moodle LMS</h3>
+                <span class="ai-category-badge">Lesson Plans &amp; LMS</span>
+              </div>
+            </div>
+            <p class="ai-desc">The open-source Learning Management System (LMS). Perfect for structuring online class portals, hosting homework submissions, building lesson materials, and compiling grades.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#LMS</span>
+              <span class="ai-tag">#Courseware</span>
+              <span class="ai-tag">#Assessments</span>
+            </div>
+            <a href="https://moodle.org/" target="_blank" class="ai-action-btn">Open Moodle LMS <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Category: Quizzes & Gamification -->
+        <div class="ai-card" data-category="quizzes">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-indigo"><i class="fas fa-gamepad"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Kahoot!</h3>
+                <span class="ai-category-badge">Quizzes &amp; Gamification</span>
+              </div>
+            </div>
+            <p class="ai-desc">A highly popular classroom engagement tool. Easily create multi-choice trivia, instant review quizzes, and timed competitive games for students to answer live via mobile or laptop.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Quiz</span>
+              <span class="ai-tag">#Gamification</span>
+              <span class="ai-tag">#Interactive</span>
+            </div>
+            <a href="https://kahoot.com/" target="_blank" class="ai-action-btn">Open Kahoot! <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="quizzes">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-orange"><i class="fas fa-trophy"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Blooket</h3>
+                <span class="ai-category-badge">Quizzes &amp; Gamification</span>
+              </div>
+            </div>
+            <p class="ai-desc">Turns questionnaire sets into immersive, reward-driven review games like Gold Quest or Cafe. Highly interactive mechanics incentivize correct answers and boost math topic review.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Quiz</span>
+              <span class="ai-tag">#Gamification</span>
+              <span class="ai-tag">#ReviewGames</span>
+            </div>
+            <a href="https://www.blooket.com/" target="_blank" class="ai-action-btn">Open Blooket <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="quizzes">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-red"><i class="fas fa-hourglass-half"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Quilgo</h3>
+                <span class="ai-category-badge">Quizzes &amp; Gamification</span>
+              </div>
+            </div>
+            <p class="ai-desc">Provides smart timing, exam proctoring, and behavior tracking features for Google Forms quizzes. Indispensable for hosting formal, secure online class tests and examinations.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Quiz</span>
+              <span class="ai-tag">#Timer</span>
+              <span class="ai-tag">#Proctoring</span>
+              <span class="ai-tag">#Exams</span>
+            </div>
+            <a href="https://quilgo.com/" target="_blank" class="ai-action-btn">Open Quilgo <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <!-- Category: AI Assistants -->
+        <div class="ai-card" data-category="assistants">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-blue"><i class="fas fa-sparkles"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Gemini</h3>
+                <span class="ai-category-badge">AI Assistants</span>
+              </div>
+            </div>
+            <p class="ai-desc">Google's premier conversational AI assistant. Best for brainstorming creative classroom math tasks, scripting lessons, outlining curricula, and writing automated email updates.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#LessonPlan</span>
+              <span class="ai-tag">#Quiz</span>
+              <span class="ai-tag">#Brainstorming</span>
+            </div>
+            <a href="https://gemini.google.com/" target="_blank" class="ai-action-btn">Open Gemini <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="assistants">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-emerald"><i class="fas fa-comments"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">ChatGPT</h3>
+                <span class="ai-category-badge">AI Assistants</span>
+              </div>
+            </div>
+            <p class="ai-desc">OpenAI's general assistant. Useful for generating textual explanations, drafting curriculum documents, drafting code widgets, and designing student worksheet exercises.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#LessonPlan</span>
+              <span class="ai-tag">#Writing</span>
+              <span class="ai-tag">#Ideas</span>
+            </div>
+            <a href="https://chatgpt.com/" target="_blank" class="ai-action-btn">Open ChatGPT <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="assistants">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-amber"><i class="fas fa-user-astronaut"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Claude</h3>
+                <span class="ai-category-badge">AI Assistants</span>
+              </div>
+            </div>
+            <p class="ai-desc">Anthropic's reasoning-oriented assistant. Exceptional at solving complex math word problems, editing textbook excerpts, and building long-form educational guides.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Writing</span>
+              <span class="ai-tag">#Logic</span>
+              <span class="ai-tag">#Analysis</span>
+            </div>
+            <a href="https://claude.ai/" target="_blank" class="ai-action-btn">Open Claude <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+
+        <div class="ai-card" data-category="assistants">
+          <div>
+            <div class="ai-card-header">
+              <div class="ai-icon-box gradient-purple"><i class="fas fa-user-ninja"></i></div>
+              <div class="ai-title-block">
+                <h3 class="ai-title">Google Antigravity</h3>
+                <span class="ai-category-badge">AI Assistants</span>
+              </div>
+            </div>
+            <p class="ai-desc">Your dedicated coding assistant and developer agent. Use it to write script integrations, build custom math labs, clean up codebase styles, and extend your diary's functions.</p>
+          </div>
+          <div>
+            <div class="ai-tags">
+              <span class="ai-tag">#Developer</span>
+              <span class="ai-tag">#CustomCode</span>
+              <span class="ai-tag">#DiaryTools</span>
+            </div>
+            <a href="#" class="ai-action-btn" id="antigravityLink">Activate Antigravity <i class="fas fa-terminal"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('toolSearch');
+      const filterTags = document.querySelectorAll('.filter-tag-btn');
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const aiCards = document.querySelectorAll('.ai-card');
+      const noResultsCard = document.getElementById('noResultsCard');
+      
+      let activeCategory = 'all';
+      let activeFilterTag = 'all';
+      let searchKeyword = '';
+      
+      // Update filters and card visibility
+      function updateVisibility() {
+        let visibleCount = 0;
+        
+        aiCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const title = card.querySelector('.ai-title').textContent.toLowerCase();
+          const desc = card.querySelector('.ai-desc').textContent.toLowerCase();
+          const badges = card.querySelector('.ai-category-badge').textContent.toLowerCase();
+          
+          // Collect tags inside the card
+          const tags = Array.from(card.querySelectorAll('.ai-tag'))
+                            .map(t => t.textContent.toLowerCase().replace('#', ''));
+          
+          // Check category tab match
+          const categoryMatch = (activeCategory === 'all' || category === activeCategory);
+          
+          // Check quick filter tag match
+          let tagMatch = false;
+          if (activeFilterTag === 'all') {
+            tagMatch = true;
+          } else {
+            // Check if any tag on the card matches activeFilterTag
+            tagMatch = tags.some(tag => tag === activeFilterTag || tag.includes(activeFilterTag)) ||
+                       badges.includes(activeFilterTag) ||
+                       title.includes(activeFilterTag);
+          }
+          
+          // Check keyword search match
+          let searchMatch = false;
+          if (!searchKeyword) {
+            searchMatch = true;
+          } else {
+            searchMatch = title.includes(searchKeyword) || 
+                          desc.includes(searchKeyword) || 
+                          badges.includes(searchKeyword) ||
+                          tags.some(tag => tag.includes(searchKeyword));
+          }
+          
+          // Show or hide card
+          if (categoryMatch && tagMatch && searchMatch) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Show "no results" message if needed
+        if (visibleCount === 0) {
+          noResultsCard.style.display = 'block';
+        } else {
+          noResultsCard.style.display = 'none';
+        }
+      }
+      
+      // Tab click events
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCategory = btn.getAttribute('data-category');
+          updateVisibility();
+        });
+      });
+      
+      // Quick filter tag click events
+      filterTags.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterTags.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilterTag = btn.getAttribute('data-tag');
+          updateVisibility();
+        });
+      });
+      
+      // Search typing events
+      searchInput.addEventListener('input', (e) => {
+        searchKeyword = e.target.value.toLowerCase().trim();
+        updateVisibility();
+      });
+
+      // Special interactive alert on clicking Google Antigravity
+      const antigravityBtn = document.getElementById('antigravityLink');
+      if (antigravityBtn) {
+        antigravityBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          alert('Hello Mr. K B Joshi! Antigravity developer agent is active and listening to your workspace. You can direct me in our pair-programming terminal window to customize this diary further.');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
