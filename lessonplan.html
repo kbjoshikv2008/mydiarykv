@@ -507,41 +507,77 @@
         margin: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
-        font-size: 11px !important;
+        font-size: 10px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+        gap: 0 !important;
       }
-      body.printing-vault-lp .vault-lp-canvas table {
+      
+      /* Title section should take full width */
+      body.printing-vault-lp .vault-lp-canvas .title-section {
         width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 8px !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas .title-section h1 {
+        font-size: 15px !important;
+        margin: 0 0 3px 0 !important;
+      }
+      body.printing-vault-lp .vault-lp-canvas .title-section h2 {
+        font-size: 11px !important;
+        margin: 0 !important;
+      }
+
+      /* Basic table styles */
+      body.printing-vault-lp .vault-lp-canvas table {
         border-collapse: collapse !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 8px !important;
         page-break-inside: avoid !important;
       }
       body.printing-vault-lp .vault-lp-canvas th,
       body.printing-vault-lp .vault-lp-canvas td {
-        padding: 5px 8px !important;
+        padding: 4px 6px !important;
         border: 1px solid #000 !important;
-        font-size: 10px !important;
-        line-height: 1.35 !important;
+        font-size: 9.5px !important;
+        line-height: 1.3 !important;
       }
       body.printing-vault-lp .vault-lp-canvas th {
         background: #f3f4f6 !important;
         color: #000 !important;
         font-weight: bold !important;
       }
-      body.printing-vault-lp .vault-lp-canvas .title-section {
-        text-align: center !important;
-        margin-bottom: 12px !important;
+
+      /* Full width tables */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(1), /* General Facts */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(6), /* Learning Activities / Tasks */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(9)  /* Reflections */ {
+        width: 100% !important;
       }
-      body.printing-vault-lp .vault-lp-canvas .title-section h1 {
-        font-size: 16px !important;
-        margin: 0 0 4px 0 !important;
+      
+      /* Side-by-side tables (50% width columns) */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(2), /* Content and Concepts */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(4), /* Pedagogical Strategies */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(7)  /* Class Test Questions */ {
+        width: 49.2% !important;
       }
-      body.printing-vault-lp .vault-lp-canvas .title-section h2 {
-        font-size: 12px !important;
-        margin: 0 !important;
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(3), /* Learning Outcomes */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(5), /* Integration */
+      body.printing-vault-lp .vault-lp-canvas table:nth-of-type(8)  /* Remedial/Extension */ {
+        width: 49.2% !important;
       }
+
+      /* Signature and other non-table blocks */
+      body.printing-vault-lp .vault-lp-canvas .signature-row {
+        width: 100% !important;
+        margin-top: 10px !important;
+        page-break-inside: avoid !important;
+      }
+
       @page {
         size: A4 landscape;
-        margin: 0.8cm;
+        margin: 0.4cm;
       }
     }
   </style>
