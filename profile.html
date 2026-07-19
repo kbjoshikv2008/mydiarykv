@@ -665,7 +665,6 @@
         <button class="tab-btn" data-tab="tab-timeline"><i class="fas fa-history"></i> Career Timeline</button>
         <button class="tab-btn" data-tab="tab-academics"><i class="fas fa-graduation-cap"></i> Academics & Board Records</button>
         <button class="tab-btn" data-tab="tab-cpd"><i class="fas fa-certificate"></i> CPD Record</button>
-        <button class="tab-btn" data-tab="tab-documents" id="documentsTabBtn"><i class="fas fa-folder-open"></i> Documents Directory</button>
       </div>
 
       <!-- TAB 1: OVERVIEW -->
@@ -1242,49 +1241,7 @@
         </div>
       </div>
 
-      <!-- TAB 4: DOCUMENTS DIRECTORY -->
-      <div class="tab-content" id="tab-documents">
-        <div class="glass-card">
-          <div class="glass-card-inner">
-            <div class="section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 20px; border-bottom: none; margin-bottom: 0;">
-              <span>DOCUMENTS & ATTACHMENTS</span>
-              <span class="badge badge-primary" id="docCountBadge"><i class="fas fa-file-alt"></i> 0 Files</span>
-            </div>
-            <p style="color: var(--text-secondary); font-size: 0.88rem; margin: -10px 0 20px 0;">Official certificates, professional development document records, and course completion credentials.</p>
-
-            <!-- Directory Controls -->
-            <div class="directory-controls">
-              <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="docSearch" placeholder="Search files in profile folder...">
-                <button id="clearSearch" title="Clear search"><i class="fas fa-times"></i></button>
-              </div>
-              <div class="sort-box">
-                <label for="docSort"><i class="fas fa-sort"></i> Sort By:</label>
-                <select id="docSort">
-                  <option value="newest">Newest Added</option>
-                  <option value="oldest">Oldest Added</option>
-                  <option value="name-asc">Name (A-Z)</option>
-                  <option value="name-desc">Name (Z-A)</option>
-                  <option value="size-desc">Size (Large to Small)</option>
-                  <option value="size-asc">Size (Small to Large)</option>
-                </select>
-              </div>
-              <button class="btn-refresh" id="refreshDocsBtn">
-                <i class="fas fa-sync-alt"></i> Refresh
-              </button>
-            </div>
-
-            <!-- Documents Grid -->
-            <div class="documents-grid" id="documentsContainer">
-              <div class="doc-loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span>Loading files from profile folder...</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- TAB 4: DOCUMENTS DIRECTORY REMOVED -->
 
     </div>
   </main>
@@ -1376,10 +1333,7 @@
           const targetEl = document.getElementById(targetTab);
           if (targetEl) targetEl.classList.add('active');
           
-          // If switching to documents tab, trigger load
-          if (targetTab === 'tab-documents') {
-            loadDocuments();
-          } else if (targetTab === 'tab-academics') {
+          if (targetTab === 'tab-academics') {
             initBoardChart();
           }
         });
@@ -1513,218 +1467,7 @@
         }, 150);
       }
 
-      // --- DOCUMENTS LOGIC ---
-      let cachedDocs = [];
-      const documentsContainer = document.getElementById('documentsContainer');
-      const docSearchInput = document.getElementById('docSearch');
-      const clearSearchBtn = document.getElementById('clearSearch');
-      const docSortSelect = document.getElementById('docSort');
-      const refreshDocsBtn = document.getElementById('refreshDocsBtn');
-      const docCountBadge = document.getElementById('docCountBadge');
-
-      function formatBytes(bytes, decimals = 2) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const dm = decimals < 0 ? 0 : decimals;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-      }
-
-      function formatDate(dateStr) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateStr).toLocaleDateString('en-US', options);
-      }
-
-      function getFileIconClass(ext) {
-        switch (ext) {
-          case '.pdf': return 'fas fa-file-pdf pdf';
-          case '.doc':
-          case '.docx': return 'fas fa-file-word word';
-          case '.xls':
-          case '.xlsx': return 'fas fa-file-excel excel';
-          case '.jpg':
-          case '.jpeg':
-          case '.png':
-          case '.gif': return 'fas fa-file-image image';
-          default: return 'fas fa-file-alt default';
-        }
-      }
-
-      function getDocCardClass(ext) {
-        switch (ext) {
-          case '.pdf': return 'doc-card pdf';
-          case '.doc':
-          case '.docx': return 'doc-card word';
-          case '.xls':
-          case '.xlsx': return 'doc-card excel';
-          case '.jpg':
-          case '.jpeg':
-          case '.png': return 'doc-card image';
-          default: return 'doc-card';
-        }
-      }
-
-      async function loadDocuments() {
-        if (!documentsContainer) return;
-        documentsContainer.innerHTML = `
-          <div class="doc-loading">
-            <i class="fas fa-spinner fa-spin"></i>
-            <span>Scanning profile folder...</span>
-          </div>
-        `;
-        
-        const isLocalProtocol = window.location.protocol === 'file:';
-        
-        if (isLocalProtocol) {
-          renderOfflineState();
-          return;
-        }
-
-        try {
-          const response = await fetch('/api/profile-files');
-          if (!response.ok) throw new Error('API server returned error');
-          const data = await response.json();
-          cachedDocs = data;
-          filterAndRenderDocs();
-        } catch (error) {
-          console.error('Error fetching profile files:', error);
-          renderOfflineState();
-        }
-      }
-
-      function renderOfflineState() {
-        // Fallback file list
-        cachedDocs = [
-          {
-            name: "Professional_Development_Courses_2024_2026_Kirti_Ballabh_Joshi.docx",
-            size: 34952,
-            mtime: new Date(),
-            ext: ".docx",
-            isOfflineFallback: true
-          }
-        ];
-        
-        filterAndRenderDocs(true);
-      }
-
-      function filterAndRenderDocs(isOffline = false) {
-        if (!documentsContainer) return;
-        const searchQuery = docSearchInput ? docSearchInput.value.toLowerCase().trim() : '';
-        const sortBy = docSortSelect ? docSortSelect.value : 'newest';
-        
-        // Filter
-        let filtered = cachedDocs.filter(doc => doc.name.toLowerCase().includes(searchQuery));
-        
-        // Sort
-        filtered.sort((a, b) => {
-          if (sortBy === 'newest') return new Date(b.mtime) - new Date(a.mtime);
-          if (sortBy === 'oldest') return new Date(a.mtime) - new Date(b.mtime);
-          if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
-          if (sortBy === 'name-desc') return b.name.localeCompare(a.name);
-          if (sortBy === 'size-desc') return b.size - a.size;
-          if (sortBy === 'size-asc') return a.size - b.size;
-          return 0;
-        });
-
-        // Clear container
-        documentsContainer.innerHTML = '';
-        
-        // Update badge
-        if (docCountBadge) {
-          docCountBadge.innerHTML = `<i class="fas fa-file-alt"></i> ${filtered.length} File${filtered.length === 1 ? '' : 's'}`;
-        }
-
-        if (isOffline) {
-          // Render offline/file:// warning card first
-          const warningCard = document.createElement('div');
-          warningCard.className = 'doc-offline-card';
-          warningCard.innerHTML = `
-            <h3><i class="fas fa-exclamation-triangle"></i> Local Server Offline / Running via File Protocol</h3>
-            <p>To see real-time updates and scan files automatically when they are added to the <code>profile/</code> folder, please start the local server by double-clicking <code>run_diary.bat</code> in the website directory, then navigate to <code>http://localhost:8080/profile.html</code>.</p>
-          `;
-          documentsContainer.appendChild(warningCard);
-        }
-
-        if (filtered.length === 0) {
-          documentsContainer.innerHTML += `
-            <div class="doc-empty">
-              <i class="fas fa-folder-open" style="font-size: 2rem; opacity: 0.5; margin-bottom: 10px;"></i>
-              <span>No matching documents found in profile folder.</span>
-            </div>
-          `;
-          return;
-        }
-
-        filtered.forEach(doc => {
-          const card = document.createElement('div');
-          card.className = getDocCardClass(doc.ext);
-          
-          const iconClass = getFileIconClass(doc.ext);
-          const sizeFormatted = formatBytes(doc.size);
-          const dateFormatted = formatDate(doc.mtime);
-          
-          // Check extension for viewing options
-          const canViewInline = ['.pdf', '.jpg', '.jpeg', '.png', '.gif', '.svg'].includes(doc.ext);
-          const filePath = `profile/${encodeURIComponent(doc.name)}`;
-          
-          card.innerHTML = `
-            <div class="doc-header">
-              <div class="doc-icon ${doc.ext.replace('.', '') || 'default'}">
-                <i class="${iconClass}"></i>
-              </div>
-              <div class="doc-details">
-                <h4 class="doc-title" title="${doc.name}">${doc.name}</h4>
-                <div class="doc-meta">
-                  <span><i class="far fa-hdd"></i> ${sizeFormatted}</span>
-                  <span><i class="far fa-calendar-alt"></i> ${dateFormatted}</span>
-                </div>
-              </div>
-            </div>
-            <div class="doc-actions">
-              ${canViewInline ? `<a href="${filePath}" target="_blank" class="doc-btn doc-btn-view"><i class="far fa-eye"></i> View</a>` : ''}
-              <a href="${filePath}?download=true" class="doc-btn doc-btn-download"><i class="fas fa-download"></i> Download</a>
-            </div>
-          `;
-          documentsContainer.appendChild(card);
-        });
-      }
-
-      // Controls Events
-      if (docSearchInput) {
-        docSearchInput.addEventListener('input', () => {
-          if (docSearchInput.value) {
-            if (clearSearchBtn) clearSearchBtn.style.display = 'block';
-          } else {
-            if (clearSearchBtn) clearSearchBtn.style.display = 'none';
-          }
-          const isOffline = window.location.protocol === 'file:' || cachedDocs.some(d => d.isOfflineFallback);
-          filterAndRenderDocs(isOffline);
-        });
-      }
-
-      if (clearSearchBtn) {
-        clearSearchBtn.addEventListener('click', () => {
-          if (docSearchInput) docSearchInput.value = '';
-          clearSearchBtn.style.display = 'none';
-          if (docSearchInput) docSearchInput.focus();
-          const isOffline = window.location.protocol === 'file:' || cachedDocs.some(d => d.isOfflineFallback);
-          filterAndRenderDocs(isOffline);
-        });
-      }
-
-      if (docSortSelect) {
-        docSortSelect.addEventListener('change', () => {
-          const isOffline = window.location.protocol === 'file:' || cachedDocs.some(d => d.isOfflineFallback);
-          filterAndRenderDocs(isOffline);
-        });
-      }
-
-      if (refreshDocsBtn) {
-        refreshDocsBtn.addEventListener('click', () => {
-          loadDocuments();
-        });
-      }
+      // --- DOCUMENTS LOGIC REMOVED ---
 
       const modal = document.getElementById('passwordModal');
       const profileLink = document.getElementById('profileLink');
