@@ -3405,7 +3405,7 @@
       const errorMessage = document.getElementById('errorMessage');
       
       // Show modal when profile link is clicked
-      profileLink.addEventListener('click', function(e) {
+      if (profileLink) profileLink.addEventListener('click', function(e) {
         e.preventDefault();
         modal.style.display = 'flex';
         passwordInput.focus();

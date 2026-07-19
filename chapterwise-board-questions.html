@@ -1017,7 +1017,7 @@
       const errorMessageProfile = document.getElementById('errorMessage');
 
       if (profileLink && modal && passwordInputProfile) {
-        profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+        if (profileLink) profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
       }
       if (closeModal && modal && passwordInputProfile && errorMessageProfile) {
         closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });

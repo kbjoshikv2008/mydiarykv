@@ -2565,7 +2565,7 @@
       const errorMessage = document.getElementById('errorMessage');
       
       if(profileLink) {
-        profileLink.addEventListener('click', function(e) {
+        if (profileLink) profileLink.addEventListener('click', function(e) {
           e.preventDefault();
           modal.style.display = 'flex';
           passwordInput.focus();

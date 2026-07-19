@@ -872,7 +872,7 @@
       const submitBtn = document.getElementById('submitPassword');
       const errorMessage = document.getElementById('errorMessage');
 
-      profileLink.addEventListener('click', function(e) { 
+      if (profileLink) profileLink.addEventListener('click', function(e) { 
         e.preventDefault(); 
         modal.style.display = 'flex'; 
         passwordInput.focus(); 
