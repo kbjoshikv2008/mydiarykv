@@ -774,10 +774,31 @@
         <h3 id="videoModalTitle"><i class="fas fa-play-circle" style="color: #ef4444;"></i> Video Walkthrough</h3>
         <button class="media-modal-close" onclick="closeMediaModal('videoModal')">&times;</button>
       </div>
-      <div class="media-modal-body" style="padding: 0; background: #000;">
-        <video id="videoElement" controls preload="metadata" style="width: 100%; max-height: 65vh; background: #000;">
+      <div class="media-modal-body" style="padding: 0; background: #000; position: relative;">
+        <!-- HTML5 Video Player -->
+        <video id="videoElement" controls preload="auto" style="width: 100%; max-height: 65vh; background: #000;">
+          <source id="videoSourceStream" src="" type="video/mp4">
           Your browser does not support HTML5 video playback.
         </video>
+
+        <!-- Video Error / Direct Play Fallback Panel -->
+        <div id="videoErrorPanel" style="display: none; padding: 36px 24px; text-align: center; background: rgba(18, 16, 38, 0.95); width: 100%;">
+          <div style="font-size: 3.5rem; color: #ef4444; margin-bottom: 14px; filter: drop-shadow(0 4px 15px rgba(239, 68, 68, 0.4));">
+            <i class="fas fa-play-circle"></i>
+          </div>
+          <h4 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 8px;">Video Ready to Play</h4>
+          <p style="color: var(--text-secondary); max-width: 560px; margin: 0 auto 20px; font-size: 0.9rem; line-height: 1.6;">
+            If in-browser video streaming is restricted by local file security policies, click below to play directly in your system's default media player or open the file stream:
+          </p>
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a id="videoSystemPlayBtn" href="#" target="_blank" class="action-btn btn-primary" style="padding: 12px 24px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+              <i class="fas fa-play"></i> ▶ Open in Windows Media Player
+            </a>
+            <a id="videoHttpStreamBtn" href="#" target="_blank" class="action-btn btn-secondary" style="padding: 12px 24px;">
+              <i class="fas fa-globe"></i> Open Direct Video Link
+            </a>
+          </div>
+        </div>
       </div>
       <div class="media-modal-footer">
         <div>
@@ -785,7 +806,7 @@
           <span id="videoModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
         </div>
         <div style="display: flex; gap: 10px;">
-          <a id="videoDirectDownload" href="#" target="_blank" download class="action-btn btn-secondary"><i class="fas fa-external-link-alt"></i> Direct Open / Play</a>
+          <a id="videoDirectDownload" href="#" target="_blank" class="action-btn btn-secondary"><i class="fas fa-external-link-alt"></i> Direct File Link</a>
           <button class="action-btn btn-primary" onclick="closeMediaModal('videoModal')"><i class="fas fa-times"></i> Close Player</button>
         </div>
       </div>
@@ -804,15 +825,18 @@
           <i class="fas fa-file-powerpoint"></i>
         </div>
         <h4 id="pptCardTitle" style="font-size: 1.45rem; color: #ffffff; margin-bottom: 10px;">PowerPoint Presentation Deck</h4>
-        <p style="color: var(--text-secondary); max-width: 620px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">
-          Interactive classroom slide deck from OneDrive. Click below to play in PowerPoint, download the presentation, or open direct file.
+        <p style="color: var(--text-secondary); max-width: 620px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 28px;">
+          Interactive classroom slide deck from OneDrive. Click <strong>▶ Play in PowerPoint</strong> to launch and present in PowerPoint, or open/download the direct presentation file.
         </p>
         <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-          <a id="pptDownloadBtn" href="#" target="_blank" download class="action-btn btn-primary" style="padding: 12px 28px; font-size: 0.95em; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-            <i class="fas fa-play"></i> Launch &amp; Download PPT
+          <a id="pptPlayLaunchBtn" href="#" target="_blank" class="action-btn btn-primary" style="padding: 14px 30px; font-size: 1rem; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);">
+            <i class="fas fa-play-circle"></i> ▶ Play in PowerPoint
           </a>
-          <a id="pptDirectOpenBtn" href="#" target="_blank" class="action-btn btn-secondary" style="padding: 12px 24px; font-size: 0.95em;">
-            <i class="fas fa-external-link-alt"></i> Direct File Link
+          <a id="pptDirectDownloadBtn" href="#" target="_blank" download class="action-btn btn-secondary" style="padding: 14px 24px; font-size: 0.95em;">
+            <i class="fas fa-download"></i> Open / Download File
+          </a>
+          <a id="pptHttpStreamBtn" href="#" target="_blank" class="action-btn btn-secondary" style="padding: 14px 24px; font-size: 0.95em;">
+            <i class="fas fa-globe"></i> HTTP File Link
           </a>
         </div>
       </div>
@@ -821,7 +845,7 @@
           <span id="pptModalClass" class="card-class-badge">Class 12</span>
           <span id="pptModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
         </div>
-        <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Done</button>
+        <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Close</button>
       </div>
     </div>
   </div>
@@ -1015,6 +1039,17 @@
       document.getElementById('statInfographics').textContent = db.filter(i => i.category === 'infographics').length;
     }
 
+    function getItemById(id) {
+      return db.find(i => i.id === id);
+    }
+
+    function getPrimaryUrl(item) {
+      if (window.location.protocol.startsWith('http')) {
+        return item.serverUrl;
+      }
+      return item.onedriveUri;
+    }
+
     // Render grid
     function renderLessons() {
       updateStats();
@@ -1073,23 +1108,23 @@
         if (item.category === 'videos') {
           actionsHtml = `
             <button onclick="openVideoModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play-circle"></i> Play Video</button>
-            <a href="${item.serverUrl}" target="_blank" download class="action-btn btn-secondary" title="Direct open / play video"><i class="fas fa-external-link-alt"></i> Direct File</a>
+            <a href="${item.onedriveUri}" target="_blank" class="action-btn btn-secondary" title="Open MP4 video directly"><i class="fas fa-folder-open"></i> Open Direct File</a>
           `;
         } else if (item.category === 'slides') {
           actionsHtml = `
-            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-file-powerpoint"></i> Play Slide Deck</button>
-            <a href="${item.serverUrl}" target="_blank" download class="action-btn btn-secondary" title="Direct download PPTX"><i class="fas fa-download"></i> Direct Open</a>
+            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-play-circle"></i> Play Slide Deck</button>
+            <a href="${item.onedriveUri}" target="_blank" class="action-btn btn-secondary" title="Open PPT file in PowerPoint"><i class="fas fa-file-powerpoint"></i> Open PPT File</a>
           `;
         } else if (item.category === 'mindmaps' || item.category === 'infographics') {
           actionsHtml = `
             <button onclick="openImageModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-expand"></i> View High-Res</button>
-            <a href="${item.serverUrl}" target="_blank" class="action-btn btn-secondary" title="Open direct image link"><i class="fas fa-external-link-alt"></i> Direct Open</a>
+            <a href="${item.onedriveUri}" target="_blank" class="action-btn btn-secondary" title="Open image directly"><i class="fas fa-image"></i> Open Image</a>
           `;
         } else {
           // HTML plans
           actionsHtml = `
             <button onclick="openHtmlModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-window-maximize"></i> Preview Lesson</button>
-            <a href="${item.localLink}" target="_blank" class="action-btn btn-secondary" title="Open lesson fullscreen"><i class="fas fa-external-link-alt"></i> Direct Open</a>
+            <a href="${item.localLink}" target="_blank" class="action-btn btn-secondary" title="Open lesson fullscreen"><i class="fas fa-external-link-alt"></i> Open Fullscreen</a>
           `;
         }
 
@@ -1118,22 +1153,47 @@
     }
 
     // Modal Triggers & Controls
-    function getItemById(id) {
-      return db.find(i => i.id === id);
-    }
-
     function openVideoModal(id) {
       const item = getItemById(id);
       if (!item) return;
+
       document.getElementById('videoModalTitle').innerHTML = `<i class="fas fa-play-circle" style="color: #ef4444;"></i> ${item.title}`;
       document.getElementById('videoModalClass').textContent = item.class;
       document.getElementById('videoModalSize').textContent = `Size: ${item.size}`;
       
       const v = document.getElementById('videoElement');
-      v.src = item.serverUrl;
-      v.play().catch(e => console.log('Autoplay deferred:', e));
+      const errPanel = document.getElementById('videoErrorPanel');
+      const srcStream = document.getElementById('videoSourceStream');
       
-      document.getElementById('videoDirectDownload').href = item.serverUrl;
+      errPanel.style.display = 'none';
+      v.style.display = 'block';
+
+      document.getElementById('videoSystemPlayBtn').href = item.onedriveUri;
+      document.getElementById('videoHttpStreamBtn').href = item.httpUrl || item.serverUrl;
+      document.getElementById('videoDirectDownload').href = item.onedriveUri;
+
+      const mediaUrl = getPrimaryUrl(item);
+      v.pause();
+      srcStream.src = mediaUrl;
+      v.load();
+
+      v.onerror = function() {
+        console.warn('Video element playback error for:', mediaUrl);
+        v.style.display = 'none';
+        errPanel.style.display = 'block';
+      };
+
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log('Autoplay or browser media stream policy:', err);
+          // If in-browser video is restricted, present direct system play panel
+          if (window.location.protocol === 'file:') {
+            v.style.display = 'none';
+            errPanel.style.display = 'block';
+          }
+        });
+      }
       
       const m = document.getElementById('videoModal');
       m.classList.add('active');
@@ -1143,14 +1203,16 @@
     function openPptModal(id) {
       const item = getItemById(id);
       if (!item) return;
+
       document.getElementById('pptModalTitle').innerHTML = `<i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> ${item.title}`;
       document.getElementById('pptCardTitle').textContent = item.title;
       document.getElementById('pptModalClass').textContent = item.class;
       document.getElementById('pptModalSize').textContent = `Size: ${item.size}`;
       
-      document.getElementById('pptDownloadBtn').href = item.serverUrl;
-      document.getElementById('pptDirectOpenBtn').href = item.serverUrl;
-      
+      document.getElementById('pptPlayLaunchBtn').href = item.onedriveUri;
+      document.getElementById('pptDirectDownloadBtn').href = item.onedriveUri;
+      document.getElementById('pptHttpStreamBtn').href = item.httpUrl || item.serverUrl;
+
       const m = document.getElementById('pptModal');
       m.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -1159,10 +1221,17 @@
     function openImageModal(id) {
       const item = getItemById(id);
       if (!item) return;
+
       document.getElementById('imageModalTitle').innerHTML = `<i class="fas fa-image" style="color: #06b6d4;"></i> ${item.title}`;
-      document.getElementById('lightboxImage').src = item.serverUrl;
+      const img = document.getElementById('lightboxImage');
+      const primaryUrl = getPrimaryUrl(item);
+      img.src = primaryUrl;
+      img.onerror = function() {
+        img.src = item.onedriveUri;
+      };
+      
       document.getElementById('imageModalClass').textContent = item.class;
-      document.getElementById('imageDirectOpen').href = item.serverUrl;
+      document.getElementById('imageDirectOpen').href = item.onedriveUri;
       
       const m = document.getElementById('imageLightboxModal');
       m.classList.add('active');
@@ -1172,6 +1241,7 @@
     function openHtmlModal(id) {
       const item = getItemById(id);
       if (!item) return;
+
       document.getElementById('htmlModalTitle').innerHTML = `<i class="fas fa-window-maximize" style="color: #10b981;"></i> ${item.title}`;
       document.getElementById('htmlIframe').src = item.localLink;
       document.getElementById('htmlModalClass').textContent = item.class;
