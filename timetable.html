@@ -926,6 +926,209 @@
       .pocket-period-row .p-num { color: #000 !important; }
       .pocket-period-row .p-class { color: #000 !important; }
     }
+
+    /* PDF CLEAN HIGH-CONTRAST EXPORT TEMPLATE CSS */
+    .pdf-clean-template {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      padding: 24px !important;
+      font-family: 'Inter', 'Poppins', sans-serif !important;
+      box-sizing: border-box !important;
+      width: 1060px !important; /* Fixed width for perfect A4 landscape scaling */
+    }
+    .pdf-clean-template.portrait-mode {
+      width: 650px !important; /* Fixed width for A4 portrait pocket card scaling */
+    }
+    .pdf-clean-template .sheet-header {
+      border-bottom: 2px solid #0f172a !important;
+      margin-bottom: 18px !important;
+      padding-bottom: 12px !important;
+      text-align: center !important;
+    }
+    .pdf-clean-template .sheet-header .school-name {
+      color: #0f766e !important;
+      font-size: 1.05rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+    }
+    .pdf-clean-template .sheet-header h2 {
+      color: #0f172a !important;
+      font-size: 1.65rem !important;
+      font-weight: 800 !important;
+      -webkit-text-fill-color: initial !important;
+      background: none !important;
+      margin: 6px 0 !important;
+    }
+    .pdf-clean-template .sheet-header .sheet-sub {
+      color: #475569 !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+    }
+    .pdf-clean-template table.tt-grid-table {
+      border-collapse: collapse !important;
+      width: 100% !important;
+      border: 2px solid #334155 !important;
+      margin-bottom: 20px !important;
+    }
+    .pdf-clean-template table.tt-grid-table th {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+      border: 1px solid #64748b !important;
+      padding: 10px 6px !important;
+      font-size: 0.84rem !important;
+      font-weight: 800 !important;
+      text-align: center !important;
+    }
+    .pdf-clean-template table.tt-grid-table th small {
+      color: #475569 !important;
+      font-weight: 600 !important;
+    }
+    .pdf-clean-template table.tt-grid-table td {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #94a3b8 !important;
+      padding: 8px 6px !important;
+      text-align: center !important;
+    }
+    .pdf-clean-template table.tt-grid-table td.day-col {
+      background: #e2e8f0 !important;
+      color: #0f172a !important;
+      font-weight: 800 !important;
+      font-size: 0.95rem !important;
+    }
+    .pdf-clean-template .period-cell .class-code {
+      color: #0f172a !important;
+      font-weight: 800 !important;
+      font-size: 1rem !important;
+    }
+    .pdf-clean-template .period-cell .subject-name {
+      background: #e0f2fe !important;
+      color: #0369a1 !important;
+      border: 1px solid #bae6fd !important;
+      font-weight: 700 !important;
+      font-size: 0.75rem !important;
+      padding: 2px 6px !important;
+      border-radius: 4px !important;
+    }
+    .pdf-clean-template .period-cell .teacher-name {
+      color: #0f766e !important;
+      font-weight: 700 !important;
+    }
+    .pdf-clean-template .period-cell.free-period {
+      color: #94a3b8 !important;
+      font-style: italic !important;
+    }
+    .pdf-clean-template .period-cell.break-cell {
+      background: #fef3c7 !important;
+      color: #92400e !important;
+      font-weight: 800 !important;
+    }
+
+    /* Master Table PDF styling */
+    .pdf-clean-template .master-table {
+      border: 2px solid #334155 !important;
+      border-collapse: collapse !important;
+      width: 100% !important;
+    }
+    .pdf-clean-template .master-table th {
+      background: #e2e8f0 !important;
+      color: #0f172a !important;
+      border: 1px solid #64748b !important;
+      font-weight: 800 !important;
+    }
+    .pdf-clean-template .master-table td {
+      border: 1px solid #94a3b8 !important;
+      color: #0f172a !important;
+      background: #ffffff !important;
+    }
+    .pdf-clean-template .master-table td.teacher-info .t-name {
+      color: #0f172a !important;
+      font-weight: 800 !important;
+    }
+    .pdf-clean-template .master-table td.teacher-info .t-desig {
+      color: #475569 !important;
+      font-weight: 500 !important;
+    }
+    .pdf-clean-template .master-class-badge {
+      background: #ccfbf1 !important;
+      color: #0f766e !important;
+      border: 1px solid #99f6e4 !important;
+      font-weight: 800 !important;
+    }
+    .pdf-clean-template .master-free-badge {
+      color: #cbd5e1 !important;
+    }
+
+    /* Pocket Card PDF styling */
+    .pdf-clean-template .pocket-card {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 2px solid #0f172a !important;
+      box-shadow: none !important;
+      padding: 20px !important;
+    }
+    .pdf-clean-template .pocket-badge-offline {
+      display: none !important;
+    }
+    .pdf-clean-template .pocket-header h3 {
+      color: #0f172a !important;
+      font-size: 1.4rem !important;
+    }
+    .pdf-clean-template .pocket-header .school {
+      color: #0f766e !important;
+    }
+    .pdf-clean-template .pocket-header .sub-info {
+      color: #475569 !important;
+    }
+    .pdf-clean-template .pocket-stats {
+      background: #f8fafc !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    .pdf-clean-template .pocket-stat-num {
+      color: #0f766e !important;
+    }
+    .pdf-clean-template .pocket-stat-lbl {
+      color: #475569 !important;
+    }
+    .pdf-clean-template .pocket-period-row {
+      background: #ffffff !important;
+      border: 1px solid #94a3b8 !important;
+      padding: 10px 14px !important;
+    }
+    .pdf-clean-template .pocket-period-row.has-class {
+      background: #f1f5f9 !important;
+      border-color: #64748b !important;
+    }
+    .pdf-clean-template .pocket-period-row .p-num {
+      color: #0f172a !important;
+    }
+    .pdf-clean-template .pocket-period-row .p-time {
+      color: #64748b !important;
+    }
+    .pdf-clean-template .pocket-period-row .p-class {
+      color: #0f172a !important;
+    }
+    .pdf-clean-template .p-tag.tag-class {
+      background: #e0f2fe !important;
+      color: #0369a1 !important;
+      border: 1px solid #bae6fd !important;
+    }
+    .pdf-clean-template .p-tag.tag-break {
+      background: #fef3c7 !important;
+      color: #92400e !important;
+      border: 1px solid #fde68a !important;
+    }
+
+    .pdf-signature-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1.5px solid #0f172a;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
   </style>
 </head>
 <body>
@@ -1215,7 +1418,7 @@
     <div style="text-align:center;">
       <i class="fa-solid fa-file-pdf" style="font-size:2.4rem;color:#f43f5e;margin-bottom:10px;"></i>
       <h3 style="font-family:var(--font-head);color:#fff;font-size:1.25rem;margin:0 0 6px 0;" id="shareModalTitle">Share PDF File</h3>
-      <p style="color:var(--text-secondary);font-size:0.86rem;margin:0;" id="shareModalSubtitle">Direct PDF Document File Transfer</p>
+      <p style="color:var(--text-secondary);font-size:0.86rem;margin:0;" id="shareModalSubtitle">Direct High-Contrast PDF Document Transfer</p>
     </div>
     
     <div class="share-options-grid">
@@ -2261,41 +2464,90 @@
       container.innerHTML = html;
     }
 
-    // --- PDF EXPORT & DIRECT PDF FILE GENERATION ---
-    function exportPdf(elementId, filename, isPortrait = false) {
-      const element = document.getElementById(elementId);
-      if (!element) return;
+    // --- HIGH-CONTRAST HIGH-RESOLUTION PDF GENERATION ENGINE ---
+    
+    // Helper: Clones element and wraps in clean white-background PDF template
+    async function createCleanPdfContainer(elementId, isPortrait = false) {
+      const origEl = document.getElementById(elementId);
+      if (!origEl) return null;
 
-      const opt = {
-        margin:       [8, 8, 8, 8],
-        filename:     filename,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#120f26' },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape' }
-      };
+      // Clone element
+      const clone = origEl.cloneNode(true);
+      clone.id = 'pdf-clean-export-root';
+      clone.classList.add('pdf-clean-template');
+      if (isPortrait) {
+        clone.classList.add('portrait-mode');
+      }
 
-      html2pdf().set(opt).from(element).save();
+      // Append signature footer to clone for official look
+      const sigFooter = document.createElement('div');
+      sigFooter.className = 'pdf-signature-footer';
+      sigFooter.innerHTML = `
+        <div>Teacher Signature: __________________</div>
+        <div>Timetable Incharge: __________________</div>
+        <div>Principal Signature: __________________</div>
+      `;
+      clone.appendChild(sigFooter);
+
+      // Create off-screen container for rendering
+      const offscreenWrapper = document.createElement('div');
+      offscreenWrapper.style.position = 'fixed';
+      offscreenWrapper.style.left = '-9999px';
+      offscreenWrapper.style.top = '0';
+      offscreenWrapper.style.zIndex = '-9999';
+      offscreenWrapper.appendChild(clone);
+      document.body.appendChild(offscreenWrapper);
+
+      return { clone, offscreenWrapper };
     }
 
-    // Helper: Creates a File object from html2pdf Blob
-    async function createPdfFileObject(elementId, filename, isPortrait = false) {
-      const element = document.getElementById(elementId);
-      if (!element) return null;
+    // PDF Export function (Downloads clean printable PDF)
+    async function exportPdf(elementId, filename, isPortrait = false) {
+      const pdfObj = await createCleanPdfContainer(elementId, isPortrait);
+      if (!pdfObj) return;
 
       const opt = {
-        margin:       [8, 8, 8, 8],
+        margin:       isPortrait ? [10, 10, 10, 10] : [6, 6, 6, 6],
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#120f26' },
+        html2canvas:  { scale: 2.5, useCORS: true, backgroundColor: '#ffffff' },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape' }
       };
 
       try {
-        const blob = await html2pdf().set(opt).from(element).output('blob');
+        await html2pdf().set(opt).from(pdfObj.clone).save();
+      } catch (err) {
+        console.error("PDF export error:", err);
+      } finally {
+        if (pdfObj.offscreenWrapper && document.body.contains(pdfObj.offscreenWrapper)) {
+          document.body.removeChild(pdfObj.offscreenWrapper);
+        }
+      }
+    }
+
+    // Helper: Creates a File object from html2pdf Blob for direct file sharing
+    async function createPdfFileObject(elementId, filename, isPortrait = false) {
+      const pdfObj = await createCleanPdfContainer(elementId, isPortrait);
+      if (!pdfObj) return null;
+
+      const opt = {
+        margin:       isPortrait ? [10, 10, 10, 10] : [6, 6, 6, 6],
+        filename:     filename,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2.5, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape' }
+      };
+
+      try {
+        const blob = await html2pdf().set(opt).from(pdfObj.clone).output('blob');
         return new File([blob], filename, { type: 'application/pdf' });
       } catch (e) {
         console.error("PDF Blob generation error:", e);
         return null;
+      } finally {
+        if (pdfObj.offscreenWrapper && document.body.contains(pdfObj.offscreenWrapper)) {
+          document.body.removeChild(pdfObj.offscreenWrapper);
+        }
       }
     }
 
@@ -2303,7 +2555,7 @@
     async function handleSharePdfFile(elementId, filename, title, subtitle) {
       const isPortrait = elementId === 'pocketSheetContainer';
       
-      // Try generating PDF File object
+      // Try generating high-contrast PDF File object
       const pdfFile = await createPdfFileObject(elementId, filename, isPortrait);
 
       // Check if Web Share API with File sharing support is available on user device
@@ -2338,23 +2590,20 @@
     const shareWhatsappBtn = document.getElementById('shareWhatsappBtn');
     const shareEmailBtn = document.getElementById('shareEmailBtn');
 
-    let activeShareState = null;
-
     function openShareModal(title, subtitle, pdfFile, filename, elementId) {
       shareTitle.textContent = title;
       shareSub.textContent = subtitle;
-      activeShareState = { title, subtitle, pdfFile, filename, elementId };
 
       const shareText = `${title}\n${subtitle}\nPM SHRI KV Ranikhet Timetable Portal: ${window.location.href}`;
 
       shareWhatsappBtn.onclick = (e) => {
         e.preventDefault();
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("📁 *Attached PDF Timetable File*\n" + shareText)}`, '_blank');
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("📁 *Official PDF Timetable Attached*\n" + shareText)}`, '_blank');
       };
 
       shareEmailBtn.onclick = (e) => {
         e.preventDefault();
-        window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent("Attached PDF Timetable file: " + filename + "\n\n" + shareText)}`;
+        window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent("Attached PDF Timetable document: " + filename + "\n\n" + shareText)}`;
       };
 
       sharePdfDownloadBtn.onclick = () => {
@@ -2367,7 +2616,7 @@
             await navigator.share({ title: title, text: subtitle, files: [pdfFile] });
           } catch (e) { console.error(e); }
         } else {
-          alert("Direct file sharing is not supported by your desktop browser. Click 'Download PDF File' to save and send the .pdf file.");
+          alert("Direct file sharing is not supported by desktop browser. PDF File will now be saved to your device for easy attaching.");
           exportPdf(elementId, filename, elementId === 'pocketSheetContainer');
         }
       };
