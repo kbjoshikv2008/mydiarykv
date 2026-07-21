@@ -15,7 +15,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ACT2.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ACT2.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ACT2.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ACT2.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ACT2.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_2",
@@ -33,7 +36,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ACTIVITIES%20CH3%20CLASS%207.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ACTIVITIES%20CH3%20CLASS%207.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ACTIVITIES%20CH3%20CLASS%207.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ACTIVITIES CH3 CLASS 7.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ACTIVITIES CH3 CLASS 7.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_3",
@@ -51,7 +57,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activities.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activities.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activities.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/activities.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/activities.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_4",
@@ -69,7 +78,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activitiesch5.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activitiesch5.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activitiesch5.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/activitiesch5.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/activitiesch5.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_5",
@@ -87,7 +99,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activity%20class%207%20ch6.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activity%20class%207%20ch6.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/activity%20class%207%20ch6.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/activity class 7 ch6.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/activity class 7 ch6.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_6",
@@ -105,7 +120,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ch2%20activities%20class%207.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ch2%20activities%20class%207.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ch2%20activities%20class%207.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ch2 activities class 7.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ch2 activities class 7.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_7",
@@ -123,7 +141,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ch3%20class%207%20activities%20and%20worksheet.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ch3%20class%207%20activities%20and%20worksheet.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/ch3%20class%207%20activities%20and%20worksheet.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ch3 class 7 activities and worksheet.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/ch3 class 7 activities and worksheet.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_8",
@@ -141,7 +162,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/chapter%201%20act.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/chapter%201%20act.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/chapter%201%20act.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/chapter 1 act.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/chapter 1 act.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_9",
@@ -159,7 +183,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/chapter%203.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/chapter%203.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/chapter%203.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/chapter 3.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/chapter 3.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_10",
@@ -177,7 +204,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%207%20%20class%20test%20analysis.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%207%20%20class%20test%20analysis.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%207%20%20class%20test%20analysis.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/class 7  class test analysis.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/class 7  class test analysis.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_11",
@@ -195,7 +225,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%207%20holiday%20home%20work%20winter.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%207%20holiday%20home%20work%20winter.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%207%20holiday%20home%20work%20winter.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/class 7 holiday home work winter.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/class 7 holiday home work winter.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_12",
@@ -213,7 +246,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CLASS%20TEST%20CH%201%207MATH.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CLASS%20TEST%20CH%201%207MATH.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CLASS%20TEST%20CH%201%207MATH.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/CLASS TEST CH 1 7MATH.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/CLASS TEST CH 1 7MATH.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_13",
@@ -231,7 +267,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CLASS%20TEST%20CH%201.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CLASS%20TEST%20CH%201.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CLASS%20TEST%20CH%201.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/CLASS TEST CH 1.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/CLASS TEST CH 1.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_14",
@@ -249,7 +288,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%20test%20ch03%20class%207.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%20test%20ch03%20class%207.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/class%20test%20ch03%20class%207.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/class test ch03 class 7.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/class test ch03 class 7.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_15",
@@ -267,7 +309,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CT%20Module%201%20for%207C.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CT%20Module%201%20for%207C.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/CT%20Module%201%20for%207C.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/CT Module 1 for 7C.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/CT Module 1 for 7C.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_16",
@@ -285,7 +330,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/interactive%20activity%20ch-4.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/interactive%20activity%20ch-4.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/interactive%20activity%20ch-4.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/interactive activity ch-4.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/interactive activity ch-4.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_17",
@@ -303,7 +351,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/interactive%20activity%20ch4.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/interactive%20activity%20ch4.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/interactive%20activity%20ch4.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/interactive activity ch4.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/interactive activity ch4.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_18",
@@ -321,7 +372,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/LARGE%20NUMBERS%20AROUND%20US%20(2).html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/LARGE%20NUMBERS%20AROUND%20US%20(2).html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/LARGE%20NUMBERS%20AROUND%20US%20(2).html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/LARGE NUMBERS AROUND US (2).html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/LARGE NUMBERS AROUND US (2).html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_19",
@@ -339,7 +393,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/main%20file.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/main%20file.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/main%20file.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/main file.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/main file.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_20",
@@ -357,7 +414,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/maths%20worksheet%20ch6%202.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/maths%20worksheet%20ch6%202.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/maths%20worksheet%20ch6%202.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/maths worksheet ch6 2.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/maths worksheet ch6 2.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_21",
@@ -375,7 +435,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/MDP%20CLASS%207.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/MDP%20CLASS%207.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/MDP%20CLASS%207.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/MDP CLASS 7.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/MDP CLASS 7.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_22",
@@ -393,7 +456,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/notes.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/notes.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/notes.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/notes.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/notes.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_23",
@@ -411,7 +477,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/readiness%20module%20for%20class%207.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/readiness%20module%20for%20class%207.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/readiness%20module%20for%20class%207.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/readiness module for class 7.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/readiness module for class 7.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_24",
@@ -429,7 +498,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/revision%20worksheet%20part1%20SEE.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/revision%20worksheet%20part1%20SEE.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/revision%20worksheet%20part1%20SEE.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/revision worksheet part1 SEE.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/revision worksheet part1 SEE.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_25",
@@ -447,7 +519,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/test%20ch2%20class%207.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/test%20ch2%20class%207.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/test%20ch2%20class%207.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/test ch2 class 7.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/test ch2 class 7.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_26",
@@ -465,7 +540,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/test%20class%206%20basic.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/test%20class%206%20basic.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/test%20class%206%20basic.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/test class 6 basic.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/test class 6 basic.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_27",
@@ -483,7 +561,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20ch-1.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20ch-1.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20ch-1.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet ch-1.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet ch-1.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_28",
@@ -501,7 +582,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20ch2.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20ch2.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20ch2.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet ch2.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet ch2.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_29",
@@ -519,7 +603,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20chapter%203%20part%202%20f.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20chapter%203%20part%202%20f.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet%20chapter%203%20part%202%20f.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet chapter 3 part 2 f.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet chapter 3 part 2 f.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_30",
@@ -537,7 +624,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_31",
@@ -555,7 +645,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet2.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet2.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worksheet2.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet2.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worksheet2.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class7_html_32",
@@ -573,7 +666,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worsheet%20ch6%201.html",
         "serverUrl": "/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worsheet%20ch6%201.html",
         "httpUrl": "http://localhost:8080/onedrive/7%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/worsheet%20ch6%201.html",
-        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worsheet ch6 1.html"
+        "relPath": "7 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/worsheet ch6 1.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_33",
@@ -591,7 +687,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/binomial%20theorem.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/binomial%20theorem.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/binomial%20theorem.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/binomial theorem.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/binomial theorem.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_34",
@@ -609,7 +708,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%201%20SETS.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%201%20SETS.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%201%20SETS.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/CH 1 SETS.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/CH 1 SETS.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_35",
@@ -627,7 +729,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%203%20T%20FUNCTIONS.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%203%20T%20FUNCTIONS.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%203%20T%20FUNCTIONS.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/CH 3 T FUNCTIONS.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/CH 3 T FUNCTIONS.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_36",
@@ -645,7 +750,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%205%20LINEAR%20INEQUALITIES.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%205%20LINEAR%20INEQUALITIES.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/CH%205%20LINEAR%20INEQUALITIES.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/CH 5 LINEAR INEQUALITIES.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/CH 5 LINEAR INEQUALITIES.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_37",
@@ -663,7 +771,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/chapter%203%20interactive%20LP.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/chapter%203%20interactive%20LP.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/chapter%203%20interactive%20LP.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/chapter 3 interactive LP.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/chapter 3 interactive LP.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_38",
@@ -681,7 +792,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/class%20test%20analysis.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/class%20test%20analysis.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/class%20test%20analysis.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/class test analysis.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/class test analysis.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_39",
@@ -699,7 +813,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/Ellipse%20Demo%20Class11.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/Ellipse%20Demo%20Class11.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/Ellipse%20Demo%20Class11.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/Ellipse Demo Class11.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/Ellipse Demo Class11.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_40",
@@ -717,7 +834,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/lesson%20plan%20ellipse.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/lesson%20plan%20ellipse.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/lesson%20plan%20ellipse.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/lesson plan ellipse.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/lesson plan ellipse.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_41",
@@ -735,7 +855,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/mshy112025m.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/mshy112025m.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/mshy112025m.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/mshy112025m.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/mshy112025m.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_42",
@@ -753,7 +876,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/sequence%20and%20series.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/sequence%20and%20series.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/sequence%20and%20series.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/sequence and series.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/sequence and series.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_43",
@@ -771,7 +897,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/sets.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/sets.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/sets.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/sets.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/sets.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_html_44",
@@ -789,7 +918,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/test%20analysis%20ch1.html",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/test%20analysis%20ch1.html",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20html%20file/test%20analysis%20ch1.html",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/test analysis ch1.html"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive html file/test analysis ch1.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_45",
@@ -807,7 +939,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%2011%203D%20INFG.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%2011%203D%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%2011%203D%20INFG.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 11 3D INFG.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 11 3D INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_46",
@@ -825,7 +960,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%203%20T%20FUNCTIONS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%203%20T%20FUNCTIONS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%203%20T%20FUNCTIONS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 3 T FUNCTIONS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 3 T FUNCTIONS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_47",
@@ -843,7 +981,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%204%20COMPLEX%20NUMBERS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%204%20COMPLEX%20NUMBERS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%204%20COMPLEX%20NUMBERS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 4 COMPLEX NUMBERS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 4 COMPLEX NUMBERS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_48",
@@ -861,7 +1002,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%205%20LINEAR%20INEQUALITIES.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%205%20LINEAR%20INEQUALITIES.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%205%20LINEAR%20INEQUALITIES.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 5 LINEAR INEQUALITIES.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 5 LINEAR INEQUALITIES.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_49",
@@ -879,7 +1023,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 6 PERMUTATIONS AND COMBINATIONS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 6 PERMUTATIONS AND COMBINATIONS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_50",
@@ -897,7 +1044,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%207%20SEQUENCE%20AND%20SERIES%20INFG.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%207%20SEQUENCE%20AND%20SERIES%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%207%20SEQUENCE%20AND%20SERIES%20INFG.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 7 SEQUENCE AND SERIES INFG.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 7 SEQUENCE AND SERIES INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_51",
@@ -915,7 +1065,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%208%20STRAIGHT%20LINES%20INFG.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%208%20STRAIGHT%20LINES%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%208%20STRAIGHT%20LINES%20INFG.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 8 STRAIGHT LINES INFG.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 8 STRAIGHT LINES INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_infographics_52",
@@ -933,7 +1086,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%209%20CONIC%20SECTION%20INFG.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%209%20CONIC%20SECTION%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20infographics/CH%209%20CONIC%20SECTION%20INFG.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 9 CONIC SECTION INFG.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive infographics/CH 9 CONIC SECTION INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_53",
@@ -951,7 +1107,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%2011%203D%20PPT.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%2011%203D%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%2011%203D%20PPT.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 11 3D PPT.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 11 3D PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_54",
@@ -969,7 +1128,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%203%20T%20FUNCTIONS.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%203%20T%20FUNCTIONS.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%203%20T%20FUNCTIONS.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 3 T FUNCTIONS.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 3 T FUNCTIONS.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_55",
@@ -987,7 +1149,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%204%20COMPLEX%20NUMBERS.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%204%20COMPLEX%20NUMBERS.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%204%20COMPLEX%20NUMBERS.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 4 COMPLEX NUMBERS.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 4 COMPLEX NUMBERS.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_56",
@@ -1005,7 +1170,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%205%20LINEAR%20INEQUALITIES.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%205%20LINEAR%20INEQUALITIES.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%205%20LINEAR%20INEQUALITIES.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 5 LINEAR INEQUALITIES.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 5 LINEAR INEQUALITIES.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_57",
@@ -1023,7 +1191,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%207%20SEQUENCE%20AND%20SERIES%20PPT.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%207%20SEQUENCE%20AND%20SERIES%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%207%20SEQUENCE%20AND%20SERIES%20PPT.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 7 SEQUENCE AND SERIES PPT.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 7 SEQUENCE AND SERIES PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_58",
@@ -1041,7 +1212,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%208%20STRAIGHT%20LINES%20%20PPT.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%208%20STRAIGHT%20LINES%20%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%208%20STRAIGHT%20LINES%20%20PPT.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 8 STRAIGHT LINES  PPT.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 8 STRAIGHT LINES  PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_59",
@@ -1059,7 +1233,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%209%20CONIC%20SECTION%20PPT.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%209%20CONIC%20SECTION%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH%209%20CONIC%20SECTION%20PPT.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 9 CONIC SECTION PPT.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH 9 CONIC SECTION PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_slides_60",
@@ -1077,7 +1254,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH6%20PERMUTATIONS%20AND%20COMBINATIONS.pptx",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH6%20PERMUTATIONS%20AND%20COMBINATIONS.pptx",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20ppt%20slide%20deck/CH6%20PERMUTATIONS%20AND%20COMBINATIONS.pptx",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH6 PERMUTATIONS AND COMBINATIONS.pptx"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive ppt slide deck/CH6 PERMUTATIONS AND COMBINATIONS.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_61",
@@ -1095,7 +1275,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%2011%203D%20VEDIO.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%2011%203D%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%2011%203D%20VEDIO.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 11 3D VEDIO.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 11 3D VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_62",
@@ -1113,7 +1296,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%203%20T%20FUNCTIONS.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%203%20T%20FUNCTIONS.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%203%20T%20FUNCTIONS.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 3 T FUNCTIONS.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 3 T FUNCTIONS.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_63",
@@ -1131,7 +1317,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%204%20COMPLEX%20NUMBERS.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%204%20COMPLEX%20NUMBERS.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%204%20COMPLEX%20NUMBERS.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 4 COMPLEX NUMBERS.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 4 COMPLEX NUMBERS.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_64",
@@ -1149,7 +1338,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%206%20PERMUATTIONS%20AND%20COMBINATIONS.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%206%20PERMUATTIONS%20AND%20COMBINATIONS.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%206%20PERMUATTIONS%20AND%20COMBINATIONS.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 6 PERMUATTIONS AND COMBINATIONS.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 6 PERMUATTIONS AND COMBINATIONS.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_65",
@@ -1167,7 +1359,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%207%20SEQUNCE%20AND%20SERIES%20VIDEO.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%207%20SEQUNCE%20AND%20SERIES%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%207%20SEQUNCE%20AND%20SERIES%20VIDEO.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 7 SEQUNCE AND SERIES VIDEO.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 7 SEQUNCE AND SERIES VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_66",
@@ -1185,7 +1380,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%208%20STRAIGHT%20LINE%20%20VIDEO.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%208%20STRAIGHT%20LINE%20%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%208%20STRAIGHT%20LINE%20%20VIDEO.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 8 STRAIGHT LINE  VIDEO.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 8 STRAIGHT LINE  VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_videos_67",
@@ -1203,7 +1401,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%209%20CONIC%20SECTIONS%20VIDEO.mp4",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%209%20CONIC%20SECTIONS%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/interactive%20vedio/CH%209%20CONIC%20SECTIONS%20VIDEO.mp4",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 9 CONIC SECTIONS VIDEO.mp4"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/interactive vedio/CH 9 CONIC SECTIONS VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_68",
@@ -1221,7 +1422,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%201%20SETS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%201%20SETS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%201%20SETS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 1 SETS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 1 SETS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_69",
@@ -1239,7 +1443,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%2011%203D%20MIND%20MAP.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%2011%203D%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%2011%203D%20MIND%20MAP.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 11 3D MIND MAP.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 11 3D MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_70",
@@ -1257,7 +1464,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%202%20TRELATIONS%20AND%20FUNCTIONS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%202%20TRELATIONS%20AND%20FUNCTIONS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%202%20TRELATIONS%20AND%20FUNCTIONS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 2 TRELATIONS AND FUNCTIONS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 2 TRELATIONS AND FUNCTIONS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_71",
@@ -1275,7 +1485,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%203%20T%20FUNCTIONS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%203%20T%20FUNCTIONS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%203%20T%20FUNCTIONS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 3 T FUNCTIONS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 3 T FUNCTIONS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_72",
@@ -1293,7 +1506,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%204%20COMPLEX%20NUMBERS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%204%20COMPLEX%20NUMBERS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%204%20COMPLEX%20NUMBERS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 4 COMPLEX NUMBERS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 4 COMPLEX NUMBERS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_73",
@@ -1311,7 +1527,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%205%20LINEAR%20INEQUALITIES.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%205%20LINEAR%20INEQUALITIES.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%205%20LINEAR%20INEQUALITIES.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 5 LINEAR INEQUALITIES.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 5 LINEAR INEQUALITIES.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_74",
@@ -1329,7 +1548,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%206%20PERMUTATIONS%20AND%20COMBINATIONS.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 6 PERMUTATIONS AND COMBINATIONS.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 6 PERMUTATIONS AND COMBINATIONS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_75",
@@ -1347,7 +1569,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%207%20SEQUENCE%20AND%20SERIES%20MIND%20MAP.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%207%20SEQUENCE%20AND%20SERIES%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%207%20SEQUENCE%20AND%20SERIES%20MIND%20MAP.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 7 SEQUENCE AND SERIES MIND MAP.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 7 SEQUENCE AND SERIES MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_76",
@@ -1365,7 +1590,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%208%20STRAIGHT%20LINES%20%20MIND%20MAP.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%208%20STRAIGHT%20LINES%20%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%208%20STRAIGHT%20LINES%20%20MIND%20MAP.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 8 STRAIGHT LINES  MIND MAP.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 8 STRAIGHT LINES  MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class11_mindmaps_77",
@@ -1383,7 +1611,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%209%20CONIC%20SECTION%20MIND%20MAP.png",
         "serverUrl": "/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%209%20CONIC%20SECTION%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/11%20ALL%20TEACHING%20LEARNING%20CONTENT/interactive%20plans/mind%20map/CH%209%20CONIC%20SECTION%20MIND%20MAP.png",
-        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 9 CONIC SECTION MIND MAP.png"
+        "relPath": "11 ALL TEACHING LEARNING CONTENT/interactive plans/mind map/CH 9 CONIC SECTION MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_78",
@@ -1401,7 +1632,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/12%20maths%20study%20material.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/12%20maths%20study%20material.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/12%20maths%20study%20material.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/12 maths study material.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/12 maths study material.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_79",
@@ -1419,7 +1653,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/3%20Dimensional%20Geo.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/3%20Dimensional%20Geo.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/3%20Dimensional%20Geo.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/3 Dimensional Geo.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/3 Dimensional Geo.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_80",
@@ -1437,7 +1674,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/7%20days%20revision%20plan%20class%2012%20maths.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/7%20days%20revision%20plan%20class%2012%20maths.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/7%20days%20revision%20plan%20class%2012%20maths.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/7 days revision plan class 12 maths.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/7 days revision plan class 12 maths.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_81",
@@ -1455,7 +1695,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%2010.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%2010.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%2010.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/activity 10.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/activity 10.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_82",
@@ -1473,7 +1716,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%208.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%208.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%208.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/activity 8.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/activity 8.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_83",
@@ -1491,7 +1737,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%209.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%209.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/activity%209.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/activity 9.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/activity 9.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_84",
@@ -1509,7 +1758,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/casebasedquestion3d.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/casebasedquestion3d.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/casebasedquestion3d.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/casebasedquestion3d.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/casebasedquestion3d.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_85",
@@ -1527,7 +1779,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/cbq%20question.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/cbq%20question.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/cbq%20question.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/cbq question.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/cbq question.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_86",
@@ -1545,7 +1800,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%202%20INVERSE%20T%20FUNCTIONS%20HTML.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%202%20INVERSE%20T%20FUNCTIONS%20HTML.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%202%20INVERSE%20T%20FUNCTIONS%20HTML.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 2 INVERSE T FUNCTIONS HTML.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 2 INVERSE T FUNCTIONS HTML.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_87",
@@ -1563,7 +1821,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%203%20MATRICES%20HTML.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%203%20MATRICES%20HTML.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%203%20MATRICES%20HTML.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 3 MATRICES HTML.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 3 MATRICES HTML.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_88",
@@ -1581,7 +1842,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%204%20DETERMINANTS%20HTML.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%204%20DETERMINANTS%20HTML.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%204%20DETERMINANTS%20HTML.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 4 DETERMINANTS HTML.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 4 DETERMINANTS HTML.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_89",
@@ -1599,7 +1863,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%205%20CONTINUITY%20AND%20DIFF%20HTML.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%205%20CONTINUITY%20AND%20DIFF%20HTML.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%205%20CONTINUITY%20AND%20DIFF%20HTML.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 5 CONTINUITY AND DIFF HTML.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 5 CONTINUITY AND DIFF HTML.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_90",
@@ -1617,7 +1884,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%207%20INTEGRALS%20HTML.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%207%20INTEGRALS%20HTML.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/CH%207%20INTEGRALS%20HTML.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 7 INTEGRALS HTML.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/CH 7 INTEGRALS HTML.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_91",
@@ -1635,7 +1905,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/continuity%20and%20differentaibility.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/continuity%20and%20differentaibility.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/continuity%20and%20differentaibility.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/continuity and differentaibility.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/continuity and differentaibility.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_92",
@@ -1653,7 +1926,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/determinants.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/determinants.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/determinants.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/determinants.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/determinants.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_93",
@@ -1671,7 +1947,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/heights%20and%20distance.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/heights%20and%20distance.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/heights%20and%20distance.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/heights and distance.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/heights and distance.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_94",
@@ -1689,7 +1968,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/interactive%20lesson%20plan%20indefinite%20integral.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/interactive%20lesson%20plan%20indefinite%20integral.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/interactive%20lesson%20plan%20indefinite%20integral.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/interactive lesson plan indefinite integral.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/interactive lesson plan indefinite integral.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_95",
@@ -1707,7 +1989,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/inverse%20t%20functions%20plan.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/inverse%20t%20functions%20plan.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/inverse%20t%20functions%20plan.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/inverse t functions plan.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/inverse t functions plan.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_96",
@@ -1725,7 +2010,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/lessonplan9oct3d.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/lessonplan9oct3d.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/lessonplan9oct3d.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/lessonplan9oct3d.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/lessonplan9oct3d.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_97",
@@ -1743,7 +2031,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/LP1.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/LP1.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/LP1.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/LP1.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/LP1.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_98",
@@ -1761,7 +2052,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/LP2.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/LP2.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/LP2.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/LP2.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/LP2.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_99",
@@ -1779,7 +2073,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/MATHS%20CLASS%2012%20STUDY%20MATERIAL.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/MATHS%20CLASS%2012%20STUDY%20MATERIAL.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/MATHS%20CLASS%2012%20STUDY%20MATERIAL.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/MATHS CLASS 12 STUDY MATERIAL.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/MATHS CLASS 12 STUDY MATERIAL.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_100",
@@ -1797,7 +2094,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/matrices.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/matrices.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/matrices.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/matrices.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/matrices.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_101",
@@ -1815,7 +2115,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Preboard%20class%2012%20summer.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Preboard%20class%2012%20summer.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Preboard%20class%2012%20summer.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/Preboard class 12 summer.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/Preboard class 12 summer.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_102",
@@ -1833,7 +2136,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/probability%20test.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/probability%20test.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/probability%20test.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/probability test.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/probability test.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_103",
@@ -1851,7 +2157,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Solution%20PB1%202025.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Solution%20PB1%202025.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Solution%20PB1%202025.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/Solution PB1 2025.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/Solution PB1 2025.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_104",
@@ -1869,7 +2178,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/test%20record%20html%20for%20class%2012%20new.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/test%20record%20html%20for%20class%2012%20new.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/test%20record%20html%20for%20class%2012%20new.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/test record html for class 12 new.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/test record html for class 12 new.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_105",
@@ -1887,7 +2199,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/test%20record%20html%20for%20class%2012.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/test%20record%20html%20for%20class%2012.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/test%20record%20html%20for%20class%2012.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/test record html for class 12.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/test record html for class 12.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_html_106",
@@ -1905,7 +2220,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Vector%20Algebra%20CT.html",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Vector%20Algebra%20CT.html",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20HTML/Vector%20Algebra%20CT.html",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/Vector Algebra CT.html"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE HTML/Vector Algebra CT.html",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_107",
@@ -1923,7 +2241,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%201%20RELATIONS%20AND%20FN%20INFG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%201%20RELATIONS%20AND%20FN%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%201%20RELATIONS%20AND%20FN%20INFG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 1 RELATIONS AND FN INFG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 1 RELATIONS AND FN INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_108",
@@ -1941,7 +2262,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2010%20VECTORS%20INFOG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2010%20VECTORS%20INFOG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2010%20VECTORS%20INFOG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 10 VECTORS INFOG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 10 VECTORS INFOG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_109",
@@ -1959,7 +2283,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2011%203-D%20INFOG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2011%203-D%20INFOG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2011%203-D%20INFOG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 11 3-D INFOG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 11 3-D INFOG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_110",
@@ -1977,7 +2304,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2012%20LPP%20INFOG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2012%20LPP%20INFOG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2012%20LPP%20INFOG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 12 LPP INFOG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 12 LPP INFOG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_111",
@@ -1995,7 +2325,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2013%20PROBABILITY%20INFOG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2013%20PROBABILITY%20INFOG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%2013%20PROBABILITY%20INFOG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 13 PROBABILITY INFOG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 13 PROBABILITY INFOG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_112",
@@ -2013,7 +2346,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%202%20INVERSE%20T%20FUNCTIONS%20INFG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%202%20INVERSE%20T%20FUNCTIONS%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%202%20INVERSE%20T%20FUNCTIONS%20INFG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 2 INVERSE T FUNCTIONS INFG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 2 INVERSE T FUNCTIONS INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_113",
@@ -2031,7 +2367,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%203%20MATRICES%20INFG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%203%20MATRICES%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%203%20MATRICES%20INFG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 3 MATRICES INFG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 3 MATRICES INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_114",
@@ -2049,7 +2388,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%204%20DETERMINANTS%20INFG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%204%20DETERMINANTS%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%204%20DETERMINANTS%20INFG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 4 DETERMINANTS INFG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 4 DETERMINANTS INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_115",
@@ -2067,7 +2409,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%205%20CONT%20AND%20DIFF%20INFG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%205%20CONT%20AND%20DIFF%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%205%20CONT%20AND%20DIFF%20INFG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 5 CONT AND DIFF INFG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 5 CONT AND DIFF INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_116",
@@ -2085,7 +2430,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%206%20APPL%20OF%20DERIV%20INFG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%206%20APPL%20OF%20DERIV%20INFG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%206%20APPL%20OF%20DERIV%20INFG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 6 APPL OF DERIV INFG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 6 APPL OF DERIV INFG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_117",
@@ -2103,7 +2451,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%207%20INTEGRALS.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%207%20INTEGRALS.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%207%20INTEGRALS.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 7 INTEGRALS.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 7 INTEGRALS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_118",
@@ -2121,7 +2472,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%208%20APPLICATION%20OF%20INTEGRALS.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%208%20APPLICATION%20OF%20INTEGRALS.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%208%20APPLICATION%20OF%20INTEGRALS.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 8 APPLICATION OF INTEGRALS.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 8 APPLICATION OF INTEGRALS.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_infographics_119",
@@ -2139,7 +2493,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%209%20DIIF%20EQ%20INFOG.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%209%20DIIF%20EQ%20INFOG.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20INFOGRAPHICS/CH%209%20DIIF%20EQ%20INFOG.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 9 DIIF EQ INFOG.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE INFOGRAPHICS/CH 9 DIIF EQ INFOG.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_120",
@@ -2157,7 +2514,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%201%20RELATIONS%20AND%20FUNCTIONS%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%201%20RELATIONS%20AND%20FUNCTIONS%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%201%20RELATIONS%20AND%20FUNCTIONS%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 1 RELATIONS AND FUNCTIONS PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 1 RELATIONS AND FUNCTIONS PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_121",
@@ -2175,7 +2535,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2010%20VECTORS%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2010%20VECTORS%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2010%20VECTORS%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 10 VECTORS PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 10 VECTORS PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_122",
@@ -2193,7 +2556,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2011%203-D%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2011%203-D%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2011%203-D%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 11 3-D PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 11 3-D PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_123",
@@ -2211,7 +2577,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2012%20LPP%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2012%20LPP%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2012%20LPP%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 12 LPP PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 12 LPP PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_124",
@@ -2229,7 +2598,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2013%20PROBABILITY%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2013%20PROBABILITY%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%2013%20PROBABILITY%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 13 PROBABILITY PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 13 PROBABILITY PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_125",
@@ -2247,7 +2619,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%202%20INVERSE%20T%20FUNCTIONS%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%202%20INVERSE%20T%20FUNCTIONS%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%202%20INVERSE%20T%20FUNCTIONS%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 2 INVERSE T FUNCTIONS PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 2 INVERSE T FUNCTIONS PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_126",
@@ -2265,7 +2640,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%203%20MATRICES%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%203%20MATRICES%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%203%20MATRICES%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 3 MATRICES PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 3 MATRICES PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_127",
@@ -2283,7 +2661,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%204%20DETERMINANTS%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%204%20DETERMINANTS%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%204%20DETERMINANTS%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 4 DETERMINANTS PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 4 DETERMINANTS PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_128",
@@ -2301,7 +2682,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%205%20CONT%20AND%20DIFF%20PP.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%205%20CONT%20AND%20DIFF%20PP.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%205%20CONT%20AND%20DIFF%20PP.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 5 CONT AND DIFF PP.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 5 CONT AND DIFF PP.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_129",
@@ -2319,7 +2703,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%206%20APPL%20OF%20DERIV%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%206%20APPL%20OF%20DERIV%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%206%20APPL%20OF%20DERIV%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 6 APPL OF DERIV PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 6 APPL OF DERIV PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_130",
@@ -2337,7 +2724,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%207%20INTEGRALS%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%207%20INTEGRALS%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%207%20INTEGRALS%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 7 INTEGRALS PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 7 INTEGRALS PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_131",
@@ -2355,7 +2745,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%208%20APPLICATIONS%20OF%20INTEGRALS.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%208%20APPLICATIONS%20OF%20INTEGRALS.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%208%20APPLICATIONS%20OF%20INTEGRALS.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 8 APPLICATIONS OF INTEGRALS.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 8 APPLICATIONS OF INTEGRALS.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_slides_132",
@@ -2373,7 +2766,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%209%20DIFF%20EQ%20PPT.pptx",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%209%20DIFF%20EQ%20PPT.pptx",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20SLIDE%20DECK%20PPT/CH%209%20DIFF%20EQ%20PPT.pptx",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 9 DIFF EQ PPT.pptx"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE SLIDE DECK PPT/CH 9 DIFF EQ PPT.pptx",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_133",
@@ -2391,7 +2787,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%201%20RELATIONS%20AND%20FN%20VEDIO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%201%20RELATIONS%20AND%20FN%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%201%20RELATIONS%20AND%20FN%20VEDIO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 1 RELATIONS AND FN VEDIO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 1 RELATIONS AND FN VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_134",
@@ -2409,7 +2808,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2010%20VECTORS%20VEDIO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2010%20VECTORS%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2010%20VECTORS%20VEDIO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 10 VECTORS VEDIO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 10 VECTORS VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_135",
@@ -2427,7 +2829,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2011%203-D%20VEDIO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2011%203-D%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2011%203-D%20VEDIO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 11 3-D VEDIO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 11 3-D VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_136",
@@ -2445,7 +2850,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2012%20LPP%20VEDIO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2012%20LPP%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2012%20LPP%20VEDIO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 12 LPP VEDIO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 12 LPP VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_137",
@@ -2463,7 +2871,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2013%20PROBABILITY%20VEDIO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2013%20PROBABILITY%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%2013%20PROBABILITY%20VEDIO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 13 PROBABILITY VEDIO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 13 PROBABILITY VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_138",
@@ -2481,7 +2892,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%203%20MATRICES%20VIDEO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%203%20MATRICES%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%203%20MATRICES%20VIDEO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 3 MATRICES VIDEO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 3 MATRICES VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_139",
@@ -2499,7 +2913,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%204%20DETERMINANTS%20VIDEO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%204%20DETERMINANTS%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%204%20DETERMINANTS%20VIDEO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 4 DETERMINANTS VIDEO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 4 DETERMINANTS VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_140",
@@ -2517,7 +2934,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%205%20CONT%20AND%20DIFF%20VIDEO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%205%20CONT%20AND%20DIFF%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%205%20CONT%20AND%20DIFF%20VIDEO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 5 CONT AND DIFF VIDEO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 5 CONT AND DIFF VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_141",
@@ -2535,7 +2955,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%206%20APPL%20OF%20DERIV.%20VIDEO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%206%20APPL%20OF%20DERIV.%20VIDEO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%206%20APPL%20OF%20DERIV.%20VIDEO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 6 APPL OF DERIV. VIDEO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 6 APPL OF DERIV. VIDEO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_142",
@@ -2553,7 +2976,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%207%20INTEGRALS.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%207%20INTEGRALS.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%207%20INTEGRALS.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 7 INTEGRALS.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 7 INTEGRALS.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_143",
@@ -2571,7 +2997,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%208%20APPLICATION%20OF%20INTEGRAL.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%208%20APPLICATION%20OF%20INTEGRAL.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%208%20APPLICATION%20OF%20INTEGRAL.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 8 APPLICATION OF INTEGRAL.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 8 APPLICATION OF INTEGRAL.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_videos_144",
@@ -2589,7 +3018,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%209%20DIFF%20EQ%20VEDIO.mp4",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%209%20DIFF%20EQ%20VEDIO.mp4",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20VIDEO/CH%209%20DIFF%20EQ%20VEDIO.mp4",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 9 DIFF EQ VEDIO.mp4"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE VIDEO/CH 9 DIFF EQ VEDIO.mp4",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_145",
@@ -2607,7 +3039,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%201%20RELATIONS%20AND%20FN%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%201%20RELATIONS%20AND%20FN%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%201%20RELATIONS%20AND%20FN%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 1 RELATIONS AND FN MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 1 RELATIONS AND FN MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_146",
@@ -2625,7 +3060,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2010%20VECTOR%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2010%20VECTOR%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2010%20VECTOR%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 10 VECTOR MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 10 VECTOR MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_147",
@@ -2643,7 +3081,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2011%203-D%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2011%203-D%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2011%203-D%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 11 3-D MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 11 3-D MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_148",
@@ -2661,7 +3102,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2012%20LPP%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2012%20LPP%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2012%20LPP%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 12 LPP MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 12 LPP MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_149",
@@ -2679,7 +3123,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2013%20PROBABILITY%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2013%20PROBABILITY%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%2013%20PROBABILITY%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 13 PROBABILITY MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 13 PROBABILITY MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_150",
@@ -2697,7 +3144,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%202%20INVERSE%20T%20FUN%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%202%20INVERSE%20T%20FUN%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%202%20INVERSE%20T%20FUN%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 2 INVERSE T FUN MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 2 INVERSE T FUN MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_151",
@@ -2715,7 +3165,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%203%20MATRICES%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%203%20MATRICES%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%203%20MATRICES%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 3 MATRICES MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 3 MATRICES MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_152",
@@ -2733,7 +3186,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%204%20DETERMINANTS%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%204%20DETERMINANTS%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%204%20DETERMINANTS%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 4 DETERMINANTS MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 4 DETERMINANTS MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_153",
@@ -2751,7 +3207,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%205%20CONT%20AND%20DIFF%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%205%20CONT%20AND%20DIFF%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%205%20CONT%20AND%20DIFF%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 5 CONT AND DIFF MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 5 CONT AND DIFF MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_154",
@@ -2769,7 +3228,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%206%20APPL%20OF%20DERIV%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%206%20APPL%20OF%20DERIV%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%206%20APPL%20OF%20DERIV%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 6 APPL OF DERIV MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 6 APPL OF DERIV MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_155",
@@ -2787,7 +3249,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%207%20INTEGRAL%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%207%20INTEGRAL%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%207%20INTEGRAL%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 7 INTEGRAL MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 7 INTEGRAL MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_156",
@@ -2805,7 +3270,10 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%208%20APPLICATIONS%20OF%20INTEGRAL.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%208%20APPLICATIONS%20OF%20INTEGRAL.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%208%20APPLICATIONS%20OF%20INTEGRAL.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 8 APPLICATIONS OF INTEGRAL.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 8 APPLICATIONS OF INTEGRAL.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     },
     {
         "id": "class12_mindmaps_157",
@@ -2823,6 +3291,9 @@ const INTERACTIVE_LESSONS_DATA = [
         "onedriveUri": "file:///C:/Users/kirti/OneDrive/my%20diary%20content%20large%20files/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%209%20DIFF%20EQ%20MIND%20MAP.png",
         "serverUrl": "/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%209%20DIFF%20EQ%20MIND%20MAP.png",
         "httpUrl": "http://localhost:8080/onedrive/12%20ALL%20TEACHING%20LEARNING%20CONTENT/INTERACTIVE%20PLANS/INTERACTIVE%20MIND%20MAP/CH%209%20DIFF%20EQ%20MIND%20MAP.png",
-        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 9 DIFF EQ MIND MAP.png"
+        "relPath": "12 ALL TEACHING LEARNING CONTENT/INTERACTIVE PLANS/INTERACTIVE MIND MAP/CH 9 DIFF EQ MIND MAP.png",
+        "notebookLmKbjUrl": "https://accounts.google.com/AccountChooser?Email=kbjoshikv2008%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmKirtiUrl": "https://accounts.google.com/AccountChooser?Email=kirti41%40gmail.com&continue=https%3A%2F%2Fnotebooklm.google.com%2F",
+        "notebookLmDirectUrl": "https://notebooklm.google.com/"
     }
 ];
