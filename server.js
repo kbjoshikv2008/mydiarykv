@@ -133,8 +133,8 @@ const server = http.createServer((req, res) => {
       const totalSize = stats.size;
       
       let contentDisposition = 'inline';
-      if (ext === '.pptx' || ext === '.ppt' || ext === '.docx' || ext === '.doc') {
-        contentDisposition = `attachment; filename="${path.basename(resolvedPath)}"`;
+      if (req.url.includes('download=true')) {
+        contentDisposition = `attachment; filename="${encodeURIComponent(path.basename(resolvedPath))}"`;
       }
       
       const range = req.headers.range;

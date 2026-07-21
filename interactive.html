@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
-  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 from OneDrive.">
+  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 directly online from OneDrive.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
@@ -380,8 +380,8 @@
       border: 1px solid rgba(124, 58, 237, 0.3);
       border-radius: 24px;
       width: 100%;
-      max-width: 960px;
-      max-height: 90vh;
+      max-width: 1050px;
+      max-height: 92vh;
       display: flex;
       flex-direction: column;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(124, 58, 237, 0.2);
@@ -424,13 +424,14 @@
       transform: rotate(90deg);
     }
     .media-modal-body {
-      padding: 24px;
+      padding: 0;
       overflow-y: auto;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      background: #090814;
     }
     .media-modal-footer {
       padding: 16px 24px;
@@ -438,7 +439,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.3);
       flex-wrap: wrap;
       gap: 12px;
     }
@@ -684,7 +685,7 @@
     <div class="container">
       <span class="page-hero-icon">&#127918;</span>
       <h1>Interactive Lesson Hub</h1>
-      <p>Explore multimedia interactive lessons, detailed mind maps, slide decks, video walkthroughs, and infographics powered by OneDrive</p>
+      <p>Explore multimedia interactive lessons, detailed mind maps, slide decks, video walkthroughs, and infographics directly powered by OneDrive</p>
     </div>
   </div>
 
@@ -776,29 +777,10 @@
       </div>
       <div class="media-modal-body" style="padding: 0; background: #000; position: relative;">
         <!-- HTML5 Video Player -->
-        <video id="videoElement" controls preload="auto" style="width: 100%; max-height: 65vh; background: #000;">
+        <video id="videoElement" controls preload="auto" crossorigin="anonymous" style="width: 100%; max-height: 65vh; background: #000;">
           <source id="videoSourceStream" src="" type="video/mp4">
           Your browser does not support HTML5 video playback.
         </video>
-
-        <!-- Video Error / Direct Play Fallback Panel -->
-        <div id="videoErrorPanel" style="display: none; padding: 36px 24px; text-align: center; background: rgba(18, 16, 38, 0.95); width: 100%;">
-          <div style="font-size: 3.5rem; color: #ef4444; margin-bottom: 14px; filter: drop-shadow(0 4px 15px rgba(239, 68, 68, 0.4));">
-            <i class="fas fa-play-circle"></i>
-          </div>
-          <h4 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 8px;">Video Ready to Play</h4>
-          <p style="color: var(--text-secondary); max-width: 560px; margin: 0 auto 20px; font-size: 0.9rem; line-height: 1.6;">
-            If in-browser video streaming is restricted by local file security policies, click below to play directly in your system's default media player or open the file stream:
-          </p>
-          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a id="videoSystemPlayBtn" href="#" target="_blank" class="action-btn btn-primary" style="padding: 12px 24px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
-              <i class="fas fa-play"></i> ▶ Open in Windows Media Player
-            </a>
-            <a id="videoHttpStreamBtn" href="#" target="_blank" class="action-btn btn-secondary" style="padding: 12px 24px;">
-              <i class="fas fa-globe"></i> Open Direct Video Link
-            </a>
-          </div>
-        </div>
       </div>
       <div class="media-modal-footer">
         <div>
@@ -806,46 +788,33 @@
           <span id="videoModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
         </div>
         <div style="display: flex; gap: 10px;">
-          <a id="videoDirectDownload" href="#" target="_blank" class="action-btn btn-secondary"><i class="fas fa-external-link-alt"></i> Direct File Link</a>
-          <button class="action-btn btn-primary" onclick="closeMediaModal('videoModal')"><i class="fas fa-times"></i> Close Player</button>
+          <a id="videoDirectDownload" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play"></i> Open &amp; Play Full Tab</a>
+          <button class="action-btn btn-secondary" onclick="closeMediaModal('videoModal')"><i class="fas fa-times"></i> Close Player</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Slide Deck Presentation Modal -->
+  <!-- Slide Deck Presentation Modal with Microsoft 365 Web Viewer -->
   <div class="media-modal-overlay" id="pptModal">
-    <div class="media-modal-container">
+    <div class="media-modal-container" style="max-width: 1100px;">
       <div class="media-modal-header">
         <h3 id="pptModalTitle"><i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> Slide Deck Presentation</h3>
         <button class="media-modal-close" onclick="closeMediaModal('pptModal')">&times;</button>
       </div>
-      <div class="media-modal-body" style="text-align: center; padding: 36px 24px;">
-        <div style="font-size: 4.8rem; color: #f59e0b; margin-bottom: 16px; filter: drop-shadow(0 6px 20px rgba(245, 158, 11, 0.4));">
-          <i class="fas fa-file-powerpoint"></i>
-        </div>
-        <h4 id="pptCardTitle" style="font-size: 1.45rem; color: #ffffff; margin-bottom: 10px;">PowerPoint Presentation Deck</h4>
-        <p style="color: var(--text-secondary); max-width: 620px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 28px;">
-          Interactive classroom slide deck from OneDrive. Click <strong>▶ Play in PowerPoint</strong> to launch and present in PowerPoint, or open/download the direct presentation file.
-        </p>
-        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-          <a id="pptPlayLaunchBtn" href="#" target="_blank" class="action-btn btn-primary" style="padding: 14px 30px; font-size: 1rem; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);">
-            <i class="fas fa-play-circle"></i> ▶ Play in PowerPoint
-          </a>
-          <a id="pptDirectDownloadBtn" href="#" target="_blank" download class="action-btn btn-secondary" style="padding: 14px 24px; font-size: 0.95em;">
-            <i class="fas fa-download"></i> Open / Download File
-          </a>
-          <a id="pptHttpStreamBtn" href="#" target="_blank" class="action-btn btn-secondary" style="padding: 14px 24px; font-size: 0.95em;">
-            <i class="fas fa-globe"></i> HTTP File Link
-          </a>
-        </div>
+      <div class="media-modal-body" style="padding: 0; background: #121026;">
+        <!-- Embedded Microsoft Office PowerPoint Web Viewer Iframe -->
+        <iframe id="pptViewerIframe" src="" style="width: 100%; height: 65vh; border: none; background: #000;"></iframe>
       </div>
       <div class="media-modal-footer">
         <div>
           <span id="pptModalClass" class="card-class-badge">Class 12</span>
           <span id="pptModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
         </div>
-        <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Close</button>
+        <div style="display: flex; gap: 10px;">
+          <a id="pptPlayLaunchBtn" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-external-link-alt"></i> Open Full Online Deck</a>
+          <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Close</button>
+        </div>
       </div>
     </div>
   </div>
@@ -858,7 +827,7 @@
         <button class="media-modal-close" onclick="closeMediaModal('imageLightboxModal')">&times;</button>
       </div>
       <div class="media-modal-body" style="padding: 16px; background: rgba(0,0,0,0.6);">
-        <img id="lightboxImage" src="" alt="High resolution preview" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <img id="lightboxImage" src="" alt="High resolution preview" crossorigin="anonymous" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
       </div>
       <div class="media-modal-footer">
         <div>
@@ -1043,11 +1012,15 @@
       return db.find(i => i.id === id);
     }
 
-    function getPrimaryUrl(item) {
-      if (window.location.protocol.startsWith('http')) {
-        return item.serverUrl;
-      }
-      return item.onedriveUri;
+    function getMediaStreamUrl(item) {
+      const host = window.location.host || 'localhost:8080';
+      const protocol = window.location.protocol.startsWith('http') ? window.location.protocol : 'http:';
+      return `${protocol}//${host}${item.serverUrl}`;
+    }
+
+    function getOfficeViewerUrl(item) {
+      const streamUrl = getMediaStreamUrl(item);
+      return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(streamUrl)}`;
     }
 
     // Render grid
@@ -1090,6 +1063,7 @@
         card.setAttribute('data-class', item.classKey);
 
         const highlightedTitle = highlightText(item.title, searchQuery);
+        const streamUrl = getMediaStreamUrl(item);
         
         let desc = `Interactive math resource on ${item.title} for ${item.class}.`;
         if (item.category === 'html') {
@@ -1108,23 +1082,24 @@
         if (item.category === 'videos') {
           actionsHtml = `
             <button onclick="openVideoModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play-circle"></i> Play Video</button>
-            <a href="${item.onedriveUri}" target="_blank" class="action-btn btn-secondary" title="Open MP4 video directly"><i class="fas fa-folder-open"></i> Open Direct File</a>
+            <a href="${streamUrl}" target="_blank" class="action-btn btn-secondary" title="Play video online in new tab"><i class="fas fa-external-link-alt"></i> Open Online</a>
           `;
         } else if (item.category === 'slides') {
+          const officeUrl = getOfficeViewerUrl(item);
           actionsHtml = `
-            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-play-circle"></i> Play Slide Deck</button>
-            <a href="${item.onedriveUri}" target="_blank" class="action-btn btn-secondary" title="Open PPT file in PowerPoint"><i class="fas fa-file-powerpoint"></i> Open PPT File</a>
+            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-file-powerpoint"></i> Play Slide Deck</button>
+            <a href="${officeUrl}" target="_blank" class="action-btn btn-secondary" title="Play presentation online in Office 365 Web"><i class="fas fa-globe"></i> Open Web PPT</a>
           `;
         } else if (item.category === 'mindmaps' || item.category === 'infographics') {
           actionsHtml = `
             <button onclick="openImageModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-expand"></i> View High-Res</button>
-            <a href="${item.onedriveUri}" target="_blank" class="action-btn btn-secondary" title="Open image directly"><i class="fas fa-image"></i> Open Image</a>
+            <a href="${streamUrl}" target="_blank" class="action-btn btn-secondary" title="Open image online in new tab"><i class="fas fa-external-link-alt"></i> Open Direct</a>
           `;
         } else {
           // HTML plans
           actionsHtml = `
             <button onclick="openHtmlModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-window-maximize"></i> Preview Lesson</button>
-            <a href="${item.localLink}" target="_blank" class="action-btn btn-secondary" title="Open lesson fullscreen"><i class="fas fa-external-link-alt"></i> Open Fullscreen</a>
+            <a href="${item.localLink}" target="_blank" class="action-btn btn-secondary" title="Open lesson online"><i class="fas fa-external-link-alt"></i> Open Fullscreen</a>
           `;
         }
 
@@ -1162,38 +1137,16 @@
       document.getElementById('videoModalSize').textContent = `Size: ${item.size}`;
       
       const v = document.getElementById('videoElement');
-      const errPanel = document.getElementById('videoErrorPanel');
       const srcStream = document.getElementById('videoSourceStream');
-      
-      errPanel.style.display = 'none';
-      v.style.display = 'block';
+      const streamUrl = getMediaStreamUrl(item);
 
-      document.getElementById('videoSystemPlayBtn').href = item.onedriveUri;
-      document.getElementById('videoHttpStreamBtn').href = item.httpUrl || item.serverUrl;
-      document.getElementById('videoDirectDownload').href = item.onedriveUri;
+      document.getElementById('videoDirectDownload').href = streamUrl;
 
-      const mediaUrl = getPrimaryUrl(item);
       v.pause();
-      srcStream.src = mediaUrl;
+      srcStream.src = streamUrl;
       v.load();
 
-      v.onerror = function() {
-        console.warn('Video element playback error for:', mediaUrl);
-        v.style.display = 'none';
-        errPanel.style.display = 'block';
-      };
-
-      const playPromise = v.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.log('Autoplay or browser media stream policy:', err);
-          // If in-browser video is restricted, present direct system play panel
-          if (window.location.protocol === 'file:') {
-            v.style.display = 'none';
-            errPanel.style.display = 'block';
-          }
-        });
-      }
+      v.play().catch(err => console.log('Autoplay deferred:', err));
       
       const m = document.getElementById('videoModal');
       m.classList.add('active');
@@ -1205,13 +1158,16 @@
       if (!item) return;
 
       document.getElementById('pptModalTitle').innerHTML = `<i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> ${item.title}`;
-      document.getElementById('pptCardTitle').textContent = item.title;
       document.getElementById('pptModalClass').textContent = item.class;
       document.getElementById('pptModalSize').textContent = `Size: ${item.size}`;
       
-      document.getElementById('pptPlayLaunchBtn').href = item.onedriveUri;
-      document.getElementById('pptDirectDownloadBtn').href = item.onedriveUri;
-      document.getElementById('pptHttpStreamBtn').href = item.httpUrl || item.serverUrl;
+      const streamUrl = getMediaStreamUrl(item);
+      const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(streamUrl)}`;
+      
+      const pptIframe = document.getElementById('pptViewerIframe');
+      pptIframe.src = officeViewerUrl;
+
+      document.getElementById('pptPlayLaunchBtn').href = officeViewerUrl;
 
       const m = document.getElementById('pptModal');
       m.classList.add('active');
@@ -1224,14 +1180,11 @@
 
       document.getElementById('imageModalTitle').innerHTML = `<i class="fas fa-image" style="color: #06b6d4;"></i> ${item.title}`;
       const img = document.getElementById('lightboxImage');
-      const primaryUrl = getPrimaryUrl(item);
-      img.src = primaryUrl;
-      img.onerror = function() {
-        img.src = item.onedriveUri;
-      };
+      const streamUrl = getMediaStreamUrl(item);
       
+      img.src = streamUrl;
       document.getElementById('imageModalClass').textContent = item.class;
-      document.getElementById('imageDirectOpen').href = item.onedriveUri;
+      document.getElementById('imageDirectOpen').href = streamUrl;
       
       const m = document.getElementById('imageLightboxModal');
       m.classList.add('active');
@@ -1260,6 +1213,9 @@
         if (modalId === 'videoModal') {
           const v = document.getElementById('videoElement');
           if (v) { v.pause(); v.src = ''; }
+        } else if (modalId === 'pptModal') {
+          const iframe = document.getElementById('pptViewerIframe');
+          if (iframe) iframe.src = '';
         } else if (modalId === 'htmlViewerModal') {
           const f = document.getElementById('htmlIframe');
           if (f) f.src = '';
