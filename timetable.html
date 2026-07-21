@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Time Table – KBJ Digital Diary | PM SHRI KV Ranikhet</title>
-  <meta name="description" content="Academic timetable schedules, class timetables, individual teacher schedules, daily master schedule, circulars, and PDF download options for PM SHRI KV Ranikhet."/>
+  <meta name="description" content="Academic timetable schedules, class timetables, individual teacher schedules, compact daily pocket slips, daily master schedule, circulars, and PDF file sharing for PM SHRI KV Ranikhet."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="premium.css"/>
-  <!-- html2pdf bundle for PDF exports -->
+  <!-- html2pdf bundle for PDF exports & direct PDF file generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     .page-content {
@@ -26,7 +26,7 @@
       margin: 0 auto 30px;
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      max-width: 1200px;
+      max-width: 1240px;
       overflow-x: auto;
       scrollbar-width: none;
       justify-content: center;
@@ -123,7 +123,7 @@
       outline: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      min-width: 240px;
+      min-width: 220px;
     }
     .tt-select:focus {
       border-color: #a78bfa;
@@ -367,6 +367,128 @@
       font-size: 0.8rem;
     }
 
+    /* Compact Pocket Daily View styling */
+    .pocket-card {
+      background: rgba(18, 14, 40, 0.95);
+      border: 2px solid rgba(139, 92, 246, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    .pocket-badge-offline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .pocket-header {
+      text-align: center;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+      margin-bottom: 16px;
+    }
+    .pocket-header h3 {
+      font-family: var(--font-head);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 4px 0;
+    }
+    .pocket-header .school {
+      color: #2dd4bf;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .pocket-header .sub-info {
+      color: #c4b5fd;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .pocket-stats {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .pocket-stat-item {
+      text-align: center;
+    }
+    .pocket-stat-num {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #a78bfa;
+    }
+    .pocket-stat-lbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .pocket-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pocket-period-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+    .pocket-period-row.has-class {
+      background: rgba(124, 58, 237, 0.16);
+      border-color: rgba(124, 58, 237, 0.4);
+    }
+    .pocket-period-row.is-break {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+    .pocket-period-row .p-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .pocket-period-row .p-num {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #c4b5fd;
+    }
+    .pocket-period-row .p-time {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .pocket-period-row .p-class {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .pocket-period-row .p-tag {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    .p-tag.tag-class { background: rgba(45, 212, 191, 0.2); color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.4); }
+    .p-tag.tag-free { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.4); }
+    .p-tag.tag-break { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+
     /* Share Modal */
     .share-modal-overlay {
       display: none;
@@ -383,14 +505,14 @@
       border: 1px solid rgba(139, 92, 246, 0.4);
       border-radius: 20px;
       padding: 30px;
-      width: min(460px, 92vw);
+      width: min(480px, 92vw);
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
       position: relative;
     }
     .share-options-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
       margin-top: 20px;
     }
     .share-opt-btn {
@@ -403,21 +525,24 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       color: #fff;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s ease;
       text-decoration: none;
+      text-align: center;
     }
     .share-opt-btn i {
       font-size: 1.8rem;
     }
-    .share-opt-btn.whatsapp { color: #25D366; }
-    .share-opt-btn.whatsapp:hover { background: rgba(37, 211, 102, 0.15); border-color: #25D366; }
-    .share-opt-btn.email { color: #38bdf8; }
-    .share-opt-btn.email:hover { background: rgba(56, 189, 248, 0.15); border-color: #38bdf8; }
-    .share-opt-btn.copy { color: #a78bfa; }
-    .share-opt-btn.copy:hover { background: rgba(167, 139, 250, 0.15); border-color: #a78bfa; }
+    .share-opt-btn.pdf-native { color: #f43f5e; border-color: rgba(244, 63, 94, 0.3); }
+    .share-opt-btn.pdf-native:hover { background: rgba(244, 63, 94, 0.18); border-color: #f43f5e; }
+    .share-opt-btn.pdf-download { color: #38bdf8; border-color: rgba(56, 189, 248, 0.3); }
+    .share-opt-btn.pdf-download:hover { background: rgba(56, 189, 248, 0.18); border-color: #38bdf8; }
+    .share-opt-btn.whatsapp { color: #25D366; border-color: rgba(37, 211, 102, 0.3); }
+    .share-opt-btn.whatsapp:hover { background: rgba(37, 211, 102, 0.18); border-color: #25D366; }
+    .share-opt-btn.email { color: #a78bfa; border-color: rgba(167, 139, 250, 0.3); }
+    .share-opt-btn.email:hover { background: rgba(167, 139, 250, 0.18); border-color: #a78bfa; }
 
     /* Directory Controls & Cards */
     .directory-controls {
@@ -784,6 +909,22 @@
       .master-table th { background: #cbd5e1 !important; color: #000 !important; }
       .master-table td { border: 1px solid #94a3b8 !important; color: #000 !important; }
       .master-table td.teacher-info .t-name { color: #000 !important; }
+
+      /* Pocket card print */
+      .pocket-card {
+        background: #fff !important;
+        color: #000 !important;
+        border: 2px solid #000 !important;
+      }
+      .pocket-header h3 { color: #000 !important; }
+      .pocket-header .school { color: #0f766e !important; }
+      .pocket-header .sub-info { color: #475569 !important; }
+      .pocket-stats { background: #f8fafc !important; border: 1px solid #cbd5e1 !important; }
+      .pocket-stat-num { color: #4338ca !important; }
+      .pocket-period-row { background: #fff !important; border: 1px solid #94a3b8 !important; }
+      .pocket-period-row.has-class { background: #f1f5f9 !important; }
+      .pocket-period-row .p-num { color: #000 !important; }
+      .pocket-period-row .p-class { color: #000 !important; }
     }
   </style>
 </head>
@@ -825,12 +966,13 @@
   <section class="page-hero">
     <div class="hero-icon">🗓️</div>
     <h1 class="hero-title">ACADEMIC TIME TABLE</h1>
-    <p class="hero-subtitle">Session 2026-27 Onwards · Teachers, Class Schedules, Master Daily Routine &amp; Official Circulars</p>
+    <p class="hero-subtitle">Session 2026-27 Onwards · Teachers, Class Schedules, Compact Daily Pocket Slips &amp; Direct PDF File Sharing</p>
   </section>
 
   <!-- Tabs Navigation -->
   <div class="timetable-tabs fade-in">
-    <button class="tab-btn active" data-tab="tab-teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers Time Table</button>
+    <button class="tab-btn active" data-tab="tab-teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers Weekly</button>
+    <button class="tab-btn" data-tab="tab-pocket"><i class="fas fa-id-card"></i> Compact Pocket View (Daily)</button>
     <button class="tab-btn" data-tab="tab-classes"><i class="fas fa-users-class"></i> Class Time Table</button>
     <button class="tab-btn" data-tab="tab-daily-master"><i class="fas fa-calendar-week"></i> Daily Master Schedule</button>
     <button class="tab-btn" data-tab="tab-circulars"><i class="fas fa-file-pdf"></i> Circulars &amp; Files</button>
@@ -851,7 +993,7 @@
         <div class="tt-action-buttons">
           <button class="btn-action btn-pdf" id="downloadTeacherPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
           <button class="btn-action btn-print" id="printTeacherBtn"><i class="fas fa-print"></i> Print</button>
-          <button class="btn-action btn-share" id="shareTeacherBtn"><i class="fas fa-share-alt"></i> Share</button>
+          <button class="btn-action btn-share" id="shareTeacherBtn"><i class="fas fa-share-alt"></i> Share PDF File</button>
         </div>
       </div>
 
@@ -860,7 +1002,38 @@
       </div>
     </div>
 
-    <!-- TAB 2: CLASS TIME TABLE -->
+    <!-- TAB 2: COMPACT DAILY POCKET VIEW (TEACHER OFFLINE CARD) -->
+    <div class="tab-content" id="tab-pocket">
+      <div class="tt-controls-bar">
+        <div class="tt-select-group">
+          <label class="tt-select-label" for="pocketTeacherSelect"><i class="fas fa-user-tie"></i> Teacher:</label>
+          <select id="pocketTeacherSelect" class="tt-select">
+            <!-- Populated by JS -->
+          </select>
+
+          <label class="tt-select-label" for="pocketDaySelect" style="margin-left: 10px;"><i class="fas fa-calendar-day"></i> Day:</label>
+          <select id="pocketDaySelect" class="tt-select" style="min-width: 140px;">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+        <div class="tt-action-buttons">
+          <button class="btn-action btn-pdf" id="downloadPocketPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF File</button>
+          <button class="btn-action btn-print" id="printPocketBtn"><i class="fas fa-print"></i> Print Pocket Slip</button>
+          <button class="btn-action btn-share" id="sharePocketPdfBtn"><i class="fas fa-share-alt"></i> Share PDF File</button>
+        </div>
+      </div>
+
+      <div id="pocketSheetContainer" style="max-width: 580px; margin: 0 auto 30px;">
+        <!-- Compact Pocket Slip Card rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 3: CLASS TIME TABLE -->
     <div class="tab-content" id="tab-classes">
       <div class="tt-controls-bar">
         <div class="tt-select-group">
@@ -872,7 +1045,7 @@
         <div class="tt-action-buttons">
           <button class="btn-action btn-pdf" id="downloadClassPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
           <button class="btn-action btn-print" id="printClassBtn"><i class="fas fa-print"></i> Print</button>
-          <button class="btn-action btn-share" id="shareClassBtn"><i class="fas fa-share-alt"></i> Share</button>
+          <button class="btn-action btn-share" id="shareClassBtn"><i class="fas fa-share-alt"></i> Share PDF File</button>
         </div>
       </div>
 
@@ -881,7 +1054,7 @@
       </div>
     </div>
 
-    <!-- TAB 3: DAILY MASTER TIMETABLE (ALL TEACHERS) -->
+    <!-- TAB 4: DAILY MASTER TIMETABLE (ALL TEACHERS) -->
     <div class="tab-content" id="tab-daily-master">
       <div class="tt-controls-bar">
         <div class="tt-select-group">
@@ -898,7 +1071,7 @@
         <div class="tt-action-buttons">
           <button class="btn-action btn-pdf" id="downloadMasterPdfBtn"><i class="fas fa-file-pdf"></i> Download PDF</button>
           <button class="btn-action btn-print" id="printMasterBtn"><i class="fas fa-print"></i> Print</button>
-          <button class="btn-action btn-share" id="shareMasterBtn"><i class="fas fa-share-alt"></i> Share</button>
+          <button class="btn-action btn-share" id="shareMasterBtn"><i class="fas fa-share-alt"></i> Share PDF File</button>
         </div>
       </div>
 
@@ -907,7 +1080,7 @@
       </div>
     </div>
 
-    <!-- TAB 4: CIRCULARS & DOCUMENTS -->
+    <!-- TAB 5: CIRCULARS & DOCUMENTS -->
     <div class="tab-content" id="tab-circulars">
       <div class="glass-card" style="width: 100%;">
         <div class="glass-card-inner">
@@ -951,7 +1124,7 @@
       </div>
     </div>
 
-    <!-- TAB 5: SCHEDULING SOFTWARE DIRECTORY -->
+    <!-- TAB 6: SCHEDULING SOFTWARE DIRECTORY -->
     <div class="tab-content" id="tab-software">
       <div class="glass-card" style="width: 100%;">
         <div class="glass-card-inner">
@@ -1035,28 +1208,40 @@
   <i class="fa-solid fa-chevron-up"></i>
 </button>
 
-<!-- ── Share Modal Overlay ────────────────────────────────── -->
+<!-- ── Share PDF Modal Overlay ───────────────────────────── -->
 <div class="share-modal-overlay" id="shareModal">
   <div class="share-modal-card">
     <button id="closeShareModal" style="position:absolute;top:14px;right:18px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;">&times;</button>
     <div style="text-align:center;">
-      <i class="fa-solid fa-share-nodes" style="font-size:2.2rem;color:#a78bfa;margin-bottom:10px;"></i>
-      <h3 style="font-family:var(--font-head);color:#fff;font-size:1.2rem;margin:0 0 6px 0;" id="shareModalTitle">Share Timetable</h3>
-      <p style="color:var(--text-secondary);font-size:0.86rem;margin:0;" id="shareModalSubtitle">Choose how you want to share this schedule</p>
+      <i class="fa-solid fa-file-pdf" style="font-size:2.4rem;color:#f43f5e;margin-bottom:10px;"></i>
+      <h3 style="font-family:var(--font-head);color:#fff;font-size:1.25rem;margin:0 0 6px 0;" id="shareModalTitle">Share PDF File</h3>
+      <p style="color:var(--text-secondary);font-size:0.86rem;margin:0;" id="shareModalSubtitle">Direct PDF Document File Transfer</p>
     </div>
+    
     <div class="share-options-grid">
+      <button class="share-opt-btn pdf-native" id="sharePdfNativeBtn">
+        <i class="fa-solid fa-share-nodes"></i>
+        <span>Share PDF Document</span>
+        <small style="font-size:0.68rem; opacity:0.8;">WhatsApp / Device Apps</small>
+      </button>
+      
+      <button class="share-opt-btn pdf-download" id="sharePdfDownloadBtn">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>Download PDF File</span>
+        <small style="font-size:0.68rem; opacity:0.8;">Save File locally</small>
+      </button>
+
       <a href="#" class="share-opt-btn whatsapp" id="shareWhatsappBtn">
         <i class="fa-brands fa-whatsapp"></i>
-        <span>WhatsApp</span>
+        <span>WhatsApp Info</span>
+        <small style="font-size:0.68rem; opacity:0.8;">Send Summary Text</small>
       </a>
+
       <a href="#" class="share-opt-btn email" id="shareEmailBtn">
         <i class="fa-solid fa-envelope"></i>
-        <span>Email</span>
+        <span>Email File</span>
+        <small style="font-size:0.68rem; opacity:0.8;">Send via Email</small>
       </a>
-      <button class="share-opt-btn copy" id="shareCopyBtn">
-        <i class="fa-solid fa-copy"></i>
-        <span>Copy Text</span>
-      </button>
     </div>
   </div>
 </div>
@@ -1606,7 +1791,7 @@
     "12A", "12B", "12C"
   ];
 
-  // DOM Elements
+  // DOM Elements & Initialization
   document.addEventListener('DOMContentLoaded', function() {
     // Tab switching
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -1623,14 +1808,22 @@
       });
     });
 
-    // Populate Teacher Select
+    // Populate Teacher Selects (Weekly & Pocket View)
     const teacherSelect = document.getElementById('teacherSelect');
+    const pocketTeacherSelect = document.getElementById('pocketTeacherSelect');
+
     TEACHERS_DATA.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t.id;
-      opt.textContent = `${t.name} (${t.desig})`;
-      if (t.id === 'kbjoshi') opt.selected = true;
-      teacherSelect.appendChild(opt);
+      const opt1 = document.createElement('option');
+      opt1.value = t.id;
+      opt1.textContent = `${t.name} (${t.desig})`;
+      if (t.id === 'kbjoshi') opt1.selected = true;
+      teacherSelect.appendChild(opt1);
+
+      const opt2 = document.createElement('option');
+      opt2.value = t.id;
+      opt2.textContent = `${t.name} (${t.desig})`;
+      if (t.id === 'kbjoshi') opt2.selected = true;
+      pocketTeacherSelect.appendChild(opt2);
     });
 
     // Populate Class Select
@@ -1643,26 +1836,47 @@
       classSelect.appendChild(opt);
     });
 
-    // Populate Daily Master Day Select - auto highlight today
+    // Populate Master Day Select & Pocket Day Select - auto highlight today
     const masterDaySelect = document.getElementById('masterDaySelect');
+    const pocketDaySelect = document.getElementById('pocketDaySelect');
     const currentDayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-    if (DAYS.includes(currentDayName)) {
-      masterDaySelect.value = currentDayName;
-    } else {
-      masterDaySelect.value = "Monday";
+    const defaultDay = DAYS.includes(currentDayName) ? currentDayName : "Monday";
+    
+    masterDaySelect.value = defaultDay;
+    pocketDaySelect.value = defaultDay;
+
+    // Check LocalStorage for saved Pocket Teacher schedule preference
+    let savedPocketTeacher = localStorage.getItem('kbj_pocket_teacher');
+    let savedPocketDay = localStorage.getItem('kbj_pocket_day');
+
+    if (savedPocketTeacher && TEACHERS_DATA.some(t => t.id === savedPocketTeacher)) {
+      pocketTeacherSelect.value = savedPocketTeacher;
+    }
+    if (savedPocketDay && DAYS.includes(savedPocketDay)) {
+      pocketDaySelect.value = savedPocketDay;
     }
 
     // Render initial views
     renderTeacherTimetable(teacherSelect.value);
     renderClassTimetable(classSelect.value);
     renderMasterTimetable(masterDaySelect.value);
+    renderPocketTimetable(pocketTeacherSelect.value, pocketDaySelect.value);
 
-    // Event Listeners
+    // Event Listeners for Select Changes
     teacherSelect.addEventListener('change', (e) => renderTeacherTimetable(e.target.value));
     classSelect.addEventListener('change', (e) => renderClassTimetable(e.target.value));
     masterDaySelect.addEventListener('change', (e) => renderMasterTimetable(e.target.value));
+    
+    pocketTeacherSelect.addEventListener('change', (e) => {
+      localStorage.setItem('kbj_pocket_teacher', e.target.value);
+      renderPocketTimetable(e.target.value, pocketDaySelect.value);
+    });
+    pocketDaySelect.addEventListener('change', (e) => {
+      localStorage.setItem('kbj_pocket_day', e.target.value);
+      renderPocketTimetable(pocketTeacherSelect.value, e.target.value);
+    });
 
-    // Export PDF Event Listeners
+    // --- PDF DOWNLOAD EVENT LISTENERS ---
     document.getElementById('downloadTeacherPdfBtn').addEventListener('click', () => {
       const tObj = TEACHERS_DATA.find(t => t.id === teacherSelect.value);
       exportPdf('teacherSheetContainer', `Teacher_${tObj.name.replace(/\s+/g, '_')}_Timetable.pdf`);
@@ -1678,30 +1892,63 @@
       exportPdf('masterSheetContainer', `Daily_Master_Timetable_${day}.pdf`);
     });
 
-    // Print Event Listeners
+    document.getElementById('downloadPocketPdfBtn').addEventListener('click', () => {
+      const tObj = TEACHERS_DATA.find(t => t.id === pocketTeacherSelect.value);
+      const day = pocketDaySelect.value;
+      exportPdf('pocketSheetContainer', `Pocket_Slip_${tObj.name.replace(/\s+/g, '_')}_${day}.pdf`, true);
+    });
+
+    // --- PRINT EVENT LISTENERS ---
     document.getElementById('printTeacherBtn').addEventListener('click', () => window.print());
     document.getElementById('printClassBtn').addEventListener('click', () => window.print());
     document.getElementById('printMasterBtn').addEventListener('click', () => window.print());
+    document.getElementById('printPocketBtn').addEventListener('click', () => window.print());
 
-    // Share Event Listeners
+    // --- DIRECT PDF FILE SHARE EVENT LISTENERS ---
     document.getElementById('shareTeacherBtn').addEventListener('click', () => {
       const tObj = TEACHERS_DATA.find(t => t.id === teacherSelect.value);
-      openShareModal(`Teacher ${tObj.name} (${tObj.desig}) Schedule`, `Weekly schedule for ${tObj.name} at PM SHRI KV Ranikhet.`);
+      handleSharePdfFile(
+        'teacherSheetContainer', 
+        `Teacher_${tObj.name.replace(/\s+/g, '_')}_Timetable.pdf`,
+        `Teacher ${tObj.name} Schedule PDF`,
+        `Weekly timetable schedule for ${tObj.name} (${tObj.desig}) at PM SHRI KV Ranikhet.`
+      );
     });
 
     document.getElementById('shareClassBtn').addEventListener('click', () => {
       const cls = classSelect.value;
-      openShareModal(`Class ${cls} Timetable`, `Weekly timetable schedule for Class ${cls} at PM SHRI KV Ranikhet.`);
+      handleSharePdfFile(
+        'classSheetContainer',
+        `Class_${cls}_Timetable.pdf`,
+        `Class ${cls} Timetable PDF`,
+        `Weekly timetable schedule for Class ${cls} at PM SHRI KV Ranikhet.`
+      );
     });
 
     document.getElementById('shareMasterBtn').addEventListener('click', () => {
       const day = masterDaySelect.value;
-      openShareModal(`Daily Master Timetable - ${day}`, `Master period schedule for all teachers on ${day} at PM SHRI KV Ranikhet.`);
+      handleSharePdfFile(
+        'masterSheetContainer',
+        `Daily_Master_Timetable_${day}.pdf`,
+        `Daily Master Schedule PDF (${day})`,
+        `School-wide daily period schedule for ${day} at PM SHRI KV Ranikhet.`
+      );
+    });
+
+    document.getElementById('sharePocketPdfBtn').addEventListener('click', () => {
+      const tObj = TEACHERS_DATA.find(t => t.id === pocketTeacherSelect.value);
+      const day = pocketDaySelect.value;
+      handleSharePdfFile(
+        'pocketSheetContainer',
+        `Pocket_Slip_${tObj.name.replace(/\s+/g, '_')}_${day}.pdf`,
+        `Daily Pocket Schedule PDF - ${tObj.name} (${day})`,
+        `Compact daily offline schedule slip for ${tObj.name} on ${day}.`
+      );
     });
 
     // --- RENDER FUNCTIONS ---
 
-    // 1. Render Teacher Timetable Grid
+    // 1. Render Teacher Weekly Timetable Grid
     function renderTeacherTimetable(teacherId) {
       const t = TEACHERS_DATA.find(item => item.id === teacherId) || TEACHERS_DATA[0];
       const container = document.getElementById('teacherSheetContainer');
@@ -1767,7 +2014,107 @@
       container.innerHTML = html;
     }
 
-    // 2. Render Class Timetable Grid
+    // 2. Render Compact Daily Pocket Schedule Slip (Offline Available)
+    function renderPocketTimetable(teacherId, dayName) {
+      const t = TEACHERS_DATA.find(item => item.id === teacherId) || TEACHERS_DATA[0];
+      const container = document.getElementById('pocketSheetContainer');
+      const todayDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+      const isToday = (dayName === todayDay);
+
+      const daySchedule = t.schedule[dayName] || ["","","","","","","",""];
+      
+      let teachingCount = 0;
+      let freeCount = 0;
+      daySchedule.forEach(val => {
+        if (val && val.trim() !== "") teachingCount++;
+        else freeCount++;
+      });
+
+      let html = `
+        <div class="pocket-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+            <div class="pocket-badge-offline">
+              <i class="fas fa-bolt"></i> <span>Offline Available (Saved to Pocket)</span>
+            </div>
+            ${isToday ? '<span class="badge" style="background:#f43f5e; color:#fff; font-size:0.75rem;"><i class="fas fa-star"></i> TODAY</span>' : ''}
+          </div>
+
+          <div class="pocket-header">
+            <div class="school"><i class="fas fa-school"></i> PM SHRI KV RANIKHET</div>
+            <h3>${t.name}</h3>
+            <div class="sub-info">${t.desig} · ${t.subject}</div>
+            <div style="margin-top:6px; color:#2dd4bf; font-weight:700; font-size:0.95rem;">
+              <i class="far fa-calendar-alt"></i> ${dayName.toUpperCase()} SCHEDULE
+            </div>
+          </div>
+
+          <div class="pocket-stats">
+            <div class="pocket-stat-item">
+              <div class="pocket-stat-num">${teachingCount}</div>
+              <div class="pocket-stat-lbl">Teaching Classes</div>
+            </div>
+            <div class="pocket-stat-item">
+              <div class="pocket-stat-num" style="color:#2dd4bf;">${freeCount}</div>
+              <div class="pocket-stat-lbl">Free / Prep Periods</div>
+            </div>
+            <div class="pocket-stat-item">
+              <div class="pocket-stat-num" style="color:#fdba74;">8</div>
+              <div class="pocket-stat-lbl">Total Periods</div>
+            </div>
+          </div>
+
+          <div class="pocket-timeline">
+      `;
+
+      let periodIdx = 0;
+      PERIOD_TIMES.forEach(p => {
+        if (p.num === 'snack' || p.num === 'lunch') {
+          html += `
+            <div class="pocket-period-row is-break">
+              <div class="p-info">
+                <span class="p-num" style="color:#fcd34d;">☕ ${p.label}</span>
+                <span class="p-time">${p.time}</span>
+              </div>
+              <span class="p-tag tag-break">RECESS</span>
+            </div>
+          `;
+        } else {
+          const classAssigned = daySchedule[periodIdx] || "";
+          periodIdx++;
+          const hasClass = classAssigned.trim() !== "";
+
+          html += `
+            <div class="pocket-period-row ${hasClass ? 'has-class' : ''}">
+              <div class="p-info">
+                <span class="p-num">P${p.num}</span>
+                <span class="p-time">${p.time}</span>
+              </div>
+              ${hasClass ? `
+                <div style="text-align:right;">
+                  <span class="p-class">${classAssigned}</span>
+                  <div style="font-size:0.75rem; color:#a78bfa; font-weight:600;">${t.subject.split('/')[0]}</div>
+                </div>
+                <span class="p-tag tag-class">CLASS</span>
+              ` : `
+                <span class="p-tag tag-free">FREE PERIOD</span>
+              `}
+            </div>
+          `;
+        }
+      });
+
+      html += `
+          </div>
+          <div style="text-align:center; margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.08); font-size:0.75rem; color:var(--text-muted);">
+            <i class="fas fa-check-circle" style="color:#2dd4bf;"></i> Saved to local offline diary · Ready to print / share as PDF
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // 3. Render Class Timetable Grid
     function renderClassTimetable(classCode) {
       const container = document.getElementById('classSheetContainer');
       const todayDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
@@ -1798,13 +2145,11 @@
         html += `<tr>`;
         html += `<td class="${dayClass}">${day.substring(0, 3)}${isToday ? ' <br><small style="font-size:0.65rem;">(TODAY)</small>' : ''}</td>`;
 
-        // Derive class periods for this day across all teachers
         let periodIdx = 0;
         PERIOD_TIMES.forEach(p => {
           if (p.num === 'snack' || p.num === 'lunch') {
             html += `<td class="period-cell break-cell">${p.label}</td>`;
           } else {
-            // Find which teacher is assigned to this class during periodIdx on `day`
             let matchedTeacher = null;
             let assignedSubject = "";
 
@@ -1848,7 +2193,7 @@
       container.innerHTML = html;
     }
 
-    // 3. Render Daily Master Matrix Timetable (All Teachers for Selected Day)
+    // 4. Render Daily Master Matrix Timetable (All Teachers for Selected Day)
     function renderMasterTimetable(dayName) {
       const container = document.getElementById('masterSheetContainer');
 
@@ -1916,20 +2261,71 @@
       container.innerHTML = html;
     }
 
-    // PDF Export Helper using html2pdf.js
-    function exportPdf(elementId, filename) {
+    // --- PDF EXPORT & DIRECT PDF FILE GENERATION ---
+    function exportPdf(elementId, filename, isPortrait = false) {
       const element = document.getElementById(elementId);
       if (!element) return;
 
       const opt = {
-        margin:       [10, 10, 10, 10],
+        margin:       [8, 8, 8, 8],
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#120f26' },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape' }
       };
 
       html2pdf().set(opt).from(element).save();
+    }
+
+    // Helper: Creates a File object from html2pdf Blob
+    async function createPdfFileObject(elementId, filename, isPortrait = false) {
+      const element = document.getElementById(elementId);
+      if (!element) return null;
+
+      const opt = {
+        margin:       [8, 8, 8, 8],
+        filename:     filename,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#120f26' },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape' }
+      };
+
+      try {
+        const blob = await html2pdf().set(opt).from(element).output('blob');
+        return new File([blob], filename, { type: 'application/pdf' });
+      } catch (e) {
+        console.error("PDF Blob generation error:", e);
+        return null;
+      }
+    }
+
+    // Share PDF File handler
+    async function handleSharePdfFile(elementId, filename, title, subtitle) {
+      const isPortrait = elementId === 'pocketSheetContainer';
+      
+      // Try generating PDF File object
+      const pdfFile = await createPdfFileObject(elementId, filename, isPortrait);
+
+      // Check if Web Share API with File sharing support is available on user device
+      if (pdfFile && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        try {
+          await navigator.share({
+            title: title,
+            text: `${title} - ${subtitle}`,
+            files: [pdfFile]
+          });
+          return; // Shared PDF File successfully!
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.warn("Native file sharing failed, opening modal:", err);
+          } else {
+            return; // User cancelled
+          }
+        }
+      }
+
+      // Open custom share modal with PDF File options
+      openShareModal(title, subtitle, pdfFile, filename, elementId);
     }
 
     // Share Modal Functionality
@@ -1937,49 +2333,50 @@
     const closeShareModal = document.getElementById('closeShareModal');
     const shareTitle = document.getElementById('shareModalTitle');
     const shareSub = document.getElementById('shareModalSubtitle');
+    const sharePdfNativeBtn = document.getElementById('sharePdfNativeBtn');
+    const sharePdfDownloadBtn = document.getElementById('sharePdfDownloadBtn');
     const shareWhatsappBtn = document.getElementById('shareWhatsappBtn');
     const shareEmailBtn = document.getElementById('shareEmailBtn');
-    const shareCopyBtn = document.getElementById('shareCopyBtn');
 
-    let currentShareText = "";
+    let activeShareState = null;
 
-    function openShareModal(title, subtitle) {
+    function openShareModal(title, subtitle, pdfFile, filename, elementId) {
       shareTitle.textContent = title;
       shareSub.textContent = subtitle;
-      currentShareText = `${title}\n${subtitle}\nPM SHRI KV Ranikhet Timetable Portal: ${window.location.href}`;
+      activeShareState = { title, subtitle, pdfFile, filename, elementId };
 
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: subtitle,
-          url: window.location.href
-        }).catch(err => {
-          // Fallback to modal if cancelled or unsupported
-          shareModal.style.display = 'flex';
-        });
-      } else {
-        shareModal.style.display = 'flex';
-      }
+      const shareText = `${title}\n${subtitle}\nPM SHRI KV Ranikhet Timetable Portal: ${window.location.href}`;
+
+      shareWhatsappBtn.onclick = (e) => {
+        e.preventDefault();
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("📁 *Attached PDF Timetable File*\n" + shareText)}`, '_blank');
+      };
+
+      shareEmailBtn.onclick = (e) => {
+        e.preventDefault();
+        window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent("Attached PDF Timetable file: " + filename + "\n\n" + shareText)}`;
+      };
+
+      sharePdfDownloadBtn.onclick = () => {
+        exportPdf(elementId, filename, elementId === 'pocketSheetContainer');
+      };
+
+      sharePdfNativeBtn.onclick = async () => {
+        if (pdfFile && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+          try {
+            await navigator.share({ title: title, text: subtitle, files: [pdfFile] });
+          } catch (e) { console.error(e); }
+        } else {
+          alert("Direct file sharing is not supported by your desktop browser. Click 'Download PDF File' to save and send the .pdf file.");
+          exportPdf(elementId, filename, elementId === 'pocketSheetContainer');
+        }
+      };
+
+      shareModal.style.display = 'flex';
     }
 
     closeShareModal.addEventListener('click', () => shareModal.style.display = 'none');
     shareModal.addEventListener('click', (e) => { if (e.target === shareModal) shareModal.style.display = 'none'; });
-
-    shareWhatsappBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(currentShareText)}`, '_blank');
-    });
-
-    shareEmailBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.href = `mailto:?subject=${encodeURIComponent(shareTitle.textContent)}&body=${encodeURIComponent(currentShareText)}`;
-    });
-
-    shareCopyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(currentShareText).then(() => {
-        alert("Timetable summary copied to clipboard!");
-      });
-    });
 
     // --- TIMETABLE FOLDER EXPLORER ---
     let cachedDocs = [];
