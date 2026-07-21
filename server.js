@@ -15,13 +15,152 @@ const MIME_TYPES = {
   '.jpg': 'image/jpeg',
   '.gif': 'image/gif',
   '.ico': 'image/x-icon',
-  '.svg': 'image/svg+xml'
+  '.svg': 'image/svg+xml',
+  '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  '.ppt': 'application/vnd.ms-powerpoint',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.doc': 'application/msword',
+  '.mp4': 'video/mp4'
 };
 
 const server = http.createServer((req, res) => {
   // Decode URL to handle spaces and special characters
   const urlParts = req.url.split('?');
   let urlPath = decodeURIComponent(urlParts[0]);
+  
+  // Handle /dropbox/ route to serve local Dropbox files
+  if (urlPath.startsWith('/dropbox/')) {
+    const relativePath = urlPath.substring('/dropbox/'.length);
+    const dropboxRoot = 'C:\\Users\\kirti\\Dropbox';
+    const fullFilePath = path.join(dropboxRoot, relativePath);
+    
+    // Check that path is within the Dropbox folder (prevent directory traversal attacks)
+    const resolvedPath = path.resolve(fullFilePath);
+    if (!resolvedPath.startsWith(path.resolve(dropboxRoot))) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('403 Forbidden');
+      return;
+    }
+    
+    fs.stat(resolvedPath, (err, stats) => {
+      if (err || !stats.isFile()) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 File Not Found');
+        return;
+      }
+      
+      const ext = path.extname(resolvedPath).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      const totalSize = stats.size;
+      
+      let contentDisposition = 'inline';
+      if (ext === '.pptx' || ext === '.ppt' || ext === '.docx' || ext === '.doc') {
+        contentDisposition = `attachment; filename="${path.basename(resolvedPath)}"`;
+      }
+      
+      const range = req.headers.range;
+      if (range) {
+        const parts = range.replace(/bytes=/, "").split("-");
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : totalSize - 1;
+        
+        if (start >= totalSize || end >= totalSize) {
+          res.writeHead(416, { 'Content-Range': `bytes */${totalSize}` });
+          return res.end();
+        }
+        
+        const chunksize = (end - start) + 1;
+        const fileStream = fs.createReadStream(resolvedPath, { start, end });
+        
+        res.writeHead(206, {
+          'Content-Range': `bytes ${start}-${end}/${totalSize}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': chunksize,
+          'Content-Type': contentType,
+          'Content-Disposition': contentDisposition
+        });
+        
+        fileStream.pipe(res);
+      } else {
+        res.writeHead(200, {
+          'Content-Length': totalSize,
+          'Accept-Ranges': 'bytes',
+          'Content-Type': contentType,
+          'Content-Disposition': contentDisposition
+        });
+        
+        fs.createReadStream(resolvedPath).pipe(res);
+      }
+    });
+    return;
+  }
+  
+  // Handle /onedrive/ route to serve local OneDrive large files
+  if (urlPath.startsWith('/onedrive/')) {
+    const relativePath = urlPath.substring('/onedrive/'.length);
+    const onedriveRoot = 'C:\\Users\\kirti\\OneDrive\\my diary content large files';
+    const fullFilePath = path.join(onedriveRoot, relativePath);
+    
+    // Check that path is within the OneDrive folder
+    const resolvedPath = path.resolve(fullFilePath);
+    if (!resolvedPath.startsWith(path.resolve(onedriveRoot))) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('403 Forbidden');
+      return;
+    }
+    
+    fs.stat(resolvedPath, (err, stats) => {
+      if (err || !stats.isFile()) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 File Not Found');
+        return;
+      }
+      
+      const ext = path.extname(resolvedPath).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+      const totalSize = stats.size;
+      
+      let contentDisposition = 'inline';
+      if (ext === '.pptx' || ext === '.ppt' || ext === '.docx' || ext === '.doc') {
+        contentDisposition = `attachment; filename="${path.basename(resolvedPath)}"`;
+      }
+      
+      const range = req.headers.range;
+      if (range) {
+        const parts = range.replace(/bytes=/, "").split("-");
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : totalSize - 1;
+        
+        if (start >= totalSize || end >= totalSize) {
+          res.writeHead(416, { 'Content-Range': `bytes */${totalSize}` });
+          return res.end();
+        }
+        
+        const chunksize = (end - start) + 1;
+        const fileStream = fs.createReadStream(resolvedPath, { start, end });
+        
+        res.writeHead(206, {
+          'Content-Range': `bytes ${start}-${end}/${totalSize}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': chunksize,
+          'Content-Type': contentType,
+          'Content-Disposition': contentDisposition
+        });
+        
+        fileStream.pipe(res);
+      } else {
+        res.writeHead(200, {
+          'Content-Length': totalSize,
+          'Accept-Ranges': 'bytes',
+          'Content-Type': contentType,
+          'Content-Disposition': contentDisposition
+        });
+        
+        fs.createReadStream(resolvedPath).pipe(res);
+      }
+    });
+    return;
+  }
   
   if (urlPath === '/api/profile-files') {
     const profileDir = path.join(__dirname, 'profile');

@@ -4,12 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
-  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12.">
+  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 from OneDrive.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
   <style>
     /* Specific styles for Interactive Lesson Hub */
+    .interactive-stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-pill {
+      flex: 1 1 140px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--glass-shadow);
+    }
+    .stat-pill:hover {
+      transform: translateY(-3px);
+      border-color: #7c3aed;
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+    }
+    .stat-pill i { font-size: 1.1rem; color: #7c3aed; }
+    .stat-pill.videos i { color: #ef4444; }
+    .stat-pill.slides i { color: #f59e0b; }
+    .stat-pill.mindmaps i { color: #06b6d4; }
+    .stat-pill.html i { color: #10b981; }
+    .stat-pill.infographics i { color: #ec4899; }
+    .stat-count {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-left: auto;
+    }
+
     .search-filter-container {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -271,11 +311,11 @@
       transition: var(--transition-smooth);
       text-align: center;
       cursor: pointer;
+      border: none;
     }
     .btn-primary {
       background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
       color: #ffffff !important;
-      border: none;
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
     }
     .btn-primary:hover {
@@ -314,6 +354,93 @@
       border-color: #7c3aed;
       transform: translateX(-3px);
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    }
+
+    /* Media Modals */
+    .media-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(5, 4, 15, 0.92);
+      backdrop-filter: blur(16px);
+      z-index: 99990;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .media-modal-overlay.active {
+      display: flex;
+    }
+    .media-modal-container {
+      background: rgba(18, 16, 38, 0.95);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(124, 58, 237, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+    .media-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .media-modal-header h3 {
+      margin: 0;
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .media-modal-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .media-modal-close:hover {
+      background: #ef4444;
+      transform: rotate(90deg);
+    }
+    .media-modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .media-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.25);
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     /* Password Protection Screen Overlay */
@@ -557,7 +684,7 @@
     <div class="container">
       <span class="page-hero-icon">&#127918;</span>
       <h1>Interactive Lesson Hub</h1>
-      <p>Explore multimedia interactive lessons, detailed syllabus mind maps, slide decks, video walkthroughs, and infographics</p>
+      <p>Explore multimedia interactive lessons, detailed mind maps, slide decks, video walkthroughs, and infographics powered by OneDrive</p>
     </div>
   </div>
 
@@ -567,6 +694,40 @@
 
       <!-- Back Link & Filter Controls -->
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+      <!-- Quick Stats Bar -->
+      <div class="interactive-stats-bar fade-in">
+        <div class="stat-pill" onclick="setQuickCategory('all')">
+          <i class="fas fa-layer-group"></i>
+          <span>Total Resources</span>
+          <span class="stat-count" id="statAll">0</span>
+        </div>
+        <div class="stat-pill videos" onclick="setQuickCategory('videos')">
+          <i class="fas fa-video"></i>
+          <span>Videos</span>
+          <span class="stat-count" id="statVideos">0</span>
+        </div>
+        <div class="stat-pill slides" onclick="setQuickCategory('slides')">
+          <i class="fas fa-file-powerpoint"></i>
+          <span>Slide Decks</span>
+          <span class="stat-count" id="statSlides">0</span>
+        </div>
+        <div class="stat-pill mindmaps" onclick="setQuickCategory('mindmaps')">
+          <i class="fas fa-project-diagram"></i>
+          <span>Mind Maps</span>
+          <span class="stat-count" id="statMindmaps">0</span>
+        </div>
+        <div class="stat-pill html" onclick="setQuickCategory('html')">
+          <i class="fas fa-file-code"></i>
+          <span>HTML Plans</span>
+          <span class="stat-count" id="statHtml">0</span>
+        </div>
+        <div class="stat-pill infographics" onclick="setQuickCategory('infographics')">
+          <i class="fas fa-chart-pie"></i>
+          <span>Infographics</span>
+          <span class="stat-count" id="statInfographics">0</span>
+        </div>
+      </div>
 
       <!-- Category Filter Tabs -->
       <div class="search-filter-container fade-in">
@@ -578,10 +739,10 @@
           <span class="filter-label"><i class="fas fa-sliders"></i> Resource:</span>
           <div class="filter-buttons" id="categoryFilters">
             <button class="filter-btn active" data-filter="all"><i class="fas fa-border-all"></i> All Files</button>
-            <button class="filter-btn" data-filter="html"><i class="fas fa-file-code"></i> HTML Plans</button>
-            <button class="filter-btn" data-filter="mindmaps"><i class="fas fa-project-diagram"></i> Mind Maps</button>
-            <button class="filter-btn" data-filter="slides"><i class="fas fa-file-powerpoint"></i> Slide Decks</button>
             <button class="filter-btn" data-filter="videos"><i class="fas fa-play-circle"></i> Videos</button>
+            <button class="filter-btn" data-filter="slides"><i class="fas fa-file-powerpoint"></i> Slide Decks</button>
+            <button class="filter-btn" data-filter="mindmaps"><i class="fas fa-project-diagram"></i> Mind Maps</button>
+            <button class="filter-btn" data-filter="html"><i class="fas fa-file-code"></i> HTML Plans</button>
             <button class="filter-btn" data-filter="infographics"><i class="fas fa-chart-pie"></i> Infographics</button>
           </div>
         </div>
@@ -605,6 +766,109 @@
 
     </div>
   </main>
+
+  <!-- Video Player Modal -->
+  <div class="media-modal-overlay" id="videoModal">
+    <div class="media-modal-container">
+      <div class="media-modal-header">
+        <h3 id="videoModalTitle"><i class="fas fa-play-circle" style="color: #ef4444;"></i> Video Walkthrough</h3>
+        <button class="media-modal-close" onclick="closeMediaModal('videoModal')">&times;</button>
+      </div>
+      <div class="media-modal-body" style="padding: 0; background: #000;">
+        <video id="videoElement" controls preload="metadata" style="width: 100%; max-height: 65vh; background: #000;">
+          Your browser does not support HTML5 video playback.
+        </video>
+      </div>
+      <div class="media-modal-footer">
+        <div>
+          <span id="videoModalClass" class="card-class-badge">Class 11</span>
+          <span id="videoModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a id="videoDirectDownload" href="#" target="_blank" download class="action-btn btn-secondary"><i class="fas fa-external-link-alt"></i> Direct Open / Play</a>
+          <button class="action-btn btn-primary" onclick="closeMediaModal('videoModal')"><i class="fas fa-times"></i> Close Player</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide Deck Presentation Modal -->
+  <div class="media-modal-overlay" id="pptModal">
+    <div class="media-modal-container">
+      <div class="media-modal-header">
+        <h3 id="pptModalTitle"><i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> Slide Deck Presentation</h3>
+        <button class="media-modal-close" onclick="closeMediaModal('pptModal')">&times;</button>
+      </div>
+      <div class="media-modal-body" style="text-align: center; padding: 36px 24px;">
+        <div style="font-size: 4.8rem; color: #f59e0b; margin-bottom: 16px; filter: drop-shadow(0 6px 20px rgba(245, 158, 11, 0.4));">
+          <i class="fas fa-file-powerpoint"></i>
+        </div>
+        <h4 id="pptCardTitle" style="font-size: 1.45rem; color: #ffffff; margin-bottom: 10px;">PowerPoint Presentation Deck</h4>
+        <p style="color: var(--text-secondary); max-width: 620px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">
+          Interactive classroom slide deck from OneDrive. Click below to play in PowerPoint, download the presentation, or open direct file.
+        </p>
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <a id="pptDownloadBtn" href="#" target="_blank" download class="action-btn btn-primary" style="padding: 12px 28px; font-size: 0.95em; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+            <i class="fas fa-play"></i> Launch &amp; Download PPT
+          </a>
+          <a id="pptDirectOpenBtn" href="#" target="_blank" class="action-btn btn-secondary" style="padding: 12px 24px; font-size: 0.95em;">
+            <i class="fas fa-external-link-alt"></i> Direct File Link
+          </a>
+        </div>
+      </div>
+      <div class="media-modal-footer">
+        <div>
+          <span id="pptModalClass" class="card-class-badge">Class 12</span>
+          <span id="pptModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
+        </div>
+        <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal (Mind Maps & Infographics) -->
+  <div class="media-modal-overlay" id="imageLightboxModal">
+    <div class="media-modal-container" style="max-width: 1100px;">
+      <div class="media-modal-header">
+        <h3 id="imageModalTitle"><i class="fas fa-project-diagram" style="color: #06b6d4;"></i> High-Resolution Resource</h3>
+        <button class="media-modal-close" onclick="closeMediaModal('imageLightboxModal')">&times;</button>
+      </div>
+      <div class="media-modal-body" style="padding: 16px; background: rgba(0,0,0,0.6);">
+        <img id="lightboxImage" src="" alt="High resolution preview" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      </div>
+      <div class="media-modal-footer">
+        <div>
+          <span id="imageModalClass" class="card-class-badge">Class 11</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a id="imageDirectOpen" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-external-link-alt"></i> Open High-Res Image</a>
+          <button class="action-btn btn-secondary" onclick="closeMediaModal('imageLightboxModal')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HTML Lesson Viewer Modal -->
+  <div class="media-modal-overlay" id="htmlViewerModal">
+    <div class="media-modal-container" style="max-width: 1150px; height: 85vh;">
+      <div class="media-modal-header">
+        <h3 id="htmlModalTitle"><i class="fas fa-window-maximize" style="color: #10b981;"></i> Interactive Lesson Preview</h3>
+        <button class="media-modal-close" onclick="closeMediaModal('htmlViewerModal')">&times;</button>
+      </div>
+      <div class="media-modal-body" style="padding: 0; flex: 1;">
+        <iframe id="htmlIframe" src="" style="width: 100%; height: 100%; border: none; background: #ffffff;"></iframe>
+      </div>
+      <div class="media-modal-footer">
+        <div>
+          <span id="htmlModalClass" class="card-class-badge">Class 7</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a id="htmlOpenNewTab" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-external-link-alt"></i> Open Full Window</a>
+          <button class="action-btn btn-secondary" onclick="closeMediaModal('htmlViewerModal')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Site Footer -->
   <footer>
@@ -630,7 +894,7 @@
     </div>
   </footer>
 
-  <!-- Standard Profile Password Modal -->
+  <!-- Profile Password Modal -->
   <div class="modal" id="passwordModal">
     <div class="modal-content">
       <span class="close-btn" id="closeModal">&times;</span>
@@ -665,12 +929,12 @@
     // Safe check if database is loaded
     const db = (typeof INTERACTIVE_LESSONS_DATA !== 'undefined') ? INTERACTIVE_LESSONS_DATA : [];
 
-    // Category and Class filter states
+    // Filter states
     let activeCategory = 'all';
     let activeClass = 'all';
     let searchQuery = '';
 
-    // Cache elements
+    // Cache DOM elements
     const lessonsGrid = document.getElementById('lessonsGrid');
     const lessonSearch = document.getElementById('lessonSearch');
     const categoryButtons = document.querySelectorAll('#categoryFilters .filter-btn');
@@ -683,7 +947,6 @@
     const gateError = document.getElementById('gateErrorMessage');
 
     function checkPasswordGate() {
-      // Check session state
       if (sessionStorage.getItem('interactive_unlocked') === 'true') {
         gateOverlay.style.display = 'none';
         document.body.style.overflow = 'auto';
@@ -715,12 +978,9 @@
     });
 
     gateInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        gateSubmit.click();
-      }
+      if (e.key === 'Enter') gateSubmit.click();
     });
 
-    // Helper: clean and capitalize category names
     function getCategoryName(cat) {
       switch(cat) {
         case 'html': return '🌐 HTML Lesson';
@@ -732,15 +992,32 @@
       }
     }
 
-    // Helper: highlight matched text
     function highlightText(text, query) {
       if (!query) return text;
-      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+      const regex = new RegExp(`(${query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
       return text.replace(regex, '<mark style="background: rgba(249, 115, 22, 0.3); color: inherit; padding: 0 2px; border-radius: 2px;">$1</mark>');
     }
 
-    // Render lessons to grid
+    function setQuickCategory(cat) {
+      activeCategory = cat;
+      categoryButtons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-filter') === cat);
+      });
+      renderLessons();
+    }
+
+    function updateStats() {
+      document.getElementById('statAll').textContent = db.length;
+      document.getElementById('statVideos').textContent = db.filter(i => i.category === 'videos').length;
+      document.getElementById('statSlides').textContent = db.filter(i => i.category === 'slides').length;
+      document.getElementById('statMindmaps').textContent = db.filter(i => i.category === 'mindmaps').length;
+      document.getElementById('statHtml').textContent = db.filter(i => i.category === 'html').length;
+      document.getElementById('statInfographics').textContent = db.filter(i => i.category === 'infographics').length;
+    }
+
+    // Render grid
     function renderLessons() {
+      updateStats();
       lessonsGrid.innerHTML = '';
       
       const filtered = db.filter(item => {
@@ -749,11 +1026,10 @@
         
         let matchesSearch = true;
         if (searchQuery) {
-          const titleLower = item.title.toLowerCase();
-          const nameLower = item.name.toLowerCase();
-          const pathLower = item.path.toLowerCase();
-          const queryLower = searchQuery.toLowerCase();
-          matchesSearch = titleLower.includes(queryLower) || nameLower.includes(queryLower) || pathLower.includes(queryLower);
+          const q = searchQuery.toLowerCase();
+          matchesSearch = item.title.toLowerCase().includes(q) || 
+                          item.name.toLowerCase().includes(q) || 
+                          (item.relPath && item.relPath.toLowerCase().includes(q));
         }
         
         return matchesCategory && matchesClass && matchesSearch;
@@ -770,7 +1046,6 @@
         return;
       }
 
-      // Sort files alphabetically by title
       filtered.sort((a, b) => a.title.localeCompare(b.title));
 
       filtered.forEach(item => {
@@ -781,32 +1056,40 @@
 
         const highlightedTitle = highlightText(item.title, searchQuery);
         
-        // Generate human-friendly descriptions based on folder and name metadata
-        let desc = `Interactive math resource on ${item.title} for ${item.class}. Aligned with school syllabus.`;
+        let desc = `Interactive math resource on ${item.title} for ${item.class}.`;
         if (item.category === 'html') {
-          desc = `Offline lesson guide and activities for ${item.title}. Can be launched directly.`;
+          desc = `Interactive lesson plan and classroom activity module.`;
         } else if (item.category === 'mindmaps') {
-          desc = `Comprehensive visual mind map structuring key sub-topics and formulas for ${item.title}.`;
+          desc = `Visual mind map structuring key sub-topics and formulas.`;
         } else if (item.category === 'slides') {
-          desc = `Classroom-ready presentation slide deck covering concepts, theories, and examples.`;
+          desc = `Classroom-ready slide deck presentation for teaching.`;
         } else if (item.category === 'videos') {
-          desc = `Video demonstration and step-by-step walkthrough covering ${item.title}.`;
+          desc = `Video walkthrough and step-by-step topic explanation.`;
         } else if (item.category === 'infographics') {
-          desc = `High-resolution infographics chart detailing ${item.title} key points.`;
+          desc = `High-resolution infographic reference chart.`;
         }
 
-        // Action button configurations
         let actionsHtml = '';
-        if (item.category === 'html') {
+        if (item.category === 'videos') {
           actionsHtml = `
-            <a href="${item.localLink}" target="_blank" class="action-btn btn-primary"><i class="fas fa-eye"></i> Open Lesson</a>
-            <a href="${item.dropboxUrl}" target="_blank" class="action-btn btn-secondary"><i class="fab fa-dropbox"></i> Dropbox</a>
+            <button onclick="openVideoModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play-circle"></i> Play Video</button>
+            <a href="${item.serverUrl}" target="_blank" download class="action-btn btn-secondary" title="Direct open / play video"><i class="fas fa-external-link-alt"></i> Direct File</a>
+          `;
+        } else if (item.category === 'slides') {
+          actionsHtml = `
+            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-file-powerpoint"></i> Play Slide Deck</button>
+            <a href="${item.serverUrl}" target="_blank" download class="action-btn btn-secondary" title="Direct download PPTX"><i class="fas fa-download"></i> Direct Open</a>
+          `;
+        } else if (item.category === 'mindmaps' || item.category === 'infographics') {
+          actionsHtml = `
+            <button onclick="openImageModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-expand"></i> View High-Res</button>
+            <a href="${item.serverUrl}" target="_blank" class="action-btn btn-secondary" title="Open direct image link"><i class="fas fa-external-link-alt"></i> Direct Open</a>
           `;
         } else {
-          // Large files/media
+          // HTML plans
           actionsHtml = `
-            <a href="${item.localLink}" class="action-btn btn-primary" title="Open file from your local Dropbox folder"><i class="fas fa-file-alt"></i> Open Local</a>
-            <a href="${item.dropboxUrl}" target="_blank" class="action-btn btn-secondary" title="View or download from Dropbox Cloud"><i class="fas fa-cloud-download-alt"></i> Cloud File</a>
+            <button onclick="openHtmlModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-window-maximize"></i> Preview Lesson</button>
+            <a href="${item.localLink}" target="_blank" class="action-btn btn-secondary" title="Open lesson fullscreen"><i class="fas fa-external-link-alt"></i> Direct Open</a>
           `;
         }
 
@@ -819,7 +1102,7 @@
             <span class="card-class-badge">${item.class}</span>
           </div>
           <h3>${highlightedTitle}</h3>
-          <p class="file-path-desc"><i class="fas fa-folder-open"></i> ${item.path}</p>
+          <p class="file-path-desc"><i class="fas fa-folder-open"></i> ${item.relPath || item.name}</p>
           <p style="font-size: 0.88em; color: var(--text-secondary); line-height: 1.5; margin: 0; flex-grow: 1;">${desc}</p>
           <div class="lesson-meta">
             <span>${sizeMeta}</span>
@@ -834,7 +1117,87 @@
       });
     }
 
-    // Set up filter click events
+    // Modal Triggers & Controls
+    function getItemById(id) {
+      return db.find(i => i.id === id);
+    }
+
+    function openVideoModal(id) {
+      const item = getItemById(id);
+      if (!item) return;
+      document.getElementById('videoModalTitle').innerHTML = `<i class="fas fa-play-circle" style="color: #ef4444;"></i> ${item.title}`;
+      document.getElementById('videoModalClass').textContent = item.class;
+      document.getElementById('videoModalSize').textContent = `Size: ${item.size}`;
+      
+      const v = document.getElementById('videoElement');
+      v.src = item.serverUrl;
+      v.play().catch(e => console.log('Autoplay deferred:', e));
+      
+      document.getElementById('videoDirectDownload').href = item.serverUrl;
+      
+      const m = document.getElementById('videoModal');
+      m.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openPptModal(id) {
+      const item = getItemById(id);
+      if (!item) return;
+      document.getElementById('pptModalTitle').innerHTML = `<i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> ${item.title}`;
+      document.getElementById('pptCardTitle').textContent = item.title;
+      document.getElementById('pptModalClass').textContent = item.class;
+      document.getElementById('pptModalSize').textContent = `Size: ${item.size}`;
+      
+      document.getElementById('pptDownloadBtn').href = item.serverUrl;
+      document.getElementById('pptDirectOpenBtn').href = item.serverUrl;
+      
+      const m = document.getElementById('pptModal');
+      m.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openImageModal(id) {
+      const item = getItemById(id);
+      if (!item) return;
+      document.getElementById('imageModalTitle').innerHTML = `<i class="fas fa-image" style="color: #06b6d4;"></i> ${item.title}`;
+      document.getElementById('lightboxImage').src = item.serverUrl;
+      document.getElementById('imageModalClass').textContent = item.class;
+      document.getElementById('imageDirectOpen').href = item.serverUrl;
+      
+      const m = document.getElementById('imageLightboxModal');
+      m.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openHtmlModal(id) {
+      const item = getItemById(id);
+      if (!item) return;
+      document.getElementById('htmlModalTitle').innerHTML = `<i class="fas fa-window-maximize" style="color: #10b981;"></i> ${item.title}`;
+      document.getElementById('htmlIframe').src = item.localLink;
+      document.getElementById('htmlModalClass').textContent = item.class;
+      document.getElementById('htmlOpenNewTab').href = item.localLink;
+      
+      const m = document.getElementById('htmlViewerModal');
+      m.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMediaModal(modalId) {
+      const m = document.getElementById(modalId);
+      if (m) {
+        m.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        if (modalId === 'videoModal') {
+          const v = document.getElementById('videoElement');
+          if (v) { v.pause(); v.src = ''; }
+        } else if (modalId === 'htmlViewerModal') {
+          const f = document.getElementById('htmlIframe');
+          if (f) f.src = '';
+        }
+      }
+    }
+
+    // Set up filter button click events
     categoryButtons.forEach(btn => {
       btn.addEventListener('click', function() {
         categoryButtons.forEach(b => b.classList.remove('active'));
@@ -853,13 +1216,12 @@
       });
     });
 
-    // Set up search event
     lessonSearch.addEventListener('input', function() {
       searchQuery = this.value;
       renderLessons();
     });
 
-    // Profile Link Password Modal (standard kbj@2008 password checking)
+    // Profile Link Password Modal
     document.addEventListener('DOMContentLoaded', function() {
       checkPasswordGate();
       
@@ -889,6 +1251,9 @@
           passwordInput.value = ''; 
           errorMessage.textContent = ''; 
         } 
+        if (e.target.classList.contains('media-modal-overlay')) {
+          closeMediaModal(e.target.id);
+        }
       });
       
       togglePassword.addEventListener('click', function() {
@@ -922,13 +1287,11 @@
       });
       
       passwordInput.addEventListener('keypress', function(e) { 
-        if (e.key === 'Enter') { 
-          submitBtn.click(); 
-        } 
+        if (e.key === 'Enter') submitBtn.click(); 
       });
     });
 
-    // Dropdown toggles for mobile nav
+    // Mobile nav dropdowns
     document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
       trigger.addEventListener('click', function(e) {
         if (window.innerWidth <= 768) {
