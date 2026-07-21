@@ -24,6 +24,18 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
+  // Set global CORS headers to allow video, ppt, and image access from any origin (including file://)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Range, Authorization');
+  res.setHeader('Access-Control-Expose-Headers', 'Content-Length, Content-Range, Accept-Ranges, Content-Disposition');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
   // Decode URL to handle spaces and special characters
   const urlParts = req.url.split('?');
   let urlPath = decodeURIComponent(urlParts[0]);
