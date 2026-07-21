@@ -4,78 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
-  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 linked with Google NotebookLM.">
+  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 directly from the Interactive Plans laboratory.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
   <style>
-    /* Specific styles for Interactive Lesson Hub & NotebookLM */
-    .notebooklm-banner {
-      background: linear-gradient(135deg, rgba(66, 133, 244, 0.15) 0%, rgba(171, 71, 188, 0.15) 50%, rgba(234, 67, 53, 0.15) 100%);
-      border: 1px solid rgba(66, 133, 244, 0.3);
-      border-radius: var(--radius-lg);
-      padding: 18px 24px;
-      margin-bottom: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    }
-    .notebooklm-info {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .notebooklm-icon {
-      font-size: 2.2rem;
-      background: linear-gradient(135deg, #4285f4 0%, #ab47bc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 4px 10px rgba(66, 133, 244, 0.4));
-    }
-    .notebooklm-details h4 {
-      margin: 0 0 4px;
-      font-family: var(--font-head);
-      font-size: 1.1rem;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .notebooklm-details p {
-      margin: 0;
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-    }
-    .account-badge-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .account-btn {
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-    }
-    .account-btn:hover {
-      background: #4285f4;
-      border-color: #4285f4;
-      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.35);
-      transform: translateY(-2px);
-      color: #ffffff !important;
-    }
-
+    /* Specific styles for Restructured Interactive Lesson Hub */
     .interactive-stats-bar {
       display: flex;
       flex-wrap: wrap;
@@ -87,7 +21,7 @@
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
-      padding: 12px 18px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -357,16 +291,10 @@
       margin-left: auto;
     }
 
-    /* Multi Action Buttons */
+    /* Dual Action Buttons */
     .card-actions {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
-    }
-    .action-btn-row {
-      display: flex;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
     }
     .action-btn {
@@ -384,16 +312,6 @@
       text-align: center;
       cursor: pointer;
       border: none;
-    }
-    .btn-notebooklm {
-      background: linear-gradient(135deg, #4285f4 0%, #ab47bc 100%);
-      color: #ffffff !important;
-      box-shadow: 0 4px 14px rgba(66, 133, 244, 0.35);
-      width: 100%;
-    }
-    .btn-notebooklm:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(66, 133, 244, 0.5);
     }
     .btn-primary {
       background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
@@ -767,7 +685,7 @@
     <div class="container">
       <span class="page-hero-icon">&#127918;</span>
       <h1>Interactive Lesson Hub</h1>
-      <p>Explore multimedia interactive lessons, mind maps, slide decks, video walkthroughs, and infographics integrated with Google NotebookLM</p>
+      <p>Explore conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics from the <strong>Interactive Plans</strong> library</p>
     </div>
   </div>
 
@@ -777,25 +695,6 @@
 
       <!-- Back Link & Filter Controls -->
       <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
-
-      <!-- Google NotebookLM Quick Connect Banner -->
-      <div class="notebooklm-banner fade-in">
-        <div class="notebooklm-info">
-          <i class="fas fa-robot notebooklm-icon"></i>
-          <div class="notebooklm-details">
-            <h4>Google NotebookLM Integration</h4>
-            <p>Play videos, slide decks, mind maps, and infographics directly inside your Google AI Notebooks.</p>
-          </div>
-        </div>
-        <div class="account-badge-group">
-          <a href="https://accounts.google.com/AccountChooser?Email=kbjoshikv2008@gmail.com&continue=https://notebooklm.google.com/" target="_blank" class="account-btn">
-            <i class="fab fa-google"></i> kbjoshikv2008@gmail.com
-          </a>
-          <a href="https://accounts.google.com/AccountChooser?Email=kirti41@gmail.com&continue=https://notebooklm.google.com/" target="_blank" class="account-btn">
-            <i class="fab fa-google"></i> kirti41@gmail.com
-          </a>
-        </div>
-      </div>
 
       <!-- Quick Stats Bar -->
       <div class="interactive-stats-bar fade-in">
@@ -869,51 +768,6 @@
     </div>
   </main>
 
-  <!-- NotebookLM Dedicated Launcher & Player Modal -->
-  <div class="media-modal-overlay" id="notebookLmModal">
-    <div class="media-modal-container" style="max-width: 900px;">
-      <div class="media-modal-header" style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.2) 0%, rgba(171, 71, 188, 0.2) 100%);">
-        <h3 id="notebookLmModalTitle"><i class="fas fa-robot" style="color: #4285f4;"></i> Play in Google NotebookLM</h3>
-        <button class="media-modal-close" onclick="closeMediaModal('notebookLmModal')">&times;</button>
-      </div>
-      <div class="media-modal-body" style="padding: 32px 24px; text-align: center; background: #0b091a;">
-        <div style="font-size: 4rem; margin-bottom: 16px; background: linear-gradient(135deg, #4285f4 0%, #ab47bc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 6px 20px rgba(66, 133, 244, 0.4));">
-          <i class="fas fa-book-reader"></i>
-        </div>
-        <h4 id="notebookLmCardTitle" style="font-size: 1.4rem; color: #ffffff; margin-bottom: 8px;">Chapter Notebook</h4>
-        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 24px; font-size: 0.92rem; line-height: 1.6;">
-          Select your Google Account to open NotebookLM and play audio overviews, study guides, interactive notes, and slide decks:
-        </p>
-
-        <!-- Account Selection Launchers -->
-        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px;">
-          <a id="notebookLmKbjBtn" href="https://accounts.google.com/AccountChooser?Email=kbjoshikv2008@gmail.com&continue=https://notebooklm.google.com/" target="_blank" class="action-btn btn-primary" style="padding: 14px 24px; font-size: 0.95em; background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%);">
-            <i class="fab fa-google"></i> kbjoshikv2008@gmail.com
-          </a>
-          <a id="notebookLmKirtiBtn" href="https://accounts.google.com/AccountChooser?Email=kirti41@gmail.com&continue=https://notebooklm.google.com/" target="_blank" class="action-btn btn-primary" style="padding: 14px 24px; font-size: 0.95em; background: linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%);">
-            <i class="fab fa-google"></i> kirti41@gmail.com
-          </a>
-        </div>
-
-        <!-- Custom Linked Notebook URL / ID input -->
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; text-align: left; max-width: 680px; margin: 0 auto;">
-          <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #a78bfa; margin-bottom: 8px;">
-            <i class="fas fa-link"></i> Linked NotebookLM URL or ID for this Topic (Optional):
-          </label>
-          <div style="display: flex; gap: 10px;">
-            <input type="text" id="notebookLmCustomUrlInput" placeholder="Paste your NotebookLM link (e.g. https://notebooklm.google.com/notebook/...)" style="flex: 1; padding: 10px 14px; border-radius: 20px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.4); color: #fff; font-size: 0.88rem;">
-            <button onclick="saveCustomNotebookLmUrl()" class="action-btn btn-primary" style="flex: 0 0 auto; padding: 10px 20px;"><i class="fas fa-save"></i> Save Link</button>
-          </div>
-          <p id="notebookLmSaveStatus" style="font-size: 0.78rem; color: #10b981; margin: 6px 0 0; display: none;">Saved! Future clicks will open your saved notebook.</p>
-        </div>
-      </div>
-      <div class="media-modal-footer">
-        <a id="notebookLmDirectOpenBtn" href="https://notebooklm.google.com/" target="_blank" class="action-btn btn-secondary"><i class="fas fa-external-link-alt"></i> Open Google NotebookLM Direct</a>
-        <button class="action-btn btn-secondary" onclick="closeMediaModal('notebookLmModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Video Player Modal -->
   <div class="media-modal-overlay" id="videoModal">
     <div class="media-modal-container">
@@ -922,6 +776,7 @@
         <button class="media-modal-close" onclick="closeMediaModal('videoModal')">&times;</button>
       </div>
       <div class="media-modal-body" style="padding: 0; background: #000; position: relative;">
+        <!-- HTML5 Video Player -->
         <video id="videoElement" controls preload="auto" crossorigin="anonymous" style="width: 100%; max-height: 65vh; background: #000;">
           <source id="videoSourceStream" src="" type="video/mp4">
           Your browser does not support HTML5 video playback.
@@ -933,7 +788,7 @@
           <span id="videoModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
         </div>
         <div style="display: flex; gap: 10px;">
-          <a id="videoDirectDownload" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play"></i> Open &amp; Play Full Tab</a>
+          <a id="videoDirectDownload" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-external-link-alt"></i> Direct Open File</a>
           <button class="action-btn btn-secondary" onclick="closeMediaModal('videoModal')"><i class="fas fa-times"></i> Close Player</button>
         </div>
       </div>
@@ -956,7 +811,7 @@
           <span id="pptModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
         </div>
         <div style="display: flex; gap: 10px;">
-          <a id="pptPlayLaunchBtn" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-external-link-alt"></i> Open Full Online Deck</a>
+          <a id="pptPlayLaunchBtn" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-external-link-alt"></i> Direct Open PPT</a>
           <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Close</button>
         </div>
       </div>
@@ -1068,7 +923,6 @@
     let activeCategory = 'all';
     let activeClass = 'all';
     let searchQuery = '';
-    let currentActiveItemId = null;
 
     const lessonsGrid = document.getElementById('lessonsGrid');
     const lessonSearch = document.getElementById('lessonSearch');
@@ -1153,15 +1007,15 @@
       return db.find(i => i.id === id);
     }
 
-    function getMediaStreamUrl(item) {
-      const host = window.location.host || 'localhost:8080';
-      const protocol = window.location.protocol.startsWith('http') ? window.location.protocol : 'http:';
-      return `${protocol}//${host}${item.serverUrl}`;
+    function getFileUrl(item) {
+      return item.fileUrl;
     }
 
     function getOfficeViewerUrl(item) {
-      const streamUrl = getMediaStreamUrl(item);
-      return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(streamUrl)}`;
+      const fullHttpUrl = window.location.protocol.startsWith('http') ? 
+        `${window.location.protocol}//${window.location.host}/${item.fileUrl}` : 
+        `http://localhost:8080/${item.fileUrl}`;
+      return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(fullHttpUrl)}`;
     }
 
     function renderLessons() {
@@ -1203,7 +1057,7 @@
         card.setAttribute('data-class', item.classKey);
 
         const highlightedTitle = highlightText(item.title, searchQuery);
-        const streamUrl = getMediaStreamUrl(item);
+        const url = getFileUrl(item);
         
         let desc = `Interactive math resource on ${item.title} for ${item.class}.`;
         if (item.category === 'html') {
@@ -1218,28 +1072,29 @@
           desc = `High-resolution infographic reference chart.`;
         }
 
-        let primaryPlayBtn = '';
+        let actionsHtml = '';
         if (item.category === 'videos') {
-          primaryPlayBtn = `<button onclick="openVideoModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play-circle"></i> Play Video</button>`;
+          actionsHtml = `
+            <button onclick="openVideoModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play-circle"></i> ▶ Play Video</button>
+            <a href="${url}" target="_blank" class="action-btn btn-secondary" title="Open video in new tab"><i class="fas fa-external-link-alt"></i> Direct Play</a>
+          `;
         } else if (item.category === 'slides') {
-          primaryPlayBtn = `<button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-file-powerpoint"></i> Play Slide Deck</button>`;
+          actionsHtml = `
+            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-file-powerpoint"></i> 📊 Play Slide Deck</button>
+            <a href="${url}" target="_blank" download class="action-btn btn-secondary" title="Open or download PPT file"><i class="fas fa-download"></i> Direct Open PPT</a>
+          `;
         } else if (item.category === 'mindmaps' || item.category === 'infographics') {
-          primaryPlayBtn = `<button onclick="openImageModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-expand"></i> View High-Res</button>`;
+          actionsHtml = `
+            <button onclick="openImageModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-expand"></i> 🔍 View High-Res</button>
+            <a href="${url}" target="_blank" class="action-btn btn-secondary" title="Open image directly"><i class="fas fa-image"></i> Direct Image</a>
+          `;
         } else {
-          primaryPlayBtn = `<button onclick="openHtmlModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-window-maximize"></i> Preview Lesson</button>`;
+          // HTML plans
+          actionsHtml = `
+            <button onclick="openHtmlModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-window-maximize"></i> 🌐 Preview Lesson</button>
+            <a href="${url}" target="_blank" class="action-btn btn-secondary" title="Open lesson in new window"><i class="fas fa-external-link-alt"></i> Direct Lesson</a>
+          `;
         }
-
-        const actionsHtml = `
-          <div class="card-actions">
-            <button onclick="openNotebookLmModal('${item.id}')" class="action-btn btn-notebooklm">
-              <i class="fas fa-robot"></i> 🤖 Play / Open in NotebookLM
-            </button>
-            <div class="action-btn-row">
-              ${primaryPlayBtn}
-              <a href="${streamUrl}" target="_blank" class="action-btn btn-secondary" title="Open direct online file stream"><i class="fas fa-external-link-alt"></i> Direct Stream</a>
-            </div>
-          </div>
-        `;
 
         const sizeMeta = `<i class="fas fa-hdd"></i> ${item.size}`;
         const largeBadge = item.isLarge ? `<span class="large-badge"><i class="fas fa-weight-hanging"></i> Large File</span>` : '';
@@ -1256,7 +1111,9 @@
             <span>${sizeMeta}</span>
             ${largeBadge}
           </div>
-          ${actionsHtml}
+          <div class="card-actions">
+            ${actionsHtml}
+          </div>
         `;
 
         lessonsGrid.appendChild(card);
@@ -1264,45 +1121,6 @@
     }
 
     // Modal Triggers & Controls
-    function openNotebookLmModal(id) {
-      const item = getItemById(id);
-      if (!item) return;
-      currentActiveItemId = id;
-
-      document.getElementById('notebookLmModalTitle').innerHTML = `<i class="fas fa-robot" style="color: #4285f4;"></i> ${item.title} in NotebookLM`;
-      document.getElementById('notebookLmCardTitle').textContent = `${item.class} - ${item.title}`;
-
-      document.getElementById('notebookLmKbjBtn').href = item.notebookLmKbjUrl;
-      document.getElementById('notebookLmKirtiBtn').href = item.notebookLmKirtiUrl;
-
-      // Check saved custom link in localStorage
-      const savedUrl = localStorage.getItem('notebooklm_url_' + id) || '';
-      document.getElementById('notebookLmCustomUrlInput').value = savedUrl;
-      document.getElementById('notebookLmSaveStatus').style.display = 'none';
-
-      if (savedUrl) {
-        document.getElementById('notebookLmDirectOpenBtn').href = savedUrl;
-      } else {
-        document.getElementById('notebookLmDirectOpenBtn').href = item.notebookLmDirectUrl;
-      }
-
-      const m = document.getElementById('notebookLmModal');
-      m.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function saveCustomNotebookLmUrl() {
-      if (!currentActiveItemId) return;
-      const input = document.getElementById('notebookLmCustomUrlInput').value.trim();
-      if (input) {
-        localStorage.setItem('notebooklm_url_' + currentActiveItemId, input);
-        document.getElementById('notebookLmDirectOpenBtn').href = input;
-        const status = document.getElementById('notebookLmSaveStatus');
-        status.style.display = 'block';
-        setTimeout(() => status.style.display = 'none', 3000);
-      }
-    }
-
     function openVideoModal(id) {
       const item = getItemById(id);
       if (!item) return;
@@ -1313,15 +1131,15 @@
       
       const v = document.getElementById('videoElement');
       const srcStream = document.getElementById('videoSourceStream');
-      const streamUrl = getMediaStreamUrl(item);
+      const url = getFileUrl(item);
 
-      document.getElementById('videoDirectDownload').href = streamUrl;
+      document.getElementById('videoDirectDownload').href = url;
 
       v.pause();
-      srcStream.src = streamUrl;
+      srcStream.src = url;
       v.load();
 
-      v.play().catch(err => console.log('Autoplay deferred:', err));
+      v.play().catch(err => console.log('Autoplay info:', err));
       
       const m = document.getElementById('videoModal');
       m.classList.add('active');
@@ -1336,13 +1154,13 @@
       document.getElementById('pptModalClass').textContent = item.class;
       document.getElementById('pptModalSize').textContent = `Size: ${item.size}`;
       
-      const streamUrl = getMediaStreamUrl(item);
-      const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(streamUrl)}`;
+      const url = getFileUrl(item);
+      const officeViewerUrl = getOfficeViewerUrl(item);
       
       const pptIframe = document.getElementById('pptViewerIframe');
       pptIframe.src = officeViewerUrl;
 
-      document.getElementById('pptPlayLaunchBtn').href = officeViewerUrl;
+      document.getElementById('pptPlayLaunchBtn').href = url;
 
       const m = document.getElementById('pptModal');
       m.classList.add('active');
@@ -1355,11 +1173,11 @@
 
       document.getElementById('imageModalTitle').innerHTML = `<i class="fas fa-image" style="color: #06b6d4;"></i> ${item.title}`;
       const img = document.getElementById('lightboxImage');
-      const streamUrl = getMediaStreamUrl(item);
+      const url = getFileUrl(item);
       
-      img.src = streamUrl;
+      img.src = url;
       document.getElementById('imageModalClass').textContent = item.class;
-      document.getElementById('imageDirectOpen').href = streamUrl;
+      document.getElementById('imageDirectOpen').href = url;
       
       const m = document.getElementById('imageLightboxModal');
       m.classList.add('active');
@@ -1371,9 +1189,10 @@
       if (!item) return;
 
       document.getElementById('htmlModalTitle').innerHTML = `<i class="fas fa-window-maximize" style="color: #10b981;"></i> ${item.title}`;
-      document.getElementById('htmlIframe').src = item.localLink;
+      const url = getFileUrl(item);
+      document.getElementById('htmlIframe').src = url;
       document.getElementById('htmlModalClass').textContent = item.class;
-      document.getElementById('htmlOpenNewTab').href = item.localLink;
+      document.getElementById('htmlOpenNewTab').href = url;
       
       const m = document.getElementById('htmlViewerModal');
       m.classList.add('active');

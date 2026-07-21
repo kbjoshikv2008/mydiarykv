@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 10: Conditional Probability</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2c3e50;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .header h2 {
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .section h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .material-list, .method-list, .observation-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .material-list li, .method-list li, .observation-list li {
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .diagram {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        .calculation-box {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        .formula {
+            text-align: center;
+            font-size: 18px;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+        }
+        .result {
+            background-color: #e8f6f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #2ecc71;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #bdc3c7;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        /* Image placeholder styling */
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #999;
+        }
+        .image-placeholder i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        /* Image display styling */
+        .image-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        /* Image upload styling */
+        .image-upload {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #f39c12;
+        }
+        .upload-instructions {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 10px;
+            }
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .image-upload {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Activity 10: Probability </h1>
+        <h2>Computation of Conditional Probability</h2>
+        <p>Mathematics Laboratory Manual</p>
+    </div>
+
+    <div class="section">
+        <h3>Objective</h3>
+        <p>To explain the computation of conditional probability of a given event A, when event B has already occurred, through an example of throwing a pair of dice.</p>
+    </div>
+
+    <div class="section">
+        <h3>Materials Required</h3>
+        <ul class="material-list">
+            <li>A piece of plywood</li>
+            <li>White paper</li>
+            <li>Pen/pencil</li>
+            <li>Scale</li>
+            <li>A pair of dice</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Method of Construction</h3>
+        <ol class="method-list">
+            <li>Paste a white paper on a piece of plywood of a convenient size.</li>
+            <li>Make a square and divide it into 36 unit squares of size 1cm each (see Fig. 27).</li>
+            <li>Write pair of numbers as shown in the figure.</li>
+        </ol>
+        
+        <div class="diagram-container">
+            <h4>Fig. 27: Sample Space for Two Dice</h4>
+            
+            <!-- Image upload instructions -->
+            <div class="image-upload">
+                <p><strong>To add your own image:</strong></p>
+                <p>1. Save your image in the same folder as this HTML file</p>
+                <p>2. Rename it to "activity10-setup.jpg" (or update the src attribute below)</p>
+                <p>3. The image will automatically appear here</p>
+                <p class="upload-instructions">Supported formats: JPG, PNG, GIF</p>
+            </div>
+            
+            <!-- Image display area -->
+            <div class="image-display">
+                <img src="prob.jpg" alt="Sample Space for Two Dice" class="diagram" 
+                     onerror="this.style.display='none'; document.getElementById('image-placeholder-activity10').style.display='flex';">
+                <div id="image-placeholder-activity10" class="image-placeholder">
+                    <i>📷</i>
+                    <span>Image not found. Please add "activity10-setup.jpg" to your folder.</span>
+                    <p>Fig. 27: 6x6 grid showing all possible outcomes when rolling two dice</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Demonstration</h3>
+        <ol class="method-list">
+            <li>Fig. 27 gives all possible outcomes of the given experiment. Hence, it represents the sample space of the experiment.</li>
+            <li>Suppose we have to find the conditional probability of an event A if an event B has already occurred, where A is the event "a number 4 appears on both the dice" and B is the event "4 has appeared on at least one of the dice", i.e., we have to find P(A | B).</li>
+            <li>From Fig. 27:
+                <ul>
+                    <li>Number of outcomes favourable to A = 1</li>
+                    <li>Number of outcomes favourable to B = 11</li>
+                    <li>Number of outcomes favourable to A ∩ B = 1</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <div class="calculation-box">
+            <p><strong>Step 1: Calculate P(B)</strong></p>
+            <p>P(B) = Number of outcomes favourable to B / Total outcomes = 11/36</p>
+            
+            <p><strong>Step 2: Calculate P(A ∩ B)</strong></p>
+            <p>P(A ∩ B) = Number of outcomes favourable to A ∩ B / Total outcomes = 1/36</p>
+            
+            <p><strong>Step 3: Calculate P(A | B)</strong></p>
+            <p>P(A | B) = P(A ∩ B) / P(B) = (1/36) / (11/36) = 1/11</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Observation</h3>
+        <ol class="observation-list">
+            <li>Outcome(s) favourable to A : ______, n(A) = ______.</li>
+            <li>Outcomes favourable to B : ______, n(B) = ______.</li>
+            <li>Outcomes favourable to A ∩ B : ______, n(A ∩ B) = ______.</li>
+            <li>P(A ∩ B) = ______.</li>
+            <li>P(A | B) = ______ = ______.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h3>Additional Notes</h3>
+        <ul class="material-list">
+            <li>You may repeat this activity by taking more events such as the probability of getting a sum 10 when a doublet has already occurred.</li>
+            <li>Conditional probability P(A | B) can also be found by first taking the sample space of event B out of the sample space of the experiment, and then finding the probability A from it.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Result</h3>
+        <div class="result">
+            <p><strong>Conditional probability P(A | B):</strong></p>
+            <p>P(A | B) = P(A ∩ B) / P(B) = 1/11 ≈ 0.0909</p>
+            <p>The probability that both dice show 4, given that at least one die shows 4, is 1/11.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Application</h3>
+        <p>This activity helps in:</p>
+        <ul class="material-list">
+            <li>Understanding the concept of conditional probability</li>
+            <li>Applying conditional probability in real-world scenarios</li>
+            <li>Laying the foundation for Bayes' theorem</li>
+            <li>Developing probabilistic reasoning skills</li>
+            <li>Understanding how prior information affects probability calculations</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Activity 10 | Mathematics Laboratory Manual | Probability</p>
+        <p>Date: ______________</p>
+    </div>
+
+    <script>
+        // Check if image loaded successfully for Activity 10
+        window.addEventListener('load', function() {
+            const img = document.querySelector('.diagram');
+            const placeholder = document.getElementById('image-placeholder-activity10');
+            
+            if (img) {
+                if (img.naturalHeight === 0) {
+                    // Image failed to load
+                    img.style.display = 'none';
+                    if (placeholder) {
+                        placeholder.style.display = 'flex';
+                    }
+                } else {
+                    // Image loaded successfully
+                    img.style.display = 'block';
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

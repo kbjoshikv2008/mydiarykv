@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Congruence Activities</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: #2c3e50;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            background-color: #34495e;
+            color: white;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .tab:hover {
+            background-color: #3d566e;
+        }
+        
+        .tab.active {
+            background-color: #1abc9c;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 15px 0;
+        }
+        
+        .activity-box {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .figure-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .figure {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            position: relative;
+            background-color: white;
+        }
+        
+        .triangle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        input, select, button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .check-btn {
+            background-color: #2ecc71;
+        }
+        
+        .check-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .reset-btn {
+            background-color: #e74c3c;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .option {
+            padding: 10px 15px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            border-color: #3498db;
+            background-color: #f0f8ff;
+        }
+        
+        .option.selected {
+            border-color: #2ecc71;
+            background-color: #e8f8f1;
+        }
+        
+        .congruence-notation {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2rem;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .summary-box {
+            background-color: #e8f4fc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .summary-box h3 {
+            color: #2c3e50;
+        }
+        
+        .summary-list {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .summary-list li {
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .figure-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .figure {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interactive Congruence Activities</h1>
+            <p class="subtitle">Explore geometric congruence through hands-on interactive exercises</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" data-tab="activity1">Geometric Twins</button>
+            <button class="tab" data-tab="activity2">Congruence Conditions</button>
+            <button class="tab" data-tab="activity3">Corresponding Parts</button>
+            <button class="tab" data-tab="activity4">Triangle Conditions</button>
+            <button class="tab" data-tab="activity5">Special Triangles</button>
+            <button class="tab" data-tab="summary">Summary</button>
+        </div>
+        
+        <!-- Activity 1: Geometric Twins -->
+        <div id="activity1" class="tab-content active">
+            <h2>Activity 1: Geometric Twins</h2>
+            <p>Figures that are exact copies of each other or have the same shape and size are said to be <strong>congruent</strong>. Congruent figures can be superimposed exactly, one over the other.</p>
+            
+            <div class="activity-box">
+                <h3>Explore Congruence</h3>
+                <p>Adjust the measurements of Figure B to make it congruent to Figure A.</p>
+                
+                <div class="figure-container">
+                    <div class="figure">
+                        <h4>Figure A</h4>
+                        <div id="figureA">
+                            <!-- Figure A will be drawn here with JavaScript -->
+                        </div>
+                        <p class="measurements">AB = 4 cm, BC = 8 cm, ∠ABC = 80°</p>
+                    </div>
+                    
+                    <div class="figure">
+                        <h4>Figure B</h4>
+                        <div id="figureB">
+                            <!-- Figure B will be drawn here with JavaScript -->
+                        </div>
+                        <p id="figureB-measurements">AB = 4 cm, BC = 8 cm, ∠ABC = 80°</p>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="ab-length">Length AB (cm):</label>
+                        <input type="range" id="ab-length" min="2" max="10" step="0.5" value="4">
+                        <span id="ab-value">4.0</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="bc-length">Length BC (cm):</label>
+                        <input type="range" id="bc-length" min="2" max="12" step="0.5" value="8">
+                        <span id="bc-value">8.0</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="angle">Angle ABC (degrees):</label>
+                        <input type="range" id="angle" min="30" max="150" step="5" value="80">
+                        <span id="angle-value">80°</span>
+                    </div>
+                    
+                    <button id="check-congruence" class="check-btn">Check Congruence</button>
+                    <button id="reset-figure" class="reset-btn">Reset</button>
+                </div>
+                
+                <div id="congruence-feedback" class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <h3>Quick Check</h3>
+                <p>Which measurements are sufficient to recreate the symbol exactly?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Only AB and BC lengths</div>
+                    <div class="option" data-correct="true">AB, BC lengths and ∠ABC</div>
+                    <div class="option" data-correct="false">Only ∠ABC measurement</div>
+                    <div class="option" data-correct="false">Perimeter of the figure</div>
+                </div>
+                <button id="check-answer1" class="check-btn">Check Answer</button>
+                <div id="answer-feedback1" class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- Activity 2: Congruence Conditions -->
+        <div id="activity2" class="tab-content">
+            <h2>Activity 2: Congruence Conditions for Triangles</h2>
+            <p>Different combinations of measurements can guarantee triangle congruence. Let's explore the main conditions.</p>
+            
+            <div class="activity-box">
+                <h3>Explore Triangle Conditions</h3>
+                <p>Select a congruence condition and see if you can create triangles that are not congruent with the same measurements.</p>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="condition-select">Select Condition:</label>
+                        <select id="condition-select">
+                            <option value="SSS">SSS (Side-Side-Side)</option>
+                            <option value="SAS">SAS (Side-Angle-Side)</option>
+                            <option value="ASA">ASA (Angle-Side-Angle)</option>
+                            <option value="AAS">AAS (Angle-Angle-Side)</option>
+                            <option value="RHS">RHS (Right-Hypotenuse-Side)</option>
+                            <option value="SSA">SSA (Side-Side-Angle)</option>
+                        </select>
+                    </div>
+                    
+                    <button id="draw-triangles" class="check-btn">Draw Triangles</button>
+                    <button id="clear-triangles" class="reset-btn">Clear</button>
+                </div>
+                
+                <div class="figure-container">
+                    <div class="figure">
+                        <h4>Triangle 1</h4>
+                        <div id="triangle1">
+                            <!-- Triangle 1 will be drawn here -->
+                        </div>
+                    </div>
+                    
+                    <div class="figure">
+                        <h4>Triangle 2</h4>
+                        <div id="triangle2">
+                            <!-- Triangle 2 will be drawn here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="condition-explanation" class="feedback">
+                    <h4>Condition Explanation</h4>
+                    <p id="explanation-text">Select a condition to see explanation</p>
+                </div>
+                
+                <div class="question">
+                    <p>Based on your exploration, which conditions <strong>always guarantee</strong> triangle congruence?</p>
+                    <div class="options" id="condition-options">
+                        <div class="option" data-correct="true">SSS</div>
+                        <div class="option" data-correct="true">SAS</div>
+                        <div class="option" data-correct="true">ASA</div>
+                        <div class="option" data-correct="true">AAS</div>
+                        <div class="option" data-correct="true">RHS</div>
+                        <div class="option" data-correct="false">SSA</div>
+                    </div>
+                    <button id="check-conditions" class="check-btn">Check Conditions</button>
+                    <div id="conditions-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Activity 3: Corresponding Parts -->
+        <div id="activity3" class="tab-content">
+            <h2>Activity 3: Corresponding Parts of Congruent Triangles</h2>
+            <p>When triangles are congruent, their corresponding vertices, sides, and angles match exactly.</p>
+            
+            <div class="activity-box">
+                <h3>Match Corresponding Parts</h3>
+                <p>Given that △ABC ≅ △XYZ, drag the labels to match the corresponding parts.</p>
+                
+                <div class="figure-container">
+                    <div class="figure">
+                        <h4>△ABC</h4>
+                        <div id="triangle-abc">
+                            <!-- Triangle ABC will be drawn here -->
+                        </div>
+                        <div class="labels-container" id="labels-abc">
+                            <div class="draggable-label" data-part="vertex" data-value="A">A</div>
+                            <div class="draggable-label" data-part="vertex" data-value="B">B</div>
+                            <div class="draggable-label" data-part="vertex" data-value="C">C</div>
+                            <div class="draggable-label" data-part="side" data-value="AB">AB</div>
+                            <div class="draggable-label" data-part="side" data-value="BC">BC</div>
+                            <div class="draggable-label" data-part="side" data-value="AC">AC</div>
+                            <div class="draggable-label" data-part="angle" data-value="∠A">∠A</div>
+                            <div class="draggable-label" data-part="angle" data-value="∠B">∠B</div>
+                            <div class="draggable-label" data-part="angle" data-value="∠C">∠C</div>
+                        </div>
+                    </div>
+                    
+                    <div class="figure">
+                        <h4>△XYZ</h4>
+                        <div id="triangle-xyz">
+                            <!-- Triangle XYZ will be drawn here -->
+                        </div>
+                        <div class="labels-container" id="labels-xyz">
+                            <div class="drop-zone" data-part="vertex" data-corresponds="A"></div>
+                            <div class="drop-zone" data-part="vertex" data-corresponds="B"></div>
+                            <div class="drop-zone" data-part="vertex" data-corresponds="C"></div>
+                            <div class="drop-zone" data-part="side" data-corresponds="AB"></div>
+                            <div class="drop-zone" data-part="side" data-corresponds="BC"></div>
+                            <div class="drop-zone" data-part="side" data-corresponds="AC"></div>
+                            <div class="drop-zone" data-part="angle" data-corresponds="∠A"></div>
+                            <div class="drop-zone" data-part="angle" data-corresponds="∠B"></div>
+                            <div class="drop-zone" data-part="angle" data-corresponds="∠C"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="check-correspondence" class="check-btn">Check Correspondence</button>
+                    <button id="reset-correspondence" class="reset-btn">Reset</button>
+                </div>
+                
+                <div id="correspondence-feedback" class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <h3>Congruence Notation</h3>
+                <p>If △ABC ≅ △XYZ, which of the following are correct ways to express this congruence?</p>
+                <div class="options">
+                    <div class="option" data-correct="true">△BAC ≅ △YXZ</div>
+                    <div class="option" data-correct="true">△CBA ≅ △ZYX</div>
+                    <div class="option" data-correct="false">△ABC ≅ △YZX</div>
+                    <div class="option" data-correct="true">△ACB ≅ △XZY</div>
+                </div>
+                <button id="check-notation" class="check-btn">Check Notation</button>
+                <div id="notation-feedback" class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- Activity 4: Triangle Conditions -->
+        <div id="activity4" class="tab-content">
+            <h2>Activity 4: Applying Triangle Congruence Conditions</h2>
+            <p>Use congruence conditions to solve geometric problems and prove properties.</p>
+            
+            <div class="activity-box">
+                <h3>Identify Congruent Triangles</h3>
+                <p>Examine the following diagram and answer the questions.</p>
+                
+                <div class="figure-container">
+                    <div class="figure" style="width: 300px; height: 200px;">
+                        <h4>Rectangle ABCD</h4>
+                        <div id="rectangle-diagram">
+                            <!-- Rectangle diagram will be drawn here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>Consider △ABD and △CDB in rectangle ABCD.</p>
+                    <p>Given: AB = CD, AD = CB, and BD is common to both triangles.</p>
+                    <p>Which congruence condition applies?</p>
+                    <div class="options">
+                        <div class="option" data-correct="true">SSS (all three sides equal)</div>
+                        <div class="option" data-correct="false">SAS (two sides and included angle)</div>
+                        <div class="option" data-correct="false">ASA (two angles and included side)</div>
+                        <div class="option" data-correct="false">RHS (right angle, hypotenuse, side)</div>
+                    </div>
+                    <button id="check-rectangle" class="check-btn">Check Answer</button>
+                    <div id="rectangle-feedback" class="feedback"></div>
+                </div>
+            </div>
+            
+            <div class="activity-box">
+                <h3>Determine Missing Information</h3>
+                <p>Given the following measurements, determine if the triangles are congruent.</p>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="side1">Side 1 (cm):</label>
+                        <input type="number" id="side1" min="1" max="20" value="6">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="side2">Side 2 (cm):</label>
+                        <input type="number" id="side2" min="1" max="20" value="5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="angle1">Angle (degrees):</label>
+                        <input type="number" id="angle1" min="1" max="179" value="30">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="position">Angle Position:</label>
+                        <select id="position">
+                            <option value="included">Included between sides</option>
+                            <option value="non-included">Not included between sides</option>
+                        </select>
+                    </div>
+                    
+                    <button id="check-triangle-congruence" class="check-btn">Check Congruence</button>
+                </div>
+                
+                <div id="triangle-congruence-feedback" class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- Activity 5: Special Triangles -->
+        <div id="activity5" class="tab-content">
+            <h2>Activity 5: Isosceles and Equilateral Triangles</h2>
+            <p>Use congruence to discover properties of special triangles.</p>
+            
+            <div class="activity-box">
+                <h3>Angles in Isosceles Triangles</h3>
+                <p>In an isosceles triangle, two sides are equal. Use congruence to prove that angles opposite equal sides are equal.</p>
+                
+                <div class="figure-container">
+                    <div class="figure">
+                        <h4>Isosceles △ABC</h4>
+                        <div id="isosceles-triangle">
+                            <!-- Isosceles triangle will be drawn here -->
+                        </div>
+                        <p>AB = AC</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>Construct altitude AD from A to BC. Which congruence condition proves that ∠B = ∠C?</p>
+                    <div class="options">
+                        <div class="option" data-correct="false">SSS</div>
+                        <div class="option" data-correct="true">RHS</div>
+                        <div class="option" data-correct="false">SAS</div>
+                        <div class="option" data-correct="false">AAS</div>
+                    </div>
+                    <button id="check-isosceles" class="check-btn">Check Proof</button>
+                    <div id="isosceles-feedback" class="feedback"></div>
+                </div>
+            </div>
+            
+            <div class="activity-box">
+                <h3>Angles in Equilateral Triangles</h3>
+                <p>An equilateral triangle has all three sides equal. What can we say about its angles?</p>
+                
+                <div class="figure-container">
+                    <div class="figure">
+                        <h4>Equilateral △ABC</h4>
+                        <div id="equilateral-triangle">
+                            <!-- Equilateral triangle will be drawn here -->
+                        </div>
+                        <p>AB = BC = AC</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>Since AB = AC, ∠B = ∠C. Since AB = BC, ∠A = ∠C. Therefore:</p>
+                    <div class="options">
+                        <div class="option" data-correct="true">All angles are equal: ∠A = ∠B = ∠C</div>
+                        <div class="option" data-correct="false">∠A = 90°, ∠B = ∠C = 45°</div>
+                        <div class="option" data-correct="false">∠A = 60°, ∠B = 60°, ∠C = 60° (but this needs to be calculated)</div>
+                        <div class="option" data-correct="false">Cannot determine without more information</div>
+                    </div>
+                    
+                    <p>If all three angles are equal, and the sum of angles in a triangle is 180°, what is each angle?</p>
+                    <div class="controls">
+                        <input type="number" id="equilateral-angle" min="1" max="179" placeholder="Enter angle measure">
+                        <button id="check-equilateral" class="check-btn">Calculate Angle</button>
+                    </div>
+                    <div id="equilateral-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div id="summary" class="tab-content">
+            <h2>Chapter Summary</h2>
+            
+            <div class="summary-box">
+                <h3>Key Concepts</h3>
+                <ul class="summary-list">
+                    <li><strong>Congruent figures</strong> have the same shape and size and can be superimposed exactly.</li>
+                    <li>While checking for congruence, a figure can be rotated or flipped before superimposing.</li>
+                    <li>For triangles, several conditions guarantee congruence:
+                        <ul>
+                            <li><strong>SSS (Side-Side-Side)</strong>: All three sides equal</li>
+                            <li><strong>SAS (Side-Angle-Side)</strong>: Two sides and the included angle equal</li>
+                            <li><strong>ASA (Angle-Side-Angle)</strong>: Two angles and the included side equal</li>
+                            <li><strong>AAS (Angle-Angle-Side)</strong>: Two angles and a non-included side equal</li>
+                            <li><strong>RHS (Right-Hypotenuse-Side)</strong>: Right angle, hypotenuse, and one side equal</li>
+                        </ul>
+                    </li>
+                    <li><strong>SSA (Side-Side-Angle)</strong> does NOT always guarantee congruence.</li>
+                    <li>When triangles are congruent, their corresponding vertices, sides, and angles are equal.</li>
+                    <li>In an isosceles triangle, angles opposite equal sides are equal.</li>
+                    <li>In an equilateral triangle, all angles are equal to 60°.</li>
+                </ul>
+            </div>
+            
+            <div class="summary-box">
+                <h3>Real-World Applications</h3>
+                <p>Congruent triangles are used in:</p>
+                <ul class="summary-list">
+                    <li><strong>Architecture and construction</strong> - Ensuring structural elements match</li>
+                    <li><strong>Engineering</strong> - Creating identical parts</li>
+                    <li><strong>Art and design</strong> - Creating symmetrical patterns</li>
+                    <li><strong>Navigation and surveying</strong> - Calculating distances</li>
+                </ul>
+            </div>
+            
+            <div class="question">
+                <h3>Final Review</h3>
+                <p>Which of the following statements are true about congruent triangles?</p>
+                <div class="options">
+                    <div class="option" data-correct="true">Corresponding angles are equal</div>
+                    <div class="option" data-correct="true">Corresponding sides are equal</div>
+                    <div class="option" data-correct="false">They must have the same orientation</div>
+                    <div class="option" data-correct="true">They have the same area</div>
+                    <div class="option" data-correct="false">SSA always guarantees congruence</div>
+                    <div class="option" data-correct="true">RHS applies only to right triangles</div>
+                </div>
+                <button id="check-final" class="check-btn">Check Understanding</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Interactive Congruence Activities | Based on Chapter 1: Congruence of Triangles</p>
+            <p>Use these activities to reinforce your understanding of geometric congruence.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and tab contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Activity 1: Geometric Twins
+        const figureA = document.getElementById('figureA');
+        const figureB = document.getElementById('figureB');
+        const abSlider = document.getElementById('ab-length');
+        const bcSlider = document.getElementById('bc-length');
+        const angleSlider = document.getElementById('angle');
+        const abValue = document.getElementById('ab-value');
+        const bcValue = document.getElementById('bc-value');
+        const angleValue = document.getElementById('angle-value');
+        const checkCongruenceBtn = document.getElementById('check-congruence');
+        const resetBtn = document.getElementById('reset-figure');
+        const congruenceFeedback = document.getElementById('congruence-feedback');
+        
+        // Function to draw a figure (angle symbol)
+        function drawFigure(container, ab, bc, angle, isReference = false) {
+            container.innerHTML = '';
+            
+            // Create SVG element
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "180");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Scale for visualization
+            const scale = 10;
+            const abScaled = ab * scale;
+            const bcScaled = bc * scale;
+            
+            // Convert angle to radians
+            const angleRad = angle * Math.PI / 180;
+            
+            // Calculate points
+            // Point A at center
+            const ax = 100;
+            const ay = 100;
+            
+            // Point B (end of AB)
+            const bx = ax + abScaled;
+            const by = ay;
+            
+            // Point C (end of BC) - rotated by angle from B
+            const cx = ax + abScaled + bcScaled * Math.cos(angleRad);
+            const cy = ay - bcScaled * Math.sin(angleRad);
+            
+            // Draw lines
+            const lineAB = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            lineAB.setAttribute("x1", ax);
+            lineAB.setAttribute("y1", ay);
+            lineAB.setAttribute("x2", bx);
+            lineAB.setAttribute("y2", by);
+            lineAB.setAttribute("stroke", isReference ? "#3498db" : "#2ecc71");
+            lineAB.setAttribute("stroke-width", "3");
+            svg.appendChild(lineAB);
+            
+            const lineBC = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            lineBC.setAttribute("x1", bx);
+            lineBC.setAttribute("y1", by);
+            lineBC.setAttribute("x2", cx);
+            lineBC.setAttribute("y2", cy);
+            lineBC.setAttribute("stroke", isReference ? "#3498db" : "#2ecc71");
+            lineBC.setAttribute("stroke-width", "3");
+            svg.appendChild(lineBC);
+            
+            // Draw angle arc
+            const arcRadius = 15;
+            const arc = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            const arcStartX = bx - arcRadius;
+            const arcStartY = by;
+            
+            // Create arc path
+            const arcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 0 1 ${bx - arcRadius * Math.cos(angleRad)} ${by - arcRadius * Math.sin(angleRad)}`;
+            arc.setAttribute("d", arcPath);
+            arc.setAttribute("stroke", "#e74c3c");
+            arc.setAttribute("stroke-width", "2");
+            arc.setAttribute("fill", "none");
+            svg.appendChild(arc);
+            
+            // Add angle label
+            const angleLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            angleLabel.setAttribute("x", bx - 25);
+            angleLabel.setAttribute("y", by - 10);
+            angleLabel.setAttribute("font-size", "12");
+            angleLabel.setAttribute("fill", "#e74c3c");
+            angleLabel.textContent = `${angle}°`;
+            svg.appendChild(angleLabel);
+            
+            // Add point labels
+            const labelA = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            labelA.setAttribute("x", ax - 15);
+            labelA.setAttribute("y", ay + 5);
+            labelA.setAttribute("font-size", "14");
+            labelA.setAttribute("font-weight", "bold");
+            labelA.textContent = "A";
+            svg.appendChild(labelA);
+            
+            const labelB = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            labelB.setAttribute("x", bx + 5);
+            labelB.setAttribute("y", by + 5);
+            labelB.setAttribute("font-size", "14");
+            labelB.setAttribute("font-weight", "bold");
+            labelB.textContent = "B";
+            svg.appendChild(labelB);
+            
+            const labelC = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            labelC.setAttribute("x", cx + 5);
+            labelC.setAttribute("y", cy - 5);
+            labelC.setAttribute("font-size", "14");
+            labelC.setAttribute("font-weight", "bold");
+            labelC.textContent = "C";
+            svg.appendChild(labelC);
+            
+            container.appendChild(svg);
+        }
+        
+        // Initialize figures
+        drawFigure(figureA, 4, 8, 80, true);
+        drawFigure(figureB, 4, 8, 80);
+        
+        // Update figure B when sliders change
+        function updateFigureB() {
+            const ab = parseFloat(abSlider.value);
+            const bc = parseFloat(bcSlider.value);
+            const angle = parseFloat(angleSlider.value);
+            
+            abValue.textContent = ab.toFixed(1);
+            bcValue.textContent = bc.toFixed(1);
+            angleValue.textContent = `${angle}°`;
+            
+            // Update figure B measurements display
+            document.getElementById('figureB-measurements').textContent = 
+                `AB = ${ab.toFixed(1)} cm, BC = ${bc.toFixed(1)} cm, ∠ABC = ${angle}°`;
+            
+            drawFigure(figureB, ab, bc, angle);
+            
+            // Clear feedback
+            congruenceFeedback.style.display = 'none';
+        }
+        
+        abSlider.addEventListener('input', updateFigureB);
+        bcSlider.addEventListener('input', updateFigureB);
+        angleSlider.addEventListener('input', updateFigureB);
+        
+        // Check congruence
+        checkCongruenceBtn.addEventListener('click', function() {
+            const ab = parseFloat(abSlider.value);
+            const bc = parseFloat(bcSlider.value);
+            const angle = parseFloat(angleSlider.value);
+            
+            const isCongruent = Math.abs(ab - 4) < 0.1 && Math.abs(bc - 8) < 0.1 && Math.abs(angle - 80) < 1;
+            
+            congruenceFeedback.textContent = isCongruent 
+                ? "Correct! Figure B is congruent to Figure A. Both have the same measurements: AB = 4 cm, BC = 8 cm, and ∠ABC = 80°."
+                : "Not congruent. Figure B has different measurements from Figure A. Try adjusting the measurements to match: AB = 4 cm, BC = 8 cm, ∠ABC = 80°.";
+            
+            congruenceFeedback.className = `feedback ${isCongruent ? 'correct' : 'incorrect'}`;
+            congruenceFeedback.style.display = 'block';
+        });
+        
+        // Reset figure B
+        resetBtn.addEventListener('click', function() {
+            abSlider.value = 4;
+            bcSlider.value = 8;
+            angleSlider.value = 80;
+            updateFigureB();
+            congruenceFeedback.style.display = 'none';
+        });
+        
+        // Activity 1 Quick Check
+        const options1 = document.querySelectorAll('#activity1 .option');
+        const checkAnswer1Btn = document.getElementById('check-answer1');
+        const answerFeedback1 = document.getElementById('answer-feedback1');
+        
+        options1.forEach(option => {
+            option.addEventListener('click', function() {
+                options1.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        checkAnswer1Btn.addEventListener('click', function() {
+            const selectedOption = document.querySelector('#activity1 .option.selected');
+            
+            if (!selectedOption) {
+                answerFeedback1.textContent = "Please select an answer first.";
+                answerFeedback1.className = "feedback incorrect";
+                answerFeedback1.style.display = 'block';
+                return;
+            }
+            
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            
+            answerFeedback1.textContent = isCorrect 
+                ? "Correct! To recreate the symbol exactly, we need both the arm lengths (AB and BC) AND the angle between them (∠ABC)."
+                : "Incorrect. Think about what we discovered in the activity - just the side lengths are not enough because many different symbols can have the same side lengths with different angles.";
+            
+            answerFeedback1.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            answerFeedback1.style.display = 'block';
+        });
+        
+        // Activity 2: Congruence Conditions
+        const conditionSelect = document.getElementById('condition-select');
+        const drawTrianglesBtn = document.getElementById('draw-triangles');
+        const clearTrianglesBtn = document.getElementById('clear-triangles');
+        const triangle1 = document.getElementById('triangle1');
+        const triangle2 = document.getElementById('triangle2');
+        const conditionExplanation = document.getElementById('condition-explanation');
+        const explanationText = document.getElementById('explanation-text');
+        
+        const conditionExplanations = {
+            SSS: "SSS (Side-Side-Side): All three sides of one triangle are equal to the three sides of another triangle. This always guarantees congruence.",
+            SAS: "SAS (Side-Angle-Side): Two sides and the included angle of one triangle are equal to two sides and the included angle of another triangle. This always guarantees congruence.",
+            ASA: "ASA (Angle-Side-Angle): Two angles and the included side of one triangle are equal to two angles and the included side of another triangle. This always guarantees congruence.",
+            AAS: "AAS (Angle-Angle-Side): Two angles and a non-included side of one triangle are equal to two angles and the corresponding side of another triangle. This always guarantees congruence.",
+            RHS: "RHS (Right-Hypotenuse-Side): In right triangles, the hypotenuse and one side of one triangle are equal to the hypotenuse and one side of another triangle. This always guarantees congruence.",
+            SSA: "SSA (Side-Side-Angle): Two sides and a non-included angle of one triangle are equal to two sides and the corresponding angle of another triangle. This does NOT always guarantee congruence (ambiguous case)."
+        };
+        
+        conditionSelect.addEventListener('change', function() {
+            const condition = this.value;
+            explanationText.textContent = conditionExplanations[condition];
+            conditionExplanation.style.display = 'block';
+            conditionExplanation.className = 'feedback';
+            
+            // Clear triangles when condition changes
+            triangle1.innerHTML = '';
+            triangle2.innerHTML = '';
+        });
+        
+        // Initialize with SSS explanation
+        explanationText.textContent = conditionExplanations.SSS;
+        conditionExplanation.style.display = 'block';
+        
+        // Draw triangles based on selected condition
+        drawTrianglesBtn.addEventListener('click', function() {
+            const condition = conditionSelect.value;
+            triangle1.innerHTML = '';
+            triangle2.innerHTML = '';
+            
+            // Create SVG for triangles
+            const svg1 = createTriangleSVG(condition, 1);
+            const svg2 = createTriangleSVG(condition, 2);
+            
+            triangle1.appendChild(svg1);
+            triangle2.appendChild(svg2);
+        });
+        
+        function createTriangleSVG(condition, triangleNum) {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "180");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Different triangle configurations based on condition
+            let points;
+            let color = triangleNum === 1 ? "#3498db" : "#2ecc71";
+            
+            if (condition === "SSS") {
+                // Both triangles have same side lengths
+                points = "50,150 150,150 100,50";
+            } else if (condition === "SAS") {
+                // Two sides and included angle same
+                points = triangleNum === 1 ? "50,150 150,150 120,70" : "50,150 150,150 80,70";
+            } else if (condition === "ASA") {
+                // Two angles and included side same
+                points = triangleNum === 1 ? "50,150 150,150 100,80" : "50,150 150,150 100,60";
+            } else if (condition === "AAS") {
+                // Two angles and non-included side
+                points = triangleNum === 1 ? "50,150 150,150 100,70" : "50,150 150,150 100,90";
+            } else if (condition === "RHS") {
+                // Right triangles with hypotenuse and one side
+                points = triangleNum === 1 ? "50,150 150,150 50,50" : "50,150 150,150 50,70";
+            } else if (condition === "SSA") {
+                // SSA - ambiguous case
+                // For triangle 1: acute triangle
+                // For triangle 2: obtuse triangle with same SSA measurements
+                if (triangleNum === 1) {
+                    points = "50,150 150,150 120,70";
+                } else {
+                    points = "50,150 150,150 80,70";
+                }
+            }
+            
+            // Create polygon (triangle)
+            const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangle.setAttribute("points", points);
+            triangle.setAttribute("fill", color);
+            triangle.setAttribute("fill-opacity", "0.3");
+            triangle.setAttribute("stroke", color);
+            triangle.setAttribute("stroke-width", "3");
+            svg.appendChild(triangle);
+            
+            // Add labels for sides and angles based on condition
+            addTriangleLabels(svg, condition, triangleNum, points);
+            
+            return svg;
+        }
+        
+        function addTriangleLabels(svg, condition, triangleNum, points) {
+            // Parse points
+            const pointsArray = points.split(" ").map(p => p.split(",").map(Number));
+            
+            // Add vertex labels
+            const vertexLabels = triangleNum === 1 ? ["A", "B", "C"] : ["X", "Y", "Z"];
+            
+            for (let i = 0; i < 3; i++) {
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                let x = pointsArray[i][0];
+                let y = pointsArray[i][1];
+                
+                // Adjust label position based on vertex position
+                if (i === 0) { // Bottom left
+                    x -= 10;
+                    y += 20;
+                } else if (i === 1) { // Bottom right
+                    x += 5;
+                    y += 20;
+                } else { // Top
+                    x -= 5;
+                    y -= 10;
+                }
+                
+                label.setAttribute("x", x);
+                label.setAttribute("y", y);
+                label.setAttribute("font-size", "14");
+                label.setAttribute("font-weight", "bold");
+                label.setAttribute("fill", "#2c3e50");
+                label.textContent = vertexLabels[i];
+                svg.appendChild(label);
+            }
+            
+            // Add side length markers based on condition
+            if (condition === "SSS") {
+                // All sides marked as equal
+                addSideMarker(svg, pointsArray[0], pointsArray[1], "single", triangleNum === 1 ? "5" : "5");
+                addSideMarker(svg, pointsArray[1], pointsArray[2], "single", triangleNum === 1 ? "6" : "6");
+                addSideMarker(svg, pointsArray[2], pointsArray[0], "single", triangleNum === 1 ? "7" : "7");
+            } else if (condition === "SAS") {
+                // Two sides and included angle
+                addSideMarker(svg, pointsArray[0], pointsArray[1], "single", triangleNum === 1 ? "5" : "5");
+                addSideMarker(svg, pointsArray[0], pointsArray[2], "single", triangleNum === 1 ? "6" : "6");
+                addAngleMarker(svg, pointsArray[0], pointsArray[1], pointsArray[2], triangleNum === 1 ? "30°" : "30°");
+            } else if (condition === "ASA") {
+                // Two angles and included side
+                addAngleMarker(svg, pointsArray[0], pointsArray[1], pointsArray[2], triangleNum === 1 ? "40°" : "40°");
+                addSideMarker(svg, pointsArray[0], pointsArray[1], "single", triangleNum === 1 ? "5" : "5");
+                addAngleMarker(svg, pointsArray[1], pointsArray[0], pointsArray[2], triangleNum === 1 ? "60°" : "60°");
+            } else if (condition === "RHS") {
+                // Right angle, hypotenuse, side
+                addAngleMarker(svg, pointsArray[0], pointsArray[1], pointsArray[2], "90°", true);
+                addSideMarker(svg, pointsArray[0], pointsArray[1], "double", triangleNum === 1 ? "8" : "8"); // Hypotenuse
+                addSideMarker(svg, pointsArray[0], pointsArray[2], "single", triangleNum === 1 ? "5" : "5"); // Side
+            }
+        }
+        
+        function addSideMarker(svg, point1, point2, type, label) {
+            // Calculate midpoint
+            const midX = (point1[0] + point2[0]) / 2;
+            const midY = (point1[1] + point2[1]) / 2;
+            
+            // Calculate angle of the side
+            const angle = Math.atan2(point2[1] - point1[1], point2[0] - point1[0]);
+            const perpendicular = angle + Math.PI / 2;
+            
+            // Offset for marker
+            const offset = 10;
+            const markerX = midX + Math.cos(perpendicular) * offset;
+            const markerY = midY + Math.sin(perpendicular) * offset;
+            
+            // Add tick marks
+            const tickLength = 5;
+            const tick1X = markerX + Math.cos(angle) * tickLength;
+            const tick1Y = markerY + Math.sin(angle) * tickLength;
+            const tick2X = markerX - Math.cos(angle) * tickLength;
+            const tick2Y = markerY - Math.sin(angle) * tickLength;
+            
+            const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            tick.setAttribute("x1", tick1X);
+            tick.setAttribute("y1", tick1Y);
+            tick.setAttribute("x2", tick2X);
+            tick.setAttribute("y2", tick2Y);
+            tick.setAttribute("stroke", "#2c3e50");
+            tick.setAttribute("stroke-width", "2");
+            svg.appendChild(tick);
+            
+            // For double tick, add another parallel tick
+            if (type === "double") {
+                const offset2 = 15;
+                const markerX2 = midX + Math.cos(perpendicular) * offset2;
+                const markerY2 = midY + Math.sin(perpendicular) * offset2;
+                
+                const tick1X2 = markerX2 + Math.cos(angle) * tickLength;
+                const tick1Y2 = markerY2 + Math.sin(angle) * tickLength;
+                const tick2X2 = markerX2 - Math.cos(angle) * tickLength;
+                const tick2Y2 = markerY2 - Math.sin(angle) * tickLength;
+                
+                const tick2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                tick2.setAttribute("x1", tick1X2);
+                tick2.setAttribute("y1", tick1Y2);
+                tick2.setAttribute("x2", tick2X2);
+                tick2.setAttribute("y2", tick2Y2);
+                tick2.setAttribute("stroke", "#2c3e50");
+                tick2.setAttribute("stroke-width", "2");
+                svg.appendChild(tick2);
+            }
+            
+            // Add label
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            text.setAttribute("x", markerX + Math.cos(perpendicular) * 15);
+            text.setAttribute("y", markerY + Math.sin(perpendicular) * 15);
+            text.setAttribute("font-size", "12");
+            text.setAttribute("fill", "#2c3e50");
+            text.textContent = label;
+            svg.appendChild(text);
+        }
+        
+        function addAngleMarker(svg, vertex, point1, point2, label, isRightAngle = false) {
+            // Calculate vectors from vertex to points
+            const v1 = [point1[0] - vertex[0], point1[1] - vertex[1]];
+            const v2 = [point2[0] - vertex[0], point2[1] - vertex[1]];
+            
+            // Calculate angles
+            const angle1 = Math.atan2(v1[1], v1[0]);
+            const angle2 = Math.atan2(v2[1], v2[0]);
+            
+            // Ensure we get the interior angle
+            let startAngle, endAngle;
+            if (Math.abs(angle1 - angle2) > Math.PI) {
+                startAngle = Math.min(angle1, angle2) + 2 * Math.PI;
+                endAngle = Math.max(angle1, angle2);
+            } else {
+                startAngle = Math.min(angle1, angle2);
+                endAngle = Math.max(angle1, angle2);
+            }
+            
+            // Draw arc
+            const radius = 20;
+            const arc = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            
+            // For right angle, draw a square instead of an arc
+            if (isRightAngle) {
+                const armLength = 15;
+                const line1EndX = vertex[0] + Math.cos(angle1) * armLength;
+                const line1EndY = vertex[1] + Math.sin(angle1) * armLength;
+                const line2EndX = vertex[0] + Math.cos(angle2) * armLength;
+                const line2EndY = vertex[1] + Math.sin(angle2) * armLength;
+                
+                // Draw right angle indicator (square)
+                const rightAngle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                rightAngle.setAttribute("d", 
+                    `M ${line1EndX} ${line1EndY} 
+                     L ${vertex[0] + Math.cos(angle1) * (armLength-5) + Math.cos(angle1 + Math.PI/2) * 5} 
+                       ${vertex[1] + Math.sin(angle1) * (armLength-5) + Math.sin(angle1 + Math.PI/2) * 5}
+                     L ${line2EndX} ${line2EndY}`);
+                rightAngle.setAttribute("stroke", "#2c3e50");
+                rightAngle.setAttribute("stroke-width", "2");
+                rightAngle.setAttribute("fill", "none");
+                svg.appendChild(rightAngle);
+            } else {
+                // Regular angle arc
+                const arcStartX = vertex[0] + Math.cos(startAngle) * radius;
+                const arcStartY = vertex[1] + Math.sin(startAngle) * radius;
+                
+                const largeArcFlag = (endAngle - startAngle) > Math.PI ? 1 : 0;
+                const sweepFlag = 1;
+                
+                const arcEndX = vertex[0] + Math.cos(endAngle) * radius;
+                const arcEndY = vertex[1] + Math.sin(endAngle) * radius;
+                
+                arc.setAttribute("d", 
+                    `M ${arcStartX} ${arcStartY} 
+                     A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`);
+                arc.setAttribute("stroke", "#2c3e50");
+                arc.setAttribute("stroke-width", "2");
+                arc.setAttribute("fill", "none");
+                svg.appendChild(arc);
+            }
+            
+            // Add angle label
+            const midAngle = (startAngle + endAngle) / 2;
+            const labelRadius = radius + 10;
+            const labelX = vertex[0] + Math.cos(midAngle) * labelRadius;
+            const labelY = vertex[1] + Math.sin(midAngle) * labelRadius;
+            
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            text.setAttribute("x", labelX);
+            text.setAttribute("y", labelY);
+            text.setAttribute("font-size", "12");
+            text.setAttribute("fill", "#2c3e50");
+            text.textContent = label;
+            svg.appendChild(text);
+        }
+        
+        // Clear triangles
+        clearTrianglesBtn.addEventListener('click', function() {
+            triangle1.innerHTML = '';
+            triangle2.innerHTML = '';
+        });
+        
+        // Activity 2: Condition check
+        const conditionOptions = document.querySelectorAll('#condition-options .option');
+        const checkConditionsBtn = document.getElementById('check-conditions');
+        const conditionsFeedback = document.getElementById('conditions-feedback');
+        
+        conditionOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        checkConditionsBtn.addEventListener('click', function() {
+            let allCorrect = true;
+            let selectedCount = 0;
+            
+            conditionOptions.forEach(option => {
+                const isSelected = option.classList.contains('selected');
+                const shouldBeSelected = option.getAttribute('data-correct') === 'true';
+                
+                if (isSelected !== shouldBeSelected) {
+                    allCorrect = false;
+                }
+                
+                if (isSelected) selectedCount++;
+            });
+            
+            if (selectedCount === 0) {
+                conditionsFeedback.textContent = "Please select at least one condition.";
+                conditionsFeedback.className = "feedback incorrect";
+                conditionsFeedback.style.display = 'block';
+                return;
+            }
+            
+            if (allCorrect && selectedCount === 5) {
+                conditionsFeedback.textContent = "Correct! SSS, SAS, ASA, AAS, and RHS conditions always guarantee triangle congruence. SSA does not always guarantee congruence (ambiguous case).";
+                conditionsFeedback.className = "feedback correct";
+            } else {
+                conditionsFeedback.textContent = "Not quite right. Remember: SSS, SAS, ASA, AAS, and RHS always guarantee congruence. SSA does NOT always guarantee congruence (it's the ambiguous case).";
+                conditionsFeedback.className = "feedback incorrect";
+            }
+            
+            conditionsFeedback.style.display = 'block';
+        });
+        
+        // Initialize the first activity with all functionality loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trigger initial figure drawing
+            updateFigureB();
+            
+            // Initialize Activity 3 if it's the first tab shown
+            initializeActivity3();
+            initializeActivity4();
+            initializeActivity5();
+            
+            // Set up final review in summary
+            initializeSummary();
+        });
+        
+        // Activity 3: Corresponding Parts (simplified version)
+        function initializeActivity3() {
+            // Draw triangles ABC and XYZ
+            drawTriangleABC();
+            drawTriangleXYZ();
+            
+            // Set up draggable labels (simplified - just click to match)
+            const draggableLabels = document.querySelectorAll('.draggable-label');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            const checkCorrespondenceBtn = document.getElementById('check-correspondence');
+            const resetCorrespondenceBtn = document.getElementById('reset-correspondence');
+            const correspondenceFeedback = document.getElementById('correspondence-feedback');
+            
+            // Store correct correspondences
+            const correctCorrespondences = {
+                'A': 'X',
+                'B': 'Y', 
+                'C': 'Z',
+                'AB': 'XY',
+                'BC': 'YZ',
+                'AC': 'XZ',
+                '∠A': '∠X',
+                '∠B': '∠Y',
+                '∠C': '∠Z'
+            };
+            
+            // User's selections
+            const userSelections = {};
+            
+            // Set up click events for labels
+            draggableLabels.forEach(label => {
+                label.addEventListener('click', function() {
+                    const partType = this.getAttribute('data-part');
+                    const value = this.getAttribute('data-value');
+                    
+                    // Find corresponding drop zone
+                    const correspondingDropZone = Array.from(dropZones).find(
+                        zone => zone.getAttribute('data-part') === partType && 
+                               !zone.querySelector('.placed-label')
+                    );
+                    
+                    if (correspondingDropZone) {
+                        // Create a copy of the label and place it in the drop zone
+                        const placedLabel = document.createElement('div');
+                        placedLabel.className = 'placed-label';
+                        placedLabel.textContent = value;
+                        placedLabel.setAttribute('data-value', value);
+                        placedLabel.style.backgroundColor = '#3498db';
+                        placedLabel.style.color = 'white';
+                        placedLabel.style.padding = '5px';
+                        placedLabel.style.borderRadius = '3px';
+                        placedLabel.style.textAlign = 'center';
+                        placedLabel.style.margin = '2px';
+                        
+                        // Add remove button
+                        const removeBtn = document.createElement('span');
+                        removeBtn.textContent = ' ×';
+                        removeBtn.style.cursor = 'pointer';
+                        removeBtn.style.color = '#e74c3c';
+                        removeBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            correspondingDropZone.removeChild(placedLabel);
+                            delete userSelections[correspondingDropZone.getAttribute('data-corresponds')];
+                        });
+                        
+                        placedLabel.appendChild(removeBtn);
+                        correspondingDropZone.appendChild(placedLabel);
+                        
+                        // Store user's selection
+                        userSelections[correspondingDropZone.getAttribute('data-corresponds')] = value;
+                    }
+                });
+            });
+            
+            // Check correspondence
+            checkCorrespondenceBtn.addEventListener('click', function() {
+                let allCorrect = true;
+                let matchedCount = 0;
+                
+                // Check each correspondence
+                for (const [correctKey, correctValue] of Object.entries(correctCorrespondences)) {
+                    if (userSelections[correctKey]) {
+                        matchedCount++;
+                        if (userSelections[correctKey] !== correctValue) {
+                            allCorrect = false;
+                        }
+                    }
+                }
+                
+                if (matchedCount === 0) {
+                    correspondenceFeedback.textContent = "Please match at least one corresponding part.";
+                    correspondenceFeedback.className = "feedback incorrect";
+                    correspondenceFeedback.style.display = 'block';
+                    return;
+                }
+                
+                if (allCorrect && matchedCount === Object.keys(correctCorrespondences).length) {
+                    correspondenceFeedback.textContent = "Perfect! All corresponding parts are correctly matched. When △ABC ≅ △XYZ: A↔X, B↔Y, C↔Z, AB↔XY, BC↔YZ, AC↔XZ, ∠A↔∠X, ∠B↔∠Y, ∠C↔∠Z.";
+                    correspondenceFeedback.className = "feedback correct";
+                } else if (allCorrect) {
+                    correspondenceFeedback.textContent = "Good! The parts you've matched are correct, but you haven't matched all of them yet.";
+                    correspondenceFeedback.className = "feedback";
+                } else {
+                    correspondenceFeedback.textContent = "Some matches are incorrect. Remember: Corresponding vertices, sides, and angles must match based on the congruence statement △ABC ≅ △XYZ.";
+                    correspondenceFeedback.className = "feedback incorrect";
+                }
+                
+                correspondenceFeedback.style.display = 'block';
+            });
+            
+            // Reset correspondence
+            resetCorrespondenceBtn.addEventListener('click', function() {
+                document.querySelectorAll('.placed-label').forEach(label => {
+                    label.parentNode.removeChild(label);
+                });
+                
+                // Clear user selections
+                for (const key in userSelections) {
+                    delete userSelections[key];
+                }
+                
+                correspondenceFeedback.style.display = 'none';
+            });
+            
+            // Activity 3 notation check
+            const notationOptions = document.querySelectorAll('#activity3 .option');
+            const checkNotationBtn = document.getElementById('check-notation');
+            const notationFeedback = document.getElementById('notation-feedback');
+            
+            notationOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    notationOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            checkNotationBtn.addEventListener('click', function() {
+                const selectedOption = document.querySelector('#activity3 .option.selected');
+                
+                if (!selectedOption) {
+                    notationFeedback.textContent = "Please select an answer first.";
+                    notationFeedback.className = "feedback incorrect";
+                    notationFeedback.style.display = 'block';
+                    return;
+                }
+                
+                const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                
+                notationFeedback.textContent = isCorrect 
+                    ? "Correct! When writing congruence, the order of vertices must correspond. △BAC ≅ △YXZ means B↔Y, A↔X, C↔Z which maintains the correspondence from △ABC ≅ △XYZ."
+                    : "Incorrect. The notation △ABC ≅ △YZX would imply A↔Y, B↔Z, C↔X, which doesn't maintain the correct correspondence from △ABC ≅ △XYZ.";
+                
+                notationFeedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                notationFeedback.style.display = 'block';
+            });
+        }
+        
+        function drawTriangleABC() {
+            const container = document.getElementById('triangle-abc');
+            container.innerHTML = '';
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "180");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Triangle ABC
+            const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangle.setAttribute("points", "50,150 150,150 100,50");
+            triangle.setAttribute("fill", "#3498db");
+            triangle.setAttribute("fill-opacity", "0.3");
+            triangle.setAttribute("stroke", "#3498db");
+            triangle.setAttribute("stroke-width", "3");
+            svg.appendChild(triangle);
+            
+            // Labels
+            const labels = ["A", "B", "C"];
+            const points = [[50,150], [150,150], [100,50]];
+            const offsets = [[-10,20], [5,20], [-5,-10]];
+            
+            for (let i = 0; i < 3; i++) {
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("x", points[i][0] + offsets[i][0]);
+                label.setAttribute("y", points[i][1] + offsets[i][1]);
+                label.setAttribute("font-size", "16");
+                label.setAttribute("font-weight", "bold");
+                label.setAttribute("fill", "#2c3e50");
+                label.textContent = labels[i];
+                svg.appendChild(label);
+            }
+            
+            container.appendChild(svg);
+        }
+        
+        function drawTriangleXYZ() {
+            const container = document.getElementById('triangle-xyz');
+            container.innerHTML = '';
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "180");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Triangle XYZ (rotated version of ABC)
+            const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangle.setAttribute("points", "100,50 50,150 150,150");
+            triangle.setAttribute("fill", "#2ecc71");
+            triangle.setAttribute("fill-opacity", "0.3");
+            triangle.setAttribute("stroke", "#2ecc71");
+            triangle.setAttribute("stroke-width", "3");
+            svg.appendChild(triangle);
+            
+            // Labels
+            const labels = ["X", "Y", "Z"];
+            const points = [[100,50], [50,150], [150,150]];
+            const offsets = [[-5,-10], [-10,20], [5,20]];
+            
+            for (let i = 0; i < 3; i++) {
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("x", points[i][0] + offsets[i][0]);
+                label.setAttribute("y", points[i][1] + offsets[i][1]);
+                label.setAttribute("font-size", "16");
+                label.setAttribute("font-weight", "bold");
+                label.setAttribute("fill", "#2c3e50");
+                label.textContent = labels[i];
+                svg.appendChild(label);
+            }
+            
+            container.appendChild(svg);
+        }
+        
+        // Activity 4: Triangle Conditions Application
+        function initializeActivity4() {
+            // Draw rectangle diagram
+            drawRectangleDiagram();
+            
+            // Rectangle congruence check
+            const rectangleOptions = document.querySelectorAll('#activity4 .option');
+            const checkRectangleBtn = document.getElementById('check-rectangle');
+            const rectangleFeedback = document.getElementById('rectangle-feedback');
+            
+            rectangleOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    rectangleOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            checkRectangleBtn.addEventListener('click', function() {
+                const selectedOption = document.querySelector('#activity4 .option.selected');
+                
+                if (!selectedOption) {
+                    rectangleFeedback.textContent = "Please select an answer first.";
+                    rectangleFeedback.className = "feedback incorrect";
+                    rectangleFeedback.style.display = 'block';
+                    return;
+                }
+                
+                const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                
+                rectangleFeedback.textContent = isCorrect 
+                    ? "Correct! △ABD and △CDB have: AB = CD (opposite sides of rectangle), AD = CB (opposite sides of rectangle), and BD = BD (common side). So all three sides are equal (SSS condition)."
+                    : "Incorrect. Look at what we know: AB = CD, AD = CB, and BD is common. That's three pairs of equal sides, which is the SSS condition.";
+                
+                rectangleFeedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                rectangleFeedback.style.display = 'block';
+            });
+            
+            // Triangle congruence checker
+            const checkTriangleCongruenceBtn = document.getElementById('check-triangle-congruence');
+            const triangleCongruenceFeedback = document.getElementById('triangle-congruence-feedback');
+            
+            checkTriangleCongruenceBtn.addEventListener('click', function() {
+                const side1 = parseFloat(document.getElementById('side1').value);
+                const side2 = parseFloat(document.getElementById('side2').value);
+                const angle = parseFloat(document.getElementById('angle1').value);
+                const position = document.getElementById('position').value;
+                
+                if (!side1 || !side2 || !angle) {
+                    triangleCongruenceFeedback.textContent = "Please enter all values.";
+                    triangleCongruenceFeedback.className = "feedback incorrect";
+                    triangleCongruenceFeedback.style.display = 'block';
+                    return;
+                }
+                
+                if (position === 'included') {
+                    triangleCongruenceFeedback.textContent = `With two sides (${side1} cm and ${side2} cm) and the INCLUDED angle (${angle}°), the triangles are congruent by SAS condition.`;
+                    triangleCongruenceFeedback.className = "feedback correct";
+                } else {
+                    triangleCongruenceFeedback.textContent = `With two sides (${side1} cm and ${side2} cm) and a NON-INCLUDED angle (${angle}°), congruence is NOT guaranteed. This is the SSA condition (ambiguous case) where two different triangles may exist.`;
+                    triangleCongruenceFeedback.className = "feedback";
+                }
+                
+                triangleCongruenceFeedback.style.display = 'block';
+            });
+        }
+        
+        function drawRectangleDiagram() {
+            const container = document.getElementById('rectangle-diagram');
+            container.innerHTML = '';
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "280");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 300 200");
+            
+            // Rectangle ABCD
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("x", "50");
+            rect.setAttribute("y", "50");
+            rect.setAttribute("width", "200");
+            rect.setAttribute("height", "100");
+            rect.setAttribute("fill", "#f0f8ff");
+            rect.setAttribute("stroke", "#3498db");
+            rect.setAttribute("stroke-width", "2");
+            svg.appendChild(rect);
+            
+            // Diagonal BD
+            const diagonal = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            diagonal.setAttribute("x1", "50");
+            diagonal.setAttribute("y1", "50");
+            diagonal.setAttribute("x2", "250");
+            diagonal.setAttribute("y2", "150");
+            diagonal.setAttribute("stroke", "#e74c3c");
+            diagonal.setAttribute("stroke-width", "2");
+            diagonal.setAttribute("stroke-dasharray", "5,5");
+            svg.appendChild(diagonal);
+            
+            // Vertex labels
+            const vertices = [
+                {x: 50, y: 50, label: "A"},
+                {x: 250, y: 50, label: "B"},
+                {x: 250, y: 150, label: "C"},
+                {x: 50, y: 150, label: "D"}
+            ];
+            
+            vertices.forEach(vertex => {
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("x", vertex.x);
+                label.setAttribute("y", vertex.y);
+                label.setAttribute("dx", vertex.label === "A" ? -10 : vertex.label === "B" ? 10 : vertex.label === "C" ? 10 : -10);
+                label.setAttribute("dy", vertex.label === "A" ? -10 : vertex.label === "B" ? -10 : vertex.label === "C" ? 20 : 20);
+                label.setAttribute("font-size", "16");
+                label.setAttribute("font-weight", "bold");
+                label.setAttribute("fill", "#2c3e50");
+                label.textContent = vertex.label;
+                svg.appendChild(label);
+            });
+            
+            // Highlight triangles ABD and CDB
+            const triangleABD = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangleABD.setAttribute("points", "50,50 250,50 50,150");
+            triangleABD.setAttribute("fill", "#3498db");
+            triangleABD.setAttribute("fill-opacity", "0.2");
+            triangleABD.setAttribute("stroke", "none");
+            svg.appendChild(triangleABD);
+            
+            const triangleCDB = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangleCDB.setAttribute("points", "250,150 50,150 250,50");
+            triangleCDB.setAttribute("fill", "#2ecc71");
+            triangleCDB.setAttribute("fill-opacity", "0.2");
+            triangleCDB.setAttribute("stroke", "none");
+            svg.appendChild(triangleCDB);
+            
+            // Add triangle labels
+            const triangleABDLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            triangleABDLabel.setAttribute("x", "100");
+            triangleABDLabel.setAttribute("y", "80");
+            triangleABDLabel.setAttribute("font-size", "14");
+            triangleABDLabel.setAttribute("font-weight", "bold");
+            triangleABDLabel.setAttribute("fill", "#2c3e50");
+            triangleABDLabel.textContent = "△ABD";
+            svg.appendChild(triangleABDLabel);
+            
+            const triangleCDBLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            triangleCDBLabel.setAttribute("x", "200");
+            triangleCDBLabel.setAttribute("y", "120");
+            triangleCDBLabel.setAttribute("font-size", "14");
+            triangleCDBLabel.setAttribute("font-weight", "bold");
+            triangleCDBLabel.setAttribute("fill", "#2c3e50");
+            triangleCDBLabel.textContent = "△CDB";
+            svg.appendChild(triangleCDBLabel);
+            
+            container.appendChild(svg);
+        }
+        
+        // Activity 5: Special Triangles
+        function initializeActivity5() {
+            // Draw isosceles triangle
+            drawIsoscelesTriangle();
+            
+            // Isosceles triangle check
+            const isoscelesOptions = document.querySelectorAll('#activity5 .option');
+            const checkIsoscelesBtn = document.getElementById('check-isosceles');
+            const isoscelesFeedback = document.getElementById('isosceles-feedback');
+            
+            isoscelesOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    isoscelesOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            checkIsoscelesBtn.addEventListener('click', function() {
+                const selectedOption = document.querySelector('#activity5 .option.selected');
+                
+                if (!selectedOption) {
+                    isoscelesFeedback.textContent = "Please select an answer first.";
+                    isoscelesFeedback.className = "feedback incorrect";
+                    isoscelesFeedback.style.display = 'block';
+                    return;
+                }
+                
+                const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                
+                isoscelesFeedback.textContent = isCorrect 
+                    ? "Correct! When we construct altitude AD from A to BC in isosceles △ABC (with AB = AC): AD is common, ∠ADB = ∠ADC = 90° (right angles), and AB = AC (given). So △ADB ≅ △ADC by RHS condition, proving ∠B = ∠C."
+                    : "Incorrect. Think about what we have: AB = AC (given), AD is common, and ∠ADB = ∠ADC = 90° (since AD is altitude). This gives us two right triangles with equal hypotenuses and one equal side, which is the RHS condition.";
+                
+                isoscelesFeedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                isoscelesFeedback.style.display = 'block';
+            });
+            
+            // Equilateral triangle angle calculation
+            const checkEquilateralBtn = document.getElementById('check-equilateral');
+            const equilateralFeedback = document.getElementById('equilateral-feedback');
+            const equilateralAngleInput = document.getElementById('equilateral-angle');
+            
+            checkEquilateralBtn.addEventListener('click', function() {
+                const userAngle = parseFloat(equilateralAngleInput.value);
+                
+                if (!userAngle) {
+                    equilateralFeedback.textContent = "Please enter an angle measure.";
+                    equilateralFeedback.className = "feedback incorrect";
+                    equilateralFeedback.style.display = 'block';
+                    return;
+                }
+                
+                if (Math.abs(userAngle - 60) < 0.1) {
+                    equilateralFeedback.textContent = "Correct! In an equilateral triangle, all sides are equal, so all angles are equal. Since the sum of angles in a triangle is 180°, each angle must be 180° ÷ 3 = 60°.";
+                    equilateralFeedback.className = "feedback correct";
+                } else {
+                    equilateralFeedback.textContent = `Not quite. You entered ${userAngle}°. Remember: All angles are equal in an equilateral triangle, and their sum is 180°. So each angle = 180° ÷ 3 = 60°.`;
+                    equilateralFeedback.className = "feedback incorrect";
+                }
+                
+                equilateralFeedback.style.display = 'block';
+            });
+            
+            // Draw equilateral triangle
+            drawEquilateralTriangle();
+        }
+        
+        function drawIsoscelesTriangle() {
+            const container = document.getElementById('isosceles-triangle');
+            container.innerHTML = '';
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "180");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Isosceles triangle ABC with AB = AC
+            const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangle.setAttribute("points", "50,150 150,150 100,50");
+            triangle.setAttribute("fill", "#3498db");
+            triangle.setAttribute("fill-opacity", "0.2");
+            triangle.setAttribute("stroke", "#3498db");
+            triangle.setAttribute("stroke-width", "3");
+            svg.appendChild(triangle);
+            
+            // Altitude AD
+            const altitude = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            altitude.setAttribute("x1", "100");
+            altitude.setAttribute("y1", "50");
+            altitude.setAttribute("x2", "100");
+            altitude.setAttribute("y2", "150");
+            altitude.setAttribute("stroke", "#e74c3c");
+            altitude.setAttribute("stroke-width", "2");
+            altitude.setAttribute("stroke-dasharray", "5,5");
+            svg.appendChild(altitude);
+            
+            // Vertex labels
+            const labels = ["A", "B", "C", "D"];
+            const points = [[100,50], [50,150], [150,150], [100,150]];
+            const offsets = [[-5,-10], [-10,20], [5,20], [-5,20]];
+            
+            for (let i = 0; i < 4; i++) {
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("x", points[i][0] + offsets[i][0]);
+                label.setAttribute("y", points[i][1] + offsets[i][1]);
+                label.setAttribute("font-size", "14");
+                label.setAttribute("font-weight", "bold");
+                label.setAttribute("fill", "#2c3e50");
+                label.textContent = labels[i];
+                svg.appendChild(label);
+            }
+            
+            // Mark equal sides AB and AC
+            addSideMarker(svg, [100,50], [50,150], "single", "");
+            addSideMarker(svg, [100,50], [150,150], "single", "");
+            
+            // Mark right angles at D
+            const rightAnglePoints1 = [[100,150], [50,150], [100,50]];
+            addAngleMarker(svg, rightAnglePoints1[0], rightAnglePoints1[1], rightAnglePoints1[2], "90°", true);
+            
+            const rightAnglePoints2 = [[100,150], [150,150], [100,50]];
+            addAngleMarker(svg, rightAnglePoints2[0], rightAnglePoints2[1], rightAnglePoints2[2], "90°", true);
+            
+            container.appendChild(svg);
+        }
+        
+        function drawEquilateralTriangle() {
+            const container = document.getElementById('equilateral-triangle');
+            container.innerHTML = '';
+            
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", "180");
+            svg.setAttribute("height", "180");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Equilateral triangle ABC
+            const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            triangle.setAttribute("points", "50,150 150,150 100,30");
+            triangle.setAttribute("fill", "#2ecc71");
+            triangle.setAttribute("fill-opacity", "0.2");
+            triangle.setAttribute("stroke", "#2ecc71");
+            triangle.setAttribute("stroke-width", "3");
+            svg.appendChild(triangle);
+            
+            // Vertex labels
+            const labels = ["A", "B", "C"];
+            const points = [[100,30], [50,150], [150,150]];
+            const offsets = [[-5,-10], [-10,20], [5,20]];
+            
+            for (let i = 0; i < 3; i++) {
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute("x", points[i][0] + offsets[i][0]);
+                label.setAttribute("y", points[i][1] + offsets[i][1]);
+                label.setAttribute("font-size", "14");
+                label.setAttribute("font-weight", "bold");
+                label.setAttribute("fill", "#2c3e50");
+                label.textContent = labels[i];
+                svg.appendChild(label);
+            }
+            
+            // Mark all sides as equal
+            addSideMarker(svg, points[0], points[1], "single", "");
+            addSideMarker(svg, points[1], points[2], "single", "");
+            addSideMarker(svg, points[2], points[0], "single", "");
+            
+            // Add angle measures (all 60°)
+            addAngleMarker(svg, points[0], points[1], points[2], "60°");
+            addAngleMarker(svg, points[1], points[0], points[2], "60°");
+            addAngleMarker(svg, points[2], points[0], points[1], "60°");
+            
+            container.appendChild(svg);
+        }
+        
+        // Summary: Final review
+        function initializeSummary() {
+            const finalOptions = document.querySelectorAll('#summary .option');
+            const checkFinalBtn = document.getElementById('check-final');
+            const finalFeedback = document.getElementById('final-feedback');
+            
+            finalOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+            
+            checkFinalBtn.addEventListener('click', function() {
+                let allCorrect = true;
+                let selectedCount = 0;
+                
+                finalOptions.forEach(option => {
+                    const isSelected = option.classList.contains('selected');
+                    const shouldBeSelected = option.getAttribute('data-correct') === 'true';
+                    
+                    if (isSelected !== shouldBeSelected) {
+                        allCorrect = false;
+                    }
+                    
+                    if (isSelected) selectedCount++;
+                });
+                
+                if (selectedCount === 0) {
+                    finalFeedback.textContent = "Please select at least one statement.";
+                    finalFeedback.className = "feedback incorrect";
+                    finalFeedback.style.display = 'block';
+                    return;
+                }
+                
+                if (allCorrect && selectedCount === 5) {
+                    finalFeedback.textContent = "Excellent! You have a strong understanding of triangle congruence. All your selections are correct.";
+                    finalFeedback.className = "feedback correct";
+                } else {
+                    finalFeedback.textContent = "Review needed: 1) Corresponding angles and sides are equal in congruent triangles. 2) Congruent triangles can be rotated or flipped (different orientation). 3) Congruent triangles have the same area. 4) SSA does NOT always guarantee congruence. 5) RHS applies only to right triangles.";
+                    finalFeedback.className = "feedback incorrect";
+                }
+                
+                finalFeedback.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Standard 6 Numeracy Test | Open-Ended | Printable Worksheet + Answer Key</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #e6edf4;
+      font-family: 'Segoe UI', 'Roboto', 'Georgia', 'Times New Roman', serif;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* main booklet container */
+    .test-booklet {
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    /* worksheet and answer key sections */
+    .worksheet, .answer-key {
+      background: white;
+      padding: 2rem 2.2rem;
+      color: #111827;
+    }
+
+    /* answer key starts on new page when printed */
+    .answer-key {
+      page-break-before: always;
+      border-top: 2px dashed #b9c8e0;
+    }
+
+    /* typography – dark, large, readable */
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0b2b3b;
+      border-left: 7px solid #1e4a76;
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.3px;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #2c3e44;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .marks-badge {
+      background: #1e4a76;
+      color: white;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* student info lines */
+    .student-info {
+      background: #f8fafc;
+      padding: 1rem 1.4rem;
+      margin: 1.2rem 0 1.8rem 0;
+      border-radius: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      border: 1px solid #dce5ef;
+    }
+
+    .info-field {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      font-size: 1rem;
+    }
+
+    .info-field span:first-child {
+      font-weight: 700;
+      min-width: 85px;
+      color: #0f3b2c;
+    }
+
+    .line {
+      border-bottom: 1.5px solid #334155;
+      min-width: 210px;
+      display: inline-block;
+      height: 1.4rem;
+    }
+
+    /* instruction box */
+    .instruction-box {
+      background: #fefce8;
+      padding: 0.8rem 1.2rem;
+      border-left: 5px solid #eab308;
+      margin: 1rem 0 1.8rem 0;
+      font-size: 0.95rem;
+      color: #2d3e2b;
+      border-radius: 0.8rem;
+    }
+
+    /* questions list */
+    .question-list {
+      margin: 1rem 0;
+    }
+
+    .question-item {
+      margin-bottom: 2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid #e9edf2;
+      page-break-inside: avoid;
+    }
+
+    .q-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .q-num {
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: #eef2ff;
+      padding: 0.1rem 0.8rem;
+      border-radius: 40px;
+      color: #1e4a76;
+    }
+
+    .q-marks {
+      font-size: 0.8rem;
+      background: #e6f7ec;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 600;
+      color: #2d6a4f;
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #111827;
+      margin: 0.5rem 0 1rem 0;
+      line-height: 1.45;
+    }
+
+    /* math styling */
+    .math {
+      font-family: 'Courier New', 'Lucida Sans Typewriter', monospace;
+      font-size: 1.15rem;
+      background: #f3f6fc;
+      padding: 0.1rem 0.3rem;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* answer blank line */
+    .answer-space {
+      margin-top: 0.6rem;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .answer-label {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+
+    .blank-line {
+      border-bottom: 1.5px solid #1e293b;
+      min-width: 220px;
+      display: inline-block;
+      height: 1.7rem;
+      width: auto;
+      flex: 0 1 260px;
+    }
+
+    .blank-short {
+      min-width: 120px;
+      flex: 0 1 140px;
+    }
+
+    /* answer key styling – dark, large */
+    .answer-key h2 {
+      font-size: 1.9rem;
+      color: #0b3b2f;
+      border-bottom: 3px solid #1e4a76;
+      display: inline-block;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.2rem;
+    }
+
+    .answer-entry {
+      margin: 1rem 0;
+      padding: 0.6rem 0;
+      border-bottom: 1px dotted #cbd5e1;
+    }
+
+    .answer-ref {
+      font-weight: 800;
+      background: #eef2ff;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      margin-right: 1rem;
+      font-size: 1rem;
+      display: inline-block;
+    }
+
+    .correct-ans {
+      color: #065f46;
+      font-weight: 800;
+      background: #ecfdf5;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 1.05rem;
+    }
+
+    .explanation {
+      color: #2c3e50;
+      margin-top: 0.3rem;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #5b6e8c;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 1rem;
+    }
+
+    /* print optimizations: larger, dark, keep underlines */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+      .test-booklet {
+        max-width: 100%;
+        box-shadow: none;
+      }
+      .worksheet, .answer-key {
+        padding: 1.2rem 1.8rem;
+      }
+      .blank-line {
+        border-bottom: 1.5px solid black;
+      }
+      .line {
+        border-bottom: 1.5px solid black;
+      }
+      .instruction-box {
+        background: #f9f5e3;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .q-num, .marks-badge, .correct-ans {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .answer-key {
+        page-break-before: always;
+      }
+      .question-item {
+        page-break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .worksheet, .answer-key {
+        padding: 1rem;
+      }
+      .question-text {
+        font-size: 1.05rem;
+      }
+      .blank-line {
+        min-width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="test-booklet">
+  <!-- ================= STUDENT WORKSHEET (NO OPTIONS, JUST BLANKS) ================= -->
+  <div class="worksheet">
+    <h1>📐 Standard 6 Numeracy Assessment</h1>
+    <div class="subhead">
+      <span>Based on Class 6 Syllabus | Basic Competency Level</span>
+      <span class="marks-badge">⭐ Total Marks: 20 | Time: 40 min</span>
+    </div>
+
+    <div class="student-info">
+      <div class="info-field"><span>Student Name:</span><span class="line"></span></div>
+      <div class="info-field"><span>Date:</span><span class="line"></span></div>
+      <div class="info-field"><span>Roll Number:</span><span class="line"></span></div>
+    </div>
+
+    <div class="instruction-box">
+      <strong>📌 Instructions:</strong> Answer all 10 questions. Each question carries 2 marks.<br>
+      • Write your final answer in the blank space provided. For fractions and ratios, write in simplest form.<br>
+      • Show rough work on the side. Use dark pen/pencil. No multiple choice options – write the correct answer directly.
+    </div>
+
+    <div class="question-list">
+      <!-- Q1 - Arithmetic -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">1</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Compute: <span class="math">125 + 436 − 278</span></div>
+        <div class="answer-space"><span class="answer-label">Answer:</span><span class="blank-line"></span></div>
+      </div>
+
+      <!-- Q2 - Equivalent fraction (open ended) -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">2</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Write any one fraction that is equivalent to <span class="math">3/5</span>.</div>
+        <div class="answer-space"><span class="answer-label">Equivalent fraction:</span><span class="blank-line blank-short"></span></div>
+      </div>
+
+      <!-- Q3 - Decimal conversion -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">3</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Convert <span class="math">3/8</span> into decimal form.</div>
+        <div class="answer-space"><span class="answer-label">Decimal:</span><span class="blank-line blank-short"></span></div>
+      </div>
+
+      <!-- Q4 - LCM -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">4</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Find the <strong>Least Common Multiple (LCM)</strong> of 12 and 18.</div>
+        <div class="answer-space"><span class="answer-label">LCM =</span><span class="blank-line blank-short"></span></div>
+      </div>
+
+      <!-- Q5 - Area of rectangle -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">5</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">A rectangle has length 8 cm and width 5 cm. What is its area? (Give the unit)</div>
+        <div class="answer-space"><span class="answer-label">Area =</span><span class="blank-line"></span></div>
+      </div>
+
+      <!-- Q6 - Percentage -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">6</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Calculate 30% of 200.</div>
+        <div class="answer-space"><span class="answer-label">Value =</span><span class="blank-line blank-short"></span></div>
+      </div>
+
+      <!-- Q7 - Speed & distance -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">7</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">A train travels at a speed of 45 km per hour. How many kilometres will it cover in 5 hours?</div>
+        <div class="answer-space"><span class="answer-label">Distance =</span><span class="blank-line"></span> km</div>
+      </div>
+
+      <!-- Q8 - Ratio simplification -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">8</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Simplify the ratio <span class="math">15 : 25</span> to its simplest form.</div>
+        <div class="answer-space"><span class="answer-label">Simplest ratio:</span><span class="blank-line blank-short"></span></div>
+      </div>
+
+      <!-- Q9 - Perimeter of square -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">9</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Find the perimeter of a square whose side is 7 cm.</div>
+        <div class="answer-space"><span class="answer-label">Perimeter =</span><span class="blank-line"></span> cm</div>
+      </div>
+
+      <!-- Q10 - Integer evaluation -->
+      <div class="question-item">
+        <div class="q-head"><span class="q-num">10</span><span class="q-marks">2 marks</span></div>
+        <div class="question-text">Evaluate: <span class="math">−4 + 8 − (−2)</span></div>
+        <div class="answer-space"><span class="answer-label">Result =</span><span class="blank-line blank-short"></span></div>
+      </div>
+    </div>
+
+    <footer>✍️ End of test | Each question = 2 marks | Write answers clearly in the spaces provided.</footer>
+  </div>
+
+  <!-- ================= ANSWER KEY (SEPARATE PAGE) ================= -->
+  <div class="answer-key">
+    <h2>🔐 Answer Key & Detailed Solutions</h2>
+    <p style="margin: 0 0 1rem 0; font-size: 1rem;">✅ Use this key to check your work. Each correct answer = 2 marks. Total = 20 marks.</p>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q1</span> <strong class="correct-ans">283</strong>
+      <div class="explanation">📐 Step: 125 + 436 = 561; 561 − 278 = 283.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q2</span> <strong class="correct-ans">6/10  (or 9/15, 12/20, 15/25, etc.)</strong>
+      <div class="explanation">✨ Any fraction equivalent to 3/5 is correct. Example: multiply numerator and denominator by 2 → 6/10.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q3</span> <strong class="correct-ans">0.375</strong>
+      <div class="explanation">📌 3 ÷ 8 = 0.375 exactly.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q4</span> <strong class="correct-ans">36</strong>
+      <div class="explanation">🔢 LCM of 12 and 18: multiples of 12 → 12, 24, 36, 48… ; multiples of 18 → 18, 36, 54… smallest common = 36.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q5</span> <strong class="correct-ans">40 cm²</strong>
+      <div class="explanation">📏 Area = length × width = 8 cm × 5 cm = 40 cm².</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q6</span> <strong class="correct-ans">60</strong>
+      <div class="explanation">📊 30% of 200 = (30/100) × 200 = 60.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q7</span> <strong class="correct-ans">225 km</strong>
+      <div class="explanation">🚆 Distance = Speed × Time = 45 km/h × 5 h = 225 km.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q8</span> <strong class="correct-ans">3 : 5</strong>
+      <div class="explanation">📐 Divide both terms of 15:25 by 5 → 3:5.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q9</span> <strong class="correct-ans">28 cm</strong>
+      <div class="explanation">⬛ Perimeter of square = 4 × side = 4 × 7 = 28 cm.</div>
+    </div>
+
+    <div class="answer-entry">
+      <span class="answer-ref">Q10</span> <strong class="correct-ans">6</strong>
+      <div class="explanation">🔢 −4 + 8 − (−2) = −4 + 8 + 2 = 6.</div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1rem; background: #f1f5f9; border-radius: 1rem;">
+      <p><strong>📋 Scoring guide:</strong> Each correct answer = 2 marks. Maximum = 20 marks.</p>
+      <p><strong>🌟 Competency levels:</strong> 16–20: Excellent | 12–15: Good | 8–11: Average | Below 8: Needs revision.</p>
+      <p>📚 All questions follow Class 6 syllabus (integers, fractions, decimals, ratio, LCM, area, perimeter, percentage, speed).</p>
+    </div>
+    <footer>Printable worksheet | Dark, large font | No options – open-ended answers only</footer>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Inverse vs Original Trig Functions | Domain & Range Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f8;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #0a2b3e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.92);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+            padding: 1.8rem 2rem;
+            transition: all 0.2s;
+        }
+
+        h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .sub {
+            color: #2c5a7a;
+            border-left: 4px solid #2a6f9c;
+            padding-left: 1rem;
+            margin: 0.3rem 0 1rem 0;
+            font-weight: 400;
+        }
+
+        .badge-note {
+            background: #e9ecef;
+            border-radius: 30px;
+            padding: 0.2rem 1rem;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1.2rem;
+        }
+
+        /* button panel */
+        .func-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0 1.2rem 0;
+            justify-content: center;
+        }
+
+        .func-btn {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1e3c72;
+            font-family: monospace;
+        }
+
+        .func-btn.active {
+            background: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+            box-shadow: 0 6px 12px rgba(30,60,114,0.25);
+        }
+
+        .func-btn:hover:not(.active) {
+            background: #e6edf6;
+            transform: translateY(-2px);
+        }
+
+        /* comparison layout: two graphs side by side */
+        .comparison-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .graph-card {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffffdd;
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1rem 1rem 1rem 1rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .graph-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px dashed #b9d0e7;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+        }
+
+        .info-panel {
+            background: #f0f5fb;
+            border-radius: 1.2rem;
+            padding: 1rem 1.5rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+        }
+
+        .info-block {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            word-break: break-word;
+            background: #ffffffb3;
+            display: inline-block;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        .table-summary {
+            margin-top: 2rem;
+            background: #f1f5f9;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.6rem 0.4rem;
+            text-align: left;
+            border-bottom: 1px solid #cbd5e1;
+        }
+
+        th {
+            color: #1e3c72;
+        }
+
+        .footnote {
+            font-size: 0.72rem;
+            color: #4a627a;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 780px) {
+            .container {
+                padding: 1rem;
+            }
+            .graph-title {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📐 INVERSE TRIGONOMETRIC FUNCTIONS</h1>
+    <div class="sub">↗️ Comparison with original trigonometric functions (restricted domains) — domain & range clarity</div>
+    <div class="badge-note">⚡ Principal value branches | sin⁻¹x ≠ (sin x)⁻¹ | Bijection through restriction</div>
+
+    <!-- Function selector -->
+    <div class="func-panel" id="func-buttons">
+        <button data-func="sin" class="func-btn active">y = sin⁻¹ x  ⇔  sin x</button>
+        <button data-func="cos" class="func-btn">y = cos⁻¹ x  ⇔  cos x</button>
+        <button data-func="tan" class="func-btn">y = tan⁻¹ x  ⇔  tan x</button>
+        <button data-func="cot" class="func-btn">y = cot⁻¹ x  ⇔  cot x</button>
+        <button data-func="sec" class="func-btn">y = sec⁻¹ x  ⇔  sec x</button>
+        <button data-func="csc" class="func-btn">y = csc⁻¹ x  ⇔  csc x</button>
+    </div>
+
+    <!-- Domain & Range quick info -->
+    <div class="info-panel" id="info-panel">
+        <div class="info-block"><span class="info-label">📌 INVERSE FUNCTION</span><br><span id="inv-name" class="info-value">sin⁻¹ x</span></div>
+        <div class="info-block"><span class="info-label">🎯 DOMAIN (inverse)</span><br><span id="inv-domain" class="info-value">[-1, 1]</span></div>
+        <div class="info-block"><span class="info-label">🌈 RANGE (inverse)</span><br><span id="inv-range" class="info-value">[-π/2, π/2]</span></div>
+        <div class="info-block"><span class="info-label">📐 ORIGINAL (restricted)</span><br><span id="orig-domain" class="info-value">[-π/2, π/2]</span></div>
+        <div class="info-block"><span class="info-label">🔄 RANGE (original)</span><br><span id="orig-range" class="info-value">[-1, 1]</span></div>
+    </div>
+
+    <!-- Two graphs: Inverse function (left) and Original trig function (right) -->
+    <div class="comparison-row">
+        <div class="graph-card">
+            <div class="graph-title">🔁 INVERSE FUNCTION <span style="font-family: monospace;" id="inv-graph-label">y = sin⁻¹ x</span></div>
+            <canvas id="invCanvas" width="550" height="380" style="width:100%; height:auto; max-width:550px; aspect-ratio:550/380; margin:0 auto; display:block;"></canvas>
+            <div class="footnote" style="margin-top: 6px;">Principal branch graph (reflection of original across y=x)</div>
+        </div>
+        <div class="graph-card">
+            <div class="graph-title">📈 ORIGINAL TRIG FUNCTION <span style="font-family: monospace;" id="orig-graph-label">y = sin x (restricted)</span></div>
+            <canvas id="origCanvas" width="550" height="380" style="width:100%; height:auto; max-width:550px; aspect-ratio:550/380; margin:0 auto; display:block;"></canvas>
+            <div class="footnote" style="margin-top: 6px;">Restricted domain that makes the function one‑to‑one & invertible</div>
+        </div>
+    </div>
+
+    <!-- Summary table for all principal value branches -->
+    <div class="table-summary">
+        <div style="font-weight:700; margin-bottom:10px;">📋 DOMAIN & RANGE REFERENCE (Principal Value Branches)</div>
+        <table>
+            <thead><tr><th>Function</th><th>Domain (Inverse)</th><th>Range (Inverse)</th><th>Corresponding Original (restricted domain)</th><th>Original Range</th></tr></thead>
+            <tbody>
+                <tr><td>sin⁻¹ x</td><td>[-1, 1]</td><td>[-π/2, π/2]</td><td>sin x on [-π/2, π/2]</td><td>[-1, 1]</td></tr>
+                <tr><td>cos⁻¹ x</td><td>[-1, 1]</td><td>[0, π]</td><td>cos x on [0, π]</td><td>[-1, 1]</td></tr>
+                <tr><td>tan⁻¹ x</td><td>ℝ</td><td>(-π/2, π/2)</td><td>tan x on (-π/2, π/2)</td><td>ℝ</td></tr>
+                <tr><td>cot⁻¹ x</td><td>ℝ</td><td>(0, π)</td><td>cot x on (0, π)</td><td>ℝ</td></tr>
+                <tr><td>sec⁻¹ x</td><td>ℝ \ (-1,1)  (|x|≥1)</td><td>[0, π] \ {π/2}</td><td>sec x on [0, π] \ {π/2}</td><td>ℝ \ (-1,1)</td></tr>
+                <tr><td>csc⁻¹ x</td><td>ℝ \ (-1,1)  (|x|≥1)</td><td>[-π/2, π/2] \ {0}</td><td>csc x on [-π/2, π/2] \ {0}</td><td>ℝ \ (-1,1)</td></tr>
+            </tbody>
+        </table>
+        <div class="footnote">💡 The original trig function is restricted to the interval where it is one‑to‑one. The inverse function's graph is the reflection across y = x.</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ----- Canvas setup for both graphs
+        const invCanvas = document.getElementById('invCanvas');
+        const origCanvas = document.getElementById('origCanvas');
+        const ctxInv = invCanvas.getContext('2d');
+        const ctxOrig = origCanvas.getContext('2d');
+
+        const width = 550, height = 380;
+        invCanvas.width = width; invCanvas.height = height;
+        origCanvas.width = width; origCanvas.height = height;
+
+        const margin = { left: 55, right: 20, top: 20, bottom: 35 };
+        const plotW = width - margin.left - margin.right;
+        const plotH = height - margin.top - margin.bottom;
+
+        // Data for each function pair: inverse and original (restricted)
+        const pairs = {
+            sin: {
+                name: 'sin⁻¹ x',
+                inv: {
+                    fn: (x) => Math.asin(x),
+                    domain: [-1, 1],
+                    range: [-Math.PI/2, Math.PI/2],
+                    isContinuous: true,
+                    valid: x => x >= -1 && x <= 1
+                },
+                orig: {
+                    fn: (x) => Math.sin(x),
+                    domain: [-Math.PI/2, Math.PI/2],
+                    range: [-1, 1],
+                    isContinuous: true,
+                    valid: x => x >= -Math.PI/2 && x <= Math.PI/2,
+                    asym: null
+                },
+                origLabel: 'y = sin x, x∈[-π/2, π/2]',
+                invLabel: 'y = sin⁻¹ x'
+            },
+            cos: {
+                name: 'cos⁻¹ x',
+                inv: {
+                    fn: (x) => Math.acos(x),
+                    domain: [-1, 1],
+                    range: [0, Math.PI],
+                    valid: x => x >= -1 && x <= 1
+                },
+                orig: {
+                    fn: (x) => Math.cos(x),
+                    domain: [0, Math.PI],
+                    range: [-1, 1],
+                    valid: x => x >= 0 && x <= Math.PI,
+                    asym: null
+                },
+                origLabel: 'y = cos x, x∈[0, π]',
+                invLabel: 'y = cos⁻¹ x'
+            },
+            tan: {
+                name: 'tan⁻¹ x',
+                inv: {
+                    fn: (x) => Math.atan(x),
+                    domain: [-5.5, 5.5],   // visual domain
+                    range: [-Math.PI/2, Math.PI/2],
+                    valid: () => true,
+                },
+                orig: {
+                    fn: (x) => Math.tan(x),
+                    domain: [-Math.PI/2 + 0.05, Math.PI/2 - 0.05], // avoid asymptotes
+                    range: [-5.5, 5.5],
+                    valid: x => x > -Math.PI/2 && x < Math.PI/2,
+                    asym: [-Math.PI/2, Math.PI/2]
+                },
+                origLabel: 'y = tan x, x∈(-π/2, π/2)',
+                invLabel: 'y = tan⁻¹ x'
+            },
+            cot: {
+                name: 'cot⁻¹ x',
+                inv: {
+                    fn: (x) => Math.PI/2 - Math.atan(x),
+                    domain: [-5.5, 5.5],
+                    range: [0, Math.PI],
+                    valid: () => true,
+                },
+                orig: {
+                    fn: (x) => 1 / Math.tan(x),
+                    domain: [0.05, Math.PI - 0.05],
+                    range: [-5.5, 5.5],
+                    valid: x => x > 0 && x < Math.PI,
+                    asym: [0, Math.PI]
+                },
+                origLabel: 'y = cot x, x∈(0, π)',
+                invLabel: 'y = cot⁻¹ x'
+            },
+            sec: {
+                name: 'sec⁻¹ x',
+                inv: {
+                    fn: (x) => Math.acos(1/x),
+                    domain: [-5.5, -1, 1, 5.5], // special handling, but visual domain [-4,4] excluding (-1,1)
+                    range: [0, Math.PI],
+                    valid: x => Math.abs(x) >= 1,
+                    visualXmin: -4, visualXmax: 4,
+                },
+                orig: {
+                    fn: (x) => 1 / Math.cos(x),
+                    domain: [0, Math.PI],
+                    range: [-5, 5],
+                    valid: x => (x >= 0 && x <= Math.PI && Math.abs(x - Math.PI/2) > 0.05),
+                    asym: [Math.PI/2]
+                },
+                origLabel: 'y = sec x, x∈[0,π]\\{π/2}',
+                invLabel: 'y = sec⁻¹ x'
+            },
+            csc: {
+                name: 'csc⁻¹ x',
+                inv: {
+                    fn: (x) => Math.asin(1/x),
+                    domain: [-5.5, -1, 1, 5.5],
+                    range: [-Math.PI/2, Math.PI/2],
+                    valid: x => Math.abs(x) >= 1,
+                    visualXmin: -4, visualXmax: 4,
+                },
+                orig: {
+                    fn: (x) => 1 / Math.sin(x),
+                    domain: [-Math.PI/2, Math.PI/2],
+                    range: [-5, 5],
+                    valid: x => (x >= -Math.PI/2 && x <= Math.PI/2 && Math.abs(x) > 0.05),
+                    asym: [0]
+                },
+                origLabel: 'y = csc x, x∈[-π/2,π/2]\\{0}',
+                invLabel: 'y = csc⁻¹ x'
+            }
+        };
+
+        let currentKey = 'sin';
+
+        // Helper: world to canvas coords
+        function toCanvas(x, y, xMin, xMax, yMin, yMax, ctxDim) {
+            const canvasX = margin.left + ((x - xMin) / (xMax - xMin)) * plotW;
+            const canvasY = margin.top + plotH - ((y - yMin) / (yMax - yMin)) * plotH;
+            return { x: canvasX, y: canvasY };
+        }
+
+        // draw grid and axes
+        function drawAxesGrid(ctx, xMin, xMax, yMin, yMax, typeLabel) {
+            ctx.save();
+            ctx.strokeStyle = "#b9c8e0";
+            ctx.lineWidth = 0.5;
+            ctx.fillStyle = "#1f3a4b";
+            ctx.font = "10px 'Segoe UI'";
+            // grid
+            const xStep = (xMax - xMin) / 10;
+            for (let x = xMin; x <= xMax; x += xStep) {
+                let cx = toCanvas(x, 0, xMin, xMax, yMin, yMax, ctx).x;
+                if (cx >= margin.left && cx <= width - margin.right) {
+                    ctx.beginPath();
+                    ctx.moveTo(cx, margin.top);
+                    ctx.lineTo(cx, height - margin.bottom);
+                    ctx.strokeStyle = "#e2e8f0";
+                    ctx.stroke();
+                }
+            }
+            const yStep = (yMax - yMin) / 8;
+            for (let y = yMin; y <= yMax; y += yStep) {
+                let cy = toCanvas(0, y, xMin, xMax, yMin, yMax, ctx).y;
+                if (cy >= margin.top && cy <= height - margin.bottom) {
+                    ctx.beginPath();
+                    ctx.moveTo(margin.left, cy);
+                    ctx.lineTo(width - margin.right, cy);
+                    ctx.stroke();
+                }
+            }
+            // axes
+            ctx.beginPath();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#2d4a6e";
+            const originY = toCanvas(0, 0, xMin, xMax, yMin, yMax, ctx).y;
+            ctx.moveTo(margin.left, originY);
+            ctx.lineTo(width - margin.right, originY);
+            const originX = toCanvas(0, 0, xMin, xMax, yMin, yMax, ctx).x;
+            ctx.moveTo(originX, margin.top);
+            ctx.lineTo(originX, height - margin.bottom);
+            ctx.stroke();
+            // ticks labels
+            ctx.font = "10px monospace";
+            ctx.fillStyle = "#1e3c72";
+            // x ticks simplified
+            let xTicks = [];
+            if (typeLabel.includes('sin⁻¹') || typeLabel.includes('cos⁻¹')) xTicks = [-1, -0.5, 0, 0.5, 1];
+            else if (typeLabel.includes('tan⁻¹') || typeLabel.includes('cot⁻¹')) xTicks = [-4, -2, 0, 2, 4];
+            else xTicks = [-3, -1, 1, 3];
+            for (let tick of xTicks) {
+                if (tick >= xMin && tick <= xMax) {
+                    let cx = toCanvas(tick, 0, xMin, xMax, yMin, yMax, ctx).x;
+                    ctx.fillText(tick, cx-4, originY + (tick<=0? 14 : -6));
+                }
+            }
+            // y ticks with π format
+            const pi = Math.PI;
+            let yVals = [];
+            if (typeLabel.includes('sin⁻¹') || typeLabel.includes('csc⁻¹')) yVals = [-pi/2, -pi/4, 0, pi/4, pi/2];
+            else if (typeLabel.includes('cos⁻¹') || typeLabel.includes('sec⁻¹')) yVals = [0, pi/4, pi/2, 3*pi/4, pi];
+            else if (typeLabel.includes('tan⁻¹')) yVals = [-pi/2, -pi/4, 0, pi/4, pi/2];
+            else if (typeLabel.includes('cot⁻¹')) yVals = [0, pi/4, pi/2, 3*pi/4, pi];
+            else yVals = [-2, -1, 0, 1, 2];
+            for (let yv of yVals) {
+                if (yv >= yMin && yv <= yMax) {
+                    let cy = toCanvas(0, yv, xMin, xMax, yMin, yMax, ctx).y;
+                    let label = "";
+                    if (Math.abs(yv + pi/2) < 0.05) label = "-π/2";
+                    else if (Math.abs(yv + pi/4) < 0.05) label = "-π/4";
+                    else if (Math.abs(yv) < 0.05) label = "0";
+                    else if (Math.abs(yv - pi/4) < 0.05) label = "π/4";
+                    else if (Math.abs(yv - pi/2) < 0.05) label = "π/2";
+                    else if (Math.abs(yv - 3*pi/4) < 0.05) label = "3π/4";
+                    else if (Math.abs(yv - pi) < 0.05) label = "π";
+                    else label = yv.toFixed(1);
+                    ctx.fillText(label, originX + 6, cy);
+                }
+            }
+            ctx.restore();
+        }
+
+        // draw function curve
+        function drawCurve(ctx, fnDef, xMin, xMax, yMin, yMax, asymLines, validPred, color = "#c44536") {
+            ctx.save();
+            ctx.beginPath();
+            ctx.lineWidth = 2.6;
+            ctx.strokeStyle = color;
+            const step = (xMax - xMin) / 1200;
+            let prevDef = false;
+            let prevX = null, prevY = null;
+            for (let x = xMin; x <= xMax + step/2; x += step) {
+                let isValid = validPred(x);
+                let yVal = isValid ? fnDef(x) : NaN;
+                let drawable = isValid && !isNaN(yVal) && isFinite(yVal) && yVal >= yMin - 0.3 && yVal <= yMax + 0.3;
+                if (drawable) {
+                    let { x: cx, y: cy } = toCanvas(x, yVal, xMin, xMax, yMin, yMax, ctx);
+                    if (prevDef && prevX !== null && Math.abs(x - prevX) < step*1.5) {
+                        ctx.lineTo(cx, cy);
+                    } else {
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy);
+                    }
+                    prevDef = true;
+                    prevX = x;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy);
+                } else {
+                    if (prevDef) ctx.stroke();
+                    prevDef = false;
+                }
+            }
+            if (prevDef) ctx.stroke();
+            // asymptotes dashed
+            if (asymLines && asymLines.length) {
+                ctx.beginPath();
+                ctx.setLineDash([6, 8]);
+                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = "#9e7b5e";
+                for (let asym of asymLines) {
+                    if (asym >= xMin && asym <= xMax) {
+                        let xa = toCanvas(asym, 0, xMin, xMax, yMin, yMax, ctx).x;
+                        ctx.moveTo(xa, margin.top);
+                        ctx.lineTo(xa, height - margin.bottom);
+                        ctx.stroke();
+                    } else if (typeof asym === 'number' && asym >= yMin && asym <= yMax) { // horizontal asymptote for inverse
+                        let ya = toCanvas(0, asym, xMin, xMax, yMin, yMax, ctx).y;
+                        ctx.moveTo(margin.left, ya);
+                        ctx.lineTo(width - margin.right, ya);
+                        ctx.stroke();
+                    }
+                }
+                ctx.setLineDash([]);
+            }
+            ctx.restore();
+        }
+
+        function drawEndpoints(ctx, fnDef, xMin, xMax, yMin, yMax, validPred, colorPoints = "#2c7da0") {
+            ctx.save();
+            ctx.fillStyle = colorPoints;
+            // just sample endpoints for continuous functions: check domain edges
+            let edges = [xMin, xMax];
+            for (let xe of edges) {
+                if (validPred(xe) && isFinite(fnDef(xe))) {
+                    let yv = fnDef(xe);
+                    if (yv >= yMin && yv <= yMax) {
+                        let { x: cx, y: cy } = toCanvas(xe, yv, xMin, xMax, yMin, yMax, ctx);
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, 3.5, 0, 2*Math.PI);
+                        ctx.fill();
+                        ctx.fillStyle = "#0b3b4f";
+                        ctx.font = "bold 9px monospace";
+                        ctx.fillText(`(${xe.toFixed(2)}, ${yv.toFixed(2)})`, cx+5, cy-4);
+                        ctx.fillStyle = colorPoints;
+                    }
+                }
+            }
+            ctx.restore();
+        }
+
+        // render both graphs based on current pair
+        function renderComparison() {
+            const pair = pairs[currentKey];
+            if (!pair) return;
+
+            // --- Inverse graph ---
+            const inv = pair.inv;
+            let invXmin = (currentKey === 'sec' || currentKey === 'csc') ? -4 : (inv.domain[0] !== undefined ? inv.domain[0] : -4);
+            let invXmax = (currentKey === 'sec' || currentKey === 'csc') ? 4 : (inv.domain[1] !== undefined ? inv.domain[1] : 4);
+            if (currentKey === 'tan' || currentKey === 'cot') { invXmin = -5; invXmax = 5; }
+            const invYmin = inv.range[0];
+            const invYmax = inv.range[1];
+            
+            ctxInv.clearRect(0, 0, width, height);
+            drawAxesGrid(ctxInv, invXmin, invXmax, invYmin, invYmax, pair.invLabel);
+            // horizontal asymptotes for tan inverse? not needed, but use asym array
+            let invAsym = (currentKey === 'tan' || currentKey === 'cot') ? [invYmax, invYmin] : null;
+            drawCurve(ctxInv, (x) => inv.fn(x), invXmin, invXmax, invYmin, invYmax, invAsym, (x) => inv.valid(x), "#c44536");
+            drawEndpoints(ctxInv, (x) => inv.fn(x), invXmin, invXmax, invYmin, invYmax, (x) => inv.valid(x), "#1e6f5c");
+            ctxInv.font = "italic 11px 'Segoe UI'";
+            ctxInv.fillStyle = "#2c5282";
+            ctxInv.fillText(pair.invLabel, margin.left+5, margin.top+12);
+
+            // --- Original graph (restricted trig) ---
+            const orig = pair.orig;
+            let origXmin = orig.domain[0];
+            let origXmax = orig.domain[1];
+            let origYmin = (currentKey === 'tan' || currentKey === 'cot') ? -5 : orig.range[0];
+            let origYmax = (currentKey === 'tan' || currentKey === 'cot') ? 5 : orig.range[1];
+            if (currentKey === 'sec') { origXmin = 0; origXmax = Math.PI; origYmin = -4; origYmax = 4; }
+            if (currentKey === 'csc') { origXmin = -Math.PI/2; origXmax = Math.PI/2; origYmin = -4; origYmax = 4; }
+            
+            ctxOrig.clearRect(0, 0, width, height);
+            drawAxesGrid(ctxOrig, origXmin, origXmax, origYmin, origYmax, pair.origLabel);
+            // asymptotes for original
+            let origAsym = orig.asym ? orig.asym : null;
+            drawCurve(ctxOrig, (x) => orig.fn(x), origXmin, origXmax, origYmin, origYmax, origAsym, (x) => orig.valid(x), "#2a6f9c");
+            drawEndpoints(ctxOrig, (x) => orig.fn(x), origXmin, origXmax, origYmin, origYmax, (x) => orig.valid(x), "#2c7da0");
+            ctxOrig.font = "italic 11px 'Segoe UI'";
+            ctxOrig.fillStyle = "#2c5282";
+            ctxOrig.fillText(pair.origLabel, margin.left+5, margin.top+12);
+
+            // update text info panel
+            document.getElementById('inv-name').innerHTML = pair.name;
+            let invDomStr = (currentKey === 'sec' || currentKey === 'csc') ? 'ℝ \ (-1,1)' : (currentKey === 'tan' || currentKey === 'cot') ? 'ℝ' : '[-1, 1]';
+            let invRanStr = (currentKey === 'sin') ? '[-π/2, π/2]' : (currentKey === 'cos') ? '[0, π]' : (currentKey === 'tan') ? '(-π/2, π/2)' : (currentKey === 'cot') ? '(0, π)' : (currentKey === 'sec') ? '[0, π] \\ {π/2}' : '[-π/2, π/2] \\ {0}';
+            let origDomStr = (currentKey === 'sin') ? '[-π/2, π/2]' : (currentKey === 'cos') ? '[0, π]' : (currentKey === 'tan') ? '(-π/2, π/2)' : (currentKey === 'cot') ? '(0, π)' : (currentKey === 'sec') ? '[0, π] \\ {π/2}' : '[-π/2, π/2] \\ {0}';
+            let origRanStr = (currentKey === 'sin' || currentKey === 'cos') ? '[-1, 1]' : (currentKey === 'tan' || currentKey === 'cot') ? 'ℝ' : 'ℝ \ (-1,1)';
+            document.getElementById('inv-domain').innerHTML = invDomStr;
+            document.getElementById('inv-range').innerHTML = invRanStr;
+            document.getElementById('orig-domain').innerHTML = origDomStr;
+            document.getElementById('orig-range').innerHTML = origRanStr;
+            document.getElementById('inv-graph-label').innerHTML = pair.invLabel;
+            document.getElementById('orig-graph-label').innerHTML = pair.origLabel;
+        }
+
+        // attach events
+        const btns = document.querySelectorAll('.func-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentKey = btn.getAttribute('data-func');
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderComparison();
+            });
+        });
+
+        renderComparison();
+        window.addEventListener('resize', () => renderComparison());
+    })();
+</script>
+</body>
+</html>

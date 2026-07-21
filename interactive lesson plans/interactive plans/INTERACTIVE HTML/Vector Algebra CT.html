@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vectors Test - 20 Marks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .instructions {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .marks {
+            float: right;
+            background-color: #3498db;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .mcq-options {
+            margin-left: 20px;
+        }
+        .submit-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Vectors Test (20 Marks)</h1>
+        
+        <div class="instructions">
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>This test contains 6 questions with a total of 20 marks.</li>
+                <li>Answer all questions in the spaces provided.</li>
+                <li>For multiple-choice questions, select the correct option.</li>
+                <li>Show your working for questions requiring calculations.</li>
+                <li>Time allowed: 30 minutes</li>
+            </ul>
+        </div>
+        
+        <div class="questions">
+            <!-- Question 1 (3 marks) -->
+            <div class="question">
+                <div class="question-number">Question 1 <span class="marks">3 marks</span></div>
+                <p>The value of \( p \) for which the vectors \( 2\hat{i} + p\hat{j} + \hat{k} \) and \( -4\hat{i} - 6\hat{j} + 26\hat{k} \) are perpendicular to each other is:</p>
+                <div class="mcq-options">
+                    <label><input type="radio" name="q1" value="a"> (a) 3</label><br>
+                    <label><input type="radio" name="q1" value="b"> (b) -3</label><br>
+                    <label><input type="radio" name="q1" value="c"> (c) -17</label><br>
+                    <label><input type="radio" name="q1" value="d"> (d) \( \frac{17}{3} \)</label>
+                </div>
+            </div>
+            
+            <!-- Question 2 (3 marks) -->
+            <div class="question">
+                <div class="question-number">Question 2 <span class="marks">3 marks</span></div>
+                <p>The value of \( (\hat{i} \times \hat{j}) \cdot \hat{j} + (\hat{j} \times \hat{i}) \cdot \hat{k} \) is:</p>
+                <div class="mcq-options">
+                    <label><input type="radio" name="q2" value="a"> (a) 2</label><br>
+                    <label><input type="radio" name="q2" value="b"> (b) 0</label><br>
+                    <label><input type="radio" name="q2" value="c"> (c) 1</label><br>
+                    <label><input type="radio" name="q2" value="d"> (d) -1</label>
+                </div>
+            </div>
+            
+            <!-- Question 3 (3 marks) -->
+            <div class="question">
+                <div class="question-number">Question 3 <span class="marks">3 marks</span></div>
+                <p>Find all the vectors of magnitude \( 3\sqrt{3} \) which are collinear to vector \( \hat{i} + \hat{j} + \hat{k} \).</p>
+                <p>Show your working:</p>
+                <textarea style="width: 100%; height: 100px;"></textarea>
+            </div>
+            
+            <!-- Question 4 (4 marks) -->
+            <div class="question">
+                <div class="question-number">Question 4 <span class="marks">4 marks</span></div>
+                <p>If \( |\vec{a} \times \vec{b}| = \sqrt{3} \) and \( \vec{a} \cdot \vec{b} = -3 \), then the angle between \( \vec{a} \) and \( \vec{b} \) is:</p>
+                <div class="mcq-options">
+                    <label><input type="radio" name="q4" value="a"> (A) \( \frac{2\pi}{3} \)</label><br>
+                    <label><input type="radio" name="q4" value="b"> (B) \( \frac{\pi}{6} \)</label><br>
+                    <label><input type="radio" name="q4" value="c"> (C) \( \frac{\pi}{3} \)</label><br>
+                    <label><input type="radio" name="q4" value="d"> (D) \( \frac{5\pi}{6} \)</label>
+                </div>
+                <p>Show your working:</p>
+                <textarea style="width: 100%; height: 80px;"></textarea>
+            </div>
+            
+            <!-- Question 5 (4 marks) -->
+            <div class="question">
+                <div class="question-number">Question 5 <span class="marks">4 marks</span></div>
+                <p>In \( \triangle ABC \), \( \overrightarrow{AB} = \hat{i} + \hat{j} + 2\hat{k} \) and \( \overrightarrow{AC} = 3\hat{i} - \hat{j} + 4\hat{k} \). If D is the mid-point of BC, find the vector \( \overrightarrow{AD} \).</p>
+                <p>Show your working:</p>
+                <textarea style="width: 100%; height: 120px;"></textarea>
+            </div>
+            
+            <!-- Question 6 (3 marks) -->
+            <div class="question">
+                <div class="question-number">Question 6 <span class="marks">3 marks</span></div>
+                <p>If \( \vec{a} \) and \( \vec{b} \) are two non-zero vectors such that \( \vec{a} \cdot \vec{b} > 0 \) and \( |\vec{a} \cdot \vec{b}| = |\vec{a} \times \vec{b}| \), then the angle between \( \vec{a} \) and \( \vec{b} \) is:</p>
+                <div class="mcq-options">
+                    <label><input type="radio" name="q6" value="a"> (A) \( \frac{\pi}{4} \)</label><br>
+                    <label><input type="radio" name="q6" value="b"> (B) \( \frac{\pi}{3} \)</label><br>
+                    <label><input type="radio" name="q6" value="c"> (C) \( \frac{2\pi}{3} \)</label><br>
+                    <label><input type="radio" name="q6" value="d"> (D) \( \frac{3\pi}{4} \)</label>
+                </div>
+            </div>
+        </div>
+        
+        <button class="submit-btn">Submit Test</button>
+    </div>
+
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>

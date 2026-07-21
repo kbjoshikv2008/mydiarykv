@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 7 Math - Chapter 7 Notes & Exercises</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            overflow: hidden;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .chapter-overview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card h3 {
+            color: #3498db;
+            font-size: 1.6rem;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .card ul {
+            padding-left: 20px;
+            font-size: 1.2rem;
+        }
+        .card li {
+            margin-bottom: 10px;
+        }
+        .content-section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .subsection-title {
+            color: #2980b9;
+            font-size: 1.5rem;
+            margin-top: 25px;
+        }
+        .concept-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.2rem;
+        }
+        .definition {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.2rem;
+        }
+        .theorem {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.2rem;
+        }
+        .exercise {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .exercise-title {
+            color: #e74c3c;
+            font-size: 1.4rem;
+            margin-top: 0;
+        }
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .steps {
+            background-color: #f1f8ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .step {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+        .example {
+            background-color: #fff;
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .example-title {
+            color: #3498db;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .triangle-diagram {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .triangle-diagram img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.2rem;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .key-points {
+            background-color: #e8f4f8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h3 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .key-points ul {
+            font-size: 1.2rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #3498db;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 768px) {
+            .chapter-overview {
+                flex-direction: column;
+            }
+            .card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>A Tale of Three Intersecting Lines</h1>
+            <div class="subtitle">Class 7 Mathematics - Chapter 7 Notes & Exercises</div>
+        </header>
+
+        <div class="chapter-overview">
+            <div class="card">
+                <h3>What You'll Learn</h3>
+                <ul>
+                    <li>Triangle construction using compass and ruler</li>
+                    <li>Triangle inequality property</li>
+                    <li>Angle sum property of triangles</li>
+                    <li>Exterior angles of triangles</li>
+                    <li>Altitudes of triangles</li>
+                    <li>Classification of triangles</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Key Concepts</h3>
+                <ul>
+                    <li>Triangle: 3 sides, 3 angles, 3 vertices</li>
+                    <li>Triangle inequality: Each side < sum of other two</li>
+                    <li>Angle sum property: Sum of angles = 180°</li>
+                    <li>Exterior angle = Sum of opposite interior angles</li>
+                    <li>Altitude: Perpendicular from vertex to opposite side</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Important Skills</h3>
+                <ul>
+                    <li>Constructing triangles with given measurements</li>
+                    <li>Checking if triangle is possible with given sides</li>
+                    <li>Finding unknown angles using properties</li>
+                    <li>Drawing altitudes of triangles</li>
+                    <li>Classifying triangles by sides and angles</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">1. Introduction to Triangles</h2>
+            
+            <div class="definition">
+                A <span class="highlight">triangle</span> is a closed figure formed by three line segments joining three non-collinear points.
+            </div>
+            
+            <div class="concept-box">
+                <strong>Parts of a Triangle:</strong>
+                <ul>
+                    <li><strong>Vertices:</strong> The three corner points (A, B, C)</li>
+                    <li><strong>Sides:</strong> The three line segments (AB, BC, CA)</li>
+                    <li><strong>Angles:</strong> The three angles formed at the vertices (∠A, ∠B, ∠C)</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example:</div>
+                In triangle ABC, the vertices are A, B, and C. The sides are AB, BC, and CA. The angles are ∠A, ∠B, and ∠C.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">2. Constructing Triangles</h2>
+            
+            <h3 class="subsection-title">2.1 Equilateral Triangles</h3>
+            
+            <div class="definition">
+                An <span class="highlight">equilateral triangle</span> has all three sides equal in length and all three angles equal to 60°.
+            </div>
+            
+            <div class="steps">
+                <div class="step"><span class="step-number">1</span> Draw the base AB of the given length (say 4 cm).</div>
+                <div class="step"><span class="step-number">2</span> With A as center and radius 4 cm, draw an arc.</div>
+                <div class="step"><span class="step-number">3</span> With B as center and radius 4 cm, draw another arc to intersect the first arc at C.</div>
+                <div class="step"><span class="step-number">4</span> Join AC and BC to complete triangle ABC.</div>
+            </div>
+            
+            <h3 class="subsection-title">2.2 Triangles with Three Given Sides</h3>
+            
+            <div class="steps">
+                <div class="step"><span class="step-number">1</span> Draw the base with one of the given lengths.</div>
+                <div class="step"><span class="step-number">2</span> From one endpoint, draw an arc with radius equal to the second side.</div>
+                <div class="step"><span class="step-number">3</span> From the other endpoint, draw an arc with radius equal to the third side.</div>
+                <div class="step"><span class="step-number">4</span> The intersection point of the two arcs is the third vertex.</div>
+                <div class="step"><span class="step-number">5</span> Join this point to both endpoints of the base.</div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example:</div>
+                Construct a triangle with sides 4 cm, 5 cm, and 6 cm.
+                <ol>
+                    <li>Draw base AB = 4 cm</li>
+                    <li>With A as center, radius 5 cm, draw an arc</li>
+                    <li>With B as center, radius 6 cm, draw another arc to intersect the first arc at C</li>
+                    <li>Join AC and BC</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">3. Triangle Inequality</h2>
+            
+            <div class="theorem">
+                <strong>Triangle Inequality Theorem:</strong> For any three lengths to form a triangle, each length must be less than the sum of the other two lengths.
+            </div>
+            
+            <div class="concept-box">
+                To check if three lengths a, b, c can form a triangle, verify:
+                <ul>
+                    <li>a < b + c</li>
+                    <li>b < a + c</li>
+                    <li>c < a + b</li>
+                </ul>
+                If all three conditions are satisfied, a triangle is possible.
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example 1:</div>
+                Check if a triangle with sides 3 cm, 4 cm, and 8 cm is possible.
+                <br>3 < 4 + 8 = 12 ✓
+                <br>4 < 3 + 8 = 11 ✓
+                <br>8 < 3 + 4 = 7 ✗
+                <br>Since 8 > 3 + 4, a triangle is not possible.
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example 2:</div>
+                Check if a triangle with sides 5 cm, 6 cm, and 7 cm is possible.
+                <br>5 < 6 + 7 = 13 ✓
+                <br>6 < 5 + 7 = 12 ✓
+                <br>7 < 5 + 6 = 11 ✓
+                <br>Since all conditions are satisfied, a triangle is possible.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">4. Angle Sum Property</h2>
+            
+            <div class="theorem">
+                <strong>Angle Sum Property:</strong> The sum of the three angles of any triangle is always 180°.
+            </div>
+            
+            <div class="concept-box">
+                In triangle ABC, ∠A + ∠B + ∠C = 180°
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example 1:</div>
+                In a triangle, if two angles are 45° and 60°, find the third angle.
+                <br>Third angle = 180° - (45° + 60°) = 180° - 105° = 75°
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example 2:</div>
+                In an equilateral triangle, each angle = 180° ÷ 3 = 60°
+            </div>
+            
+            <div class="key-points">
+                <h3>Important Points:</h3>
+                <ul>
+                    <li>If two angles of a triangle are known, the third can be found using the angle sum property.</li>
+                    <li>In a right triangle, the two acute angles are complementary (sum to 90°).</li>
+                    <li>In an isosceles triangle, the base angles are equal.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">5. Exterior Angles</h2>
+            
+            <div class="definition">
+                An <span class="highlight">exterior angle</span> of a triangle is formed when one side is extended. It is adjacent to an interior angle.
+            </div>
+            
+            <div class="theorem">
+                <strong>Exterior Angle Theorem:</strong> An exterior angle of a triangle is equal to the sum of the two interior opposite angles.
+            </div>
+            
+            <div class="example">
+                <div class="example-title">Example:</div>
+                In triangle ABC, if ∠A = 50° and ∠B = 60°, find the exterior angle at C.
+                <br>Exterior angle at C = ∠A + ∠B = 50° + 60° = 110°
+            </div>
+            
+            <div class="concept-box">
+                <strong>Properties of Exterior Angles:</strong>
+                <ul>
+                    <li>An exterior angle is equal to the sum of the two interior opposite angles.</li>
+                    <li>An exterior angle and its adjacent interior angle form a linear pair (sum to 180°).</li>
+                    <li>A triangle has 6 exterior angles (2 at each vertex).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">6. Altitudes of Triangles</h2>
+            
+            <div class="definition">
+                An <span class="highlight">altitude</span> of a triangle is a perpendicular line segment from a vertex to the line containing the opposite side.
+            </div>
+            
+            <div class="concept-box">
+                <strong>Properties of Altitudes:</strong>
+                <ul>
+                    <li>Every triangle has three altitudes.</li>
+                    <li>Altitudes may lie inside or outside the triangle.</li>
+                    <li>In an acute triangle, all altitudes lie inside the triangle.</li>
+                    <li>In a right triangle, two altitudes are the legs of the triangle.</li>
+                    <li>In an obtuse triangle, two altitudes lie outside the triangle.</li>
+                </ul>
+            </div>
+            
+            <div class="steps">
+                <div class="step"><span class="step-number">1</span> Place the ruler along the base.</div>
+                <div class="step"><span class="step-number">2</span> Place the set square on the ruler with its perpendicular edge touching the vertex.</div>
+                <div class="step"><span class="step-number">3</span> Slide the set square until its perpendicular edge passes through the vertex.</div>
+                <div class="step"><span class="step-number">4</span> Draw the line along the perpendicular edge from the vertex to the base.</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">7. Classification of Triangles</h2>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Classification</th>
+                            <th>Based On</th>
+                            <th>Types</th>
+                            <th>Properties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>By Sides</strong></td>
+                            <td>Length of sides</td>
+                            <td>Equilateral</td>
+                            <td>All sides equal, all angles 60°</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Isosceles</td>
+                            <td>Two sides equal, two angles equal</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Scalene</td>
+                            <td>All sides different, all angles different</td>
+                        </tr>
+                        <tr>
+                            <td><strong>By Angles</strong></td>
+                            <td>Measure of angles</td>
+                            <td>Acute</td>
+                            <td>All angles less than 90°</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Right</td>
+                            <td>One angle exactly 90°</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Obtuse</td>
+                            <td>One angle greater than 90°</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Exercises</h2>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 1: Triangle Construction</h3>
+                <div class="question">1. Construct the following triangles:</div>
+                <ol type="a">
+                    <li>An equilateral triangle with side 5 cm</li>
+                    <li>A triangle with sides 4 cm, 5 cm, and 6 cm</li>
+                    <li>A triangle with sides 3 cm, 4 cm, and 5 cm</li>
+                </ol>
+                
+                <div class="question">2. Which of the following sets of lengths can form a triangle?</div>
+                <ol type="a">
+                    <li>2 cm, 3 cm, 5 cm</li>
+                    <li>3 cm, 4 cm, 5 cm</li>
+                    <li>5 cm, 6 cm, 12 cm</li>
+                    <li>7 cm, 8 cm, 9 cm</li>
+                </ol>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 2: Angle Calculations</h3>
+                <div class="question">1. Find the third angle of a triangle when two angles are:</div>
+                <ol type="a">
+                    <li>45° and 75°</li>
+                    <li>90° and 30°</li>
+                    <li>110° and 40°</li>
+                </ol>
+                
+                <div class="question">2. In an isosceles triangle, the base angles are equal. If the vertex angle is 40°, find the base angles.</div>
+                
+                <div class="question">3. In a right triangle, one acute angle is 35°. Find the other acute angle.</div>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 3: Exterior Angles</h3>
+                <div class="question">1. In a triangle, two angles are 55° and 65°. Find the measure of the exterior angle at the third vertex.</div>
+                
+                <div class="question">2. An exterior angle of a triangle is 110° and one of its interior opposite angles is 50°. Find the other interior opposite angle.</div>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 4: Classification</h3>
+                <div class="question">Classify the following triangles based on sides and angles:</div>
+                <ol type="a">
+                    <li>Triangle with sides 5 cm, 5 cm, 5 cm</li>
+                    <li>Triangle with angles 90°, 45°, 45°</li>
+                    <li>Triangle with sides 6 cm, 8 cm, 10 cm</li>
+                    <li>Triangle with angles 120°, 30°, 30°</li>
+                </ol>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 5: Word Problems</h3>
+                <div class="question">1. The angles of a triangle are in the ratio 2:3:4. Find the measure of each angle.</div>
+                
+                <div class="question">2. In an isosceles triangle, the base is 5 cm and each of the equal sides is 6 cm. Find its perimeter.</div>
+                
+                <div class="question">3. One angle of a triangle is 60° and the other two angles are equal. Find the measure of each of the equal angles.</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Important Formulas & Theorems</h2>
+            
+            <div class="key-points">
+                <h3>Formulas:</h3>
+                <ul>
+                    <li>Angle sum of triangle: ∠A + ∠B + ∠C = 180°</li>
+                    <li>Exterior angle: ∠exterior = ∠A + ∠B (where ∠A and ∠B are interior opposite angles)</li>
+                    <li>Perimeter of triangle = a + b + c</li>
+                </ul>
+                
+                <h3>Theorems:</h3>
+                <ul>
+                    <li>Triangle Inequality: a + b > c, b + c > a, c + a > b</li>
+                    <li>Angle Sum Property: Sum of angles = 180°</li>
+                    <li>Exterior Angle Theorem: Exterior angle = Sum of interior opposite angles</li>
+                </ul>
+                
+                <h3>Construction Tips:</h3>
+                <ul>
+                    <li>Always use a sharp pencil for accurate constructions</li>
+                    <li>Keep the compass tight to prevent slipping</li>
+                    <li>Draw light construction lines that can be erased later</li>
+                    <li>Label all points clearly</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>Class 7 Mathematics - Chapter 7: A Tale of Three Intersecting Lines</p>
+            <p>Remember: Practice makes perfect! Try constructing different triangles and solving various problems.</p>
+        </footer>
+    </div>
+</body>
+</html>

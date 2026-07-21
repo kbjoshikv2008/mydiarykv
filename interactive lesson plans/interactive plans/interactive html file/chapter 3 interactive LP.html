@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Trigonometric Functions | Detailed Interactive Lesson + Graphs</title>
+    <!-- MathJax for LaTeX -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.5;
+            padding: 24px;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        /* larger font headings */
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: 2rem;
+            margin: 0.5rem 0 1rem;
+            border-left: 6px solid #3b82f6;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.6rem;
+            margin: 0.75rem 0 0.5rem;
+            color: #1e293b;
+        }
+        .header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 2rem 2rem;
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.3);
+        }
+        .badge {
+            background: #facc15;
+            color: #0f172a;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1.8rem;
+            padding: 1.8rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: 0.1s;
+        }
+        .formula {
+            background: #eef2ff;
+            padding: 1rem;
+            border-radius: 1.2rem;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .interactive-tool {
+            background: #f9fafb;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border: 1px solid #cbd5e1;
+        }
+        input, select, button {
+            padding: 0.7rem 1.2rem;
+            margin: 0.4rem 0.2rem;
+            border-radius: 3rem;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        button:hover {
+            background: #2563eb;
+            transform: scale(0.98);
+        }
+        .value-display {
+            background: #e6f0ff;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            margin-top: 0.8rem;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem;
+            text-align: center;
+        }
+        th {
+            background: #e2e8f0;
+            font-weight: 700;
+        }
+        .canvas-unit {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        canvas {
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+        }
+        .graph-container {
+            background: #fefefe;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .graph-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+        }
+        .graph-card {
+            flex: 1;
+            min-width: 280px;
+            background: #fff;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+        }
+        .note {
+            background: #fef9c3;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: #e2e8f0;
+            border-radius: 2rem;
+            font-size: 1rem;
+        }
+        @media (max-width: 700px) {
+            body { font-size: 16px; padding: 12px; }
+            h1 { font-size: 2rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        .slider-label {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📐 Chapter 3: Trigonometric Functions</h1>
+        <p>Angles, Radian measure, Unit circle, Domain/Range, Graphs of all six functions, Identities & Applications — Complete interactive lesson.</p>
+        <div class="badge">📖 Based on NCERT + Extended visualizations | Larger Font</div>
+    </div>
+
+    <!-- Basic Concepts + Converter Row -->
+    <div class="grid-2">
+        <div class="card">
+            <h2>📐 Angle & Radian Measure</h2>
+            <p><strong>Angle:</strong> rotation from initial side. Positive = anticlockwise, Negative = clockwise. Measure in degrees or radians.</p>
+            <div class="formula">
+                \[
+                \text{Radian} = \frac{\pi}{180}\times \text{Degree}, \quad
+                \text{Degree} = \frac{180}{\pi}\times \text{Radian}
+                \]
+                \[
+                \pi \text{ rad} = 180^\circ,\quad 1 \text{ rad} \approx 57^\circ 16'
+                \]
+            </div>
+            <div class="interactive-tool">
+                <strong>🔄 Angle Converter (larger inputs)</strong><br>
+                <label>Degree: <input type="number" id="degInput" value="60" step="any" style="width:130px"></label>
+                <button id="toRadianBtn">→ Radians</button>
+                <span id="radResult" class="value-display" style="display:inline-block;">Rad: 1.0472</span><br>
+                <label>Radian: <input type="number" id="radInput" value="1.0472" step="any" style="width:130px"></label>
+                <button id="toDegreeBtn">→ Degrees</button>
+                <span id="degResult" class="value-display">Deg: 60.0°</span>
+                <p class="note">✨ Example: \(40^\circ20' = \frac{121\pi}{540}\) rad</p>
+            </div>
+            <div class="interactive-tool">
+                <strong>📏 Arc Length: \(l = r\theta\) (θ in rad)</strong><br>
+                Radius r (cm): <input type="number" id="radiusArc" value="5" step="0.5"> 
+                Angle θ (rad): <input type="number" id="thetaArc" value="1.2" step="0.1">
+                <button id="calcArcBtn">Compute length</button>
+                <div id="arcResult" class="value-display">Arc length = 6.00 cm</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2>⚡ Unit Circle & Trig Values</h2>
+            <p>Point on unit circle: \((\cos\theta, \sin\theta)\)</p>
+            <div class="canvas-unit">
+                <canvas id="unitCircleCanvas" width="300" height="300" style="width:300px; height:300px"></canvas>
+            </div>
+            <div class="slider-label">
+                <span style="font-weight:bold;">Angle θ:</span>
+                <input type="range" id="angleSlider" min="0" max="360" value="60" step="1" style="flex:1">
+                <span id="angleDegValue" style="font-weight:bold;">60°</span>
+            </div>
+            <div id="trigValues" class="value-display">
+                sin = 0.8660, cos = 0.5000, tan = 1.7321<br>
+                Radians: 1.0472
+            </div>
+            <div class="formula">
+                \[
+                \sin^2\theta+\cos^2\theta=1,\quad \tan\theta=\frac{\sin\theta}{\cos\theta}
+                \]
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Table & Domain/Range + Quick Check -->
+    <div class="grid-2">
+        <div class="card">
+            <h2>📌 Signs of Trigonometric Functions</h2>
+            <table>
+                <tr><th>Quadrant</th><th>I</th><th>II</th><th>III</th><th>IV</th></tr>
+                <tr><td>sin</td><td>+</td><td>+</td><td>-</td><td>-</td></tr>
+                <tr><td>cos</td><td>+</td><td>-</td><td>-</td><td>+</td></tr>
+                <tr><td>tan</td><td>+</td><td>-</td><td>+</td><td>-</td></tr>
+                <tr><td>csc</td><td>+</td><td>+</td><td>-</td><td>-</td></tr>
+                <tr><td>sec</td><td>+</td><td>-</td><td>-</td><td>+</td></tr>
+                <tr><td>cot</td><td>+</td><td>-</td><td>+</td><td>-</td></tr>
+            </table>
+            <div class="interactive-tool">
+                <strong>🔍 Quadrant & Sign Checker</strong><br>
+                Enter angle (deg): <input type="number" id="signAngle" value="150" step="1">
+                <button id="checkSignBtn">Show signs</button>
+                <div id="signOutput" class="value-display">sin: +, cos: -, tan: - (Quadrant II)</div>
+            </div>
+            <p><strong>Domain & Range:</strong> sin,cos: ℝ → [-1,1]; tan: ℝ \{(2n+1)π/2} → ℝ; sec: ℝ \{(2n+1)π/2} → (-∞,-1]∪[1,∞); csc: ℝ \{nπ} → same; cot: ℝ \{nπ} → ℝ.</p>
+        </div>
+        <div class="card">
+            <h2>🧩 Sum/Difference & Multiple Angles</h2>
+            <div class="formula">
+                \[
+                \cos(x\pm y)=\cos x\cos y \mp \sin x\sin y,\quad \sin(x\pm y)=\sin x\cos y \pm \cos x\sin y
+                \]
+                \[
+                \tan(x+y)=\frac{\tan x+\tan y}{1-\tan x\tan y},\quad \sin2x=2\sin x\cos x,\quad \cos2x=\cos^2x-\sin^2x
+                \]
+                \[
+                \sin3x = 3\sin x-4\sin^3x,\quad \cos3x=4\cos^3x-3\cos x
+                \]
+            </div>
+            <div class="interactive-tool">
+                <strong>✅ Identity validator: cos(A+B)</strong><br>
+                A (°): <input type="number" id="angleA" value="30">  B (°): <input type="number" id="angleB" value="45">
+                <button id="verifyCosSum">Verify cos(A+B)</button>
+                <div id="cosSumResult" class="value-display">cos(75°) = 0.2588, cosAcosB - sinAsinB = 0.2588 ✓</div>
+                <button id="verifySin2x">Test sin(2x) = 2 sinx cosx (x=30°)</button>
+                <div id="sin2xResult" class="value-display">sin60°=0.8660, 2sin30cos30=0.8660 ✓</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRAPHS OF ALL TRIGONOMETRIC FUNCTIONS -->
+    <div class="card">
+        <h2>📈 Graphs of All Six Trigonometric Functions</h2>
+        <p>Interactive charts below show sin(x), cos(x), tan(x), csc(x), sec(x), cot(x) over \( -2\pi \) to \( 2\pi \) (or 0 to 2π for clarity). Use the slider to see function values at a chosen angle.</p>
+        <div class="interactive-tool">
+            <div class="slider-label">
+                <span>📌 Angle x (degrees): </span>
+                <input type="range" id="graphAngleSlider" min="-360" max="360" value="60" step="5" style="flex:1">
+                <span id="graphAngleValue" style="font-weight:bold;">60°</span>
+            </div>
+            <div id="graphFuncValues" class="value-display">sin=0.866, cos=0.500, tan=1.732, csc=1.155, sec=2.000, cot=0.577</div>
+        </div>
+        <div class="graph-row">
+            <div class="graph-card"><canvas id="sinChartCanvas" width="400" height="250" style="width:100%; max-width:450px; height:auto"></canvas><p style="text-align:center">\(y = \sin x\)</p></div>
+            <div class="graph-card"><canvas id="cosChartCanvas" width="400" height="250" style="width:100%; max-width:450px; height:auto"></canvas><p style="text-align:center">\(y = \cos x\)</p></div>
+        </div>
+        <div class="graph-row">
+            <div class="graph-card"><canvas id="tanChartCanvas" width="400" height="250" style="width:100%; max-width:450px; height:auto"></canvas><p style="text-align:center">\(y = \tan x\) (asymptotes at π/2 + nπ)</p></div>
+            <div class="graph-card"><canvas id="cscChartCanvas" width="400" height="250" style="width:100%; max-width:450px; height:auto"></canvas><p style="text-align:center">\(y = \csc x\)</p></div>
+        </div>
+        <div class="graph-row">
+            <div class="graph-card"><canvas id="secChartCanvas" width="400" height="250" style="width:100%; max-width:450px; height:auto"></canvas><p style="text-align:center">\(y = \sec x\)</p></div>
+            <div class="graph-card"><canvas id="cotChartCanvas" width="400" height="250" style="width:100%; max-width:450px; height:auto"></canvas><p style="text-align:center">\(y = \cot x\)</p></div>
+        </div>
+        <p class="note">💡 <strong>Periodicity:</strong> sin,cos,sec,csc have period \(2\pi\); tan,cot have period \(\pi\). Vertical asymptotes for tan, sec at \(\pi/2 + n\pi\); for cot, csc at \(n\pi\).</p>
+    </div>
+
+    <!-- Transformations & Example Practice -->
+    <div class="grid-2">
+        <div class="card">
+            <h2>📚 Sum-to-Product & Product-to-Sum</h2>
+            <div class="formula">
+                \[
+                \sin x + \sin y = 2\sin\frac{x+y}{2}\cos\frac{x-y}{2},\quad \cos x + \cos y = 2\cos\frac{x+y}{2}\cos\frac{x-y}{2}
+                \]
+                \[
+                \cos x - \cos y = -2\sin\frac{x+y}{2}\sin\frac{x-y}{2},\quad \sin x - \sin y = 2\cos\frac{x+y}{2}\sin\frac{x-y}{2}
+                \]
+            </div>
+            <div class="interactive-tool">
+                <strong>🧪 Example 16: \(\frac{\cos7x+\cos5x}{\sin7x-\sin5x} = \cot x\)</strong><br>
+                <button id="transformDemo">Test for x = 25°</button>
+                <div id="transformOutput" class="value-display">LHS ≈ 2.1445, cot(25°)≈2.1445 ✓ Identity holds.</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2>📝 Solved Examples & Quick Practice</h2>
+            <p><strong>Example 11:</strong> \(\sin15^\circ = \frac{\sqrt{3}-1}{2\sqrt{2}} \approx 0.258819\)</p>
+            <p><strong>Example 18:</strong> \(\sin x=3/5, \cos y = -12/13\) (both II quadrant) → \(\sin(x+y)=-\frac{56}{65}\)</p>
+            <div class="interactive-tool">
+                <strong>✏️ Exercise 3.1: Convert 520° to radians</strong><br>
+                <input type="number" id="exDeg" value="520" step="any"> 
+                <button id="checkConvert">Convert</button>
+                <span id="exResult" class="value-display">≈ 9.075 rad (26π/9)</span><br>
+                <strong>Find sin(765°):</strong> <button id="checkSin765">Compute</button>
+                <span id="sin765Out" class="value-display">sin(765°)= sin(45°)= 0.7071</span>
+            </div>
+            <div class="note">
+                🧠 <strong>Misc. Example:</strong> \(\cos^2 x + \cos^2(x+\pi/3)+\cos^2(x-\pi/3) = 3/2\) for all x.
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Detailed Identities Reference -->
+    <div class="card">
+        <h2>📖 Complete Trigonometric Identities Reference</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between;">
+            <div><strong>Reciprocal</strong><br>\(\csc x = 1/\sin x\)<br>\(\sec x = 1/\cos x\)<br>\(\cot x = 1/\tan x\)</div>
+            <div><strong>Pythagorean</strong><br>\(\sin^2x+\cos^2x=1\)<br>\(1+\tan^2x=\sec^2x\)<br>\(1+\cot^2x=\csc^2x\)</div>
+            <div><strong>Negative angles</strong><br>\(\sin(-x)=-\sin x\)<br>\(\cos(-x)=\cos x\)<br>\(\tan(-x)=-\tan x\)</div>
+            <div><strong>Periodicity</strong><br>\(\sin(x+2\pi)=\sin x\)<br>\(\cos(x+2\pi)=\cos x\)<br>\(\tan(x+\pi)=\tan x\)</div>
+        </div>
+        <div class="formula" style="margin-top:1rem">
+            <strong>Half-angle:</strong> \(\sin^2\frac{x}{2}=\frac{1-\cos x}{2},\quad \cos^2\frac{x}{2}=\frac{1+\cos x}{2},\quad \tan\frac{x}{2}=\frac{1-\cos x}{\sin x}=\frac{\sin x}{1+\cos x}\)
+        </div>
+    </div>
+
+    <footer>
+        <p>📐 Complete interactive lesson — All trigonometric functions graphed, unit circle, radian-degree converter, identities & exercises.<br>
+        🎯 Built from Chapter 3: Trigonometric Functions. Larger fonts & dynamic visualizations for deeper learning.</p>
+    </footer>
+</div>
+
+<script>
+    // ---------- Degree / Radian ----------
+    const degInput = document.getElementById('degInput');
+    const toRadianBtn = document.getElementById('toRadianBtn');
+    const radResult = document.getElementById('radResult');
+    const radInput = document.getElementById('radInput');
+    const toDegreeBtn = document.getElementById('toDegreeBtn');
+    const degResult = document.getElementById('degResult');
+    function degToRad(d){ return d * Math.PI / 180; }
+    function radToDeg(r){ return r * 180 / Math.PI; }
+    toRadianBtn.onclick = () => {
+        let d = parseFloat(degInput.value) || 0;
+        let r = degToRad(d);
+        radResult.innerText = `Rad: ${r.toFixed(5)}`;
+        radInput.value = r.toFixed(5);
+    };
+    toDegreeBtn.onclick = () => {
+        let r = parseFloat(radInput.value) || 0;
+        let d = radToDeg(r);
+        degResult.innerText = `Deg: ${d.toFixed(4)}°`;
+        degInput.value = d.toFixed(4);
+    };
+    toRadianBtn.click();
+
+    // Arc Length
+    const radiusArc = document.getElementById('radiusArc');
+    const thetaArc = document.getElementById('thetaArc');
+    const calcArcBtn = document.getElementById('calcArcBtn');
+    const arcResult = document.getElementById('arcResult');
+    calcArcBtn.onclick = () => {
+        let r = parseFloat(radiusArc.value) || 0;
+        let theta = parseFloat(thetaArc.value) || 0;
+        arcResult.innerText = `Arc length = ${(r*theta).toFixed(4)} cm`;
+    };
+    calcArcBtn.click();
+
+    // Unit Circle
+    const canvas = document.getElementById('unitCircleCanvas');
+    const ctx = canvas.getContext('2d');
+    const angleSlider = document.getElementById('angleSlider');
+    const angleDegValue = document.getElementById('angleDegValue');
+    const trigValuesDiv = document.getElementById('trigValues');
+    function drawUnitCircle(deg){
+        const w=canvas.width, h=canvas.height, cx=w/2, cy=h/2, rad = w/2 - 12;
+        ctx.clearRect(0,0,w,h);
+        ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.strokeStyle='#aaa'; ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx,cy,rad,0,2*Math.PI); ctx.strokeStyle='#1e293b'; ctx.lineWidth=2; ctx.stroke();
+        let radAng = deg * Math.PI/180;
+        let x = cx + rad * Math.cos(radAng);
+        let y = cy - rad * Math.sin(radAng);
+        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.strokeStyle='#ef4444'; ctx.lineWidth=2.5; ctx.stroke();
+        ctx.beginPath(); ctx.arc(x,y,6,0,2*Math.PI); ctx.fillStyle='#3b82f6'; ctx.fill();
+        let cosv = Math.cos(radAng), sinv = Math.sin(radAng);
+        ctx.fillStyle='#0f172a'; ctx.font='bold 14px "Segoe UI"'; ctx.fillText(`(${cosv.toFixed(3)}, ${sinv.toFixed(3)})`, x+8, y-5);
+        trigValuesDiv.innerHTML = `sin = ${sinv.toFixed(4)}, cos = ${cosv.toFixed(4)}, tan = ${(Math.tan(radAng)||0).toFixed(4)}<br>Radians: ${radAng.toFixed(4)}`;
+        angleDegValue.innerText = deg + "°";
+    }
+    angleSlider.oninput = (e) => { drawUnitCircle(parseInt(e.target.value)); };
+    drawUnitCircle(60);
+
+    // Sign Check
+    const signAngle = document.getElementById('signAngle');
+    const checkSignBtn = document.getElementById('checkSignBtn');
+    const signOutput = document.getElementById('signOutput');
+    function getSigns(deg){
+        let n = ((deg % 360) + 360) % 360;
+        let sinSign = (n>0 && n<180) ? '+' : (n===0||n===180||n===360) ? '0' : '-';
+        let cosSign = ((n<90)||(n>270)) ? '+' : (n===90||n===270) ? '0' : '-';
+        let tanSign = (sinSign==='+' && cosSign==='+') ? '+' : (sinSign==='-' && cosSign==='-') ? '+' : (sinSign==='0'||cosSign==='0') ? 'undef' : '-';
+        let quad = '';
+        if (n>0 && n<90) quad='I'; else if (n>90 && n<180) quad='II'; else if (n>180 && n<270) quad='III'; else if (n>270 && n<360) quad='IV'; else quad='Axis';
+        return { sinSign, cosSign, tanSign, quad };
+    }
+    checkSignBtn.onclick = () => {
+        let d = parseFloat(signAngle.value) || 0;
+        let s = getSigns(d);
+        signOutput.innerHTML = `sin: ${s.sinSign}, cos: ${s.cosSign}, tan: ${s.tanSign} &nbsp; (Quadrant ${s.quad})`;
+    };
+    checkSignBtn.click();
+
+    // Identity validators
+    const angleA = document.getElementById('angleA'), angleB = document.getElementById('angleB');
+    const verifyCosSum = document.getElementById('verifyCosSum');
+    const cosSumResult = document.getElementById('cosSumResult');
+    verifyCosSum.onclick = () => {
+        let a = parseFloat(angleA.value) || 0, b = parseFloat(angleB.value) || 0;
+        let ar = a*Math.PI/180, br = b*Math.PI/180;
+        let lhs = Math.cos(ar+br);
+        let rhs = Math.cos(ar)*Math.cos(br) - Math.sin(ar)*Math.sin(br);
+        cosSumResult.innerHTML = `cos(${a+b}°) = ${lhs.toFixed(5)},  cosAcosB - sinAsinB = ${rhs.toFixed(5)}  ${Math.abs(lhs-rhs)<1e-8 ? '✅' : ''}`;
+    };
+    const verifySin2x = document.getElementById('verifySin2x');
+    const sin2xResult = document.getElementById('sin2xResult');
+    verifySin2x.onclick = () => {
+        let x=30, rad=x*Math.PI/180;
+        let left = Math.sin(2*rad);
+        let right = 2*Math.sin(rad)*Math.cos(rad);
+        sin2xResult.innerHTML = `sin(60°) = ${left.toFixed(5)}, 2 sin30 cos30 = ${right.toFixed(5)} ✅`;
+    };
+    verifyCosSum.click(); verifySin2x.click();
+
+    // Graph Data and charts for all six functions
+    function generateXValues(startDeg, endDeg, stepDeg){
+        let vals = [];
+        for(let d=startDeg; d<=endDeg; d+=stepDeg) vals.push(d);
+        return vals;
+    }
+    const xDeg = generateXValues(-360, 360, 2); // degrees
+    const xRad = xDeg.map(d => d * Math.PI/180);
+    const sinVals = xRad.map(r => Math.sin(r));
+    const cosVals = xRad.map(r => Math.cos(r));
+    const tanVals = xRad.map(r => Math.tan(r));
+    const cscVals = xRad.map(r => Math.abs(Math.sin(r))<1e-10 ? NaN : 1/Math.sin(r));
+    const secVals = xRad.map(r => Math.abs(Math.cos(r))<1e-10 ? NaN : 1/Math.cos(r));
+    const cotVals = xRad.map(r => Math.abs(Math.tan(r))<1e-8 ? NaN : 1/Math.tan(r));
+    
+    function createChart(ctx, label, data, color, yMax=3, yMin=-3){
+        return new Chart(ctx, {
+            type: 'line', data: { labels: xDeg, datasets: [{ label: label, data: data, borderColor: color, borderWidth: 2, fill: false, tension: 0.3, pointRadius: 0 }] },
+            options: { responsive: true, maintainAspectRatio: true, scales: { y: { min: yMin, max: yMax }, x: { title: { display: true, text: 'x (degrees)' } } }, plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label} = ${ctx.raw.toFixed(4)}` } } } }
+        });
+    }
+    const sinChart = createChart(document.getElementById('sinChartCanvas'), 'sin x', sinVals, '#3b82f6', 1.2, -1.2);
+    const cosChart = createChart(document.getElementById('cosChartCanvas'), 'cos x', cosVals, '#10b981', 1.2, -1.2);
+    const tanChart = createChart(document.getElementById('tanChartCanvas'), 'tan x', tanVals, '#f97316', 4, -4);
+    const cscChart = createChart(document.getElementById('cscChartCanvas'), 'csc x', cscVals, '#8b5cf6', 4, -4);
+    const secChart = createChart(document.getElementById('secChartCanvas'), 'sec x', secVals, '#ec489a', 4, -4);
+    const cotChart = createChart(document.getElementById('cotChartCanvas'), 'cot x', cotVals, '#06b6d4', 4, -4);
+    
+    // Slider for graphs update marker
+    const graphAngleSlider = document.getElementById('graphAngleSlider');
+    const graphAngleValue = document.getElementById('graphAngleValue');
+    const graphFuncValues = document.getElementById('graphFuncValues');
+    function updateGraphValues(deg){
+        let rad = deg * Math.PI/180;
+        let s = Math.sin(rad), c = Math.cos(rad), t = Math.tan(rad);
+        let cs = Math.abs(s)<1e-10 ? Infinity : 1/s;
+        let sc = Math.abs(c)<1e-10 ? Infinity : 1/c;
+        let ct = Math.abs(t)<1e-8 ? Infinity : 1/t;
+        graphFuncValues.innerHTML = `sin=${s.toFixed(4)}, cos=${c.toFixed(4)}, tan=${(t>100?"∞":t.toFixed(4))}, csc=${(Math.abs(cs)>100?"∞":cs.toFixed(4))}, sec=${(Math.abs(sc)>100?"∞":sc.toFixed(4))}, cot=${(Math.abs(ct)>100?"∞":ct.toFixed(4))}`;
+        graphAngleValue.innerText = deg+"°";
+    }
+    graphAngleSlider.oninput = (e) => { updateGraphValues(parseInt(e.target.value)); };
+    updateGraphValues(60);
+
+    // Transformation Example
+    const transformDemo = document.getElementById('transformDemo');
+    const transformOutput = document.getElementById('transformOutput');
+    transformDemo.onclick = () => {
+        let xdeg = 25, xr = xdeg*Math.PI/180;
+        let num = Math.cos(7*xr)+Math.cos(5*xr);
+        let den = Math.sin(7*xr)-Math.sin(5*xr);
+        let lhs = num/den;
+        let cotx = 1/Math.tan(xr);
+        transformOutput.innerHTML = `For x=25°: LHS = ${lhs.toFixed(5)}, cot(25°) = ${cotx.toFixed(5)} → ${Math.abs(lhs-cotx)<1e-5 ? '✅ Verified' : ''}`;
+    };
+    transformDemo.click();
+
+    // Exercises
+    const exDeg = document.getElementById('exDeg');
+    const checkConvert = document.getElementById('checkConvert');
+    const exResult = document.getElementById('exResult');
+    checkConvert.onclick = () => {
+        let d = parseFloat(exDeg.value) || 0;
+        let r = d*Math.PI/180;
+        exResult.innerHTML = `≈ ${r.toFixed(5)} rad (${d===520 ? "26π/9" : ""})`;
+    };
+    const checkSin765 = document.getElementById('checkSin765');
+    const sin765Out = document.getElementById('sin765Out');
+    checkSin765.onclick = () => {
+        let angle = 765 % 360;
+        let rad = angle*Math.PI/180;
+        sin765Out.innerHTML = `sin(765°) = sin(${angle}°) = ${Math.sin(rad).toFixed(6)} (≈ √2/2)`;
+    };
+    checkConvert.click(); checkSin765.click();
+</script>
+</body>
+</html>

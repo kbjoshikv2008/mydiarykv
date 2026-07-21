@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ganita Prakash | Large Numbers Around Us – Big Font Class Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f5;
+            font-family: 'Segoe UI', Roboto, system-ui, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.8rem;
+            color: #1a2c3e;
+            font-size: 1.3rem;  /* base larger font */
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* hero section */
+        .hero {
+            background: linear-gradient(135deg, #0f4c5c, #0b3b3f);
+            border-radius: 2.5rem;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 2.5rem;
+            color: white;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .hero h1 span {
+            background: #ffb347;
+            padding: 0.4rem 1.5rem;
+            border-radius: 80px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3a3f;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 1.2rem;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+
+        /* grid layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 2.2rem;
+            box-shadow: 0 16px 28px -12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+            overflow: hidden;
+            border: 1px solid #e2edf2;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 36px -14px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background: #1f5e6b;
+            padding: 1.5rem 2rem;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .card-header i {
+            font-size: 2.2rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+            font-size: 1.25rem;
+        }
+
+        .question-text {
+            background: #f0f6fa;
+            padding: 1.2rem 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 1.6rem;
+            font-weight: 700;
+            border-left: 8px solid #ffb347;
+            font-size: 1.35rem;
+            line-height: 1.4;
+        }
+
+        label, p {
+            font-size: 1.25rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 20px;
+            margin: 12px 0 16px;
+            border: 2px solid #cbdde6;
+            border-radius: 60px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            background: white;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #1f5e6b;
+            outline: none;
+            box-shadow: 0 0 0 4px #1f5e6b50;
+        }
+
+        button {
+            background: #1f5e6b;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 8px 12px 8px 0;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        button.secondary {
+            background: #ffb347;
+            color: #2d3e40;
+        }
+
+        button:hover {
+            background: #0f4a55;
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 1.5rem;
+            font-size: 1.15rem;
+            background: #f8fafc;
+            border-left: 6px solid #ffb347;
+            line-height: 1.4;
+        }
+
+        .correct-feedback {
+            background: #e0f2e9;
+            border-left-color: #2e7d64;
+            color: #0a3b2f;
+            font-weight: 600;
+        }
+
+        .wrong-feedback {
+            background: #ffe6e5;
+            border-left-color: #d9534f;
+        }
+
+        .fact-badge {
+            background: #e9f0f3;
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            margin-top: 1.4rem;
+            font-size: 1.1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .inline-code {
+            background: #eef2f5;
+            font-family: monospace;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        hr {
+            margin: 1.2rem 0;
+            border-color: #dce5ec;
+        }
+
+        @media (max-width: 880px) {
+            body {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .card-header {
+                font-size: 1.5rem;
+            }
+            .question-text {
+                font-size: 1.2rem;
+            }
+            button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📊 LARGE NUMBERS AROUND US <span>Class 7 • Ganita Prakash</span></h1>
+        <p>Lakhs, Crores, estimation puzzles, multiplication shortcuts, matchstick digits & real-world large number wonders.<br>✅ Every button is fully functional — great for classroom demonstration!</p>
+    </div>
+
+    <div class="grid">
+        <!-- 1. Lakh & Crore basics -->
+        <div class="card">
+            <div class="card-header">🏺 1. Lakh & Crore · Indian System</div>
+            <div class="card-body">
+                <div class="question-text">📌 1 lakh = 1,00,000 &nbsp;&nbsp;|&nbsp;&nbsp; 1 crore = 1,00,00,000</div>
+                <p><strong>❓ a) How many thousands make 1 lakh?</strong><br>
+                <input type="number" id="thousandsLakh" placeholder="Enter number">
+                <button onclick="checkGeneric('thousandsLakh', 100, 'fbLakhTh')">Check</button>
+                <span id="fbLakhTh" class="feedback"></span></p>
+
+                <p><strong>❓ b) How many lakhs make 1 crore?</strong><br>
+                <input type="number" id="lakhCrore" placeholder="Enter number">
+                <button onclick="checkGeneric('lakhCrore', 100, 'fbCroreLakh')">Check</button>
+                <span id="fbCroreLakh" class="feedback"></span></p>
+
+                <p><strong>❓ c) 1 million = ____ lakhs (American ↔ Indian)</strong><br>
+                <input type="number" id="millionToLakh" placeholder="Answer">
+                <button onclick="checkGeneric('millionToLakh', 10, 'fbMillion')">Check</button>
+                <span id="fbMillion" class="feedback"></span></p>
+                <div class="fact-badge">✨ Did you know? 1 Arab = 100 Crore = 1 Billion (approx). Indian grouping: 3,2,2 pattern from right.</div>
+            </div>
+        </div>
+
+        <!-- 2. Land of Tens (Calculator Buttons) -->
+        <div class="card">
+            <div class="card-header">🔢 2. Land of Tens · Thoughtful Thousands</div>
+            <div class="card-body">
+                <div class="question-text">🧮 How many times press <strong>+1000</strong> to show:</div>
+                <p>a) 90,000 ? <input type="number" id="press90k" placeholder="times" style="width:120px; display:inline-block;"> <button onclick="checkGeneric('press90k', 90, 'fb90k')">✓</button> <span id="fb90k" class="feedback"></span></p>
+                <p>b) 1,00,000 (One Lakh) ? <input type="number" id="pressLakh" placeholder="times" style="width:120px;"> <button onclick="checkGeneric('pressLakh', 100, 'fbLakhPress')">✓</button> <span id="fbLakhPress" class="feedback"></span></p>
+                <div class="question-text">➕ Tedious Tens (+10 button): How many presses to get 10,000?</div>
+                <p><input type="number" id="pressTenThousand" placeholder="presses"> <button onclick="checkGeneric('pressTenThousand', 1000, 'fbTenThousand')">Check</button> <span id="fbTenThousand" class="feedback"></span></p>
+                <div class="fact-badge">💡 Tip: 1 lakh = 100 × 1000 = 1000 × 100 = 10,000 × 10. Explore creative ways!</div>
+            </div>
+        </div>
+
+        <!-- 3. Nearest Neighbours & Rounding -->
+        <div class="card">
+            <div class="card-header">🎯 3. Nearest Neighbours · Rounding</div>
+            <div class="card-body">
+                <div class="question-text">📏 For number <strong>6,72,85,183</strong>, nearest lakh is 6,73,00,000.</div>
+                <p><strong>🔍 Find nearest lakh of 3,87,69,957 :</strong><br>
+                <input type="text" id="nearestLakh" placeholder="e.g., 3,88,00,000"> 
+                <button onclick="checkNearestLakh()">Check</button>
+                <span id="fbNearestLakh" class="feedback"></span></p>
+                <p><strong>⚡ Estimate sum: 4,63,128 + 4,19,682</strong><br>
+                Is sum greater than 8,50,000? <select id="sumCompare" style="width: auto;"><option value="">--select--</option><option value="greater">Greater</option><option value="less">Less</option></select>
+                <button onclick="checkSumEstimate()">Verify</button> 
+                <span id="fbSumEstimate" class="feedback"></span><br>
+                <span class="inline-code">Exact sum = 8,82,810</span>
+                </p>
+                <div class="fact-badge">📢 Roxie's estimate: near 8,00,000 ; Estu's near 9,00,000. Estu is closer (diff 17,190 vs 82,810).</div>
+            </div>
+        </div>
+
+        <!-- 4. Multiplication Shortcuts & Patterns -->
+        <div class="card">
+            <div class="card-header">⚡ 4. Multiplication Shortcuts</div>
+            <div class="card-body">
+                <div class="question-text">🚀 72 × 125 (Hint: 125 = 1000/8)</div>
+                <p><input type="number" id="prod125" placeholder="Your answer"> <button onclick="checkMultiplication125()">Check</button> <span id="fbProd125" class="feedback"></span></p>
+                <div class="question-text">✨ Pattern: 11×11=121, 111×111=12321, 1111×1111 = ?</div>
+                <p><input type="text" id="patternResult" placeholder="Result"> <button onclick="checkPattern1111()">Check Pattern</button> <span id="fbPattern" class="feedback"></span></p>
+                <div class="fact-badge">🔥 125 × 40 × 8 × 25 = (125×8)×(40×25)=1000×1000=10,00,000 (Ten Lakhs).</div>
+            </div>
+        </div>
+
+        <!-- 5. Big Questions: Mumbai & Moon -->
+        <div class="card">
+            <div class="card-header">🌍 5. Big Questions · Mumbai & Moon</div>
+            <div class="card-body">
+                <div class="question-text">🚌 Mumbai population ≈ 1.24 crore (124 lakhs). 1 bus holds 50 people. Can 1 lakh buses fit entire Mumbai?</div>
+                <p><button onclick="showBusCapacity()">🤔 Reveal reasoning</button> <span id="busResult" class="feedback"></span></p>
+                <div class="question-text">🌕 Travel 100 km/day. Reach Moon (3,84,400 km) in 10 years? (1 year=365 days)</div>
+                <p><button onclick="checkMoonTravel()">🌙 Calculate</button> <span id="moonResult" class="feedback"></span></p>
+                <div class="question-text">🐟 Female fish lays 1 lakh eggs vs human hair ~1 lakh hairs. Big or small?</div>
+                <div class="fact-badge">💧 AMAZON fact: 6400 × 62,500 = <strong id="amazonFactValue">??</strong> litres/sec! <button class="secondary" onclick="computeAmazon()">Compute now</button></div>
+            </div>
+        </div>
+
+        <!-- 6. Stick Digits Challenge -->
+        <div class="card">
+            <div class="card-header">🟡 6. Stick Digits (Matchstick puzzle)</div>
+            <div class="card-body">
+                <div class="question-text">📏 Stick counts: 0=6,1=2,2=5,3=5,4=4,5=5,6=6,7=3,8=7,9=6.</div>
+                <p><strong>🔢 How many sticks needed for number 5108 ?</strong><br>
+                <input type="number" id="sticks5108" placeholder="Sticks count"> <button onclick="checkSticks5108()">Check</button> <span id="fbSticks5108" class="feedback"></span></p>
+                <p><strong>🏆 Biggest number using exactly 24 sticks ?</strong><br>
+                <button onclick="showBiggest24()">Show Answer</button> <span id="biggest24Result" class="feedback"></span></p>
+                <p><strong>✨ Rearrange 4 sticks from 63,890 to make bigger number</strong> <br>
+                <button onclick="hintRearrange()">💡 Hint / idea</button> <span id="rearrangeHint" class="feedback"></span></p>
+            </div>
+        </div>
+
+        <!-- 7. City Populations Table Approximations -->
+        <div class="card">
+            <div class="card-header">🏙️ 7. Census · City Growth</div>
+            <div class="card-body">
+                <div class="question-text">Pune 2011: 31,15,431 ; 2001: 25,38,473. Approx increase ?</div>
+                <p><input type="number" id="puneIncrease" placeholder="Increase"> <button onclick="checkPuneIncrease()">Check</button> <span id="fbPune" class="feedback"></span></p>
+                <div class="question-text">📈 Which city's population almost doubled (2001→2011)?</div>
+                <p><button onclick="showDoubling()">👀 Check Surat & Bengaluru</button> <span id="doubleResult" class="feedback"></span></p>
+                <div class="fact-badge">📊 Bengaluru 2001: 43,01,326 → 2011: 84,25,970 (almost doubled!)</div>
+            </div>
+        </div>
+
+        <!-- 8. Creative Chitti & Minimal Clicks -->
+        <div class="card">
+            <div class="card-header">🧠 8. Minimal Button Clicks</div>
+            <div class="card-body">
+                <div class="question-text">🎛️ Systematic Sippy: buttons +1,+10,+100,+1000,... Minimal clicks for 5072 ? (Textbook example uses 23, but we can do better)</div>
+                <p><button onclick="showMinimal5072()">Show efficient way</button> <span id="minimal5072" class="feedback"></span></p>
+                <div class="question-text">⚡ For 8300, minimal button clicks expression?</div>
+                <p><button onclick="showMinimal8300()">Reveal expression</button> <span id="minimal8300" class="feedback"></span></p>
+                <div class="fact-badge">🔁 Least clicks = place value expansion: 5072 = 5×1000 + 7×10 + 2×1 → 5+7+2 = 14 clicks!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- second row: extra activities -->
+    <div class="grid">
+        <div class="card">
+            <div class="card-header">📖 9. Write Numbers in Words (Indian System)</div>
+            <div class="card-body">
+                <div class="question-text">✍️ Number: 5,04,085 → in words?</div>
+                <p><input type="text" id="numWords" placeholder="e.g., five lakh four thousand eighty five"> <button onclick="checkNumberName()">Check</button> <span id="fbNumWords" class="feedback"></span></p>
+                <div class="question-text">🔢 "Fifty lakhs five thousand and fifty" to numeral (Indian):</div>
+                <p><input type="text" id="numeralFromWords" placeholder="e.g., 50,05,050"> <button onclick="checkNumeral()">Check</button> <span id="fbNumeral" class="feedback"></span></p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">🧩 10. Fascinating Comparisons</div>
+            <div class="card-body">
+                <div class="question-text">🏔️ Statue of Unity (180 m) & Kunchikal waterfall (450 m). How many times taller is waterfall than a 40 m building?</div>
+                <p><input type="text" id="waterfallRatio" placeholder="times"> <button onclick="checkWaterfallRatio()">Check</button> <span id="fbWaterfall" class="feedback"></span></p>
+                <div class="question-text">💵 How many lakhs make a billion? (1 billion = 1000 million)</div>
+                <p><input type="number" id="billionLakhs" placeholder="Answer"> <button onclick="checkBillionLakhs()">Check</button> <span id="fbBillion" class="feedback"></span></p>
+                <div class="question-text">📏 1 lakh people shoulder to shoulder stretch ~38 km. If 10 lakh people, how many km?</div>
+                <p><button onclick="showLakhKm()">Compute</button> <span id="lakhKmResult" class="feedback"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Universal numeric check
+    function checkGeneric(inputId, expectedValue, feedbackId) {
+        const inputElem = document.getElementById(inputId);
+        const userVal = inputElem.value.trim();
+        const fbSpan = document.getElementById(feedbackId);
+        let numeric = Number(userVal);
+        if (!isNaN(numeric) && userVal !== "" && numeric === expectedValue) {
+            fbSpan.innerHTML = `✅ Correct! ${expectedValue} is right.`;
+            fbSpan.className = "feedback correct-feedback";
+        } else {
+            fbSpan.innerHTML = `❌ Not correct. Expected answer: ${expectedValue}. Try again!`;
+            fbSpan.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkNearestLakh() {
+        let inputVal = document.getElementById("nearestLakh").value.replace(/,/g, '');
+        let num = parseInt(inputVal, 10);
+        let correct = 38800000;  // 3,88,00,000
+        let fb = document.getElementById("fbNearestLakh");
+        if (!isNaN(num) && num === correct) {
+            fb.innerHTML = "✅ Correct! 3,87,69,957 rounded to nearest lakh → 3,88,00,000.";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = "❌ Nearest lakh is 3,88,00,000 (since 69,957 > 50,000, round up).";
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkSumEstimate() {
+        let choice = document.getElementById("sumCompare").value;
+        let fb = document.getElementById("fbSumEstimate");
+        if (choice === "greater") {
+            fb.innerHTML = "✅ Correct! 4,63,128 + 4,19,682 = 8,82,810 which is > 8,50,000.";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = "❌ The sum is 8,82,810, greater than 8,50,000. So 'Greater' is correct.";
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkMultiplication125() {
+        let ans = Number(document.getElementById("prod125").value);
+        let fb = document.getElementById("fbProd125");
+        if (ans === 9000) {
+            fb.innerHTML = "✅ Amazing! 72×125 = 72×1000/8 = 72000/8 = 9000.";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = "❌ Correct answer is 9000. Hint: 125 = 1000/8 → 72/8=9, ×1000=9000.";
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkPattern1111() {
+        let val = document.getElementById("patternResult").value.trim();
+        let fb = document.getElementById("fbPattern");
+        if (val === "1234321") {
+            fb.innerHTML = "✅ Perfect! 1111×1111 = 1234321 (beautiful symmetric pattern).";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = "❌ Pattern: 1111×1111 = 1234321. Continue: 11111×11111 = 123454321.";
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function showBusCapacity() {
+        let pop = 12400000;   // 1.24 crore approx
+        let buses = 100000;
+        let capacity = buses * 50;
+        let fb = document.getElementById("busResult");
+        if (capacity < pop) {
+            fb.innerHTML = `🚌 1 lakh buses × 50 = 50 lakh (5,000,000). Mumbai population > 1.24 crore (12,400,000). So cannot fit! Need about 2.5 lakh buses.`;
+        } else {
+            fb.innerHTML = `Capacity sufficient.`;
+        }
+        fb.className = "feedback";
+    }
+
+    function checkMoonTravel() {
+        let distance = 384400;
+        let perDay = 100;
+        let years = 10;
+        let totalDist = perDay * 365 * years;
+        let fb = document.getElementById("moonResult");
+        if (totalDist >= distance) {
+            fb.innerHTML = `✅ Yes! In 10 years she travels ${totalDist.toLocaleString()} km, which is more than ${distance.toLocaleString()} km. She reaches the Moon!`;
+        } else {
+            fb.innerHTML = `❌ She travels only ${totalDist.toLocaleString()} km, less than ${distance.toLocaleString()} km. Needs ~10.5 years.`;
+        }
+        fb.className = "feedback";
+    }
+
+    function computeAmazon() {
+        let product = 6400 * 62500;
+        document.getElementById("amazonFactValue").innerHTML = product.toLocaleString() + " litres/sec";
+    }
+
+    const stickMap = {0:6,1:2,2:5,3:5,4:4,5:5,6:6,7:3,8:7,9:6};
+    function countSticks(numStr) {
+        let total = 0;
+        for(let ch of numStr) {
+            let d = parseInt(ch,10);
+            if(!isNaN(d)) total += stickMap[d];
+        }
+        return total;
+    }
+
+    function checkSticks5108() {
+        let userSticks = parseInt(document.getElementById("sticks5108").value,10);
+        let actual = countSticks("5108"); // 5+1+0+8 = 20
+        let fb = document.getElementById("fbSticks5108");
+        if (userSticks === actual) {
+            fb.innerHTML = `✅ Correct! 5108 uses ${actual} sticks (5:5, 1:2, 0:6, 8:7).`;
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = `❌ 5108 requires ${actual} sticks. Re-check digit stick values.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function showBiggest24() {
+        document.getElementById("biggest24Result").innerHTML = "🏆 Biggest number with 24 sticks: <strong>111111111111</strong> (twelve 1's). Each '1' uses 2 sticks → 12×2=24 sticks, gives maximum digits = largest value.";
+        document.getElementById("biggest24Result").className = "feedback";
+    }
+
+    function hintRearrange() {
+        document.getElementById("rearrangeHint").innerHTML = "💡 From 63,890, moving 4 sticks you could make 98,088 or 88,098. Try turning 6→8 (add 2 sticks), 3→8 (add 2 sticks) and reposition to maximize value!";
+        document.getElementById("rearrangeHint").className = "feedback";
+    }
+
+    function checkPuneIncrease() {
+        let ans = parseInt(document.getElementById("puneIncrease").value,10);
+        let increase = 3115431 - 2538473; // 576958
+        let fb = document.getElementById("fbPune");
+        if (ans === increase) {
+            fb.innerHTML = `✅ Exactly! Pune population increased by ${increase.toLocaleString()}.`;
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = `❌ Actual increase = ${increase.toLocaleString()}. Approximately 5.77 lakhs.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function showDoubling() {
+        document.getElementById("doubleResult").innerHTML = "📈 Surat: 24.33 lakh → 44.68 lakh (≈1.84x, not double). Bengaluru: 43.01 lakh → 84.26 lakh (almost double!). Thane and others also show high growth.";
+        document.getElementById("doubleResult").className = "feedback";
+    }
+
+    function showMinimal5072() {
+        document.getElementById("minimal5072").innerHTML = "🔘 Minimal clicks: 5×1000 + 7×10 + 2×1 → 5+7+2 = 14 clicks. Much less than 23!";
+        document.getElementById("minimal5072").className = "feedback";
+    }
+
+    function showMinimal8300() {
+        document.getElementById("minimal8300").innerHTML = "🎯 8300 minimal: 8×1000 + 3×100 = 8+3 = 11 clicks. (No tens/ones). Indian place value style!";
+        document.getElementById("minimal8300").className = "feedback";
+    }
+
+    function checkNumberName() {
+        let user = document.getElementById("numWords").value.trim().toLowerCase();
+        let correct = "five lakh four thousand eighty five";
+        let fb = document.getElementById("fbNumWords");
+        if (user === correct) {
+            fb.innerHTML = "✅ Perfect! 5,04,085 = five lakh four thousand eighty five.";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = `❌ Correct: "five lakh four thousand eighty five". Watch Indian place value.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkNumeral() {
+        let user = document.getElementById("numeralFromWords").value.replace(/,/g, '');
+        let expected = "5005050";
+        let fb = document.getElementById("fbNumeral");
+        if (user === expected) {
+            fb.innerHTML = "✅ Yes! Fifty lakhs five thousand fifty = 50,05,050.";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = "❌ Correct numeral: 50,05,050 (Indian system).";
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkWaterfallRatio() {
+        let building = 40;
+        let waterfall = 450;
+        let ratio = waterfall / building;
+        let userRatio = parseFloat(document.getElementById("waterfallRatio").value);
+        let fb = document.getElementById("fbWaterfall");
+        if (!isNaN(userRatio) && Math.abs(userRatio - ratio) < 0.05) {
+            fb.innerHTML = `✅ Right! Kunchikal waterfall is ${ratio} times taller than a 40m building.`;
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = `❌ Approximately ${ratio} times (450/40 = 11.25). So answer: 11.25 times.`;
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function checkBillionLakhs() {
+        let ans = Number(document.getElementById("billionLakhs").value);
+        let correct = 10000;
+        let fb = document.getElementById("fbBillion");
+        if (ans === correct) {
+            fb.innerHTML = "✅ Correct! 1 billion = 10,000 lakhs (1 million=10 lakhs, 1000 million=10000 lakhs).";
+            fb.className = "feedback correct-feedback";
+        } else {
+            fb.innerHTML = "❌ 1 billion = 10,000 lakhs. Because 1 million = 10 lakhs → 1000 million = 10,000 lakhs.";
+            fb.className = "feedback wrong-feedback";
+        }
+    }
+
+    function showLakhKm() {
+        let fb = document.getElementById("lakhKmResult");
+        fb.innerHTML = "📏 1 lakh people → 38 km. So 10 lakh people → 380 km. That's like the distance from Mumbai to Surat!";
+        fb.className = "feedback";
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        computeAmazon();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Math Worksheet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 40px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .chapter {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            background-color: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .question-text {
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.95em;
+            transition: background-color 0.3s;
+            margin-top: 5px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .solution {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4fc;
+            border-left: 4px solid #2ecc71;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        
+        .solution.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .overview {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .chapter {
+                padding: 15px;
+            }
+            
+            .question {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Math Worksheet</h1>
+    
+    <div class="overview">
+        <h2>Overview</h2>
+        <p>This worksheet contains 10 important questions from each of the four chapters (Lines and Angles, Number Play, Triangles, Fractions) with interactive solutions.</p>
+    </div>
+    
+    <div class="instructions">
+        <h3>How to Use</h3>
+        <ul>
+            <li>Each question has a "Show Solution" button.</li>
+            <li>Click the button to reveal the step-by-step solution.</li>
+            <li>Click again to hide the solution.</li>
+        </ul>
+    </div>
+    
+    <!-- Chapter 5: Lines and Angles -->
+    <div class="chapter">
+        <h2>Chapter 5: Lines and Angles</h2>
+        
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">In Fig. 5.2, if ∠a = 120°, find ∠b, ∠c, and ∠d without measuring.</div>
+            <button onclick="toggleSolution('sol1')">Show Solution</button>
+            <div id="sol1" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>∠a and ∠b are linear pairs, so ∠a + ∠b = 180°.</p>
+                <p>Given ∠a = 120°, then ∠b = 180° - 120° = 60°.</p>
+                <p>∠b and ∠c are linear pairs, so ∠c = 180° - 60° = 120°.</p>
+                <p>∠c and ∠d are linear pairs, so ∠d = 180° - 120° = 60°.</p>
+                <p>Alternatively, ∠a and ∠c are vertically opposite angles and equal (120°).</p>
+                <p>∠b and ∠d are vertically opposite angles and equal (60°).</p>
+            </div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-number">Question 2</div>
+            <div class="question-text">Can two straight lines intersect at more than one point? Explain.</div>
+            <button onclick="toggleSolution('sol2')">Show Solution</button>
+            <div id="sol2" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>No, two distinct straight lines can intersect at most at one point.</p>
+                <p>If they intersect at two points, they would coincide and be the same line.</p>
+            </div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-number">Question 3</div>
+            <div class="question-text">What are perpendicular lines? Give an example.</div>
+            <button onclick="toggleSolution('sol3')">Show Solution</button>
+            <div id="sol3" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Perpendicular lines are lines that intersect at right angles (90°).</p>
+                <p>Example: The adjacent edges of a square sheet of paper are perpendicular.</p>
+            </div>
+        </div>
+        
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-number">Question 4</div>
+            <div class="question-text">Define parallel lines. Name some parallel lines in your classroom.</div>
+            <button onclick="toggleSolution('sol4')">Show Solution</button>
+            <div id="sol4" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Parallel lines are lines in the same plane that never meet, no matter how far extended.</p>
+                <p>Example: Opposite edges of a ruler, railway tracks (in a plane), etc.</p>
+            </div>
+        </div>
+        
+        <!-- Question 5 -->
+        <div class="question">
+            <div class="question-number">Question 5</div>
+            <div class="question-text">In Fig. 5.14, line t is a transversal intersecting lines l and m. If ∠1 = 70°, find ∠5 (corresponding angle).</div>
+            <button onclick="toggleSolution('sol5')">Show Solution</button>
+            <div id="sol5" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>When a transversal intersects two parallel lines, corresponding angles are equal.</p>
+                <p>Thus, ∠1 and ∠5 are corresponding angles, so ∠5 = ∠1 = 70°.</p>
+            </div>
+        </div>
+        
+        <!-- Question 6 -->
+        <div class="question">
+            <div class="question-number">Question 6</div>
+            <div class="question-text">How can you draw a pair of parallel lines using a ruler and set square?</div>
+            <button onclick="toggleSolution('sol6')">Show Solution</button>
+            <div id="sol6" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw a line l using a ruler.</li>
+                    <li>Place the set square along line l.</li>
+                    <li>Slide the set square along the ruler and draw another line m along the set square's edge.</li>
+                    <li>Lines l and m are parallel because they are both perpendicular to the ruler's edge.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Question 7 -->
+        <div class="question">
+            <div class="question-number">Question 7</div>
+            <div class="question-text">In Fig. 5.25, if ∠f = 120°, find its alternate angle ∠d.</div>
+            <button onclick="toggleSolution('sol7')">Show Solution</button>
+            <div id="sol7" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Alternate angles are equal when lines are parallel.</p>
+                <p>∠f and ∠b are corresponding angles, so ∠b = 120°.</p>
+                <p>∠b and ∠d are vertically opposite angles, so ∠d = 120°.</p>
+                <p>Thus, ∠d = 120°.</p>
+            </div>
+        </div>
+        
+        <!-- Question 8 -->
+        <div class="question">
+            <div class="question-number">Question 8</div>
+            <div class="question-text">In Fig. 5.26, if ∠6 = 135°, find ∠2, ∠4, and ∠8.</div>
+            <button onclick="toggleSolution('sol8')">Show Solution</button>
+            <div id="sol8" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>∠6 and ∠2 are corresponding angles, so ∠2 = 135°.</p>
+                <p>∠6 and ∠8 are vertically opposite angles, so ∠8 = 135°.</p>
+                <p>∠8 and ∠4 are corresponding angles, so ∠4 = 135°.</p>
+            </div>
+        </div>
+        
+        <!-- Question 9 -->
+        <div class="question">
+            <div class="question-number">Question 9</div>
+            <div class="question-text">In Fig. 5.27, if ∠a = 120° and ∠f = 70°, are lines l and m parallel?</div>
+            <button onclick="toggleSolution('sol9')">Show Solution</button>
+            <div id="sol9" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>∠a and ∠b are linear pairs, so ∠b = 60°.</p>
+                <p>∠b and ∠f are corresponding angles. If lines were parallel, they should be equal.</p>
+                <p>But ∠b = 60° and ∠f = 70°, so they are not equal.</p>
+                <p>Thus, lines l and m are not parallel.</p>
+            </div>
+        </div>
+        
+        <!-- Question 10 -->
+        <div class="question">
+            <div class="question-number">Question 10</div>
+            <div class="question-text">In Fig. 5.30, find the marked angles.</div>
+            <button onclick="toggleSolution('sol10')">Show Solution</button>
+            <div id="sol10" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>(Note: Since Fig. 5.30 is not fully described, we assume a typical problem with parallel lines and a transversal.)</p>
+                <p>If one angle is given, use corresponding, alternate, and linear pair properties to find others.</p>
+                <p>Example: If one angle is 50°, then its corresponding angle is 50°, its alternate angle is 50°, and its linear pair is 130°.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chapter 6: Number Play -->
+    <div class="chapter">
+        <h2>Chapter 6: Number Play</h2>
+        
+        <!-- Question 11 -->
+        <div class="question">
+            <div class="question-number">Question 11</div>
+            <div class="question-text">In the height arrangement, if the sequence is 0,1,1,2,4,1,5, what does it mean?</div>
+            <button onclick="toggleSolution('sol11')">Show Solution</button>
+            <div id="sol11" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Each child calls out the number of children in front who are taller.</p>
+                <p>Sequence 0,1,1,2,4,1,5 means:</p>
+                <ul>
+                    <li>First child: no one taller in front.</li>
+                    <li>Second child: 1 taller in front.</li>
+                    <li>Third child: 1 taller in front.</li>
+                    <li>Fourth child: 2 taller in front.</li>
+                    <li>Fifth child: 4 taller in front.</li>
+                    <li>Sixth child: 1 taller in front.</li>
+                    <li>Seventh child: 5 taller in front.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Question 12 -->
+        <div class="question">
+            <div class="question-number">Question 12</div>
+            <div class="question-text">Kishor has 5 boxes and odd-numbered cards. Can he fill them to sum to 30?</div>
+            <button onclick="toggleSolution('sol12')">Show Solution</button>
+            <div id="sol12" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>No, because the sum of 5 odd numbers is always odd.</p>
+                <p>30 is even, so it is impossible.</p>
+            </div>
+        </div>
+        
+        <!-- Question 13 -->
+        <div class="question">
+            <div class="question-number">Question 13</div>
+            <div class="question-text">Martin and Maria are one year apart. Can their ages sum to 112?</div>
+            <button onclick="toggleSolution('sol13')">Show Solution</button>
+            <div id="sol13" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>No, because consecutive numbers have opposite parity.</p>
+                <p>Sum of an even and an odd number is odd.</p>
+                <p>112 is even, so it is impossible.</p>
+            </div>
+        </div>
+        
+        <!-- Question 14 -->
+        <div class="question">
+            <div class="question-number">Question 14</div>
+            <div class="question-text">What is the 100th odd number?</div>
+            <button onclick="toggleSolution('sol14')">Show Solution</button>
+            <div id="sol14" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>The nth odd number is given by 2n - 1.</p>
+                <p>So, 100th odd number = 2 × 100 - 1 = 199.</p>
+            </div>
+        </div>
+        
+        <!-- Question 15 -->
+        <div class="question">
+            <div class="question-number">Question 15</div>
+            <div class="question-text">In a 3×3 grid using numbers 1-9, what is the magic sum?</div>
+            <button onclick="toggleSolution('sol15')">Show Solution</button>
+            <div id="sol15" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>The sum of numbers 1 to 9 is 45.</p>
+                <p>In a magic square, each row sum is equal, and there are 3 rows.</p>
+                <p>So, magic sum = 45 ÷ 3 = 15.</p>
+            </div>
+        </div>
+        
+        <!-- Question 16 -->
+        <div class="question">
+            <div class="question-number">Question 16</div>
+            <div class="question-text">What is the centre number in a 3×3 magic square using 1-9?</div>
+            <button onclick="toggleSolution('sol16')">Show Solution</button>
+            <div id="sol16" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>The centre number must be 5.</p>
+                <p>Reason: The magic sum is 15, and the centre number is involved in four sums (row, column, two diagonals).</p>
+                <p>After trying possibilities, only 5 works.</p>
+            </div>
+        </div>
+        
+        <!-- Question 17 -->
+        <div class="question">
+            <div class="question-number">Question 17</div>
+            <div class="question-text">How many rhythms of 8 beats are possible using short (1 beat) and long (2 beats) syllables?</div>
+            <button onclick="toggleSolution('sol17')">Show Solution</button>
+            <div id="sol17" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>This is the Virahanka sequence: 1, 2, 3, 5, 8, 13, 21, 34, ...</p>
+                <p>The 8th term is 34.</p>
+                <p>So, there are 34 rhythms.</p>
+            </div>
+        </div>
+        
+        <!-- Question 18 -->
+        <div class="question">
+            <div class="question-number">Question 18</div>
+            <div class="question-text">Solve the cryptarithm: U + U + U = TU (each letter a digit).</div>
+            <button onclick="toggleSolution('sol18')">Show Solution</button>
+            <div id="sol18" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>U + U + U = 3U = TU, where TU is a two-digit number.</p>
+                <p>The units digit of 3U is U, so U must be 5 (since 3×5=15).</p>
+                <p>Then 3×5=15, so T=1, U=5.</p>
+                <p>Thus, 5+5+5=15.</p>
+            </div>
+        </div>
+        
+        <!-- Question 19 -->
+        <div class="question">
+            <div class="question-number">Question 19</div>
+            <div class="question-text">A light bulb is ON. Toggled 77 times. Is it ON or OFF?</div>
+            <button onclick="toggleSolution('sol19')">Show Solution</button>
+            <div id="sol19" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Starting from ON, after an odd number of toggles, the bulb is OFF.</p>
+                <p>77 is odd, so the bulb is OFF.</p>
+            </div>
+        </div>
+        
+        <!-- Question 20 -->
+        <div class="question">
+            <div class="question-number">Question 20</div>
+            <div class="question-text">50 loose sheets, each printed on both sides. Can the sum of page numbers be 6000?</div>
+            <button onclick="toggleSolution('sol20')">Show Solution</button>
+            <div id="sol20" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Each sheet has two page numbers: one odd, one even.</p>
+                <p>Sum of an odd and an even number is odd.</p>
+                <p>Sum of 50 such pairs is 50 × (odd) = even (since 50 is even).</p>
+                <p>6000 is even, so it is possible.</p>
+                <p class="note">(However, the actual sum depends on the starting page. The condition is parity-possible.)</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chapter 7: Triangles -->
+    <div class="chapter">
+        <h2>Chapter 7: Triangles</h2>
+        
+        <!-- Question 21 -->
+        <div class="question">
+            <div class="question-number">Question 21</div>
+            <div class="question-text">Construct an equilateral triangle of side 4 cm.</div>
+            <button onclick="toggleSolution('sol21')">Show Solution</button>
+            <div id="sol21" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw a line segment AB = 4 cm.</li>
+                    <li>With A as centre, radius 4 cm, draw an arc.</li>
+                    <li>With B as centre, radius 4 cm, draw another arc to intersect the first arc at C.</li>
+                    <li>Join AC and BC.</li>
+                    <li>ΔABC is the required equilateral triangle.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Question 22 -->
+        <div class="question">
+            <div class="question-number">Question 22</div>
+            <div class="question-text">Construct a triangle with sides 4 cm, 5 cm, 6 cm.</div>
+            <button onclick="toggleSolution('sol22')">Show Solution</button>
+            <div id="sol22" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw base AB = 4 cm.</li>
+                    <li>With A as centre, radius 5 cm, draw an arc.</li>
+                    <li>With B as centre, radius 6 cm, draw another arc to intersect the first arc at C.</li>
+                    <li>Join AC and BC.</li>
+                    <li>ΔABC is the required triangle.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Question 23 -->
+        <div class="question">
+            <div class="question-number">Question 23</div>
+            <div class="question-text">Check if a triangle with sides 10 cm, 15 cm, 30 cm exists.</div>
+            <button onclick="toggleSolution('sol23')">Show Solution</button>
+            <div id="sol23" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Use triangle inequality: each side must be less than the sum of the other two.</p>
+                <p>Check: 30 < 10+15? 30 < 25? No.</p>
+                <p>So, such a triangle does not exist.</p>
+            </div>
+        </div>
+        
+        <!-- Question 24 -->
+        <div class="question">
+            <div class="question-number">Question 24</div>
+            <div class="question-text">Construct ΔABC with AB=5 cm, AC=4 cm, and ∠A=45°.</div>
+            <button onclick="toggleSolution('sol24')">Show Solution</button>
+            <div id="sol24" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw AB=5 cm.</li>
+                    <li>At A, construct an angle of 45° using protractor or compass.</li>
+                    <li>On the arm of the angle, mark C such that AC=4 cm.</li>
+                    <li>Join BC.</li>
+                    <li>ΔABC is the required triangle.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Question 25 -->
+        <div class="question">
+            <div class="question-number">Question 25</div>
+            <div class="question-text">Construct ΔABC with AB=5 cm, ∠A=45°, ∠B=80°.</div>
+            <button onclick="toggleSolution('sol25')">Show Solution</button>
+            <div id="sol25" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw AB=5 cm.</li>
+                    <li>At A, construct an angle of 45°.</li>
+                    <li>At B, construct an angle of 80°.</li>
+                    <li>Let the arms of these angles intersect at C.</li>
+                    <li>ΔABC is the required triangle.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Question 26 -->
+        <div class="question">
+            <div class="question-number">Question 26</div>
+            <div class="question-text">In a triangle, two angles are 50° and 70°. Find the third angle.</div>
+            <button onclick="toggleSolution('sol26')">Show Solution</button>
+            <div id="sol26" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Sum of angles in a triangle = 180°.</p>
+                <p>Third angle = 180° - (50° + 70°) = 60°.</p>
+            </div>
+        </div>
+        
+        <!-- Question 27 -->
+        <div class="question">
+            <div class="question-number">Question 27</div>
+            <div class="question-text">In ΔABC, ∠A=50°, ∠B=60°. Find the exterior angle at C.</div>
+            <button onclick="toggleSolution('sol27')">Show Solution</button>
+            <div id="sol27" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>∠C = 180° - (50°+60°) = 70°.</p>
+                <p>Exterior angle at C = 180° - ∠C = 180° - 70° = 110°.</p>
+                <p>Alternatively, exterior angle = sum of opposite interior angles = 50°+60°=110°.</p>
+            </div>
+        </div>
+        
+        <!-- Question 28 -->
+        <div class="question">
+            <div class="question-number">Question 28</div>
+            <div class="question-text">Construct an altitude from vertex A to side BC in a triangle.</div>
+            <button onclick="toggleSolution('sol28')">Show Solution</button>
+            <div id="sol28" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw triangle ABC.</li>
+                    <li>Place a ruler along BC.</li>
+                    <li>Use a set square perpendicular to the ruler, slide it until the perpendicular edge passes through A.</li>
+                    <li>Draw the line from A perpendicular to BC, meeting BC at D.</li>
+                    <li>AD is the altitude.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Question 29 -->
+        <div class="question">
+            <div class="question-number">Question 29</div>
+            <div class="question-text">Classify triangles based on angles.</div>
+            <button onclick="toggleSolution('sol29')">Show Solution</button>
+            <div id="sol29" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Acute-angled triangle: all angles < 90°.</li>
+                    <li>Right-angled triangle: one angle = 90°.</li>
+                    <li>Obtuse-angled triangle: one angle > 90°.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Question 30 -->
+        <div class="question">
+            <div class="question-number">Question 30</div>
+            <div class="question-text">Construct a right-angled triangle with hypotenuse AC=5 cm.</div>
+            <button onclick="toggleSolution('sol30')">Show Solution</button>
+            <div id="sol30" class="solution">
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Draw a line segment AC=5 cm.</li>
+                    <li>Find the midpoint O of AC (since in a right triangle, the midpoint of the hypotenuse is the circumcentre).</li>
+                    <li>With O as centre, radius OA=2.5 cm, draw a semicircle on AC.</li>
+                    <li>Choose any point B on the semicircle (other than A and C).</li>
+                    <li>Join AB and BC.</li>
+                    <li>ΔABC is a right-angled triangle with ∠B=90°.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chapter 8: Fractions -->
+    <div class="chapter">
+        <h2>Chapter 8: Fractions</h2>
+        
+        <!-- Question 31 -->
+        <div class="question">
+            <div class="question-number">Question 31</div>
+            <div class="question-text">Aaron walks 3 km in 1 hour. How far in 1/5 hour?</div>
+            <button onclick="toggleSolution('sol31')">Show Solution</button>
+            <div id="sol31" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Distance = speed × time = 3 × 1/5 = 3/5 km.</p>
+            </div>
+        </div>
+        
+        <!-- Question 32 -->
+        <div class="question">
+            <div class="question-number">Question 32</div>
+            <div class="question-text">Multiply 2/5 and 3/4.</div>
+            <button onclick="toggleSolution('sol32')">Show Solution</button>
+            <div id="sol32" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>2/5 × 3/4 = (2×3)/(5×4) = 6/20 = 3/10.</p>
+            </div>
+        </div>
+        
+        <!-- Question 33 -->
+        <div class="question">
+            <div class="question-number">Question 33</div>
+            <div class="question-text">Divide 2/3 by 3/5.</div>
+            <button onclick="toggleSolution('sol33')">Show Solution</button>
+            <div id="sol33" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>2/3 ÷ 3/5 = 2/3 × 5/3 = (2×5)/(3×3) = 10/9.</p>
+            </div>
+        </div>
+        
+        <!-- Question 34 -->
+        <div class="question">
+            <div class="question-number">Question 34</div>
+            <div class="question-text">Leena used 1/4 litre milk for 5 cups of tea. How much milk per cup?</div>
+            <button onclick="toggleSolution('sol34')">Show Solution</button>
+            <div id="sol34" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Milk per cup = total milk ÷ number of cups = (1/4) ÷ 5 = 1/4 × 1/5 = 1/20 litre.</p>
+            </div>
+        </div>
+        
+        <!-- Question 35 -->
+        <div class="question">
+            <div class="question-number">Question 35</div>
+            <div class="question-text">Cover 7½ sq. units with square bricks of side 1/5 unit. How many bricks?</div>
+            <button onclick="toggleSolution('sol35')">Show Solution</button>
+            <div id="sol35" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Area of one brick = (1/5)×(1/5) = 1/25 sq. units.</p>
+                <p>Number of bricks = total area ÷ area per brick = (15/2) ÷ (1/25) = 15/2 × 25/1 = 375/2 = 187.5 bricks.</p>
+                <p class="note">But since bricks are whole, we need 188 bricks.</p>
+            </div>
+        </div>
+        
+        <!-- Question 36 -->
+        <div class="question">
+            <div class="question-number">Question 36</div>
+            <div class="question-text">Four fountains fill a cistern in 1 day, 1/2 day, 1/4 day, and 1/5 day. Together, how long?</div>
+            <button onclick="toggleSolution('sol36')">Show Solution</button>
+            <div id="sol36" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>In one day, each fills: 1, 2, 4, and 5 times respectively.</p>
+                <p>Together in one day: 1+2+4+5 = 12 times.</p>
+                <p>So, time to fill once = 1/12 day.</p>
+            </div>
+        </div>
+        
+        <!-- Question 37 -->
+        <div class="question">
+            <div class="question-number">Question 37</div>
+            <div class="question-text">In Fig. 8.4, shaded region is what fraction of the whole square?</div>
+            <button onclick="toggleSolution('sol37')">Show Solution</button>
+            <div id="sol37" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>(Assuming the figure shows a square divided into smaller parts.)</p>
+                <p>If the shaded region is 3 out of 32 equal parts, then fraction = 3/32.</p>
+            </div>
+        </div>
+        
+        <!-- Question 38 -->
+        <div class="question">
+            <div class="question-number">Question 38</div>
+            <div class="question-text">Multiply 7 × 3/5 and convert to mixed fraction.</div>
+            <button onclick="toggleSolution('sol38')">Show Solution</button>
+            <div id="sol38" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>7 × 3/5 = 21/5 = 4⅕.</p>
+            </div>
+        </div>
+        
+        <!-- Question 39 -->
+        <div class="question">
+            <div class="question-number">Question 39</div>
+            <div class="question-text">Divide 1/5 ÷ 1/2.</div>
+            <button onclick="toggleSolution('sol39')">Show Solution</button>
+            <div id="sol39" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>1/5 ÷ 1/2 = 1/5 × 2/1 = 2/5.</p>
+            </div>
+        </div>
+        
+        <!-- Question 40 -->
+        <div class="question">
+            <div class="question-number">Question 40</div>
+            <div class="question-text">Mira read 1/5 and 3/10 of a 400-page novel. How many pages left?</div>
+            <button onclick="toggleSolution('sol40')">Show Solution</button>
+            <div id="sol40" class="solution">
+                <p><strong>Solution:</strong></p>
+                <p>Pages read = 400 × (1/5 + 3/10) = 400 × (2/10 + 3/10) = 400 × 5/10 = 400 × 1/2 = 200 pages.</p>
+                <p>Pages left = 400 - 200 = 200 pages.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Interactive Math Worksheet • Created from Ganita Prakash Grade 7 Chapters 5-8</p>
+    </footer>
+
+    <script>
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            solution.classList.toggle('show');
+            
+            // Toggle button text
+            const button = solution.previousElementSibling;
+            if (solution.classList.contains('show')) {
+                button.textContent = 'Hide Solution';
+            } else {
+                button.textContent = 'Show Solution';
+            }
+        }
+    </script>
+</body>
+</html>

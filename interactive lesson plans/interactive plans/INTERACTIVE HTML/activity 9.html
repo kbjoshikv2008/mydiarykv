@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 9: Local Maxima, Minima, and Inflection Points</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2c3e50;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .header h2 {
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .section h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .material-list, .method-list, .observation-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .material-list li, .method-list li, .observation-list li {
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .diagram {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        .calculation-box {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        .formula {
+            text-align: center;
+            font-size: 18px;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+        }
+        .result {
+            background-color: #e8f6f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #2ecc71;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #bdc3c7;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        /* Image placeholder styling */
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #999;
+        }
+        .image-placeholder i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        /* Image display styling */
+        .image-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        /* Image upload styling */
+        .image-upload {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #f39c12;
+        }
+        .upload-instructions {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 10px;
+            }
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .image-upload {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Activity 9: Application of Derivatives</h1>
+        <h2>Understanding Local Maxima, Local Minima, and Points of Inflection</h2>
+        <p>Mathematics Laboratory Manual</p>
+    </div>
+
+    <div class="section">
+        <h3>Objective</h3>
+        <p>To understand the concepts of local maxima, local minima and point of inflection through practical demonstration.</p>
+    </div>
+
+    <div class="section">
+        <h3>Materials Required</h3>
+        <ul class="material-list">
+            <li>A piece of plywood of convenient size</li>
+            <li>Wires (two pieces of 40 cm each, one curved wire, five 2 cm wires)</li>
+            <li>Adhesive (glue)</li>
+            <li>White paper</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Method of Construction</h3>
+        <ol class="method-list">
+            <li>Take a piece of plywood of a convenient size and paste a white paper on it.</li>
+            <li>Take two pieces of wires each of length 40 cm and fix them on the paper on plywood in the form of x-axis and y-axis.</li>
+            <li>Take another wire of suitable length and bend it in the shape of curve. Fix this curved wire on the white paper pasted on plywood, as shown in Fig. 14.</li>
+            <li>Take five more wires each of length say 2 cm and fix them at the points A, C, B, P and D as shown in figure.</li>
+        </ol>
+        
+        <div class="diagram-container">
+            <h4>Fig. 14: Experimental Setup for Local Maxima, Minima, and Inflection Points</h4>
+            
+            <!-- Image upload instructions -->
+            <div class="image-upload">
+                <p><strong>To add your own image:</strong></p>
+                <p>1. Save your image in the same folder as this HTML file</p>
+                <p>2. Rename it to "activity9-setup.jpg" (or update the src attribute below)</p>
+                <p>3. The image will automatically appear here</p>
+                <p class="upload-instructions">Supported formats: JPG, PNG, GIF</p>
+            </div>
+            
+            <!-- Image display area -->
+            <div class="image-display">
+                <img src="maxima.jpg" alt="Experimental Setup for Local Maxima, Minima, and Inflection Points" class="diagram" 
+                     onerror="this.style.display='none'; document.getElementById('image-placeholder-activity9').style.display='flex';">
+                <div id="image-placeholder-activity9" class="image-placeholder">
+                    <i>📷</i>
+                    <span>Image not found. Please add "activity9-setup.jpg" to your folder.</span>
+                    <p>Fig. 14: Curve with points A, B (local minima), C, D (local maxima), and P (inflection point)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Demonstration</h3>
+        <ol class="method-list">
+            <li>In the figure, wires at the points A, B, C and D represent tangents to the curve and are parallel to the axis. The slopes of tangents at these points are zero, i.e., the value of the first derivative at these points is zero. The tangent at P intersects the curve.</li>
+            <li>At the points A and B, sign of the first derivative changes from negative to positive. So, they are the points of local minima.</li>
+            <li>At the point C and D, sign of the first derivative changes from positive to negative. So, they are the points of local maxima.</li>
+            <li>At the point P, sign of first derivative does not change. So, it is a point of inflection.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h3>Observation</h3>
+        <ol class="observation-list">
+            <li>Sign of the slope of the tangent (first derivative) at a point on the curve to the immediate left of A is ______.</li>
+            <li>Sign of the slope of the tangent (first derivative) at a point on the curve to the immediate right of A is ______.</li>
+            <li>Sign of the first derivative at a point on the curve to immediate left of B is ______.</li>
+            <li>Sign of the first derivative at a point on the curve to immediate right of B is ______.</li>
+            <li>Sign of the first derivative at a point on the curve to immediate left of C is ______.</li>
+            <li>Sign of the first derivative at a point on the curve to immediate right of C is ______.</li>
+            <li>Sign of the first derivative at a point on the curve to immediate left of D is ______.</li>
+            <li>Sign of the first derivative at a point on the curve to immediate right of D is ______.</li>
+            <li>Sign of the first derivative at a point immediate left of P is ______ and immediate right of P is______.</li>
+            <li>A and B are points of local ______.</li>
+            <li>C and D are points of local ______.</li>
+            <li>P is a point of ______.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h3>Result</h3>
+        <div class="result">
+            <p>Through this activity, we have observed:</p>
+            <ul class="material-list">
+                <li>Points A and B are points of local minima</li>
+                <li>Points C and D are points of local maxima</li>
+                <li>Point P is a point of inflection</li>
+            </ul>
+            <p>The activity successfully demonstrates the concepts of local maxima, local minima, and points of inflection.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Application</h3>
+        <p>This activity helps in:</p>
+        <ul class="material-list">
+            <li>Explaining the concepts of points of local maxima, local minima and inflection</li>
+            <li>Understanding how the sign of the first derivative changes at these critical points</li>
+            <li>Applying the concepts of maxima/minima in problems of daily life such as making of packages of maximum capacity at minimum cost</li>
+            <li>Developing understanding of curve behavior and optimization problems</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Activity 9 | Mathematics Laboratory Manual | Calculus</p>
+        <p>Date: ______________</p>
+    </div>
+
+    <script>
+        // Check if image loaded successfully for Activity 9
+        window.addEventListener('load', function() {
+            const img = document.querySelector('.diagram');
+            const placeholder = document.getElementById('image-placeholder-activity9');
+            
+            if (img) {
+                if (img.naturalHeight === 0) {
+                    // Image failed to load
+                    img.style.display = 'none';
+                    if (placeholder) {
+                        placeholder.style.display = 'flex';
+                    }
+                } else {
+                    // Image loaded successfully
+                    img.style.display = 'block';
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: HCF & LCM - Interactive Activities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a6fa5;
+            position: relative;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        h1 i {
+            color: #4a6fa5;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .activities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .activities-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .activity-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e0e6ed;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .activity-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #e0e6ed;
+        }
+        
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            background: #4a6fa5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .activity-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .activity-desc {
+            color: #5d6d7e;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        .problem-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4a6fa5;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .input-section {
+            margin: 20px 0;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 120px;
+        }
+        
+        input {
+            padding: 12px 15px;
+            border: 2px solid #d1d8e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 200px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #4a6fa5;
+        }
+        
+        button {
+            background: #4a6fa5;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background: #3a5a80;
+            transform: translateY(-2px);
+        }
+        
+        .btn-check {
+            background: #27ae60;
+        }
+        
+        .btn-check:hover {
+            background: #219955;
+        }
+        
+        .btn-reset {
+            background: #e74c3c;
+        }
+        
+        .btn-reset:hover {
+            background: #c0392b;
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .result-section {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f1f8ff;
+            border: 1px solid #d1e3ff;
+            display: none;
+        }
+        
+        .result-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .visualization {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .tile-visualization {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #e8f4fd;
+            border-radius: 8px;
+        }
+        
+        .tile {
+            width: 40px;
+            height: 40px;
+            background-color: #4a6fa5;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .factor-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .factor {
+            padding: 8px 15px;
+            background-color: #e8f4fd;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .common-factor {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .hcf {
+            background-color: #ffd700;
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .prime-factor {
+            background-color: #f8d7da;
+            color: #721c24;
+            font-weight: bold;
+        }
+        
+        .step {
+            margin: 15px 0;
+            padding: 10px 15px;
+            background-color: white;
+            border-left: 3px solid #4a6fa5;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .conjecture-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e6ed;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .correct {
+            color: #27ae60;
+        }
+        
+        .incorrect {
+            color: #e74c3c;
+        }
+        
+        .hint {
+            background-color: #e8f4fd;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-style: italic;
+            color: #2c3e50;
+            border-left: 4px solid #4a6fa5;
+            display: none;
+        }
+        
+        .hint-btn {
+            background: #3498db;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+        }
+        
+        .hint-btn:hover {
+            background: #2980b9;
+        }
+        
+        .activity-number {
+            background-color: #4a6fa5;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calculator"></i> Chapter 3: HCF & LCM Interactive Activities</h1>
+            <p class="subtitle">Explore Highest Common Factors (HCF), Lowest Common Multiples (LCM), prime factorization, and their applications through these interactive activities based on the chapter content.</p>
+        </header>
+        
+        <div class="activities-container">
+            <!-- Activity 1: Tile Problem -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number">1</div>
+                    <div class="activity-icon">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <h2 class="activity-title">Tile Problem: Finding HCF</h2>
+                </div>
+                
+                <p class="activity-desc">Sameeksha is building her new house. The main room is 12 ft by 16 ft. She wants to cover the floor with square tiles of the same size, using as few tiles as possible. What size tiles should she buy?</p>
+                
+                <div class="problem-box">
+                    <p><strong>Problem:</strong> Find the largest square tile that can exactly cover a 12 ft × 16 ft room. The tile size must be a whole number of feet.</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="room-length">Room Length (ft):</label>
+                        <input type="number" id="room-length" value="16" min="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="room-width">Room Width (ft):</label>
+                        <input type="number" id="room-width" value="12" min="1">
+                    </div>
+                </div>
+                
+                <div class="buttons-container">
+                    <button id="solve-tile" class="btn-check">
+                        <i class="fas fa-calculator"></i> Solve Tile Problem
+                    </button>
+                    <button id="reset-tile" class="btn-reset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button id="hint-tile" class="hint-btn">
+                        <i class="fas fa-lightbulb"></i> Hint
+                    </button>
+                </div>
+                
+                <div class="hint" id="tile-hint">
+                    <strong>Hint:</strong> The tile side must be a factor of both the length and width. List the factors of each number and find the common factors. The largest common factor is the HCF.
+                </div>
+                
+                <div class="result-section" id="tile-result">
+                    <h3><i class="fas fa-check-circle"></i> Solution</h3>
+                    <div id="tile-solution"></div>
+                    <div class="visualization" id="tile-visualization"></div>
+                </div>
+            </div>
+            
+            <!-- Activity 2: Prime Factorization -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number">2</div>
+                    <div class="activity-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h2 class="activity-title">Prime Factorization</h2>
+                </div>
+                
+                <p class="activity-desc">Any number can be written as a product of primes. This is called prime factorization. Use the division method to find the prime factors of a number.</p>
+                
+                <div class="problem-box">
+                    <p><strong>Example:</strong> 90 = 2 × 3 × 3 × 5 = 2 × 3² × 5</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="number-factorize">Enter a number:</label>
+                        <input type="number" id="number-factorize" value="84" min="2" max="10000">
+                    </div>
+                </div>
+                
+                <div class="buttons-container">
+                    <button id="factorize-btn" class="btn-check">
+                        <i class="fas fa-sitemap"></i> Find Prime Factors
+                    </button>
+                    <button id="reset-factorize" class="btn-reset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button id="hint-factorize" class="hint-btn">
+                        <i class="fas fa-lightbulb"></i> Hint
+                    </button>
+                </div>
+                
+                <div class="hint" id="factorize-hint">
+                    <strong>Hint:</strong> Start by dividing the number by the smallest prime (2) until it's no longer divisible, then move to the next prime (3, 5, 7, etc.).
+                </div>
+                
+                <div class="result-section" id="factorize-result">
+                    <h3><i class="fas fa-check-circle"></i> Prime Factorization</h3>
+                    <div id="factorization-steps"></div>
+                    <div id="factorization-result"></div>
+                </div>
+            </div>
+            
+            <!-- Activity 3: HCF using Prime Factorization -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number">3</div>
+                    <div class="activity-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h2 class="activity-title">HCF using Prime Factorization</h2>
+                </div>
+                
+                <p class="activity-desc">Find the Highest Common Factor (HCF) of two numbers using their prime factorizations. The HCF is the product of the common primes raised to the lowest power.</p>
+                
+                <div class="problem-box">
+                    <p><strong>Example:</strong> For 45 = 3² × 5 and 75 = 3 × 5², the common primes are 3 and 5. The lowest powers are 3¹ and 5¹, so HCF = 3 × 5 = 15.</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="hcf-number1">First number:</label>
+                        <input type="number" id="hcf-number1" value="45" min="2">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="hcf-number2">Second number:</label>
+                        <input type="number" id="hcf-number2" value="75" min="2">
+                    </div>
+                </div>
+                
+                <div class="buttons-container">
+                    <button id="find-hcf" class="btn-check">
+                        <i class="fas fa-search"></i> Find HCF
+                    </button>
+                    <button id="reset-hcf" class="btn-reset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button id="hint-hcf" class="hint-btn">
+                        <i class="fas fa-lightbulb"></i> Hint
+                    </button>
+                </div>
+                
+                <div class="hint" id="hcf-hint">
+                    <strong>Hint:</strong> Find the prime factorization of both numbers. Identify the common prime factors and take the smallest exponent for each common prime.
+                </div>
+                
+                <div class="result-section" id="hcf-result">
+                    <h3><i class="fas fa-check-circle"></i> HCF Calculation</h3>
+                    <div id="hcf-calculation"></div>
+                    <div id="hcf-answer"></div>
+                </div>
+            </div>
+            
+            <!-- Activity 4: LCM using Prime Factorization -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number">4</div>
+                    <div class="activity-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2 class="activity-title">LCM using Prime Factorization</h2>
+                </div>
+                
+                <p class="activity-desc">Find the Lowest Common Multiple (LCM) of two numbers using prime factorization. The LCM is the product of all primes raised to the highest power present in any of the numbers.</p>
+                
+                <div class="problem-box">
+                    <p><strong>Example:</strong> For 12 = 2² × 3 and 18 = 2 × 3², the LCM = 2² × 3² = 4 × 9 = 36.</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="lcm-number1">First number:</label>
+                        <input type="number" id="lcm-number1" value="12" min="2">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="lcm-number2">Second number:</label>
+                        <input type="number" id="lcm-number2" value="18" min="2">
+                    </div>
+                </div>
+                
+                <div class="buttons-container">
+                    <button id="find-lcm" class="btn-check">
+                        <i class="fas fa-bullseye"></i> Find LCM
+                    </button>
+                    <button id="reset-lcm" class="btn-reset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button id="hint-lcm" class="hint-btn">
+                        <i class="fas fa-lightbulb"></i> Hint
+                    </button>
+                </div>
+                
+                <div class="hint" id="lcm-hint">
+                    <strong>Hint:</strong> Find the prime factorization of both numbers. For each prime factor, take the highest power that appears in either number.
+                </div>
+                
+                <div class="result-section" id="lcm-result">
+                    <h3><i class="fas fa-check-circle"></i> LCM Calculation</h3>
+                    <div id="lcm-calculation"></div>
+                    <div id="lcm-answer"></div>
+                </div>
+            </div>
+            
+            <!-- Activity 5: Toran Problem - LCM Application -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number">5</div>
+                    <div class="activity-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h2 class="activity-title">Toran Problem: Finding LCM</h2>
+                </div>
+                
+                <p class="activity-desc">Anshu and Guna make torans out of strips of cloth. Anshu uses strips of length 6 cm and Guna uses strips of 8 cm. If both have to make torans of the same length, what is the smallest possible length the torans could be?</p>
+                
+                <div class="problem-box">
+                    <p><strong>Problem:</strong> Find the smallest common multiple of the strip lengths to determine the shortest toran length they can both make.</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="anshu-strip">Anshu's strip (cm):</label>
+                        <input type="number" id="anshu-strip" value="6" min="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="guna-strip">Guna's strip (cm):</label>
+                        <input type="number" id="guna-strip" value="8" min="1">
+                    </div>
+                </div>
+                
+                <div class="buttons-container">
+                    <button id="solve-toran" class="btn-check">
+                        <i class="fas fa-cut"></i> Solve Toran Problem
+                    </button>
+                    <button id="reset-toran" class="btn-reset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button id="hint-toran" class="hint-btn">
+                        <i class="fas fa-lightbulb"></i> Hint
+                    </button>
+                </div>
+                
+                <div class="hint" id="toran-hint">
+                    <strong>Hint:</strong> List the multiples of each strip length until you find a common multiple. The smallest common multiple is the LCM.
+                </div>
+                
+                <div class="result-section" id="toran-result">
+                    <h3><i class="fas fa-check-circle"></i> Solution</h3>
+                    <div id="toran-solution"></div>
+                    <div id="toran-multiples"></div>
+                </div>
+            </div>
+            
+            <!-- Activity 6: Conjecture Exploration -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-number">6</div>
+                    <div class="activity-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="activity-title">Exploring Conjectures</h2>
+                </div>
+                
+                <p class="activity-desc">In mathematics, a conjecture is a statement that appears to be true but hasn't been proven. Test these conjectures about HCF and LCM properties.</p>
+                
+                <div class="conjecture-box">
+                    <p><strong>Anshu's Conjecture:</strong> "The larger a number is, the longer its prime factorisation will be."</p>
+                    <p>We already know this is false! 96 = 2⁵ × 3 (6 factors) while 121 = 11² (2 factors).</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="conjecture-number1">Test number 1:</label>
+                        <input type="number" id="conjecture-number1" value="96" min="2">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="conjecture-number2">Test number 2:</label>
+                        <input type="number" id="conjecture-number2" value="121" min="2">
+                    </div>
+                </div>
+                
+                <div class="buttons-container">
+                    <button id="test-conjecture" class="btn-check">
+                        <i class="fas fa-flask"></i> Test Conjecture
+                    </button>
+                    <button id="reset-conjecture" class="btn-reset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+                
+                <div class="result-section" id="conjecture-result">
+                    <h3><i class="fas fa-check-circle"></i> Conjecture Test Results</h3>
+                    <div id="conjecture-test"></div>
+                    <p id="conjecture-conclusion"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Interactive Activities based on Chapter 3: The Greatest of All & Least, but not Last!</p>
+            <p>Topics: Highest Common Factor (HCF), Lowest Common Multiple (LCM), Prime Factorization, Conjectures</p>
+            <p style="margin-top: 10px;"><i class="fas fa-lightbulb"></i> Tip: Try changing the input values to explore different scenarios!</p>
+        </div>
+    </div>
+
+    <script>
+        // Activity 1: Tile Problem
+        document.getElementById('solve-tile').addEventListener('click', solveTileProblem);
+        document.getElementById('reset-tile').addEventListener('click', resetTileProblem);
+        document.getElementById('hint-tile').addEventListener('click', function() {
+            document.getElementById('tile-hint').style.display = 'block';
+        });
+        
+        function solveTileProblem() {
+            const length = parseInt(document.getElementById('room-length').value);
+            const width = parseInt(document.getElementById('room-width').value);
+            
+            if (length <= 0 || width <= 0 || isNaN(length) || isNaN(width)) {
+                alert("Please enter valid positive numbers for room dimensions.");
+                return;
+            }
+            
+            // Find factors of length and width
+            const lengthFactors = findFactors(length);
+            const widthFactors = findFactors(width);
+            
+            // Find common factors
+            const commonFactors = lengthFactors.filter(factor => widthFactors.includes(factor));
+            
+            // HCF is the largest common factor
+            const hcf = Math.max(...commonFactors);
+            
+            // Calculate number of tiles needed
+            const tilesNeeded = (length * width) / (hcf * hcf);
+            
+            // Display solution
+            let solutionHTML = `
+                <div class="step">
+                    <p><strong>Step 1:</strong> Find factors of ${length} (length):</p>
+                    <div class="factor-list">${lengthFactors.map(f => `<span class="factor">${f}</span>`).join('')}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 2:</strong> Find factors of ${width} (width):</p>
+                    <div class="factor-list">${widthFactors.map(f => `<span class="factor">${f}</span>`).join('')}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 3:</strong> Find common factors:</p>
+                    <div class="factor-list">${commonFactors.map(f => `<span class="factor common-factor">${f}</span>`).join('')}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 4:</strong> The Highest Common Factor (HCF) is: <span class="factor hcf">${hcf} ft</span></p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 5:</strong> Solution: Sameeksha should buy square tiles of size <span class="highlight">${hcf} ft × ${hcf} ft</span>.</p>
+                    <p>She will need ${tilesNeeded} tiles (${length/hcf} tiles along length × ${width/hcf} tiles along width).</p>
+                </div>
+            `;
+            
+            document.getElementById('tile-solution').innerHTML = solutionHTML;
+            
+            // Create visualization
+            let visualizationHTML = `<p><strong>Visualization:</strong> Room divided into ${hcf} ft × ${hcf} ft tiles</p>`;
+            visualizationHTML += `<div class="tile-visualization">`;
+            
+            // Create a simplified visual representation
+            const cols = length / hcf;
+            const rows = width / hcf;
+            
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    visualizationHTML += `<div class="tile" title="${hcf} ft × ${hcf} ft tile">${hcf}</div>`;
+                }
+                visualizationHTML += '<br>';
+            }
+            
+            visualizationHTML += `</div>`;
+            document.getElementById('tile-visualization').innerHTML = visualizationHTML;
+            
+            // Show result section
+            document.getElementById('tile-result').style.display = 'block';
+        }
+        
+        function resetTileProblem() {
+            document.getElementById('room-length').value = 16;
+            document.getElementById('room-width').value = 12;
+            document.getElementById('tile-result').style.display = 'none';
+            document.getElementById('tile-hint').style.display = 'none';
+        }
+        
+        // Activity 2: Prime Factorization
+        document.getElementById('factorize-btn').addEventListener('click', factorizeNumber);
+        document.getElementById('reset-factorize').addEventListener('click', resetFactorization);
+        document.getElementById('hint-factorize').addEventListener('click', function() {
+            document.getElementById('factorize-hint').style.display = 'block';
+        });
+        
+        function factorizeNumber() {
+            let num = parseInt(document.getElementById('number-factorize').value);
+            
+            if (num <= 1 || isNaN(num) || num > 10000) {
+                alert("Please enter a valid number between 2 and 10000.");
+                return;
+            }
+            
+            const originalNum = num;
+            let factors = [];
+            let divisor = 2;
+            let steps = [];
+            
+            while (num > 1) {
+                if (num % divisor === 0) {
+                    factors.push(divisor);
+                    steps.push(`${num} ÷ ${divisor} = ${num/divisor}`);
+                    num = num / divisor;
+                } else {
+                    divisor++;
+                }
+            }
+            
+            // Group factors with exponents
+            const factorGroups = {};
+            factors.forEach(factor => {
+                factorGroups[factor] = (factorGroups[factor] || 0) + 1;
+            });
+            
+            // Create display for factorization
+            let stepsHTML = `<div class="step"><p><strong>Division Steps:</strong></p>`;
+            steps.forEach((step, i) => {
+                stepsHTML += `<p>${step}</p>`;
+            });
+            stepsHTML += `</div>`;
+            
+            let resultHTML = `<div class="step">
+                <p><strong>Prime Factorization of ${originalNum}:</strong></p>
+                <div class="factor-list">`;
+            
+            const factorStrings = [];
+            for (const [prime, count] of Object.entries(factorGroups)) {
+                if (count === 1) {
+                    factorStrings.push(`<span class="factor prime-factor">${prime}</span>`);
+                } else {
+                    factorStrings.push(`<span class="factor prime-factor">${prime}<sup>${count}</sup></span>`);
+                }
+            }
+            
+            resultHTML += factorStrings.join(' × ') + '</div>';
+            resultHTML += `<p>${originalNum} = ${factors.join(' × ')}</p>`;
+            resultHTML += `</div>`;
+            
+            document.getElementById('factorization-steps').innerHTML = stepsHTML;
+            document.getElementById('factorization-result').innerHTML = resultHTML;
+            document.getElementById('factorize-result').style.display = 'block';
+        }
+        
+        function resetFactorization() {
+            document.getElementById('number-factorize').value = 84;
+            document.getElementById('factorize-result').style.display = 'none';
+            document.getElementById('factorize-hint').style.display = 'none';
+        }
+        
+        // Activity 3: HCF using Prime Factorization
+        document.getElementById('find-hcf').addEventListener('click', findHCF);
+        document.getElementById('reset-hcf').addEventListener('click', resetHCF);
+        document.getElementById('hint-hcf').addEventListener('click', function() {
+            document.getElementById('hcf-hint').style.display = 'block';
+        });
+        
+        function findHCF() {
+            const num1 = parseInt(document.getElementById('hcf-number1').value);
+            const num2 = parseInt(document.getElementById('hcf-number2').value);
+            
+            if (num1 <= 1 || num2 <= 1 || isNaN(num1) || isNaN(num2)) {
+                alert("Please enter valid numbers greater than 1.");
+                return;
+            }
+            
+            // Get prime factorizations
+            const factors1 = getPrimeFactors(num1);
+            const factors2 = getPrimeFactors(num2);
+            
+            // Group factors with exponents
+            const groups1 = groupFactors(factors1);
+            const groups2 = groupFactors(factors2);
+            
+            // Find common factors with minimum exponent
+            const commonFactors = {};
+            
+            for (const prime in groups1) {
+                if (groups2[prime]) {
+                    commonFactors[prime] = Math.min(groups1[prime], groups2[prime]);
+                }
+            }
+            
+            // Calculate HCF
+            let hcf = 1;
+            let hcfFormulaParts = [];
+            let hcfCalculationParts = [];
+            
+            for (const [prime, exponent] of Object.entries(commonFactors)) {
+                const primePower = Math.pow(parseInt(prime), exponent);
+                hcf *= primePower;
+                
+                if (exponent === 1) {
+                    hcfFormulaParts.push(prime);
+                    hcfCalculationParts.push(prime);
+                } else {
+                    hcfFormulaParts.push(`${prime}<sup>${exponent}</sup>`);
+                    hcfCalculationParts.push(`${prime} × `.repeat(exponent).slice(0, -3));
+                }
+            }
+            
+            // If no common factors, HCF is 1
+            if (Object.keys(commonFactors).length === 0) {
+                hcfFormulaParts = ['1'];
+                hcfCalculationParts = ['1'];
+            }
+            
+            // Display calculation
+            let calculationHTML = `
+                <div class="step">
+                    <p><strong>Step 1:</strong> Prime factorization of ${num1}:</p>
+                    <div class="factor-list">${formatFactorGroups(groups1)}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 2:</strong> Prime factorization of ${num2}:</p>
+                    <div class="factor-list">${formatFactorGroups(groups2)}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 3:</strong> Identify common prime factors with smallest exponents:</p>
+                    <div class="factor-list">${Object.keys(commonFactors).length > 0 ? 
+                        Object.entries(commonFactors).map(([p, e]) => 
+                            e === 1 ? `<span class="factor common-factor">${p}</span>` : 
+                            `<span class="factor common-factor">${p}<sup>${e}</sup></span>`
+                        ).join('') : 
+                        '<span class="factor">1</span>'}</div>
+                </div>
+            `;
+            
+            let answerHTML = `
+                <div class="step">
+                    <p><strong>Step 4:</strong> Multiply common factors:</p>
+                    <p>HCF(${num1}, ${num2}) = ${hcfFormulaParts.join(' × ')} = ${hcf}</p>
+                    <p><span class="highlight">The Highest Common Factor is ${hcf}</span></p>
+                </div>
+            `;
+            
+            document.getElementById('hcf-calculation').innerHTML = calculationHTML;
+            document.getElementById('hcf-answer').innerHTML = answerHTML;
+            document.getElementById('hcf-result').style.display = 'block';
+        }
+        
+        function resetHCF() {
+            document.getElementById('hcf-number1').value = 45;
+            document.getElementById('hcf-number2').value = 75;
+            document.getElementById('hcf-result').style.display = 'none';
+            document.getElementById('hcf-hint').style.display = 'none';
+        }
+        
+        // Activity 4: LCM using Prime Factorization
+        document.getElementById('find-lcm').addEventListener('click', findLCM);
+        document.getElementById('reset-lcm').addEventListener('click', resetLCM);
+        document.getElementById('hint-lcm').addEventListener('click', function() {
+            document.getElementById('lcm-hint').style.display = 'block';
+        });
+        
+        function findLCM() {
+            const num1 = parseInt(document.getElementById('lcm-number1').value);
+            const num2 = parseInt(document.getElementById('lcm-number2').value);
+            
+            if (num1 <= 1 || num2 <= 1 || isNaN(num1) || isNaN(num2)) {
+                alert("Please enter valid numbers greater than 1.");
+                return;
+            }
+            
+            // Get prime factorizations
+            const factors1 = getPrimeFactors(num1);
+            const factors2 = getPrimeFactors(num2);
+            
+            // Group factors with exponents
+            const groups1 = groupFactors(factors1);
+            const groups2 = groupFactors(factors2);
+            
+            // Combine all primes with maximum exponent
+            const allPrimes = new Set([...Object.keys(groups1), ...Object.keys(groups2)]);
+            const lcmFactors = {};
+            
+            for (const prime of allPrimes) {
+                const exp1 = groups1[prime] || 0;
+                const exp2 = groups2[prime] || 0;
+                lcmFactors[prime] = Math.max(exp1, exp2);
+            }
+            
+            // Calculate LCM
+            let lcm = 1;
+            let lcmFormulaParts = [];
+            
+            for (const [prime, exponent] of Object.entries(lcmFactors)) {
+                const primePower = Math.pow(parseInt(prime), exponent);
+                lcm *= primePower;
+                
+                if (exponent === 1) {
+                    lcmFormulaParts.push(prime);
+                } else {
+                    lcmFormulaParts.push(`${prime}<sup>${exponent}</sup>`);
+                }
+            }
+            
+            // Display calculation
+            let calculationHTML = `
+                <div class="step">
+                    <p><strong>Step 1:</strong> Prime factorization of ${num1}:</p>
+                    <div class="factor-list">${formatFactorGroups(groups1)}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 2:</strong> Prime factorization of ${num2}:</p>
+                    <div class="factor-list">${formatFactorGroups(groups2)}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 3:</strong> For each prime factor, take the highest power:</p>
+                    <div class="factor-list">${Object.entries(lcmFactors).map(([p, e]) => 
+                        e === 1 ? `<span class="factor hcf">${p}</span>` : 
+                        `<span class="factor hcf">${p}<sup>${e}</sup></span>`
+                    ).join('')}</div>
+                </div>
+            `;
+            
+            let answerHTML = `
+                <div class="step">
+                    <p><strong>Step 4:</strong> Multiply all factors with highest powers:</p>
+                    <p>LCM(${num1}, ${num2}) = ${lcmFormulaParts.join(' × ')} = ${lcm}</p>
+                    <p><span class="highlight">The Lowest Common Multiple is ${lcm}</span></p>
+                </div>
+            `;
+            
+            document.getElementById('lcm-calculation').innerHTML = calculationHTML;
+            document.getElementById('lcm-answer').innerHTML = answerHTML;
+            document.getElementById('lcm-result').style.display = 'block';
+        }
+        
+        function resetLCM() {
+            document.getElementById('lcm-number1').value = 12;
+            document.getElementById('lcm-number2').value = 18;
+            document.getElementById('lcm-result').style.display = 'none';
+            document.getElementById('lcm-hint').style.display = 'none';
+        }
+        
+        // Activity 5: Toran Problem
+        document.getElementById('solve-toran').addEventListener('click', solveToranProblem);
+        document.getElementById('reset-toran').addEventListener('click', resetToranProblem);
+        document.getElementById('hint-toran').addEventListener('click', function() {
+            document.getElementById('toran-hint').style.display = 'block';
+        });
+        
+        function solveToranProblem() {
+            const anshuStrip = parseInt(document.getElementById('anshu-strip').value);
+            const gunaStrip = parseInt(document.getElementById('guna-strip').value);
+            
+            if (anshuStrip <= 0 || gunaStrip <= 0 || isNaN(anshuStrip) || isNaN(gunaStrip)) {
+                alert("Please enter valid positive numbers for strip lengths.");
+                return;
+            }
+            
+            // Find multiples
+            const anshuMultiples = [];
+            const gunaMultiples = [];
+            const maxMultiples = 15; // Limit to avoid infinite loops
+            
+            for (let i = 1; i <= maxMultiples; i++) {
+                anshuMultiples.push(anshuStrip * i);
+                gunaMultiples.push(gunaStrip * i);
+            }
+            
+            // Find common multiples
+            const commonMultiples = anshuMultiples.filter(m => gunaMultiples.includes(m));
+            const lcm = commonMultiples[0]; // First common multiple is LCM
+            
+            // Display solution
+            let solutionHTML = `
+                <div class="step">
+                    <p><strong>Step 1:</strong> Anshu's toran lengths (multiples of ${anshuStrip} cm):</p>
+                    <div class="factor-list">${anshuMultiples.map(m => `<span class="factor">${m}</span>`).join('')}</div>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Step 2:</strong> Guna's toran lengths (multiples of ${gunaStrip} cm):</p>
+                    <div class="factor-list">${gunaMultiples.map(m => `<span class="factor">${m}</span>`).join('')}</div>
+                </div>
+            `;
+            
+            if (commonMultiples.length > 0) {
+                solutionHTML += `
+                    <div class="step">
+                        <p><strong>Step 3:</strong> Common lengths (common multiples):</p>
+                        <div class="factor-list">${commonMultiples.map((m, i) => 
+                            i === 0 ? `<span class="factor hcf">${m}</span>` : 
+                            `<span class="factor common-factor">${m}</span>`
+                        ).join('')}</div>
+                    </div>
+                    
+                    <div class="step">
+                        <p><strong>Step 4:</strong> The smallest common length is the LCM:</p>
+                        <p>LCM(${anshuStrip}, ${gunaStrip}) = ${lcm}</p>
+                        <p><span class="highlight">The shortest toran they can both make is ${lcm} cm long.</span></p>
+                    </div>
+                `;
+            } else {
+                solutionHTML += `
+                    <div class="step">
+                        <p><strong>Step 3:</strong> No common multiples found in the first ${maxMultiples} multiples.</p>
+                        <p>Try using prime factorization to find the LCM.</p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('toran-solution').innerHTML = solutionHTML;
+            document.getElementById('toran-result').style.display = 'block';
+        }
+        
+        function resetToranProblem() {
+            document.getElementById('anshu-strip').value = 6;
+            document.getElementById('guna-strip').value = 8;
+            document.getElementById('toran-result').style.display = 'none';
+            document.getElementById('toran-hint').style.display = 'none';
+        }
+        
+        // Activity 6: Conjecture Exploration
+        document.getElementById('test-conjecture').addEventListener('click', testConjecture);
+        document.getElementById('reset-conjecture').addEventListener('click', resetConjecture);
+        
+        function testConjecture() {
+            const num1 = parseInt(document.getElementById('conjecture-number1').value);
+            const num2 = parseInt(document.getElementById('conjecture-number2').value);
+            
+            if (num1 <= 1 || num2 <= 1 || isNaN(num1) || isNaN(num2)) {
+                alert("Please enter valid numbers greater than 1.");
+                return;
+            }
+            
+            // Get prime factorizations
+            const factors1 = getPrimeFactors(num1);
+            const factors2 = getPrimeFactors(num2);
+            
+            // Count total prime factors (including repeats)
+            const count1 = factors1.length;
+            const count2 = factors2.length;
+            
+            // Compare which is larger
+            const largerNum = Math.max(num1, num2);
+            const smallerNum = Math.min(num1, num2);
+            const largerCount = num1 > num2 ? count1 : count2;
+            const smallerCount = num1 > num2 ? count2 : count1;
+            
+            // Test the conjecture
+            const conjectureHolds = largerCount > smallerCount;
+            
+            // Display results
+            let testHTML = `
+                <div class="step">
+                    <p><strong>Testing Anshu's Conjecture:</strong> "The larger a number is, the longer its prime factorisation will be."</p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Number 1 (${num1}):</strong> Prime factorization has ${count1} factors: ${factors1.join(' × ')}</p>
+                </div>
+                
+                <div class="step">
+                    <p><strong>Number 2 (${num2}):</strong> Prime factorization has ${count2} factors: ${factors2.join(' × ')}</p>
+                </div>
+            `;
+            
+            let conclusionHTML = `
+                <div class="step">
+                    <p><strong>Analysis:</strong></p>
+                    <p>${largerNum} is the larger number and has ${largerCount} prime factors.</p>
+                    <p>${smallerNum} is the smaller number and has ${smallerCount} prime factors.</p>
+                    <p>The conjecture suggests that ${largerNum} should have more prime factors than ${smallerNum}.</p>
+                    <p>${conjectureHolds ? 
+                        `<span class="correct"><i class="fas fa-check"></i> In this case, the conjecture holds true!</span>` : 
+                        `<span class="incorrect"><i class="fas fa-times"></i> In this case, the conjecture is false!</span>`}</p>
+                    <p>${!conjectureHolds ? 
+                        `This is a counterexample showing that a larger number (${largerNum}) can have fewer prime factors (${largerCount}) than a smaller number (${smallerNum} with ${smallerCount} factors).` : 
+                        `This example supports the conjecture, but remember that we already found counterexamples (like 96 and 121).`}</p>
+                </div>
+            `;
+            
+            document.getElementById('conjecture-test').innerHTML = testHTML;
+            document.getElementById('conjecture-conclusion').innerHTML = conclusionHTML;
+            document.getElementById('conjecture-result').style.display = 'block';
+        }
+        
+        function resetConjecture() {
+            document.getElementById('conjecture-number1').value = 96;
+            document.getElementById('conjecture-number2').value = 121;
+            document.getElementById('conjecture-result').style.display = 'none';
+        }
+        
+        // Helper Functions
+        function findFactors(n) {
+            const factors = [];
+            for (let i = 1; i <= n; i++) {
+                if (n % i === 0) factors.push(i);
+            }
+            return factors;
+        }
+        
+        function getPrimeFactors(n) {
+            let num = n;
+            let factors = [];
+            let divisor = 2;
+            
+            while (num > 1) {
+                if (num % divisor === 0) {
+                    factors.push(divisor);
+                    num = num / divisor;
+                } else {
+                    divisor++;
+                }
+            }
+            
+            return factors;
+        }
+        
+        function groupFactors(factors) {
+            const groups = {};
+            factors.forEach(factor => {
+                groups[factor] = (groups[factor] || 0) + 1;
+            });
+            return groups;
+        }
+        
+        function formatFactorGroups(groups) {
+            return Object.entries(groups).map(([prime, count]) => 
+                count === 1 ? `<span class="factor prime-factor">${prime}</span>` : 
+                `<span class="factor prime-factor">${prime}<sup>${count}</sup></span>`
+            ).join('');
+        }
+    </script>
+</body>
+</html>

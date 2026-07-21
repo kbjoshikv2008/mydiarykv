@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Worksheet: Arithmetic Expressions | Class 7 (NCERT)</title>
+    <!-- MathJax for proper LaTeX rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #eef2e3;
+            font-family: 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+            padding: 30px 20px;
+            color: #1e2f1c;
+        }
+
+        .worksheet {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 2rem 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #2b5e3b, #1d452b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .subhead {
+            color: #4a6a3b;
+            border-left: 4px solid #88b04b;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .section {
+            background: #fefcf5;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.2rem 1.8rem;
+            border: 1px solid #dfe8d2;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .section h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2b5e3b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #cce2bc;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .problem {
+            margin: 1.2rem 0;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #e2ecce;
+        }
+
+        .problem p {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        input, select {
+            padding: 8px 16px;
+            border-radius: 60px;
+            border: 1px solid #bdd0a6;
+            font-size: 0.9rem;
+            font-family: monospace;
+            background: white;
+        }
+
+        button {
+            background: #2b5e3b;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        button:hover {
+            background: #1d452b;
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 30px;
+        }
+
+        .correct {
+            background: #d9f0d1;
+            color: #1c692c;
+        }
+
+        .wrong {
+            background: #ffe0db;
+            color: #c23b22;
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: #6f785e;
+            background: #f6f9ef;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 6px;
+        }
+
+        .row-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 750px) {
+            .row-duo {
+                grid-template-columns: 1fr;
+            }
+            .worksheet {
+                padding: 1.2rem;
+            }
+        }
+
+        .badge-light {
+            background: #eef3e6;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            color: #2d5a2c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #5f7353;
+            border-top: 1px solid #dde8ce;
+            padding-top: 1rem;
+        }
+        mjx-container {
+            display: inline-flex !important;
+        }
+    </style>
+</head>
+<body>
+<div class="worksheet">
+    <h1>📐 Arithmetic Expressions</h1>
+    <div class="subhead">Based on NCERT Class 7 (Chapter 2) – Terms, Brackets, Comparison &amp; Distributive Property</div>
+
+    <!-- SECTION A: Fill in the blanks (expressions equal) -->
+    <div class="section">
+        <h2>📝 A. Fill in the blanks (Equal expressions)</h2>
+        <div class="problem">
+            <p>\(13 + 4 = \_\_\_ + 6\)</p>
+            <div class="flex-row">
+                <input type="number" id="a1" placeholder="Missing number">
+                <button onclick="checkA1()">Check</button>
+                <span id="fbA1" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>\(22 + \_\_\_ = 6 \times 5\)</p>
+            <div class="flex-row">
+                <input type="number" id="a2" placeholder="Number">
+                <button onclick="checkA2()">Check</button>
+                <span id="fbA2" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>\(8 \times \_\_\_ = 64 \div 2\)</p>
+            <div class="flex-row">
+                <input type="number" id="a3" placeholder="Value">
+                <button onclick="checkA3()">Check</button>
+                <span id="fbA3" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>\(34 - \_\_\_ = 25\)</p>
+            <div class="flex-row">
+                <input type="number" id="a4" placeholder="Number">
+                <button onclick="checkA4()">Check</button>
+                <span id="fbA4" class="feedback"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION B: Comparison & Ascending order -->
+    <div class="section">
+        <h2>⚖️ B. Compare & Arrange (Reasoning)</h2>
+        <div class="row-duo">
+            <div class="problem">
+                <p>📊 <strong>Ascending order</strong> of values:</p>
+                <p>\(67 - 19\) \(67 - 20\) \(35 + 25\) \(5 \times 11\) \(120 \div 3\)</p>
+                <div class="flex-row">
+                    <input type="text" id="ascOrder" placeholder="e.g., b,a,e,d,c" style="width:170px">
+                    <button onclick="checkAscending()">Check order</button>
+                    <span id="fbAsc" class="feedback"></span>
+                </div>
+                <div class="hint">💡 Values: 48, 47, 60, 55, 40 → letters: a,b,c,d,e</div>
+            </div>
+            <div class="problem">
+                <p>🔍 Which is greater? <br> \(1023 + 125\) or \(1022 + 128\)</p>
+                <div class="flex-row">
+                    <select id="compareSel">
+                        <option value="">-- Choose --</option>
+                        <option value="first">\(1023+125\) is greater</option>
+                        <option value="second">\(1022+128\) is greater</option>
+                        <option value="equal">Equal</option>
+                    </select>
+                    <button onclick="checkComparison()">Verify</button>
+                    <span id="fbComp" class="feedback"></span>
+                </div>
+                <div class="hint">🧠 Marble reasoning: Raja had 1 more but Joy got 3 more → Joy has more.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION C: Evaluate using order of operations / Terms -->
+    <div class="section">
+        <h2>🧮 C. Evaluate (Terms → ×/÷ before +/−)</h2>
+        <div class="row-duo">
+            <div class="problem">
+                <p>\(28 - 7 + 8\)</p>
+                <input type="number" id="eval1" placeholder="Value">
+                <button onclick="checkEval1()">Check</button>
+                <span id="fbEval1" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\(39 - 2 \times 6 + 11\)</p>
+                <input type="number" id="eval2" placeholder="Value">
+                <button onclick="checkEval2()">Check</button>
+                <span id="fbEval2" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\(48 - 10 \times 2 + 16 \div 2\)</p>
+                <input type="number" id="eval3" placeholder="Value">
+                <button onclick="checkEval3()">Check</button>
+                <span id="fbEval3" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\(6 \times 3 - 4 \times 8 \times 5\)</p>
+                <input type="number" id="eval4" placeholder="Value">
+                <button onclick="checkEval4()">Check</button>
+                <span id="fbEval4" class="feedback"></span>
+            </div>
+        </div>
+        <div class="hint">⭐ Multiply/divide first, then add/subtract. For last: \(6\times3=18\), \(4\times8\times5=160\), \(18-160=-142\).</div>
+    </div>
+
+    <!-- SECTION D: Removing brackets (sign rules) -->
+    <div class="section">
+        <h2>🔓 D. Remove brackets (Rewrite without brackets)</h2>
+        <div class="row-duo">
+            <div class="problem">
+                <p>\(14 + (12 + 10)\)</p>
+                <div class="flex-row">
+                    <input type="text" id="rb1" placeholder="e.g., 14+12+10" style="width:140px">
+                    <button onclick="checkRB1()">Check</button>
+                    <span id="fbRB1" class="feedback"></span>
+                </div>
+            </div>
+            <div class="problem">
+                <p>\(14 - (12 + 10)\)</p>
+                <div class="flex-row">
+                    <input type="text" id="rb2" placeholder="14-12-10" style="width:140px">
+                    <button onclick="checkRB2()">Check</button>
+                    <span id="fbRB2" class="feedback"></span>
+                </div>
+            </div>
+            <div class="problem">
+                <p>\(14 - (12 - 10)\)</p>
+                <div class="flex-row">
+                    <input type="text" id="rb3" placeholder="14-12+10" style="width:140px">
+                    <button onclick="checkRB3()">Check</button>
+                    <span id="fbRB3" class="feedback"></span>
+                </div>
+            </div>
+            <div class="problem">
+                <p>\(500 - (250 - 100)\)</p>
+                <div class="flex-row">
+                    <input type="text" id="rb4" placeholder="rewrite" style="width:150px">
+                    <button onclick="checkRB4()">Check</button>
+                    <span id="fbRB4" class="feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="hint">✏️ Minus before bracket flips signs: \(-(a+b) = -a-b\); \(-(a-b) = -a+b\).</div>
+    </div>
+
+    <!-- SECTION E: Distributive property (fill blanks) -->
+    <div class="section">
+        <h2>🔁 E. Distributive Property – Fill the blanks</h2>
+        <div class="row-duo">
+            <div class="problem">
+                <p>\(3 \times (6 + 7) = 3\times6 + 3\times \_\_\)</p>
+                <input type="number" id="dist1" style="width:70px">
+                <button onclick="checkDist1()">Check</button>
+                <span id="fbDist1" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\((8 + 3)\times 4 = 8\times4 + \_\_ \times 4\)</p>
+                <input type="number" id="dist2" style="width:70px">
+                <button onclick="checkDist2()">Check</button>
+                <span id="fbDist2" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\(5 \times (9 - 2) = 5\times9 - 5\times \_\_\)</p>
+                <input type="number" id="dist3" style="width:70px">
+                <button onclick="checkDist3()">Check</button>
+                <span id="fbDist3" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\((15 - \_\_)\times 7 = 6 \times 7\)</p>
+                <input type="number" id="dist4" style="width:70px">
+                <button onclick="checkDist4()">Check</button>
+                <span id="fbDist4" class="feedback"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION F: Real-life story problems (direct from chapter) -->
+    <div class="section">
+        <h2>📖 F. Word Problems – Expression & value</h2>
+        <div class="problem">
+            <p>👑 <strong>Queen Alia</strong> gave 100 gold coins each to Elsa and Anna. Elsa doubled her coins, Anna has only half left. Write an expression for total coins together.</p>
+            <div class="flex-row">
+                <input type="text" id="queenExpr" placeholder="e.g., 2*100 + 100/2" style="width:200px">
+                <button onclick="checkQueenExpr()">Check expression</button>
+                <button onclick="computeQueen()">Compute value</button>
+                <span id="fbQueen" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>🚇 Metro ticket: adult ₹40, child ₹20. Total cost for 4 adults and 3 children.</p>
+            <div class="flex-row">
+                <input type="text" id="metroExpr" placeholder="4×40 + 3×20" style="width:180px">
+                <button onclick="checkMetro()">Check & value</button>
+                <span id="fbMetro" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>🥭 Rahim supplies 9 kg mangoes/day, Shyam supplies 11 kg/day. Total mangoes in a week (7 days).</p>
+            <div class="flex-row">
+                <input type="number" id="mangoAns" placeholder="Total kg">
+                <button onclick="checkMango()">Verify</button>
+                <span id="fbMango" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>📖 Melvin reads a 2‑page story every day except Tuesday & Saturday. How many stories in 8 weeks? (Select equivalent expression)</p>
+            <div class="flex-row">
+                <select id="storySel">
+                    <option value="">-- Choose expression --</option>
+                    <option value="5×2×8">\(5\times2\times8\)</option>
+                    <option value="(7-2)×8">\((7-2)\times8\)</option>
+                    <option value="8×7×2">\(8\times7\times2\)</option>
+                    <option value="7×8-2×8">\(7\times8-2\times8\)</option>
+                </select>
+                <button onclick="checkStory()">Check</button>
+                <span id="fbStory" class="feedback"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION G: Add brackets to get target value -->
+    <div class="section">
+        <h2>🎯 G. Insert brackets to match the value</h2>
+        <div class="row-duo">
+            <div class="problem">
+                <p>\(34 - 9 + 12 = 13\) &nbsp; ➜ rewrite with brackets:</p>
+                <input type="text" id="brack1" placeholder="34-(9+12)" style="width:160px">
+                <button onclick="checkBracket1()">Check</button>
+                <span id="fbB1" class="feedback"></span>
+            </div>
+            <div class="problem">
+                <p>\(56 - 14 - 8 = 34\) &nbsp; ➜ insert brackets:</p>
+                <input type="text" id="brack2" placeholder="56-(14+8)" style="width:160px">
+                <button onclick="checkBracket2()">Check</button>
+                <span id="fbB2" class="feedback"></span>
+            </div>
+        </div>
+        <div class="hint">💡 For second: \(56-(14+8)=56-22=34\)</div>
+    </div>
+
+    <!-- SECTION H: Tinker the terms & puzzle -->
+    <div class="section">
+        <h2>⚙️ H. Tinker the Terms & Number Puzzle</h2>
+        <div class="problem">
+            <p>If \(53 - 16 + 37 = 74\), what happens if we change 37 to 38? (Increase/decrease by how much?)</p>
+            <div class="flex-row">
+                <input type="text" id="tinker" placeholder="e.g., increase by 1" style="width:150px">
+                <button onclick="checkTinker()">Check</button>
+                <span id="fbTinker" class="feedback"></span>
+            </div>
+        </div>
+        <div class="problem">
+            <p>✨ Using three 3’s and operations, make an expression equal to \(12\) (example: \(3\times3+3\)). Write yours:</p>
+            <div class="flex-row">
+                <input type="text" id="three3expr" placeholder="3×3+3" style="width:140px">
+                <button onclick="checkThree3()">Check value =12</button>
+                <span id="fbThree" class="feedback"></span>
+            </div>
+        </div>
+    </div>
+    <footer>✔️ Interactive worksheet based on NCERT Class 7 – Arithmetic Expressions. Each answer gets instant feedback. Use reasoning and terms!</footer>
+</div>
+
+<script>
+    // Helper feedback
+    function showFeedback(el, msg, ok) {
+        el.innerHTML = msg;
+        el.className = "feedback " + (ok ? "correct" : "wrong");
+        if(ok) setTimeout(() => { if(el.innerHTML === msg) el.innerHTML = ""; }, 1800);
+        else setTimeout(() => { if(el.innerHTML === msg && el.classList.contains("wrong")) el.innerHTML = ""; }, 2500);
+    }
+
+    // Section A
+    function checkA1() { let v = parseInt(document.getElementById('a1').value); let fb = document.getElementById('fbA1'); if(v===11) showFeedback(fb, "✅ 13+4 = 11+6", true); else showFeedback(fb, "❌ 13+4=17 → 11+6=17", false); }
+    function checkA2() { let v = parseInt(document.getElementById('a2').value); let fb = document.getElementById('fbA2'); if(v===8) showFeedback(fb, "✅ 22+8=30 = 6×5", true); else showFeedback(fb, "❌ 6×5=30, so missing =8", false); }
+    function checkA3() { let v = parseInt(document.getElementById('a3').value); let fb = document.getElementById('fbA3'); if(v===4) showFeedback(fb, "✅ 8×4=32, 64÷2=32", true); else showFeedback(fb, "❌ 64÷2=32, so 8×4=32", false); }
+    function checkA4() { let v = parseInt(document.getElementById('a4').value); let fb = document.getElementById('fbA4'); if(v===9) showFeedback(fb, "✅ 34-9=25", true); else showFeedback(fb, "❌ 34-9=25", false); }
+
+    // Ascending order
+    function checkAscending() {
+        let ans = document.getElementById('ascOrder').value.trim().toLowerCase().replace(/\s/g,'');
+        let fb = document.getElementById('fbAsc');
+        if(ans === "e,b,a,d,c" || ans === "ebadc") showFeedback(fb, "✅ Correct: e(40), b(47), a(48), d(55), c(60)", true);
+        else showFeedback(fb, "❌ Values: 40(e),47(b),48(a),55(d),60(c) → order e,b,a,d,c", false);
+    }
+    function checkComparison() {
+        let sel = document.getElementById('compareSel').value;
+        let fb = document.getElementById('fbComp');
+        if(sel === "second") showFeedback(fb, "✅ 1022+128 is greater (Joy gets 3 more while Raja had only 1 more initially)", true);
+        else if(sel === "first") showFeedback(fb, "❌ Actually 1022+128 > 1023+125", false);
+        else if(sel === "equal") showFeedback(fb, "❌ They are not equal, Joy ends with more", false);
+        else showFeedback(fb, "Please select an option", false);
+    }
+
+    // Evaluation
+    function checkEval1() { let v = parseInt(document.getElementById('eval1').value); let fb = document.getElementById('fbEval1'); if(v===29) showFeedback(fb, "✔️ 28-7+8 = 29", true); else showFeedback(fb, "❌ 28-7=21, +8=29", false); }
+    function checkEval2() { let v = parseInt(document.getElementById('eval2').value); let fb = document.getElementById('fbEval2'); if(v===38) showFeedback(fb, "✔️ 2×6=12 → 39-12+11=38", true); else showFeedback(fb, "❌ 39-12+11=38", false); }
+    function checkEval3() { let v = parseInt(document.getElementById('eval3').value); let fb = document.getElementById('fbEval3'); if(v===36) showFeedback(fb, "✔️ 10×2=20; 16÷2=8 → 48-20+8=36", true); else showFeedback(fb, "❌ 48-20+8 = 36", false); }
+    function checkEval4() { let v = parseInt(document.getElementById('eval4').value); let fb = document.getElementById('fbEval4'); if(v===-142) showFeedback(fb, "✔️ 6×3=18; 4×8×5=160 → 18-160 = -142", true); else showFeedback(fb, "❌ Compute products: 18 - 160 = -142", false); }
+
+    // Remove brackets
+    function checkRB1() { let ans = document.getElementById('rb1').value.trim().replace(/\s/g,''); let fb = document.getElementById('fbRB1'); if(ans === "14+12+10") showFeedback(fb, "✅ 14+12+10", true); else showFeedback(fb, "❌ 14+(12+10)=14+12+10", false); }
+    function checkRB2() { let ans = document.getElementById('rb2').value.trim().replace(/\s/g,''); let fb = document.getElementById('fbRB2'); if(ans === "14-12-10") showFeedback(fb, "✅ 14-12-10 (signs change)", true); else showFeedback(fb, "❌ 14-(12+10)=14-12-10", false); }
+    function checkRB3() { let ans = document.getElementById('rb3').value.trim().replace(/\s/g,''); let fb = document.getElementById('fbRB3'); if(ans === "14-12+10") showFeedback(fb, "✅ 14-12+10", true); else showFeedback(fb, "❌ 14-(12-10)=14-12+10", false); }
+    function checkRB4() { let ans = document.getElementById('rb4').value.trim().replace(/\s/g,''); let fb = document.getElementById('fbRB4'); if(ans === "500-250+100") showFeedback(fb, "✅ 500-250+100", true); else showFeedback(fb, "❌ 500-(250-100)=500-250+100", false); }
+
+    // Distributive
+    function checkDist1() { let v = parseInt(document.getElementById('dist1').value); let fb = document.getElementById('fbDist1'); if(v===7) showFeedback(fb, "✅ 3×7", true); else showFeedback(fb, "❌ 3×(6+7)=3×6+3×7 → missing 7", false); }
+    function checkDist2() { let v = parseInt(document.getElementById('dist2').value); let fb = document.getElementById('fbDist2'); if(v===3) showFeedback(fb, "✅ (8+3)×4 = 8×4+3×4", true); else showFeedback(fb, "❌ missing 3", false); }
+    function checkDist3() { let v = parseInt(document.getElementById('dist3').value); let fb = document.getElementById('fbDist3'); if(v===2) showFeedback(fb, "✅ 5×9 - 5×2", true); else showFeedback(fb, "❌ 5×(9-2)=5×9-5×2", false); }
+    function checkDist4() { let v = parseInt(document.getElementById('dist4').value); let fb = document.getElementById('fbDist4'); if(v===9) showFeedback(fb, "✅ (15-9)×7 = 6×7 → correct", true); else showFeedback(fb, "❌ (15-?)=6 → ?=9", false); }
+
+    // Word problems
+    function checkQueenExpr() {
+        let expr = document.getElementById('queenExpr').value.trim().replace(/×/g,'*').replace(/÷/g,'/');
+        let fb = document.getElementById('fbQueen');
+        if(expr === "2*100+100/2" || expr === "2×100+100÷2") showFeedback(fb, "✅ Correct expression: 2×100 + 100÷2", true);
+        else showFeedback(fb, "❌ Expected: 2×100 + 100÷2 (Elsa doubled, Anna half)", false);
+    }
+    function computeQueen() {
+        let expr = document.getElementById('queenExpr').value.trim().replace(/×/g,'*').replace(/÷/g,'/');
+        let fb = document.getElementById('fbQueen');
+        try { let val = eval(expr); if(val === 250) showFeedback(fb, `🎉 Total = ${val} gold coins!`, true); else showFeedback(fb, `Value = ${val}, expected 250. Use 2*100+100/2`, false); }
+        catch(e) { showFeedback(fb, "Invalid expression", false); }
+    }
+    function checkMetro() {
+        let expr = document.getElementById('metroExpr').value.trim().replace(/×/g,'*').replace(/÷/g,'/');
+        let fb = document.getElementById('fbMetro');
+        try { let val = eval(expr); if(val === 220 && (expr.includes('40*4') || expr.includes('4*40') || expr.includes('4×40'))) showFeedback(fb, `✅ ₹${val} correct!`, true);
+        else if(val === 220) showFeedback(fb, `✅ ₹220 correct. Expression: 4×40 + 3×20`, true);
+        else showFeedback(fb, "❌ Use 4*40 + 3*20 = 220", false); } catch(e) { showFeedback(fb, "Enter expression like 4*40+3*20", false); }
+    }
+    function checkMango() { let v = parseInt(document.getElementById('mangoAns').value); let fb = document.getElementById('fbMango'); if(v===140) showFeedback(fb, "✅ (9+11)×7 = 140 kg", true); else showFeedback(fb, "❌ Weekly total = 20×7 = 140", false); }
+    function checkStory() {
+        let sel = document.getElementById('storySel').value;
+        let fb = document.getElementById('fbStory');
+        if(sel === "(7-2)×8" || sel === "7×8-2×8") showFeedback(fb, "✅ Correct! 5 days/week × 8 weeks × 2 pages = 80 stories. Both (7-2)×8 and 7×8-2×8 are equivalent.", true);
+        else showFeedback(fb, "❌ He reads 5 days/week: (7-2)×8 or 7×8-2×8", false);
+    }
+    function checkBracket1() {
+        let ans = document.getElementById('brack1').value.trim();
+        let fb = document.getElementById('fbB1');
+        if(ans === "34-(9+12)" || ans === "34-(9+12)") showFeedback(fb, "✅ 34-(9+12)=13", true);
+        else showFeedback(fb, "❌ Put brackets: 34-(9+12)", false);
+    }
+    function checkBracket2() {
+        let ans = document.getElementById('brack2').value.trim();
+        let fb = document.getElementById('fbB2');
+        if(ans === "56-(14+8)" || ans === "56-(14+8)") showFeedback(fb, "✅ 56-(14+8)=34", true);
+        else showFeedback(fb, "❌ Try 56-(14+8)=34", false);
+    }
+    function checkTinker() {
+        let guess = document.getElementById('tinker').value.toLowerCase();
+        let fb = document.getElementById('fbTinker');
+        if(guess.includes("increase by 1") || guess.includes("+1")) showFeedback(fb, "✅ Correct! Value becomes 75 (increase by 1)", true);
+        else showFeedback(fb, "❌ Changing 37→38 increases total by 1 (74→75)", false);
+    }
+    function checkThree3() {
+        let expr = document.getElementById('three3expr').value.trim().replace(/×/g,'*');
+        let fb = document.getElementById('fbThree');
+        try { let val = eval(expr); if(val === 12 && (expr.match(/3/g)||[]).length === 3) showFeedback(fb, "✔️ Perfect! 3×3+3 = 12", true);
+        else showFeedback(fb, "Use three 3's, e.g., 3*3+3 = 12", false); } catch(e) { showFeedback(fb, "Invalid expression, try 3*3+3", false); }
+    }
+</script>
+</body>
+</html>

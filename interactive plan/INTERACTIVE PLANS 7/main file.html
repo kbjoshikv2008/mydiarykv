@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 7 Math - Chapter 7: A Tale of Three Intersecting Lines</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #ff5722;
+        }
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .nav-tabs {
+            display: flex;
+            background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+            border-bottom: 3px solid #1a5fb4;
+        }
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .tab:last-child {
+            border-right: none;
+        }
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .tab.active {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .content-section {
+            display: none;
+            padding: 30px;
+            min-height: 600px;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chapter-overview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid #ff7e5f;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card h3 {
+            color: #3498db;
+            font-size: 1.8rem;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .card ul {
+            padding-left: 20px;
+            font-size: 1.3rem;
+        }
+        .card li {
+            margin-bottom: 12px;
+        }
+        .section-title {
+            color: #2c3e50;
+            font-size: 2.4rem;
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            margin-bottom: 25px;
+        }
+        .subsection-title {
+            color: #2980b9;
+            font-size: 1.8rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+        .concept-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 15px 15px 0;
+            font-size: 1.4rem;
+        }
+        .definition {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 15px 15px 0;
+            font-size: 1.4rem;
+        }
+        .theorem {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 15px 15px 0;
+            font-size: 1.4rem;
+        }
+        .exercise {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .exercise-title {
+            color: #e74c3c;
+            font-size: 1.7rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .steps {
+            background-color: #f1f8ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .step {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .example {
+            background-color: #fff;
+            border: 2px dashed #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .example-title {
+            color: #3498db;
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .highlight {
+            background-color: #fffacd;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.4rem;
+        }
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .key-points {
+            background-color: #e8f4f8;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .key-points h3 {
+            color: #2980b9;
+            margin-top: 0;
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+        }
+        .key-points ul {
+            font-size: 1.4rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 3px solid #3498db;
+            color: #7f8c8d;
+            font-size: 1.3rem;
+            padding-bottom: 20px;
+        }
+        
+        /* Activity Styles */
+        .activity {
+            background-color: #e8f4f8;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 200px;
+        }
+        .option:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .input-field {
+            padding: 12px;
+            font-size: 1.3rem;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            width: 180px;
+            margin-right: 15px;
+        }
+        .submit-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .feedback {
+            font-size: 1.4rem;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        .triangle-info {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .chapter-overview {
+                flex-direction: column;
+            }
+            .card {
+                min-width: 100%;
+            }
+            .tab {
+                padding: 15px 10px;
+                font-size: 1.2rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>A Tale of Three Intersecting Lines</h1>
+            <div class="subtitle">Class 7 Mathematics - Chapter 7: Complete Learning Package</div>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="tab active" data-target="notes">Study Notes</div>
+            <div class="tab" data-target="activities">Interactive Activities</div>
+            <div class="tab" data-target="exercises">Practice Exercises</div>
+        </div>
+
+        <!-- NOTES SECTION -->
+        <div id="notes" class="content-section active">
+            <h2 class="section-title">Chapter Notes & Concepts</h2>
+            
+            <div class="chapter-overview">
+                <div class="card">
+                    <h3>What You'll Learn</h3>
+                    <ul>
+                        <li>Triangle construction using compass and ruler</li>
+                        <li>Triangle inequality property</li>
+                        <li>Angle sum property of triangles</li>
+                        <li>Exterior angles of triangles</li>
+                        <li>Altitudes of triangles</li>
+                        <li>Classification of triangles</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li>Triangle: 3 sides, 3 angles, 3 vertices</li>
+                        <li>Triangle inequality: Each side < sum of other two</li>
+                        <li>Angle sum property: Sum of angles = 180°</li>
+                        <li>Exterior angle = Sum of opposite interior angles</li>
+                        <li>Altitude: Perpendicular from vertex to opposite side</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Important Skills</h3>
+                    <ul>
+                        <li>Constructing triangles with given measurements</li>
+                        <li>Checking if triangle is possible with given sides</li>
+                        <li>Finding unknown angles using properties</li>
+                        <li>Drawing altitudes of triangles</li>
+                        <li>Classifying triangles by sides and angles</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">1. Introduction to Triangles</h2>
+                
+                <div class="definition">
+                    A <span class="highlight">triangle</span> is a closed figure formed by three line segments joining three non-collinear points.
+                </div>
+                
+                <div class="concept-box">
+                    <strong>Parts of a Triangle:</strong>
+                    <ul>
+                        <li><strong>Vertices:</strong> The three corner points (A, B, C)</li>
+                        <li><strong>Sides:</strong> The three line segments (AB, BC, CA)</li>
+                        <li><strong>Angles:</strong> The three angles formed at the vertices (∠A, ∠B, ∠C)</li>
+                    </ul>
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example:</div>
+                    In triangle ABC, the vertices are A, B, and C. The sides are AB, BC, and CA. The angles are ∠A, ∠B, and ∠C.
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">2. Constructing Triangles</h2>
+                
+                <h3 class="subsection-title">2.1 Equilateral Triangles</h3>
+                
+                <div class="definition">
+                    An <span class="highlight">equilateral triangle</span> has all three sides equal in length and all three angles equal to 60°.
+                </div>
+                
+                <div class="steps">
+                    <div class="step"><span class="step-number">1</span> Draw the base AB of the given length (say 4 cm).</div>
+                    <div class="step"><span class="step-number">2</span> With A as center and radius 4 cm, draw an arc.</div>
+                    <div class="step"><span class="step-number">3</span> With B as center and radius 4 cm, draw another arc to intersect the first arc at C.</div>
+                    <div class="step"><span class="step-number">4</span> Join AC and BC to complete triangle ABC.</div>
+                </div>
+                
+                <h3 class="subsection-title">2.2 Triangles with Three Given Sides</h3>
+                
+                <div class="steps">
+                    <div class="step"><span class="step-number">1</span> Draw the base with one of the given lengths.</div>
+                    <div class="step"><span class="step-number">2</span> From one endpoint, draw an arc with radius equal to the second side.</div>
+                    <div class="step"><span class="step-number">3</span> From the other endpoint, draw an arc with radius equal to the third side.</div>
+                    <div class="step"><span class="step-number">4</span> The intersection point of the two arcs is the third vertex.</div>
+                    <div class="step"><span class="step-number">5</span> Join this point to both endpoints of the base.</div>
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example:</div>
+                    Construct a triangle with sides 4 cm, 5 cm, and 6 cm.
+                    <ol>
+                        <li>Draw base AB = 4 cm</li>
+                        <li>With A as center, radius 5 cm, draw an arc</li>
+                        <li>With B as center, radius 6 cm, draw another arc to intersect the first arc at C</li>
+                        <li>Join AC and BC</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">3. Triangle Inequality</h2>
+                
+                <div class="theorem">
+                    <strong>Triangle Inequality Theorem:</strong> For any three lengths to form a triangle, each length must be less than the sum of the other two lengths.
+                </div>
+                
+                <div class="concept-box">
+                    To check if three lengths a, b, c can form a triangle, verify:
+                    <ul>
+                        <li>a < b + c</li>
+                        <li>b < a + c</li>
+                        <li>c < a + b</li>
+                    </ul>
+                    If all three conditions are satisfied, a triangle is possible.
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example 1:</div>
+                    Check if a triangle with sides 3 cm, 4 cm, and 8 cm is possible.
+                    <br>3 < 4 + 8 = 12 ✓
+                    <br>4 < 3 + 8 = 11 ✓
+                    <br>8 < 3 + 4 = 7 ✗
+                    <br>Since 8 > 3 + 4, a triangle is not possible.
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example 2:</div>
+                    Check if a triangle with sides 5 cm, 6 cm, and 7 cm is possible.
+                    <br>5 < 6 + 7 = 13 ✓
+                    <br>6 < 5 + 7 = 12 ✓
+                    <br>7 < 5 + 6 = 11 ✓
+                    <br>Since all conditions are satisfied, a triangle is possible.
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">4. Angle Sum Property</h2>
+                
+                <div class="theorem">
+                    <strong>Angle Sum Property:</strong> The sum of the three angles of any triangle is always 180°.
+                </div>
+                
+                <div class="concept-box">
+                    In triangle ABC, ∠A + ∠B + ∠C = 180°
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example 1:</div>
+                    In a triangle, if two angles are 45° and 60°, find the third angle.
+                    <br>Third angle = 180° - (45° + 60°) = 180° - 105° = 75°
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example 2:</div>
+                    In an equilateral triangle, each angle = 180° ÷ 3 = 60°
+                </div>
+                
+                <div class="key-points">
+                    <h3>Important Points:</h3>
+                    <ul>
+                        <li>If two angles of a triangle are known, the third can be found using the angle sum property.</li>
+                        <li>In a right triangle, the two acute angles are complementary (sum to 90°).</li>
+                        <li>In an isosceles triangle, the base angles are equal.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">5. Exterior Angles</h2>
+                
+                <div class="definition">
+                    An <span class="highlight">exterior angle</span> of a triangle is formed when one side is extended. It is adjacent to an interior angle.
+                </div>
+                
+                <div class="theorem">
+                    <strong>Exterior Angle Theorem:</strong> An exterior angle of a triangle is equal to the sum of the two interior opposite angles.
+                </div>
+                
+                <div class="example">
+                    <div class="example-title">Example:</div>
+                    In triangle ABC, if ∠A = 50° and ∠B = 60°, find the exterior angle at C.
+                    <br>Exterior angle at C = ∠A + ∠B = 50° + 60° = 110°
+                </div>
+                
+                <div class="concept-box">
+                    <strong>Properties of Exterior Angles:</strong>
+                    <ul>
+                        <li>An exterior angle is equal to the sum of the two interior opposite angles.</li>
+                        <li>An exterior angle and its adjacent interior angle form a linear pair (sum to 180°).</li>
+                        <li>A triangle has 6 exterior angles (2 at each vertex).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">6. Altitudes of Triangles</h2>
+                
+                <div class="definition">
+                    An <span class="highlight">altitude</span> of a triangle is a perpendicular line segment from a vertex to the line containing the opposite side.
+                </div>
+                
+                <div class="concept-box">
+                    <strong>Properties of Altitudes:</strong>
+                    <ul>
+                        <li>Every triangle has three altitudes.</li>
+                        <li>Altitudes may lie inside or outside the triangle.</li>
+                        <li>In an acute triangle, all altitudes lie inside the triangle.</li>
+                        <li>In a right triangle, two altitudes are the legs of the triangle.</li>
+                        <li>In an obtuse triangle, two altitudes lie outside the triangle.</li>
+                    </ul>
+                </div>
+                
+                <div class="steps">
+                    <div class="step"><span class="step-number">1</span> Place the ruler along the base.</div>
+                    <div class="step"><span class="step-number">2</span> Place the set square on the ruler with its perpendicular edge touching the vertex.</div>
+                    <div class="step"><span class="step-number">3</span> Slide the set square until its perpendicular edge passes through the vertex.</div>
+                    <div class="step"><span class="step-number">4</span> Draw the line along the perpendicular edge from the vertex to the base.</div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">7. Classification of Triangles</h2>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Classification</th>
+                                <th>Based On</th>
+                                <th>Types</th>
+                                <th>Properties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>By Sides</strong></td>
+                                <td>Length of sides</td>
+                                <td>Equilateral</td>
+                                <td>All sides equal, all angles 60°</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Isosceles</td>
+                                <td>Two sides equal, two angles equal</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Scalene</td>
+                                <td>All sides different, all angles different</td>
+                            </tr>
+                            <tr>
+                                <td><strong>By Angles</strong></td>
+                                <td>Measure of angles</td>
+                                <td>Acute</td>
+                                <td>All angles less than 90°</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Right</td>
+                                <td>One angle exactly 90°</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Obtuse</td>
+                                <td>One angle greater than 90°</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h3>Important Formulas & Theorems</h3>
+                <ul>
+                    <li><strong>Angle Sum Property:</strong> ∠A + ∠B + ∠C = 180°</li>
+                    <li><strong>Exterior Angle Theorem:</strong> Exterior angle = Sum of interior opposite angles</li>
+                    <li><strong>Triangle Inequality:</strong> a + b > c, b + c > a, c + a > b</li>
+                    <li><strong>Perimeter of Triangle:</strong> a + b + c</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES SECTION -->
+        <div id="activities" class="content-section">
+            <h2 class="section-title">Interactive Activities</h2>
+            
+            <div class="activity">
+                <div class="question">1. Construct an equilateral triangle with sides of 4 cm. Which tool is most efficient for this construction?</div>
+                <div class="options">
+                    <button class="option" onclick="checkAnswer(this, 'correct', 'feedback1')">Compass and ruler</button>
+                    <button class="option" onclick="checkAnswer(this, 'incorrect', 'feedback1')">Only a ruler</button>
+                    <button class="option" onclick="checkAnswer(this, 'incorrect', 'feedback1')">Only a pencil</button>
+                    <button class="option" onclick="checkAnswer(this, 'incorrect', 'feedback1')">Set square</button>
+                </div>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">2. Construct a triangle with sides 4 cm, 5 cm, and 6 cm. Arrange the steps in the correct order:</div>
+                <div class="options">
+                    <button class="option" onclick="checkOrder(this, '1')">Draw base AB = 4 cm</button>
+                    <button class="option" onclick="checkOrder(this, '2')">From A, draw an arc of radius 5 cm</button>
+                    <button class="option" onclick="checkOrder(this, '3')">From B, draw an arc of radius 6 cm</button>
+                    <button class="option" onclick="checkOrder(this, '4')">Mark point C where arcs intersect</button>
+                    <button class="option" onclick="checkOrder(this, '5')">Join AC and BC</button>
+                </div>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">3. Which of the following sets of lengths can form a triangle? (Select all that apply)</div>
+                <div class="options">
+                    <button class="option" onclick="toggleSelection(this)">2, 2, 5</button>
+                    <button class="option" onclick="toggleSelection(this)">3, 4, 6</button>
+                    <button class="option" onclick="toggleSelection(this)">2, 4, 8</button>
+                    <button class="option" onclick="toggleSelection(this)">5, 5, 8</button>
+                    <button class="option" onclick="toggleSelection(this)">10, 20, 25</button>
+                    <button class="option" onclick="toggleSelection(this)">10, 20, 35</button>
+                    <button class="option" onclick="toggleSelection(this)">24, 26, 28</button>
+                </div>
+                <button class="submit-btn" onclick="checkTriangleInequality()">Check Answers</button>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">4. Check if a triangle exists for the following set of lengths: 10 cm, 15 cm, and 30 cm. Why or why not?</div>
+                <textarea id="reasoning1" rows="4" style="width: 100%; padding: 15px; font-size: 1.3rem; border: 2px solid #3498db; border-radius: 10px; margin-bottom: 20px;"></textarea>
+                <button class="submit-btn" onclick="checkReasoning1()">Submit Reasoning</button>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">5. Construct a triangle ABC with AB = 5 cm, AC = 4 cm, and ∠A = 45°. Arrange the steps in the correct order:</div>
+                <div class="options">
+                    <button class="option" onclick="checkOrder2(this, '1')">Draw base AB = 5 cm</button>
+                    <button class="option" onclick="checkOrder2(this, '2')">At A, construct ∠A = 45°</button>
+                    <button class="option" onclick="checkOrder2(this, '3')">Mark point C on the other arm such that AC = 4 cm</button>
+                    <button class="option" onclick="checkOrder2(this, '4')">Join BC to complete the triangle</button>
+                </div>
+                <div id="feedback5" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">6. Construct a triangle ABC where AB = 5 cm, ∠A = 45°, and ∠B = 80°. What is the measure of ∠C?</div>
+                <input type="number" id="angleC" class="input-field" placeholder="Enter angle">
+                <button class="submit-btn" onclick="checkAngleC()">Check Answer</button>
+                <div id="feedback6" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">7. Find the third angle of a triangle when two angles are given:</div>
+                <div class="triangle-info">
+                    <p>a) 36° and 72°: <input type="number" id="angle1" class="input-field" placeholder="Enter angle"> °</p>
+                    <p>b) 150° and 15°: <input type="number" id="angle2" class="input-field" placeholder="Enter angle"> °</p>
+                    <p>c) 90° and 30°: <input type="number" id="angle3" class="input-field" placeholder="Enter angle"> °</p>
+                    <p>d) 75° and 45°: <input type="number" id="angle4" class="input-field" placeholder="Enter angle"> °</p>
+                </div>
+                <button class="submit-btn" onclick="checkThirdAngles()">Check Answers</button>
+                <div id="feedback7" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">8. In a triangle, if ∠B = ∠C and ∠A = 50°, find the measures of ∠B and ∠C.</div>
+                <p>∠B = <input type="number" id="angleB" class="input-field" placeholder="Enter angle"> °</p>
+                <p>∠C = <input type="number" id="angleC2" class="input-field" placeholder="Enter angle"> °</p>
+                <button class="submit-btn" onclick="checkEqualAngles()">Check Answers</button>
+                <div id="feedback8" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">9. In a triangle, if ∠A = 50° and ∠B = 60°, what is the measure of the exterior angle at C?</div>
+                <input type="number" id="exteriorAngle" class="input-field" placeholder="Enter angle">
+                <button class="submit-btn" onclick="checkExteriorAngle()">Check Answer</button>
+                <div id="feedback9" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">10. What is the relationship between an exterior angle of a triangle and its two interior opposite angles?</div>
+                <textarea id="exteriorRelation" rows="3" style="width: 100%; padding: 15px; font-size: 1.3rem; border: 2px solid #3498db; border-radius: 10px; margin-bottom: 20px;"></textarea>
+                <button class="submit-btn" onclick="checkExteriorRelation()">Submit Answer</button>
+                <div id="feedback10" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">11. What is an altitude of a triangle?</div>
+                <div class="options">
+                    <button class="option" onclick="checkAltitude(this, 'incorrect', 'feedback11')">A line joining a vertex to the midpoint of the opposite side</button>
+                    <button class="option" onclick="checkAltitude(this, 'correct', 'feedback11')">A perpendicular from a vertex to the opposite side</button>
+                    <button class="option" onclick="checkAltitude(this, 'incorrect', 'feedback11')">A line dividing an angle into two equal parts</button>
+                    <button class="option" onclick="checkAltitude(this, 'incorrect', 'feedback11')">A line joining the midpoints of two sides</button>
+                </div>
+                <div id="feedback11" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">12. In which type of triangle does a side also serve as an altitude?</div>
+                <div class="options">
+                    <button class="option" onclick="checkAltitudeTriangle(this, 'correct', 'feedback12')">Right-angled triangle</button>
+                    <button class="option" onclick="checkAltitudeTriangle(this, 'incorrect', 'feedback12')">Equilateral triangle</button>
+                    <button class="option" onclick="checkAltitudeTriangle(this, 'incorrect', 'feedback12')">Isosceles triangle</button>
+                    <button class="option" onclick="checkAltitudeTriangle(this, 'incorrect', 'feedback12')">Scalene triangle</button>
+                </div>
+                <div id="feedback12" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">13. Classify triangles based on their sides:</div>
+                <div class="triangle-info">
+                    <p>a) All sides equal: <input type="text" id="type1" class="input-field" placeholder="Type of triangle"></p>
+                    <p>b) Two sides equal: <input type="text" id="type2" class="input-field" placeholder="Type of triangle"></p>
+                    <p>c) All sides different: <input type="text" id="type3" class="input-field" placeholder="Type of triangle"></p>
+                </div>
+                <button class="submit-btn" onclick="checkTriangleTypes()">Check Answers</button>
+                <div id="feedback13" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <div class="question">14. Classify triangles based on their angles:</div>
+                <div class="triangle-info">
+                    <p>a) All angles acute: <input type="text" id="angleType1" class="input-field" placeholder="Type of triangle"></p>
+                    <p>b) One right angle: <input type="text" id="angleType2" class="input-field" placeholder="Type of triangle"></p>
+                    <p>c) One obtuse angle: <input type="text" id="angleType3" class="input-field" placeholder="Type of triangle"></p>
+                </div>
+                <button class="submit-btn" onclick="checkAngleTypes()">Check Answers</button>
+                <div id="feedback14" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- EXERCISES SECTION -->
+        <div id="exercises" class="content-section">
+            <h2 class="section-title">Practice Exercises</h2>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 1: Triangle Construction</h3>
+                <div class="question">1. Construct the following triangles:</div>
+                <ol type="a">
+                    <li>An equilateral triangle with side 5 cm</li>
+                    <li>A triangle with sides 4 cm, 5 cm, and 6 cm</li>
+                    <li>A triangle with sides 3 cm, 4 cm, and 5 cm</li>
+                </ol>
+                
+                <div class="question">2. Which of the following sets of lengths can form a triangle?</div>
+                <ol type="a">
+                    <li>2 cm, 3 cm, 5 cm</li>
+                    <li>3 cm, 4 cm, 5 cm</li>
+                    <li>5 cm, 6 cm, 12 cm</li>
+                    <li>7 cm, 8 cm, 9 cm</li>
+                </ol>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 2: Angle Calculations</h3>
+                <div class="question">1. Find the third angle of a triangle when two angles are:</div>
+                <ol type="a">
+                    <li>45° and 75°</li>
+                    <li>90° and 30°</li>
+                    <li>110° and 40°</li>
+                </ol>
+                
+                <div class="question">2. In an isosceles triangle, the base angles are equal. If the vertex angle is 40°, find the base angles.</div>
+                
+                <div class="question">3. In a right triangle, one acute angle is 35°. Find the other acute angle.</div>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 3: Exterior Angles</h3>
+                <div class="question">1. In a triangle, two angles are 55° and 65°. Find the measure of the exterior angle at the third vertex.</div>
+                
+                <div class="question">2. An exterior angle of a triangle is 110° and one of its interior opposite angles is 50°. Find the other interior opposite angle.</div>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 4: Classification</h3>
+                <div class="question">Classify the following triangles based on sides and angles:</div>
+                <ol type="a">
+                    <li>Triangle with sides 5 cm, 5 cm, 5 cm</li>
+                    <li>Triangle with angles 90°, 45°, 45°</li>
+                    <li>Triangle with sides 6 cm, 8 cm, 10 cm</li>
+                    <li>Triangle with angles 120°, 30°, 30°</li>
+                </ol>
+            </div>
+            
+            <div class="exercise">
+                <h3 class="exercise-title">Exercise 5: Word Problems</h3>
+                <div class="question">1. The angles of a triangle are in the ratio 2:3:4. Find the measure of each angle.</div>
+                
+                <div class="question">2. In an isosceles triangle, the base is 5 cm and each of the equal sides is 6 cm. Find its perimeter.</div>
+                
+                <div class="question">3. One angle of a triangle is 60° and the other two angles are equal. Find the measure of each of the equal angles.</div>
+                
+                <div class="question">4. The perimeter of a triangle is 24 cm. Two of its sides are 9 cm and 7 cm. Find the length of the third side.</div>
+                
+                <div class="question">5. In a right triangle, one acute angle is twice the other. Find the measures of both acute angles.</div>
+            </div>
+            
+            <div class="key-points">
+                <h3>Challenge Problems</h3>
+                <div class="question">1. Can a triangle have two right angles? Justify your answer.</div>
+                <div class="question">2. Is it possible to have a triangle with sides 4 cm, 5 cm, and 10 cm? Why or why not?</div>
+                <div class="question">3. In a triangle, the measure of one angle is 70°. The other two angles are equal. Find the measure of each of the equal angles.</div>
+                <div class="question">4. The exterior angle of a triangle is 120° and one of its interior opposite angles is 50°. Find the other two angles of the triangle.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Class 7 Mathematics - Chapter 7: A Tale of Three Intersecting Lines</p>
+            <p>Remember: Practice makes perfect! Try constructing different triangles and solving various problems.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content sections
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content section
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+            });
+        });
+
+        // Activity 1: Construction tools
+        function checkAnswer(button, result, feedbackId) {
+            const feedback = document.getElementById(feedbackId);
+            if (result === 'correct') {
+                button.style.backgroundColor = '#2ecc71';
+                feedback.textContent = 'Correct! A compass is the most efficient tool for constructing an equilateral triangle.';
+                feedback.className = 'feedback correct';
+            } else {
+                button.style.backgroundColor = '#e74c3c';
+                feedback.textContent = 'Incorrect. A compass is needed to ensure all sides are equal.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 2: Construction steps
+        let stepOrder = [];
+        function checkOrder(button, step) {
+            stepOrder.push({step: step, text: button.textContent});
+            button.disabled = true;
+            button.style.backgroundColor = '#95a5a6';
+            
+            if (stepOrder.length === 5) {
+                checkOrderFinal();
+            }
+        }
+        
+        function checkOrderFinal() {
+            const correctOrder = ['1', '2', '3', '4', '5'];
+            const userOrder = stepOrder.map(item => item.step);
+            const feedback = document.getElementById('feedback2');
+            
+            if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+                feedback.textContent = 'Correct! You have arranged the steps in the right order.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrect order. The correct order is: 1. Draw base AB = 4 cm, 2. From A, draw an arc of radius 5 cm, 3. From B, draw an arc of radius 6 cm, 4. Mark point C where arcs intersect, 5. Join AC and BC.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 3: Triangle inequality
+        function toggleSelection(button) {
+            if (button.style.backgroundColor === 'rgb(46, 204, 113)') {
+                button.style.backgroundColor = '#3498db';
+            } else {
+                button.style.backgroundColor = '#2ecc71';
+            }
+        }
+        
+        function checkTriangleInequality() {
+            const correctSets = ['3, 4, 6', '5, 5, 8', '10, 20, 25', '24, 26, 28'];
+            const buttons = document.querySelectorAll('#activities .options .option');
+            let correctCount = 0;
+            let totalCorrect = 0;
+            
+            buttons.forEach(button => {
+                if (correctSets.includes(button.textContent)) {
+                    totalCorrect++;
+                    if (button.style.backgroundColor === 'rgb(46, 204, 113)') {
+                        correctCount++;
+                    }
+                } else {
+                    if (button.style.backgroundColor === 'rgb(46, 204, 113)') {
+                        button.style.backgroundColor = '#e74c3c';
+                    }
+                }
+            });
+            
+            const feedback = document.getElementById('feedback3');
+            if (correctCount === totalCorrect) {
+                feedback.textContent = 'Excellent! You correctly identified all triangle sets.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `You got ${correctCount} out of ${totalCorrect} correct. The correct sets are: 3,4,6; 5,5,8; 10,20,25; 24,26,28.`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 4: Triangle existence reasoning
+        function checkReasoning1() {
+            const answer = document.getElementById('reasoning1').value.toLowerCase();
+            const feedback = document.getElementById('feedback4');
+            
+            if (answer.includes('triangle inequality') || 
+                answer.includes('10+15=25') || 
+                answer.includes('30 > 10+15') || 
+                answer.includes('direct path longer')) {
+                feedback.textContent = 'Correct! The triangle cannot exist because 30 > 10 + 15, violating the triangle inequality.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incomplete. Remember: For a triangle to exist, each side must be less than the sum of the other two sides. Here, 30 > 10 + 15.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 5: Construction with angles steps
+        let stepOrder2 = [];
+        function checkOrder2(button, step) {
+            stepOrder2.push({step: step, text: button.textContent});
+            button.disabled = true;
+            button.style.backgroundColor = '#95a5a6';
+            
+            if (stepOrder2.length === 4) {
+                checkOrderFinal2();
+            }
+        }
+        
+        function checkOrderFinal2() {
+            const correctOrder = ['1', '2', '3', '4'];
+            const userOrder = stepOrder2.map(item => item.step);
+            const feedback = document.getElementById('feedback5');
+            
+            if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+                feedback.textContent = 'Correct! You have arranged the steps in the right order.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrect order. The correct order is: 1. Draw base AB = 5 cm, 2. At A, construct ∠A = 45°, 3. Mark point C on the other arm such that AC = 4 cm, 4. Join BC to complete the triangle.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 6: Finding angle C
+        function checkAngleC() {
+            const answer = parseInt(document.getElementById('angleC').value);
+            const feedback = document.getElementById('feedback6');
+            
+            if (answer === 55) {
+                feedback.textContent = 'Correct! ∠C = 180° - (45° + 80°) = 55°.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrect. Use the angle sum property: ∠C = 180° - (∠A + ∠B) = 180° - (45° + 80°) = 55°.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 7: Third angles
+        function checkThirdAngles() {
+            const angle1 = parseInt(document.getElementById('angle1').value);
+            const angle2 = parseInt(document.getElementById('angle2').value);
+            const angle3 = parseInt(document.getElementById('angle3').value);
+            const angle4 = parseInt(document.getElementById('angle4').value);
+            const feedback = document.getElementById('feedback7');
+            
+            let correctCount = 0;
+            if (angle1 === 72) correctCount++;
+            if (angle2 === 15) correctCount++;
+            if (angle3 === 60) correctCount++;
+            if (angle4 === 60) correctCount++;
+            
+            if (correctCount === 4) {
+                feedback.textContent = 'Excellent! All answers are correct.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `You got ${correctCount} out of 4 correct. The correct answers are: a) 72°, b) 15°, c) 60°, d) 60°.`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 8: Equal angles
+        function checkEqualAngles() {
+            const angleB = parseInt(document.getElementById('angleB').value);
+            const angleC = parseInt(document.getElementById('angleC2').value);
+            const feedback = document.getElementById('feedback8');
+            
+            if (angleB === 65 && angleC === 65) {
+                feedback.textContent = 'Correct! Since ∠B = ∠C and ∠A = 50°, then 2∠B = 180° - 50° = 130°, so ∠B = ∠C = 65°.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrect. Since ∠B = ∠C and ∠A = 50°, then 2∠B = 180° - 50° = 130°, so ∠B = ∠C = 65°.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 9: Exterior angle
+        function checkExteriorAngle() {
+            const answer = parseInt(document.getElementById('exteriorAngle').value);
+            const feedback = document.getElementById('feedback9');
+            
+            if (answer === 110) {
+                feedback.textContent = 'Correct! The exterior angle at C = 180° - ∠C. Since ∠C = 180° - (50° + 60°) = 70°, the exterior angle = 180° - 70° = 110°.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrect. First find ∠C = 180° - (50° + 60°) = 70°. Then the exterior angle at C = 180° - 70° = 110°.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 10: Exterior angle relationship
+        function checkExteriorRelation() {
+            const answer = document.getElementById('exteriorRelation').value.toLowerCase();
+            const feedback = document.getElementById('feedback10');
+            
+            if (answer.includes('equal to the sum') || 
+                answer.includes('sum of interior opposite') || 
+                answer.includes('∠a + ∠b')) {
+                feedback.textContent = 'Correct! An exterior angle of a triangle is equal to the sum of its two interior opposite angles.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incomplete. The correct relationship is: An exterior angle of a triangle is equal to the sum of its two interior opposite angles.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 11: Altitude definition
+        function checkAltitude(button, result, feedbackId) {
+            const feedback = document.getElementById(feedbackId);
+            if (result === 'correct') {
+                button.style.backgroundColor = '#2ecc71';
+                feedback.textContent = 'Correct! An altitude is a perpendicular from a vertex to the opposite side.';
+                feedback.className = 'feedback correct';
+            } else {
+                button.style.backgroundColor = '#e74c3c';
+                feedback.textContent = 'Incorrect. An altitude is a perpendicular from a vertex to the opposite side.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 12: Altitude in triangles
+        function checkAltitudeTriangle(button, result, feedbackId) {
+            const feedback = document.getElementById(feedbackId);
+            if (result === 'correct') {
+                button.style.backgroundColor = '#2ecc71';
+                feedback.textContent = 'Correct! In a right-angled triangle, the sides containing the right angle serve as altitudes.';
+                feedback.className = 'feedback correct';
+            } else {
+                button.style.backgroundColor = '#e74c3c';
+                feedback.textContent = 'Incorrect. In a right-angled triangle, the sides containing the right angle serve as altitudes.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 13: Triangle types by sides
+        function checkTriangleTypes() {
+            const type1 = document.getElementById('type1').value.toLowerCase();
+            const type2 = document.getElementById('type2').value.toLowerCase();
+            const type3 = document.getElementById('type3').value.toLowerCase();
+            const feedback = document.getElementById('feedback13');
+            
+            let correctCount = 0;
+            if (type1.includes('equilateral')) correctCount++;
+            if (type2.includes('isosceles')) correctCount++;
+            if (type3.includes('scalene')) correctCount++;
+            
+            if (correctCount === 3) {
+                feedback.textContent = 'Excellent! All answers are correct.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `You got ${correctCount} out of 3 correct. The correct answers are: a) Equilateral, b) Isosceles, c) Scalene.`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+        
+        // Activity 14: Triangle types by angles
+        function checkAngleTypes() {
+            const type1 = document.getElementById('angleType1').value.toLowerCase();
+            const type2 = document.getElementById('angleType2').value.toLowerCase();
+            const type3 = document.getElementById('angleType3').value.toLowerCase();
+            const feedback = document.getElementById('feedback14');
+            
+            let correctCount = 0;
+            if (type1.includes('acute')) correctCount++;
+            if (type2.includes('right')) correctCount++;
+            if (type3.includes('obtuse')) correctCount++;
+            
+            if (correctCount === 3) {
+                feedback.textContent = 'Excellent! All answers are correct.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `You got ${correctCount} out of 3 correct. The correct answers are: a) Acute-angled, b) Right-angled, c) Obtuse-angled.`;
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

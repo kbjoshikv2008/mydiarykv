@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 Mathematics Study Material</title>
+    <!-- MathJax for LaTeX-style math rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        body {
+            line-height: 1.5;
+            color: #000;
+            background-color: white;
+            padding: 0;
+            font-size: 15px;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 12mm;
+            margin: 0 auto;
+            position: relative;
+            page-break-after: always;
+        }
+        .main-header {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .sub-header {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-style: italic;
+        }
+        .day-header {
+            background-color: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+        }
+        .day-number {
+            background: #fff;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            border: 2px solid #000;
+            font-size: 16px;
+        }
+        .concept-box {
+            background-color: #fff;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            border-left: 4px solid #000;
+            border: 1px solid #ccc;
+        }
+        .concept-heading {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 16px;
+            text-decoration: underline;
+        }
+        .questions-section {
+            margin-top: 15px;
+        }
+        .questions-heading {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 16px;
+            border-left: 4px solid #000;
+            padding-left: 10px;
+        }
+        .questions {
+            margin-left: 5px;
+        }
+        .question {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #aaa;
+        }
+        .question:last-child {
+            border-bottom: none;
+        }
+        .question-number {
+            font-weight: bold;
+            margin-right: 6px;
+            font-size: 15px;
+        }
+        .question-type {
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            font-size: 16px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 4px;
+        }
+        .mcq-options {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+        .option {
+            margin-bottom: 4px;
+        }
+        .page-footer {
+            position: absolute;
+            bottom: 12mm;
+            left: 12mm;
+            right: 12mm;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #ccc;
+            padding-top: 6px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+        p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                font-size: 15px;
+            }
+            .page {
+                margin: 0;
+                padding: 12mm;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Heading Page -->
+    <div class="page">
+        <div class="main-header">Study Material for Class 12 Mathematics, MLL</div>
+        <div class="sub-header">Prepared by K B JOSHI, PM SHRI RANIKHET</div>
+        
+        <div style="margin-top: 25px; text-align: center;">
+            <h3 style="font-size: 18px;">For CBSE Board Exam 2026</h3>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <p style="font-size: 16px; font-weight: bold;">Course Structure:</p>
+            <ul style="font-size: 15px;">
+                <li>Day 1: Relations and Functions</li>
+                <li>Day 2: Inverse Trigonometric Functions</li>
+                <li>Day 3: Matrices and Determinants</li>
+                <li>Day 4: Continuity and Differentiability</li>
+                <li>Day 5: Application of Derivatives</li>
+                <li>Day 6: Integrals</li>
+                <li>Day 7: Application of Integrals</li>
+                <li>Day 8: Differential Equations</li>
+                <li>Day 9: Vectors</li>
+                <li>Day 10: Three-Dimensional Geometry</li>
+                <li>Day 11: Linear Programming</li>
+                <li>Day 12: Probability</li>
+                <li>Day 13-15: Mixed Questions and Revision</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 25px;">
+            <p style="font-size: 16px; font-weight: bold;">Note:</p>
+            <ul style="font-size: 15px;">
+                <li>Each day includes key concepts, formulas, and practice questions</li>
+                <li>Questions are categorized as MCQs, Short Answer, and Long Answer type</li>
+                <li>This material is designed for effective revision and practice</li>
+                <li>All content is presented in readable font with optimized margins</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | Complete Study Material
+        </div>
+    </div>
+
+    <!-- Day 1 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">1</div>
+            <div>Relations and Functions - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>A relation R in a set A is called:</p>
+            <ul>
+                <li><strong>Reflexive</strong> if $(a,a) \in R$ for every $a \in A$</li>
+                <li><strong>Symmetric</strong> if $(a,b) \in R \Rightarrow (b,a) \in R$ for every $a,b \in A$</li>
+                <li><strong>Transitive</strong> if $(a,b) \in R$ and $(b,c) \in R \Rightarrow (a,c) \in R$ for every $a,b,c \in A$</li>
+            </ul>
+            <p>A relation is an <strong>equivalence relation</strong> if it is reflexive, symmetric and transitive.</p>
+            <p>A function $f: X \subset \mathbb{R} \to Y \subset \mathbb{R}$ is:</p>
+            <ul>
+                <li><strong>One-one (injective)</strong> if the images of distinct elements of X under f are distinct</li>
+                <li><strong>Onto (surjective)</strong> if every element of Y is the image of some element of X</li>
+                <li><strong>Bijective</strong> if it is both one-one and onto</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas & Properties</div>
+            <ul>
+                <li>Number of relations from A to B: $2^{mn}$ where |A|=m, |B|=n</li>
+                <li>Number of functions from A to B: $n^m$</li>
+                <li>Number of one-one functions from A to B: $^nP_m$ if $n \ge m$, else 0</li>
+                <li>Composition of functions: $(f \circ g)(x) = f(g(x))$</li>
+                <li>Inverse function exists only for bijective functions</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Types of Functions</div>
+            <ul>
+                <li><strong>Identity function:</strong> $f(x) = x$</li>
+                <li><strong>Constant function:</strong> $f(x) = c$</li>
+                <li><strong>Modulus function:</strong> $f(x) = |x|$</li>
+                <li><strong>Signum function:</strong> $f(x) = \frac{|x|}{x}$ for $x \ne 0$, $f(0) = 0$</li>
+                <li><strong>Greatest integer function:</strong> $f(x) = [x]$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 1: Relations and Functions - Concepts
+        </div>
+    </div>
+
+    <!-- Day 1 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">1</div>
+            <div>Relations and Functions - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> If a relation R on set A = {1,2,3} is defined as R = {(1,1),(2,2),(3,3),(1,2),(2,1)}, then R is:
+                    <div class="mcq-options">
+                        <div class="option">(a) Reflexive but not symmetric</div>
+                        <div class="option">(b) Symmetric but not transitive</div>
+                        <div class="option">(c) An equivalence relation</div>
+                        <div class="option">(d) Neither reflexive nor symmetric</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The number of one-one functions from set A = {1,2,3} to set B = {a,b,c,d} is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 12</div>
+                        <div class="option">(b) 24</div>
+                        <div class="option">(c) 64</div>
+                        <div class="option">(d) 81</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Show that the function f in $A = \mathbb{R} - \{\frac{2}{3}\}$ defined as $f(x) = \frac{4x+3}{6x-4}$ is one-one and onto. Also if $f(x) = y$, express x in terms of y.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Let $A = \{1,2,3,...,9\}$ and R be the relation in $A \times A$ defined by $(a,b)R(c,d)$ if $a+d = b+c$ for $(a,b),(c,d)$ in $A \times A$. Prove that R is an equivalence relation.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Show that the relation S in the set $A = \{x \in \mathbb{Z} : 0 \le x \le 12\}$ given by $S = \{(a,b): a,b \in \mathbb{Z}, |a-b|$ is divisible by 4$\}$ is an equivalence relation.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> Let R be a relation on $\mathbb{N} \times \mathbb{N}$ defined by $(a,b)R(c,d)$ iff $ad(b+c) = bc(a+d)$. Show that R is an equivalence relation.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> A relation R is defined on a set of real numbers $\mathbb{R}$ as $R = \{(x,y): x\cdot y$ is an irrational number$\}$. Check whether R is reflexive, symmetric and transitive or not.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 1: Relations and Functions - Questions
+        </div>
+    </div>
+
+    <!-- Day 2 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">2</div>
+            <div>Inverse Trigonometric Functions - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Inverse trigonometric functions are the inverse functions of trigonometric functions. They are defined with restricted domains to make them one-to-one and hence invertible.</p>
+            <p><strong>Principal Value Branches:</strong></p>
+            <ul>
+                <li>$\sin^{-1}x$: Domain $[-1,1]$, Range $[-\frac{\pi}{2}, \frac{\pi}{2}]$</li>
+                <li>$\cos^{-1}x$: Domain $[-1,1]$, Range $[0, \pi]$</li>
+                <li>$\tan^{-1}x$: Domain $\mathbb{R}$, Range $(-\frac{\pi}{2}, \frac{\pi}{2})$</li>
+                <li>$\cot^{-1}x$: Domain $\mathbb{R}$, Range $(0, \pi)$</li>
+                <li>$\sec^{-1}x$: Domain $\mathbb{R}-(-1,1)$, Range $[0, \pi] - \{\frac{\pi}{2}\}$</li>
+                <li>$\cosec^{-1}x$: Domain $\mathbb{R}-(-1,1)$, Range $[-\frac{\pi}{2}, \frac{\pi}{2}] - \{0\}$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas & Properties</div>
+            <ul>
+                <li>$\sin^{-1}(-x) = -\sin^{-1}x$</li>
+                <li>$\cos^{-1}(-x) = \pi - \cos^{-1}x$</li>
+                <li>$\tan^{-1}(-x) = -\tan^{-1}x$</li>
+                <li>$\sin^{-1}x + \cos^{-1}x = \frac{\pi}{2}$</li>
+                <li>$\tan^{-1}x + \cot^{-1}x = \frac{\pi}{2}$</li>
+                <li>$\sec^{-1}x + \cosec^{-1}x = \frac{\pi}{2}$</li>
+                <li>$\tan^{-1}x + \tan^{-1}y = \tan^{-1}\left(\frac{x+y}{1-xy}\right)$ if $xy < 1$</li>
+                <li>$\tan^{-1}x - \tan^{-1}y = \tan^{-1}\left(\frac{x-y}{1+xy}\right)$ if $xy > -1$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Conversions</div>
+            <ul>
+                <li>$\sin^{-1}x = \cos^{-1}\sqrt{1-x^2} = \tan^{-1}\frac{x}{\sqrt{1-x^2}}$</li>
+                <li>$\cos^{-1}x = \sin^{-1}\sqrt{1-x^2} = \tan^{-1}\frac{\sqrt{1-x^2}}{x}$</li>
+                <li>$\tan^{-1}x = \sin^{-1}\frac{x}{\sqrt{1+x^2}} = \cos^{-1}\frac{1}{\sqrt{1+x^2}}$</li>
+                <li>$2\tan^{-1}x = \sin^{-1}\frac{2x}{1+x^2} = \cos^{-1}\frac{1-x^2}{1+x^2} = \tan^{-1}\frac{2x}{1-x^2}$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 2: Inverse Trigonometric Functions - Concepts
+        </div>
+    </div>
+
+    <!-- Day 2 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">2</div>
+            <div>Inverse Trigonometric Functions - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The principal value of $\sin^{-1}\left(-\frac{1}{2}\right)$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{\pi}{6}$</div>
+                        <div class="option">(b) $-\frac{\pi}{6}$</div>
+                        <div class="option">(c) $\frac{5\pi}{6}$</div>
+                        <div class="option">(d) $\frac{7\pi}{6}$</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The value of $\tan^{-1}(\sqrt{3}) - \sec^{-1}(-2)$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\pi$</div>
+                        <div class="option">(b) $-\frac{\pi}{3}$</div>
+                        <div class="option">(c) $\frac{\pi}{3}$</div>
+                        <div class="option">(d) $\frac{2\pi}{3}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Find the value of $\sin^{-1}[\sin(\frac{13\pi}{7})]$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Evaluate $\sin[\frac{\pi}{3} - \sin^{-1}(-\frac{\sqrt{3}}{2})]$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Evaluate $\sin^{-1}[\sin(\frac{13\pi}{7})] + \cos^{-1}[\cos(\frac{13\pi}{7})]$.
+                </div>
+                <div class="question">
+                    <span class="question-number">6.</span> Find the value of $\tan^{-1}[2\cos(2\sin^{-1}(\frac{1}{2}))] + \tan^{-1}(1)$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">7.</span> Find the principal value of $\tan^{-1}(1) + \cos^{-1}(-\frac{1}{2}) + \sin^{-1}(-\frac{1}{\sqrt{2}})$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Evaluate: $\cos^{-1}(\cos(\frac{2\pi}{3})) + \sin^{-1}(\sin(\frac{2\pi}{3}))$.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics |  2: Inverse Trigonometric Functions - Questions
+        </div>
+    </div>
+
+    <!-- Day 3 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">3</div>
+            <div>Matrices and Determinants - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>A matrix is a rectangular array of numbers arranged in rows and columns. Determinants are scalar values that can be computed from square matrices.</p>
+            <p><strong>Types of Matrices:</strong></p>
+            <ul>
+                <li><strong>Row Matrix:</strong> Matrix with only one row</li>
+                <li><strong>Column Matrix:</strong> Matrix with only one column</li>
+                <li><strong>Square Matrix:</strong> Matrix with equal number of rows and columns</li>
+                <li><strong>Diagonal Matrix:</strong> Square matrix with all non-diagonal elements zero</li>
+                <li><strong>Scalar Matrix:</strong> Diagonal matrix with all diagonal elements equal</li>
+                <li><strong>Identity Matrix:</strong> Diagonal matrix with all diagonal elements 1</li>
+                <li><strong>Zero Matrix:</strong> Matrix with all elements zero</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas & Properties</div>
+            <ul>
+                <li>$A(adjA) = (adjA)A = |A|I$</li>
+                <li>$(AB)^{-1} = B^{-1}A^{-1}$</li>
+                <li>$(AB)^T = B^TA^T$</li>
+                <li>$|adjA| = |A|^{n-1}$ where n is the order of matrix A</li>
+                <li>If $|A| \ne 0$, then $A^{-1} = \frac{1}{|A|} adjA$</li>
+                <li>For a square matrix A, A is:
+                    <ul>
+                        <li>Symmetric if $A^T = A$</li>
+                        <li>Skew-symmetric if $A^T = -A$</li>
+                        <li>Orthogonal if $AA^T = A^TA = I$</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Determinant Properties</div>
+            <ul>
+                <li>$|AB| = |A||B|$</li>
+                <li>$|A^T| = |A|$</li>
+                <li>$|A^{-1}| = \frac{1}{|A|}$</li>
+                <li>$|kA| = k^n|A|$ where n is order of A</li>
+                <li>If any two rows/columns are identical, then $|A| = 0$</li>
+                <li>If any row/column is all zeros, then $|A| = 0$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics |  3: Matrices and Determinants - Concepts
+        </div>
+    </div>
+
+    <!-- Day 3 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">3</div>
+            <div>Matrices and Determinants - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> If A is a square matrix of order 3 and |A| = 5, then the value of |adjA| is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 5</div>
+                        <div class="option">(b) 25</div>
+                        <div class="option">(c) 125</div>
+                        <div class="option">(d) 1/5</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> If A and B are square matrices of the same order, then (AB)' is equal to:
+                    <div class="mcq-options">
+                        <div class="option">(a) A'B'</div>
+                        <div class="option">(b) B'A'</div>
+                        <div class="option">(c) AB'</div>
+                        <div class="option">(d) BA'</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Express $A = \begin{bmatrix} 3 & -1 & 0 \\ 2 & 0 & 3 \\ 1 & -1 & 2 \end{bmatrix}$ as the sum of a symmetric and a skew-symmetric matrix.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> If $A = \begin{bmatrix} 2 & 3 \\ -1 & 2 \end{bmatrix}$, then show that $A^2 - 4A + 7I = 0$. Hence find $A^5$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Express $\begin{bmatrix} 2 & 0 & 1 \\ 2 & 1 & 3 \\ 1 & -1 & 0 \end{bmatrix}$ as the sum of symmetric and skew symmetric matrices.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> If $A = \begin{bmatrix} 2 & -3 & 5 \\ 3 & 2 & -4 \\ 1 & 1 & -2 \end{bmatrix}$, find $A^{-1}$ and using $A^{-1}$ solve the system: $2x-3y+5z=11$, $3x+2y-4z=-5$, $x+y-2z=-3$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> Use the product $\begin{bmatrix} 1 & -1 & 2 \\ 0 & 2 & -3 \\ 3 & -2 & 4 \end{bmatrix} \begin{bmatrix} -2 & 0 & 1 \\ 9 & 2 & -3 \\ 6 & 1 & -2 \end{bmatrix}$ and solve: $x+3z=9$, $-x+2y-2z=4$, $2x-3y+4z=-3$.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics | 3: Matrices and Determinants - Questions
+        </div>
+    </div>
+
+    <!-- Day 4 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">4</div>
+            <div>Continuity and Differentiability - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>A function f is continuous at a point a if $\lim_{x \to a} f(x) = f(a)$. A function is differentiable at a point if its derivative exists at that point.</p>
+            <p><strong>Continuity:</strong></p>
+            <ul>
+                <li>A function is continuous at x=a if:
+                    <ol>
+                        <li>f(a) exists</li>
+                        <li>$\lim_{x \to a} f(x)$ exists</li>
+                        <li>$\lim_{x \to a} f(x) = f(a)$</li>
+                    </ol>
+                </li>
+                <li>Every differentiable function is continuous, but converse is not true</li>
+            </ul>
+            <p><strong>Differentiability:</strong></p>
+            <ul>
+                <li>Left hand derivative: $f'(a^-) = \lim_{h \to 0^-} \frac{f(a+h)-f(a)}{h}$</li>
+                <li>Right hand derivative: $f'(a^+) = \lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h}$</li>
+                <li>f is differentiable at x=a if $f'(a^-) = f'(a^+)$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas</div>
+            <ul>
+                <li>$\frac{d}{dx}(x^n) = nx^{n-1}$</li>
+                <li>$\frac{d}{dx}(\sin x) = \cos x$</li>
+                <li>$\frac{d}{dx}(\cos x) = -\sin x$</li>
+                <li>$\frac{d}{dx}(\tan x) = \sec^2 x$</li>
+                <li>$\frac{d}{dx}(\cot x) = -\cosec^2 x$</li>
+                <li>$\frac{d}{dx}(\sec x) = \sec x \tan x$</li>
+                <li>$\frac{d}{dx}(\cosec x) = -\cosec x \cot x$</li>
+                <li>$\frac{d}{dx}(e^x) = e^x$</li>
+                <li>$\frac{d}{dx}(a^x) = a^x \log a$</li>
+                <li>$\frac{d}{dx}(\log x) = \frac{1}{x}$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Inverse Trigonometric Derivatives</div>
+            <ul>
+                <li>$\frac{d}{dx}(\sin^{-1} x) = \frac{1}{\sqrt{1-x^2}}$</li>
+                <li>$\frac{d}{dx}(\cos^{-1} x) = -\frac{1}{\sqrt{1-x^2}}$</li>
+                <li>$\frac{d}{dx}(\tan^{-1} x) = \frac{1}{1+x^2}$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics |  4: Continuity and Differentiability - Concepts
+        </div>
+    </div>
+
+    <!-- Day 4 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">4</div>
+            <div>Continuity and Differentiability - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The derivative of $\log(\sin x)$ with respect to x is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\tan x$</div>
+                        <div class="option">(b) $\cot x$</div>
+                        <div class="option">(c) $\sec x$</div>
+                        <div class="option">(d) $\cosec x$</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> If $y = \sin^{-1}(3x - 4x^3)$, then $\frac{dy}{dx}$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{3}{\sqrt{1-x^2}}$</div>
+                        <div class="option">(b) $\frac{3}{\sqrt{1-9x^2}}$</div>
+                        <div class="option">(c) $\frac{3}{\sqrt{1-4x^2}}$</div>
+                        <div class="option">(d) $\frac{3}{\sqrt{1-16x^2}}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> If $x^y = e^{x-y}$, then prove that $\frac{dy}{dx} = \frac{\log x}{(1+\log x)^2}$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Differentiate the function $x^{\sin x} + (\sin x)^{\cos x}$ with respect to x.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> If $y = x^{\sin x} + (\sin x)^x$ find $\frac{dy}{dx}$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> If $x = \sqrt{a^{\sin^{-1} t}}$, $y = \sqrt{a^{\cos^{-1} t}}$, show that $\frac{dy}{dx} = -\frac{y}{x}$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> If $\sqrt{1-x^2} + \sqrt{1-y^2} = a(x-y)$ then show that $\frac{dy}{dx} = \sqrt{\frac{1-y^2}{1-x^2}}$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> For what value of k, is the function $f(x) = \begin{cases} \frac{\sqrt{4+x}-2}{x}, & x \ne 0 \\ k, & x = 0 \end{cases}$ continuous at x=0?
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics |  4: Continuity and Differentiability - Questions
+        </div>
+    </div>
+
+    <!-- Day 5 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">5</div>
+            <div>Application of Derivatives - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Derivatives have various applications including rate of change, increasing/decreasing functions, and finding maxima/minima.</p>
+            <p><strong>Rate of Change:</strong></p>
+            <ul>
+                <li>$\frac{dy}{dt}$ represents rate of change of y with respect to t</li>
+                <li>If $y = f(x)$ and $x = g(t)$, then $\frac{dy}{dt} = \frac{dy}{dx} \cdot \frac{dx}{dt}$</li>
+            </ul>
+            <p><strong>Increasing/Decreasing Functions:</strong></p>
+            <ul>
+                <li>Increasing function: $f'(x) > 0$</li>
+                <li>Decreasing function: $f'(x) < 0$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Maxima and Minima</div>
+            <p><strong>First Derivative Test:</strong></p>
+            <ul>
+                <li>Find critical points where $f'(x) = 0$ or f'(x) does not exist</li>
+                <li>If f'(x) changes from positive to negative at c, then f(c) is local maximum</li>
+                <li>If f'(x) changes from negative to positive at c, then f(c) is local minimum</li>
+            </ul>
+            <p><strong>Second Derivative Test:</strong></p>
+            <ul>
+                <li>If $f'(c) = 0$ and $f''(c) < 0$, then f(c) is local maximum</li>
+                <li>If $f'(c) = 0$ and $f''(c) > 0$, then f(c) is local minimum</li>
+                <li>If $f''(c) = 0$, test fails</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Practical Applications</div>
+            <ul>
+                <li>Optimization problems (maximizing area, volume, profit, etc.)</li>
+                <li>Related rates problems</li>
+                <li>Motion problems</li>
+                <li>Economics applications (marginal cost, revenue, etc.)</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  5: Application of Derivatives - Concepts
+        </div>
+    </div>
+
+    <!-- Day 5 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">5</div>
+            <div>Application of Derivatives - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The rate of change of the area of a circle with respect to its radius when r = 5 cm is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 10π cm²/cm</div>
+                        <div class="option">(b) 5π cm²/cm</div>
+                        <div class="option">(c) 20π cm²/cm</div>
+                        <div class="option">(d) 25π cm²/cm</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The function f(x) = x³ - 3x² + 6x - 100 is:
+                    <div class="mcq-options">
+                        <div class="option">(a) Increasing on R</div>
+                        <div class="option">(b) Decreasing on R</div>
+                        <div class="option">(c) Increasing on (0,∞) and decreasing on (-∞,0)</div>
+                        <div class="option">(d) Decreasing on (0,∞) and increasing on (-∞,0)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Side of an equilateral triangle expands at the rate of 2 cm/sec. Find the rate of increase of its area when each side is 10 cm.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> The volume of a cube is increasing at the rate of 6 cm³/s. How fast is the surface area of cube increasing, when the length of an edge is 8 cm?
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> A ladder 5 m long is leaning against a wall. Bottom of ladder is pulled along the ground away from wall at the rate of 2 m/s. How fast is the height on the wall decreasing, when the foot of ladder is 4 m away from the wall?
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> A rectangular visiting card is to contain 24 sq.cm. of printed matter. The margins at the top and bottom of the card are to be 1 cm and the margins on the left and right are to be 1½ cm. 
+                    (i) Write the expression for the area of the visiting card in terms of x.
+                    (ii) Obtain the dimensions of the card of minimum area.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> A store has been selling calculators at ₹350 each. A market survey indicates that a reduction in price (p) of calculator increases the number of units (x) sold. The relation between the price and quantity sold is given by the demand function $p = 450 - \frac{1}{2}x$.
+                    (i) Determine the number of units (x) that should be sold to maximise the revenue $R(x) = xp(x)$.
+                    (ii) What rebate in price of calculator should the store give to maximise the revenue?
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics | 5: Application of Derivatives - Questions
+        </div>
+    </div>
+
+    <!-- Day 6 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">6</div>
+            <div>Integrals - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Integration is the inverse process of differentiation. It has applications in finding areas, volumes, and solving differential equations.</p>
+            <p><strong>Indefinite Integrals:</strong></p>
+            <ul>
+                <li>$\int f(x) dx = F(x) + C$ where $F'(x) = f(x)$</li>
+                <li>C is the constant of integration</li>
+            </ul>
+            <p><strong>Definite Integrals:</strong></p>
+            <ul>
+                <li>$\int_a^b f(x) dx = F(b) - F(a)$ where $F'(x) = f(x)$</li>
+                <li>Definite integral represents the area under the curve</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Basic Integration Formulas</div>
+            <ul>
+                <li>$\int x^n dx = \frac{x^{n+1}}{n+1} + C$, $n \ne -1$</li>
+                <li>$\int \frac{1}{x} dx = \log|x| + C$</li>
+                <li>$\int e^x dx = e^x + C$</li>
+                <li>$\int a^x dx = \frac{a^x}{\log a} + C$</li>
+                <li>$\int \sin x dx = -\cos x + C$</li>
+                <li>$\int \cos x dx = \sin x + C$</li>
+                <li>$\int \sec^2 x dx = \tan x + C$</li>
+                <li>$\int \cosec^2 x dx = -\cot x + C$</li>
+                <li>$\int \sec x \tan x dx = \sec x + C$</li>
+                <li>$\int \cosec x \cot x dx = -\cosec x + C$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Integration Methods</div>
+            <ul>
+                <li><strong>Substitution:</strong> $\int f(g(x))g'(x) dx = \int f(u) du$</li>
+                <li><strong>Integration by parts:</strong> $\int u v dx = u \int v dx - \int u'(\int v dx) dx$</li>
+                <li><strong>Partial fractions:</strong> For rational functions</li>
+                <li><strong>Trigonometric substitutions:</strong> For expressions with $\sqrt{a^2 - x^2}$, $\sqrt{a^2 + x^2}$, etc.</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  6: Integrals - Concepts
+        </div>
+    </div>
+
+    <!-- Day 6 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">6</div>
+            <div>Integrals - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> $\int \frac{dx}{x^2+4}$ equals:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{1}{2}\tan^{-1}\frac{x}{2} + C$</div>
+                        <div class="option">(b) $\frac{1}{4}\tan^{-1}\frac{x}{2} + C$</div>
+                        <div class="option">(c) $\frac{1}{2}\tan^{-1}x + C$</div>
+                        <div class="option">(d) $\frac{1}{4}\tan^{-1}x + C$</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> $\int e^x(\sin x + \cos x) dx$ equals:
+                    <div class="mcq-options">
+                        <div class="option">(a) $e^x \sin x + C$</div>
+                        <div class="option">(b) $e^x \cos x + C$</div>
+                        <div class="option">(c) $e^x (\sin x + \cos x) + C$</div>
+                        <div class="option">(d) $e^x (\sin x - \cos x) + C$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Find: $\int \frac{1}{x(x^2-1)} dx$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Find: $\int x^2 e^{x^3} dx$
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Find: $\int \frac{1}{\sin^2 x \cos^2 x} dx$
+                </div>
+                <div class="question">
+                    <span class="question-number">6.</span> Find: $\int \frac{\cos 2x - \cos 2\theta}{\cos x - \cos \theta} dx$
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">7.</span> Evaluate: $\int_0^{\pi/4} \frac{x dx}{1+\cos 2x+\sin 2x}$
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Find: $\int e^x\left[\frac{1}{(1+x^2)^{3/2}} + \frac{x}{\sqrt{1+x^2}}\right] dx$
+                </div>
+                <div class="question">
+                    <span class="question-number">9.</span> Find: $\int \frac{3x+5}{\sqrt{x^2+2x+4}} dx$
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 6: Integrals - Questions
+        </div>
+    </div>
+
+    <!-- Day 7 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">7</div>
+            <div>Application of Integrals - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Integrals are used to find areas under curves and between curves. The area bounded by the curve y=f(x), x-axis and the ordinates x=a and x=b is given by $\int_a^b f(x) dx$.</p>
+            <p><strong>Area Formulas:</strong></p>
+            <ul>
+                <li>Area under curve: $\int_a^b f(x) dx$</li>
+                <li>Area between two curves: $\int_a^b [f(x) - g(x)] dx$ where $f(x) \ge g(x)$</li>
+                <li>Area bounded by curve x=f(y) and y-axis: $\int_c^d f(y) dy$</li>
+                <li>Area enclosed by ellipse: $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ is $\pi ab$</li>
+                <li>Area enclosed by circle: $x^2 + y^2 = a^2$ is $\pi a^2$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Area Calculation Methods</div>
+            <ul>
+                <li><strong>Vertical strips:</strong> Area = $\int_a^b [f(x) - g(x)] dx$</li>
+                <li><strong>Horizontal strips:</strong> Area = $\int_c^d [f(y) - g(y)] dy$</li>
+                
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Areas</div>
+            <ul>
+                <li>Area of triangle using coordinates: $\frac{1}{2} |x_1(y_2-y_3) + x_2(y_3-y_1) + x_3(y_1-y_2)|$</li>
+                <li>Area of sector: $\frac{1}{2} r^2 \theta$</li>
+                <li>Area of segment: $\frac{1}{2} r^2 (\theta - \sin \theta)$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  7: Application of Integrals - Concepts
+        </div>
+    </div>
+
+    <!-- Day 7 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">7</div>
+            <div>Application of Integrals - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The area bounded by the curve y = sin x between x = 0 and x = 2π is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 0</div>
+                        <div class="option">(b) 2</div>
+                        <div class="option">(c) 4</div>
+                        <div class="option">(d) 8</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The area of the region bounded by the curve y = x² and the line y = x is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 1/6</div>
+                        <div class="option">(b) 1/3</div>
+                        <div class="option">(c) 1/2</div>
+                        <div class="option">(d) 1</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Find the area bounded by the curve $xy=4$, x-axis and the lines $x=1$ and $x=4$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Find the area bounded by the curve $y=\cos x$ between $0$ and $2\pi$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Find the area of the parabola bounded by $x^2=4y$, $y=2$, $y=4$ and y-axis in the first quadrant.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> Find the area enclosed by the ellipse $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> Find the area lying in the first quadrant and bounded by the circle $x^2+y^2=4$ and the lines $x=0$ and $x=2$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Find the area of the region bounded by the parabola $y=x^2$ and $y=|x|$.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  7: Application of Integrals - Questions
+        </div>
+    </div>
+
+    <!-- Day 8 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">8</div>
+            <div>Differential Equations - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>A differential equation is an equation involving derivatives of a function. The order is the order of the highest derivative, and the degree is the power of the highest order derivative.</p>
+            <p><strong>Types of Differential Equations:</strong></p>
+            <ul>
+                <li><strong>Variable separable:</strong> $\frac{dy}{dx} = f(x)g(y)$</li>
+                <li><strong>Homogeneous:</strong> $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$</li>
+                <li><strong>Linear:</strong> $\frac{dy}{dx} + P(x)y = Q(x)$</li>
+              
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Solution Methods</div>
+            <ul>
+                <li><strong>Variable separable:</strong> $\int \frac{dy}{g(y)} = \int f(x) dx$</li>
+                <li><strong>Homogeneous:</strong> Substitute $y = vx$</li>
+                <li><strong>Linear:</strong> Integrating factor $e^{\int P dx}$</li>
+               
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Differential Equations</div>
+            <ul>
+                <li>Exponential growth/decay: $\frac{dy}{dt} = ky$</li>
+                              <li>Population growth: $\frac{dP}{dt} = kP\left(1 - \frac{P}{M}\right)$</li>
+                           </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 8: Differential Equations - Concepts
+        </div>
+    </div>
+
+    <!-- Day 8 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">8</div>
+            <div>Differential Equations - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The degree of the differential equation $\left(\frac{d^2y}{dx^2}\right)^2 + \left(\frac{dy}{dx}\right)^3 + y = 0$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 1</div>
+                        <div class="option">(b) 2</div>
+                        <div class="option">(c) 3</div>
+                        <div class="option">(d) 4</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The integrating factor of the differential equation $\frac{dy}{dx} + y = e^{-x}$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $e^x$</div>
+                        <div class="option">(b) $e^{-x}$</div>
+                        <div class="option">(c) $x$</div>
+                        <div class="option">(d) $-x$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Find the particular solution of the differential equation: $\frac{dy}{dx} = y\cot 2x$, given that $y(\pi/4)=2$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Find the particular solution of the differential equation: $(xe^{y/x} + y) dx = x dy$, given that $y=1$ when $x=1$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Find the general solution of the differential equation: $\frac{dy}{dx} + \frac{1}{x} = \frac{e^y}{x}$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> Solve the differential equation: $(1+x^2)\frac{dy}{dx} + 2xy - 4x^2 = 0$, subject to the initial condition $y(0)=0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> Find the solution of the differential equation: $\log\left(\frac{dy}{dx}\right) = ax + by$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Solve the differential equation: $x(x^2-1) \frac{dy}{dx} = 1$, $y=0$ when $x=2$.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  8: Differential Equations - Questions
+        </div>
+    </div>
+
+    <!-- Day 9 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">9</div>
+            <div>Vectors - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Vectors have both magnitude and direction. They can be represented in component form or using unit vectors i, j, k.</p>
+            <p><strong>Vector Operations:</strong></p>
+            <ul>
+                <li><strong>Addition:</strong> Triangle law, parallelogram law</li>
+                <li><strong>Subtraction:</strong> $\vec{a} - \vec{b} = \vec{a} + (-\vec{b})$</li>
+                <li><strong>Scalar multiplication:</strong> $k\vec{a}$ has magnitude $|k||\vec{a}|$</li>
+                <li><strong>Dot product:</strong> $\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos\theta$</li>
+                <li><strong>Cross product:</strong> $\vec{a} \times \vec{b} = |\vec{a}||\vec{b}|\sin\theta \hat{n}$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas & Properties</div>
+            <ul>
+                <li>Dot product: $\vec{a} \cdot \vec{b} = a_xb_x + a_yb_y + a_zb_z$</li>
+                <li>Cross product: $\vec{a} \times \vec{b} = \begin{vmatrix} \hat{i} & \hat{j} & \hat{k} \\ a_x & a_y & a_z \\ b_x & b_y & b_z \end{vmatrix}$</li>
+                <li>Scalar projection of $\vec{a}$ on $\vec{b}$: $\frac{\vec{a} \cdot \vec{b}}{|\vec{b}|}$</li>
+                <li>Vector projection of $\vec{a}$ on $\vec{b}$: $\left(\frac{\vec{a} \cdot \vec{b}}{|\vec{b}|^2}\right) \vec{b}$</li>
+                <li>Area of parallelogram = $|\vec{a} \times \vec{b}|$</li>
+                <li>Area of triangle = $\frac{1}{2} |\vec{a} \times \vec{b}|$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  9: Vectors - Concepts
+        </div>
+    </div>
+
+    <!-- Day 9 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">9</div>
+            <div>Vectors - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The magnitude of the vector $2\hat{i} + 3\hat{j} + 6\hat{k}$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 5</div>
+                        <div class="option">(b) 7</div>
+                        <div class="option">(c) 12</div>
+                        <div class="option">(d) 1</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> If $\vec{a}$ and $\vec{b}$ are two vectors such that $|\vec{a}|=1$, $|\vec{b}|=2$ and $\vec{a} \cdot \vec{b} = \sqrt{3}$, then the angle between $\vec{a}$ and $\vec{b}$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{\pi}{6}$</div>
+                        <div class="option">(b) $\frac{\pi}{4}$</div>
+                        <div class="option">(c) $\frac{\pi}{3}$</div>
+                        <div class="option">(d) $\frac{\pi}{2}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Find a vector of magnitude 4 units perpendicular to each of the vectors $2\hat{i} - \hat{j} + \hat{k}$ and $\hat{i} + \hat{j} - \hat{k}$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> If $\vec{a}$ and $\vec{b}$ are two non-zero vectors such that $(\vec{a}+\vec{b}) \perp \vec{a}$ and $(2\vec{a}+\vec{b}) \perp \vec{b}$, then prove that $|\vec{b}| = \sqrt{2}|\vec{a}|$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> If $\vec{a}$ and $\vec{b}$ are two vectors such that $|\vec{a}|=1$, $|\vec{b}|=2$ and $\vec{a} \cdot \vec{b} = \sqrt{3}$, then find the angle between $2\vec{a}$ and $-\vec{b}$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> Find the position vector of point C which divides the line segment joining points A and B having position vectors $\hat{i}+2\hat{j}-\hat{k}$ and $-\hat{i}+\hat{j}+\hat{k}$ respectively in the ratio 4:1 externally. Further, find $|AB|:|BC|$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> In the given figure, ABCD is a parallelogram. If $\vec{AB} = 2\hat{i}-4\hat{j}+5\hat{k}$ and $\vec{DB} = 3\hat{i}-6\hat{j}+2\hat{k}$, then find $\vec{AD}$ and hence find the area of parallelogram ABCD.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> The vectors $\vec{a}=2\hat{i}-\hat{j}+\hat{k}$, $\vec{b}=\hat{i}-3\hat{j}-5\hat{k}$ and $\vec{c}=-3\hat{i}+4\hat{j}+4\hat{k}$ represent the sides of which type of triangle?
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  9: Vectors - Questions
+        </div>
+    </div>
+
+    <!-- Day 10 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">10</div>
+            <div>Three-Dimensional Geometry - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>3D geometry deals with points, lines, and planes in three-dimensional space. Direction cosines and ratios are used to represent the direction of lines.</p>
+            <p><strong>Direction Cosines and Ratios:</strong></p>
+            <ul>
+                <li>Direction cosines: $l = \cos\alpha$, $m = \cos\beta$, $n = \cos\gamma$</li>
+                <li>$l^2 + m^2 + n^2 = 1$</li>
+                <li>Direction ratios: $a, b, c$ proportional to $l, m, n$</li>
+            </ul>
+            <p><strong>Line Equations:</strong></p>
+            <ul>
+                <li>Vector form: $\vec{r} = \vec{a} + \lambda\vec{b}$</li>
+                <li>Cartesian form: $\frac{x-x_1}{a} = \frac{y-y_1}{b} = \frac{z-z_1}{c}$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas</div>
+            <ul>
+                <li>Distance between points: $\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}$</li>
+                <li>Angle between lines: $\cos\theta = \frac{|a_1a_2 + b_1b_2 + c_1c_2|}{\sqrt{a_1^2+b_1^2+c_1^2}\sqrt{a_2^2+b_2^2+c_2^2}}$</li>
+                <li>Shortest distance between skew lines: $\frac{|(\vec{b_1} \times \vec{b_2}) \cdot (\vec{a_2} - \vec{a_1})|}{|\vec{b_1} \times \vec{b_2}|}$</li>
+                <li>Distance from point to line: $\frac{|\vec{AB} \times \vec{b}|}{|\vec{b}|}$</li>
+                <li>Distance between parallel lines: $\frac{|\vec{AB} \times \vec{b}|}{|\vec{b}|}$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  10: Three-Dimensional Geometry - Concepts
+        </div>
+    </div>
+
+    <!-- Day 10 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">10</div>
+            <div>Three-Dimensional Geometry - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The direction ratios of the line joining the points (1,2,3) and (4,5,6) are:
+                    <div class="mcq-options">
+                        <div class="option">(a) 1,2,3</div>
+                        <div class="option">(b) 3,3,3</div>
+                        <div class="option">(c) 4,5,6</div>
+                        <div class="option">(d) 1,1,1</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The angle between the lines with direction ratios (1,2,3) and (2,3,4) is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\cos^{-1}\left(\frac{20}{\sqrt{14}\sqrt{29}}\right)$</div>
+                        <div class="option">(b) $\cos^{-1}\left(\frac{10}{\sqrt{14}\sqrt{29}}\right)$</div>
+                        <div class="option">(c) $\cos^{-1}\left(\frac{5}{\sqrt{14}\sqrt{29}}\right)$</div>
+                        <div class="option">(d) $\cos^{-1}\left(\frac{15}{\sqrt{14}\sqrt{29}}\right)$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Find the vector and Cartesian equations of a line passing through $(1,2,-4)$ and parallel to the line joining $A(3,3,-5)$ and $B(1,0,-11)$. Hence, find the distance between the two lines.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Find the equations of the line passing through $A(1,2,3)$ and $B(3,5,9)$. Hence, find coordinates of points on this line which are at a distance of 14 units from B.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Find the shortest distance between lines $\frac{x-8}{3}=\frac{y+9}{-16}=\frac{z-10}{7}$ and $\frac{x-15}{3}=\frac{y-29}{8}=\frac{z-5}{-5}$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> A line l passes through $(-1,3,-2)$ and is perpendicular to both lines $\frac{x}{1}=\frac{y}{2}=\frac{z}{3}$ and $\frac{x+2}{-3}=\frac{y-1}{2}=\frac{z+1}{5}$. Find the vector equation of l and its distance from origin.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> Find the equations of the diagonals of parallelogram PQRS with vertices $P(4,2,-6)$, $Q(5,-3,1)$, $R(12,4,5)$, $S(11,9,-2)$. Use these to find intersection of diagonals.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Find the value of p for which lines $\vec{r} = \lambda\hat{i}+(2\lambda+1)\hat{j}+(3\lambda+2)\hat{k}$ and $\vec{r} = \hat{i}-3\mu\hat{j}+(p\mu+7)\hat{k}$ are perpendicular and intersect. Also find point of intersection.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 10: Three-Dimensional Geometry - Questions
+        </div>
+    </div>
+
+    <!-- Day 11 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">11</div>
+            <div>Linear Programming - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Linear programming involves optimizing a linear objective function subject to linear constraints. The graphical method is used for problems with two variables.</p>
+            <p><strong>Key Terms:</strong></p>
+            <ul>
+                <li><strong>Objective function:</strong> Function to be maximized/minimized</li>
+                <li><strong>Constraints:</strong> Linear inequalities representing restrictions</li>
+                <li><strong>Feasible region:</strong> Region satisfying all constraints</li>
+                <li><strong>Optimal solution:</strong> Point in feasible region optimizing objective function</li>
+                <li><strong>Corner point method:</strong> Evaluate objective function at all corner points</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Solution Methods</div>
+            <ul>
+                <li><strong>Graphical method:</strong> For problems with 2 variables
+                    <ol>
+                        <li>Plot constraints to find feasible region</li>
+                        <li>Find corner points of feasible region</li>
+                        <li>Evaluate objective function at each corner point</li>
+                        <li>Optimal solution is at a corner point</li>
+                    </ol>
+                </li>
+                <li><strong>Simplex method:</strong> For problems with more variables</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Results</div>
+            <ul>
+                <li>Feasible region is always a convex polygon</li>
+                <li>Optimal solution always occurs at a corner point</li>
+                <li>If feasible region is unbounded, optimal solution may not exist</li>
+                <li>If two corner points give same optimal value, all points on the line segment between them are optimal</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 11: Linear Programming - Concepts
+        </div>
+    </div>
+
+    <!-- Day 11 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">11</div>
+            <div>Linear Programming - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The feasible region for an LPP is always:
+                    <div class="mcq-options">
+                        <div class="option">(a) A convex set</div>
+                        <div class="option">(b) A concave set</div>
+                        <div class="option">(c) A bounded set</div>
+                        <div class="option">(d) An unbounded set</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> In an LPP, the objective function is always:
+                    <div class="mcq-options">
+                        <div class="option">(a) Linear</div>
+                        <div class="option">(b) Quadratic</div>
+                        <div class="option">(c) Cubic</div>
+                        <div class="option">(d) Any function</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Solve graphically: Minimize $z=x+2y$ subject to $2x+y\ge3$, $x+2y\ge6$, $x\ge0$, $y\ge0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Solve graphically: Minimize $Z=200x+500y$ subject to $x+2y\ge10$, $3x+4y\le24$, $x\ge0$, $y\ge0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Solve graphically: Minimize $z=-3x+4y$ subject to $x+2y\le8$, $3x+2y\le12$, $x,y\ge0$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> Solve graphically: Maximize $Z=x+2y$ subject to $x+2y\ge100$, $2x-y\le0$, $2x+y\le200$, $x\ge0$, $y\ge0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> Solve graphically: Minimize $z=3x+8y$ subject to $3x+4y\ge8$, $5x+2y\ge11$, $x\ge0$, $y\ge0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Solve graphically: Maximize $Z=2x+3y$ subject to $x+y\le6$, $x\ge2$, $y\le3$, $x,y\ge0$.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  11: Linear Programming - Questions
+        </div>
+    </div>
+
+    <!-- Day 12 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">12</div>
+            <div>Probability - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Chapter Concepts</div>
+            <p>Probability measures the likelihood of events. Conditional probability, Bayes' theorem, and probability distributions are important concepts.</p>
+            <p><strong>Basic Concepts:</strong></p>
+            <ul>
+                <li>Sample space: Set of all possible outcomes</li>
+                <li>Event: Subset of sample space</li>
+                <li>Probability: $P(E) = \frac{\text{Number of favorable outcomes}}{\text{Total number of outcomes}}$</li>
+                <li>Complement: $P(E') = 1 - P(E)$</li>
+                <li>Union: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$</li>
+                <li>Intersection: $P(A \cap B) = P(A)P(B|A) = P(B)P(A|B)$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Key Formulas</div>
+            <ul>
+                <li>Conditional probability: $P(A|B) = \frac{P(A \cap B)}{P(B)}$</li>
+                <li>Multiplication theorem: $P(A \cap B) = P(A)P(B|A) = P(B)P(A|B)$</li>
+                <li>Bayes' theorem: $P(E_i|A) = \frac{P(E_i)P(A|E_i)}{\sum P(E_j)P(A|E_j)}$</li>
+                <li>Mean of random variable: $E(X) = \sum x_iP(x_i)$</li>
+                <li>Variance: $Var(X) = E(X^2) - [E(X)]^2$</li>
+                <li>Standard deviation: $\sigma = \sqrt{Var(X)}$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics -  | 12: Probability - Concepts
+        </div>
+    </div>
+
+    <!-- Day 12 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">12</div>
+            <div>Probability - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> If P(A) = 0.4, P(B) = 0.3 and P(A∩B) = 0.2, then P(A|B) is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 1/2</div>
+                        <div class="option">(b) 1/3</div>
+                        <div class="option">(c) 2/3</div>
+                        <div class="option">(d) 3/4</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> If A and B are independent events with P(A) = 0.3 and P(B) = 0.4, then P(A∩B) is:
+                    <div class="mcq-options">
+                        <div class="option">(a) 0.7</div>
+                        <div class="option">(b) 0.1</div>
+                        <div class="option">(c) 0.12</div>
+                        <div class="option">(d) 0.58</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Out of two bags, bag A contains 2 white and 3 red balls and bag B contains 4 white and 5 red balls. One ball is drawn at random from one of the bags and is found to be red. Find the probability that it was drawn from bag B.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> A card from a well shuffled deck of 52 playing cards is lost. From the remaining cards of the pack, a card is drawn at random and is found to be a King. Find the probability of the lost card being a King.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> If A and B are two events such that $P(A)=0.2$, $P(B)=0.4$ and $P(A\cup B)=0.6$, find $P(A|B)$.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> A departmental store sends bills to charge its customers once a month. Past experience shows that 70% of its customers pay their first month bill in time. The store also found that the customer who pays the bill in time has the probability of 0.8 of paying in time next month and the customer who doesn't pay in time has the probability of 0.4 of paying in time the next month.
+                    (i) Let E₁ and E₂ respectively denote the event of customer paying or not paying the first month bill in time. Find $P(E₁), P(E₂)$.
+                    (ii) Let A denotes the event of customer paying second month's bill in time, then find $P(A|E₁)$ and $P(A|E₂)$.
+                    (iii) Find the probability of customer paying second month's bill in time.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> A building contractor undertakes a job to construct 4 flats on a plot along with parking area. Due to strike the probability of many construction workers not being present for the job is 0.65. The probability that many are not present and still the work gets completed on time is 0.35. The probability that work will be completed on time when all workers are present is 0.80.
+                    Let E₁: represent the event when many workers were not present for the job;
+                    E₂: represent the event when all workers were present; and
+                    E: represent completing the construction work on time.
+                    (i) What is the probability that all the workers are present for the job?
+                    (ii) What is the probability that construction will be completed on time?
+                    (iii) What is the probability that many workers are not present given that the construction work is completed on time?
+                </div>
+                          </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 12: Probability - Questions
+        </div>
+    </div>
+
+    <!-- Day 13 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">13</div>
+            <div>Mixed Questions Set 1 - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Revision Strategy</div>
+            <p>This day focuses on solving mixed problems from various chapters to enhance problem-solving skills and application of concepts.</p>
+            <p><strong>Revision Tips:</strong></p>
+            <ul>
+                <li>Focus on understanding concepts rather than memorization</li>
+                <li>Practice previous year questions</li>
+                <li>Revise all formulas and theorems</li>
+                <li>Solve mixed problems to integrate concepts</li>
+                <li>Time yourself while solving problems</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Formulas to Remember</div>
+            <ul>
+                <li><strong>Relations:</strong> Reflexive, symmetric, transitive properties</li>
+                <li><strong>Functions:</strong> One-one, onto, composition, inverse</li>
+                <li><strong>Matrices:</strong> Operations, determinants, inverse</li>
+                <li><strong>Differentiation:</strong> All standard formulas and rules</li>
+                <li><strong>Integration:</strong> Basic formulas and methods</li>
+                <li><strong>Vectors:</strong> Dot product, cross product, projection</li>
+                <li><strong>3D Geometry:</strong> Direction ratios, lines, planes</li>
+                <li><strong>Probability:</strong> Conditional probability, Bayes theorem</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Problem Solving Strategies</div>
+            <ul>
+                <li>Read questions carefully</li>
+                <li>Identify the concept being tested</li>
+                <li>Show all steps in solutions</li>
+                <li>Check your answers</li>
+                <li>Manage time effectively</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics -  | 13: Mixed Questions Set 1 - Concepts
+        </div>
+    </div>
+
+    <!-- Day 13 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">13</div>
+            <div>Mixed Questions Set 1 - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> If the matrix $\begin{bmatrix} a & c & 0 \\ b & d & 0 \\ 0 & 0 & 5 \end{bmatrix}$ is a scalar matrix, find the value of $a+2b+3c+4d$:
+                    <div class="mcq-options">
+                        <div class="option">(a) 5</div>
+                        <div class="option">(b) 10</div>
+                        <div class="option">(c) 15</div>
+                        <div class="option">(d) 20</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> Given that $A^{-1} = \frac{1}{7}\begin{bmatrix} 2 & 1 \\ -3 & 2 \end{bmatrix}$, find matrix A:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\begin{bmatrix} 2 & -3 \\ 1 & 2 \end{bmatrix}$</div>
+                        <div class="option">(b) $\begin{bmatrix} 2 & 1 \\ -3 & 2 \end{bmatrix}$</div>
+                        <div class="option">(c) $\begin{bmatrix} 2 & 3 \\ -1 & 2 \end{bmatrix}$</div>
+                        <div class="option">(d) $\begin{bmatrix} 2 & -1 \\ 3 & 2 \end{bmatrix}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> If $A = \begin{bmatrix} 2 & 1 \\ -4 & -2 \end{bmatrix}$, find the value of $I-A+A^2-A^3+...$
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Find the general solution of the differential equation $xdy+ydx=0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> Find the integrating factor of $(x+2y^2)\frac{dy}{dx} = y$ $(y>0)$.
+                </div>
+                <div class="question">
+                    <span class="question-number">6.</span> The vectors $\vec{a}=2\hat{i}-\hat{j}+\hat{k}$, $\vec{b}=\hat{i}-3\hat{j}-5\hat{k}$ and $\vec{c}=-3\hat{i}+4\hat{j}+4\hat{k}$ represent the sides of which type of triangle?
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">7.</span> Let $\vec{a}$ be any vector such that $|\vec{a}|=a$. Find the value of $|\vec{a}\times\hat{i}|^2+|\vec{a}\times\hat{j}|^2+|\vec{a}\times\hat{k}|^2$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> The lines $\frac{1-x}{2}=\frac{y-1}{3}=\frac{z}{1}$ and $\frac{2x-3}{2p}=\frac{y}{-1}=\frac{z-4}{7}$ are perpendicular for what value of p?
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics -  | 13: Mixed Questions Set 1 - Questions
+        </div>
+    </div>
+
+    <!-- Day 14 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">14</div>
+            <div>Mixed Questions Set 2 - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Advanced Problem Solving</div>
+            <p>This day focuses on more challenging problems that require integration of concepts from multiple chapters.</p>
+            <p><strong>Problem Solving Strategies:</strong></p>
+            <ul>
+                <li>Break down complex problems into smaller parts</li>
+                <li>Identify the key concepts being tested</li>
+                <li>Use multiple approaches to solve problems</li>
+                <li>Check your answers for reasonableness</li>
+                <li>Practice time management</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Integration Formulas</div>
+            <ul>
+                <li>$\int \frac{dx}{x^2+a^2} = \frac{1}{a}\tan^{-1}\frac{x}{a} + C$</li>
+                <li>$\int \frac{dx}{x^2-a^2} = \frac{1}{2a}\log\left|\frac{x-a}{x+a}\right| + C$</li>
+                <li>$\int \frac{dx}{\sqrt{a^2-x^2}} = \sin^{-1}\frac{x}{a} + C$</li>
+                <li>$\int \frac{dx}{\sqrt{x^2+a^2}} = \log|x+\sqrt{x^2+a^2}| + C$</li>
+                <li>$\int \sqrt{a^2-x^2} dx = \frac{x}{2}\sqrt{a^2-x^2} + \frac{a^2}{2}\sin^{-1}\frac{x}{a} + C$</li>
+                <li>$\int \sqrt{x^2+a^2} dx = \frac{x}{2}\sqrt{x^2+a^2} + \frac{a^2}{2}\log|x+\sqrt{x^2+a^2}| + C$</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Differentiation Formulas</div>
+            <ul>
+                <li>$\frac{d}{dx}(u^v) = u^v\left(\frac{v}{u}\frac{du}{dx} + \log u\frac{dv}{dx}\right)$</li>
+                <li>$\frac{d}{dx}(\sin^{-1}x) = \frac{1}{\sqrt{1-x^2}}$</li>
+                <li>$\frac{d}{dx}(\cos^{-1}x) = -\frac{1}{\sqrt{1-x^2}}$</li>
+                <li>$\frac{d}{dx}(\tan^{-1}x) = \frac{1}{1+x^2}$</li>
+                <li>$\frac{d}{dx}(\cot^{-1}x) = -\frac{1}{1+x^2}$</li>
+                <li>$\frac{d}{dx}(\sec^{-1}x) = \frac{1}{|x|\sqrt{x^2-1}}$</li>
+                <li>$\frac{d}{dx}(\cosec^{-1}x) = -\frac{1}{|x|\sqrt{x^2-1}}$</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics -  |  14: Mixed Questions Set 2 - Concepts
+        </div>
+    </div>
+
+    <!-- Day 14 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">14</div>
+            <div>Mixed Questions Set 2 - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The derivative of $(\sin x)^x \cdot x^{\sin x}$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $(\sin x)^x(1+\log\sin x) + x^{\sin x}(\frac{\sin x}{x} + \cos x\log x)$</div>
+                        <div class="option">(b) $(\sin x)^x(\cot x + \log\sin x) + x^{\sin x}(\frac{\sin x}{x} + \cos x)$</div>
+                        <div class="option">(c) $(\sin x)^x(x\cot x + \log\sin x) + x^{\sin x}(\frac{\sin x}{x} + \cos x\log x)$</div>
+                        <div class="option">(d) $(\sin x)^x(\cot x) + x^{\sin x}(\cos x)$</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The value of $\int_0^{\pi/4} \frac{x dx}{1+\cos 2x+\sin 2x}$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{\pi}{8}$</div>
+                        <div class="option">(b) $\frac{\pi}{16}$</div>
+                        <div class="option">(c) $\frac{\pi}{4}$</div>
+                        <div class="option">(d) $\frac{\pi}{2}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Given that $y = (\sin x)^x \cdot x^{\sin x} + a^x$, find $\frac{dy}{dx}$.
+                </div>
+                <div class="question">
+                    <span class="question-number">4.</span> Find the particular solution of $\frac{dy}{dx} = y\cot 2x$, given that $y(\pi/4)=2$.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> A card from a well shuffled deck of 52 cards is lost. From the remaining cards, a card is drawn and found to be a King. Find the probability of the lost card being a King.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> Solve the LPP graphically: Maximize $Z=2x+3y$ subject to $x+y\le6$, $x\ge2$, $y\le3$, $x,y\ge0$.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> Sketch the graph of $y=x|x|$ and find the area bounded by this curve, X-axis and $x=-2$, $x=2$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Let $A=\mathbb{R}-\{5\}$ and $B=\mathbb{R}-\{1\}$. Consider $f:A\to B$ defined by $f(x)=\frac{x-3}{x-5}$. Show that f is one-one and onto.
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics -  | 14: Mixed Questions Set 2 - Questions
+        </div>
+    </div>
+
+    <!-- Day 15 - Concepts -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">15</div>
+            <div>Mixed Questions Set 3 & Revision - Concepts & Formulas</div>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Final Revision Strategy</div>
+            <p>This day focuses on application-based problems and final revision of all concepts covered in the syllabus.</p>
+            <p><strong>Revision Tips:</strong></p>
+            <ul>
+                <li>Focus on understanding concepts rather than memorization</li>
+                <li>Practice previous year questions</li>
+                <li>Revise all formulas and theorems</li>
+                <li>Solve mixed problems to integrate concepts</li>
+                <li>Time yourself while solving problems</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Important Formulas to Remember</div>
+            <ul>
+                <li><strong>Relations:</strong> Reflexive, symmetric, transitive properties</li>
+                <li><strong>Functions:</strong> One-one, onto, composition, inverse</li>
+                <li><strong>Matrices:</strong> Operations, determinants, inverse</li>
+                <li><strong>Differentiation:</strong> All standard formulas and rules</li>
+                <li><strong>Integration:</strong> Basic formulas and methods</li>
+                <li><strong>Vectors:</strong> Dot product, cross product, projection</li>
+                <li><strong>3D Geometry:</strong> Direction ratios, lines, planes</li>
+                <li><strong>Probability:</strong> Conditional probability, Bayes theorem</li>
+            </ul>
+        </div>
+        
+        <div class="concept-box">
+            <div class="concept-heading">Exam Strategy</div>
+            <ul>
+                <li>Read questions carefully</li>
+                <li>Start with questions you're most confident about</li>
+                <li>Show all steps in solutions</li>
+                <li>Manage time effectively</li>
+                <li>Review answers if time permits</li>
+            </ul>
+        </div>
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  | 15: Mixed Questions Set 3 & Revision - Concepts
+        </div>
+    </div>
+
+    <!-- Day 15 - Questions -->
+    <div class="page">
+        <div class="day-header">
+            <div class="day-number">15</div>
+            <div>Mixed Questions Set 3 & Revision - Practice Questions</div>
+        </div>
+        
+        <div class="questions-section">
+            <div class="question-type">Multiple Choice Questions (1 mark each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">1.</span> The value of $\tan(\frac{1}{2} \sin^{-1}(\frac{3}{4}))$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{4-\sqrt{7}}{3}$</div>
+                        <div class="option">(b) $\frac{4+\sqrt{7}}{3}$</div>
+                        <div class="option">(c) $\frac{3-\sqrt{7}}{4}$</div>
+                        <div class="option">(d) $\frac{3+\sqrt{7}}{4}$</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <span class="question-number">2.</span> The value of $\cos^{-1}(\cos(\frac{2\pi}{3})) + \sin^{-1}(\sin(\frac{2\pi}{3}))$ is:
+                    <div class="mcq-options">
+                        <div class="option">(a) $\frac{\pi}{3}$</div>
+                        <div class="option">(b) $\frac{2\pi}{3}$</div>
+                        <div class="option">(c) $\pi$</div>
+                        <div class="option">(d) $\frac{4\pi}{3}$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-type">Short Answer Type Questions (2-3 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">3.</span> Write the value of $\tan^{-1}[2\sin(2\cos^{-1}(\frac{\sqrt{3}}{2}))]$.
+                </div>
+                               <div class="question">
+                    <span class="question-number">4.</span> Check whether the relation S in $\mathbb{R}$ defined by $S=\{(a,b): \text{where } a-b+\sqrt{2} \text{ is irrational}\}$ is reflexive, symmetric or transitive.
+                </div>
+                <div class="question">
+                    <span class="question-number">5.</span> A card from a well shuffled deck of 52 cards is lost. From the remaining cards, a card is drawn and found to be a King. Find the probability of the lost card being a King.
+                </div>
+            </div>
+            
+            <div class="question-type">Long Answer Type Questions (5 marks each)</div>
+            <div class="questions">
+                <div class="question">
+                    <span class="question-number">6.</span> A store sells calculators at ₹350 each. The demand function is $p=450-\frac{x}{2}$. Determine: (i) Number of units to maximize revenue $R(x)=xp(x)$ (ii) Rebate in price to maximize revenue.
+                </div>
+                <div class="question">
+                    <span class="question-number">7.</span> An instructor at the astronomical centre shows three stars with position vectors: $\vec{D}=2\hat{i}+3\hat{j}+4\hat{k}$, $\vec{A}=7\hat{i}+5\hat{j}+8\hat{k}$, $\vec{V}=-3\hat{i}+7\hat{j}+11\hat{k}$. Find: (i) Distance between V and A (ii) Unit vector in direction of $\vec{DA}$ (iii) Measure of $\angle VDA$.
+                </div>
+                <div class="question">
+                    <span class="question-number">8.</span> Rohit, Jaspreet and Alia appeared for an interview for three vacancies in the same post. The probability of Rohit's selection is $\frac{1}{5}$, Jaspreet's selection is $\frac{1}{3}$ and Alia's selection is $\frac{1}{4}$. The event of selection is independent of each other. Find: (i) $P(\text{at least one selected})$ (ii) $P(\text{Jaspreet selected} | \text{Rohit not selected})$ (iii) $P(\text{exactly one selected})$.
+                </div>
+         
+        
+        <div class="page-footer">
+            CBSE Class 12 Mathematics  |  15: Mixed Questions Set 3 & Revision - Questions
+        </div>
+    </div>
+
+</body>
+</html>

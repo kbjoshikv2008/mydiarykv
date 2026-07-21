@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Grade 7 Maths | Decimals – A Peek Beyond the Point | Two Test Sets</title>
+    <!-- MathJax for proper LaTeX rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Landscape A4 print settings */
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Times New Roman', serif;
+            background: #eef3fc;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Two-column container for test papers */
+        .tests-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            max-width: 1280px;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Each test card */
+        .test-card {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem 1.3rem 1.8rem 1.3rem;
+            border: 1px solid #dce5ec;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .test-header {
+            text-align: center;
+            border-bottom: 3px solid #2c7da0;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .test-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a4b6e;
+        }
+
+        .set-badge {
+            display: inline-block;
+            background: #ffb74d;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2c3e2f;
+            margin-left: 8px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #2c7da0;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .marks-row {
+            display: flex;
+            justify-content: space-between;
+            background: #f0f6fa;
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .instruction {
+            background: #fff6e0;
+            padding: 0.5rem 0.8rem;
+            border-radius: 16px;
+            margin: 0.8rem 0 1.2rem 0;
+            font-size: 0.8rem;
+            border-left: 4px solid #ffb74d;
+            line-height: 1.35;
+        }
+
+        .section {
+            margin: 1rem 0 0.8rem;
+        }
+
+        .section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f4c5f;
+            border-left: 5px solid #ffb74d;
+            padding-left: 12px;
+            margin-bottom: 0.7rem;
+        }
+
+        .question-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .question-item {
+            background: #fefefe;
+            padding: 0.5rem 0.7rem;
+            border-radius: 14px;
+            border: 1px solid #e2edf2;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .q-mark {
+            display: inline-block;
+            background: #e9ecef;
+            border-radius: 30px;
+            padding: 0.1rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .q-text {
+            font-weight: 500;
+        }
+
+        .sub-part {
+            margin-top: 5px;
+            margin-left: 0.8rem;
+            font-size: 0.8rem;
+            color: #2c5282;
+        }
+
+        hr {
+            margin: 0.8rem 0;
+            border: 0;
+            height: 1px;
+            background: #cde0e8;
+        }
+
+        .footer-note {
+            font-size: 0.7rem;
+            text-align: right;
+            color: #6c8e9e;
+            margin-top: 1rem;
+            border-top: 1px solid #e2edf2;
+            padding-top: 0.6rem;
+        }
+
+        /* Answer key page */
+        .answer-page {
+            max-width: 1280px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 2rem;
+            page-break-before: always;
+            break-before: page;
+        }
+
+        .answer-page h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1f5e7e;
+            border-bottom: 3px dashed #ffb74d;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .answer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .answer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .answer-col h3 {
+            font-size: 1.4rem;
+            color: #2c7da0;
+            margin: 0.8rem 0 0.5rem;
+        }
+
+        .answer-list {
+            list-style: decimal;
+            padding-left: 1.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .answer-list li {
+            margin-bottom: 0.9rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .answer-list strong {
+            color: #1f5e7e;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .test-card, .answer-page {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+            .tests-row {
+                gap: 0.8cm;
+            }
+            .answer-page {
+                break-before: page;
+            }
+        }
+
+        @media (max-width: 750px) {
+            .tests-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== TWO TEST PAPERS SIDE BY SIDE ===================== -->
+<div class="tests-row">
+    <!-- SET A – Decimals: Tenths, Hundredths, Operations -->
+    <div class="test-card">
+        <div class="test-header">
+            <div class="test-title">MATHEMATICS – Grade 7 <span class="set-badge">SET A</span></div>
+            <div class="subtitle">A Peek Beyond the Point – Decimals & Operations</div>
+            <div class="marks-row">
+                <span>⏱️ Time: 25 min</span>
+                <span>📋 Total: 10 Marks</span>
+                <span>\(4 \times 1 + 3 \times 2\)</span>
+            </div>
+        </div>
+        <div class="instruction">
+            💡 Read carefully. Use decimal place value, conversion skills, and properties. Show working for 2-mark questions. No calculators.
+        </div>
+
+        <!-- Section A: 1 mark each (4 questions) -->
+        <div class="section">
+            <h3>🔹 Section A (1 mark each)</h3>
+            <div class="question-list">
+                <div class="question-item">
+                    <span class="q-text">1. Write the decimal number for: <strong>"three and forty-five hundredths"</strong>.</span>
+                    <span class="q-mark">1</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">2. Convert \(2350\) millimetres into metres using decimal notation.</span>
+                    <span class="q-mark">1</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">3. Compare \(0.8\) and \(0.80\). Fill with \(>\), \(<\) or \(=\): \(0.8 \;\_\_\; 0.80\).</span>
+                    <span class="q-mark">1</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">4. Evaluate: \(6.45 + 2.3\).</span>
+                    <span class="q-mark">1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section B: 2 marks each (3 questions) -->
+        <div class="section">
+            <h3>🔸 Section B (2 marks each)</h3>
+            <div class="question-list">
+                <div class="question-item">
+                    <span class="q-text">5. Add \(2.75\) and \(1.3\) by aligning decimal points. Write the steps and the final sum.</span>
+                    <span class="q-mark">2</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">6. Subtract \(4.25\) from \(12.5\). Convert to like decimals (same number of decimal places) and show the borrowing method step-by-step.</span>
+                    <span class="q-mark">2</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">7. A rope is \(5.75\) metres long. One piece cut from it measures \(2.8\) metres. What is the length of the remaining piece? Write the equation and solve.</span>
+                    <span class="q-mark">2</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">Set A – 10 marks | Show all working for 2-mark questions.</div>
+    </div>
+
+    <!-- SET B – Decimals: Conversions, Comparison, Addition/Subtraction -->
+    <div class="test-card">
+        <div class="test-header">
+            <div class="test-title">MATHEMATICS – Grade 7 <span class="set-badge">SET B</span></div>
+            <div class="subtitle">A Peek Beyond the Point – Decimals & Operations</div>
+            <div class="marks-row">
+                <span>⏱️ Time: 25 min</span>
+                <span>📋 Total: 10 Marks</span>
+                <span>\(4 \times 1 + 3 \times 2\)</span>
+            </div>
+        </div>
+        <div class="instruction">
+            💡 Read carefully. Use decimal place value, conversion skills, and properties. Show working for 2-mark questions. No calculators.
+        </div>
+
+        <!-- Section A: 1 mark each (4 questions) -->
+        <div class="section">
+            <h3>🔹 Section A (1 mark each)</h3>
+            <div class="question-list">
+                <div class="question-item">
+                    <span class="q-text">1. Write the decimal number for: \(7 + \frac{4}{10} + \frac{5}{100}\).</span>
+                    <span class="q-mark">1</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">2. Convert \(125\) centimetres into metres using decimal form.</span>
+                    <span class="q-mark">1</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">3. Compare: \(1.09\) and \(1.009\). Use \(>\) or \(<\) to show which is greater.</span>
+                    <span class="q-mark">1</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">4. Evaluate: \(9.8 - 3.5\).</span>
+                    <span class="q-mark">1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section B: 2 marks each (3 questions) -->
+        <div class="section">
+            <h3>🔸 Section B (2 marks each)</h3>
+            <div class="question-list">
+                <div class="question-item">
+                    <span class="q-text">5. Subtract \(6.875\) from \(10.05\). Show the steps including borrowing across decimal places.</span>
+                    <span class="q-mark">2</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">6. Priya bought \(2.5\) kg of apples and \(1.75\) kg of oranges. Find the total weight of fruits she purchased. Write the addition steps.</span>
+                    <span class="q-mark">2</span>
+                </div>
+                <div class="question-item">
+                    <span class="q-text">7. Which decimal is closer to \(4\): \(3.95\) or \(4.12\)? Explain your reasoning using differences or a number line idea.</span>
+                    <span class="q-mark">2</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">Set B – 10 marks | Show all working for 2-mark questions.</div>
+    </div>
+</div>
+
+<!-- ===================== ANSWER KEY (SEPARATE PAGE) ===================== -->
+<div class="answer-page">
+    <h2>🔐 ANSWER KEY – Set A & Set B (Decimals)</h2>
+    <div class="answer-grid">
+        <!-- Set A answers -->
+        <div class="answer-col">
+            <h3>✅ SET A SOLUTIONS</h3>
+            <ul class="answer-list">
+                <li><strong>1.</strong> \(3.45\) (Three and forty-five hundredths = \(3 + 0.45 = 3.45\))</li>
+                <li><strong>2.</strong> \(2350\ \text{mm} = \frac{2350}{1000}\ \text{m} = 2.350\ \text{m}\) &rarr; \(2.35\ \text{m}\)</li>
+                <li><strong>3.</strong> \(0.8 = 0.80\) (They are equal; adding zero after decimal does not change value)</li>
+                <li><strong>4.</strong> \(6.45 + 2.3 = 6.45 + 2.30 = 8.75\)</li>
+                <li><strong>5.</strong> Align decimals: \(2.75 + 1.30 = 4.05\) <br> 
+                Steps: \(2.75 + 1.30 = (2 + 1) + (0.75 + 0.30) = 3 + 1.05 = 4.05\). <br> Or column addition: ones: \(2+1=3\), tenths: \(7+3=10\) tenths = 1 one + 0 tenths, carry 1 → total ones 4, hundredths: 5 → \(4.05\).</li>
+                <li><strong>6.</strong> \(12.5 - 4.25 = 12.50 - 4.25\) <br>
+                Write \(12.50\) and \(4.25\): <br>
+                Hundredths: \(0-5\) → borrow 1 tenth → 10 hundredths → \(10-5=5\)<br>
+                Tenths: after borrowing, \(4\) tenths − \(2\) tenths = \(2\) tenths.<br>
+                Ones: \(12 - 4 = 8\).<br>
+                Result: \(8.25\).</li>
+                <li><strong>7.</strong> Remaining length = total rope − cut piece = \(5.75 - 2.8\) <br>
+                = \(5.75 - 2.80 = 2.95\) metres.<br>
+                Equation: \(x = 5.75 - 2.8\) → \(x = 2.95\ \text{m}\).</li>
+            </ul>
+        </div>
+        <!-- Set B answers -->
+        <div class="answer-col">
+            <h3>✅ SET B SOLUTIONS</h3>
+            <ul class="answer-list">
+                <li><strong>1.</strong> \(7 + \frac{4}{10} + \frac{5}{100} = 7 + 0.4 + 0.05 = 7.45\).</li>
+                <li><strong>2.</strong> \(125\ \text{cm} = \frac{125}{100}\ \text{m} = 1.25\ \text{m}\).</li>
+                <li><strong>3.</strong> \(1.09 > 1.009\) because in the tenths place: \(1.09\) has 0 tenths? Actually compare digit by digit: \(1.09\) (tenths=0, hundredths=9) vs \(1.009\) (tenths=0, hundredths=0, thousandths=9). At the hundredths place, \(9>0\) so \(1.09 > 1.009\).</li>
+                <li><strong>4.</strong> \(9.8 - 3.5 = 6.3\).</li>
+                <li><strong>5.</strong> \(10.05 - 6.875\) → write as \(10.050 - 6.875\):<br>
+                Thousandths: \(0-5\) → borrow 1 hundredth (10 thousandths) → \(10-5=5\) thousandths.<br>
+                Hundredths: after borrowing, \(4\) hundredths − \(7\) hundredths → borrow 1 tenth (10 hundredths) → \(14-7=7\) hundredths.<br>
+                Tenths: after borrowing, \(9\) tenths − \(8\) tenths = \(1\) tenth.<br>
+                Ones: \(9 - 6 = 3\).<br>
+                Result: \(3.175\).</li>
+                <li><strong>6.</strong> Total weight = \(2.5\ \text{kg} + 1.75\ \text{kg} = 2.50 + 1.75\) <br>
+                Hundredths: \(0+5=5\); tenths: \(5+7=12\) tenths = 1 one + 2 tenths (carry 1); ones: \(2+1+1=4\). <br> Final: \(4.25\ \text{kg}\).</li>
+                <li><strong>7.</strong> Distance from 4: <br>
+                \(|4 - 3.95| = 0.05\) <br>
+                \(|4 - 4.12| = 0.12\) <br>
+                Since \(0.05 < 0.12\), \(3.95\) is closer to \(4\). Reasoning: on the number line, 3.95 is only 0.05 units left of 4, while 4.12 is 0.12 units right of 4.</li>
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 1.2rem; font-size: 0.8rem; border-top: 1px solid #dce5ec; padding-top: 0.8rem; text-align: center;">
+        📖 Based on NCERT Grade 7 – “A Peek Beyond the Point” (Decimals: tenths, hundredths, place value, addition & subtraction). Partial marks for correct working in 2-mark questions.
+    </div>
+</div>
+
+</body>
+</html>

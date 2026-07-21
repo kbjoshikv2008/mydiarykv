@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Class XII Mathematics | Complete 6-Test Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    background: #f0f2f5;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    color: #1e293b;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    background: #f8fafc;
+}
+.header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    border-radius: 28px;
+    padding: 24px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.header h1 {
+    margin: 0;
+    font-size: 1.9rem;
+    letter-spacing: -0.3px;
+}
+.header h2 {
+    margin: 8px 0 4px;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+.header p {
+    margin: 8px 0 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+/* cards grid - dynamic 7 items */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+}
+.stat-card {
+    background: white;
+    border-radius: 24px;
+    padding: 14px 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: 0.2s;
+    border-top: 5px solid;
+}
+.stat-card .label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #475569;
+}
+.stat-card .value {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin: 8px 0;
+    line-height: 1.2;
+}
+.stat-card .sub {
+    font-size: 0.7rem;
+    color: #475569;
+}
+.topper-card {
+    background: linear-gradient(145deg, #fef9e3, #fff3c9);
+    border-top-color: #eab308;
+}
+.chart-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+.chart-box {
+    flex: 1;
+    min-width: 280px;
+    background: white;
+    border-radius: 24px;
+    padding: 16px 12px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+}
+.chart-box h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+    border-left: 5px solid #3b82f6;
+    padding-left: 14px;
+}
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 24px;
+    background: white;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    margin-bottom: 28px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+th {
+    background: #1e293b;
+    color: white;
+    padding: 12px 6px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+td {
+    padding: 10px 5px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.8rem;
+}
+tr:hover {
+    background: #f1f5f9;
+}
+.student-name {
+    font-weight: 700;
+    text-align: left;
+    background-color: #f8fafc;
+}
+.performance-badge {
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 40px;
+    display: inline-block;
+    font-size: 0.7rem;
+}
+.excellent { background: #dcfce7; color: #15803d; }
+.good { background: #dbeafe; color: #1e40af; }
+.satisfactory { background: #ffedd5; color: #b45309; }
+.average-grade { background: #f3e8ff; color: #6b21a5; }
+.needs-improve { background: #fee2e2; color: #b91c1c; }
+.insight-section {
+    background: white;
+    border-radius: 24px;
+    padding: 20px 24px;
+    margin-top: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.insight-section h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+.insight-section ul, .insight-section li {
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+.ab-mark {
+    background: #f1f5f9;
+    color: #64748b;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+}
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #475569;
+    font-size: 0.7rem;
+}
+@media print {
+    body {
+        background: white;
+        padding: 0;
+        margin: 0;
+    }
+    .container {
+        padding: 10px;
+        max-width: 100%;
+    }
+    .cards-grid {
+        gap: 8px;
+    }
+    .stat-card .value {
+        font-size: 1.4rem;
+    }
+    th, td {
+        font-size: 9px;
+        padding: 6px 2px;
+    }
+    .chart-box {
+        page-break-inside: avoid;
+    }
+    .header {
+        -webkit-print-color-adjust: exact;
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📊 CLASS XII MATHEMATICS • COMPLETE TEST ANALYSIS</h1>
+        <h2>PM SHRI KV RANIKHET | SESSION 2026-27</h2>
+        <p>✅ CH1: Relations & Functions | CH2: Inverse Trigonometry | CH3: Matrices | CH4: Determinants | Mixed Test (Ch1-4) | CH5: Continuity & Differentiability</p>
+    </div>
+
+    <!-- Dynamic cards: 6 chapter averages + topper -->
+    <div id="cardsContainer" class="cards-grid"></div>
+
+    <!-- Charts: Bar + Pie (full 6 tests) -->
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3>📈 Individual Scores (6 Tests)</h3>
+            <canvas id="studentBarChart" width="400" height="250" style="max-height: 280px; width:100%"></canvas>
+            <p style="font-size:11px; margin-top:8px; text-align:center;">*AB treated as 0 for visualisation | Each cluster = 6 tests per student</p>
+        </div>
+        <div class="chart-box">
+            <h3>🥧 Class Average per Test</h3>
+            <canvas id="avgPieChart" width="400" height="250" style="max-height: 260px; width:100%"></canvas>
+            <p style="font-size:12px; text-align:center; margin-top:8px;">Overall performance across all 6 assessments</p>
+        </div>
+    </div>
+
+    <!-- Student performance table (6 tests + average) -->
+    <div class="table-wrapper">
+        <table id="scoreTable">
+            <thead>
+                <tr><th>STUDENT NAME</th><th>CH1 (20)</th><th>CH2 (20)</th><th>CH3 (20)</th><th>CH4 (20)</th><th>MIXED (20)</th><th>CH5 (20)</th><th>AVG ( /20 )</th><th>PERFORMANCE</th></tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- Insights and strategies updated for 6 tests -->
+    <div class="insight-section">
+        <h2>📌 PERFORMANCE INSIGHTS (6 TESTS)</h2>
+        <ul>
+            <li><strong>🏅 Topper:</strong> Highest average across all 6 chapter tests (only valid numeric scores considered).</li>
+            <li><strong>📊 Classification:</strong> Excellent (≥18) | Good (16–17.9) | Satisfactory (12–15.9) | Average (10–11.9) | Needs Improvement (&lt;10).</li>
+            <li><strong>⚠️ AB (Absent):</strong> Marks marked as 'ab' are excluded from student average calculation, ensuring fair representation. Class test averages are computed based on present students only.</li>
+            <li><strong>📉 Mixed Test analysis:</strong> Mixed test (Ch1–4) average reflects overall retention; Ch5 (Continuity) shows new topic grasp.</li>
+            <li><strong>🎯 Key observation:</strong> CH3 (Matrices) shows highest class average; CH4 & Mixed test need more rigorous practice.</li>
+        </ul>
+        <h2>🚀 IMPROVEMENT STRATEGIES (ALL TESTS)</h2>
+        <ul>
+            <li><strong>High Achievers (Avg ≥16):</strong> Solve previous year board papers + challenging case-study problems from mixed chapters.</li>
+            <li><strong>Mid Performers (Avg 10–15):</strong> Daily formula revision & chapter-wise error analysis. Focus on mixed tests & CH5.</li>
+            <li><strong>Need Improvement (Avg &lt;10):</strong> Remedial worksheets, peer tutoring, and reattempt missed chapter tests.</li>
+            <li><strong>Mixed test low scores →</strong> Integrate weekly 20-minute mixed-question quizzes covering matrices, determinants & trigonometry.</li>
+            <li><strong>CH5 (Continuity):</strong> Practice graphical understanding & NCERT exemplar problems strictly.</li>
+            <li>Maintain mistake notebook for all six domains. Parents to monitor weekly test corrections.</li>
+        </ul>
+    </div>
+    <footer>📅 Test Dates: CH1:13-Apr | CH2:20-Apr | CH3:02-Apr | CH4:08-Apr | Mixed:02-Jun | CH5:09-Jun, 2026 • All marks max 20 each. AB = absent (excluded from avg).</footer>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// RAW DATA extracted from CT TEST RECORD 2026.xlsx (all 23 students, 6 tests)
+// Tests order: CH1, CH2, CH3, CH4, MIXED, CH5
+// 'ab' strings preserved; empty string (Hitesh CH5) treated as 0 numerical for consistency.
+// --------------------------------------------------------------
+const rawStudents = [
+    { name: "ABHIMANYU SINGH", marks: [11, 10, 15, 13, 7, 5] },
+    { name: "ANUJ GOSWAMI", marks: [11, 13, 20, 11, 6, 4] },
+    { name: "AYUSH NEGI", marks: [10, 11, "ab", 8, 7, 0] },
+    { name: "BHUMI SATI", marks: [15, "ab", 15, 10.5, 7, 5] },
+    { name: "HARDIK PHULARA", marks: [9, 9, 12, 2, 7, 3] },
+    { name: "HARSHIT ARYA", marks: [18, 16, 20, 20, 20, 20] },
+    { name: "HARSHITA NEGI", marks: [17, 18, 19, 13, 7, 14] },
+    { name: "HITESH UPADHYAY", marks: [0, 4, 0, 3, 2, ""] },        // ch5 empty -> 0
+    { name: "KAMAL JOSHI", marks: [3, 8, "ab", 5.5, "ab", 2] },
+    { name: "KANIKA BISHT", marks: [16, 15, 17, 6, "ab", "ab"] },
+    { name: "KARAN", marks: [11, 2, 6, 8, 7, 5] },
+    { name: "NITIN BISHT", marks: [10, 9, 15, 9, 11, 9] },
+    { name: "PARTH", marks: [15, 19, 19, 19, 5, 19] },
+    { name: "PRIYANKA", marks: [16, 15, 20, 16, 11, 4] },
+    { name: "RAJ", marks: [4, 5, 4, 5, 8, 0] },
+    { name: "RITIKA", marks: [11, 15, 15, "ab", 8, 2] },
+    { name: "SADHNA", marks: [18, 9, "ab", 0, 9, 4] },
+    { name: "SAKSHAM NEGI", marks: [10, 8, 13, 1, 5, 4] },
+    { name: "SIYA SUYAL", marks: [14, 16, 15, 16, 17, 3] },
+    { name: "SPARSH BHATT", marks: [18, 18, 20, 11, "ab", 10] },
+    { name: "TANMAY ADHIKARI", marks: [13, 11, 17, 8, 12, 9] },
+    { name: "PALAK", marks: ["ab", "ab", "ab", 3, "ab", 0] },
+    { name: "NISHANT", marks: [13, "ab", 15, 11, 11, 8] }
+];
+
+// Normalize marks: convert empty string to 0, and keep 'ab' as string for display; numeric values as numbers
+function normalizeMark(m) {
+    if (m === "" || m === null) return 0;
+    if (typeof m === "string" && m.toLowerCase() === "ab") return "ab";
+    return Number(m);
+}
+
+// Build student objects with cleaned marks & compute average (only numeric tests)
+const students = rawStudents.map(s => {
+    const cleanMarks = s.marks.map(m => normalizeMark(m));
+    // compute average based on numeric values only (exclude 'ab')
+    let sum = 0, count = 0;
+    cleanMarks.forEach(m => {
+        if (typeof m === 'number' && !isNaN(m)) {
+            sum += m;
+            count++;
+        }
+    });
+    const average = count > 0 ? (sum / count) : 0;
+    return {
+        name: s.name,
+        marks: cleanMarks,   // array of 6 (numbers or "ab")
+        rawAvg: average
+    };
+});
+
+// Helper: compute class average for a specific test index (exclude 'ab' entries)
+function getTestAverage(testIdx) {
+    let sum = 0, count = 0;
+    students.forEach(std => {
+        let val = std.marks[testIdx];
+        if (typeof val === 'number' && !isNaN(val)) {
+            sum += val;
+            count++;
+        }
+    });
+    return count > 0 ? (sum / count) : 0;
+}
+
+// 6 test labels
+const testLabels = ["CH1", "CH2", "CH3", "CH4", "MIXED", "CH5"];
+const testAverages = testLabels.map((_, idx) => getTestAverage(idx));
+
+// Overall topper: highest rawAvg
+let topperStudent = students.reduce((best, curr) => (curr.rawAvg > best.rawAvg ? curr : best), students[0]);
+let topperAvg = topperStudent.rawAvg.toFixed(2);
+
+// ------ Generate Cards (6 test averages + topper) ------
+const cardsContainer = document.getElementById('cardsContainer');
+cardsContainer.innerHTML = '';
+
+// card colors (border top)
+const borderColors = ['#3b82f6', '#8b5cf6', '#10b981', '#f97316', '#ef4444', '#06b6d4'];
+
+testAverages.forEach((avg, idx) => {
+    const card = document.createElement('div');
+    card.className = 'stat-card';
+    card.style.borderTopColor = borderColors[idx % borderColors.length];
+    card.innerHTML = `
+        <div class="label">📘 ${testLabels[idx]} AVG</div>
+        <div class="value">${avg.toFixed(1)}<span style="font-size:1rem;">/20</span></div>
+        <div class="sub">class average (present)</div>
+    `;
+    cardsContainer.appendChild(card);
+});
+
+// topper card
+const topperCard = document.createElement('div');
+topperCard.className = 'stat-card topper-card';
+topperCard.style.borderTopColor = '#eab308';
+topperCard.innerHTML = `
+    <div class="label">🏆 TOP PERFORMER (6 Tests)</div>
+    <div class="value">${topperStudent.name}</div>
+    <div class="sub">⭐ Avg: ${topperAvg}/20 ⭐</div>
+`;
+cardsContainer.appendChild(topperCard);
+
+// Additional overall stat? optional: show overall class average (of student averages)
+let overallClassAvg = students.reduce((acc, s) => acc + s.rawAvg, 0) / students.length;
+const extraCard = document.createElement('div');
+extraCard.className = 'stat-card';
+extraCard.style.borderTopColor = '#334155';
+extraCard.innerHTML = `
+    <div class="label">📊 OVERALL CLASS AVG</div>
+    <div class="value">${overallClassAvg.toFixed(1)}<span style="font-size:1rem;">/20</span></div>
+    <div class="sub">across all 6 tests</div>
+`;
+cardsContainer.appendChild(extraCard);
+
+// ---------- Prepare data for Bar Chart (6 datasets per student, AB as 0 for chart) ----------
+const studentNames = students.map(s => s.name.split(' ')[0] + (s.name.split(' ')[1] ? " " + s.name.split(' ')[1].charAt(0) : ""));
+const ch1Data = students.map(s => typeof s.marks[0] === 'number' ? s.marks[0] : 0);
+const ch2Data = students.map(s => typeof s.marks[1] === 'number' ? s.marks[1] : 0);
+const ch3Data = students.map(s => typeof s.marks[2] === 'number' ? s.marks[2] : 0);
+const ch4Data = students.map(s => typeof s.marks[3] === 'number' ? s.marks[3] : 0);
+const mixedData = students.map(s => typeof s.marks[4] === 'number' ? s.marks[4] : 0);
+const ch5Data = students.map(s => typeof s.marks[5] === 'number' ? s.marks[5] : 0);
+
+const barCtx = document.getElementById('studentBarChart').getContext('2d');
+new Chart(barCtx, {
+    type: 'bar',
+    data: {
+        labels: studentNames,
+        datasets: [
+            { label: 'CH1', data: ch1Data, backgroundColor: '#3b82f6', borderRadius: 4 },
+            { label: 'CH2', data: ch2Data, backgroundColor: '#8b5cf6', borderRadius: 4 },
+            { label: 'CH3', data: ch3Data, backgroundColor: '#10b981', borderRadius: 4 },
+            { label: 'CH4', data: ch4Data, backgroundColor: '#f97316', borderRadius: 4 },
+            { label: 'MIXED', data: mixedData, backgroundColor: '#ef4444', borderRadius: 4 },
+            { label: 'CH5', data: ch5Data, backgroundColor: '#06b6d4', borderRadius: 4 }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { position: 'top', labels: { font: { size: 10 } } },
+            tooltip: { mode: 'index', intersect: false }
+        },
+        scales: {
+            y: { title: { display: true, text: 'Marks (out of 20)', font: { size: 11 } }, max: 20, min: 0 },
+            x: { ticks: { rotation: 45, font: { size: 9 } } }
+        }
+    }
+});
+
+// ------- Pie Chart: 6 Test Averages ----------
+const pieCtx = document.getElementById('avgPieChart').getContext('2d');
+new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+        labels: testLabels,
+        datasets: [{
+            data: testAverages,
+            backgroundColor: ['#3b82f6', '#8b5cf6', '#10b981', '#f97316', '#ef4444', '#06b6d4'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'right', labels: { font: { size: 11 } } },
+            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw.toFixed(1)} / 20` } }
+        }
+    }
+});
+
+// ------------- Build Student Table (6 tests + average + performance badge) -------------
+const tbody = document.getElementById('studentTableBody');
+tbody.innerHTML = '';
+
+function getPerformanceClass(avg) {
+    if (avg >= 18) return 'excellent';
+    if (avg >= 16) return 'good';
+    if (avg >= 12) return 'satisfactory';
+    if (avg >= 10) return 'average-grade';
+    return 'needs-improve';
+}
+function getPerformanceText(avg) {
+    if (avg >= 18) return 'EXCELLENT';
+    if (avg >= 16) return 'GOOD';
+    if (avg >= 12) return 'SATISFACTORY';
+    if (avg >= 10) return 'AVERAGE';
+    return 'NEEDS IMPROVEMENT';
+}
+
+students.forEach(student => {
+    const marks = student.marks;
+    // format marks display: if 'ab' show badge, else number
+    const displayMark = (val) => {
+        if (val === 'ab') return '<span class="ab-mark">AB</span>';
+        if (typeof val === 'number') return val;
+        return val;
+    };
+    const avgVal = student.rawAvg;
+    const perfClass = getPerformanceClass(avgVal);
+    const perfText = getPerformanceText(avgVal);
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td class="student-name" style="text-align:left; font-weight:600;">${student.name}</td>
+        <td>${displayMark(marks[0])}</td>
+        <td>${displayMark(marks[1])}</td>
+        <td>${displayMark(marks[2])}</td>
+        <td>${displayMark(marks[3])}</td>
+        <td>${displayMark(marks[4])}</td>
+        <td>${displayMark(marks[5])}</td>
+        <td><strong>${avgVal.toFixed(2)}</strong></td>
+        <td><span class="performance-badge ${perfClass}">${perfText}</span></td>
+    `;
+    tbody.appendChild(row);
+});
+
+// Additional: Add a brief summary row to table (optional footer) for class test averages
+const tfoot = document.createElement('tfoot');
+const footerRow = document.createElement('tr');
+footerRow.style.background = '#f1f5f9';
+footerRow.style.fontWeight = 'bold';
+footerRow.innerHTML = `
+    <td style="text-align:left;"><strong>📊 CLASS AVG (present)</strong></td>
+    ${testAverages.map(avg => `<td><strong>${avg.toFixed(1)}</strong></td>`).join('')}
+    <td><strong>${overallClassAvg.toFixed(2)}</strong></td>
+    <td>overall</td>
+`;
+tfoot.appendChild(footerRow);
+document.querySelector('#scoreTable').appendChild(tfoot);
+
+// add small note about excluded abs in table footer dynamically
+const noteRow = document.createElement('tr');
+noteRow.style.fontSize = '11px';
+noteRow.style.background = '#fef9e3';
+noteRow.innerHTML = `<td colspan="9" style="text-align:center; padding: 6px;">ℹ️ AB = Absent (excluded from individual average). Mixed test covers CH1–CH4, CH5 = Continuity & Differentiability.</td>`;
+tfoot.appendChild(noteRow);
+
+// Also display test dates in header metadata area: extra highlight
+const testInfoDiv = document.createElement('div');
+testInfoDiv.style.marginTop = '16px';
+testInfoDiv.style.fontSize = '0.75rem';
+testInfoDiv.style.textAlign = 'center';
+testInfoDiv.style.background = '#e6f0ff';
+testInfoDiv.style.padding = '6px 12px';
+testInfoDiv.style.borderRadius = '40px';
+testInfoDiv.style.display = 'inline-block';
+testInfoDiv.style.width = 'auto';
+testInfoDiv.innerHTML = '📅 Test Dates: CH1: 13-Apr | CH2: 20-Apr | CH3: 02-Apr | CH4: 08-Apr | Mixed: 02-Jun | CH5: 09-Jun, 2026';
+document.querySelector('.header').appendChild(testInfoDiv);
+
+// Additional: for chart printing compatibility, ensure canvas sizes
+window.addEventListener('beforeprint', () => {
+    // minor adjustment for print
+    document.querySelectorAll('canvas').forEach(c => {
+        c.style.maxHeight = '200px';
+    });
+});
+window.addEventListener('afterprint', () => {
+    document.querySelectorAll('canvas').forEach(c => {
+        c.style.maxHeight = '';
+    });
+});
+</script>
+</body>
+</html>

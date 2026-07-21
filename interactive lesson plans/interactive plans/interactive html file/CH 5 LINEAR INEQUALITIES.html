@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Lesson Plan: Linear Inequalities</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* -------- RESET & BASE -------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f0f4f8;
+            color: #1e293b;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* -------- HEADER -------- */
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            padding: 30px 40px;
+            border-bottom: 4px solid #3b82f6;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header h1 i {
+            color: #60a5fa;
+            font-size: 2rem;
+        }
+
+        .header .sub {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-top: 6px;
+            font-style: italic;
+            border-left: 3px solid #3b82f6;
+            padding-left: 16px;
+        }
+
+        .header .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 40px;
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .header .meta span i {
+            margin-right: 6px;
+            color: #60a5fa;
+        }
+
+        /* -------- NAV TABS -------- */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 0 20px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 16px 22px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: 0.25s ease;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-btn i {
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .tab-btn:hover {
+            background: #eef2f6;
+            color: #0f172a;
+        }
+
+        .tab-btn.active {
+            color: #1e293b;
+            border-bottom-color: #3b82f6;
+            background: #ffffff;
+        }
+
+        .tab-btn.active i {
+            color: #3b82f6;
+        }
+
+        /* -------- CONTENT PANELS -------- */
+        .panels {
+            padding: 30px 40px 40px;
+        }
+
+        .panel {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel h2 i {
+            color: #3b82f6;
+        }
+
+        .panel .section-desc {
+            color: #64748b;
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+            border-left: 4px solid #3b82f6;
+            padding-left: 18px;
+        }
+
+        /* -------- CARDS & BOXES -------- */
+        .card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            border-color: #b9c7da;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: #3b82f6;
+            width: 24px;
+            text-align: center;
+        }
+
+        .card .math {
+            background: #ffffff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .card .math i {
+            font-style: italic;
+        }
+
+        .highlight-box {
+            background: #dbeafe;
+            border-left: 6px solid #3b82f6;
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 14px 0;
+        }
+
+        .highlight-box.warn {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+
+        .highlight-box.success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+
+        .highlight-box.danger {
+            background: #fee2e2;
+            border-left-color: #ef4444;
+        }
+
+        .rule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .rule-item {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .rule-item strong {
+            color: #0f172a;
+            display: block;
+            font-size: 1.05rem;
+        }
+
+        .rule-item .badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-right: 8px;
+        }
+
+        .rule-item .badge.orange {
+            background: #f59e0b;
+        }
+
+        /* -------- EXAMPLE BOX -------- */
+        .example-box {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .example-box .ex-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .example-box .ex-title i {
+            color: #3b82f6;
+            margin-right: 8px;
+        }
+
+        .example-box .solution {
+            background: #f1f5f9;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .example-box .solution.show {
+            display: block;
+        }
+
+        .btn-reveal {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-reveal:hover {
+            background: #2563eb;
+            transform: scale(1.02);
+        }
+
+        .btn-reveal i {
+            margin-right: 6px;
+        }
+
+        /* -------- INTERACTIVE EXERCISE -------- */
+        .exercise {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .exercise .q {
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 1.05rem;
+        }
+
+        .exercise .q i {
+            color: #3b82f6;
+            margin-right: 8px;
+        }
+
+        .exercise input[type="text"],
+        .exercise input[type="number"] {
+            padding: 10px 16px;
+            border: 2px solid #d1d9e6;
+            border-radius: 10px;
+            font-size: 1rem;
+            width: 200px;
+            max-width: 100%;
+            margin: 8px 8px 8px 0;
+            transition: 0.2s;
+            background: #fafcff;
+        }
+
+        .exercise input:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .exercise .btn-check {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .exercise .btn-check:hover {
+            background: #059669;
+        }
+
+        .exercise .feedback {
+            margin-top: 12px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .exercise .feedback.correct {
+            display: block;
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .exercise .feedback.wrong {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        .exercise .feedback.show {
+            display: block;
+        }
+
+        /* -------- NUMBER LINE VISUAL -------- */
+        .number-line-container {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 20px 16px;
+            border: 1px solid #e2e8f0;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .number-line-svg {
+            width: 100%;
+            max-width: 600px;
+            height: 60px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* -------- QUIZ -------- */
+        .quiz-option {
+            display: block;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin: 6px 0;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: #94a3b8;
+            background: #f1f5f9;
+        }
+
+        .quiz-option.selected {
+            border-color: #3b82f6;
+            background: #dbeafe;
+        }
+
+        .quiz-option.correct-answer {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .quiz-option.wrong-answer {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .quiz-feedback {
+            margin-top: 14px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.success {
+            background: #d1fae5;
+            border-left: 5px solid #10b981;
+            color: #065f46;
+        }
+
+        .quiz-feedback.error {
+            background: #fee2e2;
+            border-left: 5px solid #ef4444;
+            color: #991b1b;
+        }
+
+        /* -------- PROGRESS / SCORE -------- */
+        .score-badge {
+            display: inline-block;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        /* -------- RESPONSIVE -------- */
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 16px;
+            }
+
+            .header {
+                padding: 20px 24px;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+                flex-wrap: wrap;
+            }
+
+            .tabs {
+                padding: 0 10px;
+                gap: 2px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+
+            .tab-btn {
+                padding: 12px 14px;
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            .tab-btn span {
+                display: none;
+            }
+
+            .tab-btn i {
+                font-size: 1.1rem;
+            }
+
+            .panels {
+                padding: 20px 16px 30px;
+            }
+
+            .panel h2 {
+                font-size: 1.4rem;
+            }
+
+            .rule-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise input[type="text"],
+            .exercise input[type="number"] {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .header .sub {
+                font-size: 0.85rem;
+                padding-left: 12px;
+            }
+
+            .card {
+                padding: 14px 16px;
+            }
+
+            .example-box {
+                padding: 14px 16px;
+            }
+
+            .panels {
+                padding: 16px 12px 24px;
+            }
+        }
+
+        /* scrollable math */
+        .math-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 4px 0;
+        }
+
+        .math-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .math-scroll::-webkit-scrollbar-thumb {
+            background: #b9c7da;
+            border-radius: 10px;
+        }
+
+        /* misc */
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .text-sm {
+            font-size: 0.9rem;
+        }
+        .text-muted {
+            color: #64748b;
+        }
+        .fw-600 {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-chart-line"></i>
+                Linear Inequalities
+                <span style="font-size:0.8rem;font-weight:400;color:#94a3b8;margin-left:auto;">Chapter 5</span>
+            </h1>
+            <div class="sub">
+                <i class="fas fa-quote-left" style="opacity:0.5;margin-right:6px;"></i>
+                Mathematics is the art of saying many things in many different ways. — MAXWELL
+            </div>
+            <div class="meta">
+                <span><i class="fas fa-graduation-cap"></i> Class XI · NCERT</span>
+                <span><i class="fas fa-clock"></i> ~ 6–8 sessions</span>
+                <span><i class="fas fa-tag"></i> One &amp; Two Variables</span>
+            </div>
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="tabs" id="tabNav">
+            <button class="tab-btn active" data-tab="overview"><i class="fas fa-book-open"></i><span> Overview</span></button>
+            <button class="tab-btn" data-tab="concepts"><i class="fas fa-lightbulb"></i><span> Concepts</span></button>
+            <button class="tab-btn" data-tab="examples"><i class="fas fa-pencil-alt"></i><span> Examples</span></button>
+            <button class="tab-btn" data-tab="practice"><i class="fas fa-tasks"></i><span> Practice</span></button>
+            <button class="tab-btn" data-tab="quiz"><i class="fas fa-question-circle"></i><span> Quiz</span></button>
+            <button class="tab-btn" data-tab="applications"><i class="fas fa-globe"></i><span> Applications</span></button>
+        </div>
+
+        <!-- ===== PANELS ===== -->
+        <div class="panels">
+
+            <!-- ---------- OVERVIEW ---------- -->
+            <div class="panel active" id="panel-overview">
+                <h2><i class="fas fa-compass"></i> Lesson Overview</h2>
+                <div class="section-desc">
+                    In this chapter, we study <strong>linear inequalities</strong> in one and two variables.
+                    Learn how to solve them algebraically, represent solutions on a number line,
+                    and apply them to real‑world problems.
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-bullseye"></i> Learning Objectives</h3>
+                    <ul style="list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;">
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Define linear inequalities</li>
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Distinguish strict &amp; slack inequalities</li>
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Apply rules for solving (including sign reversal)</li>
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Solve inequalities in one variable</li>
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Graph solution sets on a number line</li>
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Solve systems of inequalities</li>
+                        <li><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i> Solve real‑world problems (averages, mixtures, etc.)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-layer-group"></i> Chapter Flow</h3>
+                    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">5.1 Introduction</span>
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">5.2 Inequalities</span>
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">5.3 Algebraic Solutions</span>
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">Graphical Representation</span>
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">Double Inequalities</span>
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">Systems of Inequalities</span>
+                        <span style="background:#dbeafe;padding:6px 16px;border-radius:30px;font-size:0.9rem;">Miscellaneous Examples</span>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <i class="fas fa-lightbulb" style="color:#3b82f6;margin-right:10px;"></i>
+                    <strong>Key Insight:</strong> Inequalities are like equations, but with <code>&lt; , &gt; , &le; , &ge;</code>.
+                    The only extra rule: <strong>multiply/divide by a negative number reverses the sign</strong>.
+                </div>
+            </div>
+
+            <!-- ---------- CONCEPTS ---------- -->
+            <div class="panel" id="panel-concepts">
+                <h2><i class="fas fa-lightbulb"></i> Key Concepts</h2>
+                <div class="section-desc">Definitions, types, and rules for solving linear inequalities.</div>
+
+                <!-- Definition -->
+                <div class="card">
+                    <h3><i class="fas fa-definition"></i> What is an Inequality?</h3>
+                    <p>Two real numbers or algebraic expressions related by <strong><code>&lt;</code></strong>, <strong><code>&gt;</code></strong>, <strong><code>&le;</code></strong> or <strong><code>&ge;</code></strong> form an <strong>inequality</strong>.</p>
+                    <div class="math">
+                        <i>e.g.</i> &nbsp; 3 &lt; 5 &nbsp;&middot;&nbsp; x &gt; 2 &nbsp;&middot;&nbsp; 3 &le; x &lt; 5 &nbsp;&middot;&nbsp; ax + b &le; 0
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;">
+                        <span style="background:#e2e8f0;padding:4px 14px;border-radius:20px;font-size:0.85rem;"><strong>Numerical:</strong> 7 &gt; 5</span>
+                        <span style="background:#e2e8f0;padding:4px 14px;border-radius:20px;font-size:0.85rem;"><strong>Literal:</strong> x &lt; 5</span>
+                        <span style="background:#e2e8f0;padding:4px 14px;border-radius:20px;font-size:0.85rem;"><strong>Double:</strong> 3 &le; x &lt; 5</span>
+                    </div>
+                </div>
+
+                <!-- Types -->
+                <div class="card">
+                    <h3><i class="fas fa-tags"></i> Types of Inequalities</h3>
+                    <div class="rule-grid">
+                        <div class="rule-item"><strong><span class="badge">Strict</span> &lt; &nbsp; &gt;</strong> <span class="text-muted">e.g.</span> ax + b &lt; 0</div>
+                        <div class="rule-item"><strong><span class="badge orange">Slack</span> &le; &nbsp; &ge;</strong> <span class="text-muted">e.g.</span> ax + b &le; 0</div>
+                        <div class="rule-item"><strong>Linear in one variable</strong> ax + b &lt; 0 &nbsp; (a &ne; 0)</div>
+                        <div class="rule-item"><strong>Linear in two variables</strong> ax + by &lt; c &nbsp; (a,b &ne; 0)</div>
+                    </div>
+                    <p class="text-sm text-muted mt-8"><i class="fas fa-info-circle"></i> Quadratic inequalities (e.g. ax²+bx+c &le; 0) are <strong>not</strong> linear — we focus only on linear.</p>
+                </div>
+
+                <!-- Rules -->
+                <div class="card">
+                    <h3><i class="fas fa-ruler"></i> Rules for Solving Inequalities</h3>
+                    <div class="rule-grid">
+                        <div class="rule-item">
+                            <strong><span class="badge">Rule 1</span> Addition / Subtraction</strong>
+                            <span class="text-muted" style="display:block;font-weight:400;">Same number can be added or subtracted from both sides. <strong>No sign change.</strong></span>
+                        </div>
+                        <div class="rule-item">
+                            <strong><span class="badge orange">Rule 2</span> Multiplication / Division</strong>
+                            <span class="text-muted" style="display:block;font-weight:400;">By <strong>positive</strong> number → sign unchanged.<br>By <strong>negative</strong> number → <strong>sign reverses</strong>.</span>
+                        </div>
+                    </div>
+                    <div class="highlight-box warn" style="margin-top:8px;">
+                        <i class="fas fa-exclamation-triangle" style="color:#f59e0b;margin-right:8px;"></i>
+                        <strong>Remember:</strong> \(-3 &lt; -2\) but \(3 &gt; 2\). Multiplying by \(-1\) flips the inequality.
+                    </div>
+                </div>
+
+                <!-- Solution Set -->
+                <div class="card">
+                    <h3><i class="fas fa-cubes"></i> Solution Set</h3>
+                    <p>The set of all values of the variable that make the inequality true is called the <strong>solution set</strong>.</p>
+                    <div class="math">
+                        e.g. \( 30x &lt; 200 \) &nbsp;→&nbsp; \( x &lt; \frac{20}{3} \) &nbsp;→&nbsp; solution set \( (-\infty, \frac{20}{3}) \)
+                    </div>
+                    <p class="text-sm text-muted">When \(x\) is natural, the solution set is \(\{1,2,3,4,5,6\}\).</p>
+                </div>
+
+                <!-- Number Line -->
+                <div class="card">
+                    <h3><i class="fas fa-arrows-left-right"></i> Graphical Representation</h3>
+                    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+                        <div>
+                            <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">
+                                <span style="background:#e2e8f0;padding:2px 12px;border-radius:12px;font-size:0.8rem;">x &lt; a</span>
+                                <span>→ open circle, dark line to left</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">
+                                <span style="background:#e2e8f0;padding:2px 12px;border-radius:12px;font-size:0.8rem;">x &le; a</span>
+                                <span>→ closed circle, dark line to left</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">
+                                <span style="background:#e2e8f0;padding:2px 12px;border-radius:12px;font-size:0.8rem;">x &gt; a</span>
+                                <span>→ open circle, dark line to right</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;margin:4px 0;">
+                                <span style="background:#e2e8f0;padding:2px 12px;border-radius:12px;font-size:0.8rem;">x &ge; a</span>
+                                <span>→ closed circle, dark line to right</span>
+                            </div>
+                        </div>
+                        <div style="flex:1;min-width:200px;">
+                            <svg viewBox="0 0 300 50" class="number-line-svg" style="height:50px;">
+                                <line x1="20" y1="25" x2="280" y2="25" stroke="#94a3b8" stroke-width="2"/>
+                                <circle cx="80" cy="25" r="6" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+                                <line x1="80" y1="25" x2="280" y2="25" stroke="#3b82f6" stroke-width="3"/>
+                                <text x="75" y="42" font-size="10" fill="#475569">a</text>
+                                <text x="140" y="42" font-size="9" fill="#64748b">(x &gt; a)</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------- EXAMPLES ---------- -->
+            <div class="panel" id="panel-examples">
+                <h2><i class="fas fa-pencil-alt"></i> Worked Examples</h2>
+                <div class="section-desc">Step‑by‑step solutions from the textbook — click to reveal.</div>
+
+                <!-- Example 1 -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-calculator"></i> Example 1: Solve \(30x &lt; 200\)</div>
+                    <p class="text-sm text-muted">(i) \(x\) is natural &nbsp; (ii) \(x\) is integer</p>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        \(30x &lt; 200 \;\Rightarrow\; x &lt; \frac{20}{3} \approx 6.67\)<br><br>
+                        (i) Natural numbers: \(\{1,2,3,4,5,6\}\)<br>
+                        (ii) Integers: \(\{\dots, -3,-2,-1,0,1,2,3,4,5,6\}\)
+                    </div>
+                </div>
+
+                <!-- Example 2 -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-calculator"></i> Example 2: Solve \(5x - 3 &lt; 3x + 1\)</div>
+                    <p class="text-sm text-muted">(i) \(x\) integer &nbsp; (ii) \(x\) real</p>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        \(5x - 3 &lt; 3x + 1\)<br>
+                        \(\Rightarrow 5x - 3x &lt; 1 + 3\)<br>
+                        \(\Rightarrow 2x &lt; 4 \;\Rightarrow\; x &lt; 2\)<br><br>
+                        (i) Integers: \(\{\dots, -3,-2,-1,0,1\}\)<br>
+                        (ii) Real: \(x \in (-\infty, 2)\)
+                    </div>
+                </div>
+
+                <!-- Example 3 -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-calculator"></i> Example 3: Solve \(4x + 3 &lt; 6x + 7\)</div>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        \(4x + 3 &lt; 6x + 7\)<br>
+                        \(\Rightarrow 4x - 6x &lt; 7 - 3\)<br>
+                        \(\Rightarrow -2x &lt; 4\)<br>
+                        <span class="highlight-box" style="margin:6px 0;padding:8px 12px;font-size:0.95rem;">
+                            <i class="fas fa-arrow-right"></i> Divide by \(-2\) → <strong>sign reverses</strong> → \(x &gt; -2\)
+                        </span>
+                        Solution set: \((-2, \infty)\)
+                    </div>
+                </div>
+
+                <!-- Example 4 -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-calculator"></i> Example 4: Solve \(\frac{5-2x}{3} \le \frac{x}{6} - 5\)</div>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        Multiply by 6: \(2(5-2x) \le x - 30\)<br>
+                        \(\Rightarrow 10 - 4x \le x - 30\)<br>
+                        \(\Rightarrow -5x \le -40\)<br>
+                        Divide by \(-5\) → sign reverses: \(x \ge 8\)<br>
+                        Solution set: \([8, \infty)\)
+                    </div>
+                </div>
+
+                <!-- Example 5: double inequality -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-calculator"></i> Example 5: Solve \(-8 \le 5x - 3 &lt; 7\)</div>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        \(-8 \le 5x - 3 &lt; 7\)<br>
+                        Add 3: \(-5 \le 5x &lt; 10\)<br>
+                        Divide by 5: \(-1 \le x &lt; 2\)<br>
+                        Solution set: \([-1, 2)\)
+                    </div>
+                </div>
+
+                <!-- Example 6: system -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-calculator"></i> Example 6: System \(3x-7 &lt; 5+x\) and \(11-5x \le 1\)</div>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        From (1): \(3x - 7 &lt; 5 + x \Rightarrow 2x &lt; 12 \Rightarrow x &lt; 6\)<br>
+                        From (2): \(11 - 5x \le 1 \Rightarrow -5x \le -10 \Rightarrow x \ge 2\)<br>
+                        Intersection: \(2 \le x &lt; 6\) &nbsp;→&nbsp; \([2, 6)\)
+                    </div>
+                </div>
+
+                <!-- Example 7: Average marks -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-user-graduate"></i> Example 7: Marks average at least 60</div>
+                    <p class="text-sm text-muted">First two tests: 62 and 48. Find min marks in third for average ≥ 60.</p>
+                    <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                    <div class="solution">
+                        Let \(x\) be third marks.<br>
+                        \(\frac{62+48+x}{3} \ge 60\)<br>
+                        \(\Rightarrow 110 + x \ge 180 \Rightarrow x \ge 70\)<br>
+                        <strong>Minimum marks = 70</strong>
+                    </div>
+                </div>
+
+                <!-- Example 8: Consecutive odd -->
+                <div class="example-box">
+                    <div class="ex-title"><i class="fas fa-user-graduate"></i> Example 8: Consecutive odd > 10, sum < 40</div>
+                        <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                        <div class="solution">
+                            Let numbers be \(x\) and \(x+2\) (both odd).<br>
+                            \(x &gt; 10\) and \(x + (x+2) &lt; 40 \Rightarrow 2x+2 &lt; 40 \Rightarrow x &lt; 19\)<br>
+                            So \(10 &lt; x &lt; 19\). Odd values: 11, 13, 15, 17.<br>
+                            Pairs: (11,13), (13,15), (15,17), (17,19)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ---------- PRACTICE ---------- -->
+                <div class="panel" id="panel-practice">
+                    <h2><i class="fas fa-tasks"></i> Practice Exercises</h2>
+                    <div class="section-desc">Try these problems from the textbook. Enter your answer and check.</div>
+
+                    <!-- Ex 1 -->
+                    <div class="exercise" id="ex-p1">
+                        <div class="q"><i class="fas fa-pen"></i> 1. Solve \(24x &lt; 100\) when \(x\) is a natural number.</div>
+                        <div class="flex">
+                            <input type="text" id="p1ans" placeholder="e.g. {1,2,3,4}" />
+                            <button class="btn-check" onclick="checkPractice('p1ans','{1,2,3,4}','ex-p1')"><i class="fas fa-check"></i> Check</button>
+                        </div>
+                        <div class="feedback" id="fb-p1ans"></div>
+                        <button class="btn-reveal" style="background:#64748b;font-size:0.8rem;padding:4px 14px;" onclick="showHint('p1ans','24x<100 => x<4.166, natural numbers: 1,2,3,4')"><i class="fas fa-lightbulb"></i> Hint</button>
+                    </div>
+
+                    <!-- Ex 2 -->
+                    <div class="exercise" id="ex-p2">
+                        <div class="q"><i class="fas fa-pen"></i> 2. Solve \(-12x &gt; 30\) when \(x\) is an integer.</div>
+                        <div class="flex">
+                            <input type="text" id="p2ans" placeholder="e.g. {...,-3,-2}" />
+                            <button class="btn-check" onclick="checkPractice('p2ans','{...,-4,-3,-2}','ex-p2')"><i class="fas fa-check"></i> Check</button>
+                        </div>
+                        <div class="feedback" id="fb-p2ans"></div>
+                        <button class="btn-reveal" style="background:#64748b;font-size:0.8rem;padding:4px 14px;" onclick="showHint('p2ans','-12x>30 => x< -2.5, integers: ...,-4,-3')">Hint</button>
+                    </div>
+
+                    <!-- Ex 3 -->
+                    <div class="exercise" id="ex-p3">
+                        <div class="q"><i class="fas fa-pen"></i> 3. Solve \(3x - 7 &gt; 5x - 1\) for real \(x\).</div>
+                        <div class="flex">
+                            <input type="text" id="p3ans" placeholder="e.g. (-∞, -3)" />
+                            <button class="btn-check" onclick="checkPractice('p3ans','(-∞,-3)','ex-p3')"><i class="fas fa-check"></i> Check</button>
+                        </div>
+                        <div class="feedback" id="fb-p3ans"></div>
+                        <button class="btn-reveal" style="background:#64748b;font-size:0.8rem;padding:4px 14px;" onclick="showHint('p3ans','3x-7>5x-1 => -2x>6 => x<-3')">Hint</button>
+                    </div>
+
+                    <!-- Ex 4 -->
+                    <div class="exercise" id="ex-p4">
+                        <div class="q"><i class="fas fa-pen"></i> 4. Solve \(3(2-x) \ge 2(1-x)\) for real \(x\).</div>
+                        <div class="flex">
+                            <input type="text" id="p4ans" placeholder="e.g. (-∞,4]" />
+                            <button class="btn-check" onclick="checkPractice('p4ans','(-∞,4]','ex-p4')"><i class="fas fa-check"></i> Check</button>
+                        </div>
+                        <div class="feedback" id="fb-p4ans"></div>
+                        <button class="btn-reveal" style="background:#64748b;font-size:0.8rem;padding:4px 14px;" onclick="showHint('p4ans','6-3x ≥ 2-2x => 4 ≥ x => x ≤ 4')">Hint</button>
+                    </div>
+
+                    <!-- Ex 5: word problem -->
+                    <div class="exercise" id="ex-p5">
+                        <div class="q"><i class="fas fa-pen"></i> 5. Ravi scored 70 and 75 in first two tests. Minimum marks in third for average ≥ 60?</div>
+                        <div class="flex">
+                            <input type="text" id="p5ans" placeholder="e.g. 35" />
+                            <button class="btn-check" onclick="checkPractice('p5ans','35','ex-p5')"><i class="fas fa-check"></i> Check</button>
+                        </div>
+                        <div class="feedback" id="fb-p5ans"></div>
+                        <button class="btn-reveal" style="background:#64748b;font-size:0.8rem;padding:4px 14px;" onclick="showHint('p5ans','(70+75+x)/3 ≥ 60 => x ≥ 35')">Hint</button>
+                    </div>
+
+                    <div class="highlight-box success">
+                        <i class="fas fa-check-circle" style="color:#10b981;"></i>
+                        <strong>Tip:</strong> For interval notation, use <code>(-∞, a)</code> or <code>[a, ∞)</code>. Use <code>{...}</code> for sets.
+                    </div>
+                </div>
+
+                <!-- ---------- QUIZ ---------- -->
+                <div class="panel" id="panel-quiz">
+                    <h2><i class="fas fa-question-circle"></i> Quick Quiz</h2>
+                    <div class="section-desc">Test your understanding — 5 multiple‑choice questions.</div>
+
+                    <!-- Quiz Q1 -->
+                    <div class="card" id="quiz1">
+                        <h3 style="font-size:1rem;">Q1. Which of the following is a <strong>linear inequality</strong> in one variable?</h3>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q1','A')">A) \(x^2 + 3x &lt; 5\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q1','B')">B) \(2x + 3y &gt; 6\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q1','C')">C) \(4x - 7 \le 9\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q1','D')">D) \(x^2 - 4 \ge 0\)</div>
+                        <div class="quiz-feedback" id="fb-q1"></div>
+                        <button class="btn-check" onclick="checkQuiz('q1','C','fb-q1')"><i class="fas fa-check"></i> Submit</button>
+                    </div>
+
+                    <!-- Quiz Q2 -->
+                    <div class="card" id="quiz2">
+                        <h3 style="font-size:1rem;">Q2. Solve \( -3x &gt; 9 \). What is the solution set?</h3>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q2','A')">A) \(x &gt; -3\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q2','B')">B) \(x &lt; -3\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q2','C')">C) \(x &gt; 3\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q2','D')">D) \(x &lt; 3\)</div>
+                        <div class="quiz-feedback" id="fb-q2"></div>
+                        <button class="btn-check" onclick="checkQuiz('q2','B','fb-q2')"><i class="fas fa-check"></i> Submit</button>
+                    </div>
+
+                    <!-- Quiz Q3 -->
+                    <div class="card" id="quiz3">
+                        <h3 style="font-size:1rem;">Q3. The solution set of \(x \le 4\) on a number line has:</h3>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q3','A')">A) open circle at 4, shade left</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q3','B')">B) closed circle at 4, shade left</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q3','C')">C) open circle at 4, shade right</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q3','D')">D) closed circle at 4, shade right</div>
+                        <div class="quiz-feedback" id="fb-q3"></div>
+                        <button class="btn-check" onclick="checkQuiz('q3','B','fb-q3')"><i class="fas fa-check"></i> Submit</button>
+                    </div>
+
+                    <!-- Quiz Q4 -->
+                    <div class="card" id="quiz4">
+                        <h3 style="font-size:1rem;">Q4. Solve \(2 \le 3x - 4 &lt; 8\).</h3>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q4','A')">A) \(2 \le x &lt; 4\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q4','B')">B) \(2 &lt; x \le 4\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q4','C')">C) \(2 \le x \le 4\)</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q4','D')">D) \(2 &lt; x &lt; 4\)</div>
+                        <div class="quiz-feedback" id="fb-q4"></div>
+                        <button class="btn-check" onclick="checkQuiz('q4','A','fb-q4')"><i class="fas fa-check"></i> Submit</button>
+                    </div>
+
+                    <!-- Quiz Q5 -->
+                    <div class="card" id="quiz5">
+                        <h3 style="font-size:1rem;">Q5. A student needs average ≥ 90 in 5 exams. First four: 87,92,94,95. Minimum in fifth?</h3>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q5','A')">A) 80</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q5','B')">B) 82</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q5','C')">C) 85</div>
+                        <div class="quiz-option" onclick="selectQuiz(this,'q5','D')">D) 90</div>
+                        <div class="quiz-feedback" id="fb-q5"></div>
+                        <button class="btn-check" onclick="checkQuiz('q5','B','fb-q5')"><i class="fas fa-check"></i> Submit</button>
+                    </div>
+
+                    <div class="highlight-box success" id="quizScoreBox" style="display:none;">
+                        <i class="fas fa-trophy" style="color:#f59e0b;"></i>
+                        <strong>Quiz complete!</strong> You scored <span id="quizScore">0</span> / 5.
+                    </div>
+                </div>
+
+                <!-- ---------- APPLICATIONS ---------- -->
+                <div class="panel" id="panel-applications">
+                    <h2><i class="fas fa-globe"></i> Real‑World Applications</h2>
+                    <div class="section-desc">Inequalities in science, economics, and everyday life.</div>
+
+                    <!-- Application 1: Temperature -->
+                    <div class="card">
+                        <h3><i class="fas fa-thermometer-half"></i> Temperature Range</h3>
+                        <p>A solution must be kept between \(30^\circ\)C and \(35^\circ\)C. Using \(\mathrm{C} = \frac{5}{9}(\mathrm{F}-32)\), find the Fahrenheit range.</p>
+                        <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                        <div class="solution">
+                            \(30 &lt; \frac{5}{9}(F-32) &lt; 35\)<br>
+                            Multiply by \(\frac{9}{5}\): \(54 &lt; F-32 &lt; 63\)<br>
+                            Add 32: \(86 &lt; F &lt; 95\)<br>
+                            <strong>Range: \(86^\circ\)F to \(95^\circ\)F</strong>
+                        </div>
+                    </div>
+
+                    <!-- Application 2: Acid mixture -->
+                    <div class="card">
+                        <h3><i class="fas fa-flask"></i> Acid Mixture</h3>
+                        <p>A manufacturer has 600 L of 12% acid. How many litres of 30% acid must be added so the mixture is <strong>more than 15%</strong> but <strong>less than 18%</strong> acid?</p>
+                        <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                        <div class="solution">
+                            Let \(x\) = litres of 30% acid added.<br>
+                            Total = \(x+600\).<br>
+                            Acid: \(0.30x + 0.12(600) = 0.30x + 72\)<br>
+                            Need: \(0.15(x+600) &lt; 0.30x+72 &lt; 0.18(x+600)\)<br>
+                            Solve: \(15x+7200 &lt; 30x+7200 \Rightarrow 15x &gt; 1800 \Rightarrow x &gt; 120\)<br>
+                            And \(30x+7200 &lt; 18x+10800 \Rightarrow 12x &lt; 3600 \Rightarrow x &lt; 300\)<br>
+                            <strong>\(120 &lt; x &lt; 300\) litres</strong>
+                        </div>
+                    </div>
+
+                    <!-- Application 3: Board cutting -->
+                    <div class="card">
+                        <h3><i class="fas fa-ruler-combined"></i> Board Cutting</h3>
+                        <p>A 91 cm board is cut into 3 pieces. Second is 3 cm longer than shortest, third is twice the shortest. Third must be at least 5 cm longer than second. Find possible lengths of shortest piece.</p>
+                        <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                        <div class="solution">
+                            Let shortest = \(x\). Then pieces: \(x,\;x+3,\;2x\).<br>
+                            Total: \(x+(x+3)+2x \le 91 \Rightarrow 4x+3 \le 91 \Rightarrow x \le 22\)<br>
+                            Third ≥ second + 5: \(2x \ge (x+3)+5 \Rightarrow 2x \ge x+8 \Rightarrow x \ge 8\)<br>
+                            <strong>\(8 \le x \le 22\) cm</strong>
+                        </div>
+                    </div>
+
+                    <!-- Application 4: IQ range -->
+                    <div class="card">
+                        <h3><i class="fas fa-brain"></i> IQ Range</h3>
+                        <p>\(\mathrm{IQ} = \frac{\mathrm{MA}}{\mathrm{CA}}\times 100\). For 12‑year‑olds (\(CA=12\)), if \(80 \le IQ \le 140\), find range of mental age (MA).</p>
+                        <button class="btn-reveal" onclick="toggleSolution(this)"><i class="fas fa-eye"></i> Show Solution</button>
+                        <div class="solution">
+                            \(80 \le \frac{MA}{12}\times 100 \le 140\)<br>
+                            Divide by 100: \(0.8 \le \frac{MA}{12} \le 1.4\)<br>
+                            Multiply by 12: \(9.6 \le MA \le 16.8\)<br>
+                            <strong>Mental age between 9.6 and 16.8 years.</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end panels -->
+
+        </div> <!-- end container -->
+
+
+        <!-- ===== JAVASCRIPT ===== -->
+        <script>
+            // -------- TAB NAVIGATION --------
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const panels = {
+                overview: document.getElementById('panel-overview'),
+                concepts: document.getElementById('panel-concepts'),
+                examples: document.getElementById('panel-examples'),
+                practice: document.getElementById('panel-practice'),
+                quiz: document.getElementById('panel-quiz'),
+                applications: document.getElementById('panel-applications')
+            };
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.dataset.tab;
+                    // update buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    // update panels
+                    Object.keys(panels).forEach(key => {
+                        panels[key].classList.remove('active');
+                    });
+                    if (panels[tab]) panels[tab].classList.add('active');
+                });
+            });
+
+            // -------- TOGGLE SOLUTION (examples) --------
+            function toggleSolution(btn) {
+                const sol = btn.parentElement.querySelector('.solution');
+                if (sol) {
+                    sol.classList.toggle('show');
+                    btn.innerHTML = sol.classList.contains('show') ?
+                        '<i class="fas fa-eye-slash"></i> Hide Solution' :
+                        '<i class="fas fa-eye"></i> Show Solution';
+                }
+            }
+
+            // -------- PRACTICE CHECK --------
+            function checkPractice(inputId, expected, parentId) {
+                const input = document.getElementById(inputId);
+                const fb = document.getElementById('fb-' + inputId);
+                const parent = document.getElementById(parentId);
+                if (!input || !fb) return;
+
+                const userVal = input.value.trim().replace(/\s/g, '');
+                const expectedClean = expected.replace(/\s/g, '');
+
+                // Normalize both for comparison (remove extra spaces, etc.)
+                const isCorrect = userVal === expectedClean;
+
+                fb.className = 'feedback show';
+                if (isCorrect) {
+                    fb.className = 'feedback correct show';
+                    fb.innerHTML = '<i class="fas fa-check-circle"></i> Perfect! Correct answer.';
+                    // add a little celebration
+                    parent.style.borderColor = '#10b981';
+                    setTimeout(() => { parent.style.borderColor = '#e2e8f0'; }, 1500);
+                } else {
+                    fb.className = 'feedback wrong show';
+                    fb.innerHTML = '<i class="fas fa-times-circle"></i> Not quite. Try again or use the hint.';
+                    parent.style.borderColor = '#ef4444';
+                    setTimeout(() => { parent.style.borderColor = '#e2e8f0'; }, 1500);
+                }
+            }
+
+            function showHint(inputId, hintText) {
+                const fb = document.getElementById('fb-' + inputId);
+                if (!fb) return;
+                fb.className = 'feedback show';
+                fb.style.background = '#fef3c7';
+                fb.style.borderLeft = '4px solid #f59e0b';
+                fb.style.color = '#92400e';
+                fb.innerHTML = '<i class="fas fa-lightbulb"></i> Hint: ' + hintText;
+                setTimeout(() => {
+                    fb.style.background = '';
+                    fb.style.borderLeft = '';
+                    fb.style.color = '';
+                }, 5000);
+            }
+
+            // -------- QUIZ --------
+            let quizSelections = {};
+
+            function selectQuiz(el, qid, choice) {
+                const parent = el.closest('.card');
+                const options = parent.querySelectorAll('.quiz-option');
+                options.forEach(opt => opt.classList.remove('selected'));
+                el.classList.add('selected');
+                quizSelections[qid] = choice;
+            }
+
+            function checkQuiz(qid, correct, fbId) {
+                const fb = document.getElementById(fbId);
+                if (!fb) return;
+                const selected = quizSelections[qid];
+                if (!selected) {
+                    fb.className = 'quiz-feedback show error';
+                    fb.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select an option first.';
+                    return;
+                }
+
+                const parent = fb.closest('.card');
+                const options = parent.querySelectorAll('.quiz-option');
+
+                // highlight correct/wrong
+                options.forEach(opt => {
+                    const val = opt.textContent.trim().charAt(0);
+                    if (val === correct) {
+                        opt.classList.add('correct-answer');
+                    } else if (opt.classList.contains('selected') && val !== correct) {
+                        opt.classList.add('wrong-answer');
+                    }
+                });
+
+                const isCorrect = selected === correct;
+                fb.className = 'quiz-feedback show ' + (isCorrect ? 'success' : 'error');
+                fb.innerHTML = isCorrect ?
+                    '<i class="fas fa-check-circle"></i> Correct! Well done.' :
+                    '<i class="fas fa-times-circle"></i> Oops! The correct answer was ' + correct + '.';
+
+                // Disable submit button after answer
+                const submitBtn = fb.parentElement.querySelector('.btn-check');
+                if (submitBtn) submitBtn.disabled = true;
+
+                // Update score
+                updateQuizScore();
+            }
+
+            function updateQuizScore() {
+                const total = 5;
+                let score = 0;
+                // q1..q5
+                const answers = { q1: 'C', q2: 'B', q3: 'B', q4: 'A', q5: 'B' };
+                for (let i = 1; i <= 5; i++) {
+                    const qid = 'q' + i;
+                    const sel = quizSelections[qid];
+                    if (sel && sel === answers[qid]) score++;
+                }
+                document.getElementById('quizScore').textContent = score;
+                document.getElementById('quizScoreBox').style.display = 'block';
+                // if all correct, extra celebration
+                if (score === total) {
+                    document.getElementById('quizScoreBox').innerHTML =
+                        '<i class="fas fa-trophy" style="color:#f59e0b;"></i> 🎉 Perfect score! You\'re a master of linear inequalities!';
+                }
+            }
+
+            // allow re-check after correction (but we disabled button, we can re-enable if needed)
+            // but we want to keep it disabled after check to prevent cheating
+            // we'll add a small reset if needed, but for simplicity we keep as is.
+
+            // -------- AUTO-HIGHLIGHT ACTIVE TAB ON LOAD --------
+            // ensure first panel is active
+            document.addEventListener('DOMContentLoaded', function() {
+                // any init
+            });
+
+            // -------- KEYBOARD SUPPORT: Enter to check practice --------
+            document.querySelectorAll('.exercise input[type="text"]').forEach(inp => {
+                inp.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const parent = this.closest('.exercise');
+                        const btn = parent.querySelector('.btn-check');
+                        if (btn) btn.click();
+                    }
+                });
+            });
+        </script>
+
+    </body>
+    </html>
