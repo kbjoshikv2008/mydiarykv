@@ -316,6 +316,12 @@
       font-weight: 700;
       font-size: 0.8rem;
     }
+    .period-cell.block-practical {
+      background: rgba(168, 85, 247, 0.18) !important;
+      border: 1px dashed rgba(192, 132, 252, 0.5);
+      border-radius: 6px;
+      padding: 2px 0;
+    }
 
     /* Master Table specific styling */
     .master-table-wrapper {
@@ -2247,6 +2253,55 @@
 
     // --- RENDER FUNCTIONS ---
 
+    // Helper: Resolves exact subject title (SCI for Classes 6-10 vs PHY/CHE/BIO/MAT/CS for Classes 11 & 12)
+    function getSubjectLabel(cellValue, teacher) {
+      if (!cellValue || cellValue.trim() === "") return "";
+      const clean = cellValue.trim().toUpperCase();
+
+      if (clean.includes('(P/C)')) return 'P/C Practical Block (2P)';
+      if (clean.includes('(PCS)')) return 'P/C/CS Practical Block (2P)';
+      if (clean.includes('(B/M)')) return 'Bio / Math Block';
+      if (clean.includes('(M/B)')) return 'Math / Bio Block';
+      if (clean.includes('(M/H)')) return 'Math / Hindi Block';
+      if (clean.includes('(BIO)')) return 'Biology (BIO)';
+      if (clean.includes('(ACC)')) return 'Accountancy (ACC)';
+      if (clean.includes('(BST)')) return 'Business Studies (BST)';
+      if (clean.includes('(AI)')) return 'Artificial Intelligence';
+      if (clean.includes('(DL)')) return 'Digital Literacy';
+      if (clean.includes('(CL)')) return 'Computer Lab';
+      if (clean.includes('(VE)')) return 'Value Education';
+      if (clean.includes('(Y)') || clean.includes('YOGA')) return 'Yoga';
+      if (clean.includes('(PA)')) return 'Physical Activity';
+      if (clean.includes('(CT)')) return 'Class Teacher Period';
+
+      const match = clean.match(/\b(1[0-2]|[6-9])[A-C]\b/);
+      if (match) {
+        const clsNum = parseInt(match[1], 10);
+        if (clsNum <= 10) {
+          // Classes 6 to 10: Science is SCI, Social Science is SST
+          if (teacher.subject.includes('CHEM') || teacher.subject.includes('PHY') || teacher.subject.includes('BIO') || teacher.subject.includes('SCIENCE')) {
+            return 'Science (SCI)';
+          }
+          if (teacher.subject.includes('SST') || teacher.subject.includes('HISTORY') || teacher.subject.includes('GEO')) {
+            return 'Social Science (SST)';
+          }
+        } else {
+          // Senior Secondary 11 & 12: Physics / Chemistry / Biology / Math / CS
+          if (teacher.subject.includes('CHEM')) return 'Chemistry (CHE)';
+          if (teacher.subject.includes('PHY')) return 'Physics (PHY)';
+          if (teacher.subject.includes('BIO')) return 'Biology (BIO)';
+          if (teacher.subject.includes('MATH')) return 'Mathematics (MAT)';
+          if (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER')) return 'Computer Science (CS)';
+          if (teacher.subject.includes('ECO')) return 'Economics (ECO)';
+          if (teacher.subject.includes('COMM') || teacher.subject.includes('ACCOUNTANCY')) return 'Commerce (ACC/BST)';
+          if (teacher.subject.includes('HISTORY')) return 'History (HIS)';
+          if (teacher.subject.includes('GEO')) return 'Geography (GEO)';
+        }
+      }
+
+      return teacher.subject.split('/')[0].trim();
+    }
+
     // 1. Render Teacher Weekly Timetable Grid
     function renderTeacherTimetable(teacherId) {
       const t = TEACHERS_DATA.find(item => item.id === teacherId) || TEACHERS_DATA[0];
@@ -2290,11 +2345,13 @@
             if (val.trim() === "") {
               html += `<td><div class="period-cell free-period">FREE</div></td>`;
             } else {
+              const subjLbl = getSubjectLabel(val, t);
+              const isBlockPrac = val.includes('(P/C)') || val.includes('(PCS)') || val.includes('(B/M)') || val.includes('(M/B)');
               html += `
                 <td>
-                  <div class="period-cell">
+                  <div class="period-cell ${isBlockPrac ? 'block-practical' : ''}">
                     <span class="class-code">${val}</span>
-                    <span class="subject-name">${t.subject.split('/')[0]}</span>
+                    <span class="subject-name" style="${isBlockPrac ? 'color:#c084fc; font-weight:700;' : ''}">${subjLbl}</span>
                   </div>
                 </td>
               `;
@@ -2381,6 +2438,8 @@
           const classAssigned = daySchedule[periodIdx] || "";
           periodIdx++;
           const hasClass = classAssigned.trim() !== "";
+          const subjLbl = getSubjectLabel(classAssigned, t);
+          const isBlockPrac = classAssigned.includes('(P/C)') || classAssigned.includes('(PCS)') || classAssigned.includes('(B/M)') || classAssigned.includes('(M/B)');
 
           html += `
             <div class="pocket-period-row ${hasClass ? 'has-class' : ''}">
@@ -2391,9 +2450,9 @@
               ${hasClass ? `
                 <div style="text-align:right;">
                   <span class="p-class">${classAssigned}</span>
-                  <div style="font-size:0.75rem; color:#a78bfa; font-weight:600;">${t.subject.split('/')[0]}</div>
+                  <div style="font-size:0.75rem; color:${isBlockPrac ? '#c084fc' : '#a78bfa'}; font-weight:600;">${subjLbl}</div>
                 </div>
-                <span class="p-tag tag-class">CLASS</span>
+                <span class="p-tag tag-class" style="${isBlockPrac ? 'background:#f3e8ff; color:#7e22ce; border-color:#d8b4fe;' : ''}">${isBlockPrac ? 'PRACTICAL BLOCK' : 'CLASS'}</span>
               ` : `
                 <span class="p-tag tag-free">FREE PERIOD</span>
               `}
@@ -2467,9 +2526,11 @@
             if (matchingEntries.length > 0) {
               html += `<td><div class="period-cell">`;
               matchingEntries.forEach((item, idx) => {
+                const subTitle = getSubjectLabel(item.text, item.teacher);
+                const isBlockPrac = item.text.includes('(P/C)') || item.text.includes('(PCS)') || item.text.includes('(B/M)') || item.text.includes('(M/B)');
                 html += `
                   ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
-                  <span class="subject-name">${item.text}</span>
+                  <span class="subject-name" style="${isBlockPrac ? 'color:#c084fc; font-weight:700;' : ''}">${item.text} <small style="font-weight:400; opacity:0.85;">(${subTitle})</small></span>
                   <span class="teacher-name"><i class="far fa-user"></i> ${item.teacher.name}</span>
                 `;
               });
