@@ -632,25 +632,59 @@
 
       <!-- ══ API KEY SETUP ══ -->
       <div class="api-banner fade-in" id="apiBanner">
-        <div class="api-banner-icon">🔑</div>
+        <div class="api-banner-icon" id="providerIcon">🤖</div>
         <div class="api-banner-body">
-          <strong>Google Gemini API Key Setup</strong>
-          <span>
-            Get your <strong>free API key</strong> from
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#c4b5fd;text-decoration:underline;">Google AI Studio</a>.
-            Copy the key and paste it below. Your key is stored only in your browser.
-          </span>
-          <div class="api-key-row">
-            <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste your Gemini API key here…" style="flex:2">
-            <select class="api-key-input" id="modelSelect" style="flex:1;min-width:160px;cursor:pointer;">
-              <option value="gemini-1.5-flash" selected>gemini-1.5-flash ★ (recommended)</option>
-              <option value="gemini-1.5-flash-8b">gemini-1.5-flash-8b (fast)</option>
-              <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
-              <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-              <option value="gemini-2.5-flash">gemini-2.5-flash</option>
-            </select>
-            <button class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save</button>
+          <strong>AI Provider Setup</strong>
+
+          <!-- Provider tabs -->
+          <div style="display:flex;gap:6px;margin:10px 0 12px;">
+            <button class="api-save-btn" id="provBtn-gemini" onclick="switchProvider('gemini')"
+              style="background:linear-gradient(135deg,#7c3aed,#0d9488);flex:1;">🔷 Google Gemini</button>
+            <button class="api-save-btn" id="provBtn-openrouter" onclick="switchProvider('openrouter')"
+              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);flex:1;">🆓 OpenRouter (Free)</button>
           </div>
+
+          <!-- Gemini panel -->
+          <div id="prov-gemini">
+            <span style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6;display:block;margin-bottom:8px;">
+              Get a <strong>free API key</strong> from
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#c4b5fd;text-decoration:underline;">Google AI Studio</a>.
+              Paste it below. Stored only in your browser.
+            </span>
+            <div class="api-key-row">
+              <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste Gemini API key here…" style="flex:2">
+              <select class="api-key-input" id="modelSelect" style="flex:1;min-width:170px;cursor:pointer;">
+                <option value="gemini-1.5-flash" selected>gemini-1.5-flash ★ (best free)</option>
+                <option value="gemini-1.5-flash-8b">gemini-1.5-flash-8b (fast)</option>
+                <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
+              </select>
+              <button class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+
+          <!-- OpenRouter panel -->
+          <div id="prov-openrouter" style="display:none;">
+            <span style="font-size:0.82rem;color:#5eead4;line-height:1.6;display:block;margin-bottom:8px;">
+              🎉 <strong>Completely free</strong> — no billing needed! Get a free key from
+              <a href="https://openrouter.ai/keys" target="_blank" style="color:#5eead4;text-decoration:underline;">openrouter.ai/keys</a>
+              (sign up with Google in 10 seconds). Select a “:free” model below.
+            </span>
+            <div class="api-key-row">
+              <input type="password" class="api-key-input" id="orKeyInput" placeholder="Paste OpenRouter API key (sk-or-v1-…)" style="flex:2">
+              <select class="api-key-input" id="orModelSelect" style="flex:1;min-width:200px;cursor:pointer;">
+                <option value="meta-llama/llama-3.1-8b-instruct:free">Llama 3.1 8B ★ (free)</option>
+                <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B (free)</option>
+                <option value="google/gemma-2-9b-it:free">Gemma 2 9B (free)</option>
+                <option value="mistralai/mistral-7b-instruct:free">Mistral 7B (free)</option>
+                <option value="qwen/qwen-2-7b-instruct:free">Qwen 2 7B (free)</option>
+                <option value="microsoft/phi-3-mini-128k-instruct:free">Phi-3 Mini (free)</option>
+              </select>
+              <button class="api-save-btn" onclick="saveOrKey()"
+                style="background:linear-gradient(135deg,#0d9488,#10b981);"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+
           <div class="api-status" id="apiStatus"></div>
         </div>
       </div>
@@ -1080,14 +1114,45 @@
   /* ═══════════════════════════════════
      API KEY MANAGEMENT
   ═══════════════════════════════════ */
+  /* ═══════════════════════════════════
+     API KEY MANAGEMENT
+  ═══════════════════════════════════ */
+  let currentProvider = localStorage.getItem('ai_provider') || 'gemini';
+
+  function switchProvider(prov) {
+    currentProvider = prov;
+    localStorage.setItem('ai_provider', prov);
+    document.getElementById('prov-gemini').style.display     = prov === 'gemini'     ? '' : 'none';
+    document.getElementById('prov-openrouter').style.display = prov === 'openrouter' ? '' : 'none';
+    const gemBtn = document.getElementById('provBtn-gemini');
+    const orBtn  = document.getElementById('provBtn-openrouter');
+    gemBtn.style.background = prov === 'gemini'     ? 'linear-gradient(135deg,#7c3aed,#0d9488)' : 'rgba(255,255,255,0.1)';
+    orBtn.style.background  = prov === 'openrouter' ? 'linear-gradient(135deg,#0d9488,#10b981)' : 'rgba(255,255,255,0.1)';
+    gemBtn.style.border  = prov === 'gemini'     ? 'none' : '1px solid rgba(255,255,255,0.2)';
+    orBtn.style.border   = prov === 'openrouter' ? 'none' : '1px solid rgba(255,255,255,0.2)';
+    document.getElementById('providerIcon').textContent = prov === 'gemini' ? '🤖' : '🎉';
+    document.getElementById('apiBanner').style.borderColor =
+      prov === 'openrouter' ? 'rgba(16,185,129,0.5)' : 'rgba(124,58,237,0.4)';
+  }
+
   function saveApiKey() {
     const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key || key.length < 10) { showApiStatus('Please paste a valid API key.', 'err'); return; }
+    if (!key || key.length < 10) { showApiStatus('Please paste a valid Gemini API key.', 'err'); return; }
     apiKey = key;
     localStorage.setItem('gemini_api_key', key);
     const model = document.getElementById('modelSelect').value;
     localStorage.setItem('gemini_model', model);
-    showApiStatus('✅ API key & model saved! Ready to generate.', 'ok');
+    showApiStatus('✅ Gemini key saved! Ready to generate.', 'ok');
+    document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
+  }
+
+  function saveOrKey() {
+    const key = document.getElementById('orKeyInput').value.trim();
+    if (!key || key.length < 10) { showApiStatus('Please paste a valid OpenRouter API key.', 'err'); return; }
+    localStorage.setItem('openrouter_api_key', key);
+    const model = document.getElementById('orModelSelect').value;
+    localStorage.setItem('openrouter_model', model);
+    showApiStatus('✅ OpenRouter key saved! Ready to generate.', 'ok');
     document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
   }
   function showApiStatus(msg, type) {
@@ -1098,14 +1163,28 @@
   function initApiKey() {
     if (apiKey) {
       document.getElementById('apiKeyInput').value = apiKey;
-      showApiStatus('✅ API key loaded from storage.', 'ok');
-      document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
     }
-    // Restore saved model choice
+    const orKey = localStorage.getItem('openrouter_api_key');
+    if (orKey) document.getElementById('orKeyInput').value = orKey;
+
     const savedModel = localStorage.getItem('gemini_model');
     if (savedModel) {
       const sel = document.getElementById('modelSelect');
       if (sel) sel.value = savedModel;
+    }
+    const orModel = localStorage.getItem('openrouter_model');
+    if (orModel) {
+      const sel = document.getElementById('orModelSelect');
+      if (sel) sel.value = orModel;
+    }
+
+    // Restore provider
+    const prov = localStorage.getItem('ai_provider') || 'gemini';
+    switchProvider(prov);
+
+    if (apiKey || orKey) {
+      showApiStatus('✅ API key loaded. Ready to generate.', 'ok');
+      document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
     }
   }
 
@@ -1175,14 +1254,15 @@
   });
 
   /* ═══════════════════════════════════
-     GEMINI API CALL (with model fallback)
+     AI API CALLS — Gemini + OpenRouter
   ═══════════════════════════════════ */
-  const MODEL_FALLBACK_ORDER = [
+
+  /* -- GEMINI -- */
+  const GEMINI_MODELS = [
     'gemini-1.5-flash',
     'gemini-1.5-flash-8b',
-    'gemini-2.0-flash-lite',
     'gemini-2.0-flash',
-    'gemini-2.5-flash'
+    'gemini-2.0-flash-lite'
   ];
 
   async function callGeminiWithModel(prompt, model) {
@@ -1199,47 +1279,73 @@
     if (!res.ok) {
       const err = await res.json();
       const msg = err.error?.message || `API error ${res.status}`;
-      // Mark quota errors so caller can try next model
-      const isQuota = res.status === 429 || msg.toLowerCase().includes('quota') || msg.toLowerCase().includes('rate');
-      const e = new Error(msg);
-      e.isQuota = isQuota;
-      throw e;
+      const isSkippable = res.status === 429
+        || msg.toLowerCase().includes('quota')
+        || msg.toLowerCase().includes('rate')
+        || msg.toLowerCase().includes('no longer available')
+        || msg.toLowerCase().includes('not found');
+      const e = new Error(msg); e.isSkippable = isSkippable; throw e;
     }
     const data = await res.json();
     return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
   }
 
-  async function callGemini(prompt) {
-    // Start from user-selected model, then fall through the list on quota errors
-    const preferredModel = localStorage.getItem('gemini_model') || 'gemini-1.5-flash';
+  async function callGeminiProvider(prompt) {
+    const preferred = localStorage.getItem('gemini_model') || 'gemini-1.5-flash';
     const modelSel = document.getElementById('modelSelect');
-    if (modelSel) modelSel.value = preferredModel;
-
-    // Build order: preferred first, then remaining fallbacks
-    const order = [preferredModel, ...MODEL_FALLBACK_ORDER.filter(m => m !== preferredModel)];
-
-    let lastErr;
+    const order = [preferred, ...GEMINI_MODELS.filter(m => m !== preferred)];
     for (const model of order) {
       try {
-        console.log(`Trying model: ${model}`);
-        showToast(`🤖 Using model: ${model}`, 'info');
+        showToast(`🤖 Trying Gemini: ${model}`, 'info');
         const result = await callGeminiWithModel(prompt, model);
-        // Update UI to reflect which model actually worked
         if (modelSel) modelSel.value = model;
         localStorage.setItem('gemini_model', model);
         return result;
       } catch (e) {
-        lastErr = e;
-        if (e.isQuota) {
-          console.warn(`Quota exceeded on ${model}, trying next model…`);
-          showToast(`⚠️ Quota on ${model} — trying next model…`, 'warn');
-          continue; // try next model
+        if (e.isSkippable) {
+          showToast(`⚠️ ${model} unavailable — trying next…`, 'warn');
+          continue;
         }
-        throw e; // non-quota error: fail immediately
+        throw e;
       }
     }
-    // All models exhausted — throw a friendly message
     throw new Error('QUOTA_ALL_EXHAUSTED');
+  }
+
+  /* -- OPENROUTER (free models) -- */
+  async function callOpenRouterProvider(prompt) {
+    const orKey = localStorage.getItem('openrouter_api_key');
+    if (!orKey) throw new Error('No OpenRouter API key saved. Please add it above.');
+    const model = localStorage.getItem('openrouter_model') || 'meta-llama/llama-3.1-8b-instruct:free';
+    showToast(`🎉 Using OpenRouter: ${model.split('/').pop()}`, 'info');
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${orKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': window.location.href,
+        'X-Title': 'KBJ Test Slip Generator'
+      },
+      body: JSON.stringify({
+        model,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.8,
+        max_tokens: 4096
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || `OpenRouter error ${res.status}`);
+    }
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || '';
+  }
+
+  /* -- UNIFIED ENTRY POINT -- */
+  async function callGemini(prompt) {
+    const prov = localStorage.getItem('ai_provider') || 'gemini';
+    if (prov === 'openrouter') return callOpenRouterProvider(prompt);
+    return callGeminiProvider(prompt);
   }
 
   /* ═══════════════════════════════════
