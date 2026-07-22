@@ -2389,24 +2389,31 @@
       if (match) {
         const clsNum = parseInt(match[1], 10);
         if (clsNum <= 10) {
-          // Classes 6 to 10: Science is SCI, Social Science is SST
-          if (teacher && (teacher.subject.includes('CHEM') || teacher.subject.includes('PHY') || teacher.subject.includes('BIO') || teacher.subject.includes('SCIENCE'))) {
-            return 'Science (SCI)';
+          // Classes 6 to 10: Social Science (SST) check must come BEFORE Science check
+          if (teacher && teacher.subject) {
+            const ts = teacher.subject.toUpperCase();
+            if (ts.includes('SST') || ts.includes('SOCIAL') || ts.includes('HISTORY') || ts.includes('GEO')) {
+              return 'Social Science (SST)';
+            }
+            if (ts.includes('CHEM') || ts.includes('PHY') || ts.includes('BIO') || ts.includes('SCIENCE')) {
+              return 'Science (SCI)';
+            }
           }
-          if (teacher && (teacher.subject.includes('SST') || teacher.subject.includes('SOCIAL') || teacher.subject.includes('HISTORY') || teacher.subject.includes('GEO'))) {
-            return 'Social Science (SST)';
-          }
+          return 'Social Science (SST)';
         } else {
           // Senior Secondary 11 & 12
-          if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical';
-          if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical';
-          if (teacher && teacher.subject.includes('BIO')) return 'Biology Practical';
-          if (teacher && teacher.subject.includes('MATH')) return 'Mathematics (MAT)';
-          if (teacher && (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER'))) return 'Computer Science Practical';
-          if (teacher && teacher.subject.includes('ECO')) return 'Economics (ECO)';
-          if (teacher && (teacher.subject.includes('COMM') || teacher.subject.includes('ACCOUNTANCY'))) return 'Commerce (ACC/BST)';
-          if (teacher && (teacher.subject.includes('SST') || teacher.subject.includes('HISTORY'))) return 'History (HIS)';
-          if (teacher && teacher.subject.includes('GEO')) return 'Geography (GEO)';
+          if (teacher && teacher.subject) {
+            const ts = teacher.subject.toUpperCase();
+            if (ts.includes('CHEM')) return 'Chemistry Practical';
+            if (ts.includes('PHY')) return 'Physics Practical';
+            if (ts.includes('BIO')) return 'Biology Practical';
+            if (ts.includes('MATH')) return 'Mathematics (MAT)';
+            if (ts.includes('CS') || ts.includes('COMPUTER')) return 'Computer Science Practical';
+            if (ts.includes('ECO')) return 'Economics (ECO)';
+            if (ts.includes('COMM') || ts.includes('ACCOUNTANCY')) return 'Commerce (ACC/BST)';
+            if (ts.includes('HISTORY') || ts.includes('SST') || ts.includes('SOCIAL')) return 'History (HIS)';
+            if (ts.includes('GEO')) return 'Geography (GEO)';
+          }
         }
       }
 
