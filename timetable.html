@@ -2327,38 +2327,52 @@
     // --- RENDER FUNCTIONS ---
 
     // Helper: Checks if a cell value represents a practical period or practical block
-    function isPracticalPeriod(cellValue) {
+    // Helper: Checks if a cell value represents a practical period (ONLY for Physics, Chemistry, Biology, Computer)
+    function isPracticalPeriod(cellValue, teacher) {
       if (!cellValue) return false;
       const clean = cellValue.toUpperCase();
-      return clean.includes('P/C') || clean.includes('PCS') || clean.includes('B/M') || clean.includes('M/B') || clean.includes('(CL)') || clean.includes('(AI)') || clean.includes('(DL)') || clean.includes('PRACTICAL');
+      
+      // Exclude non-science/non-computer activities
+      if (clean.includes('(PA)') || clean.includes('CLA') || clean.includes('(VE)') || clean.includes('(CT)') || clean.includes('(Y)')) {
+        return false;
+      }
+
+      // If teacher is known, ensure teacher belongs to Physics, Chemistry, Biology, or Computer
+      if (teacher && teacher.subject) {
+        const subj = teacher.subject.toUpperCase();
+        const isScienceOrComputerTeacher = subj.includes('CHEM') || subj.includes('PHY') || subj.includes('BIO') || subj.includes('CS') || subj.includes('COMPUTER');
+        if (!isScienceOrComputerTeacher) return false;
+      }
+
+      return clean.includes('P/C') || clean.includes('PCS') || clean.includes('B/M') || clean.includes('M/B') || clean.includes('(CL)') || clean.includes('(AI)') || clean.includes('(DL)');
     }
 
-    // Helper: Resolves exact subject title (SCI for Classes 6-10 vs PHY/CHE/BIO/MAT/CS for Classes 11 & 12 with explicit Practical designation)
+    // Helper: Resolves exact subject title (SCI for Classes 6-10 vs PHY/CHE/BIO/MAT/CS for Classes 11 & 12; Practical is ONLY for Physics, Chemistry, Biology, Computer)
     function getSubjectLabel(cellValue, teacher) {
       if (!cellValue || cellValue.trim() === "") return "";
       const clean = cellValue.trim().toUpperCase();
 
       if (clean.includes('CLA')) return 'Co-Curricular Activity (P7-P8 Block)';
       
-      // Integrated Practical Blocks
+      // Integrated Practical Blocks (Physics, Chemistry, Biology, Computer Science)
       if (clean.includes('(P/C)') || clean.includes('P/C')) {
-        if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical (P/C Practical Block)';
-        if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical (P/C Practical Block)';
+        if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical (P/C Block)';
+        if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical (P/C Block)';
         return 'Physics & Chemistry Practical Block (P/C)';
       }
       if (clean.includes('(PCS)') || clean.includes('PCS')) {
-        if (teacher && (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER'))) return 'Computer Science Practical (PCS Practical Block)';
-        if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical (PCS Practical Block)';
-        if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical (PCS Practical Block)';
+        if (teacher && (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER'))) return 'Computer Science Practical (PCS Block)';
+        if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical (PCS Block)';
+        if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical (PCS Block)';
         return 'Physics, Chemistry & CS Practical Block (PCS)';
       }
       if (clean.includes('(B/M)') || clean.includes('B/M') || clean.includes('(M/B)') || clean.includes('M/B')) {
-        if (teacher && teacher.subject.includes('BIO')) return 'Biology Practical (B/M Practical Block)';
+        if (teacher && teacher.subject.includes('BIO')) return 'Biology Practical (B/M Block)';
         if (teacher && teacher.subject.includes('MATH')) return 'Mathematics Block (B/M)';
         return 'Biology Practical / Mathematics Block';
       }
       if (clean.includes('(M/H)')) return 'Mathematics / Hindi Block';
-      if (clean.includes('(BIO)')) return 'Biology Practical / Theory';
+      if (clean.includes('(BIO)')) return 'Biology Practical';
       if (clean.includes('(ACC)')) return 'Accountancy (ACC)';
       if (clean.includes('(BST)')) return 'Business Studies (BST)';
       if (clean.includes('(AI)')) return 'Artificial Intelligence Practical (AI)';
@@ -2366,25 +2380,25 @@
       if (clean.includes('(CL)') || clean.endsWith('(CL)')) return 'Computer Lab Practical (CL)';
       if (clean.includes('(VE)')) return 'Value Education';
       if (clean.includes('(Y)') || clean.includes('YOGA')) return 'Yoga';
-      if (clean.includes('(PA)')) return 'Physical Activity Practical';
+      if (clean.includes('(PA)')) return 'Physical Activity (PA)';
       if (clean.includes('(CT)')) return 'Class Teacher Period';
 
       const match = clean.match(/\b(1[0-2]|[6-9])[A-C]\b/);
       if (match) {
         const clsNum = parseInt(match[1], 10);
         if (clsNum <= 10) {
-          // Classes 6 to 10: Science is SCI, Social Science is SST
+          // Classes 6 to 10: Science is SCI (without Practical word), Social Science is SST
           if (teacher && (teacher.subject.includes('CHEM') || teacher.subject.includes('PHY') || teacher.subject.includes('BIO') || teacher.subject.includes('SCIENCE'))) {
-            return 'Science Practical / Theory (SCI)';
+            return 'Science (SCI)';
           }
           if (teacher && (teacher.subject.includes('SST') || teacher.subject.includes('HISTORY') || teacher.subject.includes('GEO'))) {
             return 'Social Science (SST)';
           }
         } else {
           // Senior Secondary 11 & 12
-          if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical / Theory';
-          if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical / Theory';
-          if (teacher && teacher.subject.includes('BIO')) return 'Biology Practical / Theory';
+          if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical';
+          if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical';
+          if (teacher && teacher.subject.includes('BIO')) return 'Biology Practical';
           if (teacher && teacher.subject.includes('MATH')) return 'Mathematics (MAT)';
           if (teacher && (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER'))) return 'Computer Science Practical';
           if (teacher && teacher.subject.includes('ECO')) return 'Economics (ECO)';
@@ -2470,7 +2484,7 @@
             if (isMergedBlock) {
               const subjLbl = getSubjectLabel(val1 || "CLA", t);
               const isCla = (val1 || "CLA").toUpperCase().includes("CLA");
-              const isPrac = isPracticalPeriod(val1);
+              const isPrac = isPracticalPeriod(val1, t);
               html += `
                 <td colspan="2">
                   <div class="period-cell block-practical merged-block" style="background:${isCla ? 'rgba(236,72,153,0.18)' : 'rgba(168,85,247,0.18)'} !important; border:1.5px dashed ${isCla ? '#f472b6' : '#a855f7'};">
@@ -2485,7 +2499,7 @@
                 html += `<td><div class="period-cell free-period">FREE</div></td>`;
               } else {
                 const subjLbl = getSubjectLabel(val1, t);
-                const isPrac = isPracticalPeriod(val1);
+                const isPrac = isPracticalPeriod(val1, t);
                 const isCla = val1.toUpperCase().includes('CLA');
                 html += `
                   <td>
@@ -2581,7 +2595,7 @@
           periodIdx++;
           const hasClass = classAssigned.trim() !== "";
           const subjLbl = getSubjectLabel(classAssigned, t);
-          const isPrac = isPracticalPeriod(classAssigned);
+          const isPrac = isPracticalPeriod(classAssigned, t);
 
           html += `
             <div class="pocket-period-row ${hasClass ? 'has-class' : ''}">
@@ -2685,7 +2699,7 @@
               html += `<td colspan="2"><div class="period-cell block-practical merged-block" style="background:rgba(168,85,247,0.2) !important; border:1.5px dashed #a855f7; padding:6px;">`;
               entries1.forEach((item, idx) => {
                 const subTitle = getSubjectLabel(item.text, item.teacher);
-                const isPrac = isPracticalPeriod(item.text);
+                const isPrac = isPracticalPeriod(item.text, item.teacher);
                 html += `
                   ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
                   <span class="subject-name" style="color:#c084fc; font-weight:800; font-size:0.95rem;">${item.text} <small style="font-weight:400; opacity:0.9; color:#e9d5ff;">(${subTitle}) ${isPrac ? '[Practical 2P Block]' : '[2P Block]'}</small></span>
@@ -2699,7 +2713,7 @@
                 html += `<td><div class="period-cell">`;
                 entries1.forEach((item, idx) => {
                   const subTitle = getSubjectLabel(item.text, item.teacher);
-                  const isPrac = isPracticalPeriod(item.text);
+                  const isPrac = isPracticalPeriod(item.text, item.teacher);
                   const isCla = item.text.toUpperCase().includes('CLA');
                   html += `
                     ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
@@ -2793,7 +2807,7 @@
 
             if (isMergedBlock) {
               const isCla = (val1 || "CLA").toUpperCase().includes("CLA");
-              const isPrac = isPracticalPeriod(val1);
+              const isPrac = isPracticalPeriod(val1, t);
               html += `
                 <td colspan="2" style="background:${isCla ? 'rgba(236,72,153,0.25)' : 'rgba(168,85,247,0.25)'}; text-align:center;">
                   <span class="master-class-badge" style="background:${isCla ? '#f472b6' : '#a855f7'}; color:#fff; font-weight:800;">${val1 || 'CLA'} ${isPrac ? '(Practical 2P)' : '(Merged 2P)'}</span>
@@ -2804,7 +2818,7 @@
               if (val1 === "") {
                 html += `<td><span class="master-free-badge">—</span></td>`;
               } else {
-                const isPrac = isPracticalPeriod(val1);
+                const isPrac = isPracticalPeriod(val1, t);
                 html += `<td><span class="master-class-badge" style="${isPrac ? 'background:#7e22ce; color:#fff;' : ''}">${val1}${isPrac ? ' (Prac)' : ''}</span></td>`;
               }
               i++;
