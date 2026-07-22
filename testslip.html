@@ -634,16 +634,22 @@
       <div class="api-banner fade-in" id="apiBanner">
         <div class="api-banner-icon">🔑</div>
         <div class="api-banner-body">
-          <strong>Google Gemini API Key Required</strong>
+          <strong>Google Gemini API Key Setup</strong>
           <span>
-            This generator uses <strong>Google Gemini AI</strong> to create real, curriculum-aligned questions.
             Get your <strong>free API key</strong> from
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#c4b5fd;text-decoration:underline;">Google AI Studio</a>
-            — it's free with generous limits. Simply copy the key exactly as shown and paste it below. Your key is stored only in your browser (never sent elsewhere).
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#c4b5fd;text-decoration:underline;">Google AI Studio</a>.
+            Copy the key and paste it below. Your key is stored only in your browser.
           </span>
           <div class="api-key-row">
-            <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste your Gemini API key here…">
-            <button class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save Key</button>
+            <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste your Gemini API key here…" style="flex:2">
+            <select class="api-key-input" id="modelSelect" style="flex:1;min-width:160px;cursor:pointer;">
+              <option value="gemini-1.5-flash" selected>gemini-1.5-flash ★ (recommended)</option>
+              <option value="gemini-1.5-flash-8b">gemini-1.5-flash-8b (fast)</option>
+              <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
+              <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+              <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+            </select>
+            <button class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save</button>
           </div>
           <div class="api-status" id="apiStatus"></div>
         </div>
@@ -1079,7 +1085,9 @@
     if (!key || key.length < 10) { showApiStatus('Please paste a valid API key.', 'err'); return; }
     apiKey = key;
     localStorage.setItem('gemini_api_key', key);
-    showApiStatus('✅ API key saved! You can now generate test slips.', 'ok');
+    const model = document.getElementById('modelSelect').value;
+    localStorage.setItem('gemini_model', model);
+    showApiStatus('✅ API key & model saved! Ready to generate.', 'ok');
     document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
   }
   function showApiStatus(msg, type) {
@@ -1092,6 +1100,12 @@
       document.getElementById('apiKeyInput').value = apiKey;
       showApiStatus('✅ API key loaded from storage.', 'ok');
       document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
+    }
+    // Restore saved model choice
+    const savedModel = localStorage.getItem('gemini_model');
+    if (savedModel) {
+      const sel = document.getElementById('modelSelect');
+      if (sel) sel.value = savedModel;
     }
   }
 
@@ -1161,18 +1175,21 @@
   });
 
   /* ═══════════════════════════════════
-     GEMINI API CALL
+     GEMINI API CALL (with model fallback)
   ═══════════════════════════════════ */
-  async function callGemini(prompt) {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  const MODEL_FALLBACK_ORDER = [
+    'gemini-1.5-flash',
+    'gemini-1.5-flash-8b',
+    'gemini-2.0-flash-lite',
+    'gemini-2.0-flash',
+    'gemini-2.5-flash'
+  ];
+
+  async function callGeminiWithModel(prompt, model) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
     const body = {
       contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.8,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 4096
-      }
+      generationConfig: { temperature: 0.8, topK: 40, topP: 0.95, maxOutputTokens: 4096 }
     };
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -1181,10 +1198,48 @@
     });
     if (!res.ok) {
       const err = await res.json();
-      throw new Error(err.error?.message || `API error ${res.status}`);
+      const msg = err.error?.message || `API error ${res.status}`;
+      // Mark quota errors so caller can try next model
+      const isQuota = res.status === 429 || msg.toLowerCase().includes('quota') || msg.toLowerCase().includes('rate');
+      const e = new Error(msg);
+      e.isQuota = isQuota;
+      throw e;
     }
     const data = await res.json();
     return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  }
+
+  async function callGemini(prompt) {
+    // Start from user-selected model, then fall through the list on quota errors
+    const preferredModel = localStorage.getItem('gemini_model') || 'gemini-1.5-flash';
+    const modelSel = document.getElementById('modelSelect');
+    if (modelSel) modelSel.value = preferredModel;
+
+    // Build order: preferred first, then remaining fallbacks
+    const order = [preferredModel, ...MODEL_FALLBACK_ORDER.filter(m => m !== preferredModel)];
+
+    let lastErr;
+    for (const model of order) {
+      try {
+        console.log(`Trying model: ${model}`);
+        showToast(`🤖 Using model: ${model}`, 'info');
+        const result = await callGeminiWithModel(prompt, model);
+        // Update UI to reflect which model actually worked
+        if (modelSel) modelSel.value = model;
+        localStorage.setItem('gemini_model', model);
+        return result;
+      } catch (e) {
+        lastErr = e;
+        if (e.isQuota) {
+          console.warn(`Quota exceeded on ${model}, trying next model…`);
+          showToast(`⚠️ Quota on ${model} — trying next model…`, 'warn');
+          continue; // try next model
+        }
+        throw e; // non-quota error: fail immediately
+      }
+    }
+    // All models exhausted — throw a friendly message
+    throw new Error('QUOTA_ALL_EXHAUSTED');
   }
 
   /* ═══════════════════════════════════
@@ -1354,8 +1409,22 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
     } catch (err) {
       const errCard = document.getElementById('errorCard');
       errCard.style.display = 'block';
-      document.getElementById('errorMsg').textContent = `AI Error: ${err.message}. Please check your API key and internet connection.`;
-      showToast('❌ Generation failed. See error below.', 'error');
+      if (err.message === 'QUOTA_ALL_EXHAUSTED') {
+        document.getElementById('errorMsg').innerHTML = `
+          <strong>🚫 Quota Exhausted on All Models</strong><br><br>
+          Your free tier quota has run out for today on all Gemini models. Here's how to fix it:
+          <ul style="margin:10px 0 0 16px;line-height:2">
+            <li>⏳ <strong>Wait a few hours</strong> — free quotas reset daily (midnight Pacific time)</li>
+            <li>🔍 Try again with a <strong>different Google account's API key</strong> from
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#f87171;text-decoration:underline;">AI Studio</a></li>
+            <li>💳 <strong>Enable billing</strong> on your Google Cloud project for higher limits
+              <a href="https://console.cloud.google.com/billing" target="_blank" style="color:#f87171;text-decoration:underline;">(Cloud Console)</a></li>
+          </ul>
+        `;
+      } else {
+        document.getElementById('errorMsg').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${err.message}`;
+      }
+      showToast('❌ Generation failed. See guidance below.', 'error');
     } finally {
       document.getElementById('loadingCard').classList.remove('visible');
       btn.disabled = false; btn.innerHTML = '<i class="fas fa-robot"></i> Generate with Gemini AI';
