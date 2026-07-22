@@ -639,10 +639,10 @@
             This generator uses <strong>Google Gemini AI</strong> to create real, curriculum-aligned questions.
             Get your <strong>free API key</strong> from
             <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#c4b5fd;text-decoration:underline;">Google AI Studio</a>
-            — it's free with generous limits. Your key is stored only in your browser (never sent elsewhere).
+            — it's free with generous limits. Simply copy the key exactly as shown and paste it below. Your key is stored only in your browser (never sent elsewhere).
           </span>
           <div class="api-key-row">
-            <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste your Gemini API key here (AIza…)">
+            <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste your Gemini API key here…">
             <button class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save Key</button>
           </div>
           <div class="api-status" id="apiStatus"></div>
@@ -1076,8 +1076,7 @@
   ═══════════════════════════════════ */
   function saveApiKey() {
     const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key) { showApiStatus('Please paste your API key.', 'err'); return; }
-    if (!key.startsWith('AIza')) { showApiStatus('Invalid key format. Gemini keys start with "AIza…"', 'err'); return; }
+    if (!key || key.length < 10) { showApiStatus('Please paste a valid API key.', 'err'); return; }
     apiKey = key;
     localStorage.setItem('gemini_api_key', key);
     showApiStatus('✅ API key saved! You can now generate test slips.', 'ok');

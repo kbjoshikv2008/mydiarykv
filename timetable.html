@@ -2347,12 +2347,14 @@
       return clean.includes('P/C') || clean.includes('PCS') || clean.includes('B/M') || clean.includes('M/B') || clean.includes('(CL)') || clean.includes('(AI)') || clean.includes('(DL)');
     }
 
-    // Helper: Resolves exact subject title (SCI for Classes 6-10 vs PHY/CHE/BIO/MAT/CS for Classes 11 & 12; Practical is ONLY for Physics, Chemistry, Biology, Computer)
+    // Helper: Resolves exact subject title (SCI for Classes 6-10 vs PHY/CHE/BIO/MAT/CS for Classes 11 & 12; Practical is ONLY for Physics, Chemistry, Biology, Computer; SST means Social Science)
     function getSubjectLabel(cellValue, teacher) {
       if (!cellValue || cellValue.trim() === "") return "";
       const clean = cellValue.trim().toUpperCase();
 
       if (clean.includes('CLA')) return 'Co-Curricular Activity (P7-P8 Block)';
+      if (clean.includes('(SST)') || clean.includes('SST')) return 'Social Science (SST)';
+      if (clean.includes('(SCI)') || clean.includes('SCI')) return 'Science (SCI)';
       
       // Integrated Practical Blocks (Physics, Chemistry, Biology, Computer Science)
       if (clean.includes('(P/C)') || clean.includes('P/C')) {
@@ -2387,11 +2389,11 @@
       if (match) {
         const clsNum = parseInt(match[1], 10);
         if (clsNum <= 10) {
-          // Classes 6 to 10: Science is SCI (without Practical word), Social Science is SST
+          // Classes 6 to 10: Science is SCI, Social Science is SST
           if (teacher && (teacher.subject.includes('CHEM') || teacher.subject.includes('PHY') || teacher.subject.includes('BIO') || teacher.subject.includes('SCIENCE'))) {
             return 'Science (SCI)';
           }
-          if (teacher && (teacher.subject.includes('SST') || teacher.subject.includes('HISTORY') || teacher.subject.includes('GEO'))) {
+          if (teacher && (teacher.subject.includes('SST') || teacher.subject.includes('SOCIAL') || teacher.subject.includes('HISTORY') || teacher.subject.includes('GEO'))) {
             return 'Social Science (SST)';
           }
         } else {
@@ -2403,7 +2405,7 @@
           if (teacher && (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER'))) return 'Computer Science Practical';
           if (teacher && teacher.subject.includes('ECO')) return 'Economics (ECO)';
           if (teacher && (teacher.subject.includes('COMM') || teacher.subject.includes('ACCOUNTANCY'))) return 'Commerce (ACC/BST)';
-          if (teacher && teacher.subject.includes('HISTORY')) return 'History (HIS)';
+          if (teacher && (teacher.subject.includes('SST') || teacher.subject.includes('HISTORY'))) return 'History (HIS)';
           if (teacher && teacher.subject.includes('GEO')) return 'Geography (GEO)';
         }
       }
