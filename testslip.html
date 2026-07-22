@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Test Slip Generator | Teacher's Digital Diary | K B Joshi</title>
-  <meta name="description" content="Google Gemini-powered AI Test Slip Generator for Mathematics. Choose topic, class level, difficulty, and generate real printable, downloadable, shareable test slips.">
+  <meta name="description" content="AI Test Slip Generator for Mathematics. Choose topic, class level, difficulty, and generate real printable, downloadable, shareable test slips.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
@@ -618,7 +618,7 @@
     <div class="container">
       <span class="page-hero-icon">🤖</span>
       <h1>AI Test Slip Generator</h1>
-      <p>Powered by Google Gemini AI — Generate real, curriculum-aligned Mathematics test slips instantly</p>
+      <p>Powered by free, keyless AI — Generate real, curriculum-aligned Mathematics test slips instantly</p>
     </div>
   </div>
 
@@ -630,59 +630,6 @@
         <i class="fas fa-arrow-left"></i> Back to Students Corner
       </a>
 
-      <!-- ══ API KEY SETUP ══ -->
-      <div class="api-banner fade-in" id="apiBanner">
-        <div class="api-banner-icon" id="providerIcon">🤖</div>
-        <div class="api-banner-body">
-          <strong>AI Provider Setup</strong>
-
-          <!-- Provider tabs -->
-          <div style="display:flex;gap:6px;margin:10px 0 12px;">
-            <button type="button" class="api-save-btn" id="provBtn-gemini" onclick="switchProvider('gemini')"
-              style="background:linear-gradient(135deg,#7c3aed,#0d9488);flex:1;">🔷 Google Gemini</button>
-            <button type="button" class="api-save-btn" id="provBtn-openrouter" onclick="switchProvider('openrouter')"
-              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);flex:1;">🆓 OpenRouter (Free)</button>
-          </div>
-
-          <!-- Gemini panel -->
-          <div id="prov-gemini">
-            <span style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6;display:block;margin-bottom:8px;">
-              Get a <strong>free API key</strong> from
-              <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#c4b5fd;text-decoration:underline;">Google AI Studio</a>.
-              Paste it below. Stored only in your browser.
-            </span>
-            <div class="api-key-row">
-              <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Paste Gemini API key here…" style="flex:2">
-              <select class="api-key-input" id="modelSelect" style="flex:1;min-width:170px;cursor:pointer;">
-                <option value="gemini-1.5-flash" selected>gemini-1.5-flash ★ (best free)</option>
-                <option value="gemini-1.5-flash-8b">gemini-1.5-flash-8b (fast)</option>
-                <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-                <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
-              </select>
-              <button type="button" class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save</button>
-            </div>
-          </div>
-
-          <!-- OpenRouter panel -->
-          <div id="prov-openrouter" style="display:none;">
-            <span style="font-size:0.82rem;color:#5eead4;line-height:1.6;display:block;margin-bottom:8px;">
-              🎉 <strong>Completely free</strong> — no billing needed! Get a free key from
-              <a href="https://openrouter.ai/keys" target="_blank" style="color:#5eead4;text-decoration:underline;">openrouter.ai/keys</a>
-              (sign up with Google in 10 seconds). Select a “:free” model below.
-            </span>
-            <div class="api-key-row">
-              <input type="password" class="api-key-input" id="orKeyInput" placeholder="Paste OpenRouter API key (sk-or-v1-…)" style="flex:2">
-              <select class="api-key-input" id="orModelSelect" style="flex:1;min-width:200px;cursor:pointer;">
-                <option value="meta-llama/llama-3.1-8b-instruct:free">Llama 3.1 8B ★ (free)</option>
-                <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B (free)</option>
-                <option value="google/gemma-2-9b-it:free">Gemma 2 9B (free)</option>
-                <option value="mistralai/mistral-7b-instruct:free">Mistral 7B (free)</option>
-                <option value="qwen/qwen-2-7b-instruct:free">Qwen 2 7B (free)</option>
-                <option value="microsoft/phi-3-mini-128k-instruct:free">Phi-3 Mini (free)</option>
-              </select>
-              <button type="button" class="api-save-btn" onclick="saveOrKey()"
-                style="background:linear-gradient(135deg,#0d9488,#10b981);"><i class="fas fa-save"></i> Save</button>
-            </div>
           </div>
 
           <div class="api-status" id="apiStatus"></div>
@@ -850,7 +797,7 @@
           <!-- Generate -->
           <div class="generate-btn-wrap">
             <button class="generate-btn" id="generateBtn" onclick="generateSlip()">
-              <i class="fas fa-robot"></i> Generate with Gemini AI
+              <i class="fas fa-magic"></i> Generate Test Slip
             </button>
           </div>
 
@@ -859,11 +806,11 @@
         <!-- Loading card -->
         <div class="ai-loading-card" id="loadingCard">
           <div class="loading-orb">🤖</div>
-          <div style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:#fff;">Gemini AI is working…</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:#fff;">AI is working…</div>
           <ul class="loading-steps" id="loadingSteps">
             <li id="ls1"><span class="spin-dot"></span> Reading your configuration</li>
             <li id="ls2">Building curriculum-aligned prompt</li>
-            <li id="ls3">Calling Google Gemini API</li>
+            <li id="ls3">Calling AI Engine</li>
             <li id="ls4">Parsing &amp; formatting questions</li>
             <li id="ls5">Rendering printable test slip</li>
           </ul>
@@ -986,7 +933,7 @@
 
           <div class="generate-btn-wrap">
             <button class="generate-btn" id="upGenerateBtn" onclick="generateFromUpload()">
-              <i class="fas fa-robot"></i> Generate from File with AI
+              <i class="fas fa-magic"></i> Generate from File
             </button>
           </div>
 
@@ -994,7 +941,7 @@
 
         <div class="ai-loading-card" id="upLoadingCard">
           <div class="loading-orb">📄</div>
-          <div style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:#fff;">Gemini AI is reading your file…</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;color:#fff;">AI is reading your file…</div>
           <ul class="loading-steps">
             <li class="active"><span class="spin-dot"></span> Parsing uploaded content</li>
             <li>Extracting key concepts and topics</li>
@@ -1101,7 +1048,6 @@
   /* ═══════════════════════════════════
      STATE
   ═══════════════════════════════════ */
-  let apiKey = localStorage.getItem('gemini_api_key') || '';
   let selectedDiff = 'Medium';
   let upSelectedDiff = 'Medium';
   let counts = { qCount: 5, sCount: 1, uqCount: 5 };
@@ -1111,95 +1057,8 @@
   let lastGeneratedData = null;
   let upLastGeneratedData = null;
 
-  /* ═══════════════════════════════════
-     API KEY MANAGEMENT
-  ═══════════════════════════════════ */
-  /* ═══════════════════════════════════
-     API KEY MANAGEMENT
-  ═══════════════════════════════════ */
-  let currentProvider = localStorage.getItem('ai_provider') || 'gemini';
-
-  function switchProvider(prov) {
-    currentProvider = prov;
-    localStorage.setItem('ai_provider', prov);
-    document.getElementById('prov-gemini').style.display     = prov === 'gemini'     ? '' : 'none';
-    document.getElementById('prov-openrouter').style.display = prov === 'openrouter' ? '' : 'none';
-    const gemBtn = document.getElementById('provBtn-gemini');
-    const orBtn  = document.getElementById('provBtn-openrouter');
-    gemBtn.style.background = prov === 'gemini'     ? 'linear-gradient(135deg,#7c3aed,#0d9488)' : 'rgba(255,255,255,0.1)';
-    orBtn.style.background  = prov === 'openrouter' ? 'linear-gradient(135deg,#0d9488,#10b981)' : 'rgba(255,255,255,0.1)';
-    gemBtn.style.border  = prov === 'gemini'     ? 'none' : '1px solid rgba(255,255,255,0.2)';
-    orBtn.style.border   = prov === 'openrouter' ? 'none' : '1px solid rgba(255,255,255,0.2)';
-    document.getElementById('providerIcon').textContent = prov === 'gemini' ? '🤖' : '🎉';
-    document.getElementById('apiBanner').style.borderColor =
-      prov === 'openrouter' ? 'rgba(16,185,129,0.5)' : 'rgba(124,58,237,0.4)';
-
-    // Update buttons text dynamically
-    const genBtn = document.getElementById('generateBtn');
-    if (genBtn) {
-      genBtn.innerHTML = prov === 'gemini' 
-        ? '<i class="fas fa-robot"></i> Generate with Gemini AI' 
-        : '<i class="fas fa-robot"></i> Generate with OpenRouter AI';
-    }
-    const upGenBtn = document.getElementById('upGenerateBtn');
-    if (upGenBtn) {
-      upGenBtn.innerHTML = prov === 'gemini' 
-        ? '<i class="fas fa-robot"></i> Generate from File with AI' 
-        : '<i class="fas fa-robot"></i> Generate from File with OpenRouter';
-    }
-  }
-
-  function saveApiKey() {
-    const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key || key.length < 10) { showApiStatus('Please paste a valid Gemini API key.', 'err'); return; }
-    apiKey = key;
-    localStorage.setItem('gemini_api_key', key);
-    const model = document.getElementById('modelSelect').value;
-    localStorage.setItem('gemini_model', model);
-    showApiStatus('✅ Gemini key saved! Ready to generate.', 'ok');
-    document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
-  }
-
-  function saveOrKey() {
-    const key = document.getElementById('orKeyInput').value.trim();
-    if (!key || key.length < 10) { showApiStatus('Please paste a valid OpenRouter API key.', 'err'); return; }
-    localStorage.setItem('openrouter_api_key', key);
-    const model = document.getElementById('orModelSelect').value;
-    localStorage.setItem('openrouter_model', model);
-    showApiStatus('✅ OpenRouter key saved! Ready to generate.', 'ok');
-    document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
-  }
-  function showApiStatus(msg, type) {
-    const el = document.getElementById('apiStatus');
-    el.textContent = msg;
-    el.className = 'api-status ' + type;
-  }
   function initApiKey() {
-    if (apiKey) {
-      document.getElementById('apiKeyInput').value = apiKey;
-    }
-    const orKey = localStorage.getItem('openrouter_api_key');
-    if (orKey) document.getElementById('orKeyInput').value = orKey;
-
-    const savedModel = localStorage.getItem('gemini_model');
-    if (savedModel) {
-      const sel = document.getElementById('modelSelect');
-      if (sel) sel.value = savedModel;
-    }
-    const orModel = localStorage.getItem('openrouter_model');
-    if (orModel) {
-      const sel = document.getElementById('orModelSelect');
-      if (sel) sel.value = orModel;
-    }
-
-    // Restore provider
-    const prov = localStorage.getItem('ai_provider') || 'gemini';
-    switchProvider(prov);
-
-    if (apiKey || orKey) {
-      showApiStatus('✅ API key loaded. Ready to generate.', 'ok');
-      document.getElementById('apiBanner').style.borderColor = 'rgba(16,185,129,0.5)';
-    }
+    // Left as empty placeholder to avoid load errors
   }
 
   /* ═══════════════════════════════════
@@ -1268,22 +1127,17 @@
   });
 
   /* ═══════════════════════════════════
-     AI API CALLS — Gemini + OpenRouter
+     AI API CALLS — Free Keyless AI
   ═══════════════════════════════════ */
-
-  /* -- GEMINI -- */
-  const GEMINI_MODELS = [
-    'gemini-1.5-flash',
-    'gemini-1.5-flash-8b',
-    'gemini-2.0-flash',
-    'gemini-2.0-flash-lite'
-  ];
-
-  async function callGeminiWithModel(prompt, model) {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  async function callGemini(prompt) {
+    showToast(`🤖 Calling free keyless AI...`, 'info');
+    const endpoint = 'https://text.pollinations.ai/';
     const body = {
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.8, topK: 40, topP: 0.95, maxOutputTokens: 4096 }
+      messages: [
+        { role: 'user', content: prompt }
+      ],
+      model: 'openai', // Default free model on Pollinations
+      jsonMode: true
     };
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -1291,79 +1145,14 @@
       body: JSON.stringify(body)
     });
     if (!res.ok) {
-      const err = await res.json();
-      const msg = err.error?.message || `API error ${res.status}`;
-      const isSkippable = res.status === 429
-        || msg.toLowerCase().includes('quota')
-        || msg.toLowerCase().includes('rate')
-        || msg.toLowerCase().includes('no longer available')
-        || msg.toLowerCase().includes('not found');
-      const e = new Error(msg); e.isSkippable = isSkippable; throw e;
+      const errText = await res.text();
+      throw new Error(errText || `API error ${res.status}`);
     }
-    const data = await res.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-  }
-
-  async function callGeminiProvider(prompt) {
-    const preferred = localStorage.getItem('gemini_model') || 'gemini-1.5-flash';
-    const modelSel = document.getElementById('modelSelect');
-    const order = [preferred, ...GEMINI_MODELS.filter(m => m !== preferred)];
-    for (const model of order) {
-      try {
-        showToast(`🤖 Trying Gemini: ${model}`, 'info');
-        const result = await callGeminiWithModel(prompt, model);
-        if (modelSel) modelSel.value = model;
-        localStorage.setItem('gemini_model', model);
-        return result;
-      } catch (e) {
-        if (e.isSkippable) {
-          showToast(`⚠️ ${model} unavailable — trying next…`, 'warn');
-          continue;
-        }
-        throw e;
-      }
-    }
-    throw new Error('QUOTA_ALL_EXHAUSTED');
-  }
-
-  /* -- OPENROUTER (free models) -- */
-  async function callOpenRouterProvider(prompt) {
-    const orKey = localStorage.getItem('openrouter_api_key');
-    if (!orKey) throw new Error('No OpenRouter API key saved. Please add it above.');
-    const model = localStorage.getItem('openrouter_model') || 'meta-llama/llama-3.1-8b-instruct:free';
-    showToast(`🎉 Using OpenRouter: ${model.split('/').pop()}`, 'info');
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${orKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': window.location.href,
-        'X-Title': 'KBJ Test Slip Generator'
-      },
-      body: JSON.stringify({
-        model,
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.8,
-        max_tokens: 4096
-      })
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || `OpenRouter error ${res.status}`);
-    }
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || '';
-  }
-
-  /* -- UNIFIED ENTRY POINT -- */
-  async function callGemini(prompt) {
-    const prov = localStorage.getItem('ai_provider') || 'gemini';
-    if (prov === 'openrouter') return callOpenRouterProvider(prompt);
-    return callGeminiProvider(prompt);
+    return await res.text();
   }
 
   /* ═══════════════════════════════════
-     BUILD GEMINI PROMPT
+     BUILD AI PROMPT
   ═══════════════════════════════════ */
   function buildPrompt(config) {
     const { cls, topic, difficulty, qCount, marks, time, qTypes, lang, customInstructions, uploadedContent } = config;
@@ -1438,20 +1227,6 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
      GENERATE SLIP (Main Tab)
   ═══════════════════════════════════ */
   async function generateSlip() {
-    // Validate
-    const prov = localStorage.getItem('ai_provider') || 'gemini';
-    if (prov === 'gemini' && !apiKey) {
-      showToast('⚠️ Please save your Gemini API key first!', 'warn');
-      document.getElementById('apiKeyInput').focus();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    if (prov === 'openrouter' && !localStorage.getItem('openrouter_api_key')) {
-      showToast('⚠️ Please save your OpenRouter API key first!', 'warn');
-      document.getElementById('orKeyInput').focus();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
     const cls = document.getElementById('ts-class').value;
     if (!cls) { showToast('Please select a class level.', 'warn'); return; }
     const chapter = document.getElementById('ts-chapter').value;
@@ -1491,7 +1266,7 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
         setLoadingStep(3);
         const raw = await callGemini(prompt);
         setLoadingStep(4);
-        const parsed = parseGeminiResponse(raw);
+        const parsed = parseAIResponse(raw);
         setLoadingStep(5);
         allSets.push({ data: parsed, setLabel: counts.sCount > 1 ? `SET ${['A','B','C','D','E','F'][s]}` : 'TEST SLIP' });
       }
@@ -1531,38 +1306,32 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
       // Show output
       document.getElementById('slipOutputArea').style.display = 'block';
       document.getElementById('slipOutputArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      showToast('✅ Test slip generated by Gemini AI!', 'success');
+      showToast('✅ Test slip generated by AI!', 'success');
 
     } catch (err) {
       const errCard = document.getElementById('errorCard');
       errCard.style.display = 'block';
-      if (err.message === 'QUOTA_ALL_EXHAUSTED') {
-        document.getElementById('errorMsg').innerHTML = `
-          <strong>🚫 Quota Exhausted on All Models</strong><br><br>
-          Your free tier quota has run out for today on all Gemini models. Here's how to fix it:
-          <ul style="margin:10px 0 0 16px;line-height:2">
-            <li>⏳ <strong>Wait a few hours</strong> — free quotas reset daily (midnight Pacific time)</li>
-            <li>🔍 Try again with a <strong>different Google account's API key</strong> from
-              <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#f87171;text-decoration:underline;">AI Studio</a></li>
-            <li>💳 <strong>Enable billing</strong> on your Google Cloud project for higher limits
-              <a href="https://console.cloud.google.com/billing" target="_blank" style="color:#f87171;text-decoration:underline;">(Cloud Console)</a></li>
-          </ul>
-        `;
-      } else {
-        document.getElementById('errorMsg').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${err.message}`;
-      }
-      showToast('❌ Generation failed. See guidance below.', 'error');
+      document.getElementById('errorMsg').innerHTML = `
+        <strong>🚫 AI Generation rate-limit</strong><br><br>
+        The free AI service is currently busy or rate-limited. Here is how to resolve it:
+        <ul style="margin:10px 0 0 16px;line-height:2">
+          <li>⏳ <strong>Wait 10-20 seconds</strong> and click the generate button again.</li>
+          <li>📝 Simplify your prompt or select a lower number of questions.</li>
+        </ul>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:10px;">Error Details: ${err.message}</div>
+      `;
+      showToast('❌ Generation failed. Please try again.', 'error');
     } finally {
       document.getElementById('loadingCard').classList.remove('visible');
       btn.disabled = false;
-      switchProvider(currentProvider);
+      btn.innerHTML = '<i class="fas fa-magic"></i> Generate Test Slip';
     }
   }
 
   /* ═══════════════════════════════════
-     PARSE GEMINI RESPONSE
+     PARSE AI RESPONSE
   ═══════════════════════════════════ */
-  function parseGeminiResponse(raw) {
+  function parseAIResponse(raw) {
     // Strip markdown fences if present
     let text = raw.trim();
     text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
@@ -1685,7 +1454,7 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
       ${questionsHTML}
 
       <div class="slip-footer">
-        <div>Generated by K B Joshi's Digital Diary &nbsp;|&nbsp; Powered by Google Gemini AI &nbsp;|&nbsp; 2026</div>
+        <div>Generated by K B Joshi's Digital Diary &nbsp;|&nbsp; Powered by Free AI &nbsp;|&nbsp; 2026</div>
         <div class="slip-sig-line">
           <div></div>
           <span>Teacher's Signature</span>
@@ -1745,7 +1514,7 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
           uploadedFileContent += await readAsText(file) + '\n';
         } else if (file.name.endsWith('.pdf')) {
           uploadedFileContent += `[PDF file: ${file.name} — content will be used as context. File size: ${(file.size/1024).toFixed(1)}KB]\n`;
-          // For PDF, we pass the filename and ask Gemini to use its knowledge of the topic
+          // For PDF, we pass the filename and ask AI to use its knowledge of the topic
         } else if (file.name.match(/\.(docx?|doc)$/i)) {
           uploadedFileContent += await readAsText(file) + '\n';
         } else if (file.name.match(/\.(png|jpg|jpeg)$/i)) {
@@ -1774,15 +1543,6 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
      GENERATE FROM UPLOAD
   ═══════════════════════════════════ */
   async function generateFromUpload() {
-    const prov = localStorage.getItem('ai_provider') || 'gemini';
-    if (prov === 'gemini' && !apiKey) {
-      showToast('⚠️ Please save your Gemini API key first!', 'warn');
-      window.scrollTo({ top: 0, behavior: 'smooth' }); return;
-    }
-    if (prov === 'openrouter' && !localStorage.getItem('openrouter_api_key')) {
-      showToast('⚠️ Please save your OpenRouter API key first!', 'warn');
-      window.scrollTo({ top: 0, behavior: 'smooth' }); return;
-    }
     if (!uploadedFileContent && !uploadedFileName) {
       showToast('Please upload a file first.', 'warn'); return;
     }
@@ -1814,7 +1574,7 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
 
       const prompt = buildPrompt(config);
       const raw = await callGemini(prompt);
-      const parsed = parseGeminiResponse(raw);
+      const parsed = parseAIResponse(raw);
       upLastGeneratedData = { data: parsed, topic, cls, marks, time };
 
       const container = document.getElementById('upSlipSheetsContainer');
@@ -1845,7 +1605,7 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
     } finally {
       document.getElementById('upLoadingCard').classList.remove('visible');
       btn.disabled = false;
-      switchProvider(currentProvider);
+      btn.innerHTML = '<i class="fas fa-magic"></i> Generate from File';
     }
   }
 
