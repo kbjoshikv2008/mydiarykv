@@ -2307,6 +2307,22 @@
       return teacher.subject.split('/')[0].trim();
     }
 
+    // Helper: Find matching teachers for classCode on day at periodSlot
+    function getMatchingTeachers(classCode, day, periodSlot) {
+      let matching = [];
+      const regex = new RegExp(`(?:^|[^A-Z0-9])${classCode}(?:[^A-Z0-9]|$)`, 'i');
+      for (let t of TEACHERS_DATA) {
+        const dayArr = t.schedule[day];
+        if (dayArr && dayArr[periodSlot]) {
+          const cellVal = dayArr[periodSlot].trim();
+          if (regex.test(cellVal) || cellVal.toUpperCase().includes(classCode)) {
+            matching.push({ teacher: t, text: cellVal });
+          }
+        }
+      }
+      return matching;
+    }
+
     // 1. Render Teacher Weekly Timetable Grid
     function renderTeacherTimetable(teacherId) {
       const t = TEACHERS_DATA.find(item => item.id === teacherId) || TEACHERS_DATA[0];
@@ -2340,29 +2356,59 @@
         html += `<tr>`;
         html += `<td class="${dayClass}">${day.substring(0, 3)}${isToday ? ' <br><small style="font-size:0.65rem;">(TODAY)</small>' : ''}</td>`;
 
-        let periodIdx = 0;
-        PERIOD_TIMES.forEach(p => {
+        let i = 0;
+        while (i < PERIOD_TIMES.length) {
+          const p = PERIOD_TIMES[i];
           if (p.num === 'snack' || p.num === 'lunch') {
             html += `<td class="period-cell break-cell">${p.label}</td>`;
+            i++;
           } else {
-            const val = daySchedule[periodIdx] || "";
-            periodIdx++;
-            if (val.trim() === "") {
-              html += `<td><div class="period-cell free-period">FREE</div></td>`;
-            } else {
-              const subjLbl = getSubjectLabel(val, t);
-              const isBlockPrac = val.includes('(P/C)') || val.includes('(PCS)') || val.includes('(B/M)') || val.includes('(M/B)');
+            let periodSlot = 0;
+            for (let k = 0; k < i; k++) {
+              if (PERIOD_TIMES[k].num !== 'snack' && PERIOD_TIMES[k].num !== 'lunch') periodSlot++;
+            }
+
+            const val1 = (daySchedule[periodSlot] || "").trim();
+            const val2 = (periodSlot < 7) ? (daySchedule[periodSlot + 1] || "").trim() : "";
+            const isSeparatedByBreak = (periodSlot === 1 || periodSlot === 3);
+
+            const isMergedBlock = !isSeparatedByBreak && (
+              (day === "Saturday" && periodSlot === 6 && (val1.includes("CLA") || val2.includes("CLA"))) ||
+              (val1 !== "" && val1 === val2)
+            );
+
+            if (isMergedBlock) {
+              const subjLbl = getSubjectLabel(val1 || "CLA", t);
+              const isCla = (val1 || "CLA").toUpperCase().includes("CLA");
               html += `
-                <td>
-                  <div class="period-cell ${isBlockPrac ? 'block-practical' : ''}">
-                    <span class="class-code">${val}</span>
-                    <span class="subject-name" style="${isBlockPrac ? 'color:#c084fc; font-weight:700;' : ''}">${subjLbl}</span>
+                <td colspan="2">
+                  <div class="period-cell block-practical merged-block" style="background:${isCla ? 'rgba(236,72,153,0.18)' : 'rgba(168,85,247,0.18)'} !important; border:1.5px dashed ${isCla ? '#f472b6' : '#a855f7'};">
+                    <span class="class-code" style="font-size:1.1rem; color:${isCla ? '#f472b6' : '#fff'}; font-weight:800;">${val1 || 'CLA'} <small style="font-size:0.75rem; color:${isCla ? '#fbcfe8' : '#e9d5ff'}; font-weight:400;">[2P Block]</small></span>
+                    <span class="subject-name" style="color:${isCla ? '#f472b6' : '#c084fc'}; font-weight:800;">${subjLbl}</span>
                   </div>
                 </td>
               `;
+              i += 2;
+            } else {
+              if (val1 === "") {
+                html += `<td><div class="period-cell free-period">FREE</div></td>`;
+              } else {
+                const subjLbl = getSubjectLabel(val1, t);
+                const isBlockPrac = val1.includes('(P/C)') || val1.includes('(PCS)') || val1.includes('(B/M)') || val1.includes('(M/B)');
+                const isCla = val1.toUpperCase().includes('CLA');
+                html += `
+                  <td>
+                    <div class="period-cell ${isBlockPrac ? 'block-practical' : ''}">
+                      <span class="class-code" style="${isCla ? 'color:#f472b6; font-weight:800;' : ''}">${val1}</span>
+                      <span class="subject-name" style="${isBlockPrac ? 'color:#c084fc; font-weight:700;' : isCla ? 'color:#f472b6;' : ''}">${subjLbl}</span>
+                    </div>
+                  </td>
+                `;
+              }
+              i++;
             }
           }
-        });
+        }
 
         html += `</tr>`;
       });
@@ -2508,46 +2554,77 @@
         html += `<tr>`;
         html += `<td class="${dayClass}">${day.substring(0, 3)}${isToday ? ' <br><small style="font-size:0.65rem;">(TODAY)</small>' : ''}</td>`;
 
-        let periodIdx = 0;
-        PERIOD_TIMES.forEach(p => {
+        let i = 0;
+        while (i < PERIOD_TIMES.length) {
+          const p = PERIOD_TIMES[i];
           if (p.num === 'snack' || p.num === 'lunch') {
             html += `<td class="period-cell break-cell">${p.label}</td>`;
+            i++;
           } else {
-            let matchingEntries = [];
-            const regex = new RegExp(`(?:^|[^A-Z0-9])${classCode}(?:[^A-Z0-9]|$)`, 'i');
-
-            for (let t of TEACHERS_DATA) {
-              const dayArr = t.schedule[day];
-              if (dayArr && dayArr[periodIdx]) {
-                const cellVal = dayArr[periodIdx].trim();
-                if (regex.test(cellVal) || cellVal.toUpperCase().includes(classCode)) {
-                  matchingEntries.push({ teacher: t, text: cellVal });
-                }
-              }
+            let periodSlot = 0;
+            for (let k = 0; k < i; k++) {
+              if (PERIOD_TIMES[k].num !== 'snack' && PERIOD_TIMES[k].num !== 'lunch') periodSlot++;
             }
 
-            periodIdx++;
+            const isSeparatedByBreak = (periodSlot === 1 || periodSlot === 3);
 
-            if (matchingEntries.length > 0) {
-              html += `<td><div class="period-cell">`;
-              matchingEntries.forEach((item, idx) => {
+            // Saturday P7 & P8 merge check (slots 6 & 7)
+            if (day === "Saturday" && periodSlot === 6) {
+              html += `
+                <td colspan="2">
+                  <div class="period-cell block-practical merged-block" style="background:rgba(236,72,153,0.2) !important; border:1.5px dashed rgba(244,114,182,0.6); padding:6px;">
+                    <span class="class-code" style="color:#f472b6; font-size:1.15rem; font-weight:800;">CLA</span>
+                    <span class="subject-name" style="color:#f472b6; font-weight:800;">Co-Curricular Activity (P7–P8 Merged Block)</span>
+                  </div>
+                </td>
+              `;
+              i += 2;
+              continue;
+            }
+
+            let entries1 = getMatchingTeachers(classCode, day, periodSlot);
+            let entries2 = (periodSlot < 7 && !isSeparatedByBreak) ? getMatchingTeachers(classCode, day, periodSlot + 1) : [];
+
+            const isMergedBlock = (entries1.length > 0 && entries2.length > 0 && 
+              entries1.length === entries2.length &&
+              entries1.every((e1, index) => e1.teacher.id === entries2[index].teacher.id && e1.text === entries2[index].text)
+            );
+
+            if (isMergedBlock) {
+              html += `<td colspan="2"><div class="period-cell block-practical merged-block" style="background:rgba(168,85,247,0.2) !important; border:1.5px dashed #a855f7; padding:6px;">`;
+              entries1.forEach((item, idx) => {
                 const subTitle = getSubjectLabel(item.text, item.teacher);
-                const isBlockPrac = item.text.includes('(P/C)') || item.text.includes('(PCS)') || item.text.includes('(B/M)') || item.text.includes('(M/B)');
-                const isCla = item.text.toUpperCase().includes('CLA');
                 html += `
                   ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
-                  <span class="subject-name" style="${isBlockPrac ? 'color:#c084fc; font-weight:700;' : isCla ? 'color:#f472b6; font-weight:800;' : ''}">${item.text} <small style="font-weight:400; opacity:0.85;">(${subTitle})</small></span>
-                  <span class="teacher-name"><i class="far fa-user"></i> ${item.teacher.name}</span>
+                  <span class="subject-name" style="color:#c084fc; font-weight:800; font-size:0.95rem;">${item.text} <small style="font-weight:400; opacity:0.9; color:#e9d5ff;">(${subTitle}) [2P Block]</small></span>
+                  <span class="teacher-name" style="color:#2dd4bf; font-size:0.85rem;"><i class="far fa-user"></i> ${item.teacher.name}</span>
                 `;
               });
               html += `</div></td>`;
-            } else if (day === 'Saturday' && (p.num === 7 || p.num === 8)) {
-              html += `<td><div class="period-cell block-practical" style="background:rgba(236,72,153,0.18) !important; border-color:rgba(244,114,182,0.5);"><span class="class-code" style="color:#f472b6;">CLA</span><span class="subject-name" style="color:#f472b6;">Co-Curricular Activity (P7-P8 Block)</span></div></td>`;
+              i += 2;
             } else {
-              html += `<td><div class="period-cell free-period">FREE / STUDY</div></td>`;
+              if (entries1.length > 0) {
+                html += `<td><div class="period-cell">`;
+                entries1.forEach((item, idx) => {
+                  const subTitle = getSubjectLabel(item.text, item.teacher);
+                  const isBlockPrac = item.text.includes('(P/C)') || item.text.includes('(PCS)') || item.text.includes('(B/M)') || item.text.includes('(M/B)');
+                  const isCla = item.text.toUpperCase().includes('CLA');
+                  html += `
+                    ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
+                    <span class="subject-name" style="${isBlockPrac ? 'color:#c084fc; font-weight:700;' : isCla ? 'color:#f472b6; font-weight:800;' : ''}">${item.text} <small style="font-weight:400; opacity:0.85;">(${subTitle})</small></span>
+                    <span class="teacher-name"><i class="far fa-user"></i> ${item.teacher.name}</span>
+                  `;
+                });
+                html += `</div></td>`;
+              } else if (day === 'Saturday' && (p.num === 7 || p.num === 8)) {
+                html += `<td><div class="period-cell block-practical" style="background:rgba(236,72,153,0.18) !important; border-color:rgba(244,114,182,0.5);"><span class="class-code" style="color:#f472b6;">CLA</span><span class="subject-name" style="color:#f472b6;">Co-Curricular Activity (P7-P8 Block)</span></div></td>`;
+              } else {
+                html += `<td><div class="period-cell free-period">FREE / STUDY</div></td>`;
+              }
+              i++;
             }
           }
-        });
+        }
 
         html += `</tr>`;
       });
@@ -2601,20 +2678,45 @@
           </td>
         `;
 
-        let periodIdx = 0;
-        PERIOD_TIMES.forEach(p => {
+        let i = 0;
+        while (i < PERIOD_TIMES.length) {
+          const p = PERIOD_TIMES[i];
           if (p.num === 'snack' || p.num === 'lunch') {
             html += `<td style="background:rgba(245,158,11,0.1); color:#fdba74; font-size:0.75rem;">BREAK</td>`;
+            i++;
           } else {
-            const cellVal = dayArr[periodIdx] || "";
-            periodIdx++;
-            if (cellVal.trim() === "") {
-              html += `<td><span class="master-free-badge">—</span></td>`;
+            let periodSlot = 0;
+            for (let k = 0; k < i; k++) {
+              if (PERIOD_TIMES[k].num !== 'snack' && PERIOD_TIMES[k].num !== 'lunch') periodSlot++;
+            }
+
+            const val1 = (dayArr[periodSlot] || "").trim();
+            const val2 = (periodSlot < 7) ? (dayArr[periodSlot + 1] || "").trim() : "";
+            const isSeparatedByBreak = (periodSlot === 1 || periodSlot === 3);
+
+            const isMergedBlock = !isSeparatedByBreak && (
+              (dayName === "Saturday" && periodSlot === 6 && (val1.includes("CLA") || val2.includes("CLA"))) ||
+              (val1 !== "" && val1 === val2)
+            );
+
+            if (isMergedBlock) {
+              const isCla = (val1 || "CLA").toUpperCase().includes("CLA");
+              html += `
+                <td colspan="2" style="background:${isCla ? 'rgba(236,72,153,0.25)' : 'rgba(168,85,247,0.25)'}; text-align:center;">
+                  <span class="master-class-badge" style="background:${isCla ? '#f472b6' : '#a855f7'}; color:#fff; font-weight:800;">${val1 || 'CLA'} (Merged 2P)</span>
+                </td>
+              `;
+              i += 2;
             } else {
-              html += `<td><span class="master-class-badge">${cellVal}</span></td>`;
+              if (val1 === "") {
+                html += `<td><span class="master-free-badge">—</span></td>`;
+              } else {
+                html += `<td><span class="master-class-badge">${val1}</span></td>`;
+              }
+              i++;
             }
           }
-        });
+        }
 
         html += `</tr>`;
       });
