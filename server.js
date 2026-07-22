@@ -13,15 +13,22 @@ const MIME_TYPES = {
   '.pdf': 'application/pdf',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
   '.gif': 'image/gif',
   '.ico': 'image/x-icon',
   '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.mp3': 'audio/mpeg',
   '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   '.ppt': 'application/vnd.ms-powerpoint',
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  '.doc': 'application/msword',
-  '.mp4': 'video/mp4'
+  '.doc': 'application/msword'
 };
+
+// Extensions that should be served inline (played/displayed in browser)
+const INLINE_EXTENSIONS = new Set(['.html', '.css', '.js', '.json', '.pdf', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.mp4', '.webm', '.mp3']);
 
 const server = http.createServer((req, res) => {
   // Set global CORS headers to allow video, ppt, and image access from any origin (including file://)
@@ -286,8 +293,15 @@ const server = http.createServer((req, res) => {
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
     const totalSize = stats.size;
 
-    let contentDisposition = ext === '.pdf' ? 'inline' : 'attachment';
+    // Serve media files (videos, images, HTML, PDF) inline so they play/display directly
+    // Only PPT, DOCX and explicit download requests get attachment disposition
+    let contentDisposition;
     if (isDownload) {
+      contentDisposition = `attachment; filename="${path.basename(filePath)}"`;
+    } else if (INLINE_EXTENSIONS.has(ext)) {
+      contentDisposition = 'inline';
+    } else {
+      // PPT, DOCX, etc. — force download
       contentDisposition = `attachment; filename="${path.basename(filePath)}"`;
     }
 

@@ -1007,15 +1007,22 @@
       return db.find(i => i.id === id);
     }
 
+    function getBaseUrl() {
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        return `${window.location.protocol}//${window.location.host}`;
+      }
+      return 'http://localhost:8080';
+    }
+
     function getFileUrl(item) {
-      return item.fileUrl;
+      // Return absolute URL so browser can fetch/play from localhost server
+      return `${getBaseUrl()}/${item.fileUrl}`;
     }
 
     function getOfficeViewerUrl(item) {
-      const fullHttpUrl = window.location.protocol.startsWith('http') ? 
-        `${window.location.protocol}//${window.location.host}/${item.fileUrl}` : 
-        `http://localhost:8080/${item.fileUrl}`;
-      return `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(fullHttpUrl)}`;
+      // Note: Office Online Viewer requires a PUBLIC URL (not localhost)
+      // So we just return the local download URL instead
+      return `${getBaseUrl()}/${item.fileUrl}`;
     }
 
     function renderLessons() {
@@ -1135,11 +1142,18 @@
 
       document.getElementById('videoDirectDownload').href = url;
 
+      // Stop, reset source, then reload
       v.pause();
+      v.currentTime = 0;
+      srcStream.removeAttribute('src');
+      v.load();
+      
+      // Set new source and reload
       srcStream.src = url;
+      srcStream.type = 'video/mp4';
       v.load();
 
-      v.play().catch(err => console.log('Autoplay info:', err));
+      v.play().catch(err => console.log('Autoplay blocked (user must click play):', err));
       
       const m = document.getElementById('videoModal');
       m.classList.add('active');
@@ -1155,12 +1169,23 @@
       document.getElementById('pptModalSize').textContent = `Size: ${item.size}`;
       
       const url = getFileUrl(item);
-      const officeViewerUrl = getOfficeViewerUrl(item);
       
+      // PPT files cannot play in browser directly — show download + open instructions
       const pptIframe = document.getElementById('pptViewerIframe');
-      pptIframe.src = officeViewerUrl;
+      pptIframe.srcdoc = `
+        <html><body style="margin:0;background:#1a1235;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;font-family:Poppins,sans-serif;color:#fff;text-align:center;padding:30px;">
+          <div style="font-size:5rem;">📊</div>
+          <h2 style="color:#f59e0b;margin:16px 0 8px;">PowerPoint Slide Deck</h2>
+          <p style="color:#ccc;margin:0 0 8px;font-size:1rem;">${item.title}</p>
+          <p style="color:#aaa;font-size:0.88rem;margin:0 0 24px;">Size: ${item.size} &nbsp;|&nbsp; ${item.class}</p>
+          <p style="color:#bbb;font-size:0.9rem;margin:0 0 20px;max-width:480px;line-height:1.6;">PowerPoint presentations require PowerPoint or LibreOffice to view. Click <strong style='color:#f59e0b;'>"Download &amp; Open PPT"</strong> below to download and open this slide deck on your device.</p>
+          <a href="${url}" download style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:700;font-size:1rem;margin-top:8px;">⬇ Download &amp; Open PPT</a>
+        </html></body>
+      `;
 
       document.getElementById('pptPlayLaunchBtn').href = url;
+      document.getElementById('pptPlayLaunchBtn').download = item.name;
+      document.getElementById('pptPlayLaunchBtn').innerHTML = '<i class="fas fa-download"></i> Download &amp; Open PPT';
 
       const m = document.getElementById('pptModal');
       m.classList.add('active');
@@ -1206,13 +1231,19 @@
         document.body.style.overflow = 'auto';
         if (modalId === 'videoModal') {
           const v = document.getElementById('videoElement');
-          if (v) { v.pause(); v.src = ''; }
+          const src = document.getElementById('videoSourceStream');
+          if (v) { v.pause(); v.currentTime = 0; }
+          if (src) { src.removeAttribute('src'); }
+          if (v) { v.load(); }
         } else if (modalId === 'pptModal') {
           const iframe = document.getElementById('pptViewerIframe');
-          if (iframe) iframe.src = '';
+          if (iframe) { iframe.src = ''; iframe.removeAttribute('srcdoc'); }
         } else if (modalId === 'htmlViewerModal') {
           const f = document.getElementById('htmlIframe');
           if (f) f.src = '';
+        } else if (modalId === 'imageLightboxModal') {
+          const img = document.getElementById('lightboxImage');
+          if (img) img.src = '';
         }
       }
     }
