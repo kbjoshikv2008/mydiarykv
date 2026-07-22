@@ -1110,23 +1110,151 @@
     ]
   };
 
-  function generateLocalQuestions(cls, topic, count, diff, totalMarks, duration) {
-    const pool = LOCAL_MATH_BANK[topic] || LOCAL_MATH_BANK['default'];
-    // Filter by difficulty
-    let filtered = pool.filter(q => {
-      if (diff === 'Easy') return q.marks <= 2;
-      if (diff === 'Medium') return q.marks >= 2 && q.marks <= 4;
-      if (diff === 'Hard') return q.marks >= 4;
-      return true;
-    });
-    if (filtered.length === 0) filtered = pool;
-    // Shuffle
-    filtered = [...filtered].sort(() => Math.random() - 0.5);
-    // Pad
-    while (filtered.length < count) {
-      filtered = [...filtered, ...pool.sort(() => Math.random() - 0.5)];
+  function findMatchingPool(topic) {
+    const t = topic.toLowerCase();
+    for (const key of Object.keys(LOCAL_MATH_BANK)) {
+      if (key !== 'default' && t.includes(key.toLowerCase())) {
+        return LOCAL_MATH_BANK[key];
+      }
     }
-    const selected = filtered.slice(0, count);
+    if (t.includes('relation') || t.includes('function')) return LOCAL_MATH_BANK['Relations and Functions'];
+    if (t.includes('trig')) return LOCAL_MATH_BANK['Trigonometric Functions'];
+    if (t.includes('matrix')) return LOCAL_MATH_BANK['Matrices'];
+    if (t.includes('determinant')) return LOCAL_MATH_BANK['Determinants'];
+    if (t.includes('integral') || t.includes('integration')) return LOCAL_MATH_BANK['Integrals'];
+    if (t.includes('limit') || t.includes('derivative')) return LOCAL_MATH_BANK['Limits and Derivatives'];
+    if (t.includes('probab')) return LOCAL_MATH_BANK['Probability'];
+    return null;
+  }
+
+  function generateDynamicQuestions(topic, cls, count, diff) {
+    const questions = [];
+    const normalized = topic.toLowerCase();
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    for (let i = 0; i < count; i++) {
+      let qText = '';
+      let qAns = '';
+      let qHint = '';
+      let qType = 'Short Answer';
+      let qMarks = 3;
+
+      if (normalized.includes('equation') || normalized.includes('linear')) {
+        const a = rand(2, 9);
+        const x = rand(-8, 8);
+        const b = rand(-15, 15);
+        const c = a * x + b;
+        const sign = b >= 0 ? '+' : '-';
+        qText = `Solve the linear equation for x: ${a}x ${sign} ${Math.abs(b)} = ${c}`;
+        qAns = `x = ${x}`;
+        qHint = `Subtract ${b} from both sides, then divide by ${a}.`;
+        qMarks = 2;
+      } 
+      else if (normalized.includes('quadratic')) {
+        const r1 = rand(-5, 5);
+        const r2 = rand(-5, 5);
+        const sum = r1 + r2;
+        const prod = r1 * r2;
+        const bSign = -sum >= 0 ? '+' : '-';
+        const cSign = prod >= 0 ? '+' : '-';
+        qText = `Find the roots of the quadratic equation: x² ${sum !== 0 ? `${bSign} ${Math.abs(sum)}x` : ''} ${prod !== 0 ? `${cSign} ${Math.abs(prod)}` : ''} = 0`;
+        qAns = `x = ${r1} or x = ${r2}`;
+        qHint = `Factorize by splitting the middle term or use the quadratic formula.`;
+        qMarks = 4;
+        qType = 'Long Answer';
+      }
+      else if (normalized.includes('integer') || normalized.includes('fraction') || normalized.includes('rational') || normalized.includes('decimal')) {
+        const op = ['+', '-', '×'][rand(0, 2)];
+        if (op === '×') {
+          const n1 = rand(-12, 12);
+          const n2 = rand(-12, 12);
+          qText = `Find the product of: (${n1}) × (${n2})`;
+          qAns = `${n1 * n2}`;
+          qHint = `Be mindful of the signs. Product of two negatives is positive.`;
+          qMarks = 2;
+        } else {
+          const n1 = rand(1, 6); const d1 = rand(2, 7);
+          const n2 = rand(1, 6); const d2 = rand(2, 7);
+          const gcd = (x, y) => !y ? x : gcd(y, x % y);
+          const lcm = (d1 * d2) / gcd(d1, d2);
+          const fNum = op === '+' ? (n1 * (lcm / d1) + n2 * (lcm / d2)) : (n1 * (lcm / d1) - n2 * (lcm / d2));
+          qText = `Evaluate the expression: ${n1}/${d1} ${op} ${n2}/${d2}`;
+          qAns = `${fNum}/${lcm}`;
+          qHint = `Convert to a common denominator ${lcm} and then add/subtract.`;
+          qMarks = 2;
+        }
+      }
+      else if (normalized.includes('arithmetic') || normalized.includes('progression') || normalized.includes(' ap')) {
+        const a = rand(1, 15);
+        const d = rand(2, 8);
+        const n = rand(5, 25);
+        const term = a + (n - 1) * d;
+        qText = `Find the ${n}th term of the Arithmetic Progression (AP): ${a}, ${a+d}, ${a+2*d}, ...`;
+        qAns = `a_${n} = ${term}`;
+        qHint = `Use formula: a_n = a + (n - 1)d, where first term a = ${a} and common difference d = ${d}.`;
+        qMarks = 3;
+      }
+      else if (normalized.includes('area') || normalized.includes('perimeter') || normalized.includes('mensuration') || normalized.includes('volume') || normalized.includes('triangle') || normalized.includes('quadrilateral') || normalized.includes('shape')) {
+        const shape = ['rectangle', 'triangle', 'circle'][rand(0, 2)];
+        if (shape === 'rectangle') {
+          const l = rand(6, 18); const w = rand(4, 12);
+          qText = `Find the area of a rectangle with length = ${l} cm and width = ${w} cm. Also find its perimeter.`;
+          qAns = `Area = ${l * w} cm², Perimeter = ${2 * (l + w)} cm`;
+          qHint = `Area = length × width, Perimeter = 2 × (length + width).`;
+        } else if (shape === 'circle') {
+          const r = rand(7, 21);
+          qText = `Find the area of a circle with radius = ${r} cm. (Take π = 22/7)`;
+          qAns = `Area = ${(22/7 * r * r).toFixed(0)} cm²`;
+          qHint = `Use the formula Area = πr².`;
+        } else {
+          const b = rand(6, 16); const h = rand(4, 12);
+          qText = `Find the area of a triangle with base = ${b} cm and altitude (height) = ${h} cm.`;
+          qAns = `Area = ${0.5 * b * h} cm²`;
+          qHint = `Use formula Area = 1/2 × base × height.`;
+        }
+        qMarks = 3;
+      }
+      else {
+        // General algebra
+        const x = rand(2, 8);
+        qText = `Solve the algebraic equation: ${x}y - 7 = ${x * 5 - 7}`;
+        qAns = `y = 5`;
+        qHint = `Add 7 to both sides, then divide by ${x}.`;
+        qMarks = 2;
+      }
+
+      questions.push({
+        number: i + 1,
+        type: qType,
+        text: qText,
+        marks: qMarks,
+        answer: qAns,
+        hint: qHint
+      });
+    }
+    return questions;
+  }
+
+  function generateLocalQuestions(cls, topic, count, diff, totalMarks, duration) {
+    const pool = findMatchingPool(topic);
+    let selected = [];
+
+    if (pool) {
+      let filtered = pool.filter(q => {
+        if (diff === 'Easy') return q.marks <= 2;
+        if (diff === 'Medium') return q.marks >= 2 && q.marks <= 4;
+        if (diff === 'Hard') return q.marks >= 4;
+        return true;
+      });
+      if (filtered.length === 0) filtered = pool;
+      filtered = [...filtered].sort(() => Math.random() - 0.5);
+      while (filtered.length < count) {
+        filtered = [...filtered, ...pool.sort(() => Math.random() - 0.5)];
+      }
+      selected = filtered.slice(0, count);
+    } else {
+      selected = generateDynamicQuestions(topic, cls, count, diff);
+    }
     
     // Scale marks
     let currentTotal = selected.reduce((sum, q) => sum + q.marks, 0);
@@ -1255,6 +1383,11 @@
     let prompt = `You are an expert CBSE Mathematics teacher creating a test slip for Class ${cls} students.
 
 TASK: Generate EXACTLY ${qCount} mathematics questions for a class test on the topic: "${topic}" for NCERT Class ${cls} Mathematics.
+
+CRITICAL REQUIREMENT:
+- Every single question generated MUST focus entirely on the selected topic/chapter: "${topic}".
+- Do NOT under any circumstances generate questions from other mathematical topics or chapters.
+- Ensure the questions match the intellectual level expected of Class ${cls} students.
 
 REQUIREMENTS:
 - Difficulty Level: ${difficulty}
@@ -1642,10 +1775,36 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
   /* ═══════════════════════════════════
      GENERATE FROM UPLOAD
   ═══════════════════════════════════ */
+  function detectTopicFromContent(content, filename) {
+    if (!content) return filename.replace(/\.[^.]+$/, '') || 'General Math';
+    const text = content.toLowerCase();
+    if (text.includes('matrix') || text.includes('matrices') || text.includes('determinant')) return 'Matrices';
+    if (text.includes('integral') || text.includes('integration') || text.includes('calculus')) return 'Integrals';
+    if (text.includes('probability') || text.includes('bayes') || text.includes('die ') || text.includes('coin')) return 'Probability';
+    if (text.includes('trigonometr') || text.includes(' sin ') || text.includes(' cos ') || text.includes(' tan ')) return 'Trigonometric Functions';
+    if (text.includes('relation') || text.includes('function') || text.includes('mapping')) return 'Relations and Functions';
+    if (text.includes('set ') || text.includes('sets') || text.includes('subset')) return 'Sets';
+    if (text.includes('limit') || text.includes('derivative') || text.includes('differentiab')) return 'Limits and Derivatives';
+    return filename.replace(/\.[^.]+$/, '') || 'General Math';
+  }
+
   async function generateFromUpload() {
     if (!uploadedFileContent && !uploadedFileName) {
       showToast('Please upload a file first.', 'warn'); return;
     }
+
+    const cls = document.getElementById('up-class').value;
+    const marks = parseInt(document.getElementById('up-marks').value) || 20;
+    const time = parseInt(document.getElementById('up-time').value) || 30;
+    const extraInstr = document.getElementById('up-prompt').value.trim();
+    const topic = detectTopicFromContent(uploadedFileContent, uploadedFileName);
+    const showAnswers = document.getElementById('up-opt-answers').checked;
+
+    const btn = document.getElementById('upGenerateBtn');
+    btn.disabled = true; btn.innerHTML = '<span class="spin-dot"></span> Generating…';
+    document.getElementById('upLoadingCard').classList.add('visible');
+    document.getElementById('upErrorCard').style.display = 'none';
+    document.getElementById('upSlipOutputArea').style.display = 'none';
 
     try {
       const config = {
