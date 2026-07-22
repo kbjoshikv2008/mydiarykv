@@ -638,9 +638,9 @@
 
           <!-- Provider tabs -->
           <div style="display:flex;gap:6px;margin:10px 0 12px;">
-            <button class="api-save-btn" id="provBtn-gemini" onclick="switchProvider('gemini')"
+            <button type="button" class="api-save-btn" id="provBtn-gemini" onclick="switchProvider('gemini')"
               style="background:linear-gradient(135deg,#7c3aed,#0d9488);flex:1;">🔷 Google Gemini</button>
-            <button class="api-save-btn" id="provBtn-openrouter" onclick="switchProvider('openrouter')"
+            <button type="button" class="api-save-btn" id="provBtn-openrouter" onclick="switchProvider('openrouter')"
               style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);flex:1;">🆓 OpenRouter (Free)</button>
           </div>
 
@@ -659,7 +659,7 @@
                 <option value="gemini-2.0-flash">gemini-2.0-flash</option>
                 <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
               </select>
-              <button class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save</button>
+              <button type="button" class="api-save-btn" onclick="saveApiKey()"><i class="fas fa-save"></i> Save</button>
             </div>
           </div>
 
@@ -680,7 +680,7 @@
                 <option value="qwen/qwen-2-7b-instruct:free">Qwen 2 7B (free)</option>
                 <option value="microsoft/phi-3-mini-128k-instruct:free">Phi-3 Mini (free)</option>
               </select>
-              <button class="api-save-btn" onclick="saveOrKey()"
+              <button type="button" class="api-save-btn" onclick="saveOrKey()"
                 style="background:linear-gradient(135deg,#0d9488,#10b981);"><i class="fas fa-save"></i> Save</button>
             </div>
           </div>
@@ -1133,6 +1133,20 @@
     document.getElementById('providerIcon').textContent = prov === 'gemini' ? '🤖' : '🎉';
     document.getElementById('apiBanner').style.borderColor =
       prov === 'openrouter' ? 'rgba(16,185,129,0.5)' : 'rgba(124,58,237,0.4)';
+
+    // Update buttons text dynamically
+    const genBtn = document.getElementById('generateBtn');
+    if (genBtn) {
+      genBtn.innerHTML = prov === 'gemini' 
+        ? '<i class="fas fa-robot"></i> Generate with Gemini AI' 
+        : '<i class="fas fa-robot"></i> Generate with OpenRouter AI';
+    }
+    const upGenBtn = document.getElementById('upGenerateBtn');
+    if (upGenBtn) {
+      upGenBtn.innerHTML = prov === 'gemini' 
+        ? '<i class="fas fa-robot"></i> Generate from File with AI' 
+        : '<i class="fas fa-robot"></i> Generate from File with OpenRouter';
+    }
   }
 
   function saveApiKey() {
@@ -1425,9 +1439,16 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
   ═══════════════════════════════════ */
   async function generateSlip() {
     // Validate
-    if (!apiKey) {
+    const prov = localStorage.getItem('ai_provider') || 'gemini';
+    if (prov === 'gemini' && !apiKey) {
       showToast('⚠️ Please save your Gemini API key first!', 'warn');
       document.getElementById('apiKeyInput').focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (prov === 'openrouter' && !localStorage.getItem('openrouter_api_key')) {
+      showToast('⚠️ Please save your OpenRouter API key first!', 'warn');
+      document.getElementById('orKeyInput').focus();
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -1533,7 +1554,8 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
       showToast('❌ Generation failed. See guidance below.', 'error');
     } finally {
       document.getElementById('loadingCard').classList.remove('visible');
-      btn.disabled = false; btn.innerHTML = '<i class="fas fa-robot"></i> Generate with Gemini AI';
+      btn.disabled = false;
+      switchProvider(currentProvider);
     }
   }
 
@@ -1752,8 +1774,13 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
      GENERATE FROM UPLOAD
   ═══════════════════════════════════ */
   async function generateFromUpload() {
-    if (!apiKey) {
+    const prov = localStorage.getItem('ai_provider') || 'gemini';
+    if (prov === 'gemini' && !apiKey) {
       showToast('⚠️ Please save your Gemini API key first!', 'warn');
+      window.scrollTo({ top: 0, behavior: 'smooth' }); return;
+    }
+    if (prov === 'openrouter' && !localStorage.getItem('openrouter_api_key')) {
+      showToast('⚠️ Please save your OpenRouter API key first!', 'warn');
       window.scrollTo({ top: 0, behavior: 'smooth' }); return;
     }
     if (!uploadedFileContent && !uploadedFileName) {
@@ -1817,7 +1844,8 @@ Generate exactly ${qCount} questions. The JSON must be valid and parseable.`;
       showToast('❌ Generation failed.', 'error');
     } finally {
       document.getElementById('upLoadingCard').classList.remove('visible');
-      btn.disabled = false; btn.innerHTML = '<i class="fas fa-robot"></i> Generate from File with AI';
+      btn.disabled = false;
+      switchProvider(currentProvider);
     }
   }
 
