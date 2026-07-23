@@ -1478,6 +1478,7 @@
     <button class="tab-btn" data-tab="tab-daily-master"><i class="fas fa-calendar-week"></i> Daily Master Schedule</button>
     <button class="tab-btn" data-tab="tab-circulars"><i class="fas fa-file-pdf"></i> Circulars &amp; Files</button>
     <button class="tab-btn" data-tab="tab-software"><i class="fas fa-laptop-code"></i> Software Directory</button>
+    <button class="tab-btn" data-tab="tab-recess"><i class="fas fa-mug-hot"></i> Recess Duty Chart</button>
   </div>
 
   <div class="tt-container">
@@ -1672,6 +1673,40 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- TAB: RECESS DUTY CHART -->
+    <div class="tab-content" id="tab-recess">
+      <div class="tt-controls-bar">
+        <div class="tt-select-group" style="gap:6px;">
+          <i class="fas fa-mug-hot" style="color:var(--primary-light);font-size:1.1rem;"></i>
+          <span style="font-weight:700;color:var(--text-primary);font-size:0.95rem;">Recess Duty Chart &mdash; Session 2026-27</span>
+        </div>
+        <div class="tt-action-buttons">
+          <button class="btn-action btn-print" id="printRecessBtn"><i class="fas fa-print"></i> Print Chart</button>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 14px;font-size:0.8rem;">
+        <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><div style="width:14px;height:14px;border-radius:3px;background:#dcfce7;border:1px solid #86efac;"></div> Duty Assigned</div>
+        <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><div style="width:14px;height:14px;border-radius:3px;background:#fef3c7;border:1px solid #fcd34d;"></div> Busy (P4/P5 class)</div>
+        <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><div style="width:14px;height:14px;border-radius:3px;background:rgba(255,255,255,0.08);border:1px solid #475569;"></div> Exempt (No duty)</div>
+        <div style="display:flex;align-items:center;gap:6px;font-weight:600;color:var(--text-muted);"><i class="fas fa-info-circle"></i> Teachers with class in Period 4 or 5 are not assigned duty on that day</div>
+      </div>
+
+      <div id="recessDutyContainer"></div>
+
+      <!-- Day-wise summary -->
+      <div style="margin-top:20px;">
+        <div style="font-weight:800;color:var(--text-primary);font-size:0.9rem;margin-bottom:10px;border-left:4px solid var(--primary-light);padding-left:8px;">Day-wise Duty Summary</div>
+        <div id="recessSummaryContainer"></div>
+      </div>
+
+      <div style="margin-top:16px;border-top:1px solid var(--glass-border);padding-top:10px;display:flex;justify-content:space-between;font-size:0.78rem;font-weight:700;color:var(--text-secondary);">
+        <span>PM SHRI KENDRIYA VIDYALAYA RANIKHET &nbsp;|&nbsp; Prepared by: K B JOSHI, PGT Mathematics</span>
+        <span>Principal's Signature: ________________________</span>
       </div>
     </div>
 
@@ -3302,6 +3337,177 @@
       }
     });
     passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitPassword.click(); });
+
+    // ── RECESS DUTY CHART ─────────────────────────────────────────
+    (function buildRecessDuty() {
+      // Exempt teachers (0 duties): Rachna Verma, Vikas Bhatia, Deepak Joshi, Megha Pathak, Shanti Swaroop
+      const EXEMPT_IDS  = ['rachnav','vikasb','deepakj','meghap','shantiss'];
+      // Teachers with 4 duties
+      const FOUR_DUTY   = ['ashutoshr','narendras','lalitb'];
+      const DUTY_DAYS   = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+      // Build teacher list from TEACHERS_DATA with duty quotas
+      const teachers = TEACHERS_DATA.map(t => ({
+        id:     t.id,
+        name:   t.name,
+        desig:  t.desig,
+        duties: EXEMPT_IDS.includes(t.id) ? 0 : FOUR_DUTY.includes(t.id) ? 4 : 2,
+        exempt: EXEMPT_IDS.includes(t.id),
+        schedule: t.schedule
+      }));
+
+      // Is teacher busy (has class in P4 idx=3 or P5 idx=4) on given day?
+      function isBusy(t, day) {
+        const s = t.schedule[day];
+        if (!s) return false;
+        const p4 = (s[3] || '').trim(), p5 = (s[4] || '').trim();
+        return (p4 !== '' && !p4.toUpperCase().includes('CLA')) ||
+               (p5 !== '' && !p5.toUpperCase().includes('CLA'));
+      }
+
+      // Generate duty assignments (greedy, quota-respecting)
+      const count = {};
+      const dutyMatrix = {};
+      teachers.forEach(t => {
+        count[t.id] = 0;
+        dutyMatrix[t.id] = {};
+        DUTY_DAYS.forEach(d => dutyMatrix[t.id][d] = null);
+      });
+
+      const eligible = teachers.filter(t => !t.exempt && t.duties > 0);
+      eligible.sort((a,b) => b.duties - a.duties || a.name.localeCompare(b.name));
+
+      for (const day of DUTY_DAYS) {
+        for (const slot of ['SNACK','LUNCH']) {
+          let pool = eligible.filter(t =>
+            !isBusy(t, day) &&
+            dutyMatrix[t.id][day] !== slot &&
+            dutyMatrix[t.id][day] !== 'BOTH' &&
+            count[t.id] < t.duties
+          );
+          pool.sort((a,b) => (b.duties - count[b.id]) - (a.duties - count[a.id]));
+          if (!pool.length) continue;
+          const c = pool[0];
+          if (dutyMatrix[c.id][day] === null) dutyMatrix[c.id][day] = slot;
+          else dutyMatrix[c.id][day] = 'BOTH';
+          count[c.id]++;
+        }
+      }
+
+      // ── Render Main Duty Matrix Table ──────────────────────
+      function cellHTML(t, day) {
+        if (t.exempt) return `<td style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;font-style:italic;text-align:center;border:1px solid var(--glass-border);padding:5px;">Exempt</td>`;
+        const dm = dutyMatrix[t.id][day];
+        if (dm === 'SNACK') return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dcfce7;color:#14532d;font-weight:900;font-size:0.75rem;border-radius:4px;padding:2px 6px;display:inline-block;">SNACK</span></td>`;
+        if (dm === 'LUNCH') return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dbeafe;color:#1e40af;font-weight:900;font-size:0.75rem;border-radius:4px;padding:2px 6px;display:inline-block;">LUNCH</span></td>`;
+        if (dm === 'BOTH')  return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dcfce7;color:#14532d;font-weight:900;font-size:0.75rem;border-radius:4px;padding:2px 6px;display:inline-block;">BOTH</span></td>`;
+        if (isBusy(t, day)) return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;background:#fef3c7;"><span style="color:#78350f;font-size:0.68rem;font-weight:700;">Busy</span></td>`;
+        return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;color:var(--text-muted);font-size:0.7rem;">—</td>`;
+      }
+
+      let thead = `<thead><tr>
+        <th style="background:#1e293b;color:#fff;padding:7px 10px;text-align:left;border:1px solid #475569;font-size:0.76rem;white-space:nowrap;">Teacher Name</th>
+        <th style="background:#1e293b;color:#fff;padding:7px 8px;text-align:center;border:1px solid #475569;font-size:0.76rem;">Desig.</th>
+        ${DUTY_DAYS.map(d => `<th style="background:#064e3b;color:#fff;padding:7px 6px;text-align:center;border:1px solid #475569;font-size:0.76rem;">${d.substring(0,3).toUpperCase()}</th>`).join('')}
+        <th style="background:#1e293b;color:#fff;padding:7px 8px;text-align:center;border:1px solid #475569;font-size:0.76rem;">Duties</th>
+        <th style="background:#1e293b;color:#fff;padding:7px 8px;text-align:center;border:1px solid #475569;font-size:0.76rem;">Quota</th>
+      </tr></thead>`;
+
+      let tbody = '<tbody>';
+      teachers.forEach((t, i) => {
+        const tot = count[t.id] || 0, q = t.duties;
+        const bg = i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)';
+        const totColor = tot === q ? '#4ade80' : tot > q ? '#f87171' : 'var(--text-secondary)';
+        tbody += `<tr style="background:${bg};">
+          <td style="padding:6px 10px;border:1px solid var(--glass-border);font-weight:700;color:var(--text-primary);white-space:nowrap;font-size:0.8rem;">${t.name}</td>
+          <td style="padding:6px 8px;border:1px solid var(--glass-border);font-size:0.68rem;color:var(--text-secondary);white-space:nowrap;text-align:center;">${t.desig}</td>
+          ${DUTY_DAYS.map(d => cellHTML(t, d)).join('')}
+          <td style="text-align:center;border:1px solid var(--glass-border);padding:6px;font-weight:900;color:${totColor};font-size:0.82rem;">${t.exempt ? 'Exempt' : tot}</td>
+          <td style="text-align:center;border:1px solid var(--glass-border);padding:6px;font-weight:700;color:var(--text-secondary);font-size:0.8rem;">${q}</td>
+        </tr>`;
+      });
+      tbody += '</tbody>';
+
+      const mainTable = `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e293b;font-size:0.8rem;background:rgba(15,23,42,0.6);">${thead}${tbody}</table></div>`;
+      document.getElementById('recessDutyContainer').innerHTML = mainTable;
+
+      // ── Render Day-wise Summary Table ──────────────────────
+      let sumHTML = `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e293b;font-size:0.82rem;background:rgba(15,23,42,0.6);">
+        <thead><tr>
+          <th style="background:#1e293b;color:#fff;padding:8px 12px;text-align:left;border:1px solid #475569;font-size:0.78rem;">Day</th>
+          <th style="background:#065f46;color:#fff;padding:8px 12px;text-align:left;border:1px solid #475569;font-size:0.78rem;">Snack Recess Duty Teacher (09:40–09:50 AM)</th>
+          <th style="background:#1e3a8a;color:#fff;padding:8px 12px;text-align:left;border:1px solid #475569;font-size:0.78rem;">Lunch Recess Duty Teacher (11:10–11:30 AM)</th>
+        </tr></thead><tbody>`;
+
+      DUTY_DAYS.forEach((day, i) => {
+        const sn = [], ln = [];
+        teachers.forEach(t => {
+          if (t.exempt) return;
+          const dm = dutyMatrix[t.id][day];
+          if (dm === 'SNACK' || dm === 'BOTH') sn.push(`<strong>${t.name}</strong> <span style="font-size:0.7rem;opacity:0.7;">(${t.desig})</span>`);
+          if (dm === 'LUNCH' || dm === 'BOTH') ln.push(`<strong>${t.name}</strong> <span style="font-size:0.7rem;opacity:0.7;">(${t.desig})</span>`);
+        });
+        const bg = i % 2 === 0 ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.07)';
+        sumHTML += `<tr style="background:${bg};">
+          <td style="padding:8px 12px;border:1px solid var(--glass-border);font-weight:900;color:var(--text-primary);">${day}</td>
+          <td style="padding:8px 12px;border:1px solid var(--glass-border);color:#4ade80;">${sn.join(', ') || '<span style="color:var(--text-muted)">—</span>'}</td>
+          <td style="padding:8px 12px;border:1px solid var(--glass-border);color:#93c5fd;">${ln.join(', ') || '<span style="color:var(--text-muted)">—</span>'}</td>
+        </tr>`;
+      });
+      sumHTML += '</tbody></table></div>';
+      document.getElementById('recessSummaryContainer').innerHTML = sumHTML;
+
+      // Print button
+      const printRecessBtn = document.getElementById('printRecessBtn');
+      if (printRecessBtn) {
+        printRecessBtn.addEventListener('click', () => {
+          const tab = document.getElementById('tab-recess');
+          const w = window.open('', '_blank', 'width=1100,height=800');
+          w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Recess Duty Chart - PM SHRI KV RANIKHET</title>
+          <style>
+            @page{size:A4 landscape;margin:6mm;}
+            *{box-sizing:border-box;margin:0;padding:0;}
+            body{font-family:system-ui,sans-serif;background:#fff;color:#0f172a;padding:10px;font-size:0.75rem;}
+            .hdr{text-align:center;border:2.5px solid #0f172a;border-radius:6px;padding:8px;margin-bottom:10px;}
+            .hdr .sch{font-weight:900;color:#0f766e;font-size:0.85rem;}
+            .hdr h1{font-size:1.3rem;font-weight:900;border-bottom:2px solid #0f172a;padding-bottom:3px;margin:3px 0;}
+            .hdr .sub{font-size:0.72rem;font-weight:700;color:#1e293b;margin-top:3px;}
+            .leg{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;font-size:0.72rem;font-weight:600;}
+            .leg span{display:inline-flex;align-items:center;gap:5px;}
+            .leg .dot{width:12px;height:12px;border-radius:2px;display:inline-block;}
+            table{width:100%;border-collapse:collapse;border:2px solid #0f172a;margin-bottom:12px;font-size:0.72rem;}
+            th{background:#1e293b;color:#fff;padding:5px 4px;border:1px solid #475569;text-align:center;font-size:0.68rem;}
+            th.dh{background:#064e3b;}
+            th.snack{background:#065f46;}
+            th.lunch{background:#1e3a8a;}
+            td{border:1px solid #64748b;padding:4px;text-align:center;vertical-align:middle;}
+            td.tnc{text-align:left;font-weight:700;padding-left:6px;}
+            .yes-s{background:#dcfce7;color:#14532d;font-weight:900;border-radius:3px;padding:1px 4px;display:inline-block;}
+            .yes-l{background:#dbeafe;color:#1e40af;font-weight:900;border-radius:3px;padding:1px 4px;display:inline-block;}
+            .busy{background:#fef3c7;color:#78350f;font-weight:700;}
+            .exempt{background:#f3f4f6;color:#6b7280;font-style:italic;}
+            .sl{font-weight:800;font-size:0.78rem;margin-bottom:6px;border-left:4px solid #0f766e;padding-left:6px;}
+            .footer{margin-top:10px;border-top:2px solid #0f172a;padding-top:6px;display:flex;justify-content:space-between;font-size:0.7rem;font-weight:700;color:#1e293b;}
+            -webkit-print-color-adjust:exact;print-color-adjust:exact;
+          </style></head><body>
+          <div class="hdr"><div class="sch">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div><h1>RECESS DUTY CHART</h1><div class="sub">Session 2026-27 | Snack Recess: 09:40-09:50 AM | Lunch Recess: 11:10-11:30 AM | Teachers with class in P4/P5 are excluded from duty that day</div></div>
+          <div class="leg">
+            <span><span class="dot" style="background:#dcfce7;border:1px solid #86efac;"></span>Snack Duty</span>
+            <span><span class="dot" style="background:#dbeafe;border:1px solid #93c5fd;"></span>Lunch Duty</span>
+            <span><span class="dot" style="background:#fef3c7;border:1px solid #fcd34d;"></span>Busy (P4/P5 class)</span>
+            <span><span class="dot" style="background:#f3f4f6;border:1px solid #9ca3af;"></span>Exempt</span>
+          </div>
+          ${tab.querySelector('#recessDutyContainer').innerHTML.replace(/background:rgba\([^)]+\)/g,'background:#fff').replace(/color:var\(--text-primary\)/g,'color:#0f172a').replace(/color:var\(--text-secondary\)/g,'color:#1e293b').replace(/color:var\(--text-muted\)/g,'color:#6b7280').replace(/border:1px solid var\(--glass-border\)/g,'border:1px solid #64748b').replace(/#4ade80/g,'#14532d').replace(/#f87171/g,'#991b1b')}
+          <div class="sl">Day-wise Duty Summary</div>
+          ${tab.querySelector('#recessSummaryContainer').innerHTML.replace(/background:rgba\([^)]+\)/g,'background:#fff').replace(/color:var\(--text-primary\)/g,'color:#0f172a').replace(/color:var\(--text-muted\)/g,'color:#6b7280').replace(/border:1px solid var\(--glass-border\)/g,'border:1px solid #64748b').replace(/#4ade80/g,'#14532d').replace(/#93c5fd/g,'#1e40af')}
+          <div class="footer"><span>Prepared by: K B JOSHI, PGT Mathematics | PM SHRI KV RANIKHET</span><span>Principal's Signature: ________________________</span></div>
+          </body></html>`);
+          w.document.close();
+          setTimeout(() => { w.print(); }, 600);
+        });
+      }
+    })();
+
   });
 </script>
 </body>
