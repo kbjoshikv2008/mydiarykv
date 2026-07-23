@@ -1821,13 +1821,14 @@
       <i class="fa-solid fa-key" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.3);font-size:0.9rem;"></i>
       <input type="password" id="gatePassword" placeholder="Enter password" autocomplete="current-password"
         style="width:100%;padding:14px 44px 14px 42px;background:rgba(255,255,255,0.07);border:1px solid rgba(139,92,246,0.35);border-radius:12px;color:#fff;font-size:1rem;outline:none;box-sizing:border-box;transition:border 0.2s;"
-        onfocus="this.style.border='1px solid rgba(139,92,246,0.7)'" onblur="this.style.border='1px solid rgba(139,92,246,0.35)'"/>
-      <button id="gateTogglePwd" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:1rem;padding:4px;">
+        onfocus="this.style.border='1px solid rgba(139,92,246,0.7)'" onblur="this.style.border='1px solid rgba(139,92,246,0.35)'"
+        onkeydown="if(event.key==='Enter') tryUnlockGate();"/>
+      <button type="button" id="gateTogglePwd" onclick="toggleGatePwdVis()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:1rem;padding:4px;">
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
     <p id="gateError" style="color:#f87171;font-size:0.82rem;margin:0 0 12px;display:none;"><i class="fas fa-exclamation-circle"></i> Incorrect password. Please try again.</p>
-    <button id="gateSubmit"
+    <button type="button" id="gateSubmit" onclick="tryUnlockGate()"
       style="width:100%;padding:14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:opacity 0.2s,transform 0.1s;box-shadow:0 4px 20px rgba(99,102,241,0.5);"
       onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
       <i class="fas fa-unlock-alt"></i>&nbsp; Unlock Timetable
@@ -1854,6 +1855,50 @@
 </div>
 
 <script>
+  // ── GLOBAL PAGE GATE UNLOCK HANDLERS ─────────────────────────
+  const GATE_PASSWORD = 'kbj@2008';
+  const SESS_AUTH_KEY = 'tt_auth_2026';
+
+  function tryUnlockGate() {
+    const gateInp = document.getElementById('gatePassword');
+    const gateErr = document.getElementById('gateError');
+    const gateObj = document.getElementById('pageGate');
+
+    if (!gateInp || !gateObj) return;
+
+    const val = (gateInp.value || '').trim();
+    if (val.toLowerCase() === GATE_PASSWORD.toLowerCase()) {
+      sessionStorage.setItem(SESS_AUTH_KEY, '1');
+      gateObj.style.transition = 'opacity 0.4s ease';
+      gateObj.style.opacity = '0';
+      setTimeout(() => { gateObj.style.display = 'none'; }, 400);
+    } else {
+      if (gateErr) gateErr.style.display = 'block';
+      gateInp.value = '';
+      gateInp.style.border = '1px solid rgba(248,113,113,0.8)';
+      setTimeout(() => {
+        if (gateInp) gateInp.style.border = '1px solid rgba(139,92,246,0.35)';
+      }, 1500);
+    }
+  }
+
+  function toggleGatePwdVis() {
+    const gateInp = document.getElementById('gatePassword');
+    const gateEye = document.getElementById('gateTogglePwd');
+    if (!gateInp || !gateEye) return;
+    const show = gateInp.type === 'password';
+    gateInp.type = show ? 'text' : 'password';
+    gateEye.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+  }
+
+  // Immediate check if already unlocked in this session
+  if (sessionStorage.getItem(SESS_AUTH_KEY) === '1') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const g = document.getElementById('pageGate');
+      if (g) g.style.display = 'none';
+    });
+  }
+
   // Period Timing Slots
   const PERIOD_TIMES = [
     { num: 1, label: "Period 1", time: "8:20 - 9:00 AM" },
@@ -3405,47 +3450,14 @@
     if (refreshDocsBtn) refreshDocsBtn.addEventListener('click', () => loadTimetableDocs());
 
     // --- PASSWORD MODAL FOR TEACHER PROFILE UNLOCK ---
-    // ── PAGE GATE (runs before DOMContentLoaded callback) ────────────
-    (function initPageGate() {
-      const gate     = document.getElementById('pageGate');
-      const gateInp  = document.getElementById('gatePassword');
-      const gateErr  = document.getElementById('gateError');
-      const gateBtn  = document.getElementById('gateSubmit');
-      const gateEye  = document.getElementById('gateTogglePwd');
-      const CORRECT  = 'kbj@2008';
-      const SESS_KEY = 'tt_auth_2026';
-
-      // Already authenticated in this session → hide gate immediately
-      if (sessionStorage.getItem(SESS_KEY) === '1') {
-        gate.style.display = 'none';
-        return;
-      }
-
-      function tryUnlock() {
-        if (gateInp.value === CORRECT) {
-          sessionStorage.setItem(SESS_KEY, '1');
-          gate.style.transition = 'opacity 0.5s';
-          gate.style.opacity = '0';
-          setTimeout(() => gate.style.display = 'none', 500);
-        } else {
-          gateErr.style.display = 'block';
-          gateInp.value = '';
-          gateInp.style.border = '1px solid rgba(248,113,113,0.7)';
-          setTimeout(() => { gateInp.style.border = '1px solid rgba(139,92,246,0.35)'; }, 1500);
-        }
-      }
-
-      gateBtn.addEventListener('click', tryUnlock);
-      gateInp.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
-      gateEye.addEventListener('click', () => {
-        const show = gateInp.type === 'password';
-        gateInp.type = show ? 'text' : 'password';
-        gateEye.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
-      });
-
-      // Focus the input field automatically
-      setTimeout(() => gateInp.focus(), 200);
-    })();
+    // ── PAGE GATE CHECK ───────────────────────────────
+    if (sessionStorage.getItem(SESS_AUTH_KEY) === '1') {
+      const g = document.getElementById('pageGate');
+      if (g) g.style.display = 'none';
+    } else {
+      const inp = document.getElementById('gatePassword');
+      if (inp) setTimeout(() => inp.focus(), 200);
+    }
 
     // ── Existing DOMContentLoaded handlers below ─────────────────────
     const modal = document.getElementById('passwordModal');
