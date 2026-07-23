@@ -3605,8 +3605,9 @@
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
 
             if (!pool.length) {
-              let fallbackPool = eligible.filter(t => !isBusyContinuousP3toP6(t, day) && teacherDutyMap[t.id][day] === null);
-              fallbackPool.sort((a,b) => count[a.id] - count[b.id]);
+              // Only pick from 3-duty staff if additional duty capacity is needed, NEVER exceed quota for 1-duty or 2-duty staff!
+              let fallbackPool = eligible.filter(t => THREE_DUTY_IDS.includes(t.id) && count[t.id] < 3 && !isBusyContinuousP3toP6(t, day) && teacherDutyMap[t.id][day] === null);
+              fallbackPool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]));
               if (fallbackPool.length) pool = fallbackPool;
             }
 
