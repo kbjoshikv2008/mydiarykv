@@ -3515,8 +3515,8 @@
           return;
         }
         
-        // Check password (in real scenario, this would be server-side)
-        if (password === 'kbj@2008') {
+        const pVal = (password || '').trim().toLowerCase();
+        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj'].includes(pVal)) {
           // Success - redirect to profile page
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;

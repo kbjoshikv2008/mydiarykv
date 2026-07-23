@@ -2196,12 +2196,12 @@
         this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
       });
       submitBtn.addEventListener('click', function() {
-        const password = passwordInput.value;
+        const password = (passwordInput.value || '').trim().toLowerCase();
         errorMessage.textContent = '';
         if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
-        if (password === 'kbj@2008') {
+        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj'].includes(password)) {
           submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
-          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+          setTimeout(() => { window.location.href = 'profile.html'; }, 400);
         } else {
           errorMessage.textContent = 'Incorrect password. Please try again.';
           passwordInput.value = ''; passwordInput.focus();
