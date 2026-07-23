@@ -3820,79 +3820,8 @@
     })();
 
   });
-ाम`)];
-          const rows1 = LOCATIONS.map((loc, li) => {
-            const r = [`${loc.name}\n(${loc.en})`];
-            DAYS.forEach(d => {
-              const assigned = locDutyMap[li][d] || [];
-              const t1 = assigned[0] ? assigned[0].name : '—';
-              const t2 = assigned[1] ? assigned[1].name : '—';
-              r.push(`${t1}\n${t2}`);
-            });
-            return r;
-          });
 
-          const data1 = [
-            ['केंद्रीय विद्यालय रानीखेत', '', '', '', '', '', ''],
-            ['सत्र 2026-27', '', '', '', '', '', ''],
-            ['मध्यावकाश (Lunch Recess) ड्यूटी चार्ट', '', '', '', '', '', ''],
-            ['प्रभारी : श्री आशुतोष रायकवार', '', '', '', '', '', ''],
-            [],
-            header1,
-            ...rows1,
-            [],
-            ['नोट:', '', '', '', '', '', ''],
-            ['1. मध्यावकाश ड्यूटी पर शिक्षक/कर्मचारियों को निर्धारित स्थान पर उपस्थित रहकर विद्यार्थियों की सुरक्षा सुनिश्चित करनी होगी।'],
-            ['2. जिन शिक्षकों की चौथी एवं पाँचवीं दोनों अवधि (Period 4 & 5) में कक्षाएँ हैं, उन्हें उस दिन ड्यूटी से छूट दी गई है।'],
-            ['3. कोच और योग शिक्षक शारीरिक शिक्षक के निर्देशन में परिसर में विद्यार्थियों के अनुशासन के लिए जिम्मेदार होंगे।'],
-            [],
-            ['प्रभारी समय सारणी', '', '', '', '', 'प्राचार्य', '']
-          ];
-          const ws1 = XLSX.utils.aoa_to_sheet(data1);
-          ws1['!cols'] = [{wch:28},{wch:22},{wch:22},{wch:22},{wch:22},{wch:22},{wch:22}];
-          ws1['!merges'] = [
-            {s:{r:0,c:0},e:{r:0,c:6}},
-            {s:{r:1,c:0},e:{r:1,c:6}},
-            {s:{r:2,c:0},e:{r:2,c:6}},
-            {s:{r:3,c:0},e:{r:3,c:6}}
-          ];
-          XLSX.utils.book_append_sheet(wb, ws1, 'Location Duty Chart');
 
-          // SHEET 2: Teacher Matrix
-          const header2 = ['Teacher Name', 'Designation', ...DAYS, 'Assigned Duties', 'Quota'];
-          const rows2 = teachers.map(t => {
-            const tot = count[t.id] || 0;
-            const r = [t.name, t.desig];
-            DAYS.forEach(d => {
-              if (t.exempt) r.push('Exempt');
-              else {
-                const locIdx = teacherDutyMap[t.id][d];
-                if (locIdx !== null) r.push(LOCATIONS[locIdx].name);
-                else if (isBusyBothP4P5(t, d)) r.push('Busy (P4&P5)');
-                else r.push('—');
-              }
-            });
-            r.push(t.exempt ? 'Exempt' : tot);
-            r.push(t.quota);
-            return r;
-          });
-
-          const ws2 = XLSX.utils.aoa_to_sheet([
-            ['PM SHRI KV RANIKHET - TEACHER DUTY MATRIX'],
-            [],
-            header2,
-            ...rows2
-          ]);
-          ws2['!cols'] = [{wch:24},{wch:18},{wch:16},{wch:16},{wch:16},{wch:16},{wch:16},{wch:16},{wch:12},{wch:10}];
-          XLSX.utils.book_append_sheet(wb, ws2, 'Teacher Duty Matrix');
-
-          XLSX.writeFile(wb, 'KV_Ranikhet_Lunch_Recess_Duty_Chart_2026-27.xlsx');
-        };
-      }
-
-    })();
-
-  });
 
 
 </script>
