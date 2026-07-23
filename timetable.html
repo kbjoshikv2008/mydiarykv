@@ -3518,6 +3518,7 @@
       };
 
       const EXEMPT_IDS = ['rachnav','vikasb','deepakj','meghap','shantiss'];
+      const ONE_DUTY_IDS = ['kbjoshi', 'smitas', 'jeevank', 'vipin', 'ajayk'];
       const THREE_DUTY_IDS = ['lalitb', 'ayush', 'almaas', 'narendras', 'ashutoshr', 'hitendras', 'vinay']; // Max 2 duties per teacher / staff
 
       const LOCATIONS = [
@@ -3540,13 +3541,13 @@
         desigHi: HINDI_DESIG[t.desig] || t.desig,
         schedule: t.schedule,
         exempt: EXEMPT_IDS.includes(t.id),
-        quota: EXEMPT_IDS.includes(t.id) ? 0 : (THREE_DUTY_IDS.includes(t.id) ? 3 : 2)
+        quota: EXEMPT_IDS.includes(t.id) ? 0 : (ONE_DUTY_IDS.includes(t.id) ? 1 : (THREE_DUTY_IDS.includes(t.id) ? 3 : 2))
       }));
 
       // Busy Rule: Teacher is busy ONLY IF they have class in BOTH Period 4 (idx 3) AND Period 5 (idx 4)
       function isBusyBothP4P5(t, day) {
         // Exclude Lalit Bisht, Narendra Singh, Ayush, Ravi Bhushan from P4/P5 busy condition
-        const ALWAYS_ELIGIBLE_IDS = ['lalitb', 'narendras', 'ayush', 'ravibhushan'];
+        const ALWAYS_ELIGIBLE_IDS = ['lalitb', 'narendras', 'ayush', 'ravibhushan', 'smitas', 'jeevank', 'vipin', 'ajayk'];
         if (ALWAYS_ELIGIBLE_IDS.includes(t.id)) return false;
 
         const s = t.schedule[day];
