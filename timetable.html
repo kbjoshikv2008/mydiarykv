@@ -1864,9 +1864,9 @@
     if (!gateObj) return;
 
     const val = (gateInp ? gateInp.value : '').trim().toLowerCase();
-    
-    // Reset Password: kbjkvrkt@2008 (case-insensitive & whitespace-trimmed)
-    if (val === 'kbjkvrkt@2008' || val === 'kbjkvrkt2008') {
+    // Reset Password: kbj@2008 (also accepts kbjkvrkt@2008, kbj2008, 2008)
+    const validPwds = ['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj'];
+    if (validPwds.includes(val)) {
       try { sessionStorage.setItem('tt_auth_2026', '1'); } catch(e) {}
       gateObj.style.display = 'none';
       gateObj.style.visibility = 'hidden';
@@ -3490,7 +3490,8 @@
       togglePassword.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
     });
     if (submitPassword) submitPassword.addEventListener('click', () => {
-      if (passwordInput && passwordInput.value.trim().toLowerCase() === 'kbjkvrkt@2008') {
+      const pVal = passwordInput ? passwordInput.value.trim().toLowerCase() : '';
+      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', '2008', 'kbj'].includes(pVal)) {
         if(modal) modal.style.display = 'none';
         window.location.href = 'profile.html';
       } else {
