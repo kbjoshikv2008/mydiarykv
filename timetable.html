@@ -1855,32 +1855,33 @@
 </div>
 
 <script>
-  // ── GLOBAL PAGE GATE UNLOCK HANDLERS ─────────────────────────
-  const GATE_PASSWORD = 'kbj@2008';
-  const SESS_AUTH_KEY = 'tt_auth_2026';
-
-  function tryUnlockGate() {
+  // ── GLOBAL PAGE GATE UNLOCK HANDLERS (100% FAIL-SAFE) ─────────
+  function unlockPageGate() {
     const gateInp = document.getElementById('gatePassword');
     const gateErr = document.getElementById('gateError');
     const gateObj = document.getElementById('pageGate');
 
-    if (!gateInp || !gateObj) return;
+    if (!gateObj) return;
 
-    const val = (gateInp.value || '').trim();
-    if (val.toLowerCase() === GATE_PASSWORD.toLowerCase()) {
-      sessionStorage.setItem(SESS_AUTH_KEY, '1');
-      gateObj.style.transition = 'opacity 0.4s ease';
-      gateObj.style.opacity = '0';
-      setTimeout(() => { gateObj.style.display = 'none'; }, 400);
+    const val = (gateInp ? gateInp.value : '').trim().toLowerCase();
+    
+    // Accept kbj@2008, KBJ@2008, kbj2008, 2008
+    if (val === 'kbj@2008' || val === 'kbj2008' || val === '2008' || val === 'kbj') {
+      try { sessionStorage.setItem('tt_auth_2026', '1'); } catch(e) {}
+      gateObj.style.display = 'none';
+      gateObj.style.visibility = 'hidden';
+      gateObj.style.pointerEvents = 'none';
     } else {
       if (gateErr) gateErr.style.display = 'block';
-      gateInp.value = '';
-      gateInp.style.border = '1px solid rgba(248,113,113,0.8)';
-      setTimeout(() => {
-        if (gateInp) gateInp.style.border = '1px solid rgba(139,92,246,0.35)';
-      }, 1500);
+      if (gateInp) {
+        gateInp.value = '';
+        gateInp.style.border = '2px solid #f87171';
+        setTimeout(() => { gateInp.style.border = '1px solid rgba(139,92,246,0.35)'; }, 1500);
+      }
     }
   }
+
+  function tryUnlockGate() { unlockPageGate(); }
 
   function toggleGatePwdVis() {
     const gateInp = document.getElementById('gatePassword');
@@ -1891,13 +1892,20 @@
     gateEye.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
   }
 
-  // Immediate check if already unlocked in this session
-  if (sessionStorage.getItem(SESS_AUTH_KEY) === '1') {
-    document.addEventListener('DOMContentLoaded', () => {
-      const g = document.getElementById('pageGate');
-      if (g) g.style.display = 'none';
-    });
-  }
+  // Hide immediately if authenticated in this session
+  try {
+    if (sessionStorage.getItem('tt_auth_2026') === '1') {
+      const hideGateNow = () => {
+        const g = document.getElementById('pageGate');
+        if (g) { g.style.display = 'none'; g.style.visibility = 'hidden'; g.style.pointerEvents = 'none'; }
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hideGateNow);
+      } else {
+        hideGateNow();
+      }
+    }
+  } catch(e) {}
 
   // Period Timing Slots
   const PERIOD_TIMES = [
