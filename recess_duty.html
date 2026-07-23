@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recess Duty Chart - PM SHRI KV RANIKHET</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;background:#f8fafc;color:#0f172a;padding:18px;}
+.page-wrapper{max-width:1120px;margin:0 auto;}
+.header-box{border:3px solid #0f172a;border-radius:8px;background:#fff;text-align:center;padding:10px 16px;margin-bottom:16px;}
+.header-box .school{font-size:0.85rem;font-weight:900;color:#0f766e;letter-spacing:0.5px;}
+.header-box h1{font-size:1.5rem;font-weight:900;color:#0f172a;border-bottom:2px solid #0f172a;padding-bottom:4px;margin:4px 0;}
+.header-box .subtitle{font-size:0.8rem;font-weight:700;color:#1e293b;margin-top:4px;}
+.print-btn-bar{display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px;}
+.print-btn{background:#0f766e;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:0.85rem;font-weight:700;cursor:pointer;}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;font-size:0.78rem;}
+.legend-item{display:flex;align-items:center;gap:6px;font-weight:600;}
+.legend-dot{width:16px;height:16px;border-radius:3px;border:1px solid #94a3b8;}
+.duty-table{width:100%;border-collapse:collapse;border:3px solid #0f172a;font-size:0.8rem;margin-bottom:18px;background:#fff;}
+.duty-table thead th{background:#1e293b;color:#fff;padding:7px 5px;font-weight:900;font-size:0.76rem;border:1px solid #475569;text-align:center;}
+.duty-table thead th.dh{background:#064e3b;font-size:0.82rem;}
+.duty-table tbody tr:nth-child(even){background:#f1f5f9;}
+.duty-table tbody tr:nth-child(odd){background:#fff;}
+.duty-table tbody td{border:1px solid #64748b;padding:6px;vertical-align:middle;text-align:center;}
+.tnc{text-align:left;font-weight:700;color:#0f172a;white-space:nowrap;padding-left:10px;}
+.dc{font-size:0.7rem;color:#1e293b;white-space:nowrap;}
+.yes{background:#dcfce7;color:#14532d;font-weight:900;font-size:0.78rem;border-radius:4px;padding:3px 5px;display:inline-block;}
+.busy{background:#fef3c7;color:#78350f;font-size:0.7rem;font-weight:700;display:inline-block;padding:2px 4px;border-radius:3px;}
+.no{color:#94a3b8;font-size:0.7rem;}
+.exempt{color:#6b7280;font-size:0.7rem;font-style:italic;background:#f3f4f6;}
+.tok{font-weight:900;color:#14532d;}
+.tover{font-weight:900;color:#991b1b;}
+.sl{font-size:0.82rem;font-weight:700;color:#1e293b;margin:14px 0 6px;border-left:4px solid #0f766e;padding-left:8px;}
+.footer-line{margin-top:14px;border-top:2px solid #0f172a;padding-top:8px;display:flex;justify-content:space-between;font-size:0.78rem;font-weight:700;color:#1e293b;}
+@media print{
+@page{size:A4 landscape;margin:5mm;}
+body{background:#fff;padding:0;}
+.print-btn-bar{display:none;}
+.duty-table{font-size:0.66rem;}
+.duty-table thead th{font-size:0.64rem;padding:3px 2px;}
+.duty-table tbody td{padding:3px 2px;}
+.yes{background:#dcfce7;color:#14532d;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+.busy{background:#fef3c7;color:#78350f;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+.exempt{background:#f3f4f6;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+-webkit-print-color-adjust:exact;
+print-color-adjust:exact;
+}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<div class="header-box">
+<div class="school">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
+<h1>RECESS DUTY CHART</h1>
+<div class="subtitle">Session 2026-27 | Snack Recess: 09:40-09:50 AM | Lunch Recess: 11:10-11:30 AM | Teachers with class in P4 or P5 are excluded from duty on that day</div>
+</div>
+<div class="print-btn-bar">
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+</div>
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:#dcfce7;"></div> DUTY ASSIGNED</div>
+<div class="legend-item"><div class="legend-dot" style="background:#fef3c7;"></div> BUSY (P4 or P5 class - not eligible)</div>
+<div class="legend-item"><div class="legend-dot" style="background:#f3f4f6;"></div> EXEMPT (No duty assigned)</div>
+<div class="legend-item"><div class="legend-dot" style="background:#fff;border:1px solid #94a3b8;"></div> Free / No duty this day</div>
+</div>
+<div id="dtc"></div>
+<div class="footer-line">
+<span>Prepared by: K B JOSHI, PGT Mathematics | PM SHRI KV RANIKHET</span>
+<span>Principal's Signature: ________________________</span>
+</div>
+</div>
+<script>
+const TEACHERS=[
+{id:'kbjoshi',name:'K B JOSHI',desig:'PGT MATH',duties:2,schedule:{Monday:['','12C','','11C','11C','7C','12B','12B'],Tuesday:['','12C','','11C','','7C','12B','12B'],Wednesday:['','12C','','11C','','7C','11B','11B'],Thursday:['','12C','','11C','','7C','11B','11B'],Friday:['','12C','','11C','7C','7C','',''],Saturday:['','12B','12B','11C','11C','7C','CLA','CLA']}},
+{id:'rachnav',name:'RACHNA VERMA',desig:'PGT ECO',duties:0,exempt:true,schedule:{Monday:['12C','12A','11C','','11A','11A','','12A'],Tuesday:['12C','12A','11C','','11A','11C','12A',''],Wednesday:['12C','12A','11C','','11A','12C','11A','11C'],Thursday:['12C','12A','11C','','11A','12C','','12A'],Friday:['12C','12A','11C','','12C','11A','11A',''],Saturday:['12C','12A','11C','','11A','11C','CLA','CLA']}},
+{id:'sameerj',name:'SAMEER JOSHI',desig:'PGT CS',duties:2,schedule:{Monday:['11B','','12B','','10C','','10A','10B'],Tuesday:['','','12B','','11B','11B','','10C'],Wednesday:['11B','','12B','12B','10C','','10B','10A'],Thursday:['11B','','12B','10B','10C','','10B','10A'],Friday:['11B','','12B','','12B','12B','11B','11B'],Saturday:['11B','','','10A','12B','','CLA','CLA']}},
+{id:'vikasb',name:'VIKAS BHATIA',desig:'PGT COMMERCE',duties:0,exempt:true,schedule:{Monday:['11C','11C','','12C','12C','11C','','11C'],Tuesday:['11C','11C','','12C','12C','12C','','11C'],Wednesday:['11C','11C','','12C','12C','11C','12C','12C'],Thursday:['11C','11C','','12C','12C','11C','12C',''],Friday:['11C','11C','','12C','','12C','12C','11C'],Saturday:['11C','11C','','12C','12C','12C','CLA','CLA']}},
+{id:'pawang',name:'PAWAN GAHTORI',desig:'PGT BIO',duties:2,schedule:{Monday:['','12B','6A','11B','','6B','12B','12B'],Tuesday:['','12B','6A','11B','','6B','12B','12B'],Wednesday:['','12B','6A','11B','','6B','11B','11B'],Thursday:['','12B','6A','11B','','6B','11B','11B'],Friday:['','12B','6A','11B','','6B','',''],Saturday:['','','6A','','','6B','CLA','CLA']}},
+{id:'deepakj',name:'DEEPAK JOSHI',desig:'PGT HINDI',duties:0,exempt:true,schedule:{Monday:['11B','12C','12B','11C','','','11A','12C'],Tuesday:['','12C','12B','11C','','11B','11A','12A'],Wednesday:['11B','12C','12B','11C','','11A','12A',''],Thursday:['11B','12C','12B','11C','','11A','12A','11C'],Friday:['','12C','12B','11C','11A','','11B','12A'],Saturday:['11B','','12A','12A','12B','11A','CLA','CLA']}},
+{id:'sagarb',name:'SAGAR BATRA',desig:'PGT CHEM',duties:2,schedule:{Monday:['12B','8C','11B','','8A','11B','11B',''],Tuesday:['12B','8C','11B','','8A','','11B','11B'],Wednesday:['12B','8C','11B','','8A','','12B','12B'],Thursday:['12B','8C','11B','','8A','','12B','12B'],Friday:['12B','8C','11B','','8A','','',''],Saturday:['12B','8C','11B','','8A','','CLA','CLA']}},
+{id:'hitendras',name:'HITENDRA SINGH',desig:'PGT PHY',duties:2,schedule:{Monday:['','11B','6C','12B','','11B','11B',''],Tuesday:['','11B','6C','12B','','','11B','11B'],Wednesday:['','11B','6C','','12B','','12B','12B'],Thursday:['','11B','6C','12B','','','12B','12B'],Friday:['','11B','6C','12B','','','',''],Saturday:['','','6C','12B','','11B','CLA','CLA']}},
+{id:'nidhi',name:'NIDHI',desig:'PGT HISTORY',duties:2,schedule:{Monday:['11A','8A','','','12A','8B','','11A'],Tuesday:['11A','8A','','','12A','8B','7B',''],Wednesday:['11A','8A','12A','','12A','8B','7B','11A'],Thursday:['11A','8A','12A','','12A','8B','','11A'],Friday:['11A','8A','12A','','12A','8B','7B',''],Saturday:['11A','8A','','','12A','8B','CLA','CLA']}},
+{id:'naseem',name:'NASEEM BANO',desig:'TGT GEO',duties:2,schedule:{Monday:['8C','7C','11A','','7B','12A','12A',''],Tuesday:['8C','7C','11A','','','12A','7B','11A'],Wednesday:['8C','7C','11A','11A','','12A','7B','12A'],Thursday:['8C','7C','11A','','','12A','','7B'],Friday:['8C','7C','11A','11A','','12A','12A','7B'],Saturday:['8C','7C','11A','7B','','12A','CLA','CLA']}},
+{id:'smitas',name:'SMITA SAHA',desig:'TGT MATH',duties:2,schedule:{Monday:['9B','10A','','6A','6B','','6A','6C'],Tuesday:['9B','10A','','6A','6B','','9B','6C'],Wednesday:['9B','10A','','6A','6B','6C','','6C'],Thursday:['9B','10A','','6A','6B','','6B','6C'],Friday:['9B','10A','','6A','6B','','10A','6C'],Saturday:['9B','10A','','6A','6B','6C','CLA','CLA']}},
+{id:'deveshs',name:'DEVESH SHARMA',desig:'TGT MATH',duties:2,schedule:{Monday:['10B','7B','7A','','9C','7B','8C',''],Tuesday:['10B','7B','7A','','9C','','8C','9C'],Wednesday:['10B','7B','7A','','9C','7B','8C',''],Thursday:['10B','','7A','8C','9C','','','7A'],Friday:['10B','7B','7A','','9C','','8C','10B'],Saturday:['10B','7B','7A','','9C','','CLA','CLA']}},
+{id:'hemr',name:'HEM RAWAT',desig:'TGT MATH',duties:2,schedule:{Monday:['10C','','9A','8B','','','8A','8A'],Tuesday:['10C','','9A','','8B','','8B','8A'],Wednesday:['10C','','9A','8C','8B','','','8A'],Thursday:['10C','9A','9A','','8B','','8C','8A'],Friday:['10C','','9A','8A','8B','','10C','8A'],Saturday:['10C','','9A','','8B','','CLA','CLA']}},
+{id:'jeevank',name:'JEEVAN KUMAR',desig:'TGT HINDI',duties:2,schedule:{Monday:['8A','8B','','9A','8C','10B','',''],Tuesday:['8A','8B','','9A','8C','10B','',''],Wednesday:['8A','8B','','9A','8C','10B','','8C'],Thursday:['8A','8B','','9A','8C','10B','',''],Friday:['8A','8B','','9A','8C','10B','',''],Saturday:['8A','8B','','10B','','10B','CLA','CLA']}},
+{id:'ajayk',name:'AJAY KUMAR',desig:'TGT HINDI',duties:2,schedule:{Monday:['10A','','9C','10A','6A','','6C',''],Tuesday:['10A','','9C','7A','6A','','6C','7A'],Wednesday:['10A','','9C','7A','6A','','6C',''],Thursday:['10A','','9C','7A','6A','','6C',''],Friday:['10A','','9C','7A','6A','','6C',''],Saturday:['10A','6C','','7A','','6A','CLA','CLA']}},
+{id:'sunitak',name:'SUNITA K',desig:'TGT HINDI',duties:2,schedule:{Monday:['6B','','7B','9B','','10C','',''],Tuesday:['6B','','7B','9B','','10C','7C',''],Wednesday:['6B','','','9B','7C','10C','7C','10C'],Thursday:['6B','','7B','9B','','10C','7C',''],Friday:['6B','','7B','9B','','10C','7C',''],Saturday:['6B','','7B','7C','7B','10C','CLA','CLA']}},
+{id:'shantiss',name:'SHANTI SWAROOP',desig:'TGT SANSKRIT',duties:0,exempt:true,schedule:{Monday:['8B','','8C','7A','7C','9B','7B',''],Tuesday:['8B','9A','7C','','6C','8A','9C','6A'],Wednesday:['8B','','8A','6C','','8C','8A','6B'],Thursday:['','6B','9B','6C','','7B','7A','9C'],Friday:['','7A','7C','9C','9A','','6A','6B'],Saturday:['','6A','9B','9A','8C','7B','CLA','CLA']}},
+{id:'vipin',name:'VIPIN C',desig:'TGT SST',duties:2,schedule:{Monday:['6A','9B','','6B','10B','10A','','9B'],Tuesday:['6A','9B','','6B','10B','10A','','10B'],Wednesday:['6A','9B','','6B','10B','10A','',''],Thursday:['6A','9B','','6B','10B','10A','',''],Friday:['6A','9B','','6B','10B','10A','','10A'],Saturday:['6A','9B','','6B','10B','10A','CLA','CLA']}},
+{id:'shikhak',name:'SHIKHA KHULBE',desig:'TGT SST',duties:2,schedule:{Monday:['6C','9C','','10C','','7A','9A','9A'],Tuesday:['6C','9C','','10C','','7A','','9A'],Wednesday:['6C','9C','','10C','','7A','9A','9A'],Thursday:['6C','9C','','10C','','7A','9C','9A'],Friday:['6C','','','10C','10C','7A','9C','9A'],Saturday:['6C','9C','','10C','','7A','CLA','CLA']}},
+{id:'karishmac',name:'KARISHMA C',desig:'TGT BIO/SCI',duties:2,schedule:{Monday:['7B','10B','10A','','7A','9A','10B',''],Tuesday:['7B','10B','10A','','7A','9A','10A',''],Wednesday:['7B','10B','10A','','7A','9A','',''],Thursday:['7B','10B','10A','','7A','9A','',''],Friday:['7B','10B','10A','','7A','9A','9A',''],Saturday:['7B','10B','10A','','7A','9A','CLA','CLA']}},
+{id:'kalpanar',name:'KALPANA RAUTELA',desig:'TGT SCIENCE',duties:2,schedule:{Monday:['7C','10C','8B','','9B','9C','',''],Tuesday:['7C','10C','8B','','9B','9C','',''],Wednesday:['7C','10C','8B','','9B','9C','9B',''],Thursday:['7C','10C','8B','','9B','9C','10C',''],Friday:['7C','10C','','8B','9B','9C','','9C'],Saturday:['7C','10C','8B','','9B','9C','CLA','CLA']}},
+{id:'pratikshak',name:'PRATIKSHA K',desig:'TGT ENGLISH',duties:2,schedule:{Monday:['9C','','10C','7B','','6C','7C','7C'],Tuesday:['9C','','10C','7B','','6C','10C','7C'],Wednesday:['9C','','10C','7B','','','','7C'],Thursday:['','6C','10C','7B','','6C','7B','7C'],Friday:['9C','','10C','7B','','6C','','7C'],Saturday:['9C','','10C','6C','','','CLA','CLA']}},
+{id:'parul',name:'PARUL',desig:'TGT ENGLISH',duties:2,schedule:{Monday:['9A','','6B','','10A','8C','','6A'],Tuesday:['','6B','','10A','10A','8C','6A',''],Wednesday:['9A','6B','','','10A','','6A','6A'],Thursday:['9A','','6B','','10A','8C','','6A'],Friday:['9A','6B','8C','','10A','8C','','6A'],Saturday:['9A','6B','','','10A','8C','CLA','CLA']}},
+{id:'almaas',name:'ALMAAS',desig:'TGT ENGLISH',duties:2,schedule:{Monday:['7A','','10B','8A','','','9B','8B'],Tuesday:['7A','','10B','8A','','9B','','8B'],Wednesday:['7A','','10B','8A','','9B','','8B'],Thursday:['7A','','10B','8A','','8A','','8B'],Friday:['7A','','10B','10B','','9B','8B','8B'],Saturday:['7A','','10B','8A','','9B','CLA','CLA']}},
+{id:'aradhanar',name:'ARADHANA R',desig:'TGT ART',duties:2,schedule:{Monday:['','','7C','8C','9A','','9C','6B'],Tuesday:['9A','','6B','6C','7B','','10B','10A'],Wednesday:['','7A','7C','10B','','6A','10A','9C'],Thursday:['8B','6A','8A','','6C','','9B','10C'],Friday:['8B','9C','8A','','7B','','9B','10C'],Saturday:['','7A','8C','','9A','','CLA','CLA']}},
+{id:'ashutoshr',name:'ASHUTOSH R',desig:'TGT PHE',duties:4,schedule:{Monday:['','6C','','9C','12B','6A','10C','7B'],Tuesday:['','6A','','10B','','7B','8A','8C'],Wednesday:['','','6B','8B','6C','','7A','9B'],Thursday:['','','7C','','9A','','8B','8C'],Friday:['','','9B','','','','6B','7A'],Saturday:['','9A','7C','9C','','8A','CLA','CLA']}},
+{id:'tarunp',name:'TARUN PATHAK',desig:'TGT WE',duties:2,schedule:{Monday:['','','9B','7C','','','7A','9C'],Tuesday:['','6C','8A','9C','','6A','9A','9B'],Wednesday:['','9A','8C','9C','','','6B','7A'],Thursday:['','7A','','9C','7B','6A','9A','9B'],Friday:['','9A','8B','7C','','7B','7A','9B'],Saturday:['8B','','6B','8C','6C','','CLA','CLA']}},
+{id:'narendras',name:'NARENDRA SINGH',desig:'YOGA INSTRUCTOR',duties:4,schedule:{Monday:['','6B','8A','12A','','12C','11C','7A'],Tuesday:['11B','','8C','8B','10C','11A','','7B'],Wednesday:['','6C','9B','12A','9A','','9C','10B'],Thursday:['','','','11A','12B','','10A','12C'],Friday:['','6A','','12A','11B','11C','12B',''],Saturday:['','11B','12B','11A','7C','','CLA','CLA']}},
+{id:'lalitb',name:'LALIT BISHT',desig:'PET/GAMES',duties:4,schedule:{Monday:['','7A','12A','10B','11C','','12C','10A'],Tuesday:['','','9B','11A','12B','','','12C'],Wednesday:['','','7B','10A','11C','11B','10C',''],Thursday:['','','','12A','11C','11B','11A',''],Friday:['','','','10A','12B','12B','10B','12C'],Saturday:['','12B','','11B','10C','','CLA','CLA']}},
+{id:'meghap',name:'MEGHA PATHAK',desig:'PGT ENG',duties:0,exempt:true,schedule:{Monday:['12A','11A','12C','','11B','12B','','11B'],Tuesday:['12A','11A','12C','','11C','12B','11C',''],Wednesday:['12A','11A','12C','','11B','12B','11C',''],Thursday:['12A','11A','12C','','11B','12B','11C',''],Friday:['12A','11A','12C','','11C','11B','11C','12B'],Saturday:['12A','11A','12C','','11B','12B','CLA','CLA']}},
+{id:'ayush',name:'AYUSH',desig:'VEI INSTRUCTOR',duties:2,schedule:{Monday:['','6A','','6C','8B','','6B','9C'],Tuesday:['','','8A','8C','7C','','6B','9B'],Wednesday:['','9A','8C','7C','7B','8A','',''],Thursday:['','7B','8C','8B','7C','','8A',''],Friday:['','6C','6B','6C','','6A','8A','8C'],Saturday:['8B','','8A','8B','6A','','CLA','CLA']}},
+{id:'vinay',name:'VINAY',desig:'LIBRARIAN',duties:2,schedule:{Monday:['','8B','6B','11A','','','7C','10C'],Tuesday:['6B','','','12A','11B','','12C','7A'],Wednesday:['7A','','','12B','7C','','6A','8C'],Thursday:['','6C','','10A','','8A','7B','10B'],Friday:['11B','','8C','','','','8B','11B'],Saturday:['8A','6C','','11C','7B','6A','CLA','CLA']}},
+{id:'ravibhushan',name:'RAVI BHUSHAN',desig:'COMPUTER INST.',duties:2,schedule:{Monday:['','9A','9B','','6C','8A','8B','8C'],Tuesday:['','7A','12A','7C','9A','','7A','6B'],Wednesday:['','6A','','9C','','','8B','7B'],Thursday:['9C','','','7C','','9B','6A','6B'],Friday:['','9A','','8C','6C','8A','7B','11A'],Saturday:['','12C','9C','9B','11C','','CLA','CLA']}}
+];
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function isBusy(t,day){const s=t.schedule[day];if(!s)return false;const p4=(s[3]||'').trim(),p5=(s[4]||'').trim();return(p4!==''&&!p4.toUpperCase().includes('CLA'))||(p5!==''&&!p5.toUpperCase().includes('CLA'));}
+function generate(){
+  const count={};const dutyMatrix={};
+  TEACHERS.forEach(t=>{count[t.id]=0;dutyMatrix[t.id]={};DAYS.forEach(d=>dutyMatrix[t.id][d]=null);});
+  const eligible=TEACHERS.filter(t=>!t.exempt&&t.duties>0);
+  eligible.sort((a,b)=>b.duties-a.duties||a.name.localeCompare(b.name));
+  for(const day of DAYS){
+    for(const slot of['SNACK','LUNCH']){
+      let pool=eligible.filter(t=>!isBusy(t,day)&&dutyMatrix[t.id][day]!==slot&&dutyMatrix[t.id][day]!=='BOTH'&&count[t.id]<t.duties);
+      pool.sort((a,b)=>(b.duties-count[b.id])-(a.duties-count[a.id]));
+      if(!pool.length)continue;
+      const c=pool[0];
+      if(dutyMatrix[c.id][day]===null)dutyMatrix[c.id][day]=slot;
+      else dutyMatrix[c.id][day]='BOTH';
+      count[c.id]++;
+    }
+  }
+  return{dutyMatrix,count};
+}
+function cell(t,day,dutyMatrix){
+  if(t.exempt)return '<td class="exempt">Exempt</td>';
+  const dm=dutyMatrix[t.id][day];
+  if(dm==='SNACK')return '<td><span class="yes">SNACK</span></td>';
+  if(dm==='LUNCH')return '<td><span class="yes">LUNCH</span></td>';
+  if(dm==='BOTH')return '<td><span class="yes">BOTH</span></td>';
+  if(isBusy(t,day))return '<td><span class="busy">Busy P4/P5</span></td>';
+  return '<td><span class="no">-</span></td>';
+}
+function render(){
+  const{dutyMatrix,count}=generate();
+  let h='<table class="duty-table"><thead><tr><th rowspan="2" style="text-align:left;padding-left:10px;">Teacher Name</th><th rowspan="2">Designation</th>';
+  h+=DAYS.map(d=>'<th class="dh">'+d.substring(0,3).toUpperCase()+'</th>').join('');
+  h+='<th rowspan="2">Duties</th><th rowspan="2">Quota</th></tr><tr>';
+  h+=DAYS.map(()=>'<th style="font-size:0.6rem;background:#1e293b;color:#94a3b8;padding:2px;">S/L</th>').join('');
+  h+='</tr></thead><tbody>';
+  for(const t of TEACHERS){
+    const tot=count[t.id]||0,q=t.duties;
+    const tc=tot===q?'tok':tot>q?'tover':'';
+    h+='<tr><td class="tnc">'+t.name+'</td><td class="dc">'+t.desig+'</td>';
+    for(const d of DAYS)h+=cell(t,d,dutyMatrix);
+    h+='<td class="'+tc+'" style="text-align:center;font-weight:900;">'+(t.exempt?'Exempt':tot)+'</td>';
+    h+='<td style="text-align:center;font-weight:700;">'+q+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  h+='<p class="sl">Day-wise Duty Summary</p>';
+  h+='<table class="duty-table"><thead><tr><th>Day</th><th>Snack Recess Duty</th><th>Lunch Recess Duty</th></tr></thead><tbody>';
+  for(const d of DAYS){
+    const sn=[],ln=[];
+    for(const t of TEACHERS){if(t.exempt)continue;const dm=dutyMatrix[t.id][d];if(dm==='SNACK'||dm==='BOTH')sn.push(t.name);if(dm==='LUNCH'||dm==='BOTH')ln.push(t.name);}
+    h+='<tr><td style="font-weight:900;background:#cbd5e1;">'+d+'</td><td style="background:#dcfce7;color:#14532d;font-weight:700;">'+(sn.join(' &amp; ')||'&mdash;')+'</td><td style="background:#dbeafe;color:#1e40af;font-weight:700;">'+(ln.join(' &amp; ')||'&mdash;')+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  document.getElementById('dtc').innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>
