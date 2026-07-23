@@ -1685,6 +1685,7 @@
         </div>
         <div class="tt-action-buttons">
           <button class="btn-action btn-print" id="printRecessBtn"><i class="fas fa-print"></i> Print Chart</button>
+          <button class="btn-action btn-pdf" id="downloadRecessExcelBtn"><i class="fas fa-file-excel"></i> Download Excel</button>
         </div>
       </div>
 
@@ -3338,177 +3339,239 @@
     });
     passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitPassword.click(); });
 
-    // ── RECESS DUTY CHART ─────────────────────────────────────────
+    // ── RECESS DUTY CHART (Location-Based, as per official chart) ──────────
     (function buildRecessDuty() {
-      // Exempt teachers (0 duties): Rachna Verma, Vikas Bhatia, Deepak Joshi, Megha Pathak, Shanti Swaroop
-      const EXEMPT_IDS  = ['rachnav','vikasb','deepakj','meghap','shantiss'];
-      // Teachers with 4 duties
-      const FOUR_DUTY   = ['ashutoshr','narendras','lalitb'];
-      const DUTY_DAYS   = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const DAY_HI = ['सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
 
-      // Build teacher list from TEACHERS_DATA with duty quotas
-      const teachers = TEACHERS_DATA.map(t => ({
-        id:     t.id,
-        name:   t.name,
-        desig:  t.desig,
-        duties: EXEMPT_IDS.includes(t.id) ? 0 : FOUR_DUTY.includes(t.id) ? 4 : 2,
-        exempt: EXEMPT_IDS.includes(t.id),
-        schedule: t.schedule
-      }));
-
-      // Is teacher busy (has class in P4 idx=3 or P5 idx=4) on given day?
-      function isBusy(t, day) {
-        const s = t.schedule[day];
-        if (!s) return false;
-        const p4 = (s[3] || '').trim(), p5 = (s[4] || '').trim();
-        return (p4 !== '' && !p4.toUpperCase().includes('CLA')) ||
-               (p5 !== '' && !p5.toUpperCase().includes('CLA'));
-      }
-
-      // Generate duty assignments (greedy, quota-respecting)
-      const count = {};
-      const dutyMatrix = {};
-      teachers.forEach(t => {
-        count[t.id] = 0;
-        dutyMatrix[t.id] = {};
-        DUTY_DAYS.forEach(d => dutyMatrix[t.id][d] = null);
-      });
-
-      const eligible = teachers.filter(t => !t.exempt && t.duties > 0);
-      eligible.sort((a,b) => b.duties - a.duties || a.name.localeCompare(b.name));
-
-      for (const day of DUTY_DAYS) {
-        for (const slot of ['SNACK','LUNCH']) {
-          let pool = eligible.filter(t =>
-            !isBusy(t, day) &&
-            dutyMatrix[t.id][day] !== slot &&
-            dutyMatrix[t.id][day] !== 'BOTH' &&
-            count[t.id] < t.duties
-          );
-          pool.sort((a,b) => (b.duties - count[b.id]) - (a.duties - count[a.id]));
-          if (!pool.length) continue;
-          const c = pool[0];
-          if (dutyMatrix[c.id][day] === null) dutyMatrix[c.id][day] = slot;
-          else dutyMatrix[c.id][day] = 'BOTH';
-          count[c.id]++;
+      // Exact duty data as per the official मध्यावकाश ड्यूटी चार्ट
+      const DUTY_LOCATIONS = [
+        {
+          place:    'लाइब्रेरी ब्लॉक',
+          placeEn:  'Library Block',
+          Monday:    ['श्री विनय कुमार', 'श्री तरुण पाठक'],
+          Tuesday:   ['श्री जीवन कुमार', 'श्री हेम रावत'],
+          Wednesday: ['श्री जीवन कुमार', 'श्री विपिन'],
+          Thursday:  ['श्री अजय कुमार', 'श्री हेम रावत'],
+          Friday:    ['श्री के बी जोशी', 'श्री विनय कुमार'],
+          Saturday:  ['श्री के बी जोशी', 'श्री तरुण पाठक']
+        },
+        {
+          place:    'कैंटीन',
+          placeEn:  'Canteen',
+          Monday:    ['श्री पवन गह्तोड़ी', 'श्री अजय कुमार'],
+          Tuesday:   ['श्री पवन गह्तोड़ी', 'श्री आशुतोष'],
+          Wednesday: ['श्री आयुष', 'सुश्री नसीम बानो'],
+          Thursday:  ['श्री विकास भाटिया', 'श्री देवेश शर्मा'],
+          Friday:    ['श्री सागर बत्रा', 'श्री हितेंद्र'],
+          Saturday:  ['श्री सागर बत्रा', 'श्री देवेश शर्मा']
+        },
+        {
+          place:    'प्रथम तल मुख्य भवन',
+          placeEn:  'First Floor – Main Building',
+          Monday:    ['श्री समीर जोशी', 'श्री ललित बिष्ट'],
+          Tuesday:   ['श्री समीर जोशी', 'श्रीमती पारुल'],
+          Wednesday: ['श्री दीपक जोशी', 'श्री आशुतोष'],
+          Thursday:  ['श्रीमती पारुल', 'श्री ललित बिष्ट'],
+          Friday:    ['श्रीमती पारुल', 'श्रीमती प्रतीक्षा'],
+          Saturday:  ['श्रीमती प्रतीक्षा', 'श्री दीपक जोशी']
+        },
+        {
+          place:    'प्राथना सभा स्थल',
+          placeEn:  'Prayer Assembly Ground',
+          Monday:    ['श्री नरेन्द्र सिंह', 'श्री आशुतोष'],
+          Tuesday:   ['श्री हितेंद्र', 'श्री ललित बिष्ट'],
+          Wednesday: ['श्रीमती मेघा पाठक', 'श्रीमती सुनीता'],
+          Thursday:  ['श्रीमती मेघा पाठक', 'श्रीमती सुनीता'],
+          Friday:    ['श्रीमती रचना वर्मा', 'सुश्री नेहा'],
+          Saturday:  ['श्रीमती रचना वर्मा', 'श्री नरेन्द्र सिंह']
+        },
+        {
+          place:    'प्रथम तल कक्षा 6A, B, C',
+          placeEn:  'First Floor – Class 6A, B, C',
+          Monday:    ['श्रीमती आराधना', 'श्री सुनील कुमार'],
+          Tuesday:   ['श्रीमती स्मिता', 'श्री सुनील कुमार'],
+          Wednesday: ['श्रीमती स्मिता', 'श्री सुनील कुमार'],
+          Thursday:  ['श्रीमती कल्पना', 'श्रीमती करिश्मा'],
+          Friday:    ['श्रीमती निधि', 'श्री आयुष'],
+          Saturday:  ['श्रीमती आराधना', 'श्रीमती शिखा खुलबे']
+        },
+        {
+          place:    'स्टाफ क्वार्टर गेट',
+          placeEn:  'Staff Quarter Gate',
+          Monday:    ['श्री नरेन्द्र सिंह', 'श्रीमती आराधना'],
+          Tuesday:   ['श्रीमती कल्पना', 'श्री आयुष'],
+          Wednesday: ['श्री रवि भूषण', 'श्रीमती करिश्मा'],
+          Thursday:  ['सुश्री नसीम बानो', 'सुश्री अलमास शेख'],
+          Friday:    ['श्रीमती शिखा खुलबे', 'सुश्री अलमास शेख'],
+          Saturday:  ['श्रीमती निधि', 'श्री शांति स्वरूप']
         }
-      }
+      ];
 
-      // ── Render Main Duty Matrix Table ──────────────────────
-      function cellHTML(t, day) {
-        if (t.exempt) return `<td style="background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:0.7rem;font-style:italic;text-align:center;border:1px solid var(--glass-border);padding:5px;">Exempt</td>`;
-        const dm = dutyMatrix[t.id][day];
-        if (dm === 'SNACK') return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dcfce7;color:#14532d;font-weight:900;font-size:0.75rem;border-radius:4px;padding:2px 6px;display:inline-block;">SNACK</span></td>`;
-        if (dm === 'LUNCH') return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dbeafe;color:#1e40af;font-weight:900;font-size:0.75rem;border-radius:4px;padding:2px 6px;display:inline-block;">LUNCH</span></td>`;
-        if (dm === 'BOTH')  return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dcfce7;color:#14532d;font-weight:900;font-size:0.75rem;border-radius:4px;padding:2px 6px;display:inline-block;">BOTH</span></td>`;
-        if (isBusy(t, day)) return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;background:#fef3c7;"><span style="color:#78350f;font-size:0.68rem;font-weight:700;">Busy</span></td>`;
-        return `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;color:var(--text-muted);font-size:0.7rem;">—</td>`;
-      }
+      // Row colors per location
+      const LOC_COLORS = ['#1e3a8a','#065f46','#7c2d12','#4a1d96','#0f4c7a','#713f12'];
 
+      // ── Render main location × day table ──────────────────
       let thead = `<thead><tr>
-        <th style="background:#1e293b;color:#fff;padding:7px 10px;text-align:left;border:1px solid #475569;font-size:0.76rem;white-space:nowrap;">Teacher Name</th>
-        <th style="background:#1e293b;color:#fff;padding:7px 8px;text-align:center;border:1px solid #475569;font-size:0.76rem;">Desig.</th>
-        ${DUTY_DAYS.map(d => `<th style="background:#064e3b;color:#fff;padding:7px 6px;text-align:center;border:1px solid #475569;font-size:0.76rem;">${d.substring(0,3).toUpperCase()}</th>`).join('')}
-        <th style="background:#1e293b;color:#fff;padding:7px 8px;text-align:center;border:1px solid #475569;font-size:0.76rem;">Duties</th>
-        <th style="background:#1e293b;color:#fff;padding:7px 8px;text-align:center;border:1px solid #475569;font-size:0.76rem;">Quota</th>
+        <th style="background:#0f172a;color:#fff;padding:9px 12px;text-align:left;border:1px solid #334155;font-size:0.78rem;min-width:160px;">स्थान (Location)</th>
+        ${DAYS.map((d,i) => `<th style="background:#1e3a5f;color:#fff;padding:9px 8px;text-align:center;border:1px solid #334155;font-size:0.76rem;">${DAY_HI[i]}<br><span style="font-size:0.62rem;opacity:0.75;">${d}</span></th>`).join('')}
       </tr></thead>`;
 
       let tbody = '<tbody>';
-      teachers.forEach((t, i) => {
-        const tot = count[t.id] || 0, q = t.duties;
-        const bg = i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)';
-        const totColor = tot === q ? '#4ade80' : tot > q ? '#f87171' : 'var(--text-secondary)';
-        tbody += `<tr style="background:${bg};">
-          <td style="padding:6px 10px;border:1px solid var(--glass-border);font-weight:700;color:var(--text-primary);white-space:nowrap;font-size:0.8rem;">${t.name}</td>
-          <td style="padding:6px 8px;border:1px solid var(--glass-border);font-size:0.68rem;color:var(--text-secondary);white-space:nowrap;text-align:center;">${t.desig}</td>
-          ${DUTY_DAYS.map(d => cellHTML(t, d)).join('')}
-          <td style="text-align:center;border:1px solid var(--glass-border);padding:6px;font-weight:900;color:${totColor};font-size:0.82rem;">${t.exempt ? 'Exempt' : tot}</td>
-          <td style="text-align:center;border:1px solid var(--glass-border);padding:6px;font-weight:700;color:var(--text-secondary);font-size:0.8rem;">${q}</td>
-        </tr>`;
+      DUTY_LOCATIONS.forEach((loc, ri) => {
+        const rowBg = `rgba(${ri%2===0?'255,255,255,0.04':'255,255,255,0.08'})`;
+        tbody += `<tr style="background:${rowBg};">
+          <td style="padding:8px 12px;border:1px solid rgba(255,255,255,0.12);font-weight:900;font-size:0.78rem;color:#e2e8f0;border-left:4px solid ${LOC_COLORS[ri]};">
+            ${loc.place}<br><span style="font-size:0.65rem;font-weight:400;color:rgba(255,255,255,0.5);">${loc.placeEn}</span>
+          </td>`;
+        DAYS.forEach(d => {
+          const [t1, t2] = loc[d] || ['—','—'];
+          tbody += `<td style="padding:7px 8px;border:1px solid rgba(255,255,255,0.12);text-align:center;vertical-align:middle;">
+            <div style="font-weight:700;font-size:0.74rem;color:#bfdbfe;margin-bottom:3px;">${t1}</div>
+            <div style="font-size:0.7rem;color:#a5b4fc;">${t2}</div>
+          </td>`;
+        });
+        tbody += '</tr>';
       });
       tbody += '</tbody>';
 
-      const mainTable = `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e293b;font-size:0.8rem;background:rgba(15,23,42,0.6);">${thead}${tbody}</table></div>`;
-      document.getElementById('recessDutyContainer').innerHTML = mainTable;
+      document.getElementById('recessDutyContainer').innerHTML =
+        `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e3a5f;font-size:0.8rem;background:rgba(10,15,35,0.7);border-radius:8px;overflow:hidden;">${thead}${tbody}</table></div>`;
 
-      // ── Render Day-wise Summary Table ──────────────────────
-      let sumHTML = `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e293b;font-size:0.82rem;background:rgba(15,23,42,0.6);">
+      // ── Summary (day-wise flat list) ────────────────────────
+      let sumHTML = `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e3a5f;font-size:0.78rem;background:rgba(10,15,35,0.7);">
         <thead><tr>
-          <th style="background:#1e293b;color:#fff;padding:8px 12px;text-align:left;border:1px solid #475569;font-size:0.78rem;">Day</th>
-          <th style="background:#065f46;color:#fff;padding:8px 12px;text-align:left;border:1px solid #475569;font-size:0.78rem;">Snack Recess Duty Teacher (09:40–09:50 AM)</th>
-          <th style="background:#1e3a8a;color:#fff;padding:8px 12px;text-align:left;border:1px solid #475569;font-size:0.78rem;">Lunch Recess Duty Teacher (11:10–11:30 AM)</th>
+          <th style="background:#0f172a;color:#fff;padding:8px 10px;border:1px solid #334155;text-align:left;font-size:0.76rem;">दिन (Day)</th>
+          ${DUTY_LOCATIONS.map(l => `<th style="background:#1e3a5f;color:#bfdbfe;padding:8px 8px;border:1px solid #334155;text-align:center;font-size:0.7rem;">${l.place}</th>`).join('')}
         </tr></thead><tbody>`;
-
-      DUTY_DAYS.forEach((day, i) => {
-        const sn = [], ln = [];
-        teachers.forEach(t => {
-          if (t.exempt) return;
-          const dm = dutyMatrix[t.id][day];
-          if (dm === 'SNACK' || dm === 'BOTH') sn.push(`<strong>${t.name}</strong> <span style="font-size:0.7rem;opacity:0.7;">(${t.desig})</span>`);
-          if (dm === 'LUNCH' || dm === 'BOTH') ln.push(`<strong>${t.name}</strong> <span style="font-size:0.7rem;opacity:0.7;">(${t.desig})</span>`);
-        });
-        const bg = i % 2 === 0 ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.07)';
+      DAYS.forEach((day,di) => {
+        const bg = di%2===0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)';
         sumHTML += `<tr style="background:${bg};">
-          <td style="padding:8px 12px;border:1px solid var(--glass-border);font-weight:900;color:var(--text-primary);">${day}</td>
-          <td style="padding:8px 12px;border:1px solid var(--glass-border);color:#4ade80;">${sn.join(', ') || '<span style="color:var(--text-muted)">—</span>'}</td>
-          <td style="padding:8px 12px;border:1px solid var(--glass-border);color:#93c5fd;">${ln.join(', ') || '<span style="color:var(--text-muted)">—</span>'}</td>
-        </tr>`;
+          <td style="padding:7px 10px;border:1px solid rgba(255,255,255,0.1);font-weight:900;color:#e2e8f0;">${DAY_HI[di]}<br><span style="font-size:0.65rem;color:#94a3b8;">${day}</span></td>`;
+        DUTY_LOCATIONS.forEach(loc => {
+          const [t1,t2] = loc[day]||['—','—'];
+          sumHTML += `<td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.1);text-align:center;">
+            <div style="font-size:0.72rem;color:#bfdbfe;font-weight:700;">${t1}</div>
+            <div style="font-size:0.68rem;color:#a5b4fc;">${t2}</div>
+          </td>`;
+        });
+        sumHTML += '</tr>';
       });
       sumHTML += '</tbody></table></div>';
       document.getElementById('recessSummaryContainer').innerHTML = sumHTML;
 
-      // Print button
+      // ── Print Chart Button ──────────────────────────────────
       const printRecessBtn = document.getElementById('printRecessBtn');
       if (printRecessBtn) {
         printRecessBtn.addEventListener('click', () => {
-          const tab = document.getElementById('tab-recess');
-          const w = window.open('', '_blank', 'width=1100,height=800');
-          w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Recess Duty Chart - PM SHRI KV RANIKHET</title>
+          const w = window.open('', '_blank', 'width=1200,height=800');
+          const colW = Math.floor(100 / (DAYS.length + 1));
+          let rows = DUTY_LOCATIONS.map((loc,ri) => {
+            const cells = DAYS.map(d => {
+              const [t1,t2] = loc[d]||['—','—'];
+              return `<td style="border:1px solid #334155;padding:7px 6px;text-align:center;vertical-align:middle;"><div style="font-weight:700;font-size:0.78rem;color:#1e3a8a;">${t1}</div><div style="font-size:0.72rem;color:#374151;margin-top:2px;">${t2}</div></td>`;
+            }).join('');
+            return `<tr><td style="border:1px solid #334155;padding:8px 10px;font-weight:900;font-size:0.8rem;color:#0f172a;border-left:4px solid ${LOC_COLORS[ri]};background:${ri%2===0?'#f8fafc':'#f1f5f9'};">${loc.place}<br><span style="font-size:0.65rem;font-weight:400;color:#6b7280;">${loc.placeEn}</span></td>${cells}</tr>`;
+          }).join('');
+          w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>मध्यावकाश ड्यूटी चार्ट - PM SHRI KV RANIKHET</title>
           <style>
-            @page{size:A4 landscape;margin:6mm;}
+            @page{size:A4 landscape;margin:7mm;}
             *{box-sizing:border-box;margin:0;padding:0;}
-            body{font-family:system-ui,sans-serif;background:#fff;color:#0f172a;padding:10px;font-size:0.75rem;}
-            .hdr{text-align:center;border:2.5px solid #0f172a;border-radius:6px;padding:8px;margin-bottom:10px;}
-            .hdr .sch{font-weight:900;color:#0f766e;font-size:0.85rem;}
-            .hdr h1{font-size:1.3rem;font-weight:900;border-bottom:2px solid #0f172a;padding-bottom:3px;margin:3px 0;}
-            .hdr .sub{font-size:0.72rem;font-weight:700;color:#1e293b;margin-top:3px;}
-            .leg{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;font-size:0.72rem;font-weight:600;}
-            .leg span{display:inline-flex;align-items:center;gap:5px;}
-            .leg .dot{width:12px;height:12px;border-radius:2px;display:inline-block;}
-            table{width:100%;border-collapse:collapse;border:2px solid #0f172a;margin-bottom:12px;font-size:0.72rem;}
-            th{background:#1e293b;color:#fff;padding:5px 4px;border:1px solid #475569;text-align:center;font-size:0.68rem;}
-            th.dh{background:#064e3b;}
-            th.snack{background:#065f46;}
-            th.lunch{background:#1e3a8a;}
-            td{border:1px solid #64748b;padding:4px;text-align:center;vertical-align:middle;}
-            td.tnc{text-align:left;font-weight:700;padding-left:6px;}
-            .yes-s{background:#dcfce7;color:#14532d;font-weight:900;border-radius:3px;padding:1px 4px;display:inline-block;}
-            .yes-l{background:#dbeafe;color:#1e40af;font-weight:900;border-radius:3px;padding:1px 4px;display:inline-block;}
-            .busy{background:#fef3c7;color:#78350f;font-weight:700;}
-            .exempt{background:#f3f4f6;color:#6b7280;font-style:italic;}
-            .sl{font-weight:800;font-size:0.78rem;margin-bottom:6px;border-left:4px solid #0f766e;padding-left:6px;}
-            .footer{margin-top:10px;border-top:2px solid #0f172a;padding-top:6px;display:flex;justify-content:space-between;font-size:0.7rem;font-weight:700;color:#1e293b;}
+            body{font-family:'Arial',system-ui,sans-serif;background:#fff;color:#0f172a;padding:8px;}
+            .hdr{text-align:center;border:2.5px solid #0f172a;border-radius:6px;padding:8px 12px;margin-bottom:8px;}
+            .sch{font-weight:900;color:#0f766e;font-size:0.85rem;letter-spacing:0.5px;}
+            h1{font-size:1.2rem;font-weight:900;color:#0f172a;margin:3px 0 2px;}
+            .incharge{font-size:0.78rem;font-weight:700;color:#7c3aed;margin-top:2px;}
+            table{width:100%;border-collapse:collapse;border:2px solid #0f172a;font-size:0.74rem;}
+            th{background:#1e293b;color:#fff;padding:7px 6px;border:1px solid #334155;text-align:center;}
+            th.ph{background:#064e3b;}
+            .footer{margin-top:8px;border-top:1.5px solid #0f172a;padding-top:6px;display:flex;justify-content:space-between;font-size:0.7rem;font-weight:700;color:#374151;}
+            .note{font-size:0.66rem;color:#374151;margin-top:6px;padding:6px 10px;border:1px solid #d1d5db;border-radius:4px;background:#f9fafb;}
             -webkit-print-color-adjust:exact;print-color-adjust:exact;
           </style></head><body>
-          <div class="hdr"><div class="sch">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div><h1>RECESS DUTY CHART</h1><div class="sub">Session 2026-27 | Snack Recess: 09:40-09:50 AM | Lunch Recess: 11:10-11:30 AM | Teachers with class in P4/P5 are excluded from duty that day</div></div>
-          <div class="leg">
-            <span><span class="dot" style="background:#dcfce7;border:1px solid #86efac;"></span>Snack Duty</span>
-            <span><span class="dot" style="background:#dbeafe;border:1px solid #93c5fd;"></span>Lunch Duty</span>
-            <span><span class="dot" style="background:#fef3c7;border:1px solid #fcd34d;"></span>Busy (P4/P5 class)</span>
-            <span><span class="dot" style="background:#f3f4f6;border:1px solid #9ca3af;"></span>Exempt</span>
+          <div class="hdr">
+            <div class="sch">केंद्रीय विद्यालय रानीखेत सत्र 2026-27</div>
+            <h1>मध्यावकाश ड्यूटी चार्ट</h1>
+            <div class="incharge">प्रभारी : श्री आशुतोष रायकवार</div>
           </div>
-          ${tab.querySelector('#recessDutyContainer').innerHTML.replace(/background:rgba\([^)]+\)/g,'background:#fff').replace(/color:var\(--text-primary\)/g,'color:#0f172a').replace(/color:var\(--text-secondary\)/g,'color:#1e293b').replace(/color:var\(--text-muted\)/g,'color:#6b7280').replace(/border:1px solid var\(--glass-border\)/g,'border:1px solid #64748b').replace(/#4ade80/g,'#14532d').replace(/#f87171/g,'#991b1b')}
-          <div class="sl">Day-wise Duty Summary</div>
-          ${tab.querySelector('#recessSummaryContainer').innerHTML.replace(/background:rgba\([^)]+\)/g,'background:#fff').replace(/color:var\(--text-primary\)/g,'color:#0f172a').replace(/color:var\(--text-muted\)/g,'color:#6b7280').replace(/border:1px solid var\(--glass-border\)/g,'border:1px solid #64748b').replace(/#4ade80/g,'#14532d').replace(/#93c5fd/g,'#1e40af')}
-          <div class="footer"><span>Prepared by: K B JOSHI, PGT Mathematics | PM SHRI KV RANIKHET</span><span>Principal's Signature: ________________________</span></div>
+          <table>
+            <thead><tr>
+              <th style="width:${colW}%;text-align:left;padding-left:10px;">स्थान</th>
+              ${DAY_HI.map((h,i)=>`<th class="ph" style="width:${colW}%;">${h}<br><span style="font-size:0.58rem;opacity:0.8;">${DAYS[i]}</span></th>`).join('')}
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <div class="note">
+            1. मध्यावकाश/स्नैक ब्रेक ड्यूटी पर शिक्षक/कर्मचारियों को निर्धारित स्थान पर उपस्थित रहकर विद्यार्थियों की सुरक्षा सुनिश्चित करनी होगी।
+            2. कोच और योग शिक्षक शारीरिक शिक्षक के निर्देशन में परिसर में विद्यार्थियों के अनुशासन के लिए जिम्मेदार होंगे।
+            3. मध्यावकाश के दौरान विद्यार्थी जनावश्यक रूप से विद्यालय परिसर में इधर-उधर ना घूमें।
+            4. स्टाफ नर्स विद्यालय मध्यावकाश के समय विद्यार्थियों के प्राथमिक उपचार हेतु अपने कक्ष में उपस्थित सुनिश्चित करेंगे।
+          </div>
+          <div class="footer"><span>प्रभारी समय सारणी</span><span>प्राचार्य</span></div>
           </body></html>`);
           w.document.close();
-          setTimeout(() => { w.print(); }, 600);
+          setTimeout(() => w.print(), 600);
+        });
+      }
+
+      // ── Download Excel Button ───────────────────────────────
+      const xlBtn = document.getElementById('downloadRecessExcelBtn');
+      if (xlBtn) {
+        xlBtn.addEventListener('click', () => {
+          if (typeof XLSX === 'undefined') {
+            alert('Excel library is loading. Please wait a moment and try again.');
+            return;
+          }
+          const wb = XLSX.utils.book_new();
+          // Build data array
+          const header = ['स्थान (Location)', ...DAY_HI.map((h,i) => `${h} (${DAYS[i]})\nअध्यापकों के नाम`)];
+          const rows2 = DUTY_LOCATIONS.map(loc => {
+            const row = [`${loc.place}\n${loc.placeEn}`];
+            DAYS.forEach(d => {
+              const [t1,t2] = loc[d]||['—','—'];
+              row.push(`${t1}\n${t2}`);
+            });
+            return row;
+          });
+          // Title rows
+          const data = [
+            ['केंद्रीय विद्यालय रानीखेत', '', '', '', '', '', ''],
+            ['सत्र 2026-27', '', '', '', '', '', ''],
+            ['मध्यावकाश ड्यूटी चार्ट', '', '', '', '', '', ''],
+            ['प्रभारी : श्री आशुतोष रायकवार', '', '', '', '', '', ''],
+            [],
+            header,
+            ...rows2,
+            [],
+            ['नोट:', '', '', '', '', '', ''],
+            ['1. मध्यावकाश ड्यूटी पर शिक्षक/कर्मचारियों को निर्धारित स्थान पर उपस्थित रहकर विद्यार्थियों की सुरक्षा सुनिश्चित करनी होगी।'],
+            ['2. कोच और योग शिक्षक शारीरिक शिक्षक के निर्देशन में परिसर में विद्यार्थियों के अनुशासन के लिए जिम्मेदार होंगे।'],
+            ['3. मध्यावकाश के दौरान विद्यार्थी जनावश्यक रूप से विद्यालय परिसर में इधर-उधर ना घूमें।'],
+            ['4. स्टाफ नर्स विद्यालय मध्यावकाश के समय विद्यार्थियों के प्राथमिक उपचार हेतु अपने कक्ष में उपस्थित सुनिश्चित करेंगे।'],
+            [],
+            ['प्रभारी समय सारणी', '', '', '', '', 'प्राचार्य', '']
+          ];
+          const ws = XLSX.utils.aoa_to_sheet(data);
+          // Set column widths
+          ws['!cols'] = [{wch:28},{wch:22},{wch:22},{wch:22},{wch:22},{wch:22},{wch:22}];
+          // Merge title rows
+          ws['!merges'] = [
+            {s:{r:0,c:0},e:{r:0,c:6}},
+            {s:{r:1,c:0},e:{r:1,c:6}},
+            {s:{r:2,c:0},e:{r:2,c:6}},
+            {s:{r:3,c:0},e:{r:3,c:6}}
+          ];
+          // Set row heights for readability
+          ws['!rows'] = [{hpt:20},{hpt:18},{hpt:22},{hpt:18},{hpt:8},{hpt:30}];
+          XLSX.utils.book_append_sheet(wb, ws, 'Recess Duty Chart');
+          XLSX.writeFile(wb, 'KV_Ranikhet_Recess_Duty_Chart_2026-27.xlsx');
         });
       }
     })();
 
   });
+
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>

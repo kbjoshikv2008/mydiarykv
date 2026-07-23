@@ -1,874 +1,266 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
-  <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 directly from the Interactive Plans laboratory.">
+  <meta name="description" content="Access interactive mathematics lessons, videos, slide decks, mind maps and infographics for CBSE Classes 7, 11, and 12 directly from Google Drive.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
   <style>
-    /* Specific styles for Restructured Interactive Lesson Hub */
-    .interactive-stats-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 24px;
+    .gdrive-hero {
+      background: linear-gradient(135deg, #1a0533 0%, #2d1060 40%, #1a1060 70%, #0a1a60 100%);
+      border-radius: 20px; padding: 40px 36px 32px; margin-bottom: 28px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(124,58,237,0.35);
+      border: 1px solid rgba(124,58,237,0.25);
     }
-    .stat-pill {
-      flex: 1 1 140px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--glass-shadow);
+    .gdrive-hero::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%); pointer-events: none;
     }
-    .stat-pill:hover {
-      transform: translateY(-3px);
-      border-color: #7c3aed;
-      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+    .hero-title { font-size: 2rem; font-weight: 800; color: #fff; margin: 0 0 8px; line-height: 1.2; }
+    .hero-title span { color: #a78bfa; }
+    .hero-subtitle { font-size: 1rem; color: rgba(255,255,255,0.7); margin: 0 0 20px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 30px; padding: 7px 14px; font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.9);
     }
-    .stat-pill i { font-size: 1.1rem; color: #7c3aed; }
-    .stat-pill.videos i { color: #ef4444; }
-    .stat-pill.slides i { color: #f59e0b; }
-    .stat-pill.mindmaps i { color: #06b6d4; }
-    .stat-pill.html i { color: #10b981; }
-    .stat-pill.infographics i { color: #ec4899; }
-    .stat-count {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-left: auto;
+    .quick-access-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .qa-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer;
+      text-decoration: none; color: var(--text-primary);
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: var(--glass-shadow); text-align: center;
     }
-
-    .search-filter-container {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: var(--glass-shadow);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: space-between;
-      align-items: center;
+    .qa-card:hover { transform: translateY(-5px); border-color: #7c3aed; box-shadow: 0 12px 35px rgba(124,58,237,0.3); color: var(--text-primary); text-decoration: none; }
+    .qa-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .qa-icon.red    { background: rgba(239,68,68,0.15);  color: #f87171; }
+    .qa-icon.amber  { background: rgba(245,158,11,0.15); color: #fbbf24; }
+    .qa-icon.cyan   { background: rgba(6,182,212,0.15);  color: #67e8f9; }
+    .qa-icon.green  { background: rgba(16,185,129,0.15); color: #4ade80; }
+    .qa-icon.pink   { background: rgba(236,72,153,0.15); color: #f472b6; }
+    .qa-icon.purple { background: rgba(124,58,237,0.15); color: #a78bfa; }
+    .qa-title { font-size: 0.85rem; font-weight: 700; line-height: 1.3; }
+    .qa-subtitle { font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; }
+    .drive-section { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; box-shadow: var(--glass-shadow); margin-bottom: 28px; }
+    .drive-section-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(59,130,246,0.15) 100%);
+      border-bottom: 1px solid var(--glass-border); padding: 18px 24px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
-    .search-box {
-      position: relative;
-      flex: 1 1 300px;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 12px 16px 12px 42px;
-      border: 2px solid var(--glass-border);
-      border-radius: 30px;
-      background: #ffffff;
-      color: #1e1b18;
-      font-size: 0.95em;
-      font-weight: 500;
-      transition: var(--transition-smooth);
-    }
-    .search-box input:focus {
-      border-color: #7c3aed;
-      outline: none;
-      box-shadow: 0 0 10px rgba(124, 58, 237, 0.15);
-    }
-    .search-box i {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #bdaea2;
-    }
-    
-    .filter-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .filter-label {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: var(--primary-light);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .filter-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .filter-btn {
-      padding: 8px 18px;
-      border: 2px solid var(--glass-border);
-      background: #ffffff;
-      color: #1e1b18;
-      border-radius: 30px;
-      font-size: 0.88em;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: var(--transition-smooth);
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: #7c3aed;
-      color: #ffffff;
-      border-color: #7c3aed;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
-    }
-
-    /* Class levels container */
-    .class-filter-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 16px 24px;
-      margin-bottom: 32px;
-      box-shadow: var(--glass-shadow);
-      flex-wrap: wrap;
-    }
-    .class-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .class-btn {
-      padding: 6px 16px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
-      color: var(--text-secondary);
-      border-radius: 20px;
-      font-size: 0.85em;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-    .class-btn:hover, .class-btn.active {
-      background: #7c3aed;
-      color: #ffffff;
-      border-color: #7c3aed;
-      box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
-    }
-
-    /* Lessons Grid & Cards */
-    .lessons-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
-      min-height: 200px;
-    }
-    .lesson-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      box-shadow: var(--glass-shadow);
-      transition: var(--transition-smooth);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-      overflow: hidden;
-      text-align: left;
-    }
-    .lesson-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
-      border-color: #7c3aed;
-    }
-    .lesson-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: #bdaea2;
-      transition: var(--transition-smooth);
-    }
-    .lesson-card:hover::after {
-      background: #7c3aed;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-    .card-cat-badge {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.7em;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .card-class-badge {
-      font-size: 0.72em;
-      font-weight: 800;
-      color: #a78bfa;
-      background: rgba(124, 58, 237, 0.12);
-      padding: 4px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(124, 58, 237, 0.2);
-    }
-
-    /* Category Badges */
-    .badge-html { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
-    .badge-mindmaps { background: rgba(6, 182, 212, 0.1); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.2); }
-    .badge-slides { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
-    .badge-videos { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
-    .badge-infographics { background: rgba(236, 72, 153, 0.1); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.2); }
-
-    .lesson-card h3 {
-      font-family: var(--font-head);
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin: 0;
-      line-height: 1.35;
-    }
-    .file-path-desc {
-      font-size: 0.74em;
-      color: var(--text-muted);
-      word-break: break-all;
-      margin: 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 5px;
-      line-height: 1.35;
-    }
-    .file-path-desc i {
-      margin-top: 2px;
-      color: var(--primary-light);
-    }
-    
-    .lesson-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.78em;
-      color: var(--text-secondary);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 12px;
-      margin-top: auto;
-    }
-    .lesson-meta span {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .large-badge {
-      color: var(--accent);
-      background: rgba(249, 115, 22, 0.1);
-      border: 1px solid rgba(249, 115, 22, 0.25);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 800;
-      font-size: 0.8em;
-      margin-left: auto;
-    }
-
-    /* Dual Action Buttons */
-    .card-actions {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-    }
-    .action-btn {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 14px;
-      border-radius: 30px;
-      font-size: 0.82em;
-      font-weight: 800;
-      text-decoration: none;
-      transition: var(--transition-smooth);
-      text-align: center;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
-      color: #ffffff !important;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.45);
-    }
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      color: var(--text-primary) !important;
-    }
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 28px;
-      padding: 9px 20px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-primary);
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.88em;
-      border: 1px solid var(--glass-border);
-      transition: var(--transition-smooth);
-    }
-    .back-link:hover {
-      background: #7c3aed;
-      color: #ffffff !important;
-      border-color: #7c3aed;
-      transform: translateX(-3px);
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
-    }
-
-    /* Media Modals */
-    .media-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(5, 4, 15, 0.92);
-      backdrop-filter: blur(16px);
-      z-index: 99990;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      animation: fadeIn 0.3s ease;
-    }
-    .media-modal-overlay.active {
-      display: flex;
-    }
-    .media-modal-container {
-      background: rgba(18, 16, 38, 0.95);
-      border: 1px solid rgba(124, 58, 237, 0.3);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 1050px;
-      max-height: 92vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(124, 58, 237, 0.2);
-      overflow: hidden;
-      position: relative;
-    }
-    .media-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.02);
-    }
-    .media-modal-header h3 {
-      margin: 0;
-      font-family: var(--font-head);
-      font-size: 1.2rem;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .media-modal-close {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: #ffffff;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-    .media-modal-close:hover {
-      background: #ef4444;
-      transform: rotate(90deg);
-    }
-    .media-modal-body {
-      padding: 0;
-      overflow-y: auto;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #090814;
-    }
-    .media-modal-footer {
-      padding: 16px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.3);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    /* Password Protection Screen Overlay */
-    #passwordGateOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, #0f0e1e 0%, #030308 100%);
-      z-index: 99999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(25px);
+    .drive-section-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .drive-section-title i { color: #a78bfa; }
+    .drive-section-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .gdrive-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 30px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.25s ease; border: none; font-family: 'Poppins', sans-serif; }
+    .gdrive-btn-primary { background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%); color: #fff; box-shadow: 0 4px 15px rgba(124,58,237,0.4); }
+    .gdrive-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124,58,237,0.5); color: #fff; text-decoration: none; }
+    .gdrive-btn-outline { background: transparent; border: 2px solid rgba(124,58,237,0.5); color: #a78bfa; }
+    .gdrive-btn-outline:hover { border-color: #7c3aed; background: rgba(124,58,237,0.1); color: #a78bfa; text-decoration: none; }
+    .drive-embed-container { position: relative; background: #0a0a1a; }
+    .drive-iframe { width: 100%; height: 700px; border: none; display: block; }
+    .drive-loading-overlay {
+      position: absolute; inset: 0; background: #0a0a1a;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
       transition: opacity 0.5s ease;
     }
+    .drive-loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .drive-spinner { width: 48px; height: 48px; border: 4px solid rgba(124,58,237,0.2); border-top-color: #7c3aed; border-radius: 50%; animation: spin 0.9s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .drive-loading-text { color: rgba(255,255,255,0.6); font-size: 0.9rem; font-weight: 500; }
+    .how-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 16px; margin-bottom: 28px; }
+    .how-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; display: flex; gap: 14px; align-items: flex-start; box-shadow: var(--glass-shadow); }
+    .how-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .how-num.p { background: linear-gradient(135deg, #7c3aed, #3b82f6); }
+    .how-num.r { background: linear-gradient(135deg, #ef4444, #ec4899); }
+    .how-num.g { background: linear-gradient(135deg, #10b981, #059669); }
+    .how-num.a { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .how-text h4 { font-size: 0.9rem; font-weight: 700; margin: 0 0 4px; }
+    .how-text p { font-size: 0.8rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+    .ftype-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .ftype { display: inline-flex; align-items: center; gap: 7px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; padding: 8px 14px; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
+    #passwordGateOverlay {
+      position: fixed; inset: 0; background: rgba(10,5,30,0.97); backdrop-filter: blur(16px);
+      z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease;
+    }
     .gate-card {
-      background: rgba(12, 11, 24, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-xl);
-      padding: 40px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(124, 58, 237, 0.15);
-      text-align: center;
-      animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      background: linear-gradient(145deg, rgba(30,20,80,0.95) 0%, rgba(20,15,60,0.95) 100%);
+      border: 1px solid rgba(124,58,237,0.4); border-radius: 24px; padding: 48px 40px;
+      max-width: 440px; width: 90%;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(124,58,237,0.2); text-align: center;
     }
-    .gate-icon {
-      font-size: 3rem;
-      color: #7c3aed;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.6));
-      animation: pulseGlow 2s infinite alternate ease-in-out;
-    }
-    @keyframes pulseGlow {
-      0% { filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.4)); }
-      100% { filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.8)); }
-    }
-    .gate-card h2 {
-      font-family: var(--font-head);
-      font-weight: 800;
-      font-size: 1.6rem;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
-    }
-    .gate-card p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
-    .gate-input-wrapper {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .gate-input-wrapper input {
-      width: 100%;
-      padding: 14px 16px 14px 44px;
-      border: 2px solid var(--glass-border);
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.05);
-      color: #ffffff;
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-align: center;
-      transition: var(--transition-smooth);
-    }
-    .gate-input-wrapper input:focus {
-      border-color: #7c3aed;
-      outline: none;
-      box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);
-      background: rgba(255, 255, 255, 0.1);
-    }
-    .gate-input-wrapper i {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--primary-light);
-      font-size: 1.1rem;
-    }
-    .gate-btn {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
-    }
-    .gate-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.55);
-    }
-    .gate-error {
-      color: #ef4444;
-      font-size: 0.88rem;
-      margin-top: 15px;
-      min-height: 20px;
-      font-weight: 600;
-    }
-    .shake {
-      animation: shake 0.5s ease;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
-      20%, 40%, 60%, 80% { transform: translateX(6px); }
-    }
-    
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 60px 20px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--glass-shadow);
-    }
-    .no-results i {
-      font-size: 3.5rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-    .no-results h4 {
-      font-size: 1.3rem;
-      color: var(--text-primary);
-      margin: 0 0 8px;
-      font-family: var(--font-head);
-    }
-    .no-results p {
-      color: var(--text-secondary);
-      margin: 0;
-      font-size: 0.9rem;
-    }
+    .gate-icon { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg,#7c3aed,#3b82f6); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; margin: 0 auto 24px; box-shadow: 0 8px 25px rgba(124,58,237,0.5); }
+    .gate-title { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 0 0 6px; }
+    .gate-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin: 0 0 28px; }
+    .gate-input-wrap { position: relative; margin-bottom: 16px; }
+    #gatePasswordInput { width: 100%; padding: 14px 48px 14px 18px; border-radius: 14px; border: 2px solid rgba(124,58,237,0.4); background: rgba(255,255,255,0.05); color: #fff; font-size: 1rem; font-family: 'Poppins',sans-serif; outline: none; box-sizing: border-box; transition: border-color 0.25s ease; }
+    #gatePasswordInput:focus { border-color: #7c3aed; }
+    #gateToggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: rgba(255,255,255,0.4); font-size: 1.1rem; background: none; border: none; padding: 0; }
+    #submitGatePassword { width: 100%; padding: 15px; border-radius: 14px; border: none; background: linear-gradient(135deg,#7c3aed,#3b82f6); color: #fff; font-size: 1rem; font-weight: 700; font-family: 'Poppins',sans-serif; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+    #submitGatePassword:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,58,237,0.5); }
+    #gateErrorMessage { color: #f87171; font-size: 0.85rem; margin-top: 10px; min-height: 20px; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+    .shake { animation: shake 0.4s ease; }
+    @media(max-width:768px){.hero-title{font-size:1.5rem;}.gdrive-hero{padding:28px 20px 22px;}.drive-iframe{height:500px;}}
   </style>
 </head>
 <body>
-  <!-- Password Gate Overlay (Blocks loading content) -->
+
+  <!-- Password Gate -->
   <div id="passwordGateOverlay">
     <div class="gate-card">
-      <div class="gate-icon"><i class="fas fa-shield-halved"></i></div>
-      <h2>Interactive Lessons Access</h2>
-      <p>Please enter the authorization password to unlock the Interactive Mind Maps, Slide Decks, Videos, HTML Files, and Infographics.</p>
-      <div class="gate-input-wrapper">
-        <i class="fas fa-lock"></i>
-        <input type="password" id="gatePasswordInput" placeholder="Secure Password Required">
+      <div class="gate-icon"><i class="fas fa-flask"></i></div>
+      <h2 class="gate-title">Math Lab Access</h2>
+      <p class="gate-sub">Enter the secure password to access Interactive Lesson Hub</p>
+      <div class="gate-input-wrap">
+        <input type="password" id="gatePasswordInput" placeholder="Enter access password" autocomplete="off">
+        <button id="gateToggle" type="button" onclick="toggleGatePwd()"><i class="fas fa-eye" id="gateEyeIcon"></i></button>
       </div>
-      <button class="gate-btn" id="submitGatePassword">Unlock Lab Content</button>
-      <div class="gate-error" id="gateErrorMessage"></div>
+      <button id="submitGatePassword">&#128275; UNLOCK MATH LAB</button>
+      <div id="gateErrorMessage"></div>
     </div>
   </div>
 
-  <!-- Animated Background Blobs -->
-  <div class="bg-blobs">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="blob blob-4"></div>
-  </div>
-
-  <!-- Site Header -->
-  <header class="site-header">
-    <div class="container" style="position: relative;">
-      <div class="page-chip fade-in"><i class="fas fa-gamepad"></i> Interactive lessons</div>
-      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
-      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo"><i class="fas fa-book-open"></i> Teacher's Digital Diary</a>
+        <ul class="nav-links">
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="lessonplan.html"><i class="fas fa-chalkboard"></i> Lesson Plans</a></li>
+          <li><a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Material</a></li>
+          <li><a href="interactive.html" class="active"><i class="fas fa-flask"></i> Math Lab</a></li>
+          <li><a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="container">
-      <div class="nav">
-        <a href="index.html" class="active"><i class="fas fa-home"></i> Return to Home</a>
+  <main class="container" style="padding-top:30px;padding-bottom:50px;">
 
-        <!-- Group 2: Academics -->
-        <div class="nav-item">
-          <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
-          <div class="dropdown-menu">
-            <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
-            <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
-            <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
-            <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
-            <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
-            <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
-          </div>
-        </div>
-
-        <!-- Group 3: Students Corner -->
-        <div class="nav-item">
-          <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
-          <div class="dropdown-menu">
-            <a href="homework.html"><i class="fas fa-home"></i> Home Work</a>
-            <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
-            <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
-            <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
-            <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
-            <a href="quizzes.html"><i class="fas fa-tasks"></i> Quiz &amp; Assignments</a>
-            <a href="guidance.html"><i class="fas fa-hand-holding-heart"></i> Guidance &amp; Counselling</a>
-          </div>
-        </div>
-
-        <!-- Group 4: Exams & Prep -->
-        <div class="nav-item">
-          <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
-          <div class="dropdown-menu">
-            <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
-            <a href="board.html"><i class="fas fa-question-circle"></i> CBSE Board Question Papers</a>
-            <a href="chapterwise-board-questions.html?v=18"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
-            <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
-            <a href="https://www.cbse.gov.in/cbsenew/question-paper.html" target="_blank"><i class="fas fa-external-link-alt"></i> CBSE Question Papers</a>
-            <a href="https://www.cbse.gov.in/cbsenew/marking-scheme.html" target="_blank"><i class="fas fa-external-link-alt"></i> CBSE Marking Schemes</a>
-          </div>
-        </div>
-
-        <!-- Group 5: Math Labs -->
-        <div class="nav-item">
-          <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
-          <div class="dropdown-menu">
-            <a href="interactive.html" class="active"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
-            <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Laboratory</a>
-            <a href="robocompass.html"><i class="fas fa-compass"></i> RoboCompass Geometry</a>
-            <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
-            <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding Lab</a>
-          </div>
-        </div>
-
+    <!-- Hero -->
+    <div class="gdrive-hero">
+      <h1 class="hero-title">&#129514; Interactive <span>Lesson Hub</span></h1>
+      <p class="hero-subtitle">CBSE Mathematics — Classes 7, 11 &amp; 12 &nbsp;|&nbsp; All content powered by Google Drive</p>
+      <div class="hero-badges">
+        <span class="hero-badge"><i class="fas fa-video" style="color:#f87171;"></i> Video Lessons</span>
+        <span class="hero-badge"><i class="fas fa-file-powerpoint" style="color:#fbbf24;"></i> Slide Decks</span>
+        <span class="hero-badge"><i class="fas fa-project-diagram" style="color:#67e8f9;"></i> Mind Maps</span>
+        <span class="hero-badge"><i class="fas fa-window-maximize" style="color:#4ade80;"></i> HTML Plans</span>
+        <span class="hero-badge"><i class="fas fa-chart-area" style="color:#f472b6;"></i> Infographics</span>
+        <span class="hero-badge"><i class="fab fa-google-drive" style="color:#a78bfa;"></i> 178+ Resources</span>
       </div>
     </div>
-  </nav>
 
-  <!-- Page Hero -->
-  <div class="page-hero">
-    <div class="container">
-      <span class="page-hero-icon">&#127918;</span>
-      <h1>Interactive Lesson Hub</h1>
-      <p>Explore conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics from the <strong>Interactive Plans</strong> library</p>
+    <!-- How to Use -->
+    <h2 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:14px;"><i class="fas fa-info-circle" style="color:#a78bfa;"></i> How to Open &amp; Play Resources</h2>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num p">1</div><div class="how-text"><h4>Browse the Folder</h4><p>Use the Google Drive viewer below. Navigate subfolders for Class 7, 11 &amp; 12.</p></div></div>
+      <div class="how-card"><div class="how-num r">2</div><div class="how-text"><h4>Click Any File</h4><p>Double-click a video, PPT, image or HTML file — Google Drive opens it instantly.</p></div></div>
+      <div class="how-card"><div class="how-num g">3</div><div class="how-text"><h4>Videos Play Instantly</h4><p>MP4 videos stream directly in Google Drive's built-in player — no downloads needed.</p></div></div>
+      <div class="how-card"><div class="how-num a">4</div><div class="how-text"><h4>PPTs Open in Slides</h4><p>PowerPoint files open in Google Slides viewer — play all animations online.</p></div></div>
     </div>
-  </div>
 
-  <!-- Main Content -->
-  <main>
-    <div class="container">
-
-      <!-- Back Link & Filter Controls -->
-      <a href="index.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
-
-      <!-- Quick Stats Bar -->
-      <div class="interactive-stats-bar fade-in">
-        <div class="stat-pill" onclick="setQuickCategory('all')">
-          <i class="fas fa-layer-group"></i>
-          <span>Total Resources</span>
-          <span class="stat-count" id="statAll">0</span>
-        </div>
-        <div class="stat-pill videos" onclick="setQuickCategory('videos')">
-          <i class="fas fa-video"></i>
-          <span>Videos</span>
-          <span class="stat-count" id="statVideos">0</span>
-        </div>
-        <div class="stat-pill slides" onclick="setQuickCategory('slides')">
-          <i class="fas fa-file-powerpoint"></i>
-          <span>Slide Decks</span>
-          <span class="stat-count" id="statSlides">0</span>
-        </div>
-        <div class="stat-pill mindmaps" onclick="setQuickCategory('mindmaps')">
-          <i class="fas fa-project-diagram"></i>
-          <span>Mind Maps</span>
-          <span class="stat-count" id="statMindmaps">0</span>
-        </div>
-        <div class="stat-pill html" onclick="setQuickCategory('html')">
-          <i class="fas fa-file-code"></i>
-          <span>HTML Plans</span>
-          <span class="stat-count" id="statHtml">0</span>
-        </div>
-        <div class="stat-pill infographics" onclick="setQuickCategory('infographics')">
-          <i class="fas fa-chart-pie"></i>
-          <span>Infographics</span>
-          <span class="stat-count" id="statInfographics">0</span>
-        </div>
-      </div>
-
-      <!-- Category Filter Tabs -->
-      <div class="search-filter-container fade-in">
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" id="lessonSearch" placeholder="Search by topic, chapter, or file name (e.g. Integrals, Sets)...">
-        </div>
-        <div class="filter-group">
-          <span class="filter-label"><i class="fas fa-sliders"></i> Resource:</span>
-          <div class="filter-buttons" id="categoryFilters">
-            <button class="filter-btn active" data-filter="all"><i class="fas fa-border-all"></i> All Files</button>
-            <button class="filter-btn" data-filter="videos"><i class="fas fa-play-circle"></i> Videos</button>
-            <button class="filter-btn" data-filter="slides"><i class="fas fa-file-powerpoint"></i> Slide Decks</button>
-            <button class="filter-btn" data-filter="mindmaps"><i class="fas fa-project-diagram"></i> Mind Maps</button>
-            <button class="filter-btn" data-filter="html"><i class="fas fa-file-code"></i> HTML Plans</button>
-            <button class="filter-btn" data-filter="infographics"><i class="fas fa-chart-pie"></i> Infographics</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Filter Tags -->
-      <div class="class-filter-container fade-in-1">
-        <span class="filter-label"><i class="fas fa-graduation-cap"></i> Class Filter:</span>
-        <div class="class-buttons" id="classFilters">
-          <button class="class-btn active" data-class="all">All Classes</button>
-          <button class="class-btn" data-class="class7">Class 7</button>
-          <button class="class-btn" data-class="class11">Class 11</button>
-          <button class="class-btn" data-class="class12">Class 12</button>
-        </div>
-      </div>
-
-      <!-- Lessons Grid -->
-      <div class="lessons-grid fade-in-2" id="lessonsGrid">
-        <!-- Lessons will be dynamically rendered here via JS -->
-      </div>
-
+    <!-- Quick Access -->
+    <h2 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:14px;"><i class="fas fa-folder-open" style="color:#a78bfa;"></i> Quick Access by Resource Type</h2>
+    <div class="quick-access-grid">
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d" target="_blank">
+        <div class="qa-icon purple"><i class="fab fa-google-drive"></i></div>
+        <div><div class="qa-title">All Resources</div><div class="qa-subtitle">Main Folder</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1SIbIipnyG7V7YdreD80JOmR9rfh4v-iy" target="_blank" onclick="filterDrive('class7');return false;">
+        <div class="qa-icon green"><i class="fas fa-window-maximize"></i></div>
+        <div><div class="qa-title">Class 7 Plans</div><div class="qa-subtitle">HTML Interactive Lessons</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1ImtiYHsyaOr4hAW1Z6_bGfD-d3p-zSWk" target="_blank" onclick="filterDrive('class11');return false;">
+        <div class="qa-icon red"><i class="fas fa-video"></i></div>
+        <div><div class="qa-title">Class 11 Content</div><div class="qa-subtitle">Videos &amp; Slide Decks</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1ImtiYHsyaOr4hAW1Z6_bGfD-d3p-zSWk" target="_blank" onclick="filterDrive('slides11');return false;">
+        <div class="qa-icon amber"><i class="fas fa-file-powerpoint"></i></div>
+        <div><div class="qa-title">Class 11 Slides</div><div class="qa-subtitle">PPT Slide Decks</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1DHdJfYRDObtU_1SVxETRZENDo9i2wALx" target="_blank" onclick="filterDrive('class12');return false;">
+        <div class="qa-icon red"><i class="fas fa-play-circle"></i></div>
+        <div><div class="qa-title">Class 12 Content</div><div class="qa-subtitle">Videos &amp; Slide Decks</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1DHdJfYRDObtU_1SVxETRZENDo9i2wALx" target="_blank" onclick="filterDrive('slides12');return false;">
+        <div class="qa-icon amber"><i class="fas fa-layer-group"></i></div>
+        <div><div class="qa-title">Class 12 Slides</div><div class="qa-subtitle">PPT Slide Decks</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1DHdJfYRDObtU_1SVxETRZENDo9i2wALx" target="_blank" onclick="filterDrive('infographics');return false;">
+        <div class="qa-icon pink"><i class="fas fa-chart-area"></i></div>
+        <div><div class="qa-title">Infographics</div><div class="qa-subtitle">Class 12 Concept Charts</div></div>
+      </a>
+      <a class="qa-card" href="https://drive.google.com/drive/folders/1SIbIipnyG7V7YdreD80JOmR9rfh4v-iy" target="_blank" onclick="filterDrive('mindmaps');return false;">
+        <div class="qa-icon cyan"><i class="fas fa-project-diagram"></i></div>
+        <div><div class="qa-title">Mind Maps</div><div class="qa-subtitle">Visual Summaries</div></div>
+      </a>
     </div>
+
+    <!-- File type legend -->
+    <div class="ftype-row">
+      <span class="ftype"><i class="fas fa-video" style="color:#f87171;"></i> MP4 = plays in Drive</span>
+      <span class="ftype"><i class="fas fa-file-powerpoint" style="color:#fbbf24;"></i> PPTX = opens in Google Slides</span>
+      <span class="ftype"><i class="fas fa-image" style="color:#67e8f9;"></i> PNG/JPG = opens in preview</span>
+      <span class="ftype"><i class="fas fa-file-code" style="color:#4ade80;"></i> HTML = download &amp; open in browser</span>
+    </div>
+
+    <!-- Google Drive Embedded Folder -->
+    <div class="drive-section">
+      <div class="drive-section-header">
+        <div class="drive-section-title"><i class="fab fa-google-drive"></i> Interactive Lesson Plans &mdash; Google Drive</div>
+        <div class="drive-section-actions">
+          <a href="https://drive.google.com/drive/folders/1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d" target="_blank" class="gdrive-btn gdrive-btn-primary">
+            <i class="fas fa-external-link-alt"></i> Open in Google Drive
+          </a>
+          <button class="gdrive-btn gdrive-btn-outline" onclick="reloadFrame()">
+            <i class="fas fa-sync-alt"></i> Reload
+          </button>
+        </div>
+      </div>
+      <div class="drive-embed-container">
+        <div class="drive-loading-overlay" id="driveLoadingOverlay">
+          <div class="drive-spinner"></div>
+          <div class="drive-loading-text">Loading Google Drive Folder&hellip;</div>
+        </div>
+        <iframe
+          id="driveFrame"
+          class="drive-iframe"
+          src="https://drive.google.com/embeddedfolderview?id=1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d#list"
+          allowfullscreen
+          title="Interactive Lesson Plans - Google Drive"
+          onload="frameLoaded()"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.25);border-radius:14px;padding:18px 22px;margin-bottom:28px;">
+      <h4 style="color:#a78bfa;margin:0 0 8px;font-size:0.95rem;"><i class="fas fa-lightbulb"></i> Tips for Best Experience</h4>
+      <ul style="margin:0;padding-left:20px;color:var(--text-secondary);font-size:0.85rem;line-height:1.8;">
+        <li>Sign in to your Google account for full access to all resources in Google Drive</li>
+        <li><strong style="color:var(--text-primary);">Videos:</strong> Double-click any MP4 file &rarr; it plays instantly in Google Drive's built-in video player</li>
+        <li><strong style="color:var(--text-primary);">Slide Decks:</strong> Double-click any PPTX file &rarr; opens in Google Slides with full animations</li>
+        <li><strong style="color:var(--text-primary);">Infographics / Mind Maps:</strong> Click any PNG/JPG &rarr; opens in Drive preview with zoom support</li>
+        <li><strong style="color:var(--text-primary);">HTML Lesson Plans:</strong> Click HTML files &rarr; download and open in browser for interactive lessons</li>
+        <li>Click <strong style="color:var(--text-primary);">"Open in Google Drive"</strong> button for a full-screen, unrestricted browsing experience</li>
+      </ul>
+    </div>
+
   </main>
 
-  <!-- Video Player Modal -->
-  <div class="media-modal-overlay" id="videoModal">
-    <div class="media-modal-container">
-      <div class="media-modal-header">
-        <h3 id="videoModalTitle"><i class="fas fa-play-circle" style="color: #ef4444;"></i> Video Walkthrough</h3>
-        <button class="media-modal-close" onclick="closeMediaModal('videoModal')">&times;</button>
-      </div>
-      <div class="media-modal-body" style="padding: 0; background: #000; position: relative;">
-        <!-- HTML5 Video Player -->
-        <video id="videoElement" controls preload="auto" crossorigin="anonymous" style="width: 100%; max-height: 65vh; background: #000;">
-          <source id="videoSourceStream" src="" type="video/mp4">
-          Your browser does not support HTML5 video playback.
-        </video>
-      </div>
-      <div class="media-modal-footer">
-        <div>
-          <span id="videoModalClass" class="card-class-badge">Class 11</span>
-          <span id="videoModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <a id="videoDirectDownload" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-external-link-alt"></i> Direct Open File</a>
-          <button class="action-btn btn-secondary" onclick="closeMediaModal('videoModal')"><i class="fas fa-times"></i> Close Player</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide Deck Presentation Modal -->
-  <div class="media-modal-overlay" id="pptModal">
-    <div class="media-modal-container" style="max-width: 1100px;">
-      <div class="media-modal-header">
-        <h3 id="pptModalTitle"><i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> Slide Deck Presentation</h3>
-        <button class="media-modal-close" onclick="closeMediaModal('pptModal')">&times;</button>
-      </div>
-      <div class="media-modal-body" style="padding: 0; background: #121026;">
-        <iframe id="pptViewerIframe" src="" style="width: 100%; height: 65vh; border: none; background: #000;"></iframe>
-      </div>
-      <div class="media-modal-footer">
-        <div>
-          <span id="pptModalClass" class="card-class-badge">Class 12</span>
-          <span id="pptModalSize" style="font-size: 0.85em; color: var(--text-secondary); margin-left: 10px;">Size: --</span>
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <a id="pptPlayLaunchBtn" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-external-link-alt"></i> Direct Open PPT</a>
-          <button class="action-btn btn-secondary" onclick="closeMediaModal('pptModal')">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Image Lightbox Modal -->
-  <div class="media-modal-overlay" id="imageLightboxModal">
-    <div class="media-modal-container" style="max-width: 1100px;">
-      <div class="media-modal-header">
-        <h3 id="imageModalTitle"><i class="fas fa-project-diagram" style="color: #06b6d4;"></i> High-Resolution Resource</h3>
-        <button class="media-modal-close" onclick="closeMediaModal('imageLightboxModal')">&times;</button>
-      </div>
-      <div class="media-modal-body" style="padding: 16px; background: rgba(0,0,0,0.6);">
-        <img id="lightboxImage" src="" alt="High resolution preview" crossorigin="anonymous" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-      </div>
-      <div class="media-modal-footer">
-        <div>
-          <span id="imageModalClass" class="card-class-badge">Class 11</span>
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <a id="imageDirectOpen" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-external-link-alt"></i> Open High-Res Image</a>
-          <button class="action-btn btn-secondary" onclick="closeMediaModal('imageLightboxModal')">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- HTML Lesson Viewer Modal -->
-  <div class="media-modal-overlay" id="htmlViewerModal">
-    <div class="media-modal-container" style="max-width: 1150px; height: 85vh;">
-      <div class="media-modal-header">
-        <h3 id="htmlModalTitle"><i class="fas fa-window-maximize" style="color: #10b981;"></i> Interactive Lesson Preview</h3>
-        <button class="media-modal-close" onclick="closeMediaModal('htmlViewerModal')">&times;</button>
-      </div>
-      <div class="media-modal-body" style="padding: 0; flex: 1;">
-        <iframe id="htmlIframe" src="" style="width: 100%; height: 100%; border: none; background: #ffffff;"></iframe>
-      </div>
-      <div class="media-modal-footer">
-        <div>
-          <span id="htmlModalClass" class="card-class-badge">Class 7</span>
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <a id="htmlOpenNewTab" href="#" target="_blank" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-external-link-alt"></i> Open Full Window</a>
-          <button class="action-btn btn-secondary" onclick="closeMediaModal('htmlViewerModal')">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Site Footer -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <h3>📚 Teacher's Digital Diary</h3>
-          <p>A modern, comprehensive digital workspace for K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Empowering students through structured learning, digital resources, and innovative mathematical education.</p>
+          <h3>&#128218; Teacher's Digital Diary</h3>
+          <p>A modern, comprehensive digital workspace for K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet.</p>
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
@@ -886,19 +278,13 @@
     </div>
   </footer>
 
-  <!-- Profile Password Modal -->
   <div class="modal" id="passwordModal">
     <div class="modal-content">
       <span class="close-btn" id="closeModal">&times;</span>
       <h2>SECURE PROFILE ACCESS</h2>
       <div class="teacher-info">
         <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
-        <div class="teacher-details">
-          <h3>KIRTI BALLABH JOSHI</h3>
-          <p>PGT Mathematics</p>
-          <p>PM SHRI KV Ranikhet</p>
-          <p>Employee Code: 54244</p>
-        </div>
+        <div class="teacher-details"><h3>KIRTI BALLABH JOSHI</h3><p>PGT Mathematics</p><p>PM SHRI KV Ranikhet</p><p>Employee Code: 54244</p></div>
       </div>
       <div class="password-form">
         <div class="form-group">
@@ -915,460 +301,98 @@
     </div>
   </div>
 
-  <!-- Load file database -->
-  <script src="interactive_lessons_data.js"></script>
   <script>
-    const db = (typeof INTERACTIVE_LESSONS_DATA !== 'undefined') ? INTERACTIVE_LESSONS_DATA : [];
+    // Google Drive subfolder IDs — update these when you share each subfolder link
+    // Google Drive Folder IDs — fully mapped
+    const DRIVE_FOLDERS = {
+      main:         '1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d', // Main folder (all resources)
+      class7:       '1SIbIipnyG7V7YdreD80JOmR9rfh4v-iy',  // Subfolder 1: Class 7 / Mind Maps / HTML Plans
+      class11:      '1ImtiYHsyaOr4hAW1Z6_bGfD-d3p-zSWk',  // Subfolder 2: Class 11 content
+      class12:      '1DHdJfYRDObtU_1SVxETRZENDo9i2wALx',  // Subfolder 3: Class 12 content
+      videos11:     '1ImtiYHsyaOr4hAW1Z6_bGfD-d3p-zSWk',  // Class 11 videos
+      slides11:     '1ImtiYHsyaOr4hAW1Z6_bGfD-d3p-zSWk',  // Class 11 slides
+      videos12:     '1DHdJfYRDObtU_1SVxETRZENDo9i2wALx',  // Class 12 videos
+      slides12:     '1DHdJfYRDObtU_1SVxETRZENDo9i2wALx',  // Class 12 slides
+      infographics: '1DHdJfYRDObtU_1SVxETRZENDo9i2wALx',  // Infographics (in Class 12 folder)
+      mindmaps:     '1SIbIipnyG7V7YdreD80JOmR9rfh4v-iy',  // Mind Maps (in Class 7 folder)
+    };
 
-    let activeCategory = 'all';
-    let activeClass = 'all';
-    let searchQuery = '';
-
-    const lessonsGrid = document.getElementById('lessonsGrid');
-    const lessonSearch = document.getElementById('lessonSearch');
-    const categoryButtons = document.querySelectorAll('#categoryFilters .filter-btn');
-    const classButtons = document.querySelectorAll('#classFilters .class-btn');
-
+    // Password Gate
     const gateOverlay = document.getElementById('passwordGateOverlay');
-    const gateInput = document.getElementById('gatePasswordInput');
-    const gateSubmit = document.getElementById('submitGatePassword');
-    const gateError = document.getElementById('gateErrorMessage');
+    const gateInput   = document.getElementById('gatePasswordInput');
+    const gateSubmit  = document.getElementById('submitGatePassword');
+    const gateError   = document.getElementById('gateErrorMessage');
 
-    function checkPasswordGate() {
+    function checkGate() {
       if (sessionStorage.getItem('interactive_unlocked') === 'true') {
         gateOverlay.style.display = 'none';
         document.body.style.overflow = 'auto';
-        renderLessons();
       } else {
         gateOverlay.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        gateInput.focus();
+        setTimeout(() => gateInput.focus(), 100);
       }
     }
 
+    function toggleGatePwd() {
+      const icon = document.getElementById('gateEyeIcon');
+      if (gateInput.type === 'password') { gateInput.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+      else { gateInput.type = 'password'; icon.className = 'fas fa-eye'; }
+    }
+
     gateSubmit.addEventListener('click', function() {
-      const value = gateInput.value;
-      if (value === 'kvrktdigital') {
+      if (gateInput.value.trim() === 'kvrktdigital') {
         sessionStorage.setItem('interactive_unlocked', 'true');
-        gateOverlay.style.opacity = 0;
-        setTimeout(() => {
-          gateOverlay.style.display = 'none';
-          document.body.style.overflow = 'auto';
-          renderLessons();
-        }, 500);
+        gateOverlay.style.opacity = '0';
+        setTimeout(() => { gateOverlay.style.display = 'none'; document.body.style.overflow = 'auto'; }, 500);
       } else {
         gateError.textContent = 'Incorrect password. Access denied.';
-        gateInput.value = '';
-        gateInput.focus();
+        gateInput.value = ''; gateInput.focus();
         gateSubmit.classList.add('shake');
         setTimeout(() => gateSubmit.classList.remove('shake'), 500);
       }
     });
+    gateInput.addEventListener('keypress', e => { if (e.key === 'Enter') gateSubmit.click(); });
 
-    gateInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') gateSubmit.click();
+    // Drive Frame
+    function frameLoaded() {
+      const ol = document.getElementById('driveLoadingOverlay');
+      if (ol) ol.classList.add('hidden');
+    }
+
+    function reloadFrame() {
+      const f = document.getElementById('driveFrame');
+      const ol = document.getElementById('driveLoadingOverlay');
+      if (ol) ol.classList.remove('hidden');
+      const s = f.src; f.src = ''; setTimeout(() => f.src = s, 100);
+    }
+
+    function filterDrive(key) {
+      const fid = DRIVE_FOLDERS[key] || DRIVE_FOLDERS.main;
+      const f = document.getElementById('driveFrame');
+      const ol = document.getElementById('driveLoadingOverlay');
+      if (ol) ol.classList.remove('hidden');
+      f.src = 'https://drive.google.com/embeddedfolderview?id=' + fid + '#list';
+    }
+
+    // Profile modal
+    const profileModal = document.getElementById('passwordModal');
+    document.getElementById('closeModal').addEventListener('click', () => profileModal.style.display = 'none');
+    document.getElementById('togglePassword').addEventListener('click', () => {
+      const pi = document.getElementById('password');
+      pi.type = pi.type === 'password' ? 'text' : 'password';
     });
-
-    function getCategoryName(cat) {
-      switch(cat) {
-        case 'html': return '🌐 HTML Lesson';
-        case 'mindmaps': return '🗺️ Mind Map';
-        case 'slides': return '📊 Slide Deck';
-        case 'videos': return '🎥 Video';
-        case 'infographics': return '📈 Infographic';
-        default: return cat;
-      }
-    }
-
-    function highlightText(text, query) {
-      if (!query) return text;
-      const regex = new RegExp(`(${query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-      return text.replace(regex, '<mark style="background: rgba(249, 115, 22, 0.3); color: inherit; padding: 0 2px; border-radius: 2px;">$1</mark>');
-    }
-
-    function setQuickCategory(cat) {
-      activeCategory = cat;
-      categoryButtons.forEach(b => {
-        b.classList.toggle('active', b.getAttribute('data-filter') === cat);
-      });
-      renderLessons();
-    }
-
-    function updateStats() {
-      document.getElementById('statAll').textContent = db.length;
-      document.getElementById('statVideos').textContent = db.filter(i => i.category === 'videos').length;
-      document.getElementById('statSlides').textContent = db.filter(i => i.category === 'slides').length;
-      document.getElementById('statMindmaps').textContent = db.filter(i => i.category === 'mindmaps').length;
-      document.getElementById('statHtml').textContent = db.filter(i => i.category === 'html').length;
-      document.getElementById('statInfographics').textContent = db.filter(i => i.category === 'infographics').length;
-    }
-
-    function getItemById(id) {
-      return db.find(i => i.id === id);
-    }
-
-    function getBaseUrl() {
-      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
-        return `${window.location.protocol}//${window.location.host}`;
-      }
-      return 'http://localhost:8080';
-    }
-
-    function getFileUrl(item) {
-      // Return absolute URL so browser can fetch/play from localhost server
-      return `${getBaseUrl()}/${item.fileUrl}`;
-    }
-
-    function getOfficeViewerUrl(item) {
-      // Note: Office Online Viewer requires a PUBLIC URL (not localhost)
-      // So we just return the local download URL instead
-      return `${getBaseUrl()}/${item.fileUrl}`;
-    }
-
-    function renderLessons() {
-      updateStats();
-      lessonsGrid.innerHTML = '';
-      
-      const filtered = db.filter(item => {
-        const matchesCategory = (activeCategory === 'all' || item.category === activeCategory);
-        const matchesClass = (activeClass === 'all' || item.classKey === activeClass);
-        
-        let matchesSearch = true;
-        if (searchQuery) {
-          const q = searchQuery.toLowerCase();
-          matchesSearch = item.title.toLowerCase().includes(q) || 
-                          item.name.toLowerCase().includes(q) || 
-                          (item.relPath && item.relPath.toLowerCase().includes(q));
-        }
-        
-        return matchesCategory && matchesClass && matchesSearch;
-      });
-
-      if (filtered.length === 0) {
-        lessonsGrid.innerHTML = `
-          <div class="no-results">
-            <i class="fas fa-search-minus"></i>
-            <h4>No Interactive Resources Found</h4>
-            <p>Try resetting the filters or adjusting your search keyword.</p>
-          </div>
-        `;
-        return;
-      }
-
-      filtered.sort((a, b) => a.title.localeCompare(b.title));
-
-      filtered.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'lesson-card';
-        card.setAttribute('data-category', item.category);
-        card.setAttribute('data-class', item.classKey);
-
-        const highlightedTitle = highlightText(item.title, searchQuery);
-        const url = getFileUrl(item);
-        
-        let desc = `Interactive math resource on ${item.title} for ${item.class}.`;
-        if (item.category === 'html') {
-          desc = `Interactive lesson plan and classroom activity module.`;
-        } else if (item.category === 'mindmaps') {
-          desc = `Visual mind map structuring key sub-topics and formulas.`;
-        } else if (item.category === 'slides') {
-          desc = `Classroom-ready slide deck presentation for teaching.`;
-        } else if (item.category === 'videos') {
-          desc = `Video walkthrough and step-by-step topic explanation.`;
-        } else if (item.category === 'infographics') {
-          desc = `High-resolution infographic reference chart.`;
-        }
-
-        let actionsHtml = '';
-        if (item.category === 'videos') {
-          actionsHtml = `
-            <button onclick="openVideoModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"><i class="fas fa-play-circle"></i> ▶ Play Video</button>
-            <a href="${url}" target="_blank" class="action-btn btn-secondary" title="Open video in new tab"><i class="fas fa-external-link-alt"></i> Direct Play</a>
-          `;
-        } else if (item.category === 'slides') {
-          actionsHtml = `
-            <button onclick="openPptModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-file-powerpoint"></i> 📊 Play Slide Deck</button>
-            <a href="${url}" target="_blank" download class="action-btn btn-secondary" title="Open or download PPT file"><i class="fas fa-download"></i> Direct Open PPT</a>
-          `;
-        } else if (item.category === 'mindmaps' || item.category === 'infographics') {
-          actionsHtml = `
-            <button onclick="openImageModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"><i class="fas fa-expand"></i> 🔍 View High-Res</button>
-            <a href="${url}" target="_blank" class="action-btn btn-secondary" title="Open image directly"><i class="fas fa-image"></i> Direct Image</a>
-          `;
-        } else {
-          // HTML plans
-          actionsHtml = `
-            <button onclick="openHtmlModal('${item.id}')" class="action-btn btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-window-maximize"></i> 🌐 Preview Lesson</button>
-            <a href="${url}" target="_blank" class="action-btn btn-secondary" title="Open lesson in new window"><i class="fas fa-external-link-alt"></i> Direct Lesson</a>
-          `;
-        }
-
-        const sizeMeta = `<i class="fas fa-hdd"></i> ${item.size}`;
-        const largeBadge = item.isLarge ? `<span class="large-badge"><i class="fas fa-weight-hanging"></i> Large File</span>` : '';
-
-        card.innerHTML = `
-          <div class="card-header">
-            <span class="card-cat-badge badge-${item.category}">${getCategoryName(item.category)}</span>
-            <span class="card-class-badge">${item.class}</span>
-          </div>
-          <h3>${highlightedTitle}</h3>
-          <p class="file-path-desc"><i class="fas fa-folder-open"></i> ${item.relPath || item.name}</p>
-          <p style="font-size: 0.88em; color: var(--text-secondary); line-height: 1.5; margin: 0; flex-grow: 1;">${desc}</p>
-          <div class="lesson-meta">
-            <span>${sizeMeta}</span>
-            ${largeBadge}
-          </div>
-          <div class="card-actions">
-            ${actionsHtml}
-          </div>
-        `;
-
-        lessonsGrid.appendChild(card);
-      });
-    }
-
-    // Modal Triggers & Controls
-    function openVideoModal(id) {
-      const item = getItemById(id);
-      if (!item) return;
-
-      document.getElementById('videoModalTitle').innerHTML = `<i class="fas fa-play-circle" style="color: #ef4444;"></i> ${item.title}`;
-      document.getElementById('videoModalClass').textContent = item.class;
-      document.getElementById('videoModalSize').textContent = `Size: ${item.size}`;
-      
-      const v = document.getElementById('videoElement');
-      const srcStream = document.getElementById('videoSourceStream');
-      const url = getFileUrl(item);
-
-      document.getElementById('videoDirectDownload').href = url;
-
-      // Stop, reset source, then reload
-      v.pause();
-      v.currentTime = 0;
-      srcStream.removeAttribute('src');
-      v.load();
-      
-      // Set new source and reload
-      srcStream.src = url;
-      srcStream.type = 'video/mp4';
-      v.load();
-
-      v.play().catch(err => console.log('Autoplay blocked (user must click play):', err));
-      
-      const m = document.getElementById('videoModal');
-      m.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openPptModal(id) {
-      const item = getItemById(id);
-      if (!item) return;
-
-      document.getElementById('pptModalTitle').innerHTML = `<i class="fas fa-file-powerpoint" style="color: #f59e0b;"></i> ${item.title}`;
-      document.getElementById('pptModalClass').textContent = item.class;
-      document.getElementById('pptModalSize').textContent = `Size: ${item.size}`;
-      
-      const url = getFileUrl(item);
-      
-      // PPT files cannot play in browser directly — show download + open instructions
-      const pptIframe = document.getElementById('pptViewerIframe');
-      pptIframe.srcdoc = `
-        <html><body style="margin:0;background:#1a1235;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;font-family:Poppins,sans-serif;color:#fff;text-align:center;padding:30px;">
-          <div style="font-size:5rem;">📊</div>
-          <h2 style="color:#f59e0b;margin:16px 0 8px;">PowerPoint Slide Deck</h2>
-          <p style="color:#ccc;margin:0 0 8px;font-size:1rem;">${item.title}</p>
-          <p style="color:#aaa;font-size:0.88rem;margin:0 0 24px;">Size: ${item.size} &nbsp;|&nbsp; ${item.class}</p>
-          <p style="color:#bbb;font-size:0.9rem;margin:0 0 20px;max-width:480px;line-height:1.6;">PowerPoint presentations require PowerPoint or LibreOffice to view. Click <strong style='color:#f59e0b;'>"Download &amp; Open PPT"</strong> below to download and open this slide deck on your device.</p>
-          <a href="${url}" download style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:700;font-size:1rem;margin-top:8px;">⬇ Download &amp; Open PPT</a>
-        </html></body>
-      `;
-
-      document.getElementById('pptPlayLaunchBtn').href = url;
-      document.getElementById('pptPlayLaunchBtn').download = item.name;
-      document.getElementById('pptPlayLaunchBtn').innerHTML = '<i class="fas fa-download"></i> Download &amp; Open PPT';
-
-      const m = document.getElementById('pptModal');
-      m.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openImageModal(id) {
-      const item = getItemById(id);
-      if (!item) return;
-
-      document.getElementById('imageModalTitle').innerHTML = `<i class="fas fa-image" style="color: #06b6d4;"></i> ${item.title}`;
-      const img = document.getElementById('lightboxImage');
-      const url = getFileUrl(item);
-      
-      img.src = url;
-      document.getElementById('imageModalClass').textContent = item.class;
-      document.getElementById('imageDirectOpen').href = url;
-      
-      const m = document.getElementById('imageLightboxModal');
-      m.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function openHtmlModal(id) {
-      const item = getItemById(id);
-      if (!item) return;
-
-      document.getElementById('htmlModalTitle').innerHTML = `<i class="fas fa-window-maximize" style="color: #10b981;"></i> ${item.title}`;
-      const url = getFileUrl(item);
-      document.getElementById('htmlIframe').src = url;
-      document.getElementById('htmlModalClass').textContent = item.class;
-      document.getElementById('htmlOpenNewTab').href = url;
-      
-      const m = document.getElementById('htmlViewerModal');
-      m.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMediaModal(modalId) {
-      const m = document.getElementById(modalId);
-      if (m) {
-        m.classList.remove('active');
-        document.body.style.overflow = 'auto';
-        if (modalId === 'videoModal') {
-          const v = document.getElementById('videoElement');
-          const src = document.getElementById('videoSourceStream');
-          if (v) { v.pause(); v.currentTime = 0; }
-          if (src) { src.removeAttribute('src'); }
-          if (v) { v.load(); }
-        } else if (modalId === 'pptModal') {
-          const iframe = document.getElementById('pptViewerIframe');
-          if (iframe) { iframe.src = ''; iframe.removeAttribute('srcdoc'); }
-        } else if (modalId === 'htmlViewerModal') {
-          const f = document.getElementById('htmlIframe');
-          if (f) f.src = '';
-        } else if (modalId === 'imageLightboxModal') {
-          const img = document.getElementById('lightboxImage');
-          if (img) img.src = '';
-        }
-      }
-    }
-
-    // Set up filter button click events
-    categoryButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        categoryButtons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        activeCategory = this.getAttribute('data-filter');
-        renderLessons();
-      });
-    });
-
-    classButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        classButtons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        activeClass = this.getAttribute('data-class');
-        renderLessons();
-      });
-    });
-
-    lessonSearch.addEventListener('input', function() {
-      searchQuery = this.value;
-      renderLessons();
-    });
-
-    // Profile Link Password Modal
-    document.addEventListener('DOMContentLoaded', function() {
-      checkPasswordGate();
-      
-      const modal = document.getElementById('passwordModal');
-      const profileLink = document.getElementById('profileLink');
-      const closeModal = document.getElementById('closeModal');
-      const togglePassword = document.getElementById('togglePassword');
-      const passwordInput = document.getElementById('password');
-      const submitBtn = document.getElementById('submitPassword');
-      const errorMessage = document.getElementById('errorMessage');
-
-      if (profileLink) profileLink.addEventListener('click', function(e) { 
-        e.preventDefault(); 
-        modal.style.display = 'flex'; 
-        passwordInput.focus(); 
-      });
-      
-      closeModal.addEventListener('click', function() { 
-        modal.style.display = 'none'; 
-        passwordInput.value = ''; 
-        errorMessage.textContent = ''; 
-      });
-      
-      window.addEventListener('click', function(e) { 
-        if (e.target === modal) { 
-          modal.style.display = 'none'; 
-          passwordInput.value = ''; 
-          errorMessage.textContent = ''; 
-        } 
-        if (e.target.classList.contains('media-modal-overlay')) {
-          closeMediaModal(e.target.id);
-        }
-      });
-      
-      togglePassword.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        this.textContent = type === 'password' ? '👁️' : '🔒';
-      });
-      
-      submitBtn.addEventListener('click', function() {
-        const password = passwordInput.value;
-        errorMessage.textContent = '';
-        if (!password) { 
-          errorMessage.textContent = 'Please enter your access password'; 
-          return; 
-        }
-        if (password === 'kbj@2008') {
-          submitBtn.textContent = 'Authenticating...'; 
-          submitBtn.disabled = true;
-          setTimeout(() => { 
-            window.location.href = 'profile.html'; 
-          }, 1200);
-        } else {
-          errorMessage.textContent = 'Incorrect password. Please try again.';
-          passwordInput.value = ''; 
-          passwordInput.focus();
-          submitBtn.classList.add('shake');
-          setTimeout(() => { 
-            submitBtn.classList.remove('shake'); 
-          }, 500);
-        }
-      });
-      
-      passwordInput.addEventListener('keypress', function(e) { 
-        if (e.key === 'Enter') submitBtn.click(); 
-      });
-    });
-
-    // Mobile nav dropdowns
-    document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
-      trigger.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-          e.preventDefault();
-          e.stopPropagation();
-          const parent = this.parentElement;
-          const menu = parent.querySelector('.dropdown-menu');
-          const isOpened = menu.style.display === 'flex';
-          
-          document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
-          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-          
-          if (!isOpened) {
-            menu.style.display = 'flex';
-            parent.classList.add('active');
-          }
-        }
-      });
-    });
-
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.nav-item') && window.innerWidth <= 768) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    document.getElementById('submitPassword').addEventListener('click', () => {
+      if (document.getElementById('password').value === 'kbj@2008') {
+        window.location.href = 'profile.html';
+      } else {
+        document.getElementById('errorMessage').textContent = 'Incorrect password.';
+        document.getElementById('password').value = '';
       }
     });
+
+    checkGate();
   </script>
 </body>
 </html>
+
