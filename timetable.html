@@ -2447,6 +2447,7 @@
         btn.classList.add('active');
         document.getElementById(target).classList.add('active');
         if (target === 'tab-circulars') loadTimetableDocs();
+        if (target === 'tab-recess' && typeof renderRecessDuty === 'function') renderRecessDuty();
       });
     });
 
@@ -3498,7 +3499,7 @@
       }
     });
     if (passwordInput) passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter' && submitPassword) submitPassword.click(); });
-    (function buildRecessDuty() {
+    window.renderRecessDuty = function renderRecessDuty() {
       const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
       const DAY_HI = ['सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
 
@@ -3863,11 +3864,12 @@
 
           XLSX.writeFile(wb, 'KV_Ranikhet_Recess_Duty_Chart_Hindi_2026-27.xlsx');
         };
-      }
+      };
 
-    })();
+    };
 
-  });
+    // Render Recess Duty Chart initially
+    if (typeof renderRecessDuty === 'function') renderRecessDuty();
 
 
 
