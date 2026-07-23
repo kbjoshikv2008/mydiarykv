@@ -3398,17 +3398,7 @@
     if (docSortSelect) docSortSelect.addEventListener('change', () => filterAndRenderDocs());
     if (refreshDocsBtn) refreshDocsBtn.addEventListener('click', () => loadTimetableDocs());
 
-    // --- PASSWORD MODAL FOR TEACHER PROFILE UNLOCK ---
-    // ── PAGE GATE CHECK ───────────────────────────────
-    if (sessionStorage.getItem(SESS_AUTH_KEY) === '1') {
-      const g = document.getElementById('pageGate');
-      if (g) g.style.display = 'none';
-    } else {
-      const inp = document.getElementById('gatePassword');
-      if (inp) setTimeout(() => inp.focus(), 200);
-    }
-
-    // ── Existing DOMContentLoaded handlers below ─────────────────────
+    // ── PASSWORD MODAL FOR TEACHER PROFILE UNLOCK ─────────────────────
     const modal = document.getElementById('passwordModal');
     const profileLink = document.getElementById('profileLink');
     const closeModal = document.getElementById('closeModal');
@@ -3805,12 +3795,14 @@
 
           XLSX.writeFile(wb, 'KV_Ranikhet_Recess_Duty_Chart_Hindi_2026-27.xlsx');
         };
-      };
+      }
 
     };
 
     // Render Recess Duty Chart initially
     if (typeof renderRecessDuty === 'function') renderRecessDuty();
+
+  });
 
 
 
