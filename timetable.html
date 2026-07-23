@@ -3509,7 +3509,92 @@
         { name: 'प्रथम तल मुख्य भवन', en: 'First Floor Main Building' },
         { name: 'प्राथना सभा स्थल', en: 'Prayer Assembly Ground' },
         { name: 'प्रथम तल कक्षा 6A, B, C', en: 'First Floor Class 6A,B,C' },
-        { n      // ── RENDER 1: Location × Day Duty Chart (HINDI VIEW) ──
+        { name: 'स्टाफ क्वार्टर गेट', en: 'Staff Quarter Gate' }
+      ];
+
+      const LOC_COLORS = ['#1e3a8a','#065f46','#7c2d12','#4a1d96','#0f4c7a','#713f12'];
+
+      // Teacher dataset with Hindi mapping
+      const teachers = TEACHERS_DATA.map(t => ({
+        id: t.id,
+        name: t.name,
+        nameHi: HINDI_TEACHER_NAMES[t.id] || t.name,
+        desig: t.desig,
+        desigHi: HINDI_DESIG[t.desig] || t.desig,
+        schedule: t.schedule,
+        exempt: EXEMPT_IDS.includes(t.id),
+        quota: EXEMPT_IDS.includes(t.id) ? 0 : (t.id === 'kbjoshi' ? 1 : (THREE_DUTY_IDS.includes(t.id) ? 3 : 2))
+      }));
+
+      // Busy Rule: Teacher is busy ONLY IF they have class in BOTH Period 4 (idx 3) AND Period 5 (idx 4)
+      function isBusyBothP4P5(t, day) {
+        const s = t.schedule[day];
+        if (!s) return false;
+        const p4 = (s[3] || '').trim().toUpperCase();
+        const p5 = (s[4] || '').trim().toUpperCase();
+        const b4 = p4 !== '' && !p4.includes('CLA');
+        const b5 = p5 !== '' && !p5.includes('CLA');
+        return b4 && b5;
+      }
+
+      // Generate Duty Allocation Matrix
+      const count = {};
+      const teacherDutyMap = {}; // teacherDutyMap[t.id][day] = locationIndex or null
+      const locDutyMap = {};     // locDutyMap[locIdx][day] = [teacherObj1, teacherObj2]
+
+      teachers.forEach(t => {
+        count[t.id] = 0;
+        teacherDutyMap[t.id] = {};
+        DAYS.forEach(d => teacherDutyMap[t.id][d] = null);
+      });
+
+      LOCATIONS.forEach((_, li) => {
+        locDutyMap[li] = {};
+        DAYS.forEach(d => locDutyMap[li][d] = []);
+      });
+
+      // Special rule: K B Joshi assigned on Saturday ONLY at Prayer Assembly Ground (idx 3)
+      const kbjObj = teachers.find(t => t.id === 'kbjoshi');
+      if (kbjObj) {
+        const kbjLocIdx = 3; // Prayer Assembly Ground (प्राथना सभा स्थल)
+        teacherDutyMap['kbjoshi']['Saturday'] = kbjLocIdx;
+        locDutyMap[kbjLocIdx]['Saturday'].push(kbjObj);
+        count['kbjoshi'] = 1;
+      }
+
+      const eligible = teachers.filter(t => !t.exempt && t.quota > 0);
+
+      for (const day of DAYS) {
+        for (let li = 0; li < LOCATIONS.length; li++) {
+          while (locDutyMap[li][day].length < 2) {
+            let pool = eligible.filter(t =>
+              t.id !== 'kbjoshi' &&
+              !isBusyBothP4P5(t, day) &&
+              teacherDutyMap[t.id][day] === null &&
+              count[t.id] < t.quota
+            );
+
+            pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
+
+            if (!pool.length) {
+              let fallbackPool = eligible.filter(t => t.id !== 'kbjoshi' && !isBusyBothP4P5(t, day) && teacherDutyMap[t.id][day] === null);
+              fallbackPool.sort((a,b) => count[a.id] - count[b.id]);
+              if (fallbackPool.length) pool = fallbackPool;
+            }
+
+            if (pool.length) {
+              const chosen = pool[0];
+              teacherDutyMap[chosen.id][day] = li;
+              locDutyMap[li][day].push(chosen);
+              count[chosen.id]++;
+            } else {
+              break;
+            }
+          }
+        }
+      }
+
+      // ── RENDER 1: Location × Day Duty Chart (HINDI VIEW) ──
       let locTheadHi = `<thead><tr>
         <th style="background:#0f172a;color:#fff;padding:9px 12px;text-align:left;border:1px solid #334155;font-size:0.8rem;min-width:160px;">स्थान (Location - हिन्दी)</th>
         ${DAY_HI.map((h,i) => `<th style="background:#064e3b;color:#fff;padding:9px 8px;text-align:center;border:1px solid #334155;font-size:0.78rem;">${h}<br><span style="font-size:0.62rem;opacity:0.75;">${DAYS[i]}</span></th>`).join('')}
