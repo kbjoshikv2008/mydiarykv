@@ -3523,7 +3523,7 @@
         desigHi: HINDI_DESIG[t.desig] || t.desig,
         schedule: t.schedule,
         exempt: EXEMPT_IDS.includes(t.id),
-        quota: EXEMPT_IDS.includes(t.id) ? 0 : (t.id === 'kbjoshi' ? 1 : (THREE_DUTY_IDS.includes(t.id) ? 3 : 2))
+        quota: EXEMPT_IDS.includes(t.id) ? 0 : (THREE_DUTY_IDS.includes(t.id) ? 3 : 2)
       }));
 
       // Busy Rule: Teacher is busy ONLY IF they have class in BOTH Period 4 (idx 3) AND Period 5 (idx 4)
@@ -3568,7 +3568,6 @@
         for (let li = 0; li < LOCATIONS.length; li++) {
           while (locDutyMap[li][day].length < 2) {
             let pool = eligible.filter(t =>
-              t.id !== 'kbjoshi' &&
               !isBusyBothP4P5(t, day) &&
               teacherDutyMap[t.id][day] === null &&
               count[t.id] < t.quota
@@ -3577,7 +3576,7 @@
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
 
             if (!pool.length) {
-              let fallbackPool = eligible.filter(t => t.id !== 'kbjoshi' && !isBusyBothP4P5(t, day) && teacherDutyMap[t.id][day] === null);
+              let fallbackPool = eligible.filter(t => !isBusyBothP4P5(t, day) && teacherDutyMap[t.id][day] === null);
               fallbackPool.sort((a,b) => count[a.id] - count[b.id]);
               if (fallbackPool.length) pool = fallbackPool;
             }
