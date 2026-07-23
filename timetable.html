@@ -3518,7 +3518,7 @@
       };
 
       const EXEMPT_IDS = ['rachnav','vikasb','deepakj','meghap','shantiss'];
-      const THREE_DUTY_IDS = ['lalitb', 'ayush', 'almaas', 'narendras', 'ashutoshr', 'hitendras']; // Max 2 duties per teacher / staff
+      const THREE_DUTY_IDS = ['lalitb', 'ayush', 'almaas', 'narendras', 'ashutoshr', 'hitendras', 'vinay']; // Max 2 duties per teacher / staff
 
       const LOCATIONS = [
         { name: 'लाइब्रेरी ब्लॉक', en: 'Library Block' },
@@ -3545,6 +3545,10 @@
 
       // Busy Rule: Teacher is busy ONLY IF they have class in BOTH Period 4 (idx 3) AND Period 5 (idx 4)
       function isBusyBothP4P5(t, day) {
+        // Exclude Lalit Bisht, Narendra Singh, Ayush, Ravi Bhushan from P4/P5 busy condition
+        const ALWAYS_ELIGIBLE_IDS = ['lalitb', 'narendras', 'ayush', 'ravibhushan'];
+        if (ALWAYS_ELIGIBLE_IDS.includes(t.id)) return false;
+
         const s = t.schedule[day];
         if (!s) return false;
         const p4 = (s[3] || '').trim().toUpperCase();
@@ -3591,7 +3595,8 @@
             let pool = eligible.filter(t =>
               !isBusyBothP4P5(t, day) &&
               teacherDutyMap[t.id][day] === null &&
-              count[t.id] < t.quota
+              count[t.id] < t.quota &&
+              !(t.id === 'sunilkumar' && (li === 2 || li === 4))
             );
 
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
