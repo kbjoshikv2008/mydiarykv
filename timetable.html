@@ -3518,7 +3518,7 @@
       };
 
       const EXEMPT_IDS = ['rachnav','vikasb','deepakj','meghap','shantiss'];
-      const THREE_DUTY_IDS = []; // Max 2 duties per teacher / staff
+      const THREE_DUTY_IDS = ['lalitb', 'ayush', 'almaas', 'narendras', 'ashutoshr', 'hitendras']; // Max 2 duties per teacher / staff
 
       const LOCATIONS = [
         { name: 'लाइब्रेरी ब्लॉक', en: 'Library Block' },
@@ -3596,7 +3596,11 @@
 
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
 
-            // If no teacher with < 2 duties available, do NOT exceed 2-duty limit. Place 1 teacher if short.
+            if (!pool.length) {
+              let fallbackPool = eligible.filter(t => !isBusyBothP4P5(t, day) && teacherDutyMap[t.id][day] === null);
+              fallbackPool.sort((a,b) => count[a.id] - count[b.id]);
+              if (fallbackPool.length) pool = fallbackPool;
+            }
 
             if (pool.length) {
               const chosen = pool[0];
