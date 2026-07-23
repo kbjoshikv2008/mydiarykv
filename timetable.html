@@ -1801,8 +1801,8 @@
 </div>
 
 <!-- Password Modal -->
-<!-- ── Page-Level Password Gate ─────────────────────────────── -->
-<div id="pageGate" style="display:flex;position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#0a0a1a 0%,#0f0a2e 50%,#0a1628 100%);align-items:center;justify-content:center;flex-direction:column;">
+<!-- ── Page-Level Password Gate (Disabled - Direct Access) ─────────────────────────────── -->
+<div id="pageGate" style="display:none!important;position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#0a0a1a 0%,#0f0a2e 50%,#0a1628 100%);align-items:center;justify-content:center;flex-direction:column;">
   <!-- Animated bg blobs -->
   <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
     <div style="position:absolute;top:-120px;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(99,102,241,0.18) 0%,transparent 70%);border-radius:50%;animation:blobFloat 8s ease-in-out infinite;"></div>
@@ -1919,18 +1919,17 @@
     gateEye.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
   }
 
-  // Hide immediately if authenticated in this session
+  // Always hide page gate immediately - Direct Access Enabled
   try {
-    if (sessionStorage.getItem('tt_auth_2026') === '1') {
-      const hideGateNow = () => {
-        const g = document.getElementById('pageGate');
-        if (g) { g.style.display = 'none'; g.style.visibility = 'hidden'; g.style.pointerEvents = 'none'; }
-      };
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', hideGateNow);
-      } else {
-        hideGateNow();
-      }
+    sessionStorage.setItem('tt_auth_2026', '1');
+    const hideGateNow = () => {
+      const g = document.getElementById('pageGate');
+      if (g) { g.style.display = 'none!important'; g.style.visibility = 'hidden'; g.style.pointerEvents = 'none'; }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hideGateNow);
+    } else {
+      hideGateNow();
     }
   } catch(e) {}
 
