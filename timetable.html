@@ -3553,13 +3553,17 @@
         DAYS.forEach(d => locDutyMap[li][d] = []);
       });
 
-      // Special rule: K B Joshi assigned on Saturday ONLY at Prayer Assembly Ground (idx 3)
+      // Special rule: K B Joshi assigned 2 duties BOTH at Prayer Assembly Ground (idx 3) on Wednesday & Saturday
       const kbjObj = teachers.find(t => t.id === 'kbjoshi');
       if (kbjObj) {
         const kbjLocIdx = 3; // Prayer Assembly Ground (प्राथना सभा स्थल)
+        // Wednesday Duty
+        teacherDutyMap['kbjoshi']['Wednesday'] = kbjLocIdx;
+        locDutyMap[kbjLocIdx]['Wednesday'].push(kbjObj);
+        // Saturday Duty
         teacherDutyMap['kbjoshi']['Saturday'] = kbjLocIdx;
         locDutyMap[kbjLocIdx]['Saturday'].push(kbjObj);
-        count['kbjoshi'] = 1;
+        count['kbjoshi'] = 2;
       }
 
       const eligible = teachers.filter(t => !t.exempt && t.quota > 0);
