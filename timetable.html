@@ -1712,7 +1712,7 @@
         <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><div style="width:14px;height:14px;border-radius:3px;background:#dcfce7;border:1px solid #86efac;"></div> Duty Assigned</div>
         <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><div style="width:14px;height:14px;border-radius:3px;background:#fef3c7;border:1px solid #fcd34d;"></div> Busy (P4/P5 class)</div>
         <div style="display:flex;align-items:center;gap:6px;font-weight:600;"><div style="width:14px;height:14px;border-radius:3px;background:rgba(255,255,255,0.08);border:1px solid #475569;"></div> Exempt (No duty)</div>
-        <div style="display:flex;align-items:center;gap:6px;font-weight:600;color:var(--text-muted);"><i class="fas fa-info-circle"></i> Teachers with class in Period 4 or 5 are not assigned duty on that day</div>
+        <div style="display:flex;align-items:center;gap:6px;font-weight:600;color:var(--text-muted);"><i class="fas fa-info-circle"></i> Teachers with continuous classes in Periods 3, 4, 5 & 6 are not assigned duty on that day</div>
       </div>
 
       <div id="recessDutyContainer"></div>
@@ -3545,18 +3545,20 @@
       }));
 
       // Busy Rule: Teacher is busy ONLY IF they have class in BOTH Period 4 (idx 3) AND Period 5 (idx 4)
-      function isBusyBothP4P5(t, day) {
-        // Exclude Lalit Bisht, Narendra Singh, Ayush, Ravi Bhushan from P4/P5 busy condition
-        const ALWAYS_ELIGIBLE_IDS = ['lalitb', 'narendras', 'ayush', 'ravibhushan', 'smitas', 'jeevank', 'vipin', 'ajayk'];
-        if (ALWAYS_ELIGIBLE_IDS.includes(t.id)) return false;
-
+      function isBusyContinuousP3toP6(t, day) {
         const s = t.schedule[day];
         if (!s) return false;
+        const p3 = (s[2] || '').trim().toUpperCase();
         const p4 = (s[3] || '').trim().toUpperCase();
         const p5 = (s[4] || '').trim().toUpperCase();
+        const p6 = (s[5] || '').trim().toUpperCase();
+
+        const b3 = p3 !== '' && !p3.includes('CLA');
         const b4 = p4 !== '' && !p4.includes('CLA');
         const b5 = p5 !== '' && !p5.includes('CLA');
-        return b4 && b5;
+        const b6 = p6 !== '' && !p6.includes('CLA');
+
+        return b3 && b4 && b5 && b6;
       }
 
       // Generate Duty Allocation Matrix
@@ -3594,7 +3596,7 @@
         for (let li = 0; li < LOCATIONS.length; li++) {
           while (locDutyMap[li][day].length < 2) {
             let pool = eligible.filter(t =>
-              !isBusyBothP4P5(t, day) &&
+              !isBusyContinuousP3toP6(t, day) &&
               teacherDutyMap[t.id][day] === null &&
               count[t.id] < t.quota &&
               !(t.id === 'sunilkumar' && (li === 2 || li === 4))
@@ -3603,7 +3605,7 @@
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
 
             if (!pool.length) {
-              let fallbackPool = eligible.filter(t => !isBusyBothP4P5(t, day) && teacherDutyMap[t.id][day] === null);
+              let fallbackPool = eligible.filter(t => !isBusyContinuousP3toP6(t, day) && teacherDutyMap[t.id][day] === null);
               fallbackPool.sort((a,b) => count[a.id] - count[b.id]);
               if (fallbackPool.length) pool = fallbackPool;
             }
@@ -3705,8 +3707,8 @@
             if (locIdx !== null) {
               const loc = LOCATIONS[locIdx];
               cellsHTML += `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;"><span style="background:#dcfce7;color:#14532d;font-weight:900;font-size:0.72rem;border-radius:4px;padding:2px 5px;display:inline-block;" title="${loc.name} (${loc.en})">${loc.name}</span></td>`;
-            } else if (isBusyBothP4P5(t, d)) {
-              cellsHTML += `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;background:#fef3c7;"><span style="color:#78350f;font-size:0.68rem;font-weight:700;">व्यस्त (P4&P5)</span></td>`;
+            } else if (isBusyContinuousP3toP6(t, d)) {
+              cellsHTML += `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;background:#fef3c7;"><span style="color:#78350f;font-size:0.68rem;font-weight:700;">व्यस्त (P3-P6)</span></td>`;
             } else {
               cellsHTML += `<td style="text-align:center;border:1px solid var(--glass-border);padding:5px;color:var(--text-muted);font-size:0.7rem;">—</td>`;
             }
@@ -3773,7 +3775,7 @@
           </table>
           <div class="note">
             1. मध्यावकाश/लंच ब्रेक (11:00 AM – 11:25 AM) ड्यूटी पर शिक्षक/कर्मचारियों को निर्धारित स्थान पर उपस्थित रहकर विद्यार्थियों की सुरक्षा सुनिश्चित करनी होगी।<br>
-            2. जिन शिक्षकों की उस दिन चौथी एवं पाँचवीं दोनों अवधि (Period 4 &amp; 5) में कक्षाएँ हैं, उन्हें उस दिन ड्यूटी से छूट प्रदान की गई है।<br>
+            2. जिन शिक्षकों की उस दिन तीसरी, चौथी, पाँचवीं एवं छठी लगातार अवधि (Periods 3, 4, 5 &amp; 6) में कक्षाएँ हैं, उन्हें उस दिन ड्यूटी से छूट प्रदान की गई है।<br>
             3. कोच और योग शिक्षक शारीरिक शिक्षक के निर्देशन में परिसर में विद्यार्थियों के अनुशासन के लिए जिम्मेदार होंगे।<br>
             4. स्टाफ नर्स विद्यालय मध्यावकाश के समय विद्यार्थियों के प्राथमिक उपचार हेतु अपने कक्ष में उपस्थित रहेंगे।
           </div>
@@ -3829,7 +3831,7 @@
           </table>
           <div class="note">
             1. All assigned staff must report promptly at 11:00 AM to ensure safety and discipline.<br>
-            2. Teachers having classes in BOTH Period 4 and Period 5 on a given day are exempt from duty on that day.<br>
+            2. Teachers having continuous classes in Periods 3, 4, 5, and 6 on a given day are exempt from duty on that day.<br>
             3. Coaches and Yoga Instructor will assist in maintaining campus discipline under PET supervision.<br>
             4. Staff Nurse must be available in Medical Room during lunch recess for student first-aid.
           </div>
@@ -3908,7 +3910,7 @@
               else {
                 const locIdx = teacherDutyMap[t.id][d];
                 if (locIdx !== null) r.push(LOCATIONS[locIdx].name);
-                else if (isBusyBothP4P5(t, d)) r.push('व्यस्त (P4&P5)');
+                else if (isBusyContinuousP3toP6(t, d)) r.push('व्यस्त (P3-P6)');
                 else r.push('—');
               }
             });
@@ -3936,7 +3938,7 @@
               else {
                 const locIdx = teacherDutyMap[t.id][d];
                 if (locIdx !== null) r.push(LOCATIONS[locIdx].en);
-                else if (isBusyBothP4P5(t, d)) r.push('Busy (P4&P5)');
+                else if (isBusyContinuousP3toP6(t, d)) r.push('Busy (P3-P6)');
                 else r.push('—');
               }
             });
