@@ -1865,8 +1865,8 @@
 
     const val = (gateInp ? gateInp.value : '').trim().toLowerCase();
     
-    // Accept kbj@2008, KBJ@2008, kbj2008, 2008
-    if (val === 'kbj@2008' || val === 'kbj2008' || val === '2008' || val === 'kbj') {
+    // Reset Password: kbjkvrkt@2008 (case-insensitive & whitespace-trimmed)
+    if (val === 'kbjkvrkt@2008' || val === 'kbjkvrkt2008') {
       try { sessionStorage.setItem('tt_auth_2026', '1'); } catch(e) {}
       gateObj.style.display = 'none';
       gateObj.style.visibility = 'hidden';
@@ -3469,7 +3469,35 @@
 
     // ── Existing DOMContentLoaded handlers below ─────────────────────
     const modal = document.getElementById('passwordModal');
-    const profileLink = document.getElementById('p    // ── RECESS DUTY CHART (Lunch Recess Only, 100% Hindi Script & Strict Constraints) ──
+    const profileLink = document.getElementById('profileLink');
+    const closeModal = document.getElementById('closeModal');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const submitPassword = document.getElementById('submitPassword');
+    const errorMessage = document.getElementById('errorMessage');
+
+    if (profileLink) profileLink.addEventListener('click', e => {
+      e.preventDefault();
+      if (modal) { modal.style.display = 'flex'; if(passwordInput) passwordInput.value = ''; if(errorMessage) errorMessage.style.display = 'none'; }
+    });
+    if (closeModal) closeModal.addEventListener('click', () => { if(modal) modal.style.display = 'none'; });
+    if (modal) modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+    if (togglePassword) togglePassword.addEventListener('click', () => {
+      if(!passwordInput) return;
+      const show = passwordInput.type === 'password';
+      passwordInput.type = show ? 'text' : 'password';
+      togglePassword.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+    });
+    if (submitPassword) submitPassword.addEventListener('click', () => {
+      if (passwordInput && passwordInput.value.trim().toLowerCase() === 'kbjkvrkt@2008') {
+        if(modal) modal.style.display = 'none';
+        window.location.href = 'profile.html';
+      } else {
+        if(errorMessage) errorMessage.style.display = 'block';
+        if(passwordInput) passwordInput.value = '';
+      }
+    });
+    if (passwordInput) passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter' && submitPassword) submitPassword.click(); });
     (function buildRecessDuty() {
       const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
       const DAY_HI = ['सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
