@@ -1665,26 +1665,53 @@
       color: #4c1d95 !important;
     }
 
-    /* Navbar items */
+    /* ==========================================================================
+       BOLD FONTS & UNIFORM RECTANGULAR BOX NAVIGATION TABS
+       ========================================================================== */
     .nav-bar {
       background: #faf5eb !important;
       border-bottom: 3px solid #4c1d95 !important;
-      box-shadow: 0 4px 15px rgba(74, 62, 53, 0.05) !important;
+      box-shadow: 0 4px 20px rgba(74, 62, 53, 0.08) !important;
+      padding: 6px 0 !important;
+    }
+
+    .nav {
+      gap: 12px !important;
     }
 
     .nav-item .dropdown-trigger {
       background: #ffffff !important;
       color: #1e1b18 !important;
-      border: 2px solid #cbd5e1 !important;
-      font-size: 0.9em !important;
-      font-weight: 750 !important;
+      border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Uniform Sharp Rectangular Box */
+      font-size: 0.92rem !important;
+      font-weight: 850 !important; /* Bold Font */
+      font-family: 'Poppins', 'Inter', sans-serif !important;
+      padding: 11px 22px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.8px !important;
+      box-shadow: 0 4px 10px rgba(74, 62, 53, 0.08) !important;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 9px !important;
+    }
+
+    .nav-item .dropdown-trigger i {
+      font-size: 0.95em !important;
+      color: #4c1d95 !important;
     }
 
     .nav-item:hover .dropdown-trigger {
       background: #4c1d95 !important;
       border-color: #4c1d95 !important;
       color: #ffffff !important;
-      box-shadow: 0 6px 15px rgba(76, 29, 149, 0.2) !important;
+      box-shadow: 0 8px 22px rgba(76, 29, 149, 0.35) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .nav-item:hover .dropdown-trigger i {
+      color: #ffd700 !important;
     }
 
     .dropdown-menu {
@@ -1693,10 +1720,10 @@
       left: 50% !important;
       transform: translateX(-50%) translateY(15px) !important;
       background: #ffffff !important;
-      border: 2px solid #bdaea2 !important;
-      box-shadow: 0 15px 30px rgba(74, 62, 53, 0.12) !important;
-      border-radius: 12px !important;
-      width: 250px !important;
+      border: 2.5px solid #4c1d95 !important;
+      box-shadow: 0 16px 40px rgba(74, 62, 53, 0.18) !important;
+      border-radius: 4px !important; /* Crisp Rectangular Box Menu */
+      width: 260px !important;
       padding: 8px !important;
       display: flex !important;
       flex-direction: column !important;
@@ -1767,39 +1794,54 @@
       color: #4c1d95 !important;
     }
 
-    /* Section Titles */
+    /* ==========================================================================
+       UNIFORM RECTANGULAR BOX CONTAINERS FOR HOME PAGE SECTIONS
+       ========================================================================== */
     .section-title .label {
       background: #4c1d95 !important;
       color: #ffffff !important;
-      border: none !important;
-      font-size: 0.85em !important;
-      font-weight: 800 !important;
-      padding: 6px 18px !important;
-      box-shadow: 0 4px 10px rgba(76, 29, 149, 0.15) !important;
+      border: 2px solid #4c1d95 !important;
+      border-radius: 4px !important; /* Rectangular Title Badge */
+      font-size: 0.88em !important;
+      font-weight: 850 !important;
+      padding: 7px 22px !important;
+      letter-spacing: 1.5px !important;
+      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.2) !important;
     }
 
     .section-title h2 {
       color: #1e1b18 !important;
       font-size: clamp(1.9rem, 3vw, 2.7rem) !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
+      font-family: 'Poppins', sans-serif !important;
     }
 
     .section-title p {
       color: #4a3e3d !important;
       font-size: 1.08rem !important;
-      font-weight: 555 !important;
+      font-weight: 550 !important;
     }
 
     .divider {
       background: linear-gradient(90deg, #4c1d95, #0f766e) !important;
       height: 5px !important;
+      border-radius: 2px !important;
     }
 
-    /* Dashboard & Welcome Cards - High Contrast Solid White Cards */
+    /* 1. Welcome Dashboard - Rectangular Box */
     .editable {
       background: #ffffff !important;
-      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.05) !important;
-      border: 2px solid #bdaea2 !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.07) !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #4c1d95 !important;
+      border-radius: 6px !important; /* Rectangular Card Box */
+      margin-bottom: 44px !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .editable:hover {
+      box-shadow: 0 16px 45px rgba(76, 29, 149, 0.12) !important;
+      border-color: #4c1d95 !important;
     }
 
     .welcome-left {
@@ -1813,17 +1855,19 @@
 
     .welcome-tag {
       background: rgba(76, 29, 149, 0.08) !important;
-      border: 2px solid rgba(76, 29, 149, 0.25) !important;
+      border: 2px solid rgba(76, 29, 149, 0.3) !important;
+      border-radius: 4px !important; /* Rectangular Tag */
       color: #4c1d95 !important;
       font-size: 0.85em !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
+      padding: 6px 16px !important;
     }
 
     .welcome-left h2 {
       color: #1e1b18 !important;
       -webkit-text-fill-color: #1e1b18 !important;
       font-size: 2.2rem !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
     }
 
     .welcome-left p {
@@ -1836,11 +1880,12 @@
     .mission-box {
       background: #fdfbf7 !important;
       border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Rectangular Box */
     }
 
     .mission-box h4 {
       color: #4c1d95 !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
       font-size: 0.9em !important;
     }
 
@@ -1853,19 +1898,20 @@
     .info-card-sm {
       background: #ffffff !important;
       border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Rectangular Info Card */
       box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;
     }
 
     .info-card-sm:hover {
       background: #fdfbf7 !important;
       border-color: #4c1d95 !important;
-      box-shadow: 0 8px 20px rgba(76, 29, 149, 0.05) !important;
+      box-shadow: 0 8px 20px rgba(76, 29, 149, 0.08) !important;
     }
 
     .info-card-sm h4 {
       color: #1e1b18 !important;
       font-size: 0.98rem !important;
-      font-weight: 750 !important;
+      font-weight: 800 !important;
     }
 
     .info-card-sm p {
@@ -1877,13 +1923,15 @@
     .edu-quote-sm {
       background: #fffbf0 !important;
       border: 2px solid #9a3412 !important;
+      border-radius: 4px !important; /* Rectangular Box */
     }
 
     .edu-quote-sm .quote-badge {
       color: #0f172a !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
       background: rgba(15, 23, 42, 0.08) !important;
-      border: 1px solid rgba(15, 23, 42, 0.18) !important;
+      border: 1.5px solid rgba(15, 23, 42, 0.2) !important;
+      border-radius: 4px !important;
     }
 
     .edu-quote-sm p {
@@ -1897,56 +1945,101 @@
 
     .edu-quote-sm .quote-author {
       color: #b45309 !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
       font-size: 0.88em !important;
       font-family: 'Outfit', sans-serif !important;
       text-transform: uppercase !important;
       letter-spacing: 0.5px !important;
     }
 
-    /* Buttons */
+    /* Rectangular Action Buttons */
     .btn-primary {
       background: linear-gradient(135deg, #4c1d95, #0f766e) !important;
       box-shadow: 0 4px 15px rgba(76, 29, 149, 0.25) !important;
       font-size: 0.95em !important;
+      font-weight: 800 !important;
       color: #ffffff !important;
+      border-radius: 4px !important; /* Rectangular Button */
+      padding: 12px 24px !important;
     }
 
     .btn-primary:hover {
-      box-shadow: 0 6px 20px rgba(76, 29, 149, 0.4) !important;
+      box-shadow: 0 6px 22px rgba(76, 29, 149, 0.4) !important;
+      transform: translateY(-2px) !important;
     }
 
     .btn-outline {
       color: #4c1d95 !important;
       border: 2px solid #4c1d95 !important;
       font-size: 0.95em !important;
-      font-weight: 750 !important;
+      font-weight: 800 !important;
       background: #ffffff !important;
+      border-radius: 4px !important; /* Rectangular Button */
+      padding: 11px 22px !important;
     }
 
     .btn-outline:hover {
       background: rgba(76, 29, 149, 0.08) !important;
       color: #4c1d95 !important;
+      transform: translateY(-2px) !important;
     }
 
-    /* Quick Access Cards */
-    .quick-card {
+    /* 2. Photo Gallery Section - Rectangular Container Box */
+    .photo-gallery-section {
       background: #ffffff !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #0f766e !important;
+      border-radius: 6px !important; /* Rectangular Section Box */
+      padding: 36px 28px !important;
+      margin-bottom: 44px !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .photo-gallery-section:hover {
+      box-shadow: 0 16px 45px rgba(15, 118, 110, 0.12) !important;
+      border-color: #0f766e !important;
+    }
+
+    /* 3. Quick Access Section - Rectangular Container Box */
+    .quick-access {
+      background: #ffffff !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #9a3412 !important;
+      border-radius: 6px !important; /* Rectangular Section Box */
+      padding: 36px 28px !important;
+      margin-bottom: 44px !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .quick-access:hover {
+      box-shadow: 0 16px 45px rgba(154, 52, 18, 0.12) !important;
+      border-color: #9a3412 !important;
+    }
+
+    .quick-card {
+      background: #fdfbf7 !important;
       border: 2px solid #bdaea2 !important;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02) !important;
+      border-radius: 4px !important; /* Sharp Rectangular Card Box */
+      box-shadow: 0 4px 12px rgba(74, 62, 53, 0.04) !important;
       color: #1e1b18 !important;
+      padding: 30px 18px 24px !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
     .quick-card:hover {
       background: #ffffff !important;
-      box-shadow: 0 15px 30px rgba(76, 29, 149, 0.08) !important;
+      box-shadow: 0 14px 30px rgba(76, 29, 149, 0.14) !important;
       border-color: #4c1d95 !important;
+      transform: translateY(-6px) !important;
     }
 
     .card-title {
       color: #1e1b18 !important;
       font-size: 0.98em !important;
-      font-weight: 750 !important;
+      font-weight: 850 !important;
+      font-family: 'Poppins', sans-serif !important;
     }
 
     .card-desc {
@@ -1956,9 +2049,12 @@
     }
 
     .card-arrow {
-      background: #fdfbf7 !important;
+      background: #ffffff !important;
       border: 2px solid #bdaea2 !important;
       color: #4c1d95 !important;
+      border-radius: 4px !important; /* Rectangular Arrow Box */
+      width: 32px !important;
+      height: 32px !important;
     }
 
     .quick-card:hover .card-arrow {
@@ -1980,62 +2076,217 @@
     .c10 .card-icon-wrap { background: linear-gradient(135deg, rgba(107,33,168,0.1), rgba(107,33,168,0.2)) !important; color: #6b21a8 !important; }
     .c11 .card-icon-wrap { background: linear-gradient(135deg, rgba(190,24,74,0.1), rgba(76,29,149,0.15)) !important; color: #be185d !important; }
 
-    /* Stat Cards */
-    .stat-card {
+    /* 4. Features Section - Rectangular Container Box */
+    .features-section {
       background: #ffffff !important;
-      border: 2px solid #bdaea2 !important;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #4c1d95 !important;
+      border-radius: 6px !important; /* Rectangular Section Box */
+      padding: 36px 28px !important;
+      margin-bottom: 44px !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06) !important;
+      transition: all 0.3s ease !important;
     }
 
-    .stat-card:hover {
+    .features-section:hover {
+      box-shadow: 0 16px 45px rgba(76, 29, 149, 0.12) !important;
       border-color: #4c1d95 !important;
-      box-shadow: 0 10px 25px rgba(76, 29, 149, 0.06) !important;
     }
 
-    .stat-value {
+    .feature-card {
+      background: #fdfbf7 !important;
+      border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Rectangular Feature Card */
+      padding: 26px 24px !important;
+      box-shadow: 0 4px 12px rgba(74, 62, 53, 0.03) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 14px 30px rgba(76, 29, 149, 0.1) !important;
+      border-color: #4c1d95 !important;
+      background: #ffffff !important;
+      transform: translateY(-5px) !important;
+    }
+
+    .feature-card h3 {
       color: #1e1b18 !important;
-      font-weight: 800 !important;
+      font-size: 1.18rem !important;
+      font-weight: 850 !important;
+      font-family: 'Poppins', sans-serif !important;
     }
 
-    .stat-label {
+    .feature-card p {
       color: #4a3e3d !important;
-      font-weight: 700 !important;
+      font-size: 0.95em !important;
+      font-weight: 500 !important;
+    }
+
+    .check-badge {
+      border-radius: 4px !important; /* Rectangular Badge */
+      border: 1.5px solid #14532d !important;
+      font-weight: 850 !important;
+    }
+
+    /* 5. Academic Profile Section - Rectangular Container Box */
+    .academic-section {
+      background: #ffffff !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #14532d !important;
+      border-radius: 6px !important; /* Rectangular Section Box */
+      padding: 36px 28px !important;
+      margin-bottom: 44px !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .academic-section:hover {
+      box-shadow: 0 16px 45px rgba(20, 83, 45, 0.12) !important;
+      border-color: #14532d !important;
+    }
+
+    .classes-card {
+      background: #fdfbf7 !important;
+      border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Rectangular Card Box */
+      padding: 28px !important;
     }
 
     .class-pill {
       background: #ffffff !important;
       border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Rectangular Class Pill */
       color: #1e1b18 !important;
       font-size: 0.98em !important;
-      font-weight: 700 !important;
+      font-weight: 850 !important;
+      padding: 10px 20px !important;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.03) !important;
+      transition: all 0.25s ease !important;
     }
 
     .class-pill:hover {
-      background: rgba(76, 29, 149, 0.05) !important;
+      background: #4c1d95 !important;
+      color: #ffffff !important;
       border-color: #4c1d95 !important;
-      box-shadow: 0 6px 15px rgba(76, 29, 149, 0.05) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 15px rgba(76, 29, 149, 0.2) !important;
     }
 
     .class-pill i {
       color: #4c1d95 !important;
     }
 
-    /* Bottom Quote Card */
-    .quote-card {
-      background: #ffffff !important;
+    .class-pill:hover i {
+      color: #ffd700 !important;
+    }
+
+    .stat-card {
+      background: #fdfbf7 !important;
       border: 2px solid #bdaea2 !important;
-      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.03) !important;
+      border-radius: 4px !important; /* Rectangular Stat Card */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02) !important;
+      transition: all 0.25s ease !important;
+    }
+
+    .stat-card:hover {
+      border-color: #14532d !important;
+      background: #ffffff !important;
+      transform: translateY(-4px) !important;
+    }
+
+    .stat-value {
+      color: #1e1b18 !important;
+      font-weight: 850 !important;
+    }
+
+    .stat-label {
+      color: #4a3e3d !important;
+      font-weight: 750 !important;
+    }
+
+    /* 6. Guidance Support Section - Rectangular Container Box */
+    .guidance-section {
+      background: #ffffff !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #9d174d !important;
+      border-radius: 6px !important; /* Rectangular Section Box */
+      padding: 36px 28px !important;
+      margin-bottom: 44px !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .guidance-section:hover {
+      box-shadow: 0 16px 45px rgba(157, 23, 77, 0.12) !important;
+      border-color: #9d174d !important;
+    }
+
+    .guidance-preview-card {
+      background: #fdfbf7 !important;
+      border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important;
+      padding: 24px 28px !important;
+      text-align: center !important;
+    }
+
+    .enter-portal-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: #9d174d !important;
+      color: #ffffff !important;
+      border: 2px solid #9d174d !important;
+      border-radius: 4px !important; /* Rectangular Button */
+      padding: 12px 28px !important;
+      font-weight: 850 !important;
+      font-size: 0.95rem !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(157, 23, 77, 0.25) !important;
+      transition: all 0.25s ease !important;
+      margin-top: 16px !important;
+    }
+
+    .enter-portal-btn:hover {
+      background: #ffffff !important;
+      color: #9d174d !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(157, 23, 77, 0.35) !important;
+    }
+
+    /* 7. Bottom Quote Section - Rectangular Container Box */
+    .quote-section {
+      background: #ffffff !important;
+      border: 2.5px solid #bdaea2 !important;
+      border-top: 5px solid #4c1d95 !important;
+      border-radius: 6px !important; /* Rectangular Section Box */
+      padding: 36px 28px !important;
+      margin-bottom: 44px !important;
+      box-shadow: 0 10px 30px rgba(74, 62, 53, 0.06) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .quote-section:hover {
+      box-shadow: 0 16px 45px rgba(76, 29, 149, 0.12) !important;
+      border-color: #4c1d95 !important;
+    }
+
+    .quote-card {
+      background: #fdfbf7 !important;
+      border: 2px solid #bdaea2 !important;
+      border-radius: 4px !important; /* Rectangular Card Box */
+      box-shadow: 0 6px 18px rgba(74, 62, 53, 0.03) !important;
+      padding: 44px 36px !important;
     }
 
     .quote-text {
       color: #1e1b18 !important;
       font-size: clamp(1.35rem, 2.5vw, 1.9rem) !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
     }
 
     .quote-author-line {
       color: #4c1d95 !important;
-      font-weight: 800 !important;
+      font-weight: 850 !important;
       font-size: 0.98em !important;
     }
 
@@ -2534,6 +2785,8 @@
         display: none !important;
         flex-direction: column !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+        border-radius: 4px !important; /* Sharp Rectangular Box Menu */
+        border: 2.5px solid #4c1d95 !important;
         margin-top: 0 !important;
         z-index: 1000 !important;
       }
