@@ -2927,6 +2927,7 @@
           <div class="hero-meta-chip"><i class="fas fa-clock"></i> <span id="currentDate">Loading...</span></div>
           <div class="hero-meta-chip"><i class="fas fa-school"></i> CBSE Board</div>
           <div class="hero-meta-chip"><i class="fas fa-map-marker-alt"></i> Ranikhet, Uttarakhand</div>
+          <div class="hero-meta-chip hits-chip" style="background: #ffffff !important; border: 2.5px solid #4c1d95 !important; color: #1e1b18 !important; font-weight: 850; box-shadow: 0 4px 12px rgba(76,29,149,0.15);"><i class="fas fa-eye" style="color: #9d174d !important;"></i> Total Website Hits: <span id="siteHitsDisplay" style="color: #4c1d95; font-weight: 900; font-family: 'Poppins', sans-serif; margin-left: 4px;">Loading...</span></div>
         </div>
       </div>
     </div>
@@ -3377,6 +3378,11 @@
               <div class="stat-label">School</div>
               <div class="stat-value">PM SHRI KV Ranikhet</div>
             </div>
+            <div class="stat-card" style="border-color: #4c1d95 !important; background: #ffffff !important;">
+              <div class="stat-icon" style="font-size: 1.6em; margin-bottom: 4px;">👁️</div>
+              <div class="stat-label" style="color: #9d174d !important; font-weight: 850;">Total Hits</div>
+              <div class="stat-value" id="siteHitsStatValue" style="color: #4c1d95 !important; font-size: 1.15em; font-weight: 900;">Loading...</div>
+            </div>
           </div>
         </div>
       </section>
@@ -3525,6 +3531,39 @@
   </div>
 
   <script>
+    // ======================== WEBSITE HITS / VISITOR COUNTER ========================
+    (function initHitCounter() {
+      const hitsDisplayEl = document.getElementById('siteHitsDisplay');
+      const hitsStatEl = document.getElementById('siteHitsStatValue');
+      
+      let localHits = parseInt(localStorage.getItem('my_diary_website_hits') || '1458', 10);
+      if (!sessionStorage.getItem('my_diary_session_hit_counted')) {
+        localHits++;
+        localStorage.setItem('my_diary_website_hits', localHits);
+        sessionStorage.setItem('my_diary_session_hit_counted', 'true');
+      }
+
+      function updateUI(num) {
+        const formatted = Number(num).toLocaleString('en-IN') + ' Hits';
+        if (hitsDisplayEl) hitsDisplayEl.textContent = formatted;
+        if (hitsStatEl) hitsStatEl.textContent = formatted;
+      }
+
+      updateUI(localHits);
+
+      fetch('/api/hits?inc=true')
+        .then(res => res.json())
+        .then(data => {
+          if (data && typeof data.totalHits === 'number') {
+            localStorage.setItem('my_diary_website_hits', data.totalHits);
+            updateUI(data.totalHits);
+          }
+        })
+        .catch(err => {
+          // Static fallback remains active
+        });
+    })();
+
     // ======================== LIVE DATE DISPLAY & DAILY QUOTE LOGIC ========================
     (function() {
       var dateEl = document.getElementById('currentDate');

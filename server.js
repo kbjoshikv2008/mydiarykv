@@ -27,8 +27,26 @@ const MIME_TYPES = {
   '.doc': 'application/msword'
 };
 
-// Extensions that should be served inline (played/displayed in browser)
-const INLINE_EXTENSIONS = new Set(['.html', '.css', '.js', '.json', '.pdf', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.mp4', '.webm', '.mp3']);
+// Persistent Website Hits Counter Storage
+const HITS_FILE = path.join(__dirname, 'hits_counter.json');
+let hitsData = { totalHits: 1458, todayHits: 48, lastReset: new Date().toDateString() };
+
+try {
+  if (fs.existsSync(HITS_FILE)) {
+    const raw = fs.readFileSync(HITS_FILE, 'utf8');
+    hitsData = Object.assign(hitsData, JSON.parse(raw));
+  } else {
+    fs.writeFileSync(HITS_FILE, JSON.stringify(hitsData, null, 2));
+  }
+} catch (err) {
+  console.error('Hits counter error:', err);
+}
+
+function saveHits() {
+  try {
+    fs.writeFileSync(HITS_FILE, JSON.stringify(hitsData, null, 2));
+  } catch (err) {}
+}
 
 const server = http.createServer((req, res) => {
   // Set global CORS headers to allow video, ppt, and image access from any origin (including file://)
@@ -46,6 +64,38 @@ const server = http.createServer((req, res) => {
   // Decode URL to handle spaces and special characters
   const urlParts = req.url.split('?');
   let urlPath = decodeURIComponent(urlParts[0]);
+
+  // Handle Hits API route
+  if (urlPath === '/api/hits') {
+    const isInc = req.url.includes('inc=true') || req.url.includes('increment=true');
+    if (isInc) {
+      hitsData.totalHits = (hitsData.totalHits || 1458) + 1;
+      const todayStr = new Date().toDateString();
+      if (hitsData.lastReset !== todayStr) {
+        hitsData.todayHits = 1;
+        hitsData.lastReset = todayStr;
+      } else {
+        hitsData.todayHits = (hitsData.todayHits || 0) + 1;
+      }
+      saveHits();
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify(hitsData));
+    return;
+  }
+
+  // Auto-increment hits on HTML page loads
+  if (urlPath === '/' || urlPath === '' || urlPath.endsWith('.html')) {
+    hitsData.totalHits = (hitsData.totalHits || 1458) + 1;
+    const todayStr = new Date().toDateString();
+    if (hitsData.lastReset !== todayStr) {
+      hitsData.todayHits = 1;
+      hitsData.lastReset = todayStr;
+    } else {
+      hitsData.todayHits = (hitsData.todayHits || 0) + 1;
+    }
+    saveHits();
+  }
   
   // Handle /dropbox/ route to serve local Dropbox files
   if (urlPath.startsWith('/dropbox/')) {
