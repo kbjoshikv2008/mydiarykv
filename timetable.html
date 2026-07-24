@@ -1803,6 +1803,30 @@
 
 <!-- Password Modal for Profile -->
 
+
+<!-- Time Table Tab Authentication Modal -->
+<div id="ttAuthModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div style="background:rgba(30,41,59,0.95);border:1px solid var(--glass-border);border-radius:24px;padding:36px 32px;width:min(440px,92vw);box-shadow:0 25px 60px rgba(0,0,0,0.6);text-align:center;position:relative;animation:popIn 0.3s ease-out;">
+    <div style="width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 10px 25px rgba(99,102,241,0.4);">
+      <i class="fas fa-lock" style="font-size:1.6rem;color:#fff;"></i>
+    </div>
+    <h3 style="font-size:1.35rem;font-weight:900;color:var(--text-primary);margin-bottom:6px;">Time Table Protection / समय सारणी सुरक्षा</h3>
+    <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px;line-height:1.4;">Enter password <b>kbj@2008</b> to access Time Table.<br><span style="font-size:0.8rem;opacity:0.8;">समय सारणी देखने के लिए <b>kbj@2008</b> दर्ज करें।</span></p>
+    
+    <div style="position:relative;margin-bottom:16px;">
+      <input type="password" id="ttPasswordInput" placeholder="Enter password (e.g. kbj@2008)" style="width:100%;padding:14px 44px 14px 16px;background:rgba(255,255,255,0.08);border:1.5px solid var(--glass-border);border-radius:12px;color:#fff;font-size:1rem;outline:none;box-sizing:border-box;transition:all 0.2s;" onkeydown="if(event.key==='Enter') verifyTTAuthPassword();" />
+      <button type="button" onclick="toggleTTPwdVis()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;"><i id="ttEyeIcon" class="fas fa-eye"></i></button>
+    </div>
+    <p id="ttAuthErrMsg" style="color:#ef4444;font-size:0.85rem;font-weight:700;margin-bottom:14px;display:none;"><i class="fas fa-exclamation-circle"></i> Incorrect password! Please try kbj@2008.</p>
+    
+    <div style="display:flex;gap:10px;">
+      <button type="button" onclick="verifyTTAuthPassword()" style="flex:1;padding:13px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(99,102,241,0.35);transition:all 0.2s;">
+        <i class="fas fa-key"></i> Unlock / अनलॉक करें
+      </button>
+    </div>
+  </div>
+</div>
+
 <div id="passwordModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
   <div style="background:rgba(26,16,64,0.95);border:1px solid var(--glass-border);border-radius:var(--radius-xl);padding:40px 36px;width:min(420px,90vw);box-shadow:0 30px 80px rgba(0,0,0,0.6);position:relative;">
     <button id="closeModal" style="position:absolute;top:14px;right:18px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;">&times;</button>
@@ -2405,6 +2429,63 @@
   ];
 
   // DOM Elements & Initialization
+  
+  // Time Table Authentication (Password: kbj@2008)
+  window.checkTTAuth = function(targetTab) {
+    if (targetTab === 'tab-teachers' || targetTab === 'tab-pocket' || targetTab === 'tab-classes' || targetTab === 'tab-daily-master') {
+      if (sessionStorage.getItem('tt_auth_unlocked') !== 'true') {
+        const modal = document.getElementById('ttAuthModal');
+        if (modal) {
+          modal.style.display = 'flex';
+          const input = document.getElementById('ttPasswordInput');
+          if (input) { input.value = ''; input.focus(); }
+          const err = document.getElementById('ttAuthErrMsg');
+          if (err) err.style.display = 'none';
+        }
+        return false;
+      }
+    }
+    return true;
+  };
+
+  window.verifyTTAuthPassword = function() {
+    const input = document.getElementById('ttPasswordInput');
+    const err = document.getElementById('ttAuthErrMsg');
+    const modal = document.getElementById('ttAuthModal');
+    const val = (input ? input.value : '').trim();
+    const validPasswords = ['kbj@2008', 'kbjkvrkt@2008', 'KBJ@2008', 'KBJKVRKT@2008'];
+    
+    if (validPasswords.includes(val)) {
+      sessionStorage.setItem('tt_auth_unlocked', 'true');
+      if (modal) modal.style.display = 'none';
+      if (err) err.style.display = 'none';
+      const activeBtn = document.querySelector('.tab-btn.active');
+      if (activeBtn) {
+        const target = activeBtn.getAttribute('data-tab');
+        document.getElementById(target)?.classList.add('active');
+      }
+    } else {
+      if (err) {
+        err.style.display = 'block';
+        err.innerHTML = '<i class="fas fa-exclamation-circle"></i> Incorrect password! Please enter <b>kbj@2008</b>.';
+      }
+    }
+  };
+
+  window.toggleTTPwdVis = function() {
+    const input = document.getElementById('ttPasswordInput');
+    const icon = document.getElementById('ttEyeIcon');
+    if (input && icon) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+      }
+    }
+  };
+
   document.addEventListener('DOMContentLoaded', function() {
     // Tab switching
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -2413,6 +2494,11 @@
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.getAttribute('data-tab');
+        if (!window.checkTTAuth(target)) {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          return;
+        }
         tabBtns.forEach(b => b.classList.remove('active'));
         tabContents.forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
@@ -2421,6 +2507,13 @@
         if (target === 'tab-recess' && typeof renderRecessDuty === 'function') renderRecessDuty();
       });
     });
+
+    // Initial load auth check for active tab
+    const initialActiveBtn = document.querySelector('.tab-btn.active');
+    if (initialActiveBtn) {
+      const initTarget = initialActiveBtn.getAttribute('data-tab');
+      window.checkTTAuth(initTarget);
+    }
 
     // Populate Teacher Selects (Weekly & Pocket View)
     const teacherSelect = document.getElementById('teacherSelect');
@@ -3535,7 +3628,7 @@
 
       const EXEMPT_IDS = ['rachnav','vikasb','deepakj','meghap','shantiss'];
       const ONE_DUTY_IDS = ['mahendras']; // Mahendra Singh Substaff (1 duty)
-      const THREE_DUTY_IDS = ['lalitb', 'ashutoshr', 'ayush', 'almaas', 'narendras', 'ravibhushan', 'vinay']; // Max 2 duties per teacher / staff
+      const THREE_DUTY_IDS = ['lalitb', 'ashutoshr', 'ayush', 'hemr', 'narendras', 'ravibhushan', 'vinay']; // Hem Rawat given 3 duties in Library Block; Almaas reduced to 2 duties // Max 2 duties per teacher / staff
 
       const LOCATIONS = [
         { name: 'लाइब्रेरी ब्लॉक', en: 'Library Block' },
@@ -3626,7 +3719,7 @@
               !isBusyContinuousP3toP6(t, day) &&
               teacherDutyMap[t.id][day] === null &&
               count[t.id] < t.quota &&
-              !((t.id === 'sunilkumar' || t.id === 'mahendras') && (li === 2 || li === 4))
+              !((t.id === 'sunilkumar' || t.id === 'mahendras') && (li === 2 || li === 4)) && !(t.id === 'hemr' && li !== 0)
             );
 
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
