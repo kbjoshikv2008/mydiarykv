@@ -3518,7 +3518,7 @@
       };
 
       const EXEMPT_IDS = ['rachnav','vikasb','deepakj','meghap','shantiss'];
-      const ONE_DUTY_IDS = ['kbjoshi', 'smitas', 'jeevank', 'vipin', 'ajayk'];
+      const ONE_DUTY_IDS = []; // Smita Saha, Vipin, Jeevan, Ajay, KB Joshi updated to 2 duties
       const THREE_DUTY_IDS = ['lalitb', 'ashutoshr', 'ayush', 'almaas', 'narendras', 'ravibhushan', 'vinay']; // Max 2 duties per teacher / staff
 
       const LOCATIONS = [
@@ -3594,7 +3594,8 @@
 
       for (const day of DAYS) {
         for (let li = 0; li < LOCATIONS.length; li++) {
-          while (locDutyMap[li][day].length < 2) {
+          const targetCap = (li === 0) ? 1 : 2; // Library Block (index 0) gets 1 person per day
+          while (locDutyMap[li][day].length < targetCap) {
             let pool = eligible.filter(t =>
               !isBusyContinuousP3toP6(t, day) &&
               teacherDutyMap[t.id][day] === null &&
