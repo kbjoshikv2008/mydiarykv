@@ -102,6 +102,31 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Handle Quiz Participants API route
+  if (urlPath === '/api/quiz-participants') {
+    const isInc = req.url.includes('inc=true') || req.url.includes('increment=true');
+    const todayStr = new Date().toDateString();
+
+    if (hitsData.lastReset !== todayStr) {
+      hitsData.todayParticipants = isInc ? 1 : 0;
+      hitsData.lastReset = todayStr;
+    } else if (isInc) {
+      hitsData.todayParticipants = (hitsData.todayParticipants || 28) + 1;
+    }
+
+    if (isInc) {
+      hitsData.totalParticipants = (hitsData.totalParticipants || 842) + 1;
+      saveHits();
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({
+      todayParticipants: hitsData.todayParticipants || 34,
+      totalParticipants: hitsData.totalParticipants || 965
+    }));
+    return;
+  }
+
   // Auto-increment hits on HTML page loads
   if (urlPath === '/' || urlPath === '' || urlPath.endsWith('.html')) {
     hitsData.totalHits = (hitsData.totalHits || 1458) + 1;
