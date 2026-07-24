@@ -2093,8 +2093,8 @@
     },
     {
       id: "sunitak",
-      name: "SUNITA K",
-      title: "Teacher SUNITA K TGT HINDI",
+      name: "SUNITA KUMARI",
+      title: "Teacher SUNITA KUMARI TGT HINDI",
       subject: "HINDI",
       desig: "TGT HINDI",
       schedule: {
@@ -2228,8 +2228,8 @@
     },
     {
       id: "aradhanar",
-      name: "ARADHANA R",
-      title: "Teacher ARADHANA R TGT ART",
+      name: "ARADHANA RATHORE",
+      title: "Teacher ARADHANA RATHORE TGT ART",
       subject: "ART EDUCATION",
       desig: "TGT ART",
       schedule: {
@@ -2344,6 +2344,21 @@
         Thursday:  [ "", "6C", "", "10A", "", "8A", "7B", "10B" ],
         Friday:    [ "11B", "", "8C", "", "", "", "8B", "11B" ],
         Saturday:  [ "8A", "6C", "", "11C", "7B", "6A", "CLA", "CLA" ]
+      }
+    },
+    {
+      id: "mahendras",
+      name: "MAHENDRA SINGH",
+      title: "Substaff MAHENDRA SINGH",
+      subject: "SUBSTAFF / SUPPORT",
+      desig: "SUBSTAFF",
+      schedule: {
+        Monday:    [ "", "", "", "", "", "", "", "" ],
+        Tuesday:   [ "", "", "", "", "", "", "", "" ],
+        Wednesday: [ "", "", "", "", "", "", "", "" ],
+        Thursday:  [ "", "", "", "", "", "", "", "" ],
+        Friday:    [ "", "", "", "", "", "", "", "" ],
+        Saturday:  [ "", "", "", "", "", "", "", "" ]
       }
     },
     {
@@ -3466,7 +3481,7 @@
         hemr:        'श्री हेम रावत',
         jeevank:     'श्री जीवन कुमार',
         ajayk:       'श्री अजय कुमार',
-        sunitak:     'श्रीमती सुनीता के',
+        sunitak:     'श्रीमती सुनीता कुमारी',
         shantiss:    'श्री शांति स्वरूप',
         vipin:       'श्री विपिन सी',
         shikhak:     'श्रीमती शिखा खुलबे',
@@ -3475,7 +3490,7 @@
         pratikshak:  'श्रीमती प्रतीक्षा के',
         parul:       'श्रीमती पारुल',
         almaas:      'सुश्री अलमास',
-        aradhanar:   'श्रीमती आराधना आर',
+        aradhanar:   'श्रीमती आराधना राठौर',
         ashutoshr:   'श्री आशुतोष रायकवार',
         tarunp:      'श्री तरुण पाठक',
         narendras:   'श्री नरेन्द्र सिंह',
@@ -3483,6 +3498,7 @@
         meghap:      'श्रीमती मेघा पाठक',
         ayush:       'श्री आयुष',
         vinay:       'श्री विनय',
+        mahendras:    'श्री महेन्द्र सिंह',
         sunilkumar:   'श्री सुनील कुमार',
         ravibhushan: 'श्री रवि भूषण'
       };
@@ -3518,7 +3534,7 @@
       };
 
       const EXEMPT_IDS = ['rachnav','vikasb','deepakj','meghap','shantiss'];
-      const ONE_DUTY_IDS = []; // Smita Saha, Vipin, Jeevan, Ajay, KB Joshi updated to 2 duties
+      const ONE_DUTY_IDS = ['mahendras']; // Mahendra Singh Substaff (1 duty)
       const THREE_DUTY_IDS = ['lalitb', 'ashutoshr', 'ayush', 'almaas', 'narendras', 'ravibhushan', 'vinay']; // Max 2 duties per teacher / staff
 
       const LOCATIONS = [
@@ -3600,7 +3616,7 @@
               !isBusyContinuousP3toP6(t, day) &&
               teacherDutyMap[t.id][day] === null &&
               count[t.id] < t.quota &&
-              !(t.id === 'sunilkumar' && (li === 2 || li === 4))
+              !((t.id === 'sunilkumar' || t.id === 'mahendras') && (li === 2 || li === 4))
             );
 
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
