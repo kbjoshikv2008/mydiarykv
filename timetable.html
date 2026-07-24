@@ -1487,6 +1487,7 @@
       <button class="tab-btn" data-tab="tab-circulars"><i class="fas fa-file-pdf"></i> Circulars &amp; Files</button>
       <button class="tab-btn" data-tab="tab-software"><i class="fas fa-laptop-code"></i> Software Directory</button>
       <button class="tab-btn" data-tab="tab-recess"><i class="fas fa-mug-hot"></i> Recess Duty Chart</button>
+      <button class="tab-btn" data-tab="tab-class-teachers"><i class="fas fa-id-badge"></i> Class &amp; Co-CT List</button>
     </div>
     
     <!-- Language Toggle Box -->
@@ -2505,6 +2506,7 @@
         document.getElementById(target).classList.add('active');
         if (target === 'tab-circulars') loadTimetableDocs();
         if (target === 'tab-recess' && typeof renderRecessDuty === 'function') renderRecessDuty();
+        if (target === 'tab-class-teachers' && typeof renderClassTeachersTab === 'function') renderClassTeachersTab();
       });
     });
 
@@ -3554,7 +3556,210 @@
       }
     });
     if (passwordInput) passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter' && submitPassword) submitPassword.click(); });
-    window.renderRecessDuty = function renderRecessDuty() {
+    
+  // CLASS TEACHERS & CO-CLASS TEACHERS DATA (SESSION 2026-27)
+  const CLASS_TEACHERS_DATA = [
+    // Senior Secondary
+    { class: "12A", stream: "Humanities / कला", room: "Room 201", ctEn: "NIDHI", ctHi: "श्रीमती निधि", ctDesig: "PGT HISTORY", coCtEn: "MEGHA PATHAK", coCtHi: "श्रीमती मेघा पाठक", coCtDesig: "PGT ENG", cat: "SR_SEC" },
+    { class: "12B", stream: "Science / विज्ञान", room: "Room 202", ctEn: "SAGAR BATRA", ctHi: "श्री सागर बत्रा", ctDesig: "PGT CHEM", coCtEn: "HITENDRA SINGH", coCtHi: "श्री हितेंद्र सिंह", coCtDesig: "PGT PHY", cat: "SR_SEC" },
+    { class: "12C", stream: "Commerce / वाणिज्य", room: "Room 203", ctEn: "RACHNA VERMA", ctHi: "श्रीमती रचना वर्मा", ctDesig: "PGT ECO", coCtEn: "VIKAS BHATIA", coCtHi: "श्री विकास भाटिया", coCtDesig: "PGT COMMERCE", cat: "SR_SEC" },
+    { class: "11A", stream: "Humanities / कला", room: "Room 101", ctEn: "DEEPAK JOSHI", ctHi: "श्री दीपक जोशी", ctDesig: "PGT HINDI", coCtEn: "SAMEER JOSHI", coCtHi: "श्री समीर जोशी", coCtDesig: "PGT CS", cat: "SR_SEC" },
+    { class: "11B", stream: "Science / विज्ञान", room: "Room 102", ctEn: "PAWAN GAHTORI", ctHi: "श्री पवन गह्तोड़ी", ctDesig: "PGT BIO", coCtEn: "K B JOSHI", coCtHi: "श्री के बी जोशी", coCtDesig: "PGT MATH", cat: "SR_SEC" },
+    { class: "11C", stream: "Commerce / वाणिज्य", room: "Room 103", ctEn: "VIKAS BHATIA", ctHi: "श्री विकास भाटिया", ctDesig: "PGT COMMERCE", coCtEn: "RACHNA VERMA", coCtHi: "श्रीमती रचना वर्मा", coCtDesig: "PGT ECO", cat: "SR_SEC" },
+
+    // Secondary
+    { class: "10A", stream: "General", room: "Room 15", ctEn: "AJAY KUMAR", ctHi: "श्री अजय कुमार", ctDesig: "TGT HINDI", coCtEn: "KARISHMA CHANDEL", coCtHi: "श्रीमती करिश्मा चंदेल", coCtDesig: "TGT BIO/SCI", cat: "SEC" },
+    { class: "10B", stream: "General", room: "Room 16", ctEn: "DEVESH SHARMA", ctHi: "श्री देवेश शर्मा", ctDesig: "TGT MATH", coCtEn: "VIPIN CHAUHAN", coCtHi: "श्री विपिन चौहान", coCtDesig: "TGT SST", cat: "SEC" },
+    { class: "10C", stream: "General", room: "Room 17", ctEn: "HEM RAWAT", ctHi: "श्री हेम रावत", ctDesig: "TGT MATH", coCtEn: "KALPANA RAUTELA", coCtHi: "श्रीमती कल्पना रौतेला", coCtDesig: "TGT SCIENCE", cat: "SEC" },
+    { class: "9A", stream: "General", room: "Room 12", ctEn: "PARUL", ctHi: "श्रीमती पारुल", ctDesig: "TGT ENGLISH", coCtEn: "TARUN PATHAK", coCtHi: "श्री तरुण पाठक", coCtDesig: "TGT WE", cat: "SEC" },
+    { class: "9B", stream: "General", room: "Room 13", ctEn: "SMITA SAHA", ctHi: "श्रीमती स्मिता साहा", ctDesig: "TGT MATH", coCtEn: "ALMAAS", coCtHi: "सुश्री अलमास", coCtDesig: "TGT ENGLISH", cat: "SEC" },
+    { class: "9C", stream: "General", room: "Room 14", ctEn: "SHIKHA KHULBE", ctHi: "श्रीमती शिखा खुलबे", ctDesig: "TGT SST", coCtEn: "PRATIKSHA K", coCtHi: "श्रीमती प्रतीक्षा के", coCtDesig: "TGT ENGLISH", cat: "SEC" },
+    { class: "8A", stream: "General", room: "Room 09", ctEn: "JEEVAN KUMAR", ctHi: "श्री जीवन कुमार", ctDesig: "TGT HINDI", coCtEn: "AYUSH", coCtHi: "श्री आयुष", coCtDesig: "VEI INSTRUCTOR", cat: "SEC" },
+    { class: "8B", stream: "General", room: "Room 10", ctEn: "SHANTI SWAROOP", ctHi: "श्री शांति स्वरूप", ctDesig: "TGT SANSKRIT", coCtEn: "ARADHANA RATHORE", coCtHi: "श्रीमती आराधना राठौर", coCtDesig: "TGT ART", cat: "SEC" },
+    { class: "8C", stream: "General", room: "Room 11", ctEn: "NASEEM BANO", ctHi: "सुश्री नसीम बानो", ctDesig: "TGT GEO", coCtEn: "VINAY", coCtHi: "श्री विनय", coCtDesig: "LIBRARIAN", cat: "SEC" },
+    { class: "7A", stream: "General", room: "Room 06", ctEn: "ARADHANA RATHORE", ctHi: "श्रीमती आराधना राठौर", ctDesig: "TGT ART", coCtEn: "AJAY KUMAR", coCtHi: "श्री अजय कुमार", coCtDesig: "TGT HINDI", cat: "SEC" },
+    { class: "7B", stream: "General", room: "Room 07", ctEn: "KARISHMA CHANDEL", ctHi: "श्रीमती करिश्मा चंदेल", ctDesig: "TGT BIO/SCI", coCtEn: "DEVESH SHARMA", coCtHi: "श्री देवेश शर्मा", coCtDesig: "TGT MATH", cat: "SEC" },
+    { class: "7C", stream: "General", room: "Room 08", ctEn: "K B JOSHI", ctHi: "श्री के बी जोशी", ctDesig: "PGT MATH", coCtEn: "SUNITA KUMARI", coCtHi: "श्रीमती सुनीता कुमारी", coCtDesig: "TGT HINDI", cat: "SEC" },
+    { class: "6A", stream: "General", room: "Room 03", ctEn: "VIPIN CHAUHAN", ctHi: "श्री विपिन चौहान", ctDesig: "TGT SST", coCtEn: "SMITA SAHA", coCtHi: "श्रीमती स्मिता साहा", coCtDesig: "TGT MATH", cat: "SEC" },
+    { class: "6B", stream: "General", room: "Room 04", ctEn: "SUNITA KUMARI", ctHi: "श्रीमती सुनीता कुमारी", ctDesig: "TGT HINDI", coCtEn: "PARUL", coCtHi: "श्रीमती पारुल", coCtDesig: "TGT ENGLISH", cat: "SEC" },
+    { class: "6C", stream: "General", room: "Room 05", ctEn: "PRATIKSHA K", ctHi: "श्रीमती प्रतीक्षा के", ctDesig: "TGT ENGLISH", coCtEn: "SHIKHA KHULBE", coCtHi: "श्रीमती शिखा खुलबे", coCtDesig: "TGT SST", cat: "SEC" },
+
+    // Primary Section
+    { class: "5A", stream: "Primary", room: "Primary Room 09", ctEn: "PRIMARY TEACHER 5A", ctHi: "प्राथमिक शिक्षक 5A", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 5A", coCtHi: "सह-प्राथमिक शिक्षक 5A", coCtDesig: "PRT", cat: "PR" },
+    { class: "5B", stream: "Primary", room: "Primary Room 10", ctEn: "PRIMARY TEACHER 5B", ctHi: "प्राथमिक शिक्षक 5B", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 5B", coCtHi: "सह-प्राथमिक शिक्षक 5B", coCtDesig: "PRT", cat: "PR" },
+    { class: "4A", stream: "Primary", room: "Primary Room 07", ctEn: "PRIMARY TEACHER 4A", ctHi: "प्राथमिक शिक्षक 4A", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 4A", coCtHi: "सह-प्राथमिक शिक्षक 4A", coCtDesig: "PRT", cat: "PR" },
+    { class: "4B", stream: "Primary", room: "Primary Room 08", ctEn: "PRIMARY TEACHER 4B", ctHi: "प्राथमिक शिक्षक 4B", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 4B", coCtHi: "सह-प्राथमिक शिक्षक 4B", coCtDesig: "PRT", cat: "PR" },
+    { class: "3A", stream: "Primary", room: "Primary Room 05", ctEn: "PRIMARY TEACHER 3A", ctHi: "प्राथमिक शिक्षक 3A", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 3A", coCtHi: "सह-प्राथमिक शिक्षक 3A", coCtDesig: "PRT", cat: "PR" },
+    { class: "3B", stream: "Primary", room: "Primary Room 06", ctEn: "PRIMARY TEACHER 3B", ctHi: "प्राथमिक शिक्षक 3B", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 3B", coCtHi: "सह-प्राथमिक शिक्षक 3B", coCtDesig: "PRT", cat: "PR" },
+    { class: "2A", stream: "Primary", room: "Primary Room 03", ctEn: "PRIMARY TEACHER 2A", ctHi: "प्राथमिक शिक्षक 2A", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 2A", coCtHi: "सह-प्राथमिक शिक्षक 2A", coCtDesig: "PRT", cat: "PR" },
+    { class: "2B", stream: "Primary", room: "Primary Room 04", ctEn: "PRIMARY TEACHER 2B", ctHi: "प्राथमिक शिक्षक 2B", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 2B", coCtHi: "सह-प्राथमिक शिक्षक 2B", coCtDesig: "PRT", cat: "PR" },
+    { class: "1A", stream: "Primary", room: "Primary Room 01", ctEn: "PRIMARY TEACHER 1A", ctHi: "प्राथमिक शिक्षक 1A", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 1A", coCtHi: "सह-प्राथमिक शिक्षक 1A", coCtDesig: "PRT", cat: "PR" },
+    { class: "1B", stream: "Primary", room: "Primary Room 02", ctEn: "PRIMARY TEACHER 1B", ctHi: "प्राथमिक शिक्षक 1B", ctDesig: "PRT", coCtEn: "CO-PRIMARY TEACHER 1B", coCtHi: "सह-प्राथमिक शिक्षक 1B", coCtDesig: "PRT", cat: "PR" }
+  ];
+
+  window.renderClassTeachersTab = function() {
+    const container = document.getElementById('classTeachersContainer');
+    if (!container) return;
+
+    const q = (document.getElementById('ctSearchInput')?.value || '').trim().toLowerCase();
+    const cat = document.getElementById('ctCategoryFilter')?.value || 'ALL';
+
+    const filtered = CLASS_TEACHERS_DATA.filter(item => {
+      const matchCat = (cat === 'ALL') || (item.cat === cat);
+      const str = (item.class + ' ' + item.stream + ' ' + item.room + ' ' + item.ctEn + ' ' + item.ctHi + ' ' + item.ctDesig + ' ' + item.coCtEn + ' ' + item.coCtHi + ' ' + item.coCtDesig).toLowerCase();
+      const matchQ = !q || str.includes(q);
+      return matchCat && matchQ;
+    });
+
+    if (!filtered.length) {
+      container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);font-weight:600;"><i class="fas fa-search" style="font-size:2rem;margin-bottom:10px;display:block;"></i>No matching Class Teacher / Co-Class Teacher records found. / कोई परिणाम नहीं मिला।</div>';
+      return;
+    }
+
+    let h = '<div style="overflow-x:auto;border-radius:14px;border:1px solid var(--glass-border);box-shadow:0 10px 30px rgba(0,0,0,0.3);background:rgba(15,23,42,0.6);backdrop-filter:blur(10px);">';
+    h += '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;text-align:left;">';
+    h += '<thead><tr style="background:linear-gradient(135deg,rgba(15,23,42,0.95),rgba(30,41,59,0.95));color:#fff;border-bottom:2px solid var(--primary-light);">';
+    h += '<th style="padding:12px 14px;font-weight:900;text-align:center;width:60px;">Sr.No</th>';
+    h += '<th style="padding:12px 14px;font-weight:900;">कक्षा (Class)</th>';
+    h += '<th style="padding:12px 14px;font-weight:900;">कमरा नं. (Room)</th>';
+    h += '<th style="padding:12px 14px;font-weight:900;background:rgba(6,78,59,0.5);">कक्षा शिक्षक (Class Teacher)</th>';
+    h += '<th style="padding:12px 14px;font-weight:900;background:rgba(30,58,138,0.5);">सह-कक्षा शिक्षक (Co-Class Teacher)</th>';
+    h += '</tr></thead><tbody>';
+
+    filtered.forEach((item, idx) => {
+      const bg = idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)';
+      h += '<tr style="background:' + bg + ';border-bottom:1px solid rgba(255,255,255,0.06);">';
+      h += '<td style="padding:12px 14px;text-align:center;font-weight:800;color:var(--primary-light);">' + (idx + 1) + '</td>';
+      h += '<td style="padding:12px 14px;">';
+      h += '<span style="display:inline-block;padding:4px 10px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;font-weight:900;border-radius:8px;font-size:0.9rem;box-shadow:0 3px 8px rgba(99,102,241,0.3);">' + item.class + '</span>';
+      h += '<div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">' + item.stream + '</div>';
+      h += '</td>';
+      h += '<td style="padding:12px 14px;font-weight:700;color:var(--text-secondary);"><i class="fas fa-door-open" style="color:var(--accent);margin-right:4px;"></i>' + item.room + '</td>';
+      h += '<td style="padding:12px 14px;background:rgba(6,78,59,0.15);">';
+      h += '<div style="font-weight:900;color:#86efac;font-size:0.92rem;">' + item.ctHi + ' &nbsp;<span style="font-size:0.78rem;font-weight:700;color:#bbf7d0;">(' + item.ctEn + ')</span></div>';
+      h += '<div style="font-size:0.75rem;font-weight:700;color:#6ee7b7;margin-top:2px;"><i class="fas fa-user-check"></i> ' + item.ctDesig + '</div>';
+      h += '</td>';
+      h += '<td style="padding:12px 14px;background:rgba(30,58,138,0.15);">';
+      h += '<div style="font-weight:900;color:#93c5fd;font-size:0.92rem;">' + item.coCtHi + ' &nbsp;<span style="font-size:0.78rem;font-weight:700;color:#bfdbfe;">(' + item.coCtEn + ')</span></div>';
+      h += '<div style="font-size:0.75rem;font-weight:700;color:#60a5fa;margin-top:2px;"><i class="fas fa-user-friends"></i> ' + item.coCtDesig + '</div>';
+      h += '</td>';
+      h += '</tr>';
+    });
+
+    h += '</tbody></table></div>';
+    container.innerHTML = h;
+  };
+
+  // PRINT FUNCTION FOR CLASS TEACHERS LIST
+  window.printClassTeachersList = function() {
+    const cat = document.getElementById('ctCategoryFilter')?.value || 'ALL';
+    const filtered = CLASS_TEACHERS_DATA.filter(item => (cat === 'ALL') || (item.cat === cat));
+
+    let rows = '';
+    filtered.forEach((item, idx) => {
+      rows += '<tr>' +
+        '<td style="text-align:center;font-weight:bold;">' + (idx + 1) + '</td>' +
+        '<td style="text-align:center;font-weight:bold;">' + item.class + '<br><span style="font-size:0.7rem;font-weight:normal;">' + item.stream + '</span></td>' +
+        '<td style="text-align:center;font-weight:bold;">' + item.room + '</td>' +
+        '<td><strong>' + item.ctHi + '</strong><br><span style="font-size:0.75rem;">' + item.ctEn + ' (' + item.ctDesig + ')</span></td>' +
+        '<td><strong>' + item.coCtHi + '</strong><br><span style="font-size:0.75rem;">' + item.coCtEn + ' (' + item.coCtDesig + ')</span></td>' +
+        '</tr>';
+    });
+
+    const printWindow = window.open('', '_blank');
+    let docContent = '<!DOCTYPE html><html><head><title>Class Teachers List - PM SHRI KV RANIKHET</title>';
+    docContent += '<style>@page { size: A4 portrait; margin: 10mm; } body { font-family: sans-serif; margin: 0; padding: 10px; color: #0f172a; } .header-box { text-align: center; border: 3px double #0f172a; padding: 12px; margin-bottom: 16px; background: #f8fafc; border-radius: 6px; } .header-box h2 { margin: 0 0 4px; font-size: 1.3rem; color: #0f172a; text-transform: uppercase; } .header-box h3 { margin: 0 0 4px; font-size: 1.05rem; color: #047857; } .header-box p { margin: 0; font-size: 0.85rem; font-weight: bold; color: #475569; } table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.82rem; } th { background: #1e293b; color: #fff; border: 1px solid #334155; padding: 8px 6px; text-align: center; font-weight: bold; } td { border: 1px solid #64748b; padding: 7px 8px; vertical-align: middle; } tr:nth-child(even) { background: #f1f5f9; } .footer-line { margin-top: 30px; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; border-top: 2px solid #0f172a; padding-top: 10px; }</style></head><body>';
+    docContent += '<div class="header-box"><h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2><h3>कक्षा शिक्षक एवं सह-कक्षा शिक्षक सूची (Session 2026-27)</h3><p>LIST OF CLASS TEACHERS & CO-CLASS TEACHERS</p></div>';
+    docContent += '<table><thead><tr><th style="width:40px;">Sr.No</th><th style="width:80px;">कक्षा (Class)</th><th style="width:100px;">कमरा (Room)</th><th>कक्षा शिक्षक (Class Teacher)</th><th>सह-कक्षा शिक्षक (Co-Class Teacher)</th></tr></thead><tbody>' + rows + '</tbody></table>';
+    docContent += '<div class="footer-line"><span>Prepared by: K B JOSHI (PGT Mathematics)</span><span>Principal Signature: ________________________</span></div>';
+    docContent += '<' + 'script>window.onload = function() { window.print(); };<' + '/script></body></html>';
+    
+    printWindow.document.write(docContent);
+    printWindow.document.close();
+  };
+
+  // EXCEL DOWNLOAD FOR CLASS TEACHERS LIST
+  window.downloadClassTeachersExcel = function() {
+    if (typeof XLSX === 'undefined') {
+      alert('Excel library not loaded! / एक्सेल लाइब्रेरी लोड नहीं हो सकी।');
+      return;
+    }
+    const wb = XLSX.utils.book_new();
+
+    const fullData = [
+      ["PM SHRI KENDRIYA VIDYALAYA RANIKHET"],
+      ["LIST OF CLASS TEACHERS & CO-CLASS TEACHERS (SESSION 2026-27)"],
+      ["कक्षा शिक्षक एवं सह-कक्षा शिक्षक विवरण सूची"],
+      [],
+      ["Sr. No.", "Class", "Stream / Category", "Room No.", "Class Teacher (Hindi)", "Class Teacher (English)", "CT Designation", "Co-Class Teacher (Hindi)", "Co-Class Teacher (English)", "Co-CT Designation"]
+    ];
+
+    CLASS_TEACHERS_DATA.forEach((item, idx) => {
+      fullData.push([
+        idx + 1,
+        item.class,
+        item.stream,
+        item.room,
+        item.ctHi,
+        item.ctEn,
+        item.ctDesig,
+        item.coCtHi,
+        item.coCtEn,
+        item.coCtDesig
+      ]);
+    });
+
+    const wsFull = XLSX.utils.aoa_to_sheet(fullData);
+    XLSX.utils.book_append_sheet(wb, wsFull, "All_Class_Teachers");
+
+    const srData = [
+      ["SENIOR SECONDARY CLASS TEACHERS (11-12)"],
+      ["Sr. No.", "Class", "Stream", "Room No.", "Class Teacher", "Designation", "Co-Class Teacher", "Co-CT Designation"]
+    ];
+    CLASS_TEACHERS_DATA.filter(i => i.cat === 'SR_SEC').forEach((item, idx) => {
+      srData.push([idx + 1, item.class, item.stream, item.room, item.ctHi + ' (' + item.ctEn + ')', item.ctDesig, item.coCtHi + ' (' + item.coCtEn + ')', item.coCtDesig]);
+    });
+    const wsSr = XLSX.utils.aoa_to_sheet(srData);
+    XLSX.utils.book_append_sheet(wb, wsSr, "Senior_Secondary");
+
+    const secData = [
+      ["SECONDARY CLASS TEACHERS (6-10)"],
+      ["Sr. No.", "Class", "Room No.", "Class Teacher", "Designation", "Co-Class Teacher", "Co-CT Designation"]
+    ];
+    CLASS_TEACHERS_DATA.filter(i => i.cat === 'SEC').forEach((item, idx) => {
+      secData.push([idx + 1, item.class, item.room, item.ctHi + ' (' + item.ctEn + ')', item.ctDesig, item.coCtHi + ' (' + item.coCtEn + ')', item.coCtDesig]);
+    });
+    const wsSec = XLSX.utils.aoa_to_sheet(secData);
+    XLSX.utils.book_append_sheet(wb, wsSec, "Secondary");
+
+    XLSX.writeFile(wb, "KV_Ranikhet_Class_and_CoClass_Teachers_List_2026-27.xlsx");
+  };
+
+  // SHARE FUNCTION FOR CLASS TEACHERS LIST
+  window.shareClassTeachersList = function() {
+    let summaryText = "*PM SHRI KV RANIKHET - CLASS TEACHERS & CO-CLASS TEACHERS (2026-27)*\n\n";
+    CLASS_TEACHERS_DATA.filter(i => i.cat !== 'PR').forEach(item => {
+      summaryText += '• *Class ' + item.class + '* (' + item.room + '): CT: ' + item.ctHi + ' (' + item.ctDesig + ') | Co-CT: ' + item.coCtHi + '\n';
+    });
+    summaryText += "\nPrepared by: K B JOSHI, PGT Mathematics";
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Class Teachers & Co-Class Teachers List - PM SHRI KV RANIKHET',
+        text: summaryText,
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(summaryText).then(() => {
+        alert('Class Teachers list copied to clipboard! You can paste and share anywhere.\n\nकक्षा शिक्षक सूची क्लिपबोर्ड पर कॉपी हो गई है!');
+      }).catch(() => {
+        alert(summaryText);
+      });
+    }
+  };
+
+
+  window.renderRecessDuty = function renderRecessDuty() {
       const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
       const DAY_HI = ['सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
 
