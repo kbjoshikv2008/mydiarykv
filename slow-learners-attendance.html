@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slow Learners Attendance Sheet Generator | Teacher's Digital Diary</title>
+  <meta name="description" content="Generate, customized, printable & downloadable monthly attendance sheets for slow bloomers / remedial mathematics classes with extra manual rows.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="premium.css">
+  <style>
+    /* ── Control Bar & Layout Styling ── */
+    .controls-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .ctrl-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ctrl-item label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ctrl-select, .ctrl-input {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      color: #fff;
+      padding: 9px 14px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+    
+    .ctrl-select:focus, .ctrl-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.25);
+    }
+
+    .ctrl-select option {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    .btn-print:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4); }
+
+    .btn-excel {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+    .btn-excel:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4); }
+
+    .btn-add-row {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+    }
+    .btn-add-row:hover { background: rgba(255, 255, 255, 0.15); color: #fff; transform: translateY(-1px); }
+
+    /* ── Attendance Sheet Table Styling ── */
+    .sheet-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .sheet-header-title {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sheet-header-title h2 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: 0.5px;
+    }
+
+    .sheet-header-title p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .tbl-wrapper {
+      overflow-x: auto;
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    table.attendance-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    table.attendance-table th, table.attendance-table td {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    table.attendance-table th {
+      background: rgba(30, 41, 59, 0.9);
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    table.attendance-table th.col-name {
+      text-align: left;
+      padding-left: 12px;
+      min-width: 180px;
+    }
+
+    table.attendance-table th.col-roll { min-width: 60px; }
+    table.attendance-table th.col-sno { min-width: 40px; }
+    table.attendance-table th.col-day { min-width: 28px; width: 28px; }
+    table.attendance-table th.col-day.sunday { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
+
+    table.attendance-table td.col-name {
+      text-align: left;
+      padding-left: 12px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    table.attendance-table td.col-name input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+    }
+
+    table.attendance-table td.col-day {
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      transition: background 0.15s;
+    }
+
+    table.attendance-table td.col-day:hover {
+      background: rgba(139, 92, 246, 0.2);
+    }
+
+    table.attendance-table td.col-day.sunday {
+      background: rgba(239, 68, 68, 0.1);
+      color: #fca5a5;
+    }
+
+    table.attendance-table td.cell-present { color: #34d399; font-weight: 800; }
+    table.attendance-table td.cell-absent { color: #f87171; font-weight: 800; }
+
+    table.attendance-table tr.extra-row {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    table.attendance-table tr.extra-row td.col-name input::placeholder {
+      color: #64748b;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .btn-remove-row {
+      background: none;
+      border: none;
+      color: #f87171;
+      cursor: pointer;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .btn-remove-row:hover { opacity: 1; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+
+      .bg-blobs, .site-header, .nav-bar, .page-hero, .back-link, .controls-panel, .site-footer, #backToTop, .btn-remove-row, .no-print {
+        display: none !important;
+      }
+
+      .sheet-card {
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .sheet-header-title {
+        border-bottom: 2px solid #000 !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 14px !important;
+      }
+
+      .sheet-header-title h2 {
+        color: #000 !important;
+        font-size: 14pt !important;
+      }
+
+      .sheet-header-title p {
+        color: #333 !important;
+        font-size: 9pt !important;
+      }
+
+      .tbl-wrapper {
+        border: none !important;
+        overflow: visible !important;
+      }
+
+      table.attendance-table {
+        background: #fff !important;
+        font-size: 8pt !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+      }
+
+      table.attendance-table th, table.attendance-table td {
+        border: 1px solid #333 !important;
+        color: #000 !important;
+        padding: 4px 2px !important;
+      }
+
+      table.attendance-table th {
+        background: #f1f5f9 !important;
+        color: #000 !important;
+      }
+
+      table.attendance-table th.sunday, table.attendance-table td.sunday {
+        background: #fee2e2 !important;
+      }
+
+      table.attendance-table td.col-name input {
+        color: #000 !important;
+      }
+
+      table.attendance-table tr.extra-row td {
+        height: 24px;
+      }
+
+      .print-signatures {
+        display: flex !important;
+        justify-content: space-between;
+        margin-top: 40px;
+        padding: 0 20px;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #000;
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+    }
+
+    .print-signatures {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-clipboard-user"></i> Remedial Attendance</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Return to Home</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="learners.html"><i class="fas fa-heart"></i> Learner Categories</a>
+        <a href="consolidated.html"><i class="fas fa-table"></i> Consolidated</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">📋</span>
+      <h1>Slow Learners Remedial Attendance Sheet</h1>
+      <p>Generate, customize, print &amp; export monthly attendance registers for remedial mathematics sessions</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <a href="students.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Students</a>
+
+      <!-- Controls Panel -->
+      <div class="controls-panel fade-in-1">
+        <div class="filter-group">
+          <!-- Class Filter -->
+          <div class="ctrl-item">
+            <label for="classSelect"><i class="fas fa-graduation-cap"></i> Select Class</label>
+            <select id="classSelect" class="ctrl-select" onchange="renderAttendanceSheet()">
+              <option value="ALL">All Classes Combined</option>
+              <option value="7C" selected>Class 7-C</option>
+              <option value="11B">Class 11-B</option>
+              <option value="12">Class 12</option>
+            </select>
+          </div>
+
+          <!-- Month Filter -->
+          <div class="ctrl-item">
+            <label for="monthSelect"><i class="fas fa-calendar-alt"></i> Select Month</label>
+            <select id="monthSelect" class="ctrl-select" onchange="renderAttendanceSheet()">
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7" selected>August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+
+          <!-- Year Filter -->
+          <div class="ctrl-item">
+            <label for="yearSelect"><i class="fas fa-clock"></i> Select Year</label>
+            <select id="yearSelect" class="ctrl-select" onchange="renderAttendanceSheet()">
+              <option value="2025">2025</option>
+              <option value="2026" selected>2026</option>
+              <option value="2027">2027</option>
+            </select>
+          </div>
+
+          <!-- Extra Blank Rows Count -->
+          <div class="ctrl-item">
+            <label for="extraRowsInput"><i class="fas fa-list-numeric"></i> Extra Blank Rows</label>
+            <input type="number" id="extraRowsInput" class="ctrl-input" value="5" min="0" max="30" style="width: 100px;" onchange="renderAttendanceSheet()">
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-group">
+          <button class="btn-action btn-add-row" onclick="addSingleExtraRow()"><i class="fas fa-plus"></i> Add Blank Row</button>
+          <button class="btn-action btn-excel" onclick="downloadAttendanceExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
+          <button class="btn-action btn-print" onclick="window.print()"><i class="fas fa-print"></i> Print Sheet</button>
+        </div>
+      </div>
+
+      <!-- Attendance Sheet Container -->
+      <div class="sheet-card fade-in-2" id="sheetCard">
+        <div class="sheet-header-title">
+          <h2 id="sheetTitle">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+          <p id="sheetSub">REMEDIAL MATHEMATICS ATTENDANCE REGISTER &mdash; CLASS 7-C &nbsp;&middot;&nbsp; AUGUST 2026</p>
+        </div>
+
+        <div class="tbl-wrapper">
+          <table class="attendance-table" id="attendanceTable">
+            <!-- Dynamically Rendered -->
+          </table>
+        </div>
+
+        <!-- Print Signature Footer -->
+        <div class="print-signatures">
+          <div>Subject Teacher (Signature)<br><br><b>K B JOSHI (PGT MATHS)</b></div>
+          <div style="text-align: center;">Verified By<br><br><b>HEADMASTER / EXAM I/C</b></div>
+          <div style="text-align: right;">Principal (Signature &amp; Stamp)<br><br><b>PM SHRI KV RANIKHET</b></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="students.html"><i class="fas fa-chevron-right"></i> Students Dashboard</a></li>
+            <li><a href="learners.html"><i class="fas fa-chevron-right"></i> Learner Categories</a></li>
+            <li><a href="single-digit-marks.html"><i class="fas fa-chevron-right"></i> Single Digit Scorers</a></li>
+            <li><a href="consolidated.html"><i class="fas fa-chevron-right"></i> Consolidated Sheet</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // ── Fallback Rosters & Data Structure ──
+    const fallbackRosters = {
+      "12": ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
+      "11B": ["ADITYA NEGI","ARUN ARYA","ASHUTOSH","AYUSH ROY","DIKSHANT NEGI","GAURAV KUMAR","ISHANT MEHRA","JANVI","KARAN CHANDRA","KARTIKEY PHARTIYAL","MANAS BHAGAT","MANSI BHANDARI","NEHA NEGI","PARAS SATI","PRANAY SATI","PRIYANSHU KANDPAL","PRIYANSHU PANDEY","RAJAT ADHIKARI","SPARSH DUBEY"],
+      "7C": ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
+    };
+
+    const fallbackMarks = {
+      "12": {
+        pt1:{"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26}
+      },
+      "11B": {
+        pt1:{"ADITYA NEGI":17,"ARUN ARYA":39,"AYUSH ROY":3,"DIKSHANT NEGI":31,"ISHANT MEHRA":4,"JANVI":32,"KARAN CHANDRA":13,"KARTIKEY PHARTIYAL":21,"MANAS BHAGAT":6,"MANSI BHANDARI":20,"NEHA NEGI":9,"PARAS SATI":29,"PRANAY SATI":28,"PRIYANSHU KANDPAL":23,"PRIYANSHU PANDEY":24,"RAJAT ADHIKARI":24,"SPARSH DUBEY":11}
+      },
+      "7C": {
+        pt1:{"ABHAY":11,"ABHINAY":6,"ANAIKA":38,"ARYAN":12,"BHAVIKA":28,"CHANDNI":4,"DEEPIKA":0,"DISHA":16,"GEETA":4,"GUNJAN":21,"HARSHUL":0,"HIMANSHI":4,"KAMAL":0,"KARISHMA":25,"KARTIK":"","KRITIKA GODIYAL":4,"KRITIKA RAWAT":21,"LAKSHIT RAWAT":11,"LAKSHIT SINGH":28,"MALVIKA":25,"NAMAN TAMTA":"","MAULIK":25,"MOITRIKA":25,"MRITYUNJAY":21,"MUNKASHIF":28,"NAITIK":28,"NAMAN SATI":36,"NISHTHI":28,"PARIDHI":6,"PARTH":28,"PRACHI":21,"PRASUN DEV":4,"RUDRA":11,"SHRAVANI":4,"TANISHA":21,"YAMAN":6,"YASHPAL":21,"ARPITA":"","MAANSHA":"","PARTH BISHT":""}
+      }
+    };
+
+    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const dayChars = ["S","M","T","W","T","F","S"];
+
+    const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && !isNaN(Number(score));
+
+    // Load slow learners for selected class
+    function getSlowLearnersList(cls) {
+      let studentData = {};
+      try {
+        const sd = localStorage.getItem("student_performance_data");
+        if (sd) studentData = JSON.parse(sd);
+      } catch(e) {}
+
+      const classesToProcess = cls === 'ALL' ? ['7C', '11B', '12'] : [cls];
+      const slowList = [];
+
+      classesToProcess.forEach(c => {
+        let students = studentData[c];
+        if (!students || !students.length) {
+          students = (fallbackRosters[c] || []).map((name, i) => ({
+            rollNo: i + 1,
+            name: name,
+            marks: { pt1: (fallbackMarks[c] && fallbackMarks[c].pt1) ? fallbackMarks[c].pt1[name] : "" }
+          }));
+        }
+
+        students.forEach(s => {
+          const ptScore = s.marks ? s.marks.pt1 : undefined;
+          const isSlow = (isValidScore(ptScore) && Number(ptScore) < 16) || (isValidScore(ptScore) && (Number(ptScore) / 40) < 0.4);
+          
+          // Default slow bloomers if marks not entered
+          const defaultSlowNames = {
+            "7C": ["ABHINAY", "CHANDNI", "DEEPIKA", "GEETA", "HARSHUL", "HIMANSHI", "KAMAL", "KRITIKA GODIYAL", "PARIDHI", "PRASUN DEV", "SHRAVANI", "YAMAN"],
+            "11B": ["AYUSH ROY", "ISHANT MEHRA", "MANAS BHAGAT", "NEHA NEGI", "KARAN CHANDRA", "SPARSH DUBEY"],
+            "12": ["HITESH UPADHYAY", "KAMAL JOSHI", "RAJ", "RITIKA", "SADHNA", "PALAK"]
+          };
+
+          if (isSlow || (defaultSlowNames[c] && defaultSlowNames[c].includes(s.name))) {
+            slowList.push({
+              className: c,
+              rollNo: s.rollNo || '-',
+              name: s.name
+            });
+          }
+        });
+      });
+
+      return slowList;
+    }
+
+    // State for extra dynamic rows
+    let currentExtraRows = [];
+
+    function renderAttendanceSheet() {
+      const selectedClass = document.getElementById('classSelect').value;
+      const monthIdx = parseInt(document.getElementById('monthSelect').value);
+      const yearVal = parseInt(document.getElementById('yearSelect').value);
+      const extraCount = parseInt(document.getElementById('extraRowsInput').value) || 0;
+
+      const daysInMonth = new Date(yearVal, monthIdx + 1, 0).getDate();
+      const monthName = monthNames[monthIdx];
+
+      // Update Titles
+      const classLabel = selectedClass === 'ALL' ? 'ALL CLASSES (7-C, 11-B & 12)' : `CLASS ${selectedClass}`;
+      document.getElementById('sheetSub').innerText = `REMEDIAL MATHEMATICS ATTENDANCE REGISTER \u2014 ${classLabel} \u00a0\u00b7\u00a0 ${monthName.toUpperCase()} ${yearVal}`;
+
+      const slowLearners = getSlowLearnersList(selectedClass);
+
+      // Build Table HTML
+      let html = '<thead><tr>';
+      html += '<th class="col-sno">S.N.</th>';
+      html += '<th class="col-roll">Roll</th>';
+      html += '<th class="col-name">Student Name</th>';
+      if (selectedClass === 'ALL') html += '<th>Class</th>';
+
+      // Date Headers & Days of Week
+      const dayClasses = [];
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateObj = new Date(yearVal, monthIdx, d);
+        const dayOfWeek = dateObj.getDay(); // 0 = Sunday
+        const isSunday = (dayOfWeek === 0);
+        dayClasses.push(isSunday ? 'sunday' : '');
+
+        html += `<th class="col-day ${isSunday ? 'sunday' : ''}">${d}<br><span style="font-weight:normal;font-size:0.7em;">${dayChars[dayOfWeek]}</span></th>`;
+      }
+
+      html += '<th style="min-width:45px;">Tot P</th>';
+      html += '<th style="min-width:45px;">Tot Sessions</th>';
+      html += '<th style="min-width:90px;" class="no-print">Action</th>';
+      html += '</tr></thead><tbody>';
+
+      // Render Slow Learners Rows
+      slowLearners.forEach((s, idx) => {
+        html += `<tr>`;
+        html += `<td>${idx + 1}</td>`;
+        html += `<td>${s.rollNo}</td>`;
+        html += `<td class="col-name">${s.name}</td>`;
+        if (selectedClass === 'ALL') html += `<td><b>${s.className}</b></td>`;
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const sunClass = dayClasses[d - 1];
+          html += `<td class="col-day ${sunClass}" contenteditable="true" onclick="toggleCellAttendance(this)"></td>`;
+        }
+
+        html += `<td style="font-weight:700;">0</td>`;
+        html += `<td>${daysInMonth}</td>`;
+        html += `<td class="no-print"><span style="color:#64748b;font-size:0.75rem;">Auto</span></td>`;
+        html += `</tr>`;
+      });
+
+      // Render Extra Blank Rows for Manual Entry
+      const totalRosterCount = slowLearners.length;
+      for (let i = 0; i < extraCount; i++) {
+        const sno = totalRosterCount + i + 1;
+        html += `<tr class="extra-row">`;
+        html += `<td>${sno}</td>`;
+        html += `<td>-</td>`;
+        html += `<td class="col-name"><input type="text" placeholder="Write / Enter Student Name..." value="${currentExtraRows[i] || ''}" onchange="currentExtraRows[${i}]=this.value"></td>`;
+        if (selectedClass === 'ALL') html += `<td>-</td>`;
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const sunClass = dayClasses[d - 1];
+          html += `<td class="col-day ${sunClass}" contenteditable="true" onclick="toggleCellAttendance(this)"></td>`;
+        }
+
+        html += `<td style="font-weight:700;">0</td>`;
+        html += `<td>${daysInMonth}</td>`;
+        html += `<td class="no-print"><button class="btn-remove-row" onclick="removeExtraRow(${i})" title="Remove Row"><i class="fas fa-trash-can"></i></button></td>`;
+        html += `</tr>`;
+      }
+
+      html += '</tbody>';
+      document.getElementById('attendanceTable').innerHTML = html;
+    }
+
+    function toggleCellAttendance(cell) {
+      if (cell.classList.contains('sunday')) return;
+      const current = cell.innerText.trim().toUpperCase();
+      if (current === '') {
+        cell.innerText = 'P';
+        cell.className = cell.className.replace('cell-absent', '') + ' cell-present';
+      } else if (current === 'P') {
+        cell.innerText = 'A';
+        cell.className = cell.className.replace('cell-present', '') + ' cell-absent';
+      } else {
+        cell.innerText = '';
+        cell.className = cell.className.replace('cell-present', '').replace('cell-absent', '');
+      }
+      updateRowPresentTotal(cell.parentElement);
+    }
+
+    function updateRowPresentTotal(row) {
+      const cells = row.querySelectorAll('td.col-day');
+      let count = 0;
+      cells.forEach(c => {
+        if (c.innerText.trim().toUpperCase() === 'P') count++;
+      });
+      const totCell = row.children[row.children.length - 3];
+      if (totCell) totCell.innerText = count;
+    }
+
+    function addSingleExtraRow() {
+      const input = document.getElementById('extraRowsInput');
+      input.value = parseInt(input.value || 0) + 1;
+      renderAttendanceSheet();
+    }
+
+    function removeExtraRow(idx) {
+      currentExtraRows.splice(idx, 1);
+      const input = document.getElementById('extraRowsInput');
+      input.value = Math.max(0, parseInt(input.value || 0) - 1);
+      renderAttendanceSheet();
+    }
+
+    function downloadAttendanceExcel() {
+      const selectedClass = document.getElementById('classSelect').value;
+      const monthIdx = parseInt(document.getElementById('monthSelect').value);
+      const yearVal = parseInt(document.getElementById('yearSelect').value);
+      const daysInMonth = new Date(yearVal, monthIdx + 1, 0).getDate();
+      const monthName = monthNames[monthIdx];
+
+      const table = document.getElementById('attendanceTable');
+      const rows = table.querySelectorAll('tr');
+
+      let csv = `PM SHRI KENDRIYA VIDYALAYA RANIKHET\nREMEDIAL MATHEMATICS ATTENDANCE REGISTER - ${selectedClass} (${monthName} ${yearVal})\n\n`;
+
+      rows.forEach((row, rowIndex) => {
+        const rowData = [];
+        const cells = row.querySelectorAll('th, td');
+        
+        cells.forEach((cell, cellIndex) => {
+          // Skip action column
+          if (cellIndex === cells.length - 1 && rowIndex > 0) return;
+
+          let val = '';
+          const input = cell.querySelector('input');
+          if (input) {
+            val = input.value || '';
+          } else {
+            val = cell.innerText.replace(/\n/g, ' ').trim();
+          }
+
+          // Clean CSV formatting
+          val = `"${val.replace(/"/g, '""')}"`;
+          rowData.push(val);
+        });
+
+        if (rowData.length > 0) {
+          csv += rowData.join(',') + '\n';
+        }
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `Slow_Learners_Attendance_${selectedClass}_${monthName}_${yearVal}.csv`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set default month to current month
+      const now = new Date();
+      document.getElementById('monthSelect').value = now.getMonth();
+      document.getElementById('yearSelect').value = now.getFullYear();
+      renderAttendanceSheet();
+    });
+  </script>
+</body>
+</html>
