@@ -233,25 +233,33 @@
       font-style: italic;
     }
 
-    /* Print styles */
+    /* Print styles — Compact A4 Narrow Margins */
     @media print {
       body {
         background: #fff !important;
         color: #000 !important;
         padding: 0 !important;
+        font-size: 9pt !important;
       }
       .bg-blobs, .site-header, .nav-bar, .class-tabs, .actions-row, .site-footer, #backToTop, #passwordModal, #learnersSecurityGate, #filterKpiCards {
         display: none !important;
       }
       .page-hero {
-        padding: 10px 0 !important;
+        padding: 4px 0 !important;
+        margin-bottom: 8px !important;
         background: none !important;
         color: #000 !important;
         text-align: center !important;
       }
       .page-hero h1 {
-        font-size: 1.5rem !important;
+        font-size: 1.3rem !important;
         color: #000 !important;
+        margin: 0 !important;
+      }
+      .page-hero p {
+        font-size: 0.8rem !important;
+        color: #333 !important;
+        margin: 2px 0 0 0 !important;
       }
 
       /* Print only selected mode content */
@@ -287,8 +295,8 @@
         display: block !important;
         text-align: center;
         border-bottom: 2px solid #000;
-        padding-bottom: 8px;
-        margin-bottom: 15px;
+        padding-bottom: 6px;
+        margin-bottom: 12px;
       }
 
       .category-card {
@@ -296,33 +304,38 @@
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 20px !important;
         page-break-inside: avoid;
       }
 
       .category-title {
         color: #000 !important;
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
         border-bottom: 2px solid #333 !important;
-        padding-bottom: 6px !important;
-        margin-bottom: 12px !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 8px !important;
       }
 
       table {
         border: 1px solid #333 !important;
-        font-size: 9pt !important;
+        font-size: 8.5pt !important;
+        line-height: 1.25 !important;
         width: 100% !important;
         box-shadow: none !important;
         background: #fff !important;
+        border-collapse: collapse !important;
       }
       thead th {
         background: #f1f5f9 !important;
         color: #000 !important;
         border: 1px solid #333 !important;
+        padding: 5px 6px !important;
+        font-weight: 700 !important;
       }
       tbody td {
         border: 1px solid #333 !important;
         color: #000 !important;
+        padding: 4px 6px !important;
       }
       .remarks-input {
         border: none !important;
@@ -331,13 +344,24 @@
         color: transparent !important;
       }
 
+      .print-signatures-block {
+        display: flex !important;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding: 0 10px;
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #000;
+        page-break-inside: avoid;
+      }
+
       @page {
         size: A4 portrait;
-        margin: 12mm;
+        margin: 6mm 8mm;
       }
     }
 
-    .print-header-banner {
+    .print-header-banner, .print-signatures-block {
       display: none;
     }
 
