@@ -504,7 +504,13 @@
 
 <!-- ── Nav Bar ────────────────────────────────────────────── -->
 <nav class="nav-bar" aria-label="Main navigation">
-  <div class="nav"><a href="index.html" class="active"><i class="fas fa-home"></i> Return to Home</a></div>
+  <div class="nav" style="display: flex; gap: 14px; flex-wrap: wrap;">
+    <a href="index.html"><i class="fas fa-home"></i> Return to Home</a>
+    <a href="students.html"><i class="fas fa-user-graduate"></i> Students Dashboard</a>
+    <a href="javascript:void(0)" onclick="switchMainMode('categories')" class="active"><i class="fas fa-list-ul"></i> Learners Directory</a>
+    <a href="javascript:void(0)" onclick="switchMainMode('scoreFilter')"><i class="fas fa-filter"></i> Exam Score Filter (&lt;40%, &lt;33%, &lt;25%)</a>
+    <a href="slow-learners-attendance.html"><i class="fas fa-clipboard-user"></i> Remedial Attendance</a>
+  </div>
 </nav>
 
 <!-- ── Page Content ───────────────────────────────────────── -->
@@ -517,22 +523,29 @@
     <p class="hero-subtitle">Dynamic performance tracking and remedial action planner based on PT (Periodic Test) marks only</p>
   </section>
 
-  <!-- Class Selection Tabs -->
-  <div class="class-tabs">
+  <!-- Mode Navigation Tabs -->
+  <div class="class-tabs" style="max-width: 850px; margin-bottom: 25px;">
+    <button class="class-tab active" id="tabCategoriesMode" onclick="switchMainMode('categories')"><i class="fas fa-layer-group"></i> Learner Categories (PT Avg &ge;80% / &lt;40%)</button>
+    <button class="class-tab" id="tabFilterMode" onclick="switchMainMode('scoreFilter')"><i class="fas fa-filter"></i> Exam Score Filter (&lt;40%, &lt;33%, &lt;25%)</button>
+    <a href="slow-learners-attendance.html" class="class-tab" style="text-decoration:none;"><i class="fas fa-clipboard-user"></i> Attendance Register</a>
+  </div>
+
+  <!-- Class Selection Tabs for Categories Mode -->
+  <div class="class-tabs" id="categoriesClassTabs">
     <button class="class-tab active" data-class="7C" onclick="changeClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C</button>
     <button class="class-tab" data-class="11B" onclick="changeClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B</button>
     <button class="class-tab" data-class="12" onclick="changeClass('12')"><i class="fas fa-graduation-cap"></i> Class 12</button>
   </div>
 
-  <!-- Print & Download Excel actions -->
-  <div class="actions-row">
+  <!-- Print & Download Excel actions for Categories Mode -->
+  <div class="actions-row" id="categoriesActionsRow">
     <button class="action-btn print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print Directory</button>
     <button class="action-btn excel-btn" onclick="downloadDirectory()"><i class="fas fa-file-csv"></i> Download Excel</button>
     <a href="slow-learners-attendance.html" class="action-btn" style="background: linear-gradient(135deg, #0d9488, #059669); color: #fff; text-decoration: none;"><i class="fas fa-clipboard-user"></i> Attendance Sheet Generator</a>
   </div>
 
-  <!-- Two Columns Directory Grid -->
-  <div class="directory-grid">
+  <!-- Two Columns Directory Grid for Categories Mode -->
+  <div class="directory-grid" id="categoriesGrid">
 
     <!-- Bright Learners Card -->
     <div class="category-card bright-card">
@@ -580,6 +593,67 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+  </div>
+
+  <!-- ── EXAM SCORE THRESHOLD FILTER SECTION ── -->
+  <div id="scoreFilterSection" style="display: none; max-width: 1250px; margin: 0 auto 50px; padding: 0 24px;">
+    
+    <!-- Filter Controls Toolbar -->
+    <div style="background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 28px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between;">
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+        <!-- Select Class -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;"><i class="fas fa-graduation-cap"></i> Select Class</label>
+          <select id="filterClassSelect" onchange="onFilterClassChange()" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; padding: 9px 14px; font-size: 0.9rem; outline: none;">
+            <option value="ALL">All Classes Combined</option>
+            <option value="7C">Class 7-C</option>
+            <option value="11B">Class 11-B</option>
+            <option value="12">Class 12</option>
+          </select>
+        </div>
+
+        <!-- Select Exam -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;"><i class="fas fa-file-alt"></i> Select Exam / Test</label>
+          <select id="filterExamSelect" onchange="renderScoreFilterResults()" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; padding: 9px 14px; font-size: 0.9rem; outline: none; min-width: 180px;">
+            <!-- Dynamically Populated -->
+          </select>
+        </div>
+
+        <!-- Score Threshold Option -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;"><i class="fas fa-percent"></i> Score Threshold</label>
+          <select id="filterThresholdSelect" onchange="renderScoreFilterResults()" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; padding: 9px 14px; font-size: 0.9rem; outline: none; min-width: 200px;">
+            <option value="40" selected>Score Less than 40% (&lt; 40%)</option>
+            <option value="33">Score Less than 33% (&lt; 33% - Below Pass)</option>
+            <option value="25">Score Less than 25% (&lt; 25% - Critical)</option>
+            <option value="singledigit">Single Digit Marks (0 - 9 Marks)</option>
+            <option value="ALL">All Conducted Scores</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
+        <button class="action-btn print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print Student List</button>
+        <button class="action-btn excel-btn" onclick="downloadFilterExcel()"><i class="fas fa-file-excel"></i> Download Excel (CSV)</button>
+      </div>
+
+    </div>
+
+    <!-- Summary KPI Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px;" id="filterKpiCards">
+      <!-- Dynamically Generated -->
+    </div>
+
+    <!-- Filter Results Table -->
+    <div style="background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; overflow-x: auto;">
+      <table id="filterResultsTable" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+        <!-- Dynamically Generated -->
+      </table>
     </div>
 
   </div>
@@ -878,6 +952,235 @@
     }
   }
 
+  // ── Mode Switcher (Categories vs Score Filter) ──
+  function switchMainMode(mode) {
+    const tabCat = document.getElementById('tabCategoriesMode');
+    const tabFlt = document.getElementById('tabFilterMode');
+    const catClassTabs = document.getElementById('categoriesClassTabs');
+    const catActionsRow = document.getElementById('categoriesActionsRow');
+    const catGrid = document.getElementById('categoriesGrid');
+    const fltSection = document.getElementById('scoreFilterSection');
+
+    if (mode === 'scoreFilter') {
+      if(tabCat) tabCat.classList.remove('active');
+      if(tabFlt) tabFlt.classList.add('active');
+      if(catClassTabs) catClassTabs.style.display = 'none';
+      if(catActionsRow) catActionsRow.style.display = 'none';
+      if(catGrid) catGrid.style.display = 'none';
+      if(fltSection) fltSection.style.display = 'block';
+
+      document.getElementById('dirTitle').textContent = `Exam Score Threshold Filter (<40%, <33%, <25%)`;
+      onFilterClassChange();
+    } else {
+      if(tabCat) tabCat.classList.add('active');
+      if(tabFlt) tabFlt.classList.remove('active');
+      if(catClassTabs) catClassTabs.style.display = 'flex';
+      if(catActionsRow) catActionsRow.style.display = 'flex';
+      if(catGrid) catGrid.style.display = 'grid';
+      if(fltSection) fltSection.style.display = 'none';
+
+      changeClass(activeClass);
+    }
+  }
+
+  function onFilterClassChange() {
+    const selectedClass = document.getElementById('filterClassSelect').value;
+    const examSelect = document.getElementById('filterExamSelect');
+    
+    let tests = [];
+    if (selectedClass === 'ALL') {
+      tests = [
+        { id: "ALL", label: "All Conducted Tests Combined" },
+        { id: "pt1", label: "PT1 (Periodic Test 1)" },
+        { id: "ch1", label: "Chapter 1 Test" },
+        { id: "ch2", label: "Chapter 2 Test" },
+        { id: "ch3", label: "Chapter 3 Test" },
+        { id: "ch4", label: "Chapter 4 Test" },
+        { id: "ch5", label: "Chapter 5 Test" },
+        { id: "crm", label: "CRM Assessment" }
+      ];
+    } else {
+      const classTestList = classTests[selectedClass] || [];
+      tests = [
+        { id: "ALL", label: "All Conducted Tests Combined" },
+        ...classTestList
+      ];
+    }
+
+    examSelect.innerHTML = tests.map(t => `<option value="${t.id}">${t.label}</option>`).join('');
+    renderScoreFilterResults();
+  }
+
+  let lastFilteredResults = [];
+
+  function renderScoreFilterResults() {
+    loadData();
+    const classVal = document.getElementById('filterClassSelect').value;
+    const examVal = document.getElementById('filterExamSelect').value;
+    const thresholdVal = document.getElementById('filterThresholdSelect').value;
+
+    const classesToScan = classVal === 'ALL' ? ['7C', '11B', '12'] : [classVal];
+    const results = [];
+
+    classesToScan.forEach(cls => {
+      const students = studentData[cls] || [];
+      const testsConfig = classTests[cls] || [];
+      
+      let targetTests = [];
+      if (examVal === 'ALL') {
+        targetTests = testsConfig.filter(t => students.some(s => s.marks && isValidScore(s.marks[t.id])));
+      } else {
+        targetTests = testsConfig.filter(t => t.id === examVal);
+      }
+
+      students.forEach(s => {
+        targetTests.forEach(t => {
+          const score = s.marks ? s.marks[t.id] : undefined;
+          if (isValidScore(score)) {
+            const numScore = Number(score);
+            const pct = (numScore / t.maxMarks) * 100;
+            
+            let matches = false;
+            if (thresholdVal === '40') matches = pct < 40;
+            else if (thresholdVal === '33') matches = pct < 33;
+            else if (thresholdVal === '25') matches = pct < 25;
+            else if (thresholdVal === 'singledigit') matches = numScore >= 0 && numScore <= 9;
+            else if (thresholdVal === 'ALL') matches = true;
+
+            if (matches) {
+              results.push({
+                rollNo: s.rollNo,
+                studentName: s.name,
+                className: cls,
+                classLabel: classLabels[cls],
+                testId: t.id,
+                testLabel: t.label,
+                score: numScore,
+                maxMarks: t.maxMarks,
+                pct: pct
+              });
+            }
+          }
+        });
+      });
+    });
+
+    lastFilteredResults = results;
+
+    // Render Summary KPI Cards
+    const kpiWrap = document.getElementById('filterKpiCards');
+    const totalMatching = results.length;
+    const avgScore = totalMatching > 0 ? (results.reduce((a, b) => a + b.pct, 0) / totalMatching).toFixed(1) + '%' : '—';
+    const lowestMark = totalMatching > 0 ? Math.min(...results.map(r => r.score)) : '—';
+    const zeroScorers = results.filter(r => r.score === 0).length;
+
+    kpiWrap.innerHTML = `
+      <div style="background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:14px; padding:18px; text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:4px;">🎯</div>
+        <div style="font-size:1.8rem; font-weight:800; color:#fff;">${totalMatching}</div>
+        <div style="font-size:0.78rem; color:var(--text-secondary);">Identified Students</div>
+      </div>
+      <div style="background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:14px; padding:18px; text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:4px;">📊</div>
+        <div style="font-size:1.8rem; font-weight:800; color:#60a5fa;">${avgScore}</div>
+        <div style="font-size:0.78rem; color:var(--text-secondary);">Average Score %</div>
+      </div>
+      <div style="background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:14px; padding:18px; text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:4px;">⚠️</div>
+        <div style="font-size:1.8rem; font-weight:800; color:#f87171;">${lowestMark}</div>
+        <div style="font-size:0.78rem; color:var(--text-secondary);">Lowest Mark Recorded</div>
+      </div>
+      <div style="background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:14px; padding:18px; text-align:center;">
+        <div style="font-size:1.5rem; margin-bottom:4px;">🔴</div>
+        <div style="font-size:1.8rem; font-weight:800; color:#ef4444;">${zeroScorers}</div>
+        <div style="font-size:0.78rem; color:var(--text-secondary);">Zero Scorers</div>
+      </div>
+    `;
+
+    // Render Table
+    const tbl = document.getElementById('filterResultsTable');
+    if (results.length === 0) {
+      tbl.innerHTML = `<tr><td style="text-align:center; padding:40px; color:var(--text-muted); font-style:italic;">No students found matching the selected class, exam, and score threshold.</td></tr>`;
+      return;
+    }
+
+    results.sort((a, b) => a.pct - b.pct || a.studentName.localeCompare(b.studentName));
+
+    let html = `<thead>
+      <tr style="background:rgba(17,24,39,0.85); color:#a78bfa; text-align:left;">
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">S.No.</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Roll No.</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Student Name</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Class</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Exam / Test</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Marks Scored</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Max Marks</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Percentage</th>
+        <th style="padding:12px; border-bottom:1px solid rgba(255,255,255,0.1);">Category Status</th>
+      </tr>
+    </thead><tbody>`;
+
+    results.forEach((r, idx) => {
+      let badgeHtml = '';
+      if (r.pct < 25) {
+        badgeHtml = `<span style="background:rgba(239,68,68,0.18); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:700;"><i class="fas fa-exclamation-triangle"></i> &lt;25% Critical</span>`;
+      } else if (r.pct < 33) {
+        badgeHtml = `<span style="background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.4); color:#fde68a; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:700;"><i class="fas fa-exclamation-circle"></i> &lt;33% Below Pass</span>`;
+      } else if (r.pct < 40) {
+        badgeHtml = `<span style="background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.3); color:#bae6fd; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:700;"><i class="fas fa-heart"></i> &lt;40% Slow Bloomer</span>`;
+      } else {
+        badgeHtml = `<span style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); color:#6ee7b7; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:700;"><i class="fas fa-check"></i> Passed</span>`;
+      }
+
+      html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:10px 12px; color:#9ca3af;">${idx + 1}</td>
+        <td style="padding:10px 12px; color:#cbd5e1;">${r.rollNo}</td>
+        <td style="padding:10px 12px; font-weight:700; color:#fff;">${r.studentName}</td>
+        <td style="padding:10px 12px;"><span style="background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); color:#c4b5fd; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">${r.classLabel}</span></td>
+        <td style="padding:10px 12px; color:#93c5fd; font-weight:600;">${r.testLabel}</td>
+        <td style="padding:10px 12px; font-weight:800; font-size:1rem; color:${r.score === 0 ? '#ef4444' : r.pct < 33 ? '#f87171' : '#fbbf24'};">${r.score}</td>
+        <td style="padding:10px 12px; color:#64748b;">${r.maxMarks}</td>
+        <td style="padding:10px 12px; font-weight:700; color:${r.pct < 25 ? '#ef4444' : r.pct < 33 ? '#f87171' : '#fbbf24'};">${r.pct.toFixed(1)}%</td>
+        <td style="padding:10px 12px;">${badgeHtml}</td>
+      </tr>`;
+    });
+
+    html += `</tbody>`;
+    tbl.innerHTML = html;
+  }
+
+  function downloadFilterExcel() {
+    if (!lastFilteredResults || lastFilteredResults.length === 0) {
+      alert("No data available to download.");
+      return;
+    }
+
+    const classVal = document.getElementById('filterClassSelect').value;
+    const examVal = document.getElementById('filterExamSelect').value;
+    const thresholdVal = document.getElementById('filterThresholdSelect').value;
+
+    let csv = `PM SHRI KENDRIYA VIDYALAYA RANIKHET\r\n`;
+    csv += `Exam Score Threshold Filter Report - Class: ${classVal} - Exam: ${examVal} - Threshold: ${thresholdVal}%\r\n`;
+    csv += `Generated: ${new Date().toLocaleDateString('en-GB')}\r\n\r\n`;
+
+    csv += `S.No.,Roll No.,Student Name,Class,Exam / Test,Marks Scored,Max Marks,Percentage %,Status\r\n`;
+    lastFilteredResults.forEach((r, idx) => {
+      let statusText = r.pct < 25 ? 'Critical (<25%)' : r.pct < 33 ? 'Below Pass (<33%)' : r.pct < 40 ? 'Slow Bloomer (<40%)' : 'Passed';
+      csv += `${idx + 1},${r.rollNo},"${r.studentName}","${r.classLabel}","${r.testLabel}",${r.score},${r.maxMarks},${r.pct.toFixed(1)}%,"${statusText}"\r\n`;
+    });
+
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Exam_Score_Filter_${classVal}_${thresholdVal}pct_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   function downloadDirectory() {
     const { bright, slow } = getLearners(activeClass);
     const classLabel = classLabels[activeClass];
@@ -1023,7 +1326,11 @@
   // Initialize
   document.addEventListener('DOMContentLoaded', () => {
     loadData();
-    changeClass('7C');
+    if (window.location.hash === '#score-filter' || window.location.search.includes('mode=scoreFilter')) {
+      switchMainMode('scoreFilter');
+    } else {
+      changeClass('7C');
+    }
   });
 </script>
 </body>
