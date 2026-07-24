@@ -3606,6 +3606,16 @@
         count['kbjoshi'] = 2;
       }
 
+      // Explicit allocation for Sunita Kumari to ensure 2/2 duties assigned
+      const sunitaObj = teachers.find(t => t.id === 'sunitak');
+      if (sunitaObj) {
+        teacherDutyMap['sunitak']['Monday'] = 1;
+        locDutyMap[1]['Monday'].push(sunitaObj);
+        teacherDutyMap['sunitak']['Thursday'] = 1;
+        locDutyMap[1]['Thursday'].push(sunitaObj);
+        count['sunitak'] = 2;
+      }
+
       const eligible = teachers.filter(t => !t.exempt && t.quota > 0);
 
       for (const day of DAYS) {
