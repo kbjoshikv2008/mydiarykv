@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Digit Scorers Report | Teacher's Digital Diary</title>
+  <meta name="description" content="Identify students who scored single-digit marks (0-9) in any mathematics test. Classwise analysis for targeted remedial intervention.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="premium.css">
+  <style>
+    /* ── Page-Specific Styles ── */
+    .report-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+      align-items: center;
+    }
+    .class-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-secondary);
+      font-family: var(--font-head, 'Poppins', sans-serif);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+    .class-btn:hover {
+      background: rgba(139,92,246,0.15);
+      border-color: rgba(139,92,246,0.4);
+      color: #c4b5fd;
+      transform: translateY(-2px);
+    }
+    .class-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border-color: #7c3aed;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(124,58,237,0.35);
+    }
+    .action-btns {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s;
+    }
+    .action-btn.print-btn {
+      background: #10b981;
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(16,185,129,0.25);
+    }
+    .action-btn.print-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .action-btn.download-btn {
+      background: #8b5cf6;
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(139,92,246,0.25);
+    }
+    .action-btn.download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── Summary Cards ── */
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .summary-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .summary-card:hover {
+      border-color: rgba(139,92,246,0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .summary-card .sc-icon {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+    .summary-card .sc-value {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .summary-card .sc-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .summary-card.danger .sc-value { color: #f87171; }
+    .summary-card.warning .sc-value { color: #fbbf24; }
+    .summary-card.info .sc-value { color: #60a5fa; }
+
+    /* ── Table ── */
+    .tbl-wrap {
+      overflow-x: auto;
+      margin-bottom: 36px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      min-width: 650px;
+    }
+    thead th {
+      background: rgba(17,24,39,0.85);
+      color: #a78bfa;
+      font-weight: 700;
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    thead th:first-child { padding-left: 20px; border-radius: 14px 0 0 0; }
+    thead th:last-child { border-radius: 0 14px 0 0; }
+    tbody tr {
+      transition: background 0.15s;
+    }
+    tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+    tbody tr:hover { background: rgba(139,92,246,0.06); }
+    tbody td {
+      padding: 12px 12px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+    tbody td:first-child { padding-left: 20px; font-weight: 600; color: #9ca3af; }
+    .student-name { font-weight: 700; color: #fff !important; }
+    .class-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #c4b5fd;
+    }
+    .test-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: #93c5fd;
+    }
+    .marks-cell {
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+    .marks-zero { color: #ef4444 !important; }
+    .marks-low { color: #f87171 !important; }
+    .marks-mid { color: #fbbf24 !important; }
+    .max-marks {
+      font-size: 0.72rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+    .pct-cell { font-weight: 700; }
+    .pct-critical { color: #ef4444 !important; }
+    .pct-low { color: #f87171 !important; }
+    .pct-mid { color: #fbbf24 !important; }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center;
+      padding: 80px 30px;
+      color: var(--text-secondary);
+    }
+    .empty-state .emoji { font-size: 4rem; margin-bottom: 16px; }
+    .empty-state h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .empty-state p { font-size: 0.9rem; max-width: 400px; margin: 0 auto; line-height: 1.6; }
+
+    /* ── Back Link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 9px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.88em;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.25s;
+    }
+    .back-link:hover {
+      background: rgba(139,92,246,0.2);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+      transform: translateX(-3px);
+    }
+
+    /* ── Frequency Counter ── */
+    .freq-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .freq-high { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .freq-med { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); color: #fde68a; }
+    .freq-low { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+    /* ── Print Styles ── */
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      body::before, body::after, .bg-blobs, .site-header, .nav-bar, .back-link, .report-controls, #backToTop { display: none !important; }
+      .page-hero { background: #1e3a5f !important; color: #fff !important; padding: 20px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-hero h1 { color: #fff !important; font-size: 1.4rem !important; }
+      .summary-strip { display: none !important; }
+      .tbl-wrap { border: 1px solid #ccc !important; background: #fff !important; backdrop-filter: none !important; }
+      table { font-size: 9pt !important; }
+      thead th { background: #1e3a5f !important; color: #fff !important; }
+      tbody td { color: #111 !important; border-bottom: 1px solid #ddd !important; }
+      .student-name { color: #000 !important; }
+      .marks-zero, .marks-low { color: #c0392b !important; }
+      .marks-mid { color: #b07b00 !important; }
+      .class-badge { background: #eee !important; color: #333 !important; border-color: #ccc !important; }
+      .test-badge { background: #e8f0fe !important; color: #1e3a5f !important; border-color: #b0c4de !important; }
+      .freq-badge { background: #eee !important; color: #333 !important; border-color: #ccc !important; }
+      .site-footer { display: none !important; }
+      @page { size: A4 landscape; margin: 10mm 12mm; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    <div class="container">
+      <div class="page-chip fade-in"><i class="fas fa-exclamation-triangle"></i> Remedial Report</div>
+      <h1 class="fade-in-1">TEACHER'S DIGITAL DIARY</h1>
+      <h2 class="fade-in-2">K B JOSHI &nbsp;&middot;&nbsp; PGT MATHEMATICS &nbsp;&middot;&nbsp; PM SHRI KV RANIKHET</h2>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html"><i class="fas fa-home"></i> Return to Home</a>
+        <a href="students.html"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="consolidated.html"><i class="fas fa-table"></i> Consolidated</a>
+        <a href="guidance.html"><i class="fas fa-hand-holding-heart"></i> Guidance</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="page-hero-icon">🔍</span>
+      <h1>Single Digit Scorers Report</h1>
+      <p>Identify students who scored single-digit marks (0–9) in any test for targeted remedial support</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <a href="students.html" class="back-link fade-in"><i class="fas fa-arrow-left"></i> Back to Students</a>
+
+      <!-- Class Filter Controls -->
+      <div class="report-controls fade-in" id="reportControls">
+        <button class="class-btn active" data-class="all" onclick="filterClass('all', this)"><i class="fas fa-layer-group"></i> All Classes</button>
+        <button class="class-btn" data-class="7C" onclick="filterClass('7C', this)">Class 7-C</button>
+        <button class="class-btn" data-class="11B" onclick="filterClass('11B', this)">Class 11-B</button>
+        <button class="class-btn" data-class="12" onclick="filterClass('12', this)">Class 12</button>
+        <div class="action-btns">
+          <button class="action-btn print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+          <button class="action-btn download-btn" onclick="downloadCSV()"><i class="fas fa-file-csv"></i> Download CSV</button>
+        </div>
+      </div>
+
+      <!-- Summary Strip -->
+      <div class="summary-strip fade-in-1" id="summaryStrip"></div>
+
+      <!-- Report Table -->
+      <div class="tbl-wrap fade-in-2" id="reportTable"></div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="ncertbooks.html"><i class="fas fa-chevron-right"></i> NCERT Books</a></li>
+            <li><a href="board.html"><i class="fas fa-chevron-right"></i> Board Questions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Student Tools</h4>
+          <ul>
+            <li><a href="students.html"><i class="fas fa-chevron-right"></i> Students Dashboard</a></li>
+            <li><a href="consolidated.html"><i class="fas fa-chevron-right"></i> Consolidated Sheet</a></li>
+            <li><a href="guidance.html"><i class="fas fa-chevron-right"></i> Guidance</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // ── Scroll-based back-to-top ──
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    // ── Student Data (mirrors consolidated.html) ──
+    const fallbackRosters = {
+      "12": ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
+      "11B": ["ADITYA NEGI","ARUN ARYA","ASHUTOSH","AYUSH ROY","DIKSHANT NEGI","GAURAV KUMAR","ISHANT MEHRA","JANVI","KARAN CHANDRA","KARTIKEY PHARTIYAL","MANAS BHAGAT","MANSI BHANDARI","NEHA NEGI","PARAS SATI","PRANAY SATI","PRIYANSHU KANDPAL","PRIYANSHU PANDEY","RAJAT ADHIKARI","SPARSH DUBEY"],
+      "7C": ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
+    };
+    const fallbackMarks = {
+      "12": {
+        pt1:{"ABHIMANYU SINGH":21,"ANUJ GOSWAMI":32,"AYUSH NEGI":23,"BHUMI SATI":20,"HARDIK PHULARA":17,"HARSHIT ARYA":40,"HARSHITA NEGI":28,"HITESH UPADHYAY":14,"KAMAL JOSHI":13,"KANIKA BISHT":18,"KARAN":23,"NISHANT":30,"NITIN BISHT":18,"PALAK":7,"PARTH":20,"PRIYANKA":20,"RAJ":14,"RITIKA":15,"SADHNA":10,"SAKSHAM NEGI":24,"SIYA SUYAL":22,"SOUVIK SAHA":"","SPARSH BHATT":24,"TANMAY ADHIKARI":26},
+        ch1:{"ABHIMANYU SINGH":11,"ANUJ GOSWAMI":11,"AYUSH NEGI":10,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":18,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":16,"KARAN":11,"NITIN BISHT":14,"PARTH":15,"PRIYANKA":16,"RAJ":4,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":10,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":13,"PALAK":"","NISHANT":13},
+        ch2:{"ABHIMANYU SINGH":8,"ANUJ GOSWAMI":12,"AYUSH NEGI":12,"BHUMI SATI":16,"HARDIK PHULARA":10,"HARSHIT ARYA":19,"HARSHITA NEGI":18,"HITESH UPADHYAY":2,"KAMAL JOSHI":2,"KANIKA BISHT":12,"KARAN":12,"NITIN BISHT":10,"PARTH":16,"PRIYANKA":16,"RAJ":6,"RITIKA":14,"SADHNA":18,"SAKSHAM NEGI":12,"SIYA SUYAL":12,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":11,"PALAK":"","NISHANT":11},
+        ch3:{"ABHIMANYU SINGH":14,"ANUJ GOSWAMI":14,"AYUSH NEGI":16,"BHUMI SATI":18,"HARDIK PHULARA":12,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":1,"KAMAL JOSHI":2,"KANIKA BISHT":14,"KARAN":14,"NITIN BISHT":12,"PARTH":18,"PRIYANKA":18,"RAJ":5,"RITIKA":15,"SADHNA":19,"SAKSHAM NEGI":14,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":15,"PALAK":"","NISHANT":15},
+        ch4:{"ABHIMANYU SINGH":12,"ANUJ GOSWAMI":13,"AYUSH NEGI":14,"BHUMI SATI":17,"HARDIK PHULARA":11,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":1,"KAMAL JOSHI":2,"KANIKA BISHT":13,"KARAN":13,"NITIN BISHT":11,"PARTH":17,"PRIYANKA":17,"RAJ":6,"RITIKA":14,"SADHNA":19,"SAKSHAM NEGI":13,"SIYA SUYAL":13,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":14,"PALAK":"","NISHANT":14},
+        ch5:{"ABHIMANYU SINGH":10,"ANUJ GOSWAMI":11,"AYUSH NEGI":12,"BHUMI SATI":15,"HARDIK PHULARA":9,"HARSHIT ARYA":19,"HARSHITA NEGI":17,"HITESH UPADHYAY":0,"KAMAL JOSHI":3,"KANIKA BISHT":12,"KARAN":11,"NITIN BISHT":10,"PARTH":15,"PRIYANKA":15,"RAJ":5,"RITIKA":11,"SADHNA":18,"SAKSHAM NEGI":11,"SIYA SUYAL":11,"SOUVIK SAHA":"","SPARSH BHATT":18,"TANMAY ADHIKARI":12,"PALAK":"","NISHANT":12},
+        ch6:{"ABHIMANYU SINGH":13,"ANUJ GOSWAMI":14,"AYUSH NEGI":15,"BHUMI SATI":18,"HARDIK PHULARA":11,"HARSHIT ARYA":20,"HARSHITA NEGI":19,"HITESH UPADHYAY":2,"KAMAL JOSHI":2,"KANIKA BISHT":14,"KARAN":14,"NITIN BISHT":12,"PARTH":18,"PRIYANKA":18,"RAJ":6,"RITIKA":14,"SADHNA":19,"SAKSHAM NEGI":14,"SIYA SUYAL":14,"SOUVIK SAHA":"","SPARSH BHATT":19,"TANMAY ADHIKARI":14,"PALAK":"","NISHANT":14}
+      },
+      "11B": {
+        pt1:{"ADITYA NEGI":17,"ARUN ARYA":39,"AYUSH ROY":3,"DIKSHANT NEGI":31,"ISHANT MEHRA":4,"JANVI":32,"KARAN CHANDRA":13,"KARTIKEY PHARTIYAL":21,"MANAS BHAGAT":6,"MANSI BHANDARI":20,"NEHA NEGI":9,"PARAS SATI":29,"PRANAY SATI":28,"PRIYANSHU KANDPAL":23,"PRIYANSHU PANDEY":24,"RAJAT ADHIKARI":24,"SPARSH DUBEY":11},
+        ch1:{"ADITYA NEGI":3,"ARUN ARYA":12,"DIKSHANT NEGI":11,"ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":4,"KARTIKEY PHARTIYAL":"","MANAS BHAGAT":2,"MANSI BHANDARI":9,"NEHA NEGI":"","PARAS SATI":6,"PRANAY SATI":4,"PRIYANSHU PANDEY":8,"RAJAT ADHIKARI":7,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
+        ch2:{"ADITYA NEGI":3,"ARUN ARYA":11,"DIKSHANT NEGI":7,"ISHANT MEHRA":3.5,"JANVI":5,"KARAN CHANDRA":5.5,"KARTIKEY PHARTIYAL":1,"MANAS BHAGAT":3,"MANSI BHANDARI":5,"NEHA NEGI":2,"PARAS SATI":10,"PRANAY SATI":12.5,"PRIYANSHU PANDEY":5,"RAJAT ADHIKARI":5,"AYUSH ROY":"","PRIYANSHU KANDPAL":"","SPARSH DUBEY":""},
+        ch3:{"ADITYA NEGI":3,"ARUN ARYA":12,"AYUSH ROY":0,"DIKSHANT NEGI":8,"GAURAV KUMAR":"","ISHANT MEHRA":0,"JANVI":6,"KARAN CHANDRA":3,"KARTIKEY PHARTIYAL":0,"MANAS BHAGAT":5,"MANSI BHANDARI":8,"NEHA NEGI":0,"PARAS SATI":10,"PRANAY SATI":4,"PRIYANSHU KANDPAL":0,"PRIYANSHU PANDEY":2,"RAJAT ADHIKARI":"","SPARSH DUBEY":""},
+        ch4:{"ADITYA NEGI":6,"ARUN ARYA":13,"AYUSH ROY":1,"DIKSHANT NEGI":12,"GAURAV KUMAR":3,"ISHANT MEHRA":0,"JANVI":8,"KARAN CHANDRA":6,"KARTIKEY PHARTIYAL":14,"MANAS BHAGAT":"","MANSI BHANDARI":12,"NEHA NEGI":4,"PARAS SATI":19,"PRANAY SATI":17,"PRIYANSHU KANDPAL":17,"PRIYANSHU PANDEY":13,"RAJAT ADHIKARI":12,"SPARSH DUBEY":5},
+        ch5:{"ADITYA NEGI":4,"ARUN ARYA":11,"AYUSH ROY":6,"DIKSHANT NEGI":16,"GAURAV KUMAR":"ab","ISHANT MEHRA":2,"JANVI":12,"KARAN CHANDRA":12,"KARTIKEY PHARTIYAL":9,"MANAS BHAGAT":2,"MANSI BHANDARI":11,"NEHA NEGI":2,"PARAS SATI":18,"PRANAY SATI":9,"PRIYANSHU KANDPAL":12,"PRIYANSHU PANDEY":8,"RAJAT ADHIKARI":8,"SPARSH DUBEY":14}
+      },
+      "7C": {
+        pt1:{"ABHAY":11,"ABHINAY":6,"ANAIKA":38,"ARYAN":12,"BHAVIKA":28,"CHANDNI":4,"DEEPIKA":0,"DISHA":16,"GEETA":4,"GUNJAN":21,"HARSHUL":0,"HIMANSHI":4,"KAMAL":0,"KARISHMA":25,"KARTIK":"","KRITIKA GODIYAL":4,"KRITIKA RAWAT":21,"LAKSHIT RAWAT":11,"LAKSHIT SINGH":28,"MALVIKA":25,"NAMAN TAMTA":"","MAULIK":25,"MOITRIKA":25,"MRITYUNJAY":21,"MUNKASHIF":28,"NAITIK":28,"NAMAN SATI":36,"NISHTHI":28,"PARIDHI":6,"PARTH":28,"PRACHI":21,"PRASUN DEV":4,"RUDRA":11,"SHRAVANI":4,"TANISHA":21,"YAMAN":6,"YASHPAL":21,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+        crm:{"ABHAY":6,"ABHINAY":4,"ANAIKA":19,"ARYAN":7,"BHAVIKA":14,"CHANDNI":2,"DEEPIKA":0,"DISHA":8,"GEETA":2,"GUNJAN":10,"HARSHUL":0,"HIMANSHI":2,"KAMAL":0,"KARISHMA":12,"KARTIK":"","KRITIKA GODIYAL":2,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":6,"LAKSHIT SINGH":14,"MALVIKA":12,"NAMAN TAMTA":"","MAULIK":12,"MOITRIKA":12,"MRITYUNJAY":10,"MUNKASHIF":14,"NAITIK":14,"NAMAN SATI":18,"NISHTHI":14,"PARIDHI":4,"PARTH":14,"PRACHI":10,"PRASUN DEV":2,"RUDRA":6,"SHRAVANI":2,"TANISHA":10,"YAMAN":4,"YASHPAL":10,"ARPITA":"","MAANSHA":"","PARTH BISHT":""},
+        ch1:{"ABHAY":3,"ABHINAY":2,"ANAIKA":6,"ARYAN":2,"BHAVIKA":10,"CHANDNI":1,"DEEPIKA":0,"DISHA":3,"GEETA":1,"GUNJAN":3,"HARSHUL":"","HIMANSHI":"","KAMAL":4,"KARISHMA":2,"KARTIK":2,"KRITIKA GODIYAL":0,"KRITIKA RAWAT":6,"LAKSHIT RAWAT":0,"LAKSHIT SINGH":4,"MALVIKA":"","NAMAN TAMTA":8,"MAULIK":7,"MOITRIKA":5,"MRITYUNJAY":8,"MUNKASHIF":8,"NAITIK":8,"NAMAN SATI":5,"NISHTHI":6,"PARIDHI":2,"PARTH":5,"PRACHI":5,"PRASUN DEV":4,"RUDRA":3,"SHRAVANI":3,"TANISHA":1,"YAMAN":2,"YASHPAL":7,"ARPITA":2,"MAANSHA":"","PARTH BISHT":""},
+        ch2:{"ABHAY":1,"ABHINAY":0,"ANAIKA":"","ARYAN":5,"BHAVIKA":7,"CHANDNI":1,"DEEPIKA":"","DISHA":3,"GEETA":1,"GUNJAN":5,"HARSHUL":3.5,"HIMANSHI":0,"KAMAL":6,"KARISHMA":4,"KARTIK":"","KRITIKA GODIYAL":0,"KRITIKA RAWAT":3,"LAKSHIT RAWAT":5,"LAKSHIT SINGH":8.5,"MALVIKA":1,"NAMAN TAMTA":8.5,"MAULIK":6,"MOITRIKA":6,"MRITYUNJAY":4,"MUNKASHIF":5.5,"NAITIK":8,"NAMAN SATI":6,"NISHTHI":6,"PARIDHI":0,"PARTH":5.5,"PRACHI":5,"PRASUN DEV":0,"RUDRA":3,"SHRAVANI":1,"TANISHA":3,"YAMAN":4,"YASHPAL":5,"ARPITA":"","MAANSHA":8,"PARTH BISHT":4.5},
+        ch3:{"ABHAY":4,"ABHINAY":0,"ANAIKA":7,"ARYAN":1,"BHAVIKA":8,"CHANDNI":3,"DEEPIKA":2,"DISHA":5,"GEETA":3,"GUNJAN":8,"HARSHUL":2,"HIMANSHI":3,"KAMAL":4,"KARISHMA":6,"KARTIK":6,"KRITIKA GODIYAL":3,"KRITIKA RAWAT":10,"LAKSHIT RAWAT":"","LAKSHIT SINGH":5,"MALVIKA":7,"NAMAN TAMTA":8,"MAULIK":7.5,"MOITRIKA":10,"MRITYUNJAY":"","MUNKASHIF":"","NAITIK":7.5,"NAMAN SATI":7,"NISHTHI":5,"PARIDHI":4,"PARTH":4,"PRACHI":9,"PRASUN DEV":6,"RUDRA":7,"SHRAVANI":0,"TANISHA":1,"YAMAN":1,"YASHPAL":3,"ARPITA":7,"MAANSHA":10,"PARTH BISHT":6}
+      }
+    };
+
+    const classTests = {
+      "7C": [
+        { id: "crm", label: "CRM", maxMarks: 20 },
+        { id: "ch1", label: "Ch 1", maxMarks: 10 },
+        { id: "ch2", label: "Ch 2", maxMarks: 10 },
+        { id: "ch3", label: "Ch 3", maxMarks: 10 },
+        { id: "pt1", label: "PT1", maxMarks: 40 }
+      ],
+      "11B": [
+        { id: "ch1", label: "Ch 1", maxMarks: 20 },
+        { id: "ch2", label: "Ch 2", maxMarks: 20 },
+        { id: "ch3", label: "Ch 3", maxMarks: 20 },
+        { id: "ch4", label: "Ch 4", maxMarks: 20 },
+        { id: "ch5", label: "Ch 5", maxMarks: 20 },
+        { id: "pt1", label: "PT1", maxMarks: 40 }
+      ],
+      "12": [
+        { id: "ch1", label: "Ch 1", maxMarks: 20 },
+        { id: "ch2", label: "Ch 2", maxMarks: 20 },
+        { id: "ch3", label: "Ch 3", maxMarks: 20 },
+        { id: "ch4", label: "Ch 4", maxMarks: 20 },
+        { id: "ch5", label: "Ch 5", maxMarks: 20 },
+        { id: "ch6", label: "Ch 6", maxMarks: 20 },
+        { id: "pt1", label: "PT1", maxMarks: 40 }
+      ]
+    };
+
+    const classLabels = { "7C": "Class 7-C", "11B": "Class 11-B", "12": "Class 12" };
+
+    // ── Load student data (localStorage first, then fallback) ──
+    function loadStudentData() {
+      let studentData = {};
+      try {
+        const sd = localStorage.getItem("student_performance_data");
+        if (sd) studentData = JSON.parse(sd);
+      } catch(e) {}
+
+      // Build structured data from fallback if needed
+      ["7C","11B","12"].forEach(cls => {
+        if (!studentData[cls] || !studentData[cls].length) {
+          studentData[cls] = (fallbackRosters[cls] || []).slice().sort((a,b) => a.localeCompare(b)).map((name, i) => {
+            const marks = {};
+            Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+              if (tmap[name] !== undefined) marks[tid] = tmap[name];
+            });
+            return { rollNo: i+1, name, marks };
+          });
+        }
+      });
+      return studentData;
+    }
+
+    const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && score !== 'ab' && !isNaN(Number(score));
+
+    // ── Find all single-digit entries ──
+    function findSingleDigitScorers(studentData) {
+      const results = [];
+
+      ["7C","11B","12"].forEach(cls => {
+        const students = studentData[cls] || [];
+        const tests = classTests[cls] || [];
+        const conductedTests = tests.filter(t => {
+          return students.some(s => s.marks && isValidScore(s.marks[t.id]));
+        });
+
+        students.forEach(student => {
+          conductedTests.forEach(test => {
+            const score = student.marks[test.id];
+            if (isValidScore(score)) {
+              const numScore = Number(score);
+              if (numScore >= 0 && numScore <= 9) {
+                results.push({
+                  className: cls,
+                  classLabel: classLabels[cls],
+                  studentName: student.name,
+                  testLabel: test.label,
+                  testId: test.id,
+                  marks: numScore,
+                  maxMarks: test.maxMarks,
+                  percentage: ((numScore / test.maxMarks) * 100).toFixed(1)
+                });
+              }
+            }
+          });
+        });
+      });
+
+      return results;
+    }
+
+    // ── Count how many times each student appears ──
+    function getFrequencyMap(results) {
+      const freq = {};
+      results.forEach(r => {
+        const key = r.className + '|' + r.studentName;
+        freq[key] = (freq[key] || 0) + 1;
+      });
+      return freq;
+    }
+
+    // ── State ──
+    let allResults = [];
+    let activeFilter = 'all';
+
+    // ── Render ──
+    function render() {
+      const studentData = loadStudentData();
+      allResults = findSingleDigitScorers(studentData);
+      renderFiltered();
+    }
+
+    function renderFiltered() {
+      const filtered = activeFilter === 'all' ? allResults : allResults.filter(r => r.className === activeFilter);
+      renderSummary(filtered);
+      renderTable(filtered);
+    }
+
+    function renderSummary(data) {
+      const uniqueStudents = new Set(data.map(r => r.className + '|' + r.studentName));
+      const totalInstances = data.length;
+      const zeroScorers = data.filter(r => r.marks === 0).length;
+      const avgMarks = data.length > 0 ? (data.reduce((s,r) => s + r.marks, 0) / data.length).toFixed(1) : '—';
+
+      document.getElementById('summaryStrip').innerHTML = `
+        <div class="summary-card danger">
+          <div class="sc-icon">⚠️</div>
+          <div class="sc-value">${uniqueStudents.size}</div>
+          <div class="sc-label">Unique Students</div>
+        </div>
+        <div class="summary-card warning">
+          <div class="sc-icon">📊</div>
+          <div class="sc-value">${totalInstances}</div>
+          <div class="sc-label">Total Instances</div>
+        </div>
+        <div class="summary-card danger">
+          <div class="sc-icon">🔴</div>
+          <div class="sc-value">${zeroScorers}</div>
+          <div class="sc-label">Zero Scorers</div>
+        </div>
+        <div class="summary-card info">
+          <div class="sc-icon">📈</div>
+          <div class="sc-value">${avgMarks}</div>
+          <div class="sc-label">Avg. Marks Scored</div>
+        </div>
+      `;
+    }
+
+    function getMarksClass(marks) {
+      if (marks === 0) return 'marks-zero';
+      if (marks <= 4) return 'marks-low';
+      return 'marks-mid';
+    }
+
+    function getFreqClass(count) {
+      if (count >= 4) return 'freq-high';
+      if (count >= 2) return 'freq-med';
+      return 'freq-low';
+    }
+
+    function renderTable(data) {
+      const container = document.getElementById('reportTable');
+
+      if (data.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="emoji">🎉</div>
+            <h3>No Single Digit Scorers Found!</h3>
+            <p>All students scored 10 or above in their tests for the selected class. Great performance!</p>
+          </div>
+        `;
+        return;
+      }
+
+      const freq = getFrequencyMap(allResults);
+
+      // Sort: most frequent offenders first, then by marks ascending
+      data.sort((a, b) => {
+        const freqA = freq[a.className + '|' + a.studentName] || 0;
+        const freqB = freq[b.className + '|' + b.studentName] || 0;
+        if (freqB !== freqA) return freqB - freqA;
+        if (a.marks !== b.marks) return a.marks - b.marks;
+        return a.studentName.localeCompare(b.studentName);
+      });
+
+      let html = `<table>
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Test</th>
+            <th>Marks</th>
+            <th>Max Marks</th>
+            <th>Percentage</th>
+            <th>Frequency</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      data.forEach((r, i) => {
+        const fKey = r.className + '|' + r.studentName;
+        const fCount = freq[fKey] || 1;
+        const pctClass = Number(r.percentage) === 0 ? 'pct-critical' : Number(r.percentage) < 25 ? 'pct-low' : 'pct-mid';
+
+        html += `<tr>
+          <td>${i + 1}</td>
+          <td class="student-name">${r.studentName}</td>
+          <td><span class="class-badge">${r.classLabel}</span></td>
+          <td><span class="test-badge">${r.testLabel}</span></td>
+          <td class="marks-cell ${getMarksClass(r.marks)}">${r.marks}</td>
+          <td class="max-marks">${r.maxMarks}</td>
+          <td class="pct-cell ${pctClass}">${r.percentage}%</td>
+          <td><span class="freq-badge ${getFreqClass(fCount)}"><i class="fas fa-repeat"></i> ${fCount} test${fCount > 1 ? 's' : ''}</span></td>
+        </tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    // ── Class filter handler ──
+    function filterClass(cls, btn) {
+      activeFilter = cls;
+      document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderFiltered();
+    }
+
+    // ── CSV Download ──
+    function downloadCSV() {
+      const filtered = activeFilter === 'all' ? allResults : allResults.filter(r => r.className === activeFilter);
+      if (filtered.length === 0) { alert('No data to download.'); return; }
+
+      const freq = getFrequencyMap(allResults);
+      let csv = 'S.No,Student Name,Class,Test,Marks,Max Marks,Percentage,Frequency\n';
+      filtered.forEach((r, i) => {
+        const fKey = r.className + '|' + r.studentName;
+        const fCount = freq[fKey] || 1;
+        csv += `${i+1},"${r.studentName}","${r.classLabel}","${r.testLabel}",${r.marks},${r.maxMarks},${r.percentage}%,${fCount}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      const classTag = activeFilter === 'all' ? 'All_Classes' : activeFilter;
+      link.download = `Single_Digit_Scorers_${classTag}_${new Date().toISOString().slice(0,10)}.csv`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    // ── Initialize ──
+    document.addEventListener('DOMContentLoaded', render);
+  </script>
+</body>
+</html>
