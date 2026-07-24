@@ -84,6 +84,24 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Handle Daily Quiz API route
+  if (urlPath === '/api/daily-quiz') {
+    try {
+      const dailyQuizModule = require('./daily_quiz_data.js');
+      const params = new URLSearchParams(urlParts[1] || '');
+      const cls = params.get('class') || '10';
+      const date = params.get('date') || new Date().toISOString().split('T')[0];
+      const quizJSON = dailyQuizModule.getDailyQuizJSON(cls, date);
+      
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify(quizJSON, null, 2));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    }
+    return;
+  }
+
   // Auto-increment hits on HTML page loads
   if (urlPath === '/' || urlPath === '' || urlPath.endsWith('.html')) {
     hitsData.totalHits = (hitsData.totalHits || 1458) + 1;
