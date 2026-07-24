@@ -4723,18 +4723,23 @@
       function renderHeaderAndQuestion() {
         if (!quizData) return;
 
-        // Render Formula of the Day
+        // Render Formula of the Day using innerHTML for proper LaTeX rendering
         const f = quizData.formula_of_the_day || {};
-        document.getElementById('dqFormulaText').textContent = f.formula || '';
-        document.getElementById('dqFormulaMeaning').textContent = f.meaning || '';
-        document.getElementById('dqFormulaVars').textContent = f.variables || '';
-        document.getElementById('dqFormulaEx').textContent = f.example || '';
-        document.getElementById('dqFormulaShortcut').textContent = f.shortcut || '';
-        document.getElementById('dqFormulaMistake').textContent = f.common_mistake || '';
+        document.getElementById('dqFormulaText').innerHTML = f.formula || '';
+        document.getElementById('dqFormulaMeaning').innerHTML = f.meaning || '';
+        document.getElementById('dqFormulaVars').innerHTML = f.variables || '';
+        document.getElementById('dqFormulaEx').innerHTML = f.example || '';
+        document.getElementById('dqFormulaShortcut').innerHTML = f.shortcut || '';
+        document.getElementById('dqFormulaMistake').innerHTML = f.common_mistake || '';
 
-        // Render Fact & Motivation
-        document.getElementById('dqFactText').textContent = quizData.did_you_know || '';
-        document.getElementById('dqMotivationText').textContent = quizData.motivation || '';
+        // Render Fact & Motivation using innerHTML for LaTeX math
+        document.getElementById('dqFactText').innerHTML = quizData.did_you_know || '';
+        document.getElementById('dqMotivationText').innerHTML = quizData.motivation || '';
+
+        // Typeset LaTeX equations in header grid
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([document.querySelector('.dq-header-grid')]);
+        }
 
         // Render Current Question
         renderQuestion();
@@ -4751,7 +4756,7 @@
         document.getElementById('dqDiffBadge').textContent = `Difficulty: ${q.difficulty || 'Medium'}`;
         document.getElementById('dqChapter').textContent = q.chapter || 'NCERT Chapter';
         document.getElementById('dqTopic').textContent = q.topic || 'General Topic';
-        document.getElementById('dqQuestionText').textContent = q.question;
+        document.getElementById('dqQuestionText').innerHTML = q.question;
 
         // Reset & Render Options Grid
         const optionsGrid = document.getElementById('dqOptionsGrid');
@@ -4768,6 +4773,11 @@
             optionsGrid.appendChild(btn);
           }
         });
+
+        // Typeset LaTeX equations in Question Card
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([document.getElementById('dqQuizContainer')]);
+        }
 
         // Start 45s Timer
         startQuestionTimer();
@@ -4820,9 +4830,13 @@
       }
 
       function revealAnswer(correctKey, selectedKey, q) {
-        document.getElementById('dqExplanationText').textContent = q.explanation || 'Refer to NCERT textbook solution.';
-        document.getElementById('dqRevisionTip').textContent = q.revision_tip || 'Review chapter notes.';
+        document.getElementById('dqExplanationText').innerHTML = q.explanation || 'Refer to NCERT textbook solution.';
+        document.getElementById('dqRevisionTip').innerHTML = q.revision_tip || 'Review chapter notes.';
         document.getElementById('dqExplanationContainer').style.display = 'block';
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([document.getElementById('dqExplanationContainer')]);
+        }
 
         const nextBtn = document.getElementById('dqNextBtn');
         if (qIndex < 4) {
