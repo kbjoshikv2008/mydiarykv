@@ -263,12 +263,13 @@
       transform: translateX(-3px);
     }
 
-    /* ── PRINT STYLES ── */
+    /* ── PRINT STYLES — Compact A4 Landscape Narrow Margins ── */
     @media print {
       body {
         background: #ffffff !important;
         color: #000000 !important;
         padding: 0 !important;
+        font-size: 8pt !important;
       }
 
       .bg-blobs, .site-header, .nav-bar, .page-hero, .back-link, .controls-panel, .site-footer, #backToTop, .btn-remove-row, .no-print {
@@ -285,18 +286,21 @@
 
       .sheet-header-title {
         border-bottom: 2px solid #000 !important;
-        padding-bottom: 10px !important;
-        margin-bottom: 14px !important;
+        padding-bottom: 6px !important;
+        margin-bottom: 8px !important;
+        text-align: center !important;
       }
 
       .sheet-header-title h2 {
         color: #000 !important;
-        font-size: 14pt !important;
+        font-size: 12pt !important;
+        margin: 0 !important;
       }
 
       .sheet-header-title p {
         color: #333 !important;
-        font-size: 9pt !important;
+        font-size: 8.5pt !important;
+        margin: 2px 0 0 0 !important;
       }
 
       .tbl-wrapper {
@@ -306,7 +310,8 @@
 
       table.attendance-table {
         background: #fff !important;
-        font-size: 8pt !important;
+        font-size: 7.5pt !important;
+        line-height: 1.15 !important;
         border-collapse: collapse !important;
         width: 100% !important;
       }
@@ -314,12 +319,13 @@
       table.attendance-table th, table.attendance-table td {
         border: 1px solid #333 !important;
         color: #000 !important;
-        padding: 4px 2px !important;
+        padding: 3px 2px !important;
       }
 
       table.attendance-table th {
         background: #f1f5f9 !important;
         color: #000 !important;
+        font-weight: 700 !important;
       }
 
       table.attendance-table th.sunday, table.attendance-table td.sunday {
@@ -328,25 +334,27 @@
 
       table.attendance-table td.col-name input {
         color: #000 !important;
+        font-size: 7.5pt !important;
       }
 
       table.attendance-table tr.extra-row td {
-        height: 24px;
+        height: 20px;
       }
 
       .print-signatures {
         display: flex !important;
         justify-content: space-between;
-        margin-top: 40px;
-        padding: 0 20px;
-        font-size: 9pt;
+        margin-top: 20px;
+        padding: 0 10px;
+        font-size: 8.5pt;
         font-weight: 600;
         color: #000;
+        page-break-inside: avoid;
       }
 
       @page {
         size: A4 landscape;
-        margin: 8mm;
+        margin: 5mm 7mm;
       }
     }
 
