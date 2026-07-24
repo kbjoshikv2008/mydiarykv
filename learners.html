@@ -240,7 +240,7 @@
         color: #000 !important;
         padding: 0 !important;
       }
-      .bg-blobs, .site-header, .nav-bar, .class-tabs, .actions-row, .site-footer, #backToTop, #passwordModal {
+      .bg-blobs, .site-header, .nav-bar, .class-tabs, .actions-row, .site-footer, #backToTop, #passwordModal, #learnersSecurityGate, #filterKpiCards {
         display: none !important;
       }
       .page-hero {
@@ -250,27 +250,56 @@
         text-align: center !important;
       }
       .page-hero h1 {
-        font-size: 1.6rem !important;
+        font-size: 1.5rem !important;
         color: #000 !important;
       }
-      .directory-grid {
+
+      /* Print only selected mode content */
+      body[data-mode="scoreFilter"] #categoriesGrid,
+      body[data-mode="scoreFilter"] #categoriesClassTabs,
+      body[data-mode="scoreFilter"] #categoriesActionsRow {
+        display: none !important;
+      }
+
+      body[data-mode="scoreFilter"] #scoreFilterSection {
         display: block !important;
         padding: 0 !important;
         margin: 0 !important;
         max-width: 100% !important;
       }
+
+      body[data-mode="scoreFilter"] #scoreFilterSection > div:nth-child(2) {
+        display: none !important; /* Hide filter controls toolbar in print */
+      }
+
+      body[data-mode="categories"] #scoreFilterSection {
+        display: none !important;
+      }
+
+      body[data-mode="categories"] #categoriesGrid {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .print-header-banner {
+        display: block !important;
+        text-align: center;
+        border-bottom: 2px solid #000;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+      }
+
       .category-card {
         background: none !important;
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
-        margin-bottom: 40px !important;
+        margin-bottom: 30px !important;
         page-break-inside: avoid;
       }
-      .category-card:not(:last-child) {
-        page-break-after: always;
-        break-after: page;
-      }
+
       .category-title {
         color: #000 !important;
         font-size: 1.2rem !important;
@@ -278,50 +307,38 @@
         padding-bottom: 6px !important;
         margin-bottom: 12px !important;
       }
-      .badge {
-        border: none !important;
-        background: none !important;
-        color: #333 !important;
-        font-weight: normal !important;
-      }
+
       table {
-        border: 1px solid #ddd !important;
+        border: 1px solid #333 !important;
         font-size: 9pt !important;
         width: 100% !important;
         box-shadow: none !important;
         background: #fff !important;
       }
       thead th {
-        background: #f2f2f2 !important;
+        background: #f1f5f9 !important;
         color: #000 !important;
-        border: 1px solid #ddd !important;
+        border: 1px solid #333 !important;
       }
       tbody td {
-        border: 1px solid #ddd !important;
+        border: 1px solid #333 !important;
         color: #000 !important;
       }
       .remarks-input {
         border: none !important;
         background: none !important;
         padding: 0 !important;
-        color: transparent !important; /* Hide text in print so it is blank for manual writing */
-      }
-      .remarks-input::placeholder {
         color: transparent !important;
-        opacity: 0 !important;
       }
-      .remarks-input::-webkit-input-placeholder {
-        color: transparent !important;
-        opacity: 0 !important;
-      }
-      .remarks-input::-moz-placeholder {
-        color: transparent !important;
-        opacity: 0 !important;
-      }
+
       @page {
         size: A4 portrait;
-        margin: 15mm;
+        margin: 12mm;
       }
+    }
+
+    .print-header-banner {
+      display: none;
     }
 
     /* ===== Learners Security Gate Overlay ===== */
@@ -612,6 +629,12 @@
   <!-- ── EXAM SCORE THRESHOLD FILTER SECTION ── -->
   <div id="scoreFilterSection" style="display: none; max-width: 1250px; margin: 0 auto 50px; padding: 0 24px;">
     
+    <!-- Print Only Header Banner -->
+    <div class="print-header-banner">
+      <h2 style="font-size: 1.3rem; margin: 0; color: #000;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+      <p id="printFilterSub" style="font-size: 0.9rem; margin: 4px 0 0 0; color: #333; font-weight: 600;">EXAM SCORE THRESHOLD FILTER REPORT</p>
+    </div>
+
     <!-- Filter Controls Toolbar -->
     <div style="background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 28px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between;">
       
@@ -966,6 +989,7 @@
 
   // ── Mode Switcher (Categories vs Score Filter) ──
   function switchMainMode(mode) {
+    document.body.setAttribute('data-mode', mode);
     const tabCat = document.getElementById('tabCategoriesMode');
     const tabFlt = document.getElementById('tabFilterMode');
     const catClassTabs = document.getElementById('categoriesClassTabs');
@@ -1078,6 +1102,16 @@
     });
 
     lastFilteredResults = results;
+
+    // Update Print Banner Text
+    const printSub = document.getElementById('printFilterSub');
+    if (printSub) {
+      const classText = classVal === 'ALL' ? 'ALL CLASSES' : classLabels[classVal] || classVal;
+      const examSelect = document.getElementById('filterExamSelect');
+      const examText = examSelect && examSelect.selectedIndex >= 0 ? examSelect.options[examSelect.selectedIndex].text : examVal;
+      const thresholdText = thresholdVal === 'singledigit' ? 'SINGLE DIGIT MARKS (0-9)' : thresholdVal === 'ALL' ? 'ALL SCORES' : `< ${thresholdVal}% MARKS`;
+      printSub.textContent = `EXAM SCORE FILTER REPORT \u2014 CLASS: ${classText} \u00a0\u00b7\u00a0 EXAM: ${examText} \u00a0\u00b7\u00a0 THRESHOLD: ${thresholdText}`;
+    }
 
     // Render Summary KPI Cards
     const kpiWrap = document.getElementById('filterKpiCards');
