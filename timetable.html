@@ -1730,6 +1730,39 @@
       </div>
     </div>
 
+    <!-- TAB: CLASS TEACHERS & CO-CLASS TEACHERS LIST -->
+    <div class="tab-content" id="tab-class-teachers">
+      <div class="tt-controls-bar">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1;">
+          <div style="position:relative;min-width:240px;flex:1;max-width:320px;">
+            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.85rem;"></i>
+            <input type="text" id="ctSearchInput" placeholder="Search class, teacher or room / खोजें..." onkeyup="renderClassTeachersTab()" style="width:100%;padding:9px 12px 9px 34px;background:rgba(255,255,255,0.08);border:1px solid var(--glass-border);border-radius:var(--radius-md);color:var(--text-primary);font-size:0.85rem;outline:none;" />
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <label style="font-size:0.8rem;font-weight:700;color:var(--text-secondary);white-space:nowrap;"><i class="fas fa-filter"></i> Category:</label>
+            <select id="ctCategoryFilter" onchange="renderClassTeachersTab()" class="tt-select" style="max-width:220px;padding:8px 12px;">
+              <option value="ALL">All Sections (1-12) / सभी वर्ग</option>
+              <option value="SR_SEC">Senior Secondary (11-12)</option>
+              <option value="SEC">Secondary (6-10)</option>
+              <option value="PR">Primary (1-5)</option>
+            </select>
+          </div>
+        </div>
+        <div class="tt-action-buttons">
+          <button class="btn-action btn-print" onclick="printClassTeachersList()" style="background:#059669;"><i class="fas fa-print"></i> प्रिंट / Print List</button>
+          <button class="btn-action btn-pdf" onclick="downloadClassTeachersExcel()"><i class="fas fa-file-excel"></i> Excel डाउनलोड / Excel</button>
+          <button class="btn-action btn-share" onclick="shareClassTeachersList()"><i class="fas fa-share-alt"></i> शेयर / Share</button>
+        </div>
+      </div>
+
+      <div id="classTeachersContainer" style="margin-top:16px;"></div>
+
+      <div style="margin-top:20px;border-top:1px solid var(--glass-border);padding-top:12px;display:flex;justify-content:space-between;font-size:0.8rem;font-weight:700;color:var(--text-secondary);">
+        <span>PM SHRI KENDRIYA VIDYALAYA RANIKHET &nbsp;|&nbsp; Session 2026-27 &nbsp;|&nbsp; Prepared by: K B JOSHI, PGT Mathematics</span>
+        <span>Principal's Signature: ________________________</span>
+      </div>
+    </div>
+
   </div>
 </main>
 
