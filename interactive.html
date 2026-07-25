@@ -189,21 +189,27 @@
     </div>
   </div>
 
-  <!-- Header -->
-  <header>
+  <!-- Site Header -->
+  <header class="site-header">
     <div class="container">
-      <nav>
-        <a href="index.html" class="logo"><i class="fas fa-book-open"></i> Teacher's Digital Diary</a>
-        <ul class="nav-links">
-          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="lessonplan.html"><i class="fas fa-chalkboard"></i> Lesson Plans</a></li>
-          <li><a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Material</a></li>
-          <li><a href="interactive.html" class="active"><i class="fas fa-flask"></i> Math Lab</a></li>
-          <li><a href="timetable.html"><i class="fas fa-calendar-alt"></i> Timetable</a></li>
-        </ul>
-      </nav>
+      <div class="page-chip"><i class="fas fa-flask"></i> Math Lab — Interactive Lessons</div>
+      <h1>K B Joshi</h1>
+      <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+      <h3>Teacher's Digital Diary</h3>
     </div>
+    <a href="#" id="profileLink" title="View Teacher Profile">
+      <img src="kbjoshi.png" alt="K B Joshi" class="profile-photo">
+    </a>
   </header>
+
+  <!-- Navigation Bar (Return to Home Button at Top) -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Return to Home</a>
+      </div>
+    </div>
+  </nav>
 
   <main class="container" style="padding-top:28px;padding-bottom:50px;">
 
@@ -476,7 +482,6 @@
       } else {
         document.getElementById('htmlModalTitle').textContent = item.title;
         document.getElementById('htmlIframe').src = url;
-        document.getElementById('htmlModal.').classList?.add('active');
         document.getElementById('htmlModal').classList.add('active');
       }
     }
@@ -499,3 +504,5 @@
   </script>
 </body>
 </html>
+
+
