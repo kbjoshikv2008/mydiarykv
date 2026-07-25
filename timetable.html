@@ -3947,6 +3947,16 @@
         count['sunitak'] = 2;
       }
 
+      // Explicit allocation for Tarun Pathak in Library Block (idx 0)
+      const tarunObj = teachers.find(t => t.id === 'tarunp');
+      if (tarunObj) {
+        teacherDutyMap['tarunp']['Monday'] = 0;
+        locDutyMap[0]['Monday'].push(tarunObj);
+        teacherDutyMap['tarunp']['Thursday'] = 0;
+        locDutyMap[0]['Thursday'].push(tarunObj);
+        count['tarunp'] = 2;
+      }
+
       const eligible = teachers.filter(t => !t.exempt && t.quota > 0);
 
       for (const day of DAYS) {
@@ -3957,7 +3967,7 @@
               !isBusyContinuousP3toP6(t, day) &&
               teacherDutyMap[t.id][day] === null &&
               count[t.id] < t.quota &&
-              !((t.id === 'sunilkumar' || t.id === 'mahendras') && (li === 2 || li === 4)) && !(t.id === 'hemr' && li !== 0)
+              !((t.id === 'sunilkumar' || t.id === 'mahendras') && (li === 2 || li === 4)) && !(t.id === 'hemr' && li !== 0) && !(t.id === 'ashutoshr' && li !== 3) && !(t.id === 'tarunp' && li !== 0)
             );
 
             pool.sort((a,b) => (b.quota - count[b.id]) - (a.quota - count[a.id]) || a.name.localeCompare(b.name));
