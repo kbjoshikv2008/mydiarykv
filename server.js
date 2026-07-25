@@ -27,6 +27,9 @@ const MIME_TYPES = {
   '.doc': 'application/msword'
 };
 
+const INLINE_EXTENSIONS = new Set(['.html', '.css', '.js', '.json', '.pdf', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.mp4', '.webm', '.mp3']);
+
+
 // Persistent Website Hits Counter Storage
 const HITS_FILE = path.join(__dirname, 'hits_counter.json');
 let hitsData = { totalHits: 1458, todayHits: 48, lastReset: new Date().toDateString() };

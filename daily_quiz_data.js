@@ -1,6 +1,7 @@
 /**
  * Daily CBSE Mathematics Quiz Database & Engine
  * Complies with NCERT Textbooks & CBSE Curriculum
+ * All mathematical expressions formatted in LaTeX for MathJax rendering.
  */
 
 const DAILY_QUIZ_DATABASE = {
@@ -50,9 +51,9 @@ const DAILY_QUIZ_DATABASE = {
 
   // Facts & Motivation
   didYouKnow: [
-    "The number 1729 is known as the Hardy-Ramanujan number because it is the smallest number expressible as the sum of two cubes in two different ways ($1^3 + 12^3$ and $9^3 + 10^3$).",
+    "The number $1729$ is known as the Hardy-Ramanujan number because it is the smallest number expressible as the sum of two cubes in two different ways ($1^3 + 12^3$ and $9^3 + 10^3$).",
     "Zero ($0$) was invented in ancient India by mathematician Brahmagupta and Aryabhata, revolutionizing the global decimal place-value system.",
-    "A 'googol' is the number $1$ followed by $100$ zeros. The search engine name 'Google' was derived from a misspelling of this mathematical term!",
+    "A 'googol' is the number $1$ followed by $100$ zeros ($10^{100}$). The search engine name 'Google' was derived from a misspelling of this mathematical term!",
     "The Fibonacci sequence appears naturally in sunflower seeds, pinecones, seashell spirals, and galaxy arms.",
     "The symbol for infinity ($\\infty$) is called a 'lemniscate', introduced by mathematician John Wallis in 1655."
   ],
@@ -69,19 +70,19 @@ const DAILY_QUIZ_DATABASE = {
   classes: {
     "6": [
       {
-        question: "What is the perimeter of a regular hexagon with side length 7 cm?",
-        options: { A: "35 cm", B: "42 cm", C: "28 cm", D: "49 cm" },
+        question: "What is the perimeter of a regular hexagon with side length $7\\text{ cm}$?",
+        options: { A: "$35\\text{ cm}$", B: "$42\\text{ cm}$", C: "$28\\text{ cm}$", D: "$49\\text{ cm}$" },
         correct: "B",
         chapter: "Mensuration",
         topic: "Perimeter of Regular Shapes",
         difficulty: "Easy",
         formula: "$$\\text{Perimeter} = 6 \\times \\text{side}$$",
-        explanation: "A regular hexagon has 6 equal sides. Perimeter = $6 \\times 7\\text{ cm} = 42\\text{ cm}$.",
+        explanation: "A regular hexagon has $6$ equal sides. $\\text{Perimeter} = 6 \\times 7\\text{ cm} = 42\\text{ cm}$.",
         revision_tip: "Multiply the side length by the total number of sides for any regular polygon."
       },
       {
-        question: "Find the HCF of 24 and 36.",
-        options: { A: "6", B: "12", C: "18", D: "24" },
+        question: "Find the HCF of $24$ and $36$.",
+        options: { A: "$6$", B: "$12$", C: "$18$", D: "$24$" },
         correct: "B",
         chapter: "Playing with Numbers",
         topic: "Highest Common Factor (HCF)",
@@ -91,35 +92,35 @@ const DAILY_QUIZ_DATABASE = {
         revision_tip: "HCF is the largest number that divides both given numbers without leaving a remainder."
       },
       {
-        question: "Express the fraction 15/20 in its simplest form.",
-        options: { A: "1/2", B: "3/4", C: "4/5", D: "2/3" },
+        question: "Express the fraction $\\frac{15}{20}$ in its simplest form.",
+        options: { A: "$\\frac{1}{2}$", B: "$\\frac{3}{4}$", C: "$\\frac{4}{5}$", D: "$\\frac{2}{3}$" },
         correct: "B",
         chapter: "Fractions",
         topic: "Simplest Form of Fractions",
         difficulty: "Easy",
         formula: "$$\\text{Simplest form} = \\frac{\\text{Numerator} \\div \\text{HCF}}{\\text{Denominator} \\div \\text{HCF}}$$",
-        explanation: "HCF of 15 and 20 is 5. Divide $15 \\div 5 = 3$ and $20 \\div 5 = 4$. Result = $3/4$.",
-        revision_tip: "Always divide both top and bottom by their greatest common factor."
+        explanation: "HCF of $15$ and $20$ is $5$. Divide $15 \\div 5 = 3$ and $20 \\div 5 = 4$. Result = $\\frac{3}{4}$.",
+        revision_tip: "Always divide both numerator and denominator by their greatest common factor."
       },
       {
-        question: "What integer represents a temperature drop of 8°C below 0°C?",
-        options: { A: "+8°C", B: "-8°C", C: "0°C", D: "-16°C" },
+        question: "What integer represents a temperature drop of $8^\\circ\\text{C}$ below $0^\\circ\\text{C}$?",
+        options: { A: "$+8^\\circ\\text{C}$", B: "$-8^\\circ\\text{C}$", C: "$0^\\circ\\text{C}$", D: "$-16^\\circ\\text{C}$" },
         correct: "B",
         chapter: "Integers",
         topic: "Representation of Integers",
         difficulty: "Easy",
         formula: "$$\\text{Below zero} \\implies -x$$",
-        explanation: "Temperature below 0°C is indicated by a negative sign. Hence $-8^\\circ\\text{C}$.",
+        explanation: "Temperature below $0^\\circ\\text{C}$ is indicated by a negative sign. Hence $-8^\\circ\\text{C}$.",
         revision_tip: "Remember: 'Below', 'loss', 'deposit' use negative signs; 'above', 'gain', 'profit' use positive signs."
       },
       {
-        question: "Evaluate: 4.5 + 2.75 - 1.2",
-        options: { A: "6.05", B: "6.25", C: "5.85", D: "6.15" },
+        question: "Evaluate: $4.5 + 2.75 - 1.2$",
+        options: { A: "$6.05$", B: "$6.25$", C: "$5.85$", D: "$6.15$" },
         correct: "A",
         chapter: "Decimals",
         topic: "Addition and Subtraction of Decimals",
         difficulty: "Medium",
-        formula: "Align decimal points vertically before operating",
+        formula: "$$\\text{Align decimal points vertically before operating}$$",
         explanation: "$4.50 + 2.75 = 7.25$. Then $7.25 - 1.20 = 6.05$.",
         revision_tip: "Add trailing zeros to make decimal places equal before adding or subtracting."
       }
@@ -128,57 +129,57 @@ const DAILY_QUIZ_DATABASE = {
     "7": [
       {
         question: "If $3x + 7 = 22$, what is the value of $x$?",
-        options: { A: "3", B: "5", C: "4", D: "6" },
+        options: { A: "$x = 3$", B: "$x = 5$", C: "$x = 4$", D: "$x = 6$" },
         correct: "B",
         chapter: "Simple Equations",
         topic: "Solving Linear Equations",
         difficulty: "Easy",
         formula: "$$3x = 22 - 7$$",
-        explanation: "$3x = 22 - 7 \\implies 3x = 15 \\implies x = 15 / 3 = 5$.",
+        explanation: "$3x = 22 - 7 \\implies 3x = 15 \\implies x = \\frac{15}{3} = 5$.",
         revision_tip: "When moving a term across the equal sign, flip its operation (+ to -, × to ÷)."
       },
       {
         question: "Find the mean of the first five prime numbers.",
-        options: { A: "5.2", B: "5.6", C: "6.0", D: "4.8" },
+        options: { A: "$5.2$", B: "$5.6$", C: "$6.0$", D: "$4.8$" },
         correct: "B",
         chapter: "Data Handling",
         topic: "Arithmetic Mean",
         difficulty: "Medium",
         formula: "$$\\text{Mean} = \\frac{\\sum x}{n}$$",
-        explanation: "First 5 prime numbers = $2, 3, 5, 7, 11$. Sum = $28$. Mean = $28 / 5 = 5.6$.",
+        explanation: "First $5$ prime numbers = $2, 3, 5, 7, 11$. Sum = $28$. Mean = $\\frac{28}{5} = 5.6$.",
         revision_tip: "Note that 1 is neither prime nor composite; the first prime number is 2."
       },
       {
-        question: "Two complementary angles are in the ratio 2 : 3. Find the smaller angle.",
-        options: { A: "36°", B: "54°", C: "45°", D: "30°" },
+        question: "Two complementary angles are in the ratio $2 : 3$. Find the smaller angle.",
+        options: { A: "$36^\\circ$", B: "$54^\\circ$", C: "$45^\\circ$", D: "$30^\\circ$" },
         correct: "A",
         chapter: "Lines and Angles",
         topic: "Complementary Angles",
         difficulty: "Medium",
         formula: "$$x + y = 90^\\circ$$",
         explanation: "$2x + 3x = 90^\\circ \\implies 5x = 90^\\circ \\implies x = 18^\\circ$. Smaller angle = $2 \\times 18^\\circ = 36^\\circ$.",
-        revision_tip: "Complementary angles sum to 90°; supplementary angles sum to 180°."
+        revision_tip: "Complementary angles sum to $90^\\circ$; supplementary angles sum to $180^\\circ$."
       },
       {
-        question: "A shirt was bought for ₹400 and sold for ₹500. Calculate the profit percentage.",
-        options: { A: "20%", B: "25%", C: "15%", D: "30%" },
+        question: "A shirt was bought for $\\text{₹}400$ and sold for $\\text{₹}500$. Calculate the profit percentage.",
+        options: { A: "$20\\%$", B: "$25\\%$", C: "$15\\%$", D: "$30\\%$" },
         correct: "B",
         chapter: "Comparing Quantities",
         topic: "Profit Percentage",
         difficulty: "Easy",
         formula: "$$\\text{Profit \\%} = \\frac{\\text{Profit}}{\\text{Cost Price}} \\times 100$$",
-        explanation: "Profit = $500 - 400 = ₹100$. Profit \\% = $(100 / 400) \\times 100 = 25\\%$.",
+        explanation: "Profit = $500 - 400 = \\text{₹}100$. Profit \\% = $\\frac{100}{400} \\times 100 = 25\\%$.",
         revision_tip: "Profit or loss percentage is always calculated on the Cost Price (CP)."
       },
       {
-        question: "What is the area of a circle with radius 7 cm? (Use $\\pi = 22/7$)",
-        options: { A: "154 cm²", B: "44 cm²", C: "144 cm²", D: "176 cm²" },
+        question: "What is the area of a circle with radius $7\\text{ cm}$? (Use $\\pi = \\frac{22}{7}$)",
+        options: { A: "$154\\text{ cm}^2$", B: "$44\\text{ cm}^2$", C: "$144\\text{ cm}^2$", D: "$176\\text{ cm}^2$" },
         correct: "A",
         chapter: "Perimeter and Area",
         topic: "Area of Circle",
         difficulty: "Easy",
         formula: "$$\\text{Area} = \\pi r^2$$",
-        explanation: "Area = $(22/7) \\times 7 \\times 7 = 22 \\times 7 = 154\\text{ cm}^2$.",
+        explanation: "Area = $\\frac{22}{7} \\times 7 \\times 7 = 22 \\times 7 = 154\\text{ cm}^2$.",
         revision_tip: "Do not confuse circumference ($2\\pi r$) with area ($\\pi r^2$)."
       }
     ],
@@ -186,29 +187,29 @@ const DAILY_QUIZ_DATABASE = {
     "8": [
       {
         question: "Solve for $y$: $$\\frac{y}{4} + \\frac{1}{2} = \\frac{5}{4}$$",
-        options: { A: "y = 2", B: "y = 3", C: "y = 4", D: "y = 1" },
+        options: { A: "$y = 2$", B: "$y = 3$", C: "$y = 4$", D: "$y = 1$" },
         correct: "B",
         chapter: "Linear Equations in One Variable",
         topic: "Equations Reducible to Linear Form",
         difficulty: "Medium",
         formula: "$$\\frac{y}{4} = \\frac{5}{4} - \\frac{1}{2}$$",
-        explanation: "$y/4 = 5/4 - 2/4 = 3/4 \\implies y = 3$.",
+        explanation: "$\\frac{y}{4} = \\frac{5}{4} - \\frac{2}{4} = \\frac{3}{4} \\implies y = 3$.",
         revision_tip: "Multiply the entire equation by the LCM of denominators to clear fractions."
       },
       {
-        question: "How many sides does a regular polygon have if each exterior angle measures 45°?",
-        options: { A: "6", B: "8", C: "10", D: "12" },
+        question: "How many sides does a regular polygon have if each exterior angle measures $45^\\circ$?",
+        options: { A: "$n = 6$", B: "$n = 8$", C: "$n = 10$", D: "$n = 12$" },
         correct: "B",
         chapter: "Understanding Quadrilaterals",
         topic: "Exterior Angles of Polygons",
         difficulty: "Easy",
         formula: "$$n = \\frac{360^\\circ}{\\text{Exterior Angle}}$$",
-        explanation: "$n = 360^\\circ / 45^\\circ = 8$ sides (Octagon).",
-        revision_tip: "The sum of exterior angles of any convex polygon is always 360°."
+        explanation: "$n = \\frac{360^\\circ}{45^\\circ} = 8$ sides (Octagon).",
+        revision_tip: "The sum of exterior angles of any convex polygon is always $360^\\circ$."
       },
       {
         question: "Evaluate: $$\\sqrt{176 + \\sqrt{2401}}$$",
-        options: { A: "14", B: "15", C: "16", D: "13" },
+        options: { A: "$14$", B: "$15$", C: "$16$", D: "$13$" },
         correct: "B",
         chapter: "Squares and Square Roots",
         topic: "Nested Square Roots",
@@ -219,7 +220,7 @@ const DAILY_QUIZ_DATABASE = {
       },
       {
         question: "Factorise completely: $x^2 - 9x + 20$",
-        options: { A: "(x - 4)(x - 5)", B: "(x + 4)(x - 5)", C: "(x - 2)(x - 10)", D: "(x + 2)(x + 10)" },
+        options: { A: "$(x - 4)(x - 5)$", B: "$(x + 4)(x - 5)$", C: "$(x - 2)(x - 10)$", D: "$(x + 2)(x + 10)$" },
         correct: "A",
         chapter: "Factorisation",
         topic: "Splitting the Middle Term",
@@ -230,7 +231,7 @@ const DAILY_QUIZ_DATABASE = {
       },
       {
         question: "Simplify using exponent laws: $$\\frac{2^3 \\times 3^4 \\times 4}{3 \\times 32}$$",
-        options: { A: "27", B: "9", C: "18", D: "36" },
+        options: { A: "$27$", B: "$9$", C: "$18$", D: "$36$" },
         correct: "A",
         chapter: "Exponents and Powers",
         topic: "Laws of Exponents",
@@ -244,18 +245,18 @@ const DAILY_QUIZ_DATABASE = {
     "9": [
       {
         question: "Which of the following is an irrational number?",
-        options: { A: "√4", B: "0.333...", C: "√7", D: "22/7" },
+        options: { A: "$\\sqrt{4}$", B: "$0.333\\dots$", C: "$\\sqrt{7}$", D: "$\\frac{22}{7}$" },
         correct: "C",
         chapter: "Number Systems",
         topic: "Irrational Numbers",
         difficulty: "Easy",
-        formula: "Irrational numbers have non-terminating, non-repeating decimal expansions",
-        explanation: "$\\sqrt{7}$ cannot be expressed as $p/q$ ($p, q$ integers, $q \\neq 0$). $\\sqrt{4} = 2$ is rational; $22/7$ is rational.",
+        formula: "$$\\text{Irrational numbers have non-terminating, non-repeating decimal expansions}$$",
+        explanation: "$\\sqrt{7}$ cannot be expressed as $\\frac{p}{q}$ ($p, q$ integers, $q \\neq 0$). $\\sqrt{4} = 2$ is rational; $\\frac{22}{7}$ is rational.",
         revision_tip: "Square roots of non-perfect squares are always irrational."
       },
       {
         question: "If $(x - 2)$ is a factor of $p(x) = x^3 - 3x + k$, find the value of $k$.",
-        options: { A: "-2", B: "2", C: "-4", D: "4" },
+        options: { A: "$k = -2$", B: "$k = 2$", C: "$k = -4$", D: "$k = 4$" },
         correct: "A",
         chapter: "Polynomials",
         topic: "Factor Theorem",
@@ -266,7 +267,7 @@ const DAILY_QUIZ_DATABASE = {
       },
       {
         question: "In $\\Delta ABC$, if $\\angle A = 50^\\circ$ and $\\angle B = 70^\\circ$, find the measure of exterior angle at vertex C.",
-        options: { A: "120°", B: "60°", C: "110°", D: "130°" },
+        options: { A: "$120^\\circ$", B: "$60^\\circ$", C: "$110^\\circ$", D: "$130^\\circ$" },
         correct: "A",
         chapter: "Triangles",
         topic: "Exterior Angle Property",
@@ -276,19 +277,19 @@ const DAILY_QUIZ_DATABASE = {
         revision_tip: "The exterior angle of a triangle is equal to the sum of its two interior opposite angles."
       },
       {
-        question: "Find the area of a triangle with sides 13 cm, 14 cm, and 15 cm using Heron's Formula.",
-        options: { A: "84 cm²", B: "96 cm²", C: "72 cm²", D: "90 cm²" },
+        question: "Find the area of a triangle with sides $13\\text{ cm}$, $14\\text{ cm}$, and $15\\text{ cm}$ using Heron's Formula.",
+        options: { A: "$84\\text{ cm}^2$", B: "$96\\text{ cm}^2$", C: "$72\\text{ cm}^2$", D: "$90\\text{ cm}^2$" },
         correct: "A",
         chapter: "Heron's Formula",
         topic: "Area of Triangle",
         difficulty: "Hard",
-        formula: "$$\\text{Area} = \\sqrt{s(s-a)(s-b)(s-c)}, \\text{ where } s = \\frac{a+b+c}{2}$$",
-        explanation: "$s = (13+14+15)/2 = 21$. Area = $\\sqrt{21 \\times 8 \\times 7 \\times 6} = \\sqrt{7056} = 84\\text{ cm}^2$.",
+        formula: "$$\\text{Area} = \\sqrt{s(s-a)(s-b)(s-c)}, \\quad s = \\frac{a+b+c}{2}$$",
+        explanation: "$s = \\frac{13+14+15}{2} = 21$. $\\text{Area} = \\sqrt{21 \\times 8 \\times 7 \\times 6} = \\sqrt{7056} = 84\\text{ cm}^2$.",
         revision_tip: "Always calculate semi-perimeter $s$ first before plugging into Heron's square root formula."
       },
       {
-        question: "A hemisphere has a radius of 6 cm. Find its total surface area.",
-        options: { A: "108π cm²", B: "72π cm²", C: "144π cm²", D: "216π cm²" },
+        question: "A hemisphere has a radius of $6\\text{ cm}$. Find its total surface area.",
+        options: { A: "$108\\pi\\text{ cm}^2$", B: "$72\\pi\\text{ cm}^2$", C: "$144\\pi\\text{ cm}^2$", D: "$216\\pi\\text{ cm}^2$" },
         correct: "A",
         chapter: "Surface Areas and Volumes",
         topic: "Hemisphere Surface Area",
@@ -302,18 +303,18 @@ const DAILY_QUIZ_DATABASE = {
     "10": [
       {
         question: "If $\\text{HCF}(306, 657) = 9$, find $\\text{LCM}(306, 657)$.",
-        options: { A: "22338", B: "22328", C: "21338", D: "23338" },
+        options: { A: "$22338$", B: "$22328$", C: "$21338$", D: "$23338$" },
         correct: "A",
         chapter: "Real Numbers",
         topic: "HCF and LCM Relation",
         difficulty: "Medium",
         formula: "$$\\text{HCF} \\times \\text{LCM} = a \\times b$$",
-        explanation: "LCM = $(306 \\times 657) / 9 = 34 \\times 657 = 22338$.",
+        explanation: "LCM = $\\frac{306 \\times 657}{9} = 34 \\times 657 = 22338$.",
         revision_tip: "Product of HCF and LCM of two numbers equals the product of the two numbers."
       },
       {
-        question: "Find the 20th term of the A.P. 2, 7, 12, 17...",
-        options: { A: "97", B: "102", C: "92", D: "107" },
+        question: "Find the $20^{\\text{th}}$ term of the A.P. $2, 7, 12, 17, \\dots$",
+        options: { A: "$a_{20} = 97$", B: "$a_{20} = 102$", C: "$a_{20} = 92$", D: "$a_{20} = 107$" },
         correct: "A",
         chapter: "Arithmetic Progressions",
         topic: "Nth Term of an AP",
@@ -323,19 +324,19 @@ const DAILY_QUIZ_DATABASE = {
         revision_tip: "For 20th term, multiply common difference $d$ by 19, not 20."
       },
       {
-        question: "If $\\tan \\theta = 4/3$, find the value of $\\sin \\theta + \\cos \\theta$.",
-        options: { A: "7/5", B: "1/5", C: "5/7", D: "6/5" },
+        question: "If $\\tan \\theta = \\frac{4}{3}$, find the value of $\\sin \\theta + \\cos \\theta$.",
+        options: { A: "$\\frac{7}{5}$", B: "$\\frac{1}{5}$", C: "$\\frac{5}{7}$", D: "$\\frac{6}{5}$" },
         correct: "A",
         chapter: "Introduction to Trigonometry",
         topic: "Trigonometric Ratios",
         difficulty: "Medium",
         formula: "$$\\tan\\theta = \\frac{\\text{opp}}{\\text{adj}} \\implies \\text{hyp} = \\sqrt{\\text{opp}^2 + \\text{adj}^2}$$",
-        explanation: "Opposite = 4, Adjacent = 3 $\\implies$ Hypotenuse = 5. $\\sin\\theta = 4/5$, $\\cos\\theta = 3/5$. Sum = $7/5$.",
+        explanation: "Opposite = 4, Adjacent = 3 $\\implies$ Hypotenuse = 5. $\\sin\\theta = \\frac{4}{5}$, $\\cos\\theta = \\frac{3}{5}$. Sum = $\\frac{7}{5}$.",
         revision_tip: "Identify hypotenuse first using Pythagoras theorem."
       },
       {
         question: "Find the discriminant of the quadratic equation $2x^2 - 4x + 3 = 0$ and determine the nature of roots.",
-        options: { A: "D = -8, No real roots", B: "D = 8, Two real roots", C: "D = 0, Equal roots", D: "D = -16, No real roots" },
+        options: { A: "$D = -8$, No real roots", B: "$D = 8$, Two real roots", C: "$D = 0$, Equal roots", D: "$D = -16$, No real roots" },
         correct: "A",
         chapter: "Quadratic Equations",
         topic: "Nature of Roots",
@@ -346,13 +347,13 @@ const DAILY_QUIZ_DATABASE = {
       },
       {
         question: "A card is drawn at random from a standard deck of 52 cards. What is the probability of getting a face card?",
-        options: { A: "3/13", B: "1/13", C: "4/13", D: "1/4" },
+        options: { A: "$\\frac{3}{13}$", B: "$\\frac{1}{13}$", C: "$\\frac{4}{13}$", D: "$\\frac{1}{4}$" },
         correct: "A",
         chapter: "Probability",
         topic: "Theoretical Probability",
         difficulty: "Medium",
         formula: "$$P(E) = \\frac{\\text{Favorable outcomes}}{\\text{Total outcomes}}$$",
-        explanation: "There are 12 face cards (4 Jacks, 4 Queens, 4 Kings). $P = 12/52 = 3/13$.",
+        explanation: "There are 12 face cards (4 Jacks, 4 Queens, 4 Kings). $P = \\frac{12}{52} = \\frac{3}{13}$.",
         revision_tip: "Aces are NOT counted as face cards."
       }
     ],
@@ -360,7 +361,7 @@ const DAILY_QUIZ_DATABASE = {
     "11": [
       {
         question: "Evaluate: $$\\lim_{x \\to 0} \\frac{\\sin(5x)}{x}$$",
-        options: { A: "5", B: "1", C: "0", D: "1/5" },
+        options: { A: "$5$", B: "$1$", C: "$0$", D: "$\\frac{1}{5}$" },
         correct: "A",
         chapter: "Limits and Derivatives",
         topic: "Standard Trigonometric Limits",
@@ -371,18 +372,18 @@ const DAILY_QUIZ_DATABASE = {
       },
       {
         question: "Find the general solution of the trigonometric equation $$\\sin x = \\frac{1}{2}$$",
-        options: { A: "n\\pi + (-1)^n \\frac{\\pi}{6}", B: "2n\\pi \\pm \\frac{\\pi}{6}", C: "n\\pi + \\frac{\\pi}{6}", D: "2n\\pi + \\frac{\\pi}{3}" },
+        options: { A: "$n\\pi + (-1)^n \\frac{\\pi}{6}$", B: "$2n\\pi \\pm \\frac{\\pi}{6}$", C: "$n\\pi + \\frac{\\pi}{6}$", D: "$2n\\pi + \\frac{\\pi}{3}$" },
         correct: "A",
         chapter: "Trigonometric Functions",
         topic: "General Trigonometric Solutions",
         difficulty: "Medium",
         formula: "$$\\sin x = \\sin \\alpha \\implies x = n\\pi + (-1)^n \\alpha$$",
-        explanation: "$\\sin x = \\sin(\\pi/6) \\implies x = n\\pi + (-1)^n (\\pi/6)$, where $n \\in \\mathbb{Z}$.",
+        explanation: "$\\sin x = \\sin\\left(\\frac{\\pi}{6}\\right) \\implies x = n\\pi + (-1)^n \\left(\\frac{\\pi}{6}\\right)$, where $n \\in \\mathbb{Z}$.",
         revision_tip: "Remember the $(-1)^n$ term for sine general solutions."
       },
       {
         question: "If $^nP_3 = 60$, find the value of $n$.",
-        options: { A: "5", B: "6", C: "4", D: "7" },
+        options: { A: "$n = 5$", B: "$n = 6$", C: "$n = 4$", D: "$n = 7$" },
         correct: "A",
         chapter: "Permutations and Combinations",
         topic: "Permutation Formula",
@@ -393,18 +394,18 @@ const DAILY_QUIZ_DATABASE = {
       },
       {
         question: "Find the distance between the parallel lines $3x + 4y - 9 = 0$ and $3x + 4y + 16 = 0$.",
-        options: { A: "5 units", B: "7 units", C: "3 units", D: "4 units" },
+        options: { A: "$5\\text{ units}$", B: "$7\\text{ units}$", C: "$3\\text{ units}$", D: "$4\\text{ units}$" },
         correct: "A",
         chapter: "Straight Lines",
         topic: "Distance Between Parallel Lines",
         difficulty: "Hard",
         formula: "$$d = \\frac{|c_1 - c_2|}{\\sqrt{A^2 + B^2}}$$",
-        explanation: "$d = |-9 - 16| / \\sqrt{3^2 + 4^2} = |-25| / 5 = 25 / 5 = 5$ units.",
+        explanation: "$d = \\frac{|-9 - 16|}{\\sqrt{3^2 + 4^2}} = \\frac{|-25|}{5} = \\frac{25}{5} = 5\\text{ units}$.",
         revision_tip: "Ensure $x$ and $y$ coefficients $A$ and $B$ are identical in both equations before applying formula."
       },
       {
-        question: "If A and B are two sets such that $n(A) = 17$, $n(B) = 23$, and $n(A \\cup B) = 38$, find $n(A \\cap B)$.",
-        options: { A: "2", B: "4", C: "6", D: "8" },
+        question: "If $A$ and $B$ are two sets such that $n(A) = 17$, $n(B) = 23$, and $n(A \\cup B) = 38$, find $n(A \\cap B)$.",
+        options: { A: "$2$", B: "$4$", C: "$6$", D: "$8$" },
         correct: "A",
         chapter: "Sets",
         topic: "Cardinality of Sets",
@@ -418,56 +419,56 @@ const DAILY_QUIZ_DATABASE = {
     "12": [
       {
         question: "Evaluate: $$\\int \\frac{1}{x \\ln(x)} \, dx$$",
-        options: { A: "\\ln|\\ln(x)| + C", B: "\\frac{1}{\\ln(x)} + C", C: "(\\ln x)² + C", D: "\\frac{\\ln(x)}{x} + C" },
+        options: { A: "$\\ln|\\ln(x)| + C$", B: "$\\frac{1}{\\ln(x)} + C$", C: "$(\\ln x)^2 + C$", D: "$\\frac{\\ln(x)}{x} + C$" },
         correct: "A",
         chapter: "Integrals",
         topic: "Integration by Substitution",
         difficulty: "Medium",
         formula: "$$\\int \\frac{g'(x)}{g(x)} \, dx = \\ln|g(x)| + C$$",
-        explanation: "Let $u = \\ln(x)$, then $du = (1/x) dx$. Integral becomes $\\int \\frac{1}{u} du = \\ln|u| + C = \\ln|\\ln(x)| + C$.",
+        explanation: "Let $u = \\ln(x)$, then $du = \\frac{1}{x} dx$. Integral becomes $\\int \\frac{1}{u} du = \\ln|u| + C = \\ln|\\ln(x)| + C$.",
         revision_tip: "Look for a function and its derivative present in the integrand."
       },
       {
-        question: "If A is a $3 \\times 3$ square matrix such that $|A| = 5$, find the value of |adj(A)|.",
-        options: { A: "25", B: "125", C: "5", D: "1/5" },
+        question: "If $A$ is a $3 \\times 3$ square matrix such that $|A| = 5$, find the value of $|\\text{adj}(A)|$.",
+        options: { A: "$25$", B: "$125$", C: "$5$", D: "$\\frac{1}{5}$" },
         correct: "A",
         chapter: "Determinants",
         topic: "Adjoint Matrix Properties",
         difficulty: "Medium",
         formula: "$$|\\text{adj}(A)| = |A|^{n-1}$$",
         explanation: "For $n = 3$: $|\\text{adj}(A)| = 5^{3-1} = 5^2 = 25$.",
-        revision_tip: "Power of determinant in adj(A) is $(n - 1)$, where $n$ is the order of square matrix."
+        revision_tip: "Power of determinant in $\\text{adj}(A)$ is $(n - 1)$, where $n$ is the order of square matrix."
       },
       {
         question: "Find the order and degree of the differential equation: $$\\frac{d^2y}{dx^2} + \\left(\\frac{dy}{dx}\\right)^3 + y = 0$$",
-        options: { A: "Order = 2, Degree = 1", B: "Order = 2, Degree = 3", C: "Order = 1, Degree = 3", D: "Order = 3, Degree = 2" },
+        options: { A: "$\\text{Order} = 2, \\text{Degree} = 1$", B: "$\\text{Order} = 2, \\text{Degree} = 3$", C: "$\\text{Order} = 1, \\text{Degree} = 3$", D: "$\\text{Order} = 3, \\text{Degree} = 2$" },
         correct: "A",
         chapter: "Differential Equations",
         topic: "Order and Degree",
         difficulty: "Easy",
-        formula: "Order = highest order derivative; Degree = power of highest order derivative",
+        formula: "$$\\text{Order} = \\text{highest order derivative}; \\quad \\text{Degree} = \\text{power of highest order derivative}$$",
         explanation: "Highest derivative is $\\frac{d^2y}{dx^2}$ (Order = 2). Its power is 1 (Degree = 1).",
         revision_tip: "Degree is determined ONLY after differential equation is free from fractional powers of derivatives."
       },
       {
         question: "Find the angle between two vectors $\\vec{a}$ and $\\vec{b}$ if $|\\vec{a}| = 2$, $|\\vec{b}| = 3$, and $\\vec{a} \\cdot \\vec{b} = 3$.",
-        options: { A: "\\pi/3", B: "\\pi/6", C: "\\pi/4", D: "\\pi/2" },
+        options: { A: "$\\frac{\\pi}{3}$", B: "$\\frac{\\pi}{6}$", C: "$\\frac{\\pi}{4}$", D: "$\\frac{\\pi}{2}$" },
         correct: "A",
         chapter: "Vector Algebra",
         topic: "Dot Product of Vectors",
         difficulty: "Easy",
         formula: "$$\\cos\\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}| |\\vec{b}|}$$",
-        explanation: "$\\cos\\theta = 3 / (2 \\times 3) = 3/6 = 1/2 \\implies \\theta = \\pi/3$ ($60^\\circ$).",
-        revision_tip: "If dot product is zero, vectors are perpendicular ($\\theta = \\pi/2$)."
+        explanation: "$\\cos\\theta = \\frac{3}{2 \\times 3} = \\frac{3}{6} = \\frac{1}{2} \\implies \\theta = \\frac{\\pi}{3}$ ($60^\\circ$).",
+        revision_tip: "If dot product is zero, vectors are perpendicular ($\\theta = \\frac{\\pi}{2}$)."
       },
       {
-        question: "Two events A and B are independent such that $P(A) = 0.4$ and $P(B) = 0.5$. Find $P(A \\cup B)$.",
-        options: { A: "0.7", B: "0.9", C: "0.2", D: "0.8" },
+        question: "Two events $A$ and $B$ are independent such that $P(A) = 0.4$ and $P(B) = 0.5$. Find $P(A \\cup B)$.",
+        options: { A: "$0.7$", B: "$0.9$", C: "$0.2$", D: "$0.8$" },
         correct: "A",
         chapter: "Probability",
         topic: "Independent Events",
         difficulty: "Medium",
-        formula: "$$P(A \\cap B) = P(A) \\cdot P(B) \\text{ and } P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$",
+        formula: "$$P(A \\cap B) = P(A) \\cdot P(B) \\quad \\text{and} \\quad P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$$",
         explanation: "$P(A \\cap B) = 0.4 \\times 0.5 = 0.2$. $P(A \\cup B) = 0.4 + 0.5 - 0.2 = 0.7$.",
         revision_tip: "Independent events mean $P(A \\cap B) = P(A) \\times P(B)$."
       }
