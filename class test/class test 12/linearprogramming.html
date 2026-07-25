@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Test: Linear Programming - Class 12 Mathematics</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background: #f4f6f9; color: #333; padding: 20px; }
+        .no-print { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn { padding: 10px 18px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .btn-print { background: #4f46e5; color: white; }
+        .btn-share { background: #0891b2; color: white; }
+        .btn-download { background: #059669; color: white; }
+        .btn-back { background: #4b5563; color: white; }
+        .test-paper { max-width: 850px; margin: 0 auto; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; }
+        .school-header { text-align: center; border-bottom: 2px solid #1e3a8a; padding-bottom: 15px; margin-bottom: 20px; }
+        .school-header h1 { font-size: 1.6rem; color: #1e3a8a; font-weight: 700; }
+        .school-header h2 { font-size: 1.1rem; color: #3b82f6; margin-top: 4px; }
+        .test-meta { display: flex; justify-content: space-between; background: #f1f5f9; padding: 12px 18px; border-radius: 8px; font-weight: 600; color: #1e293b; margin-bottom: 25px; font-size: 0.95rem; flex-wrap: wrap; gap: 10px; }
+        .instructions { background: #fffbe6; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 4px; margin-bottom: 25px; font-size: 0.9rem; }
+        .question { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #e2e8f0; }
+        .question p { line-height: 1.6; font-size: 1rem; }
+        .marks { float: right; font-weight: 700; color: #475569; }
+        .footer { text-align: center; margin-top: 30px; font-size: 0.85rem; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 15px; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; padding: 0; }
+            .test-paper { box-shadow: none; border: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button onclick="window.print()" class="btn btn-print">🖨️ Print Test</button>
+        <button onclick="shareTest()" class="btn btn-share">🔗 Share Test</button>
+        <a href="linearprogramming.html" download="Class12_Maths_Chapter12_Test.html" class="btn btn-download">📥 Download Test</a>
+        <a href="../../examination.html" class="btn btn-back">⬅️ Back to Portal</a>
+    </div>
+
+    <div class="test-paper">
+        <div class="school-header">
+            <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+            <h2>CLASS TEST - MATHEMATICS | CHAPTER 12: LINEAR PROGRAMMING</h2>
+        </div>
+        <div class="test-meta">
+            <span>Class: Class 12</span>
+            <span>Duration: 40 Minutes</span>
+            <span>Max Marks: 20</span>
+            <span>Teacher: K B JOSHI (PGT MATHS)</span>
+        </div>
+        <div class="instructions">
+            <strong>General Instructions:</strong>
+            <ul>
+                <li>All questions are compulsory. Write step-by-step solutions for full marks.</li>
+            </ul>
+        </div>
+
+        
+        <div class="question">
+            <span class="marks">[1 Mark]</span>
+            <p>1. What is feasible region in Linear Programming Problem?</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[1 Mark]</span>
+            <p>2. State Corner Point Theorem.</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[2 Marks]</span>
+            <p>3. Maximize \( Z = 3x + 4y \) subject to constraints \( x + y \le 4, x \ge 0, y \ge 0 \).</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[2 Marks]</span>
+            <p>4. Find corner points of feasible region bounded by \( 2x + y \le 10, x + 3y \le 15, x \ge 0, y \ge 0 \).</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[2 Marks]</span>
+            <p>5. Minimize \( Z = -3x + 4y \) subject to \( x + 2y \le 8, 3x + 2y \le 12, x \ge 0, y \ge 0 \).</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[4 Marks]</span>
+            <p>6. Solve graphically: Maximize \( Z = 5x + 3y \) subject to \( 3x + 5y \le 15, 5x + 2y \le 10, x \ge 0, y \ge 0 \).</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[4 Marks]</span>
+            <p>7. Solve LPP: Minimize and Maximize \( Z = x + 2y \) subject to \( x + 2y \ge 100, 2x - y \le 0, 2x + y \le 200, x, y \ge 0 \).</p>
+        </div>
+
+        <div class="question">
+            <span class="marks">[4 Marks]</span>
+            <p>8. A manufacturer produces two types of toys A and B. Toy A requires 5 minutes for cutting and 10 minutes for assembling. Toy B requires 8 minutes for cutting and 8 minutes for assembling. Total time available is 3 hours for cutting and 4 hours for assembling. Profit on Toy A is ₹50 and Toy B is ₹60. Formulate and solve LPP.</p>
+        </div>
+
+        <div class="footer">
+            <p>*** End of Test Paper - Prepared by K B JOSHI, PM SHRI KV RANIKHET ***</p>
+        </div>
+    </div>
+
+    <script>
+        function shareTest() {
+            if (navigator.share) {
+                navigator.share({ title: 'Class 12 Linear Programming Test Paper', url: window.location.href });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Test paper link copied to clipboard!');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -246,6 +246,223 @@
       text-decoration: underline;
       color: #c4b5fd;
     }
+
+    /* Restructured Class Test Portal Styles */
+    .class-selector-wrapper {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .class-pill-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-secondary);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .class-pill-btn:hover {
+      background: rgba(139, 92, 246, 0.15);
+      color: #c4b5fd;
+      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    .class-pill-btn.active {
+      background: linear-gradient(135deg, #6c3fc5, #0ea5e9);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 16px rgba(108, 63, 197, 0.4);
+    }
+
+    .test-control-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--glass-shadow);
+    }
+    .test-control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .selector-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 280px;
+    }
+    .selector-group label {
+      color: #c4b5fd;
+      font-weight: 700;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+    .chapter-dropdown {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .chapter-dropdown:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
+    }
+
+    .search-group {
+      position: relative;
+      min-width: 240px;
+    }
+    .search-group input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 10px 16px 10px 38px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .search-group .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .active-chapter-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .chapter-meta-info h3 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      font-family: var(--font-head);
+    }
+    .meta-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+    }
+    .meta-tag {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px 12px;
+      border-radius: 50px;
+      color: #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .action-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      padding: 9px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .cta-view { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; }
+    .cta-print { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; }
+    .cta-share { background: linear-gradient(135deg, #14b8a6, #0d9488); color: #fff; }
+    .cta-download { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+
+    /* Test Viewer Frame */
+    .test-viewer-wrapper {
+      background: #0f172a;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+    }
+    .viewer-bar {
+      background: #1e293b;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .viewer-title {
+      color: #a78bfa;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .viewer-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .v-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .v-btn-print { background: #3b82f6; }
+    .v-btn-share { background: #06b6d4; }
+    .v-btn-dl { background: #10b981; }
+    .v-btn-ext { background: #8b5cf6; }
+    .v-btn-close { background: #ef4444; }
+    .v-btn:hover { opacity: 0.9; transform: scale(1.03); }
+    .test-iframe {
+      width: 100%;
+      height: 680px;
+      border: none;
+      background: white;
+    }
   </style>
 </head>
 <body>
@@ -319,419 +536,76 @@
         
         <!-- Chapterwise Test Tab -->
         <div class="tab-content active" id="chapterwise-test">
-          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff;"><i class="fas fa-book-open" style="color:#a78bfa; margin-right:8px;"></i> Chapterwise Test Schedule</h2>
-          <p style="color:var(--text-secondary); margin-bottom:20px; font-size:0.92em;">Each chapter test: 20 marks | 40 minutes duration</p>
-          
-          <!-- Class 7-C Section -->
-          <div class="chapter-header">
-            <i class="fas fa-users"></i> Class 7-C - Mathematics
+          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff;"><i class="fas fa-book-open" style="color:#a78bfa; margin-right:8px;"></i> Interactive Class Test Portal</h2>
+          <p style="color:var(--text-secondary); margin-bottom:15px; font-size:0.92em;">Select Class and Chapter to view, print, share, or download official CBSE chapterwise test papers (20 Marks | 40 Minutes).</p>
+
+          <!-- Class Wise Selector Tabs -->
+          <div class="class-selector-wrapper">
+            <button class="class-pill-btn active" data-class="class12" onclick="selectClass('class12')">
+              <i class="fas fa-graduation-cap"></i> Class 12 Mathematics
+            </button>
+            <button class="class-pill-btn" data-class="class11" onclick="selectClass('class11')">
+              <i class="fas fa-user-graduate"></i> Class 11 Mathematics
+            </button>
+            <button class="class-pill-btn" data-class="class7" onclick="selectClass('class7')">
+              <i class="fas fa-child"></i> Class 7 Mathematics
+            </button>
+          </div>
+
+          <!-- Interactive Test Control Card & Chapter Selector -->
+          <div class="test-control-card">
+            <div class="test-control-header">
+              <div class="selector-group">
+                <label for="chapterSelect"><i class="fas fa-list"></i> Select Chapter:</label>
+                <select id="chapterSelect" class="chapter-dropdown" onchange="onChapterSelect(this.value)">
+                  <!-- Options populated dynamically -->
+                </select>
+              </div>
+              <div class="search-group">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="chapterSearch" placeholder="Search chapter..." oninput="filterChapterTable(this.value)">
+              </div>
+            </div>
+
+            <!-- Active Selected Chapter Banner -->
+            <div id="activeChapterCard" class="active-chapter-banner">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Live Embedded Test Paper Viewer Frame -->
+          <div id="testViewerContainer" class="test-viewer-wrapper" style="display:none;">
+            <div class="viewer-bar">
+              <span id="viewerTitle" class="viewer-title"><i class="fas fa-file-alt"></i> Live Test Preview</span>
+              <div class="viewer-actions">
+                <button onclick="printCurrentViewerTest()" class="v-btn v-btn-print"><i class="fas fa-print"></i> Print</button>
+                <button onclick="shareCurrentViewerTest()" class="v-btn v-btn-share"><i class="fas fa-share-alt"></i> Share</button>
+                <button onclick="downloadCurrentViewerTest()" class="v-btn v-btn-dl"><i class="fas fa-download"></i> Download</button>
+                <button onclick="openViewerInNewTab()" class="v-btn v-btn-ext"><i class="fas fa-external-link-alt"></i> Full Screen</button>
+                <button onclick="closeTestViewer()" class="v-btn v-btn-close"><i class="fas fa-times"></i> Close</button>
+              </div>
+            </div>
+            <iframe id="testIframe" src="" class="test-iframe"></iframe>
+          </div>
+
+          <!-- Class Chapter Table Grid -->
+          <div class="chapter-header" id="classTableHeaderTitle">
+            <i class="fas fa-table"></i> Chapterwise Test Repository
           </div>
           <div class="table-wrapper mb-24">
-            <table>
+            <table class="exam-table">
               <thead>
                 <tr>
                   <th>Chapter</th>
                   <th>Title</th>
                   <th>Duration</th>
                   <th>Marks</th>
-                  <th>Question Paper</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Chapter 1</td>
-                  <td>Integers</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 2</td>
-                  <td>Fractions &amp; Decimals</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 3</td>
-                  <td>Data Handling</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 4</td>
-                  <td>Simple Equations</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 5</td>
-                  <td>Lines &amp; Angles</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 6</td>
-                  <td>Triangles</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 7</td>
-                  <td>Congruence</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 8</td>
-                  <td>Comparing Quantities</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 9</td>
-                  <td>Rational Numbers</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 10</td>
-                  <td>Practical Geometry</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 11</td>
-                  <td>Perimeter &amp; Area</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 12</td>
-                  <td>Algebraic Expressions</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 13</td>
-                  <td>Exponents &amp; Powers</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-                <tr>
-                  <td>Chapter 14</td>
-                  <td>Symmetry</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                  <td><button class="action-btn"><i class="fas fa-edit"></i> Edit</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-          <!-- Class 11 Section -->
-          <div class="chapter-header">
-            <i class="fas fa-users"></i> Class 11 - Mathematics
-          </div>
-          <div class="table-wrapper mb-24">
-            <table>
-              <thead>
-                <tr>
-                  <th>Chapter</th>
-                  <th>Title</th>
-                  <th>Duration</th>
-                  <th>Marks</th>
-                  <th>Question Paper</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Chapter 1</td>
-                  <td>Sets</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 11/sets.html" class="class test 11-Sets">Sets</a></td>
-                  <td><span class="status-badge status-completed">Completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 2</td>
-                  <td>Relations &amp; Functions</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 11/relationfunction.html" class="Relations and functions">Relations and functions</a></td>
-                  <td><span class="status-badge status-completed">completed 20 june</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 3</td>
-                  <td>Trigonometric Functions</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 11/trigonometricfunctions.html" class="Trigonometric Functions">Trigonometric Functions</a></td>
-                  <td><span class="status-badge status-scheduled">scheduled 01 July 2025</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 4</td>
-                  <td>Complex Numbers</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 11/complexnumbers.html" class="Complex Numbers">Complex Numbers</a></td>
-                  <td><span class="status-badge status-scheduled">Scheduled</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 5</td>
-                  <td>Linear Inequalities</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 11/linearinequalities.html" class="Linear Inequalities">Linear Inequalities</a></td>
-                  <td><span class="status-badge status-completed">Completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 6</td>
-                  <td>Permutations</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 7</td>
-                  <td>Binomial Theorem</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 8</td>
-                  <td>Sequences &amp; Series</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 9</td>
-                  <td>Straight Lines</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 10</td>
-                  <td>Conic Sections</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 11</td>
-                  <td>Introduction to 3D</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 12</td>
-                  <td>Limits &amp; Derivatives</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 13</td>
-                  <td>Mathematical Reasoning</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 14</td>
-                  <td>Statistics</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-          <!-- Class 12 Section -->
-          <div class="chapter-header">
-            <i class="fas fa-users"></i> Class 12 - Mathematics
-          </div>
-          <div class="table-wrapper mb-24">
-            <table>
-              <thead>
-                <tr>
-                  <th>Chapter</th>
-                  <th>Title</th>
-                  <th>Duration</th>
-                  <th>Marks</th>
-                  <th>Question Paper</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Chapter 1</td>
-                  <td>Relations &amp; Functions</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 12/relationfunction.html" class="Relations and Functions">Relations and Functions</a></td>
-                  <td><span class="status-badge status-completed">completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 2</td>
-                  <td>Inverse Functions</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 12/inversetfunction.html" class="Inverse Trig Functions">Inverse Trig Functions</a></td>
-                  <td><span class="status-badge status-completed">completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 3</td>
-                  <td>Matrices</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 12/matrices.html" class="Matrices">Matrices</a></td>
-                  <td><span class="status-badge status-completed">completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 4</td>
-                  <td>Determinants</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 12/determinants.html" class="determinants">Determinants</a></td>
-                  <td><span class="status-badge status-completed">completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 5</td>
-                  <td>Continuity</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 12/continuity.html" class="Continuity">Continuity</a></td>
-                  <td><span class="status-badge status-completed">completed</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 6</td>
-                  <td>Differentiation</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="class test 12/applicationsofderivatives.html" class="Applications of Derivatives">Applications of Derivatives</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 7</td>
-                  <td>Application of Derivatives</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 8</td>
-                  <td>Integrals</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 9</td>
-                  <td>Differential Equations</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 10</td>
-                  <td>Vector Algebra</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 11</td>
-                  <td>3D Geometry</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 12</td>
-                  <td>Linear Programming</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 13</td>
-                  <td>Probability</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Chapter 14</td>
-                  <td>Bayes Theorem</td>
-                  <td>40 min</td>
-                  <td>20</td>
-                  <td><a href="#" class="add-content">Add Content</a></td>
-                  <td><span class="status-badge status-pending">Pending</span></td>
-                </tr>
+              <tbody id="chapterTableBody">
+                <!-- Dynamically populated -->
               </tbody>
             </table>
           </div>
@@ -1038,6 +912,276 @@
         }
       });
       passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+    });
+
+    // Class Test Data Model & Controller
+    const classTestData = {
+      "class7": {
+        name: "Class 7 - Mathematics",
+        folder: "class test/class test 7",
+        chapters: [
+          { id: "integers", num: 1, title: "Integers", duration: "40 min", marks: 20, file: "integers.html", status: "Available" },
+          { id: "fractionsdecimals", num: 2, title: "Fractions & Decimals", duration: "40 min", marks: 20, file: "fractionsdecimals.html", status: "Available" },
+          { id: "datahandling", num: 3, title: "Data Handling", duration: "40 min", marks: 20, file: "datahandling.html", status: "Available" },
+          { id: "simpleequations", num: 4, title: "Simple Equations", duration: "40 min", marks: 20, file: "simpleequations.html", status: "Available" },
+          { id: "linesangles", num: 5, title: "Lines & Angles", duration: "40 min", marks: 20, file: "linesangles.html", status: "Available" },
+          { id: "triangles", num: 6, title: "The Triangle & Its Properties", duration: "40 min", marks: 20, file: "triangles.html", status: "Available" },
+          { id: "congruence", num: 7, title: "Congruence of Triangles", duration: "40 min", marks: 20, file: "congruence.html", status: "Available" },
+          { id: "comparingquantities", num: 8, title: "Comparing Quantities", duration: "40 min", marks: 20, file: "comparingquantities.html", status: "Available" },
+          { id: "rationalnumbers", num: 9, title: "Rational Numbers", duration: "40 min", marks: 20, file: "rationalnumbers.html", status: "Available" },
+          { id: "perimeterarea", num: 10, title: "Perimeter & Area", duration: "40 min", marks: 20, file: "perimeterarea.html", status: "Available" },
+          { id: "algebraicexpressions", num: 11, title: "Algebraic Expressions", duration: "40 min", marks: 20, file: "algebraicexpressions.html", status: "Available" },
+          { id: "exponentspowers", num: 12, title: "Exponents & Powers", duration: "40 min", marks: 20, file: "exponentspowers.html", status: "Available" },
+          { id: "symmetry", num: 13, title: "Symmetry", duration: "40 min", marks: 20, file: "symmetry.html", status: "Available" },
+          { id: "solidshapes", num: 14, title: "Visualising Solid Shapes", duration: "40 min", marks: 20, file: "solidshapes.html", status: "Available" }
+        ]
+      },
+      "class11": {
+        name: "Class 11 - Mathematics",
+        folder: "class test/class test 11",
+        chapters: [
+          { id: "sets", num: 1, title: "Sets", duration: "40 min", marks: 20, file: "sets.html", status: "Completed" },
+          { id: "relationfunction", num: 2, title: "Relations & Functions", duration: "40 min", marks: 20, file: "relationfunction.html", status: "Completed" },
+          { id: "trigonometricfunctions", num: 3, title: "Trigonometric Functions", duration: "40 min", marks: 20, file: "trigonometricfunctions.html", status: "Completed" },
+          { id: "complexnumbers", num: 4, title: "Complex Numbers & Quadratic Equations", duration: "40 min", marks: 20, file: "complexnumbers.html", status: "Completed" },
+          { id: "linearinequalities", num: 5, title: "Linear Inequalities", duration: "40 min", marks: 20, file: "linearinequalities.html", status: "Completed" },
+          { id: "permutations", num: 6, title: "Permutations & Combinations", duration: "40 min", marks: 20, file: "permutations.html", status: "Available" },
+          { id: "binomial", num: 7, title: "Binomial Theorem", duration: "40 min", marks: 20, file: "binomial.html", status: "Available" },
+          { id: "sequences", num: 8, title: "Sequences & Series", duration: "40 min", marks: 20, file: "sequences.html", status: "Available" },
+          { id: "straightlines", num: 9, title: "Straight Lines", duration: "40 min", marks: 20, file: "straightlines.html", status: "Available" },
+          { id: "conicsections", num: 10, title: "Conic Sections", duration: "40 min", marks: 20, file: "conicsections.html", status: "Available" },
+          { id: "3dgeometry", num: 11, title: "Introduction to Three Dimensional Geometry", duration: "40 min", marks: 20, file: "3dgeometry.html", status: "Available" },
+          { id: "limitsderivatives", num: 12, title: "Limits & Derivatives", duration: "40 min", marks: 20, file: "limitsderivatives.html", status: "Available" },
+          { id: "statistics", num: 13, title: "Statistics", duration: "40 min", marks: 20, file: "statistics.html", status: "Available" },
+          { id: "probability", num: 14, title: "Probability", duration: "40 min", marks: 20, file: "probability.html", status: "Available" }
+        ]
+      },
+      "class12": {
+        name: "Class 12 - Mathematics",
+        folder: "class test/class test 12",
+        chapters: [
+          { id: "relationfunction", num: 1, title: "Relations & Functions", duration: "40 min", marks: 20, file: "relationfunction.html", status: "Completed" },
+          { id: "inversetfunction", num: 2, title: "Inverse Trigonometric Functions", duration: "40 min", marks: 20, file: "inversetfunction.html", status: "Completed" },
+          { id: "matrices", num: 3, title: "Matrices", duration: "40 min", marks: 20, file: "matrices.html", status: "Completed" },
+          { id: "determinants", num: 4, title: "Determinants", duration: "40 min", marks: 20, file: "determinants.html", status: "Completed" },
+          { id: "continuity", num: 5, title: "Continuity & Differentiability", duration: "40 min", marks: 20, file: "continuity.html", status: "Completed" },
+          { id: "applicationsofderivatives", num: 6, title: "Applications of Derivatives", duration: "40 min", marks: 20, file: "applicationsofderivatives.html", status: "Completed" },
+          { id: "integrals", num: 7, title: "Integrals", duration: "40 min", marks: 20, file: "integrals.html", status: "Available" },
+          { id: "applicationsofintegrals", num: 8, title: "Applications of Integrals", duration: "40 min", marks: 20, file: "applicationsofintegrals.html", status: "Available" },
+          { id: "differentialequations", num: 9, title: "Differential Equations", duration: "40 min", marks: 20, file: "differentialequations.html", status: "Available" },
+          { id: "vectors", num: 10, title: "Vector Algebra", duration: "40 min", marks: 20, file: "vectors.html", status: "Available" },
+          { id: "3dgeometry", num: 11, title: "Three Dimensional Geometry", duration: "40 min", marks: 20, file: "3dgeometry.html", status: "Available" },
+          { id: "linearprogramming", num: 12, title: "Linear Programming", duration: "40 min", marks: 20, file: "linearprogramming.html", status: "Available" },
+          { id: "probability", num: 13, title: "Probability", duration: "40 min", marks: 20, file: "probability.html", status: "Available" }
+        ]
+      }
+    };
+
+    let currentClassKey = 'class12';
+    let currentChapterId = 'matrices';
+
+    function selectClass(classKey) {
+      currentClassKey = classKey;
+      document.querySelectorAll('.class-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-class') === classKey);
+      });
+      
+      const titleEl = document.getElementById('classTableHeaderTitle');
+      if (titleEl) {
+        titleEl.innerHTML = `<i class="fas fa-table"></i> ${classTestData[classKey].name} - Chapterwise Test Repository`;
+      }
+
+      populateChapterSelect();
+      renderChapterTable();
+    }
+
+    function populateChapterSelect() {
+      const select = document.getElementById('chapterSelect');
+      if (!select) return;
+      const clsData = classTestData[currentClassKey];
+      select.innerHTML = '';
+      
+      clsData.chapters.forEach(ch => {
+        const opt = document.createElement('option');
+        opt.value = ch.id;
+        opt.textContent = `Chapter ${ch.num}: ${ch.title}`;
+        select.appendChild(opt);
+      });
+      
+      if (clsData.chapters.length > 0) {
+        select.value = clsData.chapters[0].id;
+        onChapterSelect(clsData.chapters[0].id);
+      }
+    }
+
+    function onChapterSelect(chId) {
+      currentChapterId = chId;
+      const clsData = classTestData[currentClassKey];
+      const ch = clsData.chapters.find(c => c.id === chId);
+      if (!ch) return;
+      
+      const testUrl = `${clsData.folder}/${ch.file}`;
+      
+      const banner = document.getElementById('activeChapterCard');
+      if (!banner) return;
+      banner.innerHTML = `
+        <div class="chapter-meta-info">
+          <h3>Chapter ${ch.num}: ${ch.title}</h3>
+          <div class="meta-tags">
+            <span class="meta-tag"><i class="fas fa-users"></i> ${clsData.name}</span>
+            <span class="meta-tag"><i class="fas fa-clock"></i> ${ch.duration}</span>
+            <span class="meta-tag"><i class="fas fa-star"></i> ${ch.marks} Marks</span>
+            <span class="meta-tag"><i class="fas fa-check-circle"></i> ${ch.status}</span>
+          </div>
+        </div>
+        <div class="action-toolbar">
+          <button onclick="viewTest('${testUrl}', '${ch.title}')" class="cta-btn cta-view"><i class="fas fa-eye"></i> View Test</button>
+          <button onclick="printTest('${testUrl}')" class="cta-btn cta-print"><i class="fas fa-print"></i> Print</button>
+          <button onclick="shareTest('${testUrl}', '${ch.title}')" class="cta-btn cta-share"><i class="fas fa-share-alt"></i> Share</button>
+          <a href="${testUrl}" download="${ch.file}" class="cta-btn cta-download"><i class="fas fa-download"></i> Download</a>
+        </div>
+      `;
+    }
+
+    function renderChapterTable(searchQuery = '') {
+      const tbody = document.getElementById('chapterTableBody');
+      if (!tbody) return;
+      const clsData = classTestData[currentClassKey];
+      tbody.innerHTML = '';
+      
+      const filtered = clsData.chapters.filter(ch => 
+        ch.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        ch.num.toString().includes(searchQuery)
+      );
+      
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px; color:var(--text-secondary);">No chapters found matching search.</td></tr>';
+        return;
+      }
+      
+      filtered.forEach(ch => {
+        const testUrl = `${clsData.folder}/${ch.file}`;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>Chapter ${ch.num}</td>
+          <td style="font-weight:600; color:#fff;">${ch.title}</td>
+          <td>${ch.duration}</td>
+          <td>${ch.marks}</td>
+          <td><span class="status-badge ${ch.status === 'Completed' ? 'status-completed' : 'status-scheduled'}">${ch.status}</span></td>
+          <td>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button onclick="viewTest('${testUrl}', '${ch.title}')" class="action-btn" title="View"><i class="fas fa-eye"></i> View</button>
+              <button onclick="printTest('${testUrl}')" class="action-btn" title="Print"><i class="fas fa-print"></i> Print</button>
+              <button onclick="shareTest('${testUrl}', '${ch.title}')" class="action-btn" title="Share"><i class="fas fa-share-alt"></i> Share</button>
+              <a href="${testUrl}" download="${ch.file}" class="action-btn" title="Download" style="text-decoration:none;"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterChapterTable(query) {
+      renderChapterTable(query);
+    }
+
+    function viewTest(url, title) {
+      const container = document.getElementById('testViewerContainer');
+      const iframe = document.getElementById('testIframe');
+      const titleSpan = document.getElementById('viewerTitle');
+      
+      if (titleSpan) titleSpan.innerHTML = `<i class="fas fa-file-alt"></i> ${title} - Live Test Paper`;
+      if (iframe) iframe.src = url;
+      if (container) {
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function closeTestViewer() {
+      const container = document.getElementById('testViewerContainer');
+      const iframe = document.getElementById('testIframe');
+      if (iframe) iframe.src = '';
+      if (container) container.style.display = 'none';
+    }
+
+    function printTest(url) {
+      const printFrame = document.createElement('iframe');
+      printFrame.style.position = 'fixed';
+      printFrame.style.right = '0';
+      printFrame.style.bottom = '0';
+      printFrame.style.width = '0';
+      printFrame.style.height = '0';
+      printFrame.style.border = '0';
+      printFrame.src = url;
+      document.body.appendChild(printFrame);
+      
+      printFrame.onload = function() {
+        setTimeout(() => {
+          printFrame.contentWindow.focus();
+          printFrame.contentWindow.print();
+          setTimeout(() => { document.body.removeChild(printFrame); }, 1000);
+        }, 500);
+      };
+    }
+
+    function printCurrentViewerTest() {
+      const iframe = document.getElementById('testIframe');
+      if (iframe && iframe.src) {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }
+    }
+
+    function shareTest(url, title) {
+      const fullUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + url;
+      if (navigator.share) {
+        navigator.share({ title: title + ' Class Test', url: fullUrl });
+      } else {
+        navigator.clipboard.writeText(fullUrl);
+        showToast('📋 Test paper link copied to clipboard!');
+      }
+    }
+
+    function shareCurrentViewerTest() {
+      const iframe = document.getElementById('testIframe');
+      if (iframe && iframe.src) {
+        shareTest(iframe.src, 'Class Test');
+      }
+    }
+
+    function downloadCurrentViewerTest() {
+      const iframe = document.getElementById('testIframe');
+      if (iframe && iframe.src) {
+        const a = document.createElement('a');
+        a.href = iframe.src;
+        a.download = iframe.src.split('/').pop();
+        a.click();
+      }
+    }
+
+    function openViewerInNewTab() {
+      const iframe = document.getElementById('testIframe');
+      if (iframe && iframe.src) {
+        window.open(iframe.src, '_blank');
+      }
+    }
+
+    function showToast(msg) {
+      let toast = document.getElementById('toastNotification');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toastNotification';
+        toast.style.cssText = 'position:fixed; bottom:30px; right:30px; background:#4f46e5; color:white; padding:12px 24px; border-radius:50px; font-weight:700; z-index:9999; box-shadow:0 10px 25px rgba(0,0,0,0.3); transition:all 0.3s ease;';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      selectClass('class12');
     });
   </script>
 </body>
