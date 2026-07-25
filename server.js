@@ -105,27 +105,54 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Handle Quiz Participants API route
+  // Handle Quiz Participants API route (Authentic Unique User Tracking)
   if (urlPath === '/api/quiz-participants') {
-    const isInc = req.url.includes('inc=true') || req.url.includes('increment=true');
+    const params = new URLSearchParams(urlParts[1] || '');
+    const isInc = params.get('inc') === 'true' || params.get('increment') === 'true';
+    const userId = params.get('userId') || params.get('uid') || '';
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
+    const uniqueKey = userId ? `${userId}_${clientIp}` : clientIp;
+    
     const todayStr = new Date().toDateString();
 
-    if (hitsData.lastReset !== todayStr) {
-      hitsData.todayParticipants = isInc ? 1 : 0;
-      hitsData.lastReset = todayStr;
-    } else if (isInc) {
-      hitsData.todayParticipants = (hitsData.todayParticipants || 28) + 1;
+    // Reset daily tracking sets if date changed
+    if (hitsData.lastQuizReset !== todayStr) {
+      hitsData.todayQuizUsers = [];
+      hitsData.lastQuizReset = todayStr;
+    }
+
+    if (!Array.isArray(hitsData.todayQuizUsers)) {
+      hitsData.todayQuizUsers = [];
+    }
+    if (!Array.isArray(hitsData.allTimeQuizUsers)) {
+      hitsData.allTimeQuizUsers = [];
     }
 
     if (isInc) {
-      hitsData.totalParticipants = (hitsData.totalParticipants || 842) + 1;
-      saveHits();
+      // Record attempt only if user hasn't completed today's official quiz
+      let updated = false;
+      if (!hitsData.todayQuizUsers.includes(uniqueKey)) {
+        hitsData.todayQuizUsers.push(uniqueKey);
+        hitsData.todayParticipants = (hitsData.todayParticipants || 0) + 1;
+        updated = true;
+      }
+      if (!hitsData.allTimeQuizUsers.includes(uniqueKey)) {
+        hitsData.allTimeQuizUsers.push(uniqueKey);
+        hitsData.totalParticipants = (hitsData.totalParticipants || 0) + 1;
+        updated = true;
+      }
+      if (updated) {
+        saveHits();
+      }
     }
+
+    const todayCount = Math.max(hitsData.todayQuizUsers.length, hitsData.todayParticipants || 1);
+    const totalCount = Math.max(hitsData.allTimeQuizUsers.length, hitsData.totalParticipants || 1);
 
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
     res.end(JSON.stringify({
-      todayParticipants: hitsData.todayParticipants || 34,
-      totalParticipants: hitsData.totalParticipants || 965
+      todayParticipants: todayCount,
+      totalParticipants: totalCount
     }));
     return;
   }

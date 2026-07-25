@@ -3710,6 +3710,11 @@
         <!-- Score Results Display (Hidden by default) -->
         <div id="dqScoreContainer" style="display: none;">
           <div class="dq-score-card">
+            <!-- Official Daily Completion Status Banner -->
+            <div id="dqDailyStatusBanner" style="display: none; background: #f0fdf4; border: 2px solid #059669; color: #047857; padding: 10px 20px; border-radius: 50px; font-weight: 850; font-size: 0.95rem; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(5,150,105,0.12);">
+              <i class="fas fa-check-circle" style="color: #059669; margin-right: 6px;"></i> Official Daily Quiz Attempt Locked &amp; Saved for Today!
+            </div>
+
             <div class="dq-stars-display" id="dqStars">⭐⭐⭐</div>
             <h3 id="dqScoreTitle" style="font-size: 2.2rem; color: #1e1b18; font-weight: 900; margin: 10px 0 4px;">Math Champion!</h3>
             <p id="dqRankBadge" style="display: inline-block; background: #f5f3ff; border: 2px solid #7c3aed; color: #5b21b6; padding: 6px 18px; border-radius: 50px; font-weight: 850; font-size: 1rem; margin-bottom: 16px;">💎 Diamond Math Master</p>
@@ -3739,11 +3744,12 @@
             </div>
 
             <div class="dq-tomorrow-banner">
-              <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> "Come back tomorrow for a brand-new Mathematics Challenge!"
+              <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> "Come back tomorrow for a brand-new NCERT Daily Challenge!"
             </div>
 
-            <div style="margin-top: 20px;">
-              <button id="dqRestartBtn" class="btn-outline" style="font-size: 0.9rem !important;"><i class="fas fa-redo"></i> Retake Today's Quiz</button>
+            <div style="margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button id="dqPracticeBtn" class="btn-primary" style="font-size: 0.9rem !important; padding: 10px 22px !important;"><i class="fas fa-gamepad"></i> Practice Mode (Unlimited)</button>
+              <button id="dqRestartBtn" class="btn-outline" style="font-size: 0.9rem !important; padding: 10px 22px !important;"><i class="fas fa-redo"></i> Retake Today's Quiz</button>
             </div>
           </div>
         </div>
@@ -4833,7 +4839,7 @@
     })();
 
     // ==========================================================================
-    // DAILY MATHEMATICS QUIZ INTERACTIVE CONTROLLER (+20 / -10 POINTS SYSTEM)
+    // DAILY MATHEMATICS QUIZ CONTROLLER (1 QUIZ / USER / DAY & REAL TRACKING)
     // ==========================================================================
     (function() {
       let activeClass = '10';
@@ -4845,6 +4851,14 @@
       let timerInterval = null;
       let timeLeft = 45;
       let missedTopics = [];
+      let isPracticeMode = false;
+
+      // Unique user persistent token
+      let userUUID = localStorage.getItem('dq_user_uuid');
+      if (!userUUID) {
+        userUUID = 'usr_' + Math.random().toString(36).substring(2, 9) + Date.now();
+        localStorage.setItem('dq_user_uuid', userUUID);
+      }
 
       function updateLifetimeXPUI() {
         const xpEl = document.getElementById('dqLifetimeXP');
@@ -4861,20 +4875,10 @@
       }
 
       function loadParticipants(shouldIncrement) {
-        let localDaily = parseInt(localStorage.getItem('dq_today_participants') || '38', 10);
-        let localTotal = parseInt(localStorage.getItem('dq_total_participants') || '985', 10);
+        const url = shouldIncrement 
+          ? `/api/quiz-participants?inc=true&userId=${encodeURIComponent(userUUID)}` 
+          : `/api/quiz-participants?userId=${encodeURIComponent(userUUID)}`;
 
-        if (shouldIncrement && !sessionStorage.getItem('dq_attempt_recorded')) {
-          localDaily++;
-          localTotal++;
-          localStorage.setItem('dq_today_participants', localDaily);
-          localStorage.setItem('dq_total_participants', localTotal);
-          sessionStorage.setItem('dq_attempt_recorded', 'true');
-        }
-
-        updateParticipantUI(localDaily, localTotal);
-
-        const url = shouldIncrement ? '/api/quiz-participants?inc=true' : '/api/quiz-participants';
         fetch(url)
           .then(res => res.json())
           .then(data => {
@@ -4884,7 +4888,11 @@
               updateParticipantUI(data.todayParticipants, data.totalParticipants);
             }
           })
-          .catch(() => {});
+          .catch(() => {
+            const localDaily = parseInt(localStorage.getItem('dq_today_participants') || '38', 10);
+            const localTotal = parseInt(localStorage.getItem('dq_total_participants') || '985', 10);
+            updateParticipantUI(localDaily, localTotal);
+          });
       }
 
       function getQuizData(cls) {
@@ -4894,20 +4902,33 @@
         return null;
       }
 
-      function initDailyQuiz(cls) {
+      function getTodayKey(cls) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        return `dq_attempt_${todayStr}_cls_${cls || activeClass}`;
+      }
+
+      function checkExistingDailyAttempt(cls) {
+        const key = getTodayKey(cls);
+        const saved = localStorage.getItem(key);
+        if (saved) {
+          try {
+            return JSON.parse(saved);
+          } catch (e) {
+            return null;
+          }
+        }
+        return null;
+      }
+
+      function initDailyQuiz(cls, forcePractice = false) {
         activeClass = cls || '10';
+        isPracticeMode = forcePractice;
         qIndex = 0;
         userScore = 0;
         userPoints = 0;
         wrongCount = 0;
         missedTopics = [];
         clearInterval(timerInterval);
-
-        // Reset Live Points Display & Progress
-        const livePtsEl = document.getElementById('dqLivePoints');
-        if (livePtsEl) livePtsEl.textContent = '0';
-        const progFill = document.getElementById('dqProgressBar');
-        if (progFill) progFill.style.width = '0%';
 
         // Load participants & XP count
         loadParticipants(false);
@@ -4920,6 +4941,21 @@
             btn.classList.remove('active');
           }
         });
+
+        // If NOT forcing practice mode, check if user has already completed today's official quiz
+        if (!isPracticeMode) {
+          const pastAttempt = checkExistingDailyAttempt(activeClass);
+          if (pastAttempt) {
+            displayCompletedDailyCard(pastAttempt);
+            return;
+          }
+        }
+
+        // Reset Live Points Display & Progress
+        const livePtsEl = document.getElementById('dqLivePoints');
+        if (livePtsEl) livePtsEl.textContent = '0';
+        const progFill = document.getElementById('dqProgressBar');
+        if (progFill) progFill.style.width = '0%';
 
         // Hide score card, show quiz container
         document.getElementById('dqScoreContainer').style.display = 'none';
@@ -4940,6 +4976,52 @@
             quizData = getQuizData(activeClass);
             renderHeaderAndQuestion();
           });
+      }
+
+      function displayCompletedDailyCard(attempt) {
+        document.getElementById('dqQuizContainer').style.display = 'none';
+        document.getElementById('dqScoreContainer').style.display = 'block';
+
+        const statusBanner = document.getElementById('dqDailyStatusBanner');
+        if (statusBanner) {
+          statusBanner.style.display = 'block';
+          statusBanner.innerHTML = `<i class="fas fa-lock" style="margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today (Class ${activeClass})!`;
+        }
+
+        const pts = attempt.userPoints || 0;
+        const score = attempt.userScore || 0;
+        const wrg = attempt.wrongCount || 0;
+
+        // Stars calculation
+        let stars = '';
+        if (pts >= 100) stars = '⭐⭐⭐';
+        else if (pts >= 70) stars = '⭐⭐';
+        else if (pts >= 40) stars = '⭐';
+        else stars = '📝';
+
+        document.getElementById('dqStars').textContent = stars;
+
+        // Rank Badge
+        let rankBadge = attempt.rankBadge || '💎 Diamond Math Master';
+        if (!rankBadge) {
+          if (pts >= 100) rankBadge = '💎 Diamond Math Master (+100 PTS Perfect!)';
+          else if (pts >= 70) rankBadge = '🥇 Gold Math Scholar';
+          else if (pts >= 40) rankBadge = '🥈 Silver Math Explorer';
+          else if (pts >= 10) rankBadge = '🥉 Bronze Math Achiever';
+          else rankBadge = '📚 Math Apprentice';
+        }
+        document.getElementById('dqRankBadge').textContent = rankBadge;
+
+        document.getElementById('dqScoreTitle').textContent = pts > 50 ? "Official Attempt Saved!" : "Practice & Improve!";
+        document.getElementById('dqFinalPointsText').textContent = (pts >= 0 ? '+' : '') + pts + ' PTS';
+        document.getElementById('dqCorrectCountText').textContent = `${score} / 5 (+${score * 20})`;
+        document.getElementById('dqWrongCountText').textContent = `${wrg} (-${wrg * 10})`;
+        document.getElementById('dqAccuracyText').textContent = Math.round((score / 5) * 100) + '%';
+        document.getElementById('dqSuggestedRevision').textContent = (attempt.recTopic || "NCERT Practice & Revision") + ` (CBSE Class ${activeClass})`;
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise();
+        }
       }
 
       function renderHeaderAndQuestion() {
@@ -4978,7 +5060,7 @@
         if (progFill) progFill.style.width = ((qIndex) / 5 * 100) + '%';
 
         const q = quizData.quiz[qIndex];
-        document.getElementById('dqQCount').textContent = `Question ${qIndex + 1} of 5`;
+        document.getElementById('dqQCount').textContent = `Question ${qIndex + 1} of 5 ${isPracticeMode ? '(Practice Mode)' : ''}`;
         document.getElementById('dqDiffBadge').textContent = `Difficulty: ${q.difficulty || 'Medium'}`;
         document.getElementById('dqChapter').textContent = q.chapter || 'NCERT Chapter';
         document.getElementById('dqTopic').textContent = q.topic || 'General Topic';
@@ -5123,16 +5205,47 @@
         document.getElementById('dqQuizContainer').style.display = 'none';
         document.getElementById('dqScoreContainer').style.display = 'block';
 
-        // Increment quiz participants count
-        loadParticipants(true);
+        const statusBanner = document.getElementById('dqDailyStatusBanner');
+        if (isPracticeMode) {
+          if (statusBanner) {
+            statusBanner.style.display = 'block';
+            statusBanner.innerHTML = `<i class="fas fa-gamepad" style="margin-right: 6px;"></i> Practice Mode Attempt Complete!`;
+            statusBanner.style.borderColor = '#7c3aed';
+            statusBanner.style.color = '#5b21b6';
+            statusBanner.style.background = '#f5f3ff';
+          }
+        } else {
+          if (statusBanner) {
+            statusBanner.style.display = 'block';
+            statusBanner.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today!`;
+            statusBanner.style.borderColor = '#059669';
+            statusBanner.style.color = '#047857';
+            statusBanner.style.background = '#f0fdf4';
+          }
 
-        // Accumulate Lifetime Student XP
-        let currentXP = parseInt(localStorage.getItem('dq_cumulative_xp') || '280', 10);
-        if (userPoints > 0) {
-          currentXP += userPoints;
-          localStorage.setItem('dq_cumulative_xp', currentXP);
+          // Record Official Attempt to localStorage to enforce 1 quiz/day
+          const attemptData = {
+            completed: true,
+            date: new Date().toISOString().split('T')[0],
+            class: activeClass,
+            userPoints: userPoints,
+            userScore: userScore,
+            wrongCount: wrongCount,
+            recTopic: missedTopics.length > 0 ? missedTopics[0] : (quizData && quizData.quiz ? quizData.quiz[0].chapter : '')
+          };
+          localStorage.setItem(getTodayKey(activeClass), JSON.stringify(attemptData));
+
+          // Increment quiz participants count on Server with authentic unique user tracking
+          loadParticipants(true);
+
+          // Accumulate Lifetime Student XP
+          let currentXP = parseInt(localStorage.getItem('dq_cumulative_xp') || '280', 10);
+          if (userPoints > 0) {
+            currentXP += userPoints;
+            localStorage.setItem('dq_cumulative_xp', currentXP);
+          }
+          updateLifetimeXPUI();
         }
-        updateLifetimeXPUI();
 
         // Stars calculation
         let stars = '';
@@ -5194,19 +5307,26 @@
       document.querySelectorAll('.dq-tab-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           const cls = this.getAttribute('data-class');
-          initDailyQuiz(cls);
+          initDailyQuiz(cls, false);
         });
       });
+
+      const practiceBtn = document.getElementById('dqPracticeBtn');
+      if (practiceBtn) {
+        practiceBtn.addEventListener('click', function() {
+          initDailyQuiz(activeClass, true); // Practice Mode
+        });
+      }
 
       const restartBtn = document.getElementById('dqRestartBtn');
       if (restartBtn) {
         restartBtn.addEventListener('click', function() {
-          initDailyQuiz(activeClass);
+          initDailyQuiz(activeClass, true); // Practice Mode
         });
       }
 
-      // Initial load on startup
-      initDailyQuiz('10');
+      // Initialize default class quiz
+      initDailyQuiz('10', false);
     })();
   </script>
 </body>

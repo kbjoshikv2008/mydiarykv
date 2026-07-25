@@ -1,5 +1,16 @@
 {
-  "totalHits": 1463,
-  "todayHits": 53,
-  "lastReset": "Sat Jul 25 2026"
+  "totalHits": 1467,
+  "todayHits": 57,
+  "lastReset": "Sat Jul 25 2026",
+  "todayQuizUsers": [
+    "test_user_1_::1",
+    "test_user_2_::1"
+  ],
+  "lastQuizReset": "Sat Jul 25 2026",
+  "allTimeQuizUsers": [
+    "test_user_1_::1",
+    "test_user_2_::1"
+  ],
+  "todayParticipants": 2,
+  "totalParticipants": 2
 }
