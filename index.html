@@ -2810,20 +2810,155 @@
     /* ==========================================================================
        HIGHLIGHTED DAILY MATHEMATICS QUIZ SECTION (BOLD-LINED RECTANGULAR BOX)
        ========================================================================== */
+    /* ==========================================================================
+       HIGHLIGHTED DAILY MATHEMATICS QUIZ & SCORING SYSTEM (+20 / -10 PTS)
+       ========================================================================== */
     .daily-quiz-section {
-      background: #ffffff !important;
-      border: 4px solid #4c1d95 !important; /* Bold-lined rectangular box */
-      border-top: 8px solid #9d174d !important; /* Glowing header accent */
-      border-radius: 6px !important;
-      padding: 38px 28px !important;
-      margin-bottom: 48px !important;
-      box-shadow: 0 16px 45px rgba(76, 29, 149, 0.22), inset 0 0 0 1px rgba(76, 29, 149, 0.15) !important;
-      transition: all 0.3s ease !important;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 50%, #f0fdf4 100%) !important;
+      border: 3.5px solid #4c1d95 !important;
+      border-top: 10px solid #9d174d !important;
+      border-radius: 12px !important;
+      padding: 40px 32px !important;
+      margin-bottom: 50px !important;
+      box-shadow: 0 20px 50px rgba(76, 29, 149, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     .daily-quiz-section:hover {
-      box-shadow: 0 22px 55px rgba(157, 23, 77, 0.28) !important;
-      border-color: #9d174d !important;
+      box-shadow: 0 26px 65px rgba(157, 23, 77, 0.24) !important;
     }
+    .dq-rule-banner {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 16px 0 22px;
+      flex-wrap: wrap;
+    }
+    .dq-rule-chip {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.85rem;
+      font-weight: 850;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+    .dq-rule-chip:hover {
+      transform: translateY(-2px);
+    }
+    .dq-rule-chip.plus {
+      border-color: #059669;
+      color: #047857;
+      background: #ecfdf5;
+    }
+    .dq-rule-chip.minus {
+      border-color: #dc2626;
+      color: #b91c1c;
+      background: #fef2f2;
+    }
+    .dq-rule-chip.max {
+      border-color: #7c3aed;
+      color: #5b21b6;
+      background: #f5f3ff;
+    }
+
+    /* Live Progress Bar */
+    .dq-progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .dq-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7c3aed, #0d9488, #059669);
+      transition: width 0.4s ease;
+      border-radius: 10px;
+    }
+
+    /* Top Bar Items */
+    .dq-points-badge {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 2px solid #d97706;
+      color: #92400e;
+      font-weight: 900;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      animation: dqPulse 2s infinite;
+    }
+    @keyframes dqPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    /* Floating Points Popup */
+    .dq-float-popup {
+      position: absolute;
+      font-weight: 900;
+      font-size: 1.5rem;
+      pointer-events: none;
+      z-index: 100;
+      animation: dqFloatUp 1.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      background: #ffffff;
+      padding: 6px 16px;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    .dq-float-popup.plus { color: #059669; border: 2px solid #059669; }
+    .dq-float-popup.minus { color: #dc2626; border: 2px solid #dc2626; }
+    @keyframes dqFloatUp {
+      0% { opacity: 0; transform: translateY(0) scale(0.6); }
+      30% { opacity: 1; transform: translateY(-25px) scale(1.25); }
+      100% { opacity: 0; transform: translateY(-60px) scale(1); }
+    }
+
+    /* Dashboard Breakdown Cards */
+    .dq-score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+    .dq-score-box {
+      background: #ffffff;
+      border: 2.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease;
+    }
+    .dq-score-box:hover {
+      transform: translateY(-3px);
+    }
+    .dq-score-box .val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-top: 4px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .dq-score-box .lbl {
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     .dq-header-grid {
       display: grid;
       grid-template-columns: 3fr 2fr;
@@ -2833,8 +2968,9 @@
     .dq-box {
       background: #fdfbf7 !important;
       border: 2px solid #bdaea2 !important;
-      border-radius: 4px !important;
+      border-radius: 6px !important;
       padding: 20px 24px !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03) !important;
     }
     .dq-card-badge {
       display: inline-flex;
@@ -2882,7 +3018,7 @@
     .dq-tab-btn {
       background: #ffffff !important;
       border: 2px solid #bdaea2 !important;
-      border-radius: 4px !important;
+      border-radius: 6px !important;
       color: #1e1b18 !important;
       font-size: 0.88rem !important;
       font-weight: 850 !important;
@@ -2897,18 +3033,20 @@
       border-color: #4c1d95 !important;
       color: #4c1d95 !important;
       background: #fdfbf7 !important;
+      transform: translateY(-2px) !important;
     }
     .dq-tab-btn.active {
       background: #4c1d95 !important;
       color: #ffffff !important;
       border-color: #4c1d95 !important;
-      box-shadow: 0 4px 12px rgba(76, 29, 149, 0.25) !important;
+      box-shadow: 0 4px 14px rgba(76, 29, 149, 0.28) !important;
     }
     .dq-quiz-card {
-      background: #fdfbf7 !important;
-      border: 2px solid #bdaea2 !important;
-      border-radius: 4px !important;
-      padding: 28px !important;
+      background: #ffffff !important;
+      border: 2.5px solid #4c1d95 !important;
+      border-radius: 10px !important;
+      padding: 30px !important;
+      box-shadow: 0 10px 30px rgba(76, 29, 149, 0.08) !important;
     }
     .dq-quiz-topbar {
       display: flex;
@@ -2928,8 +3066,8 @@
       border: 1.5px solid #9a3412;
       color: #9a3412;
       font-weight: 850;
-      padding: 4px 12px;
-      border-radius: 4px;
+      padding: 4px 14px;
+      border-radius: 50px;
       font-size: 0.85rem;
     }
     .dq-diff-badge {
@@ -2937,8 +3075,8 @@
       border: 1.5px solid #14532d;
       color: #14532d;
       font-weight: 850;
-      padding: 4px 12px;
-      border-radius: 4px;
+      padding: 4px 14px;
+      border-radius: 50px;
       font-size: 0.85rem;
     }
     .dq-meta-strip {
@@ -2947,42 +3085,45 @@
       font-size: 0.85rem;
       color: #4a3e3d;
       margin-bottom: 16px;
-      border-bottom: 1.5px solid #bdaea2;
-      padding-bottom: 10px;
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 12px;
       flex-wrap: wrap;
     }
     .dq-question-heading {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: #1e1b18;
       font-weight: 850;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       font-family: 'Poppins', sans-serif;
-      line-height: 1.5;
+      line-height: 1.55;
     }
     .dq-options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 14px;
+      margin-bottom: 22px;
     }
     .dq-option-btn {
       background: #ffffff !important;
-      border: 2px solid #bdaea2 !important;
-      border-radius: 4px !important;
-      padding: 14px 18px !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 8px !important;
+      padding: 16px 20px !important;
       text-align: left !important;
-      font-size: 0.95rem !important;
+      font-size: 0.96rem !important;
       font-weight: 700 !important;
       color: #1e1b18 !important;
       cursor: pointer !important;
-      transition: all 0.2s ease !important;
+      transition: all 0.25s ease !important;
       display: flex !important;
       align-items: center !important;
       gap: 12px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
     }
     .dq-option-btn:hover {
       border-color: #4c1d95 !important;
-      background: rgba(76, 29, 149, 0.05) !important;
+      background: rgba(76, 29, 149, 0.04) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 16px rgba(76, 29, 149, 0.12) !important;
     }
     .dq-option-btn.selected {
       border-color: #4c1d95 !important;
@@ -2990,14 +3131,16 @@
       color: #ffffff !important;
     }
     .dq-option-btn.correct-opt {
-      border-color: #14532d !important;
-      background: #14532d !important;
+      border-color: #059669 !important;
+      background: #059669 !important;
       color: #ffffff !important;
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3) !important;
     }
     .dq-option-btn.wrong-opt {
-      border-color: #b91c1c !important;
-      background: #b91c1c !important;
+      border-color: #dc2626 !important;
+      background: #dc2626 !important;
       color: #ffffff !important;
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3) !important;
     }
     .dq-option-btn.correct-opt svg, .dq-option-btn.correct-opt g,
     .dq-option-btn.wrong-opt svg, .dq-option-btn.wrong-opt g {
@@ -3010,69 +3153,82 @@
       vertical-align: middle !important;
     }
     .dq-opt-prefix {
-      width: 28px;
-      height: 28px;
-      border-radius: 4px;
-      background: rgba(74, 62, 53, 0.1);
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: rgba(76, 29, 149, 0.08);
+      color: #4c1d95;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-weight: 850;
-      font-size: 0.85rem;
+      font-weight: 900;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .dq-option-btn.correct-opt .dq-opt-prefix {
+      background: rgba(255, 255, 255, 0.25) !important;
+      color: #ffffff !important;
+    }
+    .dq-option-btn.wrong-opt .dq-opt-prefix {
+      background: rgba(255, 255, 255, 0.25) !important;
+      color: #ffffff !important;
     }
     .dq-explanation-box {
-      background: #ffffff !important;
-      border: 2px solid #0f766e !important;
-      border-radius: 4px !important;
-      padding: 18px 20px !important;
-      margin-top: 16px !important;
+      background: #f0fdf4 !important;
+      border: 2px solid #059669 !important;
+      border-radius: 8px !important;
+      padding: 20px 22px !important;
+      margin-top: 18px !important;
     }
     .dq-explanation-box h5 {
-      color: #0f766e;
+      color: #047857;
       font-weight: 850;
       margin: 0 0 8px;
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
     .dq-explanation-box p {
       color: #1e1b18;
-      font-size: 0.9rem;
-      margin: 0 0 10px;
+      font-size: 0.92rem;
+      margin: 0 0 12px;
+      line-height: 1.6;
     }
     .dq-revision-chip {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: #9a3412;
       font-weight: 800;
     }
     .dq-score-card {
-      background: #fdfbf7 !important;
-      border: 2.5px solid #4c1d95 !important;
-      border-radius: 6px !important;
-      padding: 36px 28px !important;
+      background: #ffffff !important;
+      border: 3.5px solid #4c1d95 !important;
+      border-radius: 12px !important;
+      padding: 40px 32px !important;
       text-align: center !important;
+      box-shadow: 0 16px 45px rgba(76, 29, 149, 0.15) !important;
     }
     .dq-stars-display {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       letter-spacing: 6px;
       margin-bottom: 10px;
     }
     .dq-revision-recommendation {
-      background: #ffffff;
-      border: 2px solid #bdaea2;
-      border-radius: 4px;
-      padding: 16px;
-      margin: 20px 0;
+      background: #fffbf0;
+      border: 2px solid #d97706;
+      border-radius: 8px;
+      padding: 18px;
+      margin: 22px 0;
     }
     .dq-tomorrow-banner {
-      background: #4c1d95;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed);
       color: #ffffff;
       font-weight: 850;
       font-size: 1.05rem;
-      padding: 14px 20px;
-      border-radius: 4px;
+      padding: 14px 24px;
+      border-radius: 50px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       margin-top: 10px;
+      box-shadow: 0 6px 20px rgba(76, 29, 149, 0.25);
     }
     @media (max-width: 768px) {
       .dq-header-grid { grid-template-columns: 1fr; }
@@ -3442,17 +3598,27 @@
       <!-- ======================== DAILY MATHEMATICS QUIZ SECTION ======================== -->
       <section id="daily-quiz-section" class="daily-quiz-section fade-in-1">
         <div class="section-title">
-          <div class="label" style="background: #9d174d !important; border-color: #9d174d !important; font-size: 0.9em !important; font-weight: 900 !important; letter-spacing: 2px !important;"><i class="fas fa-brain"></i> DAILY CBSE MATHEMATICS QUIZ</div>
+          <div class="label" style="background: #9d174d !important; border-color: #9d174d !important; font-size: 0.9em !important; font-weight: 900 !important; letter-spacing: 2px !important;"><i class="fas fa-trophy"></i> DAILY CBSE MATHEMATICS QUIZ &amp; CHALLENGE</div>
           <h2 style="font-size: clamp(2.2rem, 4vw, 3.2rem) !important; font-weight: 900 !important; color: #4c1d95 !important; text-transform: uppercase; letter-spacing: 1.5px; margin: 10px 0 6px 0;">TEST YOUR KNOWLEDGE</h2>
-          <p style="font-size: 1.1rem !important; font-weight: 700 !important; color: #1e1b18 !important;">Fresh daily 5-minute NCERT revision challenge with instant score feedback, formulas, facts, and explanations.</p>
+          <p style="font-size: 1.1rem !important; font-weight: 700 !important; color: #1e1b18 !important;">Earn up to <strong>100 Points daily</strong>! Answer 5 NCERT questions: <strong>+20 Points</strong> per correct answer, <strong>-10 Points</strong> per incorrect attempt.</p>
+
+          <!-- Rules & Scoring Pill Bar -->
+          <div class="dq-rule-banner">
+            <div class="dq-rule-chip plus"><i class="fas fa-plus-circle"></i> +20 PTS / Correct</div>
+            <div class="dq-rule-chip minus"><i class="fas fa-minus-circle"></i> -10 PTS / Wrong</div>
+            <div class="dq-rule-chip max"><i class="fas fa-award"></i> Max Score: 100 PTS</div>
+          </div>
           
-          <!-- Participant Counters (Daily & Cumulative) -->
-          <div class="dq-participant-bar" style="display: flex; justify-content: center; gap: 16px; margin-top: 18px; flex-wrap: wrap;">
-            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #4c1d95; border-radius: 4px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(76,29,149,0.12);">
+          <!-- Participant Counters & Student XP -->
+          <div class="dq-participant-bar" style="display: flex; justify-content: center; gap: 16px; margin-top: 14px; flex-wrap: wrap;">
+            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #4c1d95; border-radius: 6px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(76,29,149,0.12);">
               <i class="fas fa-user-clock" style="color: #4c1d95; margin-right: 8px;"></i> Today's Participants: <span id="dqDailyParticipants" style="color: #4c1d95; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
             </div>
-            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #0f766e; border-radius: 4px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(15,118,110,0.12);">
-              <i class="fas fa-users" style="color: #0f766e; margin-right: 8px;"></i> Cumulative Total Participants: <span id="dqTotalParticipants" style="color: #0f766e; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
+            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #0f766e; border-radius: 6px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(15,118,110,0.12);">
+              <i class="fas fa-users" style="color: #0f766e; margin-right: 8px;"></i> Total Quiz Takers: <span id="dqTotalParticipants" style="color: #0f766e; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
+            </div>
+            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #d97706; border-radius: 6px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(217,119,6,0.15);">
+              <i class="fas fa-star" style="color: #d97706; margin-right: 8px;"></i> Lifetime Student XP: <span id="dqLifetimeXP" style="color: #d97706; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">0</span> PTS
             </div>
           </div>
 
@@ -3499,10 +3665,20 @@
         </div>
 
         <!-- Interactive Quiz Container -->
-        <div id="dqQuizContainer">
+        <div id="dqQuizContainer" style="position: relative;">
+          <!-- Floating Point Animation Popup -->
+          <div id="dqPointPopup" class="dq-float-popup" style="display: none;"></div>
+
+          <!-- Question Card -->
           <div class="dq-quiz-card">
+            <!-- Progress Track -->
+            <div class="dq-progress-track">
+              <div class="dq-progress-fill" id="dqProgressBar"></div>
+            </div>
+
             <div class="dq-quiz-topbar">
               <div class="dq-q-count" id="dqQCount">Question 1 of 5</div>
+              <div class="dq-points-badge" id="dqPointsBadge"><i class="fas fa-coins"></i> Score: <span id="dqLivePoints">0</span> PTS</div>
               <div class="dq-diff-badge" id="dqDiffBadge">Difficulty: Easy</div>
               <div class="dq-timer-badge" id="dqTimerBadge"><i class="fas fa-stopwatch"></i> Time Left: <span id="dqTimer">45</span>s</div>
             </div>
@@ -3535,8 +3711,27 @@
         <div id="dqScoreContainer" style="display: none;">
           <div class="dq-score-card">
             <div class="dq-stars-display" id="dqStars">⭐⭐⭐</div>
-            <h3 id="dqScoreTitle" style="font-size: 2rem; color: #1e1b18; font-weight: 850; margin: 10px 0 6px;">Math Champion!</h3>
-            <p id="dqScoreSubtitle" style="font-size: 1.1rem; color: #4c1d95; font-weight: 800; margin: 0 0 16px;">You scored <span id="dqFinalScore">5</span> out of 5</p>
+            <h3 id="dqScoreTitle" style="font-size: 2.2rem; color: #1e1b18; font-weight: 900; margin: 10px 0 4px;">Math Champion!</h3>
+            <p id="dqRankBadge" style="display: inline-block; background: #f5f3ff; border: 2px solid #7c3aed; color: #5b21b6; padding: 6px 18px; border-radius: 50px; font-weight: 850; font-size: 1rem; margin-bottom: 16px;">💎 Diamond Math Master</p>
+
+            <div class="dq-score-grid">
+              <div class="dq-score-box">
+                <div class="val" id="dqFinalPointsText" style="color: #4c1d95;">+80</div>
+                <div class="lbl">Total Points</div>
+              </div>
+              <div class="dq-score-box">
+                <div class="val" id="dqCorrectCountText" style="color: #059669;">4 / 5</div>
+                <div class="lbl">Correct (+80)</div>
+              </div>
+              <div class="dq-score-box">
+                <div class="val" id="dqWrongCountText" style="color: #dc2626;">1</div>
+                <div class="lbl">Wrong (-10)</div>
+              </div>
+              <div class="dq-score-box">
+                <div class="val" id="dqAccuracyText" style="color: #0f766e;">80%</div>
+                <div class="lbl">Accuracy</div>
+              </div>
+            </div>
 
             <div class="dq-revision-recommendation">
               <h5 style="color: #9a3412; font-weight: 850; margin: 0 0 6px; font-size: 0.95rem;"><i class="fas fa-book-reader"></i> Suggested NCERT Topic for Revision</h5>
@@ -4638,22 +4833,31 @@
     })();
 
     // ==========================================================================
-    // DAILY MATHEMATICS QUIZ INTERACTIVE CONTROLLER
+    // DAILY MATHEMATICS QUIZ INTERACTIVE CONTROLLER (+20 / -10 POINTS SYSTEM)
     // ==========================================================================
     (function() {
       let activeClass = '10';
       let quizData = null;
       let qIndex = 0;
-      let userScore = 0;
+      let userScore = 0; // Number of correct answers (0-5)
+      let userPoints = 0; // Total points accumulator (+20 for correct, -10 for wrong)
+      let wrongCount = 0;
       let timerInterval = null;
       let timeLeft = 45;
       let missedTopics = [];
+
+      function updateLifetimeXPUI() {
+        const xpEl = document.getElementById('dqLifetimeXP');
+        const total = parseInt(localStorage.getItem('dq_cumulative_xp') || '280', 10);
+        if (xpEl) xpEl.textContent = Number(total).toLocaleString('en-IN');
+      }
 
       function updateParticipantUI(todayCount, totalCount) {
         const dailyEl = document.getElementById('dqDailyParticipants');
         const totalEl = document.getElementById('dqTotalParticipants');
         if (dailyEl) dailyEl.textContent = Number(todayCount).toLocaleString('en-IN') + ' Quiz Takers';
         if (totalEl) totalEl.textContent = Number(totalCount).toLocaleString('en-IN') + ' Quiz Takers';
+        updateLifetimeXPUI();
       }
 
       function loadParticipants(shouldIncrement) {
@@ -4694,10 +4898,18 @@
         activeClass = cls || '10';
         qIndex = 0;
         userScore = 0;
+        userPoints = 0;
+        wrongCount = 0;
         missedTopics = [];
         clearInterval(timerInterval);
 
-        // Load participants count
+        // Reset Live Points Display & Progress
+        const livePtsEl = document.getElementById('dqLivePoints');
+        if (livePtsEl) livePtsEl.textContent = '0';
+        const progFill = document.getElementById('dqProgressBar');
+        if (progFill) progFill.style.width = '0%';
+
+        // Load participants & XP count
         loadParticipants(false);
 
         // Update active class tab UI
@@ -4761,6 +4973,10 @@
           return;
         }
 
+        // Update Progress Bar
+        const progFill = document.getElementById('dqProgressBar');
+        if (progFill) progFill.style.width = ((qIndex) / 5 * 100) + '%';
+
         const q = quizData.quiz[qIndex];
         document.getElementById('dqQCount').textContent = `Question ${qIndex + 1} of 5`;
         document.getElementById('dqDiffBadge').textContent = `Difficulty: ${q.difficulty || 'Medium'}`;
@@ -4809,8 +5025,41 @@
 
       function autoSelectTimedOut() {
         const q = quizData.quiz[qIndex];
+        wrongCount++;
+        userPoints -= 10; // -10 points penalty for timeout
         missedTopics.push(q.chapter + ": " + q.topic);
+        
+        const livePtsEl = document.getElementById('dqLivePoints');
+        if (livePtsEl) livePtsEl.textContent = (userPoints >= 0 ? '+' : '') + userPoints;
+
+        showPointPopup('-10 PTS (Time Out)', 'minus', document.getElementById('dqTimerBadge'));
         revealAnswer(q.correct, null, q);
+      }
+
+      function showPointPopup(text, type, targetBtnEl) {
+        const popup = document.getElementById('dqPointPopup');
+        if (!popup) return;
+
+        popup.textContent = text;
+        popup.className = `dq-float-popup ${type}`;
+        
+        // Position relative to target element if available
+        if (targetBtnEl && targetBtnEl.getBoundingClientRect) {
+          const containerRect = document.getElementById('dqQuizContainer').getBoundingClientRect();
+          const btnRect = targetBtnEl.getBoundingClientRect();
+          const topPos = btnRect.top - containerRect.top - 10;
+          const leftPos = btnRect.left - containerRect.left + (btnRect.width / 2) - 50;
+          popup.style.top = `${topPos}px`;
+          popup.style.left = `${leftPos}px`;
+        } else {
+          popup.style.top = '20px';
+          popup.style.left = '50%';
+        }
+
+        popup.style.display = 'block';
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 1100);
       }
 
       function handleOptionClick(selectedKey, btnEl, q) {
@@ -4823,11 +5072,20 @@
         const isCorrect = (selectedKey === q.correct);
         if (isCorrect) {
           userScore++;
+          userPoints += 20; // +20 points for correct answer
           btnEl.classList.add('correct-opt');
+          showPointPopup('+20 PTS', 'plus', btnEl);
         } else {
+          wrongCount++;
+          userPoints -= 10; // -10 points penalty for wrong answer
           btnEl.classList.add('wrong-opt');
           missedTopics.push(q.chapter + ": " + q.topic);
+          showPointPopup('-10 PTS', 'minus', btnEl);
         }
+
+        // Update live score display
+        const livePtsEl = document.getElementById('dqLivePoints');
+        if (livePtsEl) livePtsEl.textContent = (userPoints >= 0 ? '+' : '') + userPoints;
 
         // Highlight correct option
         allBtns.forEach(b => {
@@ -4868,27 +5126,54 @@
         // Increment quiz participants count
         loadParticipants(true);
 
+        // Accumulate Lifetime Student XP
+        let currentXP = parseInt(localStorage.getItem('dq_cumulative_xp') || '280', 10);
+        if (userPoints > 0) {
+          currentXP += userPoints;
+          localStorage.setItem('dq_cumulative_xp', currentXP);
+        }
+        updateLifetimeXPUI();
+
         // Stars calculation
         let stars = '';
-        if (userScore === 5) stars = '⭐⭐⭐';
-        else if (userScore === 4) stars = '⭐⭐';
-        else if (userScore === 3) stars = '⭐';
+        if (userPoints >= 100) stars = '⭐⭐⭐';
+        else if (userPoints >= 70) stars = '⭐⭐';
+        else if (userPoints >= 40) stars = '⭐';
         else stars = '📝';
 
         document.getElementById('dqStars').textContent = stars;
 
-        // Feedback title
-        const feedbackMap = quizData.score_feedback || {
+        // Rank Badge & Feedback Title
+        let rankBadge = '💎 Diamond Math Master';
+        if (userPoints >= 100) rankBadge = '💎 Diamond Math Master (+100 PTS Perfect!)';
+        else if (userPoints >= 70) rankBadge = '🥇 Gold Math Scholar';
+        else if (userPoints >= 40) rankBadge = '🥈 Silver Math Explorer';
+        else if (userPoints >= 10) rankBadge = '🥉 Bronze Math Achiever';
+        else rankBadge = '📚 Math Apprentice (Keep Practicing!)';
+
+        document.getElementById('dqRankBadge').textContent = rankBadge;
+
+        const feedbackMap = {
+          "100": "Outstanding Perfect 100/100!",
+          "80": "Math Champion!",
+          "70": "Excellent Work!",
+          "50": "Great Effort!",
+          "40": "Nice Work!",
+          "20": "Good Start!",
           "0": "Keep Practicing!",
-          "1": "Good Start!",
-          "2": "Nice Work!",
-          "3": "Excellent!",
-          "4": "Outstanding!",
-          "5": "Math Champion!"
+          "-10": "Don't Give Up! Review NCERT & Try Again.",
+          "-20": "Review Chapter Concepts!",
+          "-50": "Practice NCERT Basics!"
         };
 
-        document.getElementById('dqScoreTitle').textContent = feedbackMap[String(userScore)] || "Great Effort!";
-        document.getElementById('dqFinalScore').textContent = userScore;
+        const scoreKey = String(userPoints);
+        document.getElementById('dqScoreTitle').textContent = feedbackMap[scoreKey] || (userPoints > 50 ? "Great Effort!" : "Keep Practicing!");
+        
+        // Update Score Breakdown Dashboard Cards
+        document.getElementById('dqFinalPointsText').textContent = (userPoints >= 0 ? '+' : '') + userPoints + ' PTS';
+        document.getElementById('dqCorrectCountText').textContent = `${userScore} / 5 (+${userScore * 20})`;
+        document.getElementById('dqWrongCountText').textContent = `${wrongCount} (-${wrongCount * 10})`;
+        document.getElementById('dqAccuracyText').textContent = Math.round((userScore / 5) * 100) + '%';
 
         // Suggested Revision Topic
         let recTopic = "Chapter 1: NCERT Practice & Revision";
