@@ -1043,7 +1043,7 @@
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {
-            errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+            errorMessage.textContent = 'Wrong Password! Please try again.';
             passwordInputProfile.value = ''; passwordInputProfile.focus();
             submitBtnProfile.classList.add('shake');
             setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);

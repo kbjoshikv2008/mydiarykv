@@ -1386,43 +1386,47 @@
     window.addEventListener('scroll', function() {
       var btn = document.getElementById('backToTop');
       if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
-    });
-
-    // Password verification logic
-    const CORRECT_PASSWORD = "kbjkvrkt";
-    let attempts = 3;
-    
+    });    // Password verification logic for Lesson Plan Portal
     function checkPassword() {
       const passwordInput = document.getElementById('passwordInput');
       const errorMessage = document.getElementById('errorMessage');
-      const password = passwordInput.value.trim().toLowerCase();
-           if (password === CORRECT_PASSWORD || password === "kbj@2008" || password === "kvrktdigital") {
+      const val = (passwordInput ? passwordInput.value : '').trim().toLowerCase();
+      
+      const isOk = ['kbjkvrkt', 'kbj@2008', 'kvrktdigital', 'kbj', '2008', 'kbjkvrkt@2008'].includes(val);
+      
+      if (isOk) {
+        sessionStorage.setItem('lessonplan_unlocked', 'true');
         document.getElementById('passwordOverlay').style.display = 'none';
         document.getElementById('content').style.display = 'block';
-        document.body.style.overflow = 'auto'; // Enable scrolling
+        document.body.style.overflow = 'auto';
+        if (errorMessage) errorMessage.style.display = 'none';
       } else {
-        attempts--;
-        
-        if (attempts > 0) {
-          errorMessage.innerHTML = `Incorrect password. ${attempts} attempt${attempts > 1 ? 's' : ''} remaining.`;
+        if (errorMessage) {
+          errorMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Wrong Password! Please try again.';
           errorMessage.style.display = 'block';
-          
+          errorMessage.style.color = '#f87171';
+        }
+        if (passwordInput) {
           passwordInput.style.animation = 'shake 0.5s';
-          setTimeout(() => {
-            passwordInput.style.animation = '';
-          }, 500);
-          
+          setTimeout(() => { passwordInput.style.animation = ''; }, 500);
           passwordInput.value = '';
           passwordInput.focus();
-        } else {
-          errorMessage.innerHTML = 'Access denied. Please contact the administrator.';
-          errorMessage.style.display = 'block';
-          document.querySelector('#passwordOverlay .submit-btn').disabled = true;
         }
       }
     }
-    
-    document.getElementById('passwordInput').addEventListener('keyup', function(event) {
+
+    // Auto unlock if session exists
+    document.addEventListener('DOMContentLoaded', function() {
+      if (sessionStorage.getItem('lessonplan_unlocked') === 'true') {
+        const overlay = document.getElementById('passwordOverlay');
+        const content = document.getElementById('content');
+        if (overlay) overlay.style.display = 'none';
+        if (content) content.style.display = 'block';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    document.getElementById('passwordInput')?.addEventListener('keyup', function(event) {
       if (event.key === 'Enter') {
         checkPassword();
       }
@@ -2191,7 +2195,7 @@
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {
-            errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+            errorMessage.textContent = 'Wrong Password! Please try again.';
             passwordInputProfile.value = ''; passwordInputProfile.focus();
             submitBtnProfile.classList.add('shake');
             setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);

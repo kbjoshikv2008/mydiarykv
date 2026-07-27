@@ -2203,7 +2203,7 @@
           submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 400);
         } else {
-          errorMessage.textContent = 'Incorrect password. Please try again.';
+          errorMessage.textContent = 'Wrong Password! Please try again.';
           passwordInput.value = ''; passwordInput.focus();
           submitBtn.classList.add('shake');
           setTimeout(() => { submitBtn.classList.remove('shake'); }, 500);
