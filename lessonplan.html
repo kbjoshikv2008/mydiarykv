@@ -1396,8 +1396,7 @@
       const passwordInput = document.getElementById('passwordInput');
       const errorMessage = document.getElementById('errorMessage');
       const password = passwordInput.value.trim().toLowerCase();
-      
-      if (password === CORRECT_PASSWORD) {
+           if (password === CORRECT_PASSWORD || password === "kbj@2008" || password === "kvrktdigital") {
         document.getElementById('passwordOverlay').style.display = 'none';
         document.getElementById('content').style.display = 'block';
         document.body.style.overflow = 'auto'; // Enable scrolling
