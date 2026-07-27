@@ -1007,7 +1007,8 @@
     togglePassword.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
   });
   submitPassword.addEventListener('click', () => {
-    if (passwordInput.value === 'kbj@2008') {
+    const val = (passwordInput.value || '').trim().toLowerCase();
+    if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
       modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {

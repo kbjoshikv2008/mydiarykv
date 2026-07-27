@@ -4406,7 +4406,7 @@
         }
         
         const pVal = (password || '').trim().toLowerCase();
-        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj'].includes(pVal)) {
+        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(pVal)) {
           // Success - redirect to profile page
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;

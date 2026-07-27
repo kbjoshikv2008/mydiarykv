@@ -2524,11 +2524,11 @@
     }
 
     function verifyAccess() {
-      const pwd = document.getElementById("gatePassword").value;
+      const pwd = (document.getElementById("gatePassword")?.value || "").trim().toLowerCase();
       const errorMsg = document.getElementById("gateError");
       errorMsg.textContent = "";
 
-      if (pwd === "kbj@2008") {
+      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(pwd)) {
         sessionStorage.setItem("analysis_access_granted", "yes");
         hideSecurityGate();
       } else {
@@ -2593,10 +2593,10 @@
       });
       
       submitBtn.addEventListener('click', function() {
-        const password = passwordInput.value;
+        const password = (passwordInput.value || '').trim().toLowerCase();
         errorMessage.textContent = '';
         
-        if (['kbj@2008', 'kbjkvrkt', 'kvrktdigital', 'kbj2008'].includes(password.toLowerCase())) {
+        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(password)) {
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;
           setTimeout(() => {

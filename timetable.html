@@ -1884,14 +1884,14 @@
     const errorMessage = document.getElementById('errorMessage');
     const modal = document.getElementById('passwordModal');
     const val = (passwordInput ? passwordInput.value : '').trim().toLowerCase();
-    const validPwds = ['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj'];
+    const validPwds = ['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'];
     
-    if (validPwds.includes(val) || val.length > 0) {
+    if (validPwds.includes(val)) {
       if (modal) modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {
       if (errorMessage) {
-        errorMessage.textContent = 'Please enter password to unlock profile.';
+        errorMessage.textContent = 'Incorrect password! Please try again.';
         errorMessage.style.display = 'block';
       }
     }
@@ -2465,9 +2465,11 @@
   // DOM Elements & Initialization
   
   // Time Table Authentication (Password: kbj@2008)
+  let pendingTTTab = null;
   window.checkTTAuth = function(targetTab) {
     if (targetTab === 'tab-teachers' || targetTab === 'tab-pocket' || targetTab === 'tab-classes' || targetTab === 'tab-daily-master') {
       if (sessionStorage.getItem('tt_auth_unlocked') !== 'true') {
+        pendingTTTab = targetTab;
         const modal = document.getElementById('ttAuthModal');
         if (modal) {
           modal.style.display = 'flex';
@@ -2486,18 +2488,31 @@
     const input = document.getElementById('ttPasswordInput');
     const err = document.getElementById('ttAuthErrMsg');
     const modal = document.getElementById('ttAuthModal');
-    const val = (input ? input.value : '').trim();
-    const validPasswords = ['kbj@2008', 'kbjkvrkt@2008', 'KBJ@2008', 'KBJKVRKT@2008'];
+    const val = (input ? input.value : '').trim().toLowerCase();
+    const validPasswords = ['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'];
     
     if (validPasswords.includes(val)) {
       sessionStorage.setItem('tt_auth_unlocked', 'true');
       if (modal) modal.style.display = 'none';
       if (err) err.style.display = 'none';
+
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
       const activeBtn = document.querySelector('.tab-btn.active');
-      if (activeBtn) {
-        const target = activeBtn.getAttribute('data-tab');
-        document.getElementById(target)?.classList.add('active');
-      }
+      const target = pendingTTTab || (activeBtn ? activeBtn.getAttribute('data-tab') : 'tab-teachers');
+
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+
+      const targetBtn = document.querySelector(`.tab-btn[data-tab="${target}"]`) || activeBtn;
+      if (targetBtn) targetBtn.classList.add('active');
+      const targetContent = document.getElementById(target);
+      if (targetContent) targetContent.classList.add('active');
+
+      if (target === 'tab-circulars') loadTimetableDocs();
+      if (target === 'tab-recess' && typeof renderRecessDuty === 'function') renderRecessDuty();
+      if (target === 'tab-class-teachers' && typeof renderClassTeachersTab === 'function') renderClassTeachersTab();
+      pendingTTTab = null;
     } else {
       if (err) {
         err.style.display = 'block';
@@ -3580,7 +3595,7 @@
     });
     if (submitPassword) submitPassword.addEventListener('click', () => {
       const pVal = passwordInput ? passwordInput.value.trim().toLowerCase() : '';
-      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', '2008', 'kbj'].includes(pVal)) {
+      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(pVal)) {
         if(modal) modal.style.display = 'none';
         window.location.href = 'profile.html';
       } else {

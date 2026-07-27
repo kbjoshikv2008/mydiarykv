@@ -719,13 +719,13 @@
           });
         }
         function verifyPtmGate() {
-          var val = pwdInput ? pwdInput.value : '';
+          var val = (pwdInput ? pwdInput.value : '').trim().toLowerCase();
           if (errorDiv) errorDiv.textContent = '';
           if (!val) {
             if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
             return;
           }
-          if (val === 'kbj@2008') {
+          if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
             sessionStorage.setItem('ptm_access_granted', 'yes');
             if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
             setTimeout(hidePtmGate, 800);
@@ -767,11 +767,11 @@
         const password = passwordInputProfile.value;
         errorMessageProfile.textContent = '';
         if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-        if (['kbj@2008', 'kbjkvrkt', 'kvrktdigital', 'kbj2008'].includes(password.toLowerCase())) {
+        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(password.toLowerCase())) {
           submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
         } else {
-          errorMessage.textContent = 'Wrong Password! Please try again.';
+          errorMessageProfile.textContent = 'Wrong Password! Please try again.';
           passwordInputProfile.value = ''; passwordInputProfile.focus();
           submitBtnProfile.classList.add('shake');
           setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);

@@ -1317,7 +1317,8 @@
     togglePassword.innerHTML = show ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
   });
   submitPassword.addEventListener('click', () => {
-    if (passwordInput.value === 'kbj@2008') {
+    const val = (passwordInput.value || '').trim().toLowerCase();
+    if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
       modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {
@@ -1373,13 +1374,13 @@
     }
 
     function verifyLearnersGate() {
-      const val = pwdInput ? pwdInput.value : '';
+      const val = pwdInput ? pwdInput.value.trim().toLowerCase() : '';
       if (errorDiv) errorDiv.textContent = '';
       if (!val) {
         if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
         return;
       }
-      if (val === 'kbj@2008') {
+      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
         sessionStorage.setItem('learners_access_granted', 'yes');
         if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
         setTimeout(hideLearnersGate, 800);
