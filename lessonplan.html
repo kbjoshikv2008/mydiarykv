@@ -158,6 +158,22 @@
       font-size: 2em;
     }
 
+    
+    .class-6 .class-header { background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(52,211,153,0.25)); border-bottom-color: rgba(16,185,129,0.2); }
+    .class-8 .class-header { background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(251,191,36,0.25)); border-bottom-color: rgba(245,158,11,0.2); }
+    .class-9 .class-header { background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(129,140,248,0.25)); border-bottom-color: rgba(99,102,241,0.2); }
+    .class-10 .class-header { background: linear-gradient(135deg, rgba(239,68,68,0.3), rgba(248,113,113,0.25)); border-bottom-color: rgba(239,68,68,0.2); }
+
+    .class-6 .chapter-link { border-left: 3px solid #10b981; }
+    .class-8 .chapter-link { border-left: 3px solid #f59e0b; }
+    .class-9 .chapter-link { border-left: 3px solid #6366f1; }
+    .class-10 .chapter-link { border-left: 3px solid #ef4444; }
+
+    .class-6 .chapter-link:hover { border-left-color: #34d399; }
+    .class-8 .chapter-link:hover { border-left-color: #fbbf24; }
+    .class-9 .chapter-link:hover { border-left-color: #818cf8; }
+    .class-10 .chapter-link:hover { border-left-color: #f87171; }
+
     .class-7 .class-header { background: linear-gradient(135deg, rgba(14,165,233,0.3), rgba(6,182,212,0.25)); border-bottom-color: rgba(14,165,233,0.2); }
     .class-11 .class-header { background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(167,139,250,0.25)); border-bottom-color: rgba(139,92,246,0.2); }
     .class-12 .class-header { background: linear-gradient(135deg, rgba(236,72,153,0.3), rgba(244,63,94,0.25)); border-bottom-color: rgba(236,72,153,0.2); }
@@ -675,45 +691,113 @@
 
         <!-- Section 1: Original Lesson Plan Vault -->
         <div id="lessonPlanVaultSection" class="lp-tab-content">
+
+          <!-- Vault Filter Bar -->
+          <div class="filter-group mb-24" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; background:var(--glass-bg); padding:16px 20px; border-radius:16px; border:1px solid var(--glass-border); margin-bottom:24px;">
+            <span style="color:var(--text-secondary); font-size:0.85em; font-weight:700; margin-right:8px;"><i class="fas fa-filter" style="color:#a78bfa;"></i> Select Class:</span>
+            <button class="filter-pill active" onclick="filterVaultClass('all', this)">All Classes (7)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class6', this)">Class 6 (Ganit Prakash)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class7', this)">Class 7 (Ganit Prakash)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class8', this)">Class 8 (Ganit Prakash)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class9', this)">Class 9 (Ganit Manjari)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class10', this)">Class 10 (NCERT)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class11', this)">Class 11 (NCERT)</button>
+            <button class="filter-pill" onclick="filterVaultClass('class12', this)">Class 12 (NCERT)</button>
+          </div>
+
           <div class="class-container">
-            <!-- Class 7 Card -->
-            <div class="class-card class-7 fade-in-1">
+            
+            <!-- Class 6 Card (NCERT Ganit Prakash) -->
+            <div class="class-card class-6 vault-card-item fade-in-1" data-class="class6">
               <div class="class-header">
-                <i class="fas fa-calculator"></i>
-                <h2 class="class-title">Class 7 Mathematics</h2>
+                <i class="fas fa-shapes"></i>
+                <h2 class="class-title">Class 6 Mathematics (Ganit Prakash)</h2>
               </div>
               <div class="chapter-list">
-                <h3><i class="fas fa-book"></i> Chapters</h3>
+                <h3><i class="fas fa-book"></i> NCERT Chapters</h3>
                 <div class="chapters">
-                  <a href="Lesson plan/class7_chapter1.html" class="chapter-link">
+                  <a href="Lesson plan/class6_chapter1.html" data-class="Class 6" data-chapter="Chapter 1: Patterns in Mathematics" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Patterns in Mathematics
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter2.html" data-class="Class 6" data-chapter="Chapter 2: Lines and Angles" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Lines and Angles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter3.html" data-class="Class 6" data-chapter="Chapter 3: Number Play" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Number Play
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter4.html" data-class="Class 6" data-chapter="Chapter 4: Data Handling and Presentation" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Data Handling and Presentation
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter5.html" data-class="Class 6" data-chapter="Chapter 5: Prime Time" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Prime Time
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter6.html" data-class="Class 6" data-chapter="Chapter 6: Perimeter and Area" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Perimeter and Area
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter7.html" data-class="Class 6" data-chapter="Chapter 7: Fractions" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Fractions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter8.html" data-class="Class 6" data-chapter="Chapter 8: Playing with Constructions" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Playing with Constructions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter9.html" data-class="Class 6" data-chapter="Chapter 9: Symmetry" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Symmetry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class6_chapter10.html" data-class="Class 6" data-chapter="Chapter 10: The Other Side of Zero" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> The Other Side of Zero (Integers)
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Class 7 Card (NCERT Ganit Prakash) -->
+            <div class="class-card class-7 vault-card-item fade-in-1" data-class="class7">
+              <div class="class-header">
+                <i class="fas fa-calculator"></i>
+                <h2 class="class-title">Class 7 Mathematics (Ganit Prakash)</h2>
+              </div>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> NCERT Chapters</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class7_chapter1.html" data-class="Class 7" data-chapter="Chapter 1: Large Numbers Around Us" class="chapter-link">
                     <span class="chapter-num">Chapter 1:</span> Large Numbers Around Us
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter2.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter2.html" data-class="Class 7" data-chapter="Chapter 2: Arithmetic Expressions" class="chapter-link">
                     <span class="chapter-num">Chapter 2:</span> Arithmetic Expressions
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter3.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter3.html" data-class="Class 7" data-chapter="Chapter 3: A Peek Beyond the Point" class="chapter-link">
                     <span class="chapter-num">Chapter 3:</span> A Peek Beyond the Point
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter4.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter4.html" data-class="Class 7" data-chapter="Chapter 4: Expressions using Letter-Numbers" class="chapter-link">
                     <span class="chapter-num">Chapter 4:</span> Expressions using Letter-Numbers
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter5.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter5.html" data-class="Class 7" data-chapter="Chapter 5: Parallel and Intersecting Lines" class="chapter-link">
                     <span class="chapter-num">Chapter 5:</span> Parallel and Intersecting Lines
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter6.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter6.html" data-class="Class 7" data-chapter="Chapter 6: Number Play" class="chapter-link">
                     <span class="chapter-num">Chapter 6:</span> Number Play
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter7.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter7.html" data-class="Class 7" data-chapter="Chapter 7: A Tale of Three Intersecting Lines" class="chapter-link">
                     <span class="chapter-num">Chapter 7:</span> A Tale of Three Intersecting Lines
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class7_chapter8.html" class="chapter-link">
+                  <a href="Lesson plan/class7_chapter8.html" data-class="Class 7" data-chapter="Chapter 8: Working with Fractions" class="chapter-link">
                     <span class="chapter-num">Chapter 8:</span> Working with Fractions
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -721,68 +805,194 @@
               </div>
             </div>
 
-            <!-- Class 11 Card -->
-            <div class="class-card class-11 fade-in-2">
+            <!-- Class 8 Card (NCERT Ganit Prakash) -->
+            <div class="class-card class-8 vault-card-item fade-in-2" data-class="class8">
               <div class="class-header">
-                <i class="fas fa-chart-line"></i>
-                <h2 class="class-title">Class 11 Mathematics</h2>
+                <i class="fas fa-square-root-alt"></i>
+                <h2 class="class-title">Class 8 Mathematics (Ganit Prakash)</h2>
               </div>
               <div class="chapter-list">
-                <h3><i class="fas fa-book"></i> Chapters</h3>
+                <h3><i class="fas fa-book"></i> NCERT Chapters</h3>
                 <div class="chapters">
-                  <a href="Lesson plan/class11_chapter1.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 1:</span> Sets
+                  <a href="Lesson plan/class8_chapter1.html" data-class="Class 8" data-chapter="Chapter 1: Rational Numbers" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Rational Numbers
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter2.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 2:</span> Relations and Functions
+                  <a href="Lesson plan/class8_chapter2.html" data-class="Class 8" data-chapter="Chapter 2: Linear Equations in One Variable" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Linear Equations in One Variable
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter3.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 3:</span> Trigonometric Functions
+                  <a href="Lesson plan/class8_chapter3.html" data-class="Class 8" data-chapter="Chapter 3: Understanding Quadrilaterals" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Understanding Quadrilaterals
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter4.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 4:</span> Complex Numbers and Quadratic Equations
+                  <a href="Lesson plan/class8_chapter4.html" data-class="Class 8" data-chapter="Chapter 4: Data Handling" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Data Handling
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter5.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 5:</span> Linear Inequalities
+                  <a href="Lesson plan/class8_chapter5.html" data-class="Class 8" data-chapter="Chapter 5: Squares and Square Roots" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Squares and Square Roots
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter6.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 6:</span> Permutations and Combinations
+                  <a href="Lesson plan/class8_chapter6.html" data-class="Class 8" data-chapter="Chapter 6: Cubes and Cube Roots" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Cubes and Cube Roots
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter7.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 7:</span> Binomial Theorem
+                  <a href="Lesson plan/class8_chapter7.html" data-class="Class 8" data-chapter="Chapter 7: Comparing Quantities" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Comparing Quantities
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter8.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 8:</span> Sequences and Series
+                  <a href="Lesson plan/class8_chapter8.html" data-class="Class 8" data-chapter="Chapter 8: Algebraic Expressions and Identities" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Algebraic Expressions and Identities
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter9.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 9:</span> Straight Lines
+                  <a href="Lesson plan/class8_chapter9.html" data-class="Class 8" data-chapter="Chapter 9: Mensuration" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Mensuration
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter10.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 10:</span> Conic Sections
+                  <a href="Lesson plan/class8_chapter10.html" data-class="Class 8" data-chapter="Chapter 10: Exponents and Powers" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Exponents and Powers
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter11.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 11:</span> Introduction to Three Dimensional Geometry
+                  <a href="Lesson plan/class8_chapter11.html" data-class="Class 8" data-chapter="Chapter 11: Direct and Inverse Proportions" class="chapter-link">
+                    <span class="chapter-num">Chapter 11:</span> Direct and Inverse Proportions
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter12.html" class="chapter-link">
-                    <span class="chapter-num">Chapter 12:</span> Limits and Derivatives
+                  <a href="Lesson plan/class8_chapter12.html" data-class="Class 8" data-chapter="Chapter 12: Factorisation" class="chapter-link">
+                    <span class="chapter-num">Chapter 12:</span> Factorisation
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter13.html" class="chapter-link">
+                  <a href="Lesson plan/class8_chapter13.html" data-class="Class 8" data-chapter="Chapter 13: Introduction to Graphs" class="chapter-link">
+                    <span class="chapter-num">Chapter 13:</span> Introduction to Graphs
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Class 9 Card (Ganit Manjari / NCERT) -->
+            <div class="class-card class-9 vault-card-item fade-in-2" data-class="class9">
+              <div class="class-header">
+                <i class="fas fa-project-diagram"></i>
+                <h2 class="class-title">Class 9 Mathematics (Ganit Manjari)</h2>
+              </div>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> NCERT Chapters</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class9_chapter1.html" data-class="Class 9" data-chapter="Chapter 1: Number Systems" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Number Systems
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter2.html" data-class="Class 9" data-chapter="Chapter 2: Polynomials" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Polynomials
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter3.html" data-class="Class 9" data-chapter="Chapter 3: Coordinate Geometry" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Coordinate Geometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter4.html" data-class="Class 9" data-chapter="Chapter 4: Linear Equations in Two Variables" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Linear Equations in Two Variables
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter5.html" data-class="Class 9" data-chapter="Chapter 5: Introduction to Euclid's Geometry" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Introduction to Euclid's Geometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter6.html" data-class="Class 9" data-chapter="Chapter 6: Lines and Angles" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Lines and Angles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter7.html" data-class="Class 9" data-chapter="Chapter 7: Triangles" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Triangles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter8.html" data-class="Class 9" data-chapter="Chapter 8: Quadrilaterals" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Quadrilaterals
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter9.html" data-class="Class 9" data-chapter="Chapter 9: Circles" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Circles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter10.html" data-class="Class 9" data-chapter="Chapter 10: Heron's Formula" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Heron's Formula
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter11.html" data-class="Class 9" data-chapter="Chapter 11: Surface Areas and Volumes" class="chapter-link">
+                    <span class="chapter-num">Chapter 11:</span> Surface Areas and Volumes
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class9_chapter12.html" data-class="Class 9" data-chapter="Chapter 12: Statistics" class="chapter-link">
+                    <span class="chapter-num">Chapter 12:</span> Statistics
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Class 10 Card (NCERT) -->
+            <div class="class-card class-10 vault-card-item fade-in-3" data-class="class10">
+              <div class="class-header">
+                <i class="fas fa-superscript"></i>
+                <h2 class="class-title">Class 10 Mathematics (NCERT)</h2>
+              </div>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> NCERT Chapters</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class10_chapter1.html" data-class="Class 10" data-chapter="Chapter 1: Real Numbers" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Real Numbers
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter2.html" data-class="Class 10" data-chapter="Chapter 2: Polynomials" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Polynomials
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter3.html" data-class="Class 10" data-chapter="Chapter 3: Pair of Linear Equations in Two Variables" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Pair of Linear Equations in Two Variables
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter4.html" data-class="Class 10" data-chapter="Chapter 4: Quadratic Equations" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Quadratic Equations
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter5.html" data-class="Class 10" data-chapter="Chapter 5: Arithmetic Progressions" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Arithmetic Progressions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter6.html" data-class="Class 10" data-chapter="Chapter 6: Triangles" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Triangles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter7.html" data-class="Class 10" data-chapter="Chapter 7: Coordinate Geometry" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Coordinate Geometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter8.html" data-class="Class 10" data-chapter="Chapter 8: Introduction to Trigonometry" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Introduction to Trigonometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter9.html" data-class="Class 10" data-chapter="Chapter 9: Some Applications of Trigonometry" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Some Applications of Trigonometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter10.html" data-class="Class 10" data-chapter="Chapter 10: Circles" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Circles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter11.html" data-class="Class 10" data-chapter="Chapter 11: Areas Related to Circles" class="chapter-link">
+                    <span class="chapter-num">Chapter 11:</span> Areas Related to Circles
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter12.html" data-class="Class 10" data-chapter="Chapter 12: Surface Areas and Volumes" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Surface Areas and Volumes
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class10_chapter13.html" data-class="Class 10" data-chapter="Chapter 13: Statistics" class="chapter-link">
                     <span class="chapter-num">Chapter 13:</span> Statistics
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class11_chapter14.html" class="chapter-link">
+                  <a href="Lesson plan/class10_chapter14.html" data-class="Class 10" data-chapter="Chapter 14: Probability" class="chapter-link">
                     <span class="chapter-num">Chapter 14:</span> Probability
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -790,36 +1000,105 @@
               </div>
             </div>
 
-            <!-- Class 12 Card -->
-            <div class="class-card class-12 fade-in-3">
+            <!-- Class 11 Card (NCERT) -->
+            <div class="class-card class-11 vault-card-item fade-in-2" data-class="class11">
+              <div class="class-header">
+                <i class="fas fa-chart-line"></i>
+                <h2 class="class-title">Class 11 Mathematics (NCERT)</h2>
+              </div>
+              <div class="chapter-list">
+                <h3><i class="fas fa-book"></i> NCERT Chapters</h3>
+                <div class="chapters">
+                  <a href="Lesson plan/class11_chapter1.html" data-class="Class 11" data-chapter="Chapter 1: Sets" class="chapter-link">
+                    <span class="chapter-num">Chapter 1:</span> Sets
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter2.html" data-class="Class 11" data-chapter="Chapter 2: Relations and Functions" class="chapter-link">
+                    <span class="chapter-num">Chapter 2:</span> Relations and Functions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter3.html" data-class="Class 11" data-chapter="Chapter 3: Trigonometric Functions" class="chapter-link">
+                    <span class="chapter-num">Chapter 3:</span> Trigonometric Functions
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter4.html" data-class="Class 11" data-chapter="Chapter 4: Complex Numbers and Quadratic Equations" class="chapter-link">
+                    <span class="chapter-num">Chapter 4:</span> Complex Numbers and Quadratic Equations
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter5.html" data-class="Class 11" data-chapter="Chapter 5: Linear Inequalities" class="chapter-link">
+                    <span class="chapter-num">Chapter 5:</span> Linear Inequalities
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter6.html" data-class="Class 11" data-chapter="Chapter 6: Permutations and Combinations" class="chapter-link">
+                    <span class="chapter-num">Chapter 6:</span> Permutations and Combinations
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter7.html" data-class="Class 11" data-chapter="Chapter 7: Binomial Theorem" class="chapter-link">
+                    <span class="chapter-num">Chapter 7:</span> Binomial Theorem
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter8.html" data-class="Class 11" data-chapter="Chapter 8: Sequences and Series" class="chapter-link">
+                    <span class="chapter-num">Chapter 8:</span> Sequences and Series
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter9.html" data-class="Class 11" data-chapter="Chapter 9: Straight Lines" class="chapter-link">
+                    <span class="chapter-num">Chapter 9:</span> Straight Lines
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter10.html" data-class="Class 11" data-chapter="Chapter 10: Conic Sections" class="chapter-link">
+                    <span class="chapter-num">Chapter 10:</span> Conic Sections
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter11.html" data-class="Class 11" data-chapter="Chapter 11: Introduction to Three Dimensional Geometry" class="chapter-link">
+                    <span class="chapter-num">Chapter 11:</span> Introduction to Three Dimensional Geometry
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter12.html" data-class="Class 11" data-chapter="Chapter 12: Limits and Derivatives" class="chapter-link">
+                    <span class="chapter-num">Chapter 12:</span> Limits and Derivatives
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter13.html" data-class="Class 11" data-chapter="Chapter 13: Statistics" class="chapter-link">
+                    <span class="chapter-num">Chapter 13:</span> Statistics
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                  <a href="Lesson plan/class11_chapter14.html" data-class="Class 11" data-chapter="Chapter 14: Probability" class="chapter-link">
+                    <span class="chapter-num">Chapter 14:</span> Probability
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Class 12 Card (NCERT) -->
+            <div class="class-card class-12 vault-card-item fade-in-3" data-class="class12">
               <div class="class-header">
                 <i class="fas fa-infinity"></i>
-                <h2 class="class-title">Class 12 Mathematics</h2>
+                <h2 class="class-title">Class 12 Mathematics (NCERT)</h2>
               </div>
               <div class="chapter-list">
                 <h3><i class="fas fa-book"></i> Part I</h3>
                 <div class="chapters mb-16">
-                  <a href="Lesson plan/class12_part1_chapter1.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part1_chapter1.html" data-class="Class 12" data-chapter="Chapter 1: Relations and Functions" class="chapter-link">
                     <span class="chapter-num">Chapter 1:</span> Relations and Functions
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part1_chapter2.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part1_chapter2.html" data-class="Class 12" data-chapter="Chapter 2: Inverse Trigonometric Functions" class="chapter-link">
                     <span class="chapter-num">Chapter 2:</span> Inverse Trigonometric Functions
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part1_chapter3.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part1_chapter3.html" data-class="Class 12" data-chapter="Chapter 3: Matrices" class="chapter-link">
                     <span class="chapter-num">Chapter 3:</span> Matrices
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part1_chapter4.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part1_chapter4.html" data-class="Class 12" data-chapter="Chapter 4: Determinants" class="chapter-link">
                     <span class="chapter-num">Chapter 4:</span> Determinants
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part1_chapter5.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part1_chapter5.html" data-class="Class 12" data-chapter="Chapter 5: Continuity and Differentiability" class="chapter-link">
                     <span class="chapter-num">Chapter 5:</span> Continuity and Differentiability
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part1_chapter6.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part1_chapter6.html" data-class="Class 12" data-chapter="Chapter 6: Application of Derivatives" class="chapter-link">
                     <span class="chapter-num">Chapter 6:</span> Application of Derivatives
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -827,35 +1106,35 @@
                 
                 <h3><i class="fas fa-book"></i> Part II</h3>
                 <div class="chapters">
-                  <a href="Lesson plan/class12_part2_chapter7_Indefinite.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter7_Indefinite.html" data-class="Class 12" data-chapter="Chapter 7: Indefinite Integrals" class="chapter-link">
                     <span class="chapter-num">Chapter 7:</span> Indefinite Integrals
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter7_definite.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter7_definite.html" data-class="Class 12" data-chapter="Chapter 7: Definite Integrals" class="chapter-link">
                     <span class="chapter-num">Chapter 7:</span> Definite Integrals
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter8.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter8.html" data-class="Class 12" data-chapter="Chapter 8: Application of Integrals" class="chapter-link">
                     <span class="chapter-num">Chapter 8:</span> Application of Integrals
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter9.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter9.html" data-class="Class 12" data-chapter="Chapter 9: Differential Equations" class="chapter-link">
                     <span class="chapter-num">Chapter 9:</span> Differential Equations
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter10.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter10.html" data-class="Class 12" data-chapter="Chapter 10: Vector Algebra" class="chapter-link">
                     <span class="chapter-num">Chapter 10:</span> Vector Algebra
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter11.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter11.html" data-class="Class 12" data-chapter="Chapter 11: Three Dimensional Geometry" class="chapter-link">
                     <span class="chapter-num">Chapter 11:</span> Three Dimensional Geometry
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter12.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter12.html" data-class="Class 12" data-chapter="Chapter 12: Linear Programming" class="chapter-link">
                     <span class="chapter-num">Chapter 12:</span> Linear Programming
                     <i class="fas fa-chevron-right"></i>
                   </a>
-                  <a href="Lesson plan/class12_part2_chapter13.html" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter13.html" data-class="Class 12" data-chapter="Chapter 13: Probability" class="chapter-link">
                     <span class="chapter-num">Chapter 13:</span> Probability
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -1489,7 +1768,75 @@
     function downloadLessonPlanDoc() {
       const content = document.getElementById('lpResultContent').innerHTML;
       const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><title>Lesson Plan</title><style>body { font-family: Arial, sans-serif; background-color: #ffffff; color: #000000; } table { border-collapse: collapse; width: 100%; margin: 15px 0; } td, th { border: 1px solid #000; padding: 10px; } h1, h2, h3 { color: #000; } ul, ol { margin: 10px 0; padding-left: 20px; }</style></head><body>";
-      const footer = "</body></html>";
+      const footer = "<script>
+    function filterVaultClass(c, btn) {
+      if (btn) {
+        btn.parentElement.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      const items = document.querySelectorAll('.vault-card-item');
+      items.forEach(item => {
+        if (c === 'all' || item.getAttribute('data-class') === c) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Update openVaultLpEditor with intelligent fallback for missing HTML files
+    function openVaultLpEditor(url, className, chapterName) {
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error("File not pre-rendered");
+          return response.text();
+        })
+        .then(htmlText => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlText, 'text/html');
+          const lpContainer = doc.querySelector('.container');
+          if (!lpContainer) throw new Error("Invalid structure");
+
+          const modal = document.getElementById('vaultLpModal');
+          const editorBody = document.getElementById('vaultLpEditorBody');
+          document.getElementById('vaultLangFilter').value = 'bilingual';
+          document.getElementById('vaultCompactToggle').checked = false;
+          editorBody.className = 'vault-lp-canvas';
+          editorBody.innerHTML = lpContainer.innerHTML;
+          
+          editorBody.querySelectorAll('p').forEach(p => {
+            if (p.textContent.includes('mandatory') && p.textContent.includes('अनिवार्य')) p.remove();
+          });
+          editorBody.querySelectorAll('.prefilled').forEach(el => {
+            el.setAttribute('contenteditable', 'true');
+            el.style.border = '1px dashed rgba(124, 58, 237, 0.2)';
+            el.style.borderRadius = '4px';
+            el.style.padding = '5px';
+            el.style.outline = 'none';
+          });
+          modal.style.display = 'flex';
+        })
+        .catch(err => {
+          // If HTML file not pre-generated, auto prefill AI Lesson Plan Generator for this class & chapter
+          switchLessonPlanTab('generator');
+          if (className) {
+            const classSelect = document.getElementById('lpClass');
+            for (let i = 0; i < classSelect.options.length; i++) {
+              if (classSelect.options[i].value === className || classSelect.options[i].text.includes(className)) {
+                classSelect.selectedIndex = i;
+                break;
+              }
+            }
+          }
+          if (chapterName) {
+            document.getElementById('lpChapter').value = chapterName;
+            document.getElementById('lpTopic').value = chapterName.replace(/^Chapter \d+:\s*/, '');
+          }
+          document.getElementById('aiPlannerForm').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+</script>
+</body></html>";
       const sourceHTML = header + content + footer;
       
       const blob = new Blob(['\ufeff' + sourceHTML], {
