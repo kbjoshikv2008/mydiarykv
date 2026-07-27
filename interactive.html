@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Lesson Hub | Teacher's Digital Diary</title>
+  <title>Interactive Lesson Hub | Math Lab | Teacher's Digital Diary</title>
   <meta name="description" content="Access conceptual interactive mathematics lessons, mind maps, slide decks, video walkthroughs, and infographics for CBSE Classes 7, 11, and 12 directly from Google Drive and Math Lab.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -28,6 +28,37 @@
       background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
       border-radius: 30px; padding: 6px 14px; font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.9);
     }
+
+    .cross-banner {
+      background: linear-gradient(135deg, rgba(220,38,38,0.2) 0%, rgba(124,58,237,0.2) 100%);
+      border: 1px solid rgba(239,68,68,0.35);
+      border-radius: 20px;
+      padding: 20px 26px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: var(--glass-shadow);
+    }
+    .cross-banner-info { display: flex; align-items: center; gap: 14px; }
+    .cross-banner-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #f87171; flex-shrink: 0;
+    }
+    .cross-banner-text h3 { font-size: 1rem; font-weight: 800; color: #fff; margin: 0 0 3px; }
+    .cross-banner-text p { font-size: 0.82rem; color: var(--text-secondary); margin: 0; }
+    .cross-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: #fff; padding: 9px 18px; border-radius: 30px;
+      font-size: 0.84rem; font-weight: 700; text-decoration: none;
+      transition: all 0.25s ease; box-shadow: 0 4px 15px rgba(220,38,38,0.35);
+    }
+    .cross-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(220,38,38,0.5); color: #fff; text-decoration: none; }
 
     /* Filter & Search Bar */
     .filter-panel {
@@ -191,15 +222,15 @@
 
   <!-- Site Header -->
   <header class="site-header">
+    <a href="#" id="profileLink" title="View Teacher Profile">
+      <img src="kbjoshi.png" class="profile-photo" alt="K B Joshi">
+    </a>
     <div class="container">
       <div class="page-chip"><i class="fas fa-flask"></i> Math Lab — Interactive Lessons</div>
       <h1>K B Joshi</h1>
       <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
       <h3>Teacher's Digital Diary</h3>
     </div>
-    <a href="#" id="profileLink" title="View Teacher Profile">
-      <img src="kbjoshi.png" alt="K B Joshi" class="profile-photo">
-    </a>
   </header>
 
   <!-- Navigation Bar (Return to Home Button at Top) -->
@@ -227,6 +258,18 @@
       </div>
     </div>
 
+    <!-- Integrated Cross-Link Banner -->
+    <div class="cross-banner">
+      <div class="cross-banner-info">
+        <div class="cross-banner-icon"><i class="fab fa-youtube"></i></div>
+        <div class="cross-banner-text">
+          <h3>Academics — Digital Video Content &amp; YouTube Playlists</h3>
+          <p>Explore official YouTube video playlists, board exam prep series, and classwise digital learning packages.</p>
+        </div>
+      </div>
+      <a href="digitalcontent.html" class="cross-btn"><i class="fas fa-laptop"></i> Open Academics Digital Content</a>
+    </div>
+
     <!-- Direct Subfolder Shortcuts -->
     <h2 style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:12px;">
       <i class="fab fa-google-drive" style="color:#a78bfa;"></i> Direct Google Drive Folders
@@ -243,6 +286,12 @@
       </a>
       <a href="https://drive.google.com/drive/folders/1DHdJfYRDObtU_1SVxETRZENDo9i2wALx" target="_blank" class="folder-tab-btn">
         <i class="fas fa-folder-open" style="color:#fbbf24;"></i> Class 12 Videos, Slides &amp; Infographics
+      </a>
+      <a href="https://drive.google.com/drive/folders/1nppa19mTzRRti6OdFtzIW49vZTNcIR87?usp=sharing" target="_blank" class="folder-tab-btn">
+        <i class="fas fa-file-powerpoint" style="color:#fbbf24;"></i> Class 11 PPT Slides
+      </a>
+      <a href="https://drive.google.com/drive/folders/1-aS-sjTaoTWODNn_Dj2le4cvvSCDr0il?usp=sharing" target="_blank" class="folder-tab-btn">
+        <i class="fas fa-file-powerpoint" style="color:#ec4899;"></i> Class 12 PPT Slides
       </a>
     </div>
 
@@ -322,13 +371,69 @@
     </div>
   </div>
 
-  <footer>
+  <!-- Footer -->
+  <footer class="site-footer">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>📓 Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
+            <li><a href="lessonplan.html"><i class="fas fa-chevron-right"></i> Lesson Plans</a></li>
+            <li><a href="digitalcontent.html"><i class="fas fa-chevron-right"></i> Digital Content</a></li>
+            <li><a href="ppts.html"><i class="fas fa-chevron-right"></i> PPT Presentations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="http://www.youtube.com/@KBJ25" target="_blank"><i class="fas fa-chevron-right"></i> YouTube Channel</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="footer-bottom">
-        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; Designed by <strong>K B Joshi</strong></p>
+        <p><strong>TEACHER'S DIGITAL DIARY</strong> &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
       </div>
     </div>
   </footer>
+
+  <!-- Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>SECURE PROFILE ACCESS</h2>
+      <div class="teacher-info">
+        <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+        <div class="teacher-details">
+          <h3>KIRTI BALLABH JOSHI</h3>
+          <p>PGT Mathematics</p>
+          <p>PM SHRI KV Ranikhet</p>
+          <p>Employee Code: 54244</p>
+        </div>
+      </div>
+      <div class="password-form">
+        <div class="form-group">
+          <label for="password_profile">Enter Access Password</label>
+          <div class="password-container">
+            <input type="password" id="password_profile" placeholder="Secure password required">
+            <button class="toggle-password" id="togglePasswordProfile">&#128065;&#65039;</button>
+          </div>
+        </div>
+        <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+      </div>
+    </div>
+  </div>
+
+  <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
   <script src="interactive_lessons_data.js"></script>
   <script>
@@ -406,10 +511,12 @@
     function filterLessons() { renderGrid(); }
 
     function getDriveUrlForItem(item) {
-      if (item.classKey === 'class7') return `https://drive.google.com/drive/folders/${DRIVE_FOLDERS.class7}`;
-      if (item.classKey === 'class11') return `https://drive.google.com/drive/folders/${DRIVE_FOLDERS.class11}`;
-      if (item.classKey === 'class12') return `https://drive.google.com/drive/folders/${DRIVE_FOLDERS.class12}`;
-      return `https://drive.google.com/drive/folders/${DRIVE_FOLDERS.main}`;
+      if (item.category === 'slides' && item.classKey === 'class11') return 'https://drive.google.com/drive/folders/1nppa19mTzRRti6OdFtzIW49vZTNcIR87?usp=sharing';
+      if (item.category === 'slides' && item.classKey === 'class12') return 'https://drive.google.com/drive/folders/1-aS-sjTaoTWODNn_Dj2le4cvvSCDr0il?usp=sharing';
+      if (item.classKey === 'class7') return "https://drive.google.com/drive/folders/" + DRIVE_FOLDERS.class7;
+      if (item.classKey === 'class11') return "https://drive.google.com/drive/folders/" + DRIVE_FOLDERS.class11;
+      if (item.classKey === 'class12') return "https://drive.google.com/drive/folders/" + DRIVE_FOLDERS.class12;
+      return "https://drive.google.com/drive/folders/" + DRIVE_FOLDERS.main;
     }
 
     function renderGrid() {
@@ -424,40 +531,18 @@
       });
 
       if (!filtered.length) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary);">
-          <i class="fas fa-search" style="font-size:2rem;margin-bottom:12px;opacity:0.5;"></i>
-          <h3>No matching interactive resources found</h3>
-          <p>Try adjusting your search terms or filters above.</p>
-        </div>`;
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary);"><i class="fas fa-search" style="font-size:2rem;margin-bottom:12px;opacity:0.5;"></i><h3>No matching interactive resources found</h3><p>Try adjusting your search terms or filters above.</p></div>';
         return;
       }
 
       grid.innerHTML = filtered.map(item => {
         const driveUrl = getDriveUrlForItem(item);
-        const fileUrl  = item.fileUrl;
         let catLabel = item.category.toUpperCase();
-        let badgeClass = `badge-${item.category}`;
+        let badgeClass = "badge-" + item.category;
 
-        let previewBtnHTML = `<button onclick="openPreview('${item.id}')" class="card-btn btn-preview"><i class="fas fa-eye"></i> Quick Preview</button>`;
+        let previewBtnHTML = '<button onclick="openPreview('' + item.id + '')" class="card-btn btn-preview"><i class="fas fa-eye"></i> Quick Preview</button>';
 
-        return `
-          <div class="lesson-card">
-            <div>
-              <div class="card-top">
-                <span class="cat-badge ${badgeClass}">${catLabel}</span>
-                <span class="class-badge">${item.class}</span>
-              </div>
-              <h3 class="card-title">${item.title}</h3>
-              <p class="card-path"><i class="fas fa-file-alt"></i> ${item.name} (${item.size})</p>
-            </div>
-            <div class="card-actions">
-              <a href="${driveUrl}" target="_blank" class="card-btn btn-drive" title="Open this resource folder in Google Drive">
-                <i class="fab fa-google-drive"></i> Open in Drive
-              </a>
-              ${previewBtnHTML}
-            </div>
-          </div>
-        `;
+        return '<div class="lesson-card"><div><div class="card-top"><span class="cat-badge ' + badgeClass + '">' + catLabel + '</span><span class="class-badge">' + item.class + '</span></div><h3 class="card-title">' + item.title + '</h3><p class="card-path"><i class="fas fa-file-alt"></i> ' + item.name + ' (' + item.size + ')</p></div><div class="card-actions"><a href="' + driveUrl + '" target="_blank" class="card-btn btn-drive" title="Open this resource folder in Google Drive"><i class="fab fa-google-drive"></i> Open in Drive</a>' + previewBtnHTML + '</div></div>';
       }).join('');
     }
 
@@ -500,9 +585,51 @@
       }
     }
 
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModalObj = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+      if (profileLink) profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      if (closeModalObj) closeModalObj.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      if (togglePasswordProfile) {
+        togglePasswordProfile.addEventListener('click', function() {
+          const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInputProfile.setAttribute('type', type);
+          this.textContent = type === 'password' ? '👁️' : '🔒';
+        });
+      }
+
+      if (submitBtnProfile) {
+        submitBtnProfile.addEventListener('click', function() {
+          const password = passwordInputProfile.value;
+          errorMessageProfile.textContent = '';
+          if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+          if (password === 'kbj@2008') {
+            submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+            setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+          } else {
+            errorMessageProfile.textContent = 'Incorrect password. Please try again.';
+            passwordInputProfile.value = ''; passwordInputProfile.focus();
+            submitBtnProfile.classList.add('shake');
+            setTimeout(() => { submitBtnProfile.classList.remove('shake'); }, 500);
+          }
+        });
+        passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
+      }
+    });
+
     checkGate();
   </script>
 </body>
 </html>
-
-
