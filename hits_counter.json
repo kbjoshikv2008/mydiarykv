@@ -1,12 +1,9 @@
 {
-  "totalHits": 1475,
-  "todayHits": 2,
+  "totalHits": 1480,
+  "todayHits": 7,
   "lastReset": "Mon Jul 27 2026",
-  "todayQuizUsers": [
-    "test_user_1_::1",
-    "test_user_2_::1"
-  ],
-  "lastQuizReset": "Sat Jul 25 2026",
+  "todayQuizUsers": [],
+  "lastQuizReset": "Mon Jul 27 2026",
   "allTimeQuizUsers": [
     "test_user_1_::1",
     "test_user_2_::1"

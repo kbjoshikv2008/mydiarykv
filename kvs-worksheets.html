@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KVS Worksheets for Class 6, 7 & 8 Mathematics | K B Joshi</title>
+  <meta name="description" content="Official Kendriya Vidyalaya Sangathan (KVS) Chapterwise Mathematics Worksheets & Question Banks for Classes 6, 7, and 8. Curated by K B Joshi, PGT Mathematics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="premium.css">
+  <style>
+    .kvs-hero {
+      background: linear-gradient(135deg, rgba(76, 29, 149, 0.9), rgba(15, 118, 110, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 40px 32px;
+      margin-bottom: 36px;
+      color: #ffffff;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .kvs-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .kvs-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .kvs-hero h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 850;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .kvs-hero p {
+      font-size: 1.05rem;
+      opacity: 0.95;
+      max-width: 800px;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .drive-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      color: #4c1d95;
+      font-weight: 850;
+      font-size: 1rem;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .drive-cta-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      background: #f8f5ff;
+      color: #9d174d;
+    }
+
+    /* Filter & Search Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      padding: 18px 24px;
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+    .class-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      color: var(--text-light);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #0d9488);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+    }
+    .search-box {
+      position: relative;
+      min-width: 260px;
+      flex: 1;
+      max-width: 400px;
+    }
+    .search-box input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px 16px 10px 42px;
+      color: #fff;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border 0.2s ease;
+    }
+    .search-box input:focus {
+      border-color: #7c3aed;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    /* Chapter Cards Grid */
+    .class-heading {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 36px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid rgba(124, 58, 237, 0.3);
+      padding-bottom: 10px;
+    }
+    .class-heading i { color: #a78bfa; }
+    .worksheet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+    .ws-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 22px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .ws-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #7c3aed, #0d9488);
+      border-radius: 4px 0 0 4px;
+    }
+    .ws-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(124, 58, 237, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+    .ws-ch-num {
+      font-size: 0.75rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #a78bfa;
+      margin-bottom: 6px;
+    }
+    .ws-title {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 750;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .ws-topics {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .ws-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .ws-btn {
+      flex: 1;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .ws-btn-primary {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #ffffff;
+      border: none;
+    }
+    .ws-btn-primary:hover {
+      background: linear-gradient(135deg, #6d28d9, #5b21b6);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    }
+    .ws-btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-light);
+      border: 1px solid var(--glass-border);
+    }
+    .ws-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+    }
+
+    /* Embedded Drive Frame Section */
+    .drive-embed-container {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 48px;
+      backdrop-filter: blur(10px);
+    }
+    .drive-embed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .drive-embed-header h3 {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      color: #ffffff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .drive-iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ===== SITE HEADER ===== -->
+    <header class="site-header">
+      <div class="container">
+        <div class="page-chip"><i class="fa-solid fa-star"></i> PM SHRI KV Ranikhet</div>
+        <h1>K B Joshi</h1>
+        <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+        <h3>Teacher's Digital Diary</h3>
+      </div>
+      <a href="#" id="profileLink" title="View Teacher Profile">
+        <img src="kbjoshi.png" alt="K B Joshi" class="profile-photo">
+      </a>
+    </header>
+
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-menu" id="navMenu">
+          <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+
+          <!-- Group 1: Teacher Desk -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="#" id="profileLink"><i class="fas fa-user-shield"></i> Profile Access</a>
+              <a href="timetable.html"><i class="fas fa-calendar-alt"></i> TIME TABLE</a>
+              <a href="ai-tools.html"><i class="fas fa-robot"></i> AI Tools Portal</a>
+              <a href="analysis.html"><i class="fas fa-chart-line"></i> Performance Analysis</a>
+              <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+              <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
+              <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+            </div>
+          </div>
+
+          <!-- Group 2: Academics -->
+          <div class="nav-item">
+            <a class="dropdown-trigger active"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+              <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+              <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+              <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+              <a href="kvs-worksheets.html" class="active"><i class="fas fa-file-pdf"></i> WORKSHEETS BY KVS for 6-8</a>
+              <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+              <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+            </div>
+          </div>
+
+          <!-- Group 3: Students Corner -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="homework.html"><i class="fas fa-home"></i> Home Work</a>
+              <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+              <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+              <a href="slow-learners-attendance.html"><i class="fas fa-clipboard-user"></i> Remedial Attendance Register</a>
+              <a href="single-digit-marks.html"><i class="fas fa-search"></i> Single Digit Scorers</a>
+              <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+              <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+              <a href="quizzes.html"><i class="fas fa-tasks"></i> Quiz &amp; Assignments</a>
+              <a href="testslip.html"><i class="fas fa-file-invoice"></i> Test Slip Generator</a>
+              <a href="guidance.html"><i class="fas fa-hand-holding-heart"></i> Guidance &amp; Counselling</a>
+            </div>
+          </div>
+
+          <!-- Group 4: Exams & Prep -->
+          <div class="nav-item">
+            <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams & Prep <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
+              <a href="board.html"><i class="fas fa-question-circle"></i> CBSE Board Question Papers</a>
+              <a href="chapterwise-board-questions.html?v=18"><i class="fas fa-folder-open"></i> Chapterwise PYQs</a>
+              <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Mathematics</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content container">
+      
+      <!-- HERO BANNER -->
+      <section class="kvs-hero">
+        <div class="kvs-hero-badge"><i class="fab fa-google-drive"></i> OFFICIAL KVS DRIVE RESOURCES</div>
+        <h2>WORKSHEETS BY KVS for Classes 6 – 8</h2>
+        <p>Comprehensive Kendriya Vidyalaya Sangathan (KVS) NCERT Mathematics Worksheets, Chapterwise Question Banks, Practice Sheets, and Concept Revision Notes for Classes 6, 7, and 8.</p>
+        <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="drive-cta-btn">
+          <i class="fab fa-google-drive" style="color: #4285F4; font-size: 1.25em;"></i> Open Complete Google Drive Folder
+        </a>
+      </section>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="class-tabs">
+          <button class="tab-btn active" data-filter="all"><i class="fas fa-th-large"></i> All Classes (6–8)</button>
+          <button class="tab-btn" data-filter="class6"><i class="fas fa-graduation-cap"></i> Class 6</button>
+          <button class="tab-btn" data-filter="class7"><i class="fas fa-graduation-cap"></i> Class 7</button>
+          <button class="tab-btn" data-filter="class8"><i class="fas fa-graduation-cap"></i> Class 8</button>
+        </div>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="wsSearchInput" placeholder="Search chapter or topic (e.g. Fractions, Integers)...">
+        </div>
+      </div>
+
+      <!-- CLASS 6 WORKSHEETS -->
+      <div class="class-section" data-class="class6">
+        <div class="class-heading">
+          <i class="fas fa-book-open"></i> Class 6 Mathematics — KVS Worksheets
+        </div>
+        <div class="worksheet-grid">
+          
+          <div class="ws-card" data-title="Knowing Our Numbers Whole Numbers Playing with Numbers">
+            <div>
+              <div class="ws-ch-num">Class 6 • Chapters 1–3</div>
+              <div class="ws-title">Numbers & Arithmetic Foundations</div>
+              <div class="ws-topics">Knowing Our Numbers, Whole Numbers, Playing with Numbers (Factors, Multiples, HCF & LCM).</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Basic Geometrical Ideas Understanding Elementary Shapes">
+            <div>
+              <div class="ws-ch-num">Class 6 • Chapters 4–5</div>
+              <div class="ws-title">Geometry & Shapes Worksheets</div>
+              <div class="ws-topics">Points, Lines, Polygons, Circles, Angles, Triangles, Quadrilaterals & 3D Geometry.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Integers Fractions Decimals">
+            <div>
+              <div class="ws-ch-num">Class 6 • Chapters 6–8</div>
+              <div class="ws-title">Integers, Fractions & Decimals</div>
+              <div class="ws-topics">Number Line, Integer Operations, Proper/Improper Fractions, Decimal Tenths & Hundredths.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Data Handling Mensuration Algebra Ratio Proportion">
+            <div>
+              <div class="ws-ch-num">Class 6 • Chapters 9–12</div>
+              <div class="ws-title">Data, Mensuration & Algebra</div>
+              <div class="ws-topics">Pictographs, Bar Graphs, Perimeter & Area of Regular Shapes, Introduction to Algebra, Unitary Method.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CLASS 7 WORKSHEETS -->
+      <div class="class-section" data-class="class7">
+        <div class="class-heading">
+          <i class="fas fa-book-open"></i> Class 7 Mathematics — KVS Worksheets
+        </div>
+        <div class="worksheet-grid">
+          
+          <div class="ws-card" data-title="Integers Fractions Decimals Data Handling">
+            <div>
+              <div class="ws-ch-num">Class 7 • Chapters 1–3</div>
+              <div class="ws-title">Number Systems & Data Handling</div>
+              <div class="ws-topics">Integer Properties, Multiplication/Division of Fractions & Decimals, Mean, Median, Mode & Bar Graphs.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Simple Equations Lines Angles Triangles">
+            <div>
+              <div class="ws-ch-num">Class 7 • Chapters 4–6</div>
+              <div class="ws-title">Equations, Lines & Triangles</div>
+              <div class="ws-topics">Solving Linear Equations, Complementary/Supplementary Angles, Exterior Angle Property & Pythagoras Theorem.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Comparing Quantities Rational Numbers Perimeter Area">
+            <div>
+              <div class="ws-ch-num">Class 7 • Chapters 7–9</div>
+              <div class="ws-title">Quantities, Rational Numbers & Area</div>
+              <div class="ws-topics">Percentages, Profit & Loss, Simple Interest, Rational Numbers Operations, Area of Triangles & Circles.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Algebraic Expressions Exponents Powers Symmetry">
+            <div>
+              <div class="ws-ch-num">Class 7 • Chapters 10–12</div>
+              <div class="ws-title">Algebra, Exponents & Symmetry</div>
+              <div class="ws-topics">Terms & Coefficients, Laws of Exponents, Scientific Notation, Line & Rotational Symmetry.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CLASS 8 WORKSHEETS -->
+      <div class="class-section" data-class="class8">
+        <div class="class-heading">
+          <i class="fas fa-book-open"></i> Class 8 Mathematics — KVS Worksheets
+        </div>
+        <div class="worksheet-grid">
+          
+          <div class="ws-card" data-title="Rational Numbers Linear Equations Quadrilaterals Data Handling">
+            <div>
+              <div class="ws-ch-num">Class 8 • Chapters 1–4</div>
+              <div class="ws-title">Rational Numbers, Equations & Polygons</div>
+              <div class="ws-topics">Rational Properties, Linear Equations with Variables on Both Sides, Parallelograms, Pie Charts & Probability.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Square Roots Cube Roots Comparing Quantities">
+            <div>
+              <div class="ws-ch-num">Class 8 • Chapters 5–7</div>
+              <div class="ws-title">Squares, Cubes & Commercial Math</div>
+              <div class="ws-topics">Square Roots by Division Method, Cube Roots by Prime Factorisation, Discount, GST & Compound Interest.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Algebraic Expressions Mensuration Exponents Powers">
+            <div>
+              <div class="ws-ch-num">Class 8 • Chapters 8–10</div>
+              <div class="ws-title">Algebraic Identities, Mensuration & Exponents</div>
+              <div class="ws-topics">Standard Algebraic Identities, Area of Trapezium, Surface Area & Volume of Cylinder/Cube, Negative Exponents.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+          <div class="ws-card" data-title="Direct Inverse Proportions Factorisation Graphs">
+            <div>
+              <div class="ws-ch-num">Class 8 • Chapters 11–13</div>
+              <div class="ws-title">Proportions, Factorisation & Graphs</div>
+              <div class="ws-topics">Direct & Inverse Variation, Factorisation by Regrouping, Linear Graphs & Coordinate Geometry Basics.</div>
+            </div>
+            <div class="ws-actions">
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary"><i class="fab fa-google-drive"></i> Open Folder</a>
+              <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-secondary"><i class="fas fa-eye"></i> View PDF</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EMBEDDED GOOGLE DRIVE VIEWER -->
+      <div class="drive-embed-container">
+        <div class="drive-embed-header">
+          <h3><i class="fab fa-google-drive" style="color: #4285F4;"></i> Interactive Google Drive Folder Viewer</h3>
+          <a href="https://drive.google.com/drive/folders/1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL?usp=sharing" target="_blank" class="ws-btn ws-btn-primary" style="flex: none; padding: 10px 20px;">
+            <i class="fas fa-external-link-alt"></i> Open Drive in New Tab
+          </a>
+        </div>
+        <iframe src="https://drive.google.com/embeddedfolderview?id=1VQKyNLzz-XCf3CZfTHBsDzrMtPaxDzNL#list" class="drive-iframe" title="KVS Worksheets Google Drive Folder"></iframe>
+      </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer" style="margin-top: 60px;">
+      <div class="container" style="text-align: center;">
+        <p>&copy; 2026 K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet</p>
+        <p style="font-size: 0.85em; color: var(--text-muted); margin-top: 6px;">Worksheets source: Kendriya Vidyalaya Sangathan (KVS) Regional Offices & NCERT Curriculum Resources.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Tab Filter Logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const classSections = document.querySelectorAll('.class-section');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+        classSections.forEach(section => {
+          if (filter === 'all' || section.getAttribute('data-class') === filter) {
+            section.style.display = 'block';
+          } else {
+            section.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Search Logic
+    const searchInput = document.getElementById('wsSearchInput');
+    const wsCards = document.querySelectorAll('.ws-card');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      wsCards.forEach(card => {
+        const titleData = card.getAttribute('data-title').toLowerCase();
+        const textContent = card.textContent.toLowerCase();
+        if (titleData.includes(query) || textContent.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
