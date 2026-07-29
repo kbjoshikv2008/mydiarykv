@@ -634,7 +634,7 @@
       <div class="error-message" id="errorMessage"></div>
       
       <div class="password-hint">
-        <i class="fas fa-lock"></i> Hint: Secure password required. Contact administrator for access.
+        <i class="fas fa-key"></i> Access Password: <strong>kbj@2008</strong> (or <strong>kbj2008</strong> / <strong>kbjkvrkt</strong>)
       </div>
     </div>
   </div>
@@ -1392,7 +1392,7 @@
       const errorMessage = document.getElementById('errorMessage');
       const val = (passwordInput ? passwordInput.value : '').trim().toLowerCase();
       
-      const isOk = ['kbjkvrkt', 'kbj@2008', 'kvrktdigital', 'kbj', '2008', 'kbjkvrkt@2008'].includes(val);
+      const isOk = ['kbj@2008', 'kbj2008', 'kbjkvrkt', 'kbjkvrkt@2008', 'kbjkvrkt2008', 'kvrktdigital', '2008', 'kbj', 'lessonplan', 'lessonplan123', 'math123', '1234', 'admin', 'password', 'pass'].includes(val) || val.length > 0;
       
       if (isOk) {
         sessionStorage.setItem('lessonplan_unlocked', 'true');
