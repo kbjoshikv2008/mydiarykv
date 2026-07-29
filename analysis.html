@@ -1988,7 +1988,8 @@
         { id: "ch1", label: "Ch 1", maxMarks: 10 },
         { id: "ch2", label: "Ch 2", maxMarks: 10 },
         { id: "ch3", label: "Ch 3", maxMarks: 10 },
-        ...Array.from({length: 12}, (_, i) => ({ id: `ch${i+4}`, label: `Ch ${i+4}`, maxMarks: 20 })),
+        { id: "ch4", label: "Ch 4", maxMarks: 10 },
+        ...Array.from({length: 11}, (_, i) => ({ id: `ch${i+5}`, label: `Ch ${i+5}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
         { id: "hy", label: "HY", maxMarks: 60 },
@@ -2240,6 +2241,17 @@
         "YAMAN": 1, "YASHPAL": 3, "ARPITA": 7, "MAANSHA": 10, "PARTH BISHT": 6
       };
 
+      const ch4_7c = {
+        "ABHAY": "", "ABHINAY": 0, "ANAIKA": 6, "ARYAN": 7, "BHAVIKA": 8,
+        "CHANDNI": 0, "DEEPIKA": 0, "DISHA": 4, "GEETA": 0, "GUNJAN": "",
+        "HARSHUL": 1, "HIMANSHI": 0, "KAMAL": 0, "KARISHMA": 2, "KARTIK": 1,
+        "KRITIKA GODIYAL": 2, "KRITIKA RAWAT": 4, "LAKSHIT RAWAT": 1, "LAKSHIT SINGH": 6.5, "MALVIKA": 4,
+        "NAMAN TAMTA": 4, "MAULIK": 6, "MOITRIKA": 6, "MRITYUNJAY": 4, "MUNKASHIF": 6,
+        "NAITIK": 7, "NAMAN SATI": 6, "NISHTHI": 3.5, "PARIDHI": 5, "PARTH": 3,
+        "PRACHI": 5, "PRASUN DEV": 0, "RUDRA": 5, "SHRAVANI": 0, "TANISHA": 0,
+        "YAMAN": 2, "YASHPAL": 4, "ARPITA": 2.5, "MAANSHA": 7, "PARTH BISHT": 8
+      };
+
       const classes = {
         "7C": c7cNames.map((name, i) => {
           const marks = {};
@@ -2254,6 +2266,8 @@
               marks[test.id] = ch2_7c[name];
             } else if (test.id === "ch3" && ch3_7c[name] !== undefined) {
               marks[test.id] = ch3_7c[name];
+            } else if (test.id === "ch4" && ch4_7c[name] !== undefined) {
+              marks[test.id] = ch4_7c[name];
             } else {
               marks[test.id] = "";
             }
@@ -2454,6 +2468,7 @@
         testDates["7C"].ch1 = "2026-04-24";
         testDates["7C"].ch2 = "2026-05-08";
         testDates["7C"].ch3 = "2026-06-12";
+        testDates["7C"].ch4 = "2026-07-24";
         
         localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
       }
