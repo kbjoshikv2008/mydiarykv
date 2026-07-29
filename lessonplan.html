@@ -119,9 +119,13 @@
       margin-right: 4px;
     }
 
-    /* Content Styling (hidden by default until authenticated) */
+    /* Content Styling (always visible) */
     .content {
-      display: none;
+      display: block;
+    }
+
+    .password-overlay {
+      display: none !important;
     }
 
     .class-container {
@@ -616,31 +620,11 @@
     <div class="blob blob-4"></div>
   </div>
 
-  <!-- Password Overlay -->
-  <div class="password-overlay" id="passwordOverlay">
-    <div class="password-box">
-      <h2><i class="fas fa-lock" style="color:#a78bfa;margin-right:8px;"></i> Secure Access Required</h2>
-      <p>Please enter the password to access the Mathematics Lesson Plans Portal</p>
-      
-      <div class="password-input">
-        <i class="fas fa-key"></i>
-        <input type="password" id="passwordInput" placeholder="Enter your password">
-      </div>
-      
-      <button class="submit-btn" onclick="checkPassword()">
-        <i class="fas fa-unlock-alt"></i> Access Portal
-      </button>
-      
-      <div class="error-message" id="errorMessage"></div>
-      
-      <div class="password-hint">
-        <i class="fas fa-key"></i> Access Password: <strong>kbj@2008</strong> (or <strong>kbj2008</strong> / <strong>kbjkvrkt</strong>)
-      </div>
-    </div>
-  </div>
+  <!-- Password Overlay (Disabled) -->
+  <div class="password-overlay" id="passwordOverlay" style="display:none !important;"></div>
 
-  <!-- Content Area (hidden until authenticated) -->
-  <div class="content" id="content">
+  <!-- Content Area (unlocked for all users) -->
+  <div class="content" id="content" style="display:block;">
     
     <!-- Site Header -->
     <header class="site-header">
@@ -1415,15 +1399,14 @@
       }
     }
 
-    // Auto unlock if session exists
+    // Auto unlock page for all users
     document.addEventListener('DOMContentLoaded', function() {
-      if (sessionStorage.getItem('lessonplan_unlocked') === 'true') {
-        const overlay = document.getElementById('passwordOverlay');
-        const content = document.getElementById('content');
-        if (overlay) overlay.style.display = 'none';
-        if (content) content.style.display = 'block';
-        document.body.style.overflow = 'auto';
-      }
+      sessionStorage.setItem('lessonplan_unlocked', 'true');
+      const overlay = document.getElementById('passwordOverlay');
+      const content = document.getElementById('content');
+      if (overlay) overlay.style.display = 'none';
+      if (content) content.style.display = 'block';
+      document.body.style.overflow = 'auto';
     });
 
     document.getElementById('passwordInput')?.addEventListener('keyup', function(event) {
