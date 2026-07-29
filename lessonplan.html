@@ -604,9 +604,24 @@
         page-break-inside: avoid !important;
       }
 
-      @page {
-        size: A4 landscape;
-        margin: 0.4cm;
+      /* Editable canvas visual styles */
+      .vault-lp-canvas [contenteditable="true"] {
+        border-radius: 4px;
+        transition: background 0.15s ease, box-shadow 0.15s ease;
+        min-height: 1em;
+      }
+      .vault-lp-canvas [contenteditable="true"]:hover {
+        background: rgba(167, 139, 250, 0.08) !important;
+        cursor: text;
+      }
+      .vault-lp-canvas [contenteditable="true"]:focus {
+        background: rgba(167, 139, 250, 0.14) !important;
+        outline: 2px solid rgba(167, 139, 250, 0.5) !important;
+        outline-offset: -1px;
+      }
+      .vault-lp-canvas td[contenteditable="true"]:focus,
+      .vault-lp-canvas th[contenteditable="true"]:focus {
+        background: #f5f3ff !important;
       }
     }
   </style>
@@ -1780,7 +1795,7 @@
       });
     }
 
-    // Update openVaultLpEditor with intelligent fallback for missing HTML files
+    // Vault Lesson Plan Editor controls - make all elements editable before downloading or printing
     function openVaultLpEditor(url, className, chapterName) {
       fetch(url)
         .then(response => {
@@ -1791,29 +1806,71 @@
           const parser = new DOMParser();
           const doc = parser.parseFromString(htmlText, 'text/html');
           const lpContainer = doc.querySelector('.container');
-          if (!lpContainer) throw new Error("Invalid structure");
+          if (!lpContainer) throw new Error("Invalid layout structure");
 
           const modal = document.getElementById('vaultLpModal');
           const editorBody = document.getElementById('vaultLpEditorBody');
+          
           document.getElementById('vaultLangFilter').value = 'bilingual';
           document.getElementById('vaultCompactToggle').checked = false;
           editorBody.className = 'vault-lp-canvas';
           editorBody.innerHTML = lpContainer.innerHTML;
           
+          // Remove mandatory note paragraph if present
           editorBody.querySelectorAll('p').forEach(p => {
             if (p.textContent.includes('mandatory') && p.textContent.includes('अनिवार्य')) p.remove();
           });
-          editorBody.querySelectorAll('.prefilled').forEach(el => {
+          
+          // Make ALL elements (table cells, headers, paragraphs, list items, headings, prefilled blocks) fully editable
+          editorBody.querySelectorAll('td, th, p, li, h1, h2, h3, h4, .prefilled, .editable-block').forEach(el => {
             el.setAttribute('contenteditable', 'true');
-            el.style.border = '1px dashed rgba(124, 58, 237, 0.2)';
-            el.style.borderRadius = '4px';
-            el.style.padding = '5px';
+            el.setAttribute('spellcheck', 'false');
             el.style.outline = 'none';
           });
+          
+          // Prefill teacher name if developer field exists
+          const defaultTeacherName = document.getElementById('lpTeacherName').value || "K B Joshi";
+          editorBody.querySelectorAll('td').forEach(td => {
+            const text = td.textContent.toLowerCase();
+            if (text.includes('lesson plan developer') || text.includes('विकासकर्ता')) {
+              const nextTd = td.nextElementSibling;
+              if (nextTd) {
+                const input = nextTd.querySelector('input[type="text"]');
+                if (input && !input.value) input.value = defaultTeacherName;
+              }
+            }
+          });
+          
+          // Default dates for input fields
+          const todayStr = new Date().toLocaleDateString('en-IN');
+          editorBody.querySelectorAll('input').forEach(input => {
+            if (input.classList.contains('input-field')) {
+              if (input.placeholder === 'Teacher Name' && !input.value) {
+                input.value = defaultTeacherName;
+                return;
+              }
+              if (!input.value) {
+                if (input.type === 'date') {
+                  input.value = new Date().toISOString().split('T')[0];
+                } else {
+                  const cellIndex = input.parentElement.cellIndex;
+                  const row = input.parentElement.parentElement;
+                  if (row && row.cells && row.cells[cellIndex - 1]) {
+                    const prevText = row.cells[cellIndex - 1].textContent.toLowerCase();
+                    if (prevText.includes('date') || prevText.includes('दिनांक')) {
+                      input.value = todayStr;
+                    }
+                  }
+                }
+              }
+            }
+          });
+          
           modal.style.display = 'flex';
+          modal.setAttribute('data-title', doc.title || "Lesson Plan");
         })
         .catch(err => {
-          // If HTML file not pre-generated, auto prefill AI Lesson Plan Generator for this class & chapter
+          // Intelligent fallback to AI Generator tab if HTML file is not pre-rendered
           switchLessonPlanTab('generator');
           if (className) {
             const classSelect = document.getElementById('lpClass');
@@ -1829,129 +1886,6 @@
             document.getElementById('lpTopic').value = chapterName.replace(/^Chapter \d+:\s*/, '');
           }
           document.getElementById('aiPlannerForm').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-</script>
-</body></html>";
-      const sourceHTML = header + content + footer;
-      
-      const blob = new Blob(['\ufeff' + sourceHTML], {
-        type: 'application/msword'
-      });
-      
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'lesson_plan.doc';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
-    function printLessonPlan() {
-      window.print();
-    }
-
-    // Vault Lesson Plan Editor controls
-    function openVaultLpEditor(url) {
-      // Fetch the chapter file content
-      fetch(url)
-        .then(response => {
-          if (!response.ok) throw new Error("Failed to load document.");
-          return response.text();
-        })
-        .then(htmlText => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(htmlText, 'text/html');
-          const lpContainer = doc.querySelector('.container');
-          
-          if (!lpContainer) {
-            alert("Could not load lesson plan layout structure.");
-            return;
-          }
-          
-          const modal = document.getElementById('vaultLpModal');
-          const editorBody = document.getElementById('vaultLpEditorBody');
-          
-          // Clear language and compact filter resets
-          document.getElementById('vaultLangFilter').value = 'bilingual';
-          document.getElementById('vaultCompactToggle').checked = false;
-          editorBody.className = 'vault-lp-canvas';
-          
-          // Inject content
-          editorBody.innerHTML = lpContainer.innerHTML;
-          
-          // Remove mandatory fields note at the bottom
-          editorBody.querySelectorAll('p').forEach(p => {
-            if (p.textContent.includes('mandatory') && p.textContent.includes('अनिवार्य')) {
-              p.remove();
-            }
-          });
-          
-          // Make prefilled blocks editable
-          editorBody.querySelectorAll('.prefilled').forEach(el => {
-            el.setAttribute('contenteditable', 'true');
-            el.style.border = '1px dashed rgba(124, 58, 237, 0.2)';
-            el.style.borderRadius = '4px';
-            el.style.padding = '5px';
-            el.style.outline = 'none';
-          });
-          
-          // Prefill the Lesson Plan Developer field if present
-          const defaultTeacherName = document.getElementById('lpTeacherName').value || "K B Joshi";
-          let foundDeveloperInput = false;
-          
-          editorBody.querySelectorAll('td').forEach(td => {
-            const text = td.textContent.toLowerCase();
-            const isDeveloperLabel = text.includes('lesson plan developer') || text.includes('विकासकर्ता');
-            if (isDeveloperLabel) {
-              const nextTd = td.nextElementSibling;
-              if (nextTd) {
-                const input = nextTd.querySelector('input[type="text"]');
-                if (input) {
-                  input.value = defaultTeacherName;
-                  foundDeveloperInput = true;
-                }
-              }
-            }
-          });
-          
-          // Set default dates and defaults for inputs
-          const todayStr = new Date().toLocaleDateString('en-IN');
-          editorBody.querySelectorAll('input').forEach(input => {
-            if (input.classList.contains('input-field')) {
-              // Populate developer name if it is the Developer input
-              if (input.placeholder === 'Teacher Name' && !input.value) {
-                input.value = defaultTeacherName;
-                return;
-              }
-              
-              if (!input.value) {
-                if (input.type === 'date') {
-                  input.value = new Date().toISOString().split('T')[0];
-                } else {
-                  // Only fill with todayStr if it's actually the Date input
-                  const cellIndex = input.parentElement.cellIndex;
-                  const row = input.parentElement.parentElement;
-                  if (row && row.cells) {
-                    const prevCell = row.cells[cellIndex - 1];
-                    if (prevCell) {
-                      const prevText = prevCell.textContent.toLowerCase();
-                      if (prevText.includes('date') || prevText.includes('दिनांक')) {
-                        input.value = todayStr;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          });
-          
-          modal.style.display = 'flex';
-          modal.setAttribute('data-title', doc.title || "Lesson Plan");
-        })
-        .catch(err => {
-          alert("Error loading lesson plan file: " + err.message);
         });
     }
 
