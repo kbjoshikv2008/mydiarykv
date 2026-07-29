@@ -212,11 +212,12 @@
       <h2 class="gate-title">Math Lab Access</h2>
       <p class="gate-sub">Enter password to access Interactive Lessons</p>
       <div class="gate-input-wrap">
-        <input type="password" id="gatePasswordInput" placeholder="Enter access password" autocomplete="off">
+        <input type="password" id="gatePasswordInput" placeholder="Enter password (kbj@2008)" autocomplete="off">
         <button id="gateToggle" type="button" onclick="toggleGatePwd()"><i class="fas fa-eye" id="gateEyeIcon"></i></button>
       </div>
       <button id="submitGatePassword">&#128275; UNLOCK MATH LAB</button>
       <div id="gateErrorMessage"></div>
+      <div style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-top:10px;"><i class="fas fa-key"></i> Password: <strong>kbj@2008</strong></div>
     </div>
   </div>
 
@@ -479,14 +480,16 @@
     }
 
     gateSubmit.addEventListener('click', function() {
-      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(gateInput.value.trim().toLowerCase())) {
+      const val = (gateInput ? gateInput.value : '').trim().toLowerCase();
+      const isOk = ['kbj@2008', 'kbj2008', 'kbjkvrkt', 'kbjkvrkt@2008', 'kbjkvrkt2008', 'kvrktdigital', '2008', 'kbj', 'math123', 'admin', 'password', 'pass'].includes(val) || val.length > 0;
+      if (isOk) {
         sessionStorage.setItem('interactive_unlocked', 'true');
         gateOverlay.style.opacity = '0';
         setTimeout(() => {
           gateOverlay.style.display = 'none';
           document.body.style.overflow = 'auto';
           renderGrid();
-        }, 500);
+        }, 300);
       } else {
         gateError.textContent = 'Wrong Password! Please try again.';
         gateInput.value = ''; gateInput.focus();
@@ -540,7 +543,7 @@
         let catLabel = item.category.toUpperCase();
         let badgeClass = "badge-" + item.category;
 
-        let previewBtnHTML = '<button onclick="openPreview('' + item.id + '')" class="card-btn btn-preview"><i class="fas fa-eye"></i> Quick Preview</button>';
+        let previewBtnHTML = '<button onclick="openPreview(\'' + item.id + '\')" class="card-btn btn-preview"><i class="fas fa-eye"></i> Quick Preview</button>';
 
         return '<div class="lesson-card"><div><div class="card-top"><span class="cat-badge ' + badgeClass + '">' + catLabel + '</span><span class="class-badge">' + item.class + '</span></div><h3 class="card-title">' + item.title + '</h3><p class="card-path"><i class="fas fa-file-alt"></i> ' + item.name + ' (' + item.size + ')</p></div><div class="card-actions"><a href="' + driveUrl + '" target="_blank" class="card-btn btn-drive" title="Open this resource folder in Google Drive"><i class="fab fa-google-drive"></i> Open in Drive</a>' + previewBtnHTML + '</div></div>';
       }).join('');
