@@ -4372,17 +4372,24 @@
 
       updateUI(localHits);
 
-      fetch('/api/hits?inc=true')
-        .then(res => res.json())
-        .then(data => {
-          if (data && typeof data.totalHits === 'number') {
-            localStorage.setItem('my_diary_website_hits', data.totalHits);
-            updateUI(data.totalHits);
-          }
-        })
-        .catch(err => {
-          // Static fallback remains active
-        });
+      if (window.location.protocol !== 'file:') {
+        fetch('/api/hits?inc=true')
+          .then(res => {
+            if (!res.ok) throw new Error('Network response not ok');
+            const ct = res.headers.get('content-type') || '';
+            if (!ct.includes('application/json')) throw new Error('Not JSON response');
+            return res.json();
+          })
+          .then(data => {
+            if (data && typeof data.totalHits === 'number') {
+              localStorage.setItem('my_diary_website_hits', data.totalHits);
+              updateUI(data.totalHits);
+            }
+          })
+          .catch(err => {
+            // Static fallback remains active
+          });
+      }
     })();
 
     // ======================== LIVE DATE DISPLAY & DAILY QUOTE LOGIC ========================
@@ -5143,12 +5150,24 @@
       }
 
       function loadParticipants(shouldIncrement) {
+        if (window.location.protocol === 'file:') {
+          const localDaily = parseInt(localStorage.getItem('dq_today_participants') || '38', 10);
+          const localTotal = parseInt(localStorage.getItem('dq_total_participants') || '985', 10);
+          updateParticipantUI(localDaily, localTotal);
+          return;
+        }
+
         const url = shouldIncrement 
           ? `/api/quiz-participants?inc=true&userId=${encodeURIComponent(userUUID)}` 
           : `/api/quiz-participants?userId=${encodeURIComponent(userUUID)}`;
 
         fetch(url)
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Network error');
+            const ct = res.headers.get('content-type') || '';
+            if (!ct.includes('application/json')) throw new Error('Not JSON response');
+            return res.json();
+          })
           .then(data => {
             if (data && typeof data.todayParticipants === 'number') {
               localStorage.setItem('dq_today_participants', data.todayParticipants);
@@ -5229,9 +5248,20 @@
         document.getElementById('dqScoreContainer').style.display = 'none';
         document.getElementById('dqQuizContainer').style.display = 'block';
 
+        if (window.location.protocol === 'file:') {
+          quizData = getQuizData(activeClass);
+          renderHeaderAndQuestion();
+          return;
+        }
+
         // Try API fetch first, fallback to JS database
         fetch(`/api/daily-quiz?class=${activeClass}`)
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Network error');
+            const ct = res.headers.get('content-type') || '';
+            if (!ct.includes('application/json')) throw new Error('Not JSON response');
+            return res.json();
+          })
           .then(data => {
             if (data && data.quiz) {
               quizData = data;
