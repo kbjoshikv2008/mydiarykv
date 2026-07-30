@@ -68,6 +68,64 @@ const server = http.createServer((req, res) => {
   const urlParts = req.url.split('?');
   let urlPath = decodeURIComponent(urlParts[0]);
 
+  // Handle Website Content Update API route (Password Protected)
+  if (urlPath === '/api/update-website') {
+    const handleUpdate = (pass) => {
+      if (pass !== '08@AkshitA@31') {
+        res.writeHead(401, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ success: false, message: 'Incorrect password! Update denied.' }));
+        return;
+      }
+      try {
+        // Invalidate node require cache for dynamic data files
+        const quizPath = path.join(__dirname, 'daily_quiz_data.js');
+        if (require.cache[quizPath]) {
+          delete require.cache[quizPath];
+        }
+        
+        // Refresh hits data if file exists
+        if (fs.existsSync(HITS_FILE)) {
+          const raw = fs.readFileSync(HITS_FILE, 'utf8');
+          hitsData = Object.assign(hitsData, JSON.parse(raw));
+        }
+
+        hitsData.lastContentUpdate = new Date().toISOString();
+        saveHits();
+
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Website content updated successfully! All caches invalidated.',
+          timestamp: Date.now(),
+          lastUpdated: hitsData.lastContentUpdate
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ success: false, message: 'Failed to update website content: ' + err.message }));
+      }
+    };
+
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => { body += chunk.toString(); });
+      req.on('end', () => {
+        let pass = '';
+        try {
+          const parsed = JSON.parse(body);
+          pass = parsed.password || '';
+        } catch (e) {
+          const params = new URLSearchParams(body);
+          pass = params.get('password') || '';
+        }
+        handleUpdate(pass);
+      });
+    } else {
+      const params = new URLSearchParams(urlParts[1] || '');
+      handleUpdate(params.get('password') || '');
+    }
+    return;
+  }
+
   // Handle Hits API route
   if (urlPath === '/api/hits') {
     const isInc = req.url.includes('inc=true') || req.url.includes('increment=true');

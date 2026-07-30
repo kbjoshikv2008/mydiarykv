@@ -1351,6 +1351,224 @@
       box-shadow: 0 2px 10px rgba(239, 68, 68, 0.4);
     }
 
+    /* Floating Website Content Update Button */
+    .update-float {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 25px rgba(16, 185, 129, 0.45);
+      cursor: pointer;
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+    .update-float:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.7);
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+    .update-float i {
+      transition: transform 0.6s ease;
+    }
+    .update-float:hover i {
+      transform: rotate(180deg);
+    }
+    .update-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #f59e0b;
+      color: #000;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.5);
+    }
+
+    /* Website Update Password Modal */
+    .update-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 2, 12, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100000;
+      padding: 20px;
+      animation: updateModalFade 0.3s ease;
+    }
+    .update-modal-overlay.active {
+      display: flex;
+    }
+    @keyframes updateModalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .update-modal-card {
+      background: linear-gradient(145deg, rgba(22, 12, 51, 0.96) 0%, rgba(7, 4, 18, 0.98) 100%);
+      border: 1.5px solid rgba(16, 185, 129, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(16, 185, 129, 0.2);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 440px;
+      padding: 32px;
+      position: relative;
+      color: #fff;
+      text-align: center;
+      animation: updateCardPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes updateCardPop {
+      from { transform: scale(0.85) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .update-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .update-modal-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    .update-modal-icon {
+      width: 64px;
+      height: 64px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(5, 150, 105, 0.05) 70%);
+      border: 2px solid #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #10b981;
+      margin: 0 auto 16px;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+    .update-modal-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+    .update-modal-card p {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+    .update-input-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .update-input-wrap input {
+      width: 100%;
+      padding: 14px 44px 14px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .update-input-wrap input:focus {
+      border-color: #10b981;
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+    }
+    .update-pwd-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color 0.2s ease;
+    }
+    .update-pwd-toggle:hover {
+      color: #a78bfa;
+    }
+    .update-error-msg {
+      display: none;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .update-action-btns {
+      display: flex;
+      gap: 12px;
+    }
+    .update-btn-primary {
+      flex: 1;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .update-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.6);
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+    .update-btn-secondary {
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .update-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
     .chatbot-panel {
       position: fixed;
       bottom: 96px;
@@ -4450,6 +4668,40 @@
     <span class="chatbot-badge">Math AI</span>
   </div>
 
+  <!-- One-Click Website Content Update Floating Button -->
+  <div class="update-float" id="updateWebsiteFloatBtn" title="Update Website Content in One Click">
+    <i class="fas fa-sync-alt"></i>
+    <span class="update-badge">Sync</span>
+  </div>
+
+  <!-- Website Content Update Password Modal -->
+  <div class="update-modal-overlay" id="updateWebsiteModal">
+    <div class="update-modal-card">
+      <button class="update-modal-close" id="updateModalCloseBtn" title="Close"><i class="fas fa-times"></i></button>
+      <div class="update-modal-icon">
+        <i class="fas fa-arrows-rotate"></i>
+      </div>
+      <h3>Update Website Content</h3>
+      <p>Enter the admin password to instantly sync and reload all website content and files across the site.</p>
+      
+      <div class="update-input-wrap">
+        <input type="password" id="updateWebsitePwdInput" placeholder="Enter Admin Password" autocomplete="current-password" />
+        <i class="fas fa-eye update-pwd-toggle" id="updateWebsiteToggleEye" title="Toggle password visibility"></i>
+      </div>
+
+      <div class="update-error-msg" id="updateWebsiteErrorMsg">
+        <i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Incorrect password! Please try again.
+      </div>
+
+      <div class="update-action-btns">
+        <button type="button" class="update-btn-secondary" id="updateModalCancelBtn">Cancel</button>
+        <button type="button" class="update-btn-primary" id="updateModalSubmitBtn">
+          <i class="fas fa-sync-alt"></i> Update Website Now
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Chatbot Panel -->
   <div class="chatbot-panel" id="chatbotPanel">
     <div class="chat-header">
@@ -5335,6 +5587,141 @@
 
       // Initialize default class quiz
       initDailyQuiz('10', false);
+    })();
+  </script>
+
+  <!-- ======================== WEBSITE UPDATE SCRIPT ======================== -->
+  <script>
+    (function() {
+      const updateFloatBtn = document.getElementById('updateWebsiteFloatBtn');
+      const updateModal = document.getElementById('updateWebsiteModal');
+      const updateCloseBtn = document.getElementById('updateModalCloseBtn');
+      const updateCancelBtn = document.getElementById('updateModalCancelBtn');
+      const updateSubmitBtn = document.getElementById('updateModalSubmitBtn');
+      const updatePwdInput = document.getElementById('updateWebsitePwdInput');
+      const updateToggleEye = document.getElementById('updateWebsiteToggleEye');
+      const updateErrorMsg = document.getElementById('updateWebsiteErrorMsg');
+
+      function openModal() {
+        if (!updateModal) return;
+        updateModal.classList.add('active');
+        if (updatePwdInput) {
+          updatePwdInput.value = '';
+          updatePwdInput.focus();
+        }
+        if (updateErrorMsg) {
+          updateErrorMsg.style.display = 'none';
+        }
+      }
+
+      function closeModal() {
+        if (!updateModal) return;
+        updateModal.classList.remove('active');
+      }
+
+      if (updateFloatBtn) {
+        updateFloatBtn.addEventListener('click', openModal);
+      }
+      if (updateCloseBtn) {
+        updateCloseBtn.addEventListener('click', closeModal);
+      }
+      if (updateCancelBtn) {
+        updateCancelBtn.addEventListener('click', closeModal);
+      }
+
+      if (updateModal) {
+        updateModal.addEventListener('click', function(e) {
+          if (e.target === updateModal) {
+            closeModal();
+          }
+        });
+      }
+
+      if (updateToggleEye && updatePwdInput) {
+        updateToggleEye.addEventListener('click', function() {
+          const isPwd = updatePwdInput.getAttribute('type') === 'password';
+          updatePwdInput.setAttribute('type', isPwd ? 'text' : 'password');
+          this.classList.toggle('fa-eye', !isPwd);
+          this.classList.toggle('fa-eye-slash', isPwd);
+        });
+      }
+
+      async function triggerUpdate() {
+        const password = updatePwdInput ? updatePwdInput.value.trim() : '';
+
+        if (!password) {
+          if (updateErrorMsg) {
+            updateErrorMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Please enter the admin password.';
+            updateErrorMsg.style.display = 'block';
+          }
+          return;
+        }
+
+        // Show loading state
+        if (updateSubmitBtn) {
+          updateSubmitBtn.disabled = true;
+          updateSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating Website...';
+        }
+        if (updateErrorMsg) {
+          updateErrorMsg.style.display = 'none';
+        }
+
+        try {
+          const response = await fetch('/api/update-website', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password: password })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            if (updateSubmitBtn) {
+              updateSubmitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Success! Reloading...';
+              updateSubmitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            }
+
+            // Clear session storage cache
+            sessionStorage.clear();
+
+            setTimeout(() => {
+              // Reload page with cache-busting timestamp parameter to force fresh asset load
+              const timestamp = Date.now();
+              const url = new URL(window.location.href);
+              url.searchParams.set('v', timestamp);
+              window.location.href = url.toString();
+            }, 750);
+
+          } else {
+            throw new Error(data.message || 'Incorrect password! Update denied.');
+          }
+        } catch (err) {
+          if (updateErrorMsg) {
+            updateErrorMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> ' + (err.message || 'Incorrect password! Update denied.');
+            updateErrorMsg.style.display = 'block';
+          }
+          if (updateSubmitBtn) {
+            updateSubmitBtn.disabled = false;
+            updateSubmitBtn.style.background = '';
+            updateSubmitBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Update Website Now';
+          }
+        }
+      }
+
+      if (updateSubmitBtn) {
+        updateSubmitBtn.addEventListener('click', triggerUpdate);
+      }
+
+      if (updatePwdInput) {
+        updatePwdInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            triggerUpdate();
+          }
+        });
+      }
     })();
   </script>
 </body>
