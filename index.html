@@ -5739,6 +5739,8 @@
         // 2. Perform client-side cache busting & storage clearance
         try {
           sessionStorage.clear();
+          localStorage.removeItem('student_performance_data');
+          localStorage.removeItem('student_performance_test_dates');
           const timestamp = Date.now();
           document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
             const href = link.href.split('?')[0];

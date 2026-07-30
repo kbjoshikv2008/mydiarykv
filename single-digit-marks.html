@@ -997,6 +997,7 @@
         { id: "ch4", label: "Ch 4", maxMarks: 20 },
         { id: "ch5", label: "Ch 5", maxMarks: 20 },
         { id: "ch6", label: "Ch 6", maxMarks: 20 },
+        { id: "ch7", label: "Ch 7", maxMarks: 20 },
         { id: "pt1", label: "PT1", maxMarks: 40 }
       ]
     };
@@ -1020,6 +1021,16 @@
               if (tmap[name] !== undefined) marks[tid] = tmap[name];
             });
             return { rollNo: i+1, name, marks };
+          });
+        } else {
+          studentData[cls].forEach(student => {
+            if (!student.marks) student.marks = {};
+            const sName = student.name ? student.name.trim() : "";
+            Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+              if (tmap[sName] !== undefined) {
+                student.marks[tid] = tmap[sName];
+              }
+            });
           });
         }
       });

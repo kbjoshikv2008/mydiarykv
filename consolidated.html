@@ -753,7 +753,7 @@ function loadData() {
     const td = localStorage.getItem("student_performance_test_dates");
     if(td) testDates = JSON.parse(td);
   } catch(e) {}
-  
+
   // Force sync PT1 dates
   if(!testDates["7C"]) testDates["7C"] = {};
   if(!testDates["11B"]) testDates["11B"] = {};
@@ -765,13 +765,23 @@ function loadData() {
     localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
   } catch(e) {}
 
-  // Fill in studentData and testDates with fallbacks if empty
+  // Fill in studentData and testDates with fallbacks if empty, or merge fallbackMarks
   ["7C","11B","12"].forEach(cls => {
     if(!studentData[cls]||!studentData[cls].length) {
       studentData[cls] = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b)).map((name,i)=>{
         const marks={};
         Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{ if(tmap[name]!==undefined) marks[tid]=tmap[name]; });
         return {rollNo:i+1,name,marks};
+      });
+    } else {
+      studentData[cls].forEach(student => {
+        if (!student.marks) student.marks = {};
+        const sName = student.name ? student.name.trim() : "";
+        Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+          if (tmap[sName] !== undefined) {
+            student.marks[tid] = tmap[sName];
+          }
+        });
       });
     }
     if(!testDates[cls]||!Object.keys(testDates[cls]).length)

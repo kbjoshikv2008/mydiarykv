@@ -1146,6 +1146,16 @@
             name: name,
             marks: { pt1: (fallbackMarks[c] && fallbackMarks[c].pt1) ? fallbackMarks[c].pt1[name] : "" }
           }));
+        } else {
+          students.forEach(student => {
+            if (!student.marks) student.marks = {};
+            const sName = student.name ? student.name.trim() : "";
+            Object.entries(fallbackMarks[c] || {}).forEach(([tid, tmap]) => {
+              if (tmap[sName] !== undefined) {
+                student.marks[tid] = tmap[sName];
+              }
+            });
+          });
         }
 
         students.forEach(s => {

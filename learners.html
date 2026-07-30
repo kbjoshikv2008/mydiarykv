@@ -1457,6 +1457,16 @@
           Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{ if(tmap[name]!==undefined) marks[tid]=tmap[name]; });
           return {rollNo:i+1,name,marks};
         });
+      } else {
+        studentData[cls].forEach(student => {
+          if (!student.marks) student.marks = {};
+          const sName = student.name ? student.name.trim() : "";
+          Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+            if (tmap[sName] !== undefined) {
+              student.marks[tid] = tmap[sName];
+            }
+          });
+        });
       }
     });
   }
