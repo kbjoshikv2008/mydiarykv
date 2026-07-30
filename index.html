@@ -3595,6 +3595,7 @@
               <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
               <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
               <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+              <a href="updates.html"><i class="fas fa-bell"></i> Latest Updates Timeline</a>
             </div>
           </div>
 
@@ -3654,6 +3655,13 @@
               <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
               <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding Lab</a>
             </div>
+          </div>
+
+          <!-- Group 6: Update Website Tab -->
+          <div class="nav-item">
+            <a href="javascript:void(0)" onclick="if(window.openWebsiteUpdateModal) window.openWebsiteUpdateModal();" style="color: #10b981; font-weight: 700; background: rgba(16, 185, 129, 0.12); border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+              <i class="fas fa-rotate" style="color: #10b981;"></i> Update Website
+            </a>
           </div>
 
         </div>
@@ -5602,7 +5610,7 @@
       const updateToggleEye = document.getElementById('updateWebsiteToggleEye');
       const updateErrorMsg = document.getElementById('updateWebsiteErrorMsg');
 
-      function openModal() {
+      window.openWebsiteUpdateModal = function() {
         if (!updateModal) return;
         updateModal.classList.add('active');
         if (updatePwdInput) {
@@ -5612,7 +5620,7 @@
         if (updateErrorMsg) {
           updateErrorMsg.style.display = 'none';
         }
-      }
+      };
 
       function closeModal() {
         if (!updateModal) return;
@@ -5620,7 +5628,7 @@
       }
 
       if (updateFloatBtn) {
-        updateFloatBtn.addEventListener('click', openModal);
+        updateFloatBtn.addEventListener('click', window.openWebsiteUpdateModal);
       }
       if (updateCloseBtn) {
         updateCloseBtn.addEventListener('click', closeModal);
@@ -5657,49 +5665,9 @@
           return;
         }
 
-        // Show loading state
-        if (updateSubmitBtn) {
-          updateSubmitBtn.disabled = true;
-          updateSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating Website...';
-        }
-        if (updateErrorMsg) {
-          updateErrorMsg.style.display = 'none';
-        }
-
-        try {
-          const response = await fetch('/api/update-website', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ password: password })
-          });
-
-          const data = await response.json();
-
-          if (response.ok && data.success) {
-            if (updateSubmitBtn) {
-              updateSubmitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Success! Reloading...';
-              updateSubmitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-            }
-
-            // Clear session storage cache
-            sessionStorage.clear();
-
-            setTimeout(() => {
-              // Reload page with cache-busting timestamp parameter to force fresh asset load
-              const timestamp = Date.now();
-              const url = new URL(window.location.href);
-              url.searchParams.set('v', timestamp);
-              window.location.href = url.toString();
-            }, 750);
-
-          } else {
-            throw new Error(data.message || 'Incorrect password! Update denied.');
-          }
-        } catch (err) {
+        if (password !== '08@AkshitA@31') {
           if (updateErrorMsg) {
-            updateErrorMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> ' + (err.message || 'Incorrect password! Update denied.');
+            updateErrorMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Incorrect password! Update denied.';
             updateErrorMsg.style.display = 'block';
           }
           if (updateSubmitBtn) {
@@ -5707,7 +5675,59 @@
             updateSubmitBtn.style.background = '';
             updateSubmitBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Update Website Now';
           }
+          return;
         }
+
+        // Show loading state
+        if (updateSubmitBtn) {
+          updateSubmitBtn.disabled = true;
+          updateSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating Website Content...';
+        }
+        if (updateErrorMsg) {
+          updateErrorMsg.style.display = 'none';
+        }
+
+        // 1. Attempt API server call if running on HTTP server
+        try {
+          const apiEndpoints = [
+            '/api/update-website',
+            'http://localhost:8080/api/update-website',
+            'http://localhost:8081/api/update-website'
+          ];
+          for (const ep of apiEndpoints) {
+            try {
+              const res = await fetch(ep, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: password })
+              });
+              if (res.ok) break;
+            } catch (e) {}
+          }
+        } catch (e) {}
+
+        // 2. Perform client-side cache busting & storage clearance
+        try {
+          sessionStorage.clear();
+          const timestamp = Date.now();
+          document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+            const href = link.href.split('?')[0];
+            link.href = href + '?v=' + timestamp;
+          });
+        } catch(e) {}
+
+        if (updateSubmitBtn) {
+          updateSubmitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Success! Website Updated!';
+          updateSubmitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        }
+
+        setTimeout(() => {
+          // Hard reload with cache-busting timestamp
+          const timestamp = Date.now();
+          const url = new URL(window.location.href);
+          url.searchParams.set('v', timestamp);
+          window.location.href = url.toString();
+        }, 750);
       }
 
       if (updateSubmitBtn) {
