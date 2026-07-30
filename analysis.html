@@ -2146,6 +2146,14 @@
         "SPARSH BHATT": 15, "TANMAY ADHIKARI": 12, "PALAK": 0, "NISHANT": 9
       };
 
+      const ch7_12b = {
+        "ABHIMANYU SINGH": 7, "ANUJ GOSWAMI": 14, "AYUSH NEGI": 14, "BHUMI SATI": 15, "HARDIK PHULARA": 8,
+        "HARSHIT ARYA": 20, "HARSHITA NEGI": 19, "HITESH UPADHYAY": 5, "KAMAL JOSHI": 14, "KANIKA BISHT": 18,
+        "KARAN": "", "NITIN BISHT": 4, "PARTH": "", "PRIYANKA": 14, "RAJ": 0,
+        "RITIKA": 7, "SADHNA": 4, "SAKSHAM NEGI": 0, "SIYA SUYAL": 11, "SOUVIK SAHA": "",
+        "SPARSH BHATT": 12, "TANMAY ADHIKARI": 13, "PALAK": "", "NISHANT": 6
+      };
+
       const ch1_11b = {
         "ADITYA NEGI": 3, "ARUN ARYA": 12, "DIKSHANT NEGI": 11, "ISHANT MEHRA": 0,
         "JANVI": 6, "KARAN CHANDRA": 4, "KARTIKEY PHARTIYAL": "", "MANAS BHAGAT": 2,
@@ -2291,6 +2299,8 @@
               marks[test.id] = ch5_12b[name];
             } else if (test.id === "ch6" && ch6_12b[name] !== undefined) {
               marks[test.id] = ch6_12b[name];
+            } else if (test.id === "ch7" && ch7_12b[name] !== undefined) {
+              marks[test.id] = ch7_12b[name];
             } else {
               marks[test.id] = "";
             }
