@@ -77,6 +77,9 @@ const server = http.createServer((req, res) => {
         return;
       }
       try {
+        // Automatically parse Excel test records and synchronize marks across all HTML pages
+        autoSyncExcelMarks();
+
         // Invalidate node require cache for dynamic data files
         const quizPath = path.join(__dirname, 'daily_quiz_data.js');
         if (require.cache[quizPath]) {
@@ -95,7 +98,7 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({
           success: true,
-          message: 'Website content updated successfully! All caches invalidated.',
+          message: 'Website content & Excel marks updated successfully everywhere!',
           timestamp: Date.now(),
           lastUpdated: hitsData.lastContentUpdate
         }));
@@ -522,6 +525,179 @@ const server = http.createServer((req, res) => {
     }
   });
 });
+
+// Automatic Excel Test Marks Synchronization Function
+function autoSyncExcelMarks() {
+  try {
+    let XLSX;
+    try {
+      XLSX = require('xlsx');
+    } catch (e) {
+      console.log('XLSX module not available for auto-sync.');
+      return;
+    }
+
+    const fullFallbackMarks = { "12": {}, "11B": {}, "7C": {} };
+
+    // 1. Read CT TEST RECORD 2026.xlsx for Class 12
+    const ct12File = path.join(__dirname, 'class test', 'class test 12', 'CT TEST RECORD 2026.xlsx');
+    if (fs.existsSync(ct12File)) {
+      const wb12 = XLSX.readFile(ct12File);
+      const rows12 = XLSX.utils.sheet_to_json(wb12.Sheets['Sheet1'], { header: 1 });
+      if (rows12 && rows12.length > 5) {
+        const chaptersRow = rows12[2] || []; // row 3
+        const chapterCols = [];
+        chaptersRow.forEach((val, colIdx) => {
+          if (val && typeof val === 'string' && val.toLowerCase().startsWith('ch')) {
+            chapterCols.push({ colIdx, id: val.toLowerCase().trim() });
+          }
+        });
+
+        rows12.slice(5).forEach(row => {
+          if (row && row[1]) {
+            const name = String(row[1]).trim();
+            chapterCols.forEach(({ colIdx, id }) => {
+              if (!fullFallbackMarks["12"][id]) fullFallbackMarks["12"][id] = {};
+              const mark = row[colIdx];
+              fullFallbackMarks["12"][id][name] = (mark !== undefined && mark !== null && mark !== '') ? mark : 'ab';
+            });
+          }
+        });
+      }
+    }
+
+    // Also read MARKS FILE.xlsx Sheet '12' as supplement
+    const marksFile = path.join(__dirname, 'MARKS FILE.xlsx');
+    if (fs.existsSync(marksFile)) {
+      const wbMarks = XLSX.readFile(marksFile);
+      if (wbMarks.Sheets['12']) {
+        const rowsM12 = XLSX.utils.sheet_to_json(wbMarks.Sheets['12'], { header: 1 });
+        if (rowsM12 && rowsM12.length > 2) {
+          const chHeader = String(rowsM12[0][1] || 'ch6').toLowerCase().trim();
+          if (!fullFallbackMarks["12"][chHeader]) fullFallbackMarks["12"][chHeader] = {};
+          rowsM12.slice(2).forEach(row => {
+            if (row && row[0]) {
+              const name = String(row[0]).trim();
+              const mark = row[1];
+              fullFallbackMarks["12"][chHeader][name] = (mark !== undefined && mark !== null) ? mark : 'ab';
+            }
+          });
+        }
+      }
+      if (wbMarks.Sheets['11']) {
+        const rowsM11 = XLSX.utils.sheet_to_json(wbMarks.Sheets['11'], { header: 1 });
+        if (rowsM11 && rowsM11.length > 3) {
+          rowsM11.slice(3).forEach(row => {
+            if (row && row[0]) {
+              const name = String(row[0]).trim();
+              if (row[1] !== undefined) {
+                if (!fullFallbackMarks["11B"]["ch3"]) fullFallbackMarks["11B"]["ch3"] = {};
+                fullFallbackMarks["11B"]["ch3"][name] = row[1];
+              }
+              if (row[2] !== undefined) {
+                if (!fullFallbackMarks["11B"]["ch4"]) fullFallbackMarks["11B"]["ch4"] = {};
+                fullFallbackMarks["11B"]["ch4"][name] = row[2];
+              }
+              if (row[3] !== undefined) {
+                if (!fullFallbackMarks["11B"]["ch5"]) fullFallbackMarks["11B"]["ch5"] = {};
+                fullFallbackMarks["11B"]["ch5"][name] = row[3];
+              }
+            }
+          });
+        }
+      }
+    }
+
+    // 2. Read Test Record.xlsx for Class 11
+    const ct11File = path.join(__dirname, 'class test', 'class test 11', 'Test Record.xlsx');
+    if (fs.existsSync(ct11File)) {
+      const wb11 = XLSX.readFile(ct11File);
+      const rows11 = XLSX.utils.sheet_to_json(wb11.Sheets['Sheet1'], { header: 1 });
+      if (rows11 && rows11.length > 1) {
+        const headers = rows11[0] || [];
+        const chCols = [];
+        headers.forEach((h, colIdx) => {
+          if (h && typeof h === 'string') {
+            const match = h.toLowerCase().match(/ch\s*(\d+)/);
+            if (match) {
+              chCols.push({ colIdx, id: 'ch' + match[1] });
+            }
+          }
+        });
+        rows11.slice(1).forEach(row => {
+          if (row && row[0]) {
+            const name = String(row[0]).trim();
+            chCols.forEach(({ colIdx, id }) => {
+              if (!fullFallbackMarks["11B"][id]) fullFallbackMarks["11B"][id] = {};
+              const mark = row[colIdx];
+              fullFallbackMarks["11B"][id][name] = (mark !== undefined && mark !== null && mark !== '') ? mark : 'ab';
+            });
+          }
+        });
+      }
+    }
+
+    // 3. Read test record class 7 c 2026.xlsx for Class 7
+    const ct7File = path.join(__dirname, 'class test', 'class test 7', 'test record class 7 c 2026.xlsx');
+    if (fs.existsSync(ct7File)) {
+      const wb7 = XLSX.readFile(ct7File);
+      const rows7 = XLSX.utils.sheet_to_json(wb7.Sheets['Sheet1'], { header: 1 });
+      if (rows7 && rows7.length > 4) {
+        const testHeaders = rows7[1] || [];
+        const testCols = [];
+        testHeaders.forEach((h, colIdx) => {
+          if (h && typeof h === 'string') {
+            const cleaned = h.toLowerCase().replace(/\s+/g, '');
+            if (cleaned.startsWith('ch') || cleaned === 'crm') {
+              testCols.push({ colIdx, id: cleaned });
+            }
+          }
+        });
+        rows7.slice(4).forEach(row => {
+          if (row && row[1]) {
+            const name = String(row[1]).trim();
+            testCols.forEach(({ colIdx, id }) => {
+              if (!fullFallbackMarks["7C"][id]) fullFallbackMarks["7C"][id] = {};
+              const mark = row[colIdx];
+              fullFallbackMarks["7C"][id][name] = (mark !== undefined && mark !== null && mark !== '') ? mark : 'ab';
+            });
+          }
+        });
+      }
+    }
+
+    // Sync fallbackMarks to all HTML files
+    const targetHtmls = [
+      'consolidated.html',
+      'learners.html',
+      'single-digit-marks.html',
+      'slow-learners-attendance.html'
+    ];
+
+    targetHtmls.forEach(relPath => {
+      const filePath = path.join(__dirname, relPath);
+      if (!fs.existsSync(filePath)) return;
+      let content = fs.readFileSync(filePath, 'utf8');
+
+      const regex = /([ \t]*)const fallbackMarks = \{[\s\S]*?\n\1\};/;
+      const match = content.match(regex);
+      if (match) {
+        const indent = match[1] || '';
+        const formattedJson = JSON.stringify(fullFallbackMarks, null, 2).split('\n').map((line, idx) => idx === 0 ? line : indent + line).join('\n');
+        const newBlock = `${indent}const fallbackMarks = ${formattedJson};`;
+        content = content.replace(regex, newBlock);
+        fs.writeFileSync(filePath, content, 'utf8');
+      }
+    });
+
+    console.log('Auto-synchronized Excel marks across website successfully.');
+  } catch (err) {
+    console.error('Auto-sync Excel marks error:', err);
+  }
+}
+
+// Perform initial auto-sync on server startup
+autoSyncExcelMarks();
 
 let port = START_PORT;
 function startServer() {
