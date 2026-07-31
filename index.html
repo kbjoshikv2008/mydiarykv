@@ -4081,7 +4081,7 @@
         <!-- ════════════ STEP 1: CLASS SELECTION & START CONTROL ════════════ -->
         <div id="dqStartCardContainer" class="dq-start-area">
           <div style="font-size: 0.88rem; font-weight: 900; color: #7c3aed; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">
-            <i class="fas fa-list-check"></i> Step 1: Select Your Class First
+            <i class="fas fa-list-check"></i> <span id="dqStepHeader">Step 1: Choose Your Class &amp; Unlock Today's Quiz</span>
           </div>
           <h3 style="font-size: 1.6rem; color: #1e1b18; font-weight: 900; margin: 0 0 14px 0; font-family: 'Poppins', sans-serif;">
             Choose CBSE Class to Unlock Daily Quiz
@@ -4089,37 +4089,37 @@
 
           <!-- Class Selection Cards Grid -->
           <div class="dq-class-grid" id="dqClassGrid">
-            <div class="dq-class-card" data-class="6" onclick="if(window.selectClass) window.selectClass('6');">
+            <div class="dq-class-card" data-class="6" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('6');">
               <div class="dq-class-num"><i class="fas fa-graduation-cap"></i> Class 6</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">18 Attempts</div>
             </div>
-            <div class="dq-class-card" data-class="7" onclick="if(window.selectClass) window.selectClass('7');">
+            <div class="dq-class-card" data-class="7" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('7');">
               <div class="dq-class-num"><i class="fas fa-graduation-cap"></i> Class 7</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">24 Attempts</div>
             </div>
-            <div class="dq-class-card" data-class="8" onclick="if(window.selectClass) window.selectClass('8');">
+            <div class="dq-class-card" data-class="8" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('8');">
               <div class="dq-class-num"><i class="fas fa-graduation-cap"></i> Class 8</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">30 Attempts</div>
             </div>
-            <div class="dq-class-card" data-class="9" onclick="if(window.selectClass) window.selectClass('9');">
+            <div class="dq-class-card" data-class="9" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('9');">
               <div class="dq-class-num"><i class="fas fa-graduation-cap"></i> Class 9</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">45 Attempts</div>
             </div>
-            <div class="dq-class-card active" data-class="10" onclick="if(window.selectClass) window.selectClass('10');">
+            <div class="dq-class-card active" data-class="10" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('10');">
               <div class="dq-class-num"><i class="fas fa-star"></i> Class 10</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">78 Attempts</div>
             </div>
-            <div class="dq-class-card" data-class="11" onclick="if(window.selectClass) window.selectClass('11');">
+            <div class="dq-class-card" data-class="11" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('11');">
               <div class="dq-class-num"><i class="fas fa-graduation-cap"></i> Class 11</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">52 Attempts</div>
             </div>
-            <div class="dq-class-card" data-class="12" onclick="if(window.selectClass) window.selectClass('12');">
+            <div class="dq-class-card" data-class="12" onclick="if(window.openDailyQuizForClass) window.openDailyQuizForClass('12');">
               <div class="dq-class-num"><i class="fas fa-graduation-cap"></i> Class 12</div>
               <div class="dq-class-badge ready">⚡ Ready</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">64 Attempts</div>
@@ -5714,8 +5714,25 @@
       }
 
       window.selectClass = selectClass;
+      window.openDailyQuizForClass = function(cls) {
+        selectClass(cls);
+        const section = document.getElementById('daily-quiz-section');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
       function selectClass(cls) {
-        activeClass = cls || '10';
+        activeClass = String(cls || '10');
+        
+        // Reset to start card view if quiz or score container was previously visible
+        const startCard = document.getElementById('dqStartCardContainer');
+        const quizContainer = document.getElementById('dqQuizContainer');
+        const scoreContainer = document.getElementById('dqScoreContainer');
+        if (startCard) startCard.style.display = 'block';
+        if (quizContainer) quizContainer.style.display = 'none';
+        if (scoreContainer) scoreContainer.style.display = 'none';
+
         renderClassSelectionGrid();
         updateHeaderCards(activeClass);
       }
@@ -5728,6 +5745,11 @@
         const noticeTitle = document.getElementById('dqNoticeTitle');
         const noticeDesc = document.getElementById('dqNoticeDesc');
         const practiceWrap = document.getElementById('dqPracticeLinkWrap');
+        const stepHeader = document.getElementById('dqStepHeader');
+
+        if (stepHeader) {
+          stepHeader.textContent = 'Step 1: Class ' + activeClass + ' Selected — Click Below to Start';
+        }
 
         if (attempt) {
           if (noticeBanner) noticeBanner.style.display = 'block';
@@ -5766,6 +5788,9 @@
         clearInterval(timerInterval);
         clearInterval(heartbeatInterval);
 
+        // Load fallback quiz data synchronously FIRST so questions appear immediately
+        quizData = getQuizData(activeClass);
+
         const livePtsEl = document.getElementById('dqLivePoints');
         if (livePtsEl) livePtsEl.textContent = '0';
         const progFill = document.getElementById('dqProgressBar');
@@ -5775,36 +5800,38 @@
         document.getElementById('dqScoreContainer').style.display = 'none';
         document.getElementById('dqQuizContainer').style.display = 'block';
 
+        renderHeaderAndQuestion();
+
+        const quizContainer = document.getElementById('dqQuizContainer');
+        if (quizContainer) {
+          quizContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
         loadParticipants('heartbeat');
         heartbeatInterval = setInterval(function() {
           loadParticipants('heartbeat');
         }, 10000);
 
-        if (window.location.protocol === 'file:') {
-          quizData = getQuizData(activeClass);
-          renderHeaderAndQuestion();
-          return;
+        if (window.location.protocol !== 'file:') {
+          fetch('/api/daily-quiz?class=' + encodeURIComponent(activeClass))
+            .then(function(res) {
+              if (!res.ok) throw new Error('Network error');
+              const ct = res.headers.get('content-type') || '';
+              if (!ct.includes('application/json')) throw new Error('Not JSON response');
+              return res.json();
+            })
+            .then(function(data) {
+              if (data && data.quiz && Array.isArray(data.quiz) && data.quiz.length > 0) {
+                quizData = data;
+                if (qIndex === 0) {
+                  renderHeaderAndQuestion();
+                }
+              }
+            })
+            .catch(function() {
+              // Synchronous quizData is already rendering cleanly
+            });
         }
-
-        fetch('/api/daily-quiz?class=' + encodeURIComponent(activeClass))
-          .then(function(res) {
-            if (!res.ok) throw new Error('Network error');
-            const ct = res.headers.get('content-type') || '';
-            if (!ct.includes('application/json')) throw new Error('Not JSON response');
-            return res.json();
-          })
-          .then(function(data) {
-            if (data && data.quiz) {
-              quizData = data;
-            } else {
-              quizData = getQuizData(activeClass);
-            }
-            renderHeaderAndQuestion();
-          })
-          .catch(function() {
-            quizData = getQuizData(activeClass);
-            renderHeaderAndQuestion();
-          });
       }
 
       function displayCompletedDailyCard(attempt) {
@@ -5908,7 +5935,7 @@
         });
 
         if (window.MathJax && window.MathJax.typesetPromise) {
-          window.MathJax.typesetPromise([document.getElementById('dqQuizContainer')]);
+          window.MathJax.typesetPromise([document.getElementById('dqQuizContainer')]).catch(function(){});
         }
 
         startQuestionTimer();
@@ -6145,7 +6172,12 @@
         loadParticipants('info');
       }, 12000);
 
-      selectClass('10');
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlClass = urlParams.get('class') || urlParams.get('cls');
+      const hashMatch = window.location.hash.match(/class-(\d+)/);
+      const initialClass = urlClass || (hashMatch ? hashMatch[1] : '10');
+
+      selectClass(['6','7','8','9','10','11','12'].includes(initialClass) ? initialClass : '10');
       loadParticipants('info');
     })();
   </script>
