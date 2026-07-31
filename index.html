@@ -4956,8 +4956,8 @@
           </div>
         </div>
         <div style="display:flex;gap:6px;align-items:center;">
-          <button id="chatMinimizeBtn" title="Minimize" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.82em;transition:all 0.2s;"><i class="fas fa-minus"></i></button>
-          <button class="chat-close-btn" id="chatbotCloseBtn" title="Close" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:rgba(239,68,68,0.8);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.9em;transition:all 0.2s;"><i class="fas fa-times"></i></button>
+          <button id="chatMinimizeBtn" onclick="if(window.minimizeAskMe) window.minimizeAskMe();" title="Minimize" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.82em;transition:all 0.2s;"><i class="fas fa-minus"></i></button>
+          <button class="chat-close-btn" id="chatbotCloseBtn" onclick="if(window.closeAskMe) window.closeAskMe();" title="Close" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:rgba(239,68,68,0.8);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.9em;transition:all 0.2s;"><i class="fas fa-times"></i></button>
         </div>
       </div>
 
@@ -5002,8 +5002,8 @@
       <!-- Input Area -->
       <div style="display:flex;gap:8px;padding:12px 14px;flex-shrink:0;">
         <button class="chat-voice-btn" id="chatVoiceBtn" title="Voice Input (English)"><i class="fas fa-microphone"></i></button>
-        <input type="text" class="chat-input" id="chatInput" placeholder="Type your mathematics question in English..." autocomplete="off" style="flex:1;">
-        <button class="chat-send-btn" id="chatSendBtn" title="Send"><i class="fas fa-paper-plane"></i></button>
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your mathematics question in English..." autocomplete="off" onkeydown="if(event.key==='Enter'){ event.preventDefault(); if(window.sendAskMe) window.sendAskMe(); }" style="flex:1;">
+        <button class="chat-send-btn" id="chatSendBtn" onclick="if(window.sendAskMe) window.sendAskMe();" title="Send"><i class="fas fa-paper-plane"></i></button>
       </div>
 
     </div>
@@ -5116,6 +5116,10 @@
       } else { if(voiceBtn){ voiceBtn.style.opacity='0.35'; voiceBtn.title='Voice input not supported in this browser'; } }
 
       /* ── Message helpers ── */
+      window.addAskMeMessage = addMsg;
+      window.showAskMeTyping = showTyping;
+      window.processAskMeQuery = processQuery;
+
       function addMsg(t, s){
         var d = document.createElement('div');
         d.className = 'message ' + s;
@@ -12967,6 +12971,8 @@
 </html>
 ,display:false}],throwOnError:false});}"></script>
   <script>
+    window.isAskMeMinimized = false;
+
     window.openAskMe = function() {
       var overlay = document.getElementById('askMeOverlay') || document.querySelector('.askme-overlay');
       var panel   = document.getElementById('chatbotPanel') || document.querySelector('.chatbot-panel');
@@ -12974,6 +12980,7 @@
       var input   = document.getElementById('chatInput');
       if (!overlay || !panel) return;
 
+      window.isAskMeMinimized = false;
       overlay.style.display = 'flex';
       overlay.style.opacity = '1';
       overlay.style.visibility = 'visible';
@@ -13003,6 +13010,37 @@
         panel.style.display = 'none';
         panel.style.opacity = '0';
       }
+    };
+
+    window.minimizeAskMe = function() {
+      var panel  = document.getElementById('chatbotPanel');
+      var minBtn = document.getElementById('chatMinimizeBtn');
+      if (!panel) return;
+
+      window.isAskMeMinimized = !window.isAskMeMinimized;
+      if (window.isAskMeMinimized) {
+        panel.style.maxHeight = '58px';
+        panel.style.overflow = 'hidden';
+        if (minBtn) minBtn.innerHTML = '<i class="fas fa-expand-alt"></i>';
+      } else {
+        panel.style.maxHeight = '';
+        panel.style.overflow = 'hidden';
+        if (minBtn) minBtn.innerHTML = '<i class="fas fa-minus"></i>';
+      }
+    };
+
+    window.sendAskMe = function() {
+      var input = document.getElementById('chatInput');
+      if (!input) return;
+      var q = input.value.trim();
+      if (!q) return;
+
+      if (window.addAskMeMessage) {
+        window.addAskMeMessage(q, 'user');
+      }
+      input.value = '';
+      if (window.showAskMeTyping) window.showAskMeTyping();
+      if (window.processAskMeQuery) window.processAskMeQuery(q);
     };
   </script>
 
