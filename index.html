@@ -5726,17 +5726,7 @@
       }
 
       function startQuizArena(forcePractice) {
-        forcePractice = !!forcePractice;
-        isPracticeMode = forcePractice;
-
-        if (!isPracticeMode) {
-          const pastAttempt = checkExistingDailyAttempt(activeClass);
-          if (pastAttempt) {
-            document.getElementById('dqStartCardContainer').style.display = 'none';
-            displayCompletedDailyCard(pastAttempt);
-            return;
-          }
-        }
+        isPracticeMode = !!forcePractice;
 
         qIndex = 0;
         userScore = 0;
