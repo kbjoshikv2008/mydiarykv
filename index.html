@@ -3843,7 +3843,7 @@
 
           <!-- Group 6: ASK ME Tab -->
           <div class="nav-item">
-            <a href="javascript:void(0)" onclick="window.openAskMe&&window.openAskMe()" style="color: #a78bfa; font-weight: 700; background: linear-gradient(135deg,rgba(124,58,237,0.22),rgba(37,99,235,0.14)); border-radius: 8px; border: 1px solid rgba(124,58,237,0.45); padding: 8px 16px; position: relative;">
+            <a href="javascript:void(0)" onclick="if(window.openAskMe) window.openAskMe();" style="color: #a78bfa; font-weight: 700; background: linear-gradient(135deg,rgba(124,58,237,0.22),rgba(37,99,235,0.14)); border-radius: 8px; border: 1px solid rgba(124,58,237,0.45); padding: 8px 16px; position: relative;">
               <i class="fas fa-square-root-alt" style="color: #a78bfa;"></i> ASK ME
               <span style="position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:0.5px;">AI</span>
             </a>
@@ -4899,7 +4899,7 @@
   </a>
 
   <!-- ASK ME Floating Button (stacked above Sync) -->
-  <div class="chatbot-float" id="chatbotFloatBtn" title="ASK ME – Mathematics AI (Click to Open)">
+  <div class="chatbot-float" id="chatbotFloatBtn" onclick="if(window.openAskMe) window.openAskMe();" title="ASK ME – Mathematics AI (Click to Open)">
     <i class="fas fa-square-root-alt"></i>
     <span class="chatbot-badge">ASK ME</span>
   </div>
@@ -5023,7 +5023,9 @@
       var minBtn  = document.getElementById('chatMinimizeBtn');
       var input   = document.getElementById('chatInput');
       if(!overlay || !panel) return;
+      overlay.style.display = 'flex';
       overlay.classList.add('active');
+      panel.style.display = 'flex';
       panel.classList.add('active');
       panel.style.maxHeight = '';
       if(minBtn) minBtn.innerHTML = '<i class="fas fa-minus"></i>';
@@ -5032,8 +5034,14 @@
     function closeAskMe(){
       var overlay = document.getElementById('askMeOverlay');
       var panel   = document.getElementById('chatbotPanel');
-      if(overlay) overlay.classList.remove('active');
-      if(panel)   panel.classList.remove('active');
+      if(overlay) {
+        overlay.classList.remove('active');
+        overlay.style.display = 'none';
+      }
+      if(panel) {
+        panel.classList.remove('active');
+        panel.style.display = 'none';
+      }
     }
     window.openAskMe  = openAskMe;
     window.closeAskMe = closeAskMe;
@@ -5594,701 +5602,6 @@
     }
   })();
   </script>
-  <script>
-  (function(){
-    document.addEventListener('DOMContentLoaded', function() {
-      /* ── DOM refs ── */
-      var overlay  = document.getElementById('askMeOverlay');
-      var panel    = document.getElementById('chatbotPanel');
-      var btn      = document.getElementById('chatbotFloatBtn');
-      var closeBtn = document.getElementById('chatbotCloseBtn');
-      var minBtn   = document.getElementById('chatMinimizeBtn');
-      var input    = document.getElementById('chatInput');
-      var sendBtn  = document.getElementById('chatSendBtn');
-      var msgs     = document.getElementById('chatMessages');
-      var voiceBtn = document.getElementById('chatVoiceBtn');
-      var activeFilter = 'all';
-      var isMinimized  = false;
-
-      /* ── Open / Close helpers ── */
-      function openAskMe(){
-        if(!overlay || !panel) return;
-        overlay.classList.add('active');
-        panel.classList.add('active');
-        isMinimized = false;
-        panel.style.maxHeight = '';
-        if(minBtn) minBtn.innerHTML = '<i class="fas fa-minus"></i>';
-        setTimeout(function(){ if(input) input.focus(); }, 200);
-      }
-      function closeAskMe(){
-        if(overlay) overlay.classList.remove('active');
-        if(panel)   panel.classList.remove('active');
-      }
-      window.openAskMe  = openAskMe;
-      window.closeAskMe = closeAskMe;
-
-      /* ── Trigger: float button + nav ── */
-      if(btn){ btn.addEventListener('click', function(){ overlay && overlay.classList.contains('active') ? closeAskMe() : openAskMe(); }); }
-      /* Overlay backdrop click closes */
-      if(overlay){ overlay.addEventListener('click', function(e){ if(e.target===overlay) closeAskMe(); }); }
-      if(closeBtn){ closeBtn.addEventListener('click', closeAskMe); }
-      if(minBtn){ minBtn.addEventListener('click', function(){
-        isMinimized = !isMinimized;
-        panel.style.maxHeight = isMinimized ? '58px' : '';
-        panel.style.overflow  = isMinimized ? 'hidden' : 'hidden';
-        minBtn.innerHTML = isMinimized ? '<i class="fas fa-expand-alt"></i>' : '<i class="fas fa-minus"></i>';
-      }); }
-      /* ESC closes */
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAskMe(); });
-
-      /* ── Filter tabs ── */
-      document.querySelectorAll('.filter-tab').forEach(function(tab){
-        tab.addEventListener('click', function(){
-          document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
-          tab.classList.add('active');
-          activeFilter = tab.getAttribute('data-filter');
-        });
-      });
-
-      /* ── Send ── */
-      function send(){
-        var q = input.value.trim();
-        if(!q) return;
-        addMsg(q,'user');
-        input.value = '';
-        showTyping();
-        processQuery(q);
-      }
-      if(sendBtn) sendBtn.addEventListener('click', send);
-      if(input)   input.addEventListener('keypress', function(e){ if(e.key==='Enter') send(); });
-      document.querySelectorAll('.shortcut-btn').forEach(function(b){
-        b.addEventListener('click', function(){
-          var q = b.getAttribute('data-query');
-          if(!overlay || !overlay.classList.contains('active')) openAskMe();
-          addMsg(q,'user'); showTyping(); processQuery(q);
-        });
-      });
-
-      /* ── Voice Input (English) ── */
-      var recognition = null;
-      if(window.SpeechRecognition || window.webkitSpeechRecognition){
-        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'en-IN';
-        recognition.interimResults = false;
-        recognition.onresult = function(e){ var t=e.results[0][0].transcript; input.value=t; send(); };
-        recognition.onend = function(){ if(voiceBtn){ voiceBtn.classList.remove('listening'); voiceBtn.innerHTML='<i class="fas fa-microphone"></i>'; } };
-        recognition.onerror = function(){ if(voiceBtn){ voiceBtn.classList.remove('listening'); voiceBtn.innerHTML='<i class="fas fa-microphone"></i>'; } };
-        if(voiceBtn){ voiceBtn.addEventListener('click', function(){
-          if(voiceBtn.classList.contains('listening')){ recognition.stop(); }
-          else { voiceBtn.classList.add('listening'); voiceBtn.innerHTML='<i class="fas fa-stop"></i>'; recognition.start(); }
-        }); }
-      } else { if(voiceBtn){ voiceBtn.style.opacity='0.35'; voiceBtn.title='Voice input not supported in this browser'; } }
-
-      /* ── Message helpers ── */
-      function addMsg(t, s){
-        var d = document.createElement('div');
-        d.className = 'message ' + s;
-        d.innerHTML = t;
-        if(s === 'bot'){
-          /* Copy button */
-          var stripped = t.replace(/<[^>]+>/g,'');
-          var cb = document.createElement('button');
-          cb.className = 'msg-copy-btn';
-          cb.innerHTML = '<i class="fas fa-copy"></i> Copy';
-          cb.addEventListener('click', function(){
-            if(navigator.clipboard && navigator.clipboard.writeText){
-              navigator.clipboard.writeText(stripped).then(function(){
-                cb.innerHTML='<i class="fas fa-check"></i> Copied!';
-                setTimeout(function(){ cb.innerHTML='<i class="fas fa-copy"></i> Copy'; }, 2000);
-              });
-            }
-          });
-          d.appendChild(cb);
-          /* Re-render KaTeX */
-          if(window.renderMathInElement){
-            setTimeout(function(){
-              renderMathInElement(d, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
-            }, 50);
-          }
-        }
-        msgs.appendChild(d);
-        msgs.scrollTop = msgs.scrollHeight;
-      }
-      function showTyping(){ var t=document.createElement('div'); t.className='message bot typing-indicator'; t.id='typingDots'; t.innerHTML='<span></span><span></span><span></span>'; msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight; }
-      function removeTyping(){ var t=document.getElementById('typingDots'); if(t) t.remove(); }
-
-      /* ── Helper renderers ── */
-      function hl(t){ return '<span class="math-highlight">'+t+'</span>'; }
-      function sb(cls,icon,label){ return '<br><span class="source-badge '+cls+'">'+icon+' '+label+'</span>'; }
-      function lk(href,label){ return '<a href="'+href+'" style="color:#a78bfa;font-weight:700;" target="_blank">'+label+'</a>'; }
-
-      /* ── Main processor ── */
-      function processQuery(query){
-        var delay = 700;
-        if(activeFilter === 'online'){
-          setTimeout(function(){ removeTyping(); addMsg(getOnlineLinks(query),'bot'); }, 500);
-          return;
-        }
-        if(activeFilter === 'engine'){
-          setTimeout(function(){ removeTyping(); var r=answer(query); addMsg(r + sb('engine','&#129518;','Math Solver'),'bot'); }, delay);
-          return;
-        }
-        if(activeFilter === 'askme'){
-          setTimeout(function(){ removeTyping();
-            var r=searchAskMeFolder(query);
-            addMsg(r || 'No match found in ASK ME Knowledge Base for <strong>'+query+'</strong>. Try switching to the <em>All</em> tab.' + sb('ask-me','&#128193;','ASK ME'), 'bot');
-          }, 600); return;
-        }
-        /* All Sources: priority chain */
-        setTimeout(function(){
-          removeTyping();
-          var r1=searchAskMeFolder(query);
-          if(r1){ addMsg(r1,'bot'); return; }
-          var r2=answer(query);
-          if(r2 && r2.indexOf('no stored answer')===-1){ addMsg(r2 + sb('engine','&#129518;','Math Solver'),'bot'); return; }
-          addMsg(getOnlineLinks(query),'bot');
-        }, delay);
-      }
-
-      /* ── ASK ME Folder search ── */
-      function searchAskMeFolder(query){
-        if(!window.searchAskMe) return null;
-        var results=window.searchAskMe(query);
-        if(!results || results.length===0) return null;
-        var best=results[0];
-        var out='<strong>'+best.question+'</strong><br><br>'+best.answer;
-        out+='<br><span class="source-badge ask-me">&#128193; ASK ME &nbsp;|&nbsp; Class '+best.class+' &nbsp;|&nbsp; '+best.chapter+'</span>';
-        if(results.length>1){
-          out+='<br><small style="color:rgba(255,255,255,0.5);">Also matched: ';
-          for(var i=1;i<Math.min(results.length,3);i++) out+=(i>1?', ':'')+results[i].question;
-          out+='</small>';
-        }
-        return out;
-      }
-
-      /* ── Online links ── */
-      function getOnlineLinks(q){
-        var wq=encodeURIComponent(q), gq=encodeURIComponent(q+' mathematics');
-        return 'Here are online resources for <strong>'+q+'</strong>:<br><br>'+
-          '<div style="display:flex;flex-direction:column;gap:8px;">'+
-          '<a href="https://www.wolframalpha.com/input?i='+wq+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#ef4444,#f59e0b);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-atom"></i> Solve on WolframAlpha</a>'+
-          '<a href="https://gemini.google.com/?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-robot"></i> Ask Google Gemini AI</a>'+
-          '<a href="https://www.mathway.com/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#06b6d4,#10b981);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-calculator"></i> Solve on Mathway</a>'+
-          '<a href="https://www.google.com/search?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fab fa-google"></i> Google Search</a>'+
-          '</div>' + sb('online','&#127760;','Online Resources');
-      }
-
-      /* ══════════════════════════════════════════════════════
-         MATH ENGINE  –  LaTeX answers, English only
-         Covers: Basic (VI-X) + Higher (XI-XII + Beyond)
-         ══════════════════════════════════════════════════════ */
-      function answer(query){
-        var q = query.toLowerCase().trim();
-
-        /* ── Arithmetic calculator ── */
-        if(/^[ds+-*/^().%]+$/.test(query) && query.length < 80){
-          try{
-            var r = Function('"use strict";return('+query.replace(/^/g,'**')+')')();
-            if(typeof r==='number' && isFinite(r))
-              return '<strong>Arithmetic Result:</strong><br>$$'+query+' = '+r+'$$';
-          }catch(e){}
-        }
-
-        /* ── Quadratic equation solver ── */
-        if(q.match(/x^?2|x2|²/) && (q.indexOf('=')+q.indexOf('solve')+q.indexOf('root'))>-3){
-          var sol=solveQ(query); if(sol) return sol;
-        }
-
-        /* ════════════ BASIC MATHEMATICS (Classes VI–X) ════════════ */
-
-        /* Greetings */
-        if(/^(hi|hello|hey|namaste|goods)/.test(q))
-          return 'Hello! I am <strong>ASK ME</strong>, your Mathematics AI. I cover topics from basic arithmetic to higher mathematics with LaTeX-rendered equations. Ask me any question!';
-        if(q.includes('thank')) return 'You are welcome! Keep exploring mathematics!';
-        if(q.includes('who are you')||q.includes('your name'))
-          return 'I am <strong>ASK ME &mdash; Mathematics AI</strong>, powered by a built-in math engine, the ASK ME Knowledge Base, and online resources. I cover basic to higher mathematics with full LaTeX rendering.';
-
-        /* Number Systems */
-        if(q.includes('hcf')||q.includes('lcm')||q.includes('highest common'))
-          return '<strong>HCF and LCM:</strong><br>$$\text{HCF} \times \text{LCM} = \text{Product of two numbers}$$<br>'+
-            '<strong>HCF</strong> (Highest Common Factor) = largest number dividing both.<br>'+
-            '<strong>LCM</strong> (Lowest Common Multiple) = smallest multiple common to both.<br>'+
-            '<strong>Method:</strong> Prime factorisation or Euclid's Division Algorithm.<br>'+
-            '$$a = bq + r, \quad 0 \le r < b$$';
-
-        if(q.includes('prime') && q.includes('factori'))
-          return '<strong>Prime Factorisation:</strong><br>Every integer $n > 1$ can be written uniquely as:<br>$$n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$$where $p_i$ are prime numbers. This is the <em>Fundamental Theorem of Arithmetic</em>.';
-
-        if(q.includes('rational')||q.includes('irrational'))
-          return '<strong>Number System:</strong><br>'+
-            '&bull; <strong>Rational:</strong> $\frac{p}{q}$ form, $q \ne 0$. Decimal terminates or recurs.<br>'+
-            '&bull; <strong>Irrational:</strong> Cannot be written as $\frac{p}{q}$. E.g., $\sqrt{2},\, \pi,\, e$.<br>'+
-            '$$\sqrt{p} \text{ is irrational if } p \text{ is prime}$$';
-
-        /* Percentage, SI, CI */
-        if(q.includes('simple interest')||(q.includes('interest')&&q.includes('simple')))
-          return '<strong>Simple Interest:</strong><br>$$SI = \frac{P \times R \times T}{100}$$$$A = P + SI$$where $P$ = Principal, $R$ = Rate % per annum, $T$ = Time (years).';
-
-        if(q.includes('compound interest')||(q.includes('interest')&&q.includes('compound')))
-          return '<strong>Compound Interest:</strong><br>$$A = P\left(1 + \frac{R}{100}\right)^n$$$$CI = A - P$$For half-yearly: $A = P\left(1 + \frac{R}{200}\right)^{2n}$<br>For quarterly: $A = P\left(1 + \frac{R}{400}\right)^{4n}$';
-
-        /* Algebraic Identities */
-        if(q.includes('algebraic identit')||q.includes('(a+b)')||q.includes('expansion'))
-          return '<strong>Algebraic Identities:</strong><br>'+
-            '$$(a+b)^2 = a^2 + 2ab + b^2$$'+
-            '$$(a-b)^2 = a^2 - 2ab + b^2$$'+
-            '$$(a+b)(a-b) = a^2 - b^2$$'+
-            '$$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$$'+
-            '$$(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$'+
-            '$$a^3 + b^3 = (a+b)(a^2 - ab + b^2)$$'+
-            '$$a^3 - b^3 = (a-b)(a^2 + ab + b^2)$$';
-
-        if(q.includes('factor theorem'))
-          return '<strong>Factor Theorem (Class 9):</strong><br>If $p(a) = 0$, then $(x - a)$ is a factor of polynomial $p(x)$.<br><em>Converse:</em> If $(x-a)$ is a factor of $p(x)$, then $p(a)=0$.';
-
-        if(q.includes('remainder theorem'))
-          return '<strong>Remainder Theorem (Class 9):</strong><br>When polynomial $p(x)$ is divided by $(x - a)$:<br>$$\text{Remainder} = p(a)$$';
-
-        /* Linear equations */
-        if(q.includes('linear equation')||(q.includes('pair')&&q.includes('equation')))
-          return '<strong>Pair of Linear Equations (Class 10):</strong><br>$$a_1x + b_1y + c_1 = 0, \quad a_2x + b_2y + c_2 = 0$$<br>'+
-            '&bull; Unique solution: $\dfrac{a_1}{a_2} \ne \dfrac{b_1}{b_2}$<br>'+
-            '&bull; No solution: $\dfrac{a_1}{a_2} = \dfrac{b_1}{b_2} \ne \dfrac{c_1}{c_2}$<br>'+
-            '&bull; Infinitely many solutions: $\dfrac{a_1}{a_2} = \dfrac{b_1}{b_2} = \dfrac{c_1}{c_2}$';
-
-        /* Quadratic formula */
-        if(q.includes('quadratic formula')||(q.includes('quadratic')&&q.includes('formula')))
-          return '<strong>Quadratic Formula (Class 10):</strong><br>For $ax^2 + bx + c = 0,\; a \ne 0$:'+
-            '$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$'+
-            '<strong>Discriminant:</strong> $D = b^2 - 4ac$<br>'+
-            '&bull; $D > 0$ &rarr; two distinct real roots<br>'+
-            '&bull; $D = 0$ &rarr; equal real roots: $x = -\frac{b}{2a}$<br>'+
-            '&bull; $D < 0$ &rarr; complex (imaginary) roots<br>'+
-            '<strong>Vieta's Formulas:</strong> Sum $= -\frac{b}{a}$, &nbsp; Product $= \frac{c}{a}$<br>'+
-            '<em>Tip: Type <strong>x^2-5x+6=0</strong> to solve instantly!</em>';
-
-        /* Heron */
-        if(q.includes('heron'))
-          return '<strong>Heron's Formula (Class 9):</strong><br>For a triangle with sides $a, b, c$:'+
-            '$$s = \frac{a+b+c}{2}$$'+
-            '$$\text{Area} = \sqrt{s(s-a)(s-b)(s-c)}$$';
-
-        /* Pythagoras */
-        if(q.includes('pythagoras')||q.includes('pythagorean'))
-          return '<strong>Pythagoras' Theorem (Class 7–10):</strong><br>In a right-angled triangle:$$c^2 = a^2 + b^2$$where $c$ is hypotenuse.<br>'+
-            '<strong>Pythagorean Triplets:</strong> $(3,4,5),\,(5,12,13),\,(8,15,17),\,(7,24,25)$';
-
-        /* Circle */
-        if(q.includes('circle formula')||q.includes('area of circle')||q.includes('circumference'))
-          return '<strong>Circle Formulas:</strong><br>'+
-            '$$\text{Area} = \pi r^2, \quad \text{Circumference} = 2\pi r$$'+
-            '$$\text{Arc length} = \frac{\theta}{360^\circ} \times 2\pi r$$'+
-            '$$\text{Sector area} = \frac{\theta}{360^\circ} \times \pi r^2$$';
-
-        /* Mensuration */
-        if(q.includes('surface area')||q.includes('volume')||q.includes('mensuration'))
-          return '<strong>Mensuration (Class 9–10):</strong><br>'+
-            '<strong>Cube</strong> ($a$): $SA = 6a^2,\; V = a^3$<br>'+
-            '<strong>Cuboid</strong> ($l,b,h$): $SA = 2(lb+bh+hl),\; V = lbh$<br>'+
-            '<strong>Cylinder</strong> ($r,h$): $CSA = 2\pi rh,\; V = \pi r^2 h$<br>'+
-            '<strong>Cone</strong> ($r,h$): $CSA = \pi rl,\; V = \tfrac{1}{3}\pi r^2 h,\; l = \sqrt{r^2+h^2}$<br>'+
-            '<strong>Sphere</strong> ($r$): $SA = 4\pi r^2,\; V = \tfrac{4}{3}\pi r^3$';
-
-        /* Coordinate Geometry */
-        if(q.includes('coordinate')||q.includes('distance formula')||q.includes('section formula')||q.includes('midpoint'))
-          return '<strong>Coordinate Geometry (Class 10):</strong><br>'+
-            '$$\text{Distance} = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$$'+
-            '$$\text{Midpoint} = \left(\frac{x_1+x_2}{2},\, \frac{y_1+y_2}{2}\right)$$'+
-            '$$\text{Section (m:n)} = \left(\frac{mx_2+nx_1}{m+n},\, \frac{my_2+ny_1}{m+n}\right)$$'+
-            '$$\text{Area of } \triangle = \tfrac{1}{2}|x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)|$$';
-
-        /* Statistics (Basic) */
-        if((q.includes('mean')||q.includes('median')||q.includes('mode'))&&(q.includes('class')||q.includes('grouped')||q.includes('statistic')||q.includes('formula')))
-          return '<strong>Statistics (Class 10):</strong><br>'+
-            '$$\bar{x} = \frac{\sum f_i x_i}{\sum f_i}$$'+
-            '$$\text{Median} = l + \frac{\frac{n}{2} - cf}{f} \times h$$'+
-            '$$\text{Mode} = l + \frac{f_1 - f_0}{2f_1 - f_0 - f_2} \times h$$'+
-            '<strong>Empirical relation:</strong> $\text{Mode} = 3\,\text{Median} - 2\,\text{Mean}$';
-
-        /* Basic Probability */
-        if(q.includes('probability')&&!q.includes('bayes')&&!q.includes('conditional')&&!q.includes('class 12')&&!q.includes('class12'))
-          return '<strong>Probability (Class 10):</strong><br>'+
-            '$$P(A) = \frac{\text{Number of favourable outcomes}}{\text{Total outcomes}} = \frac{n(A)}{n(S)}$$'+
-            '$$P(A) + P(\bar{A}) = 1$$'+
-            '$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$'+
-            'For mutually exclusive events: $P(A \cup B) = P(A) + P(B)$';
-
-        /* ════════════ HIGHER MATHEMATICS (Classes XI–XII) ════════════ */
-
-        /* Trigonometry */
-        if(q.includes('trig')||(q.includes('sin')&&q.includes('cos')&&q.includes('formula')))
-          return '<strong>Trigonometric Identities (Class 11):</strong><br>'+
-            '$$\sin^2\theta + \cos^2\theta = 1$$'+
-            '$$1 + \tan^2\theta = \sec^2\theta$$'+
-            '$$1 + \cot^2\theta = \cosec^2\theta$$'+
-            '<strong>Standard Values:</strong><br>'+
-            '$$\sin 30°=\tfrac{1}{2},\; \sin 45°=\tfrac{1}{\sqrt{2}},\; \sin 60°=\tfrac{\sqrt{3}}{2}$$'+
-            '$$\cos 30°=\tfrac{\sqrt{3}}{2},\; \cos 45°=\tfrac{1}{\sqrt{2}},\; \cos 60°=\tfrac{1}{2}$$'+
-            '$$\tan 30°=\tfrac{1}{\sqrt{3}},\; \tan 45°=1,\; \tan 60°=\sqrt{3}$$';
-
-        if(q.includes('compound angle')||(q.includes('addition formula')&&(q.includes('sin')||q.includes('cos'))))
-          return '<strong>Compound Angle Formulas:</strong><br>'+
-            '$$\sin(A+B) = \sin A\cos B + \cos A\sin B$$'+
-            '$$\sin(A-B) = \sin A\cos B - \cos A\sin B$$'+
-            '$$\cos(A+B) = \cos A\cos B - \sin A\sin B$$'+
-            '$$\cos(A-B) = \cos A\cos B + \sin A\sin B$$'+
-            '$$\tan(A+B) = \frac{\tan A+\tan B}{1-\tan A\tan B}$$'+
-            '$$\tan(A-B) = \frac{\tan A-\tan B}{1+\tan A\tan B}$$';
-
-        if(q.includes('double angle'))
-          return '<strong>Double Angle Formulas:</strong><br>'+
-            '$$\sin 2A = 2\sin A\cos A$$'+
-            '$$\cos 2A = \cos^2 A - \sin^2 A = 2\cos^2 A - 1 = 1 - 2\sin^2 A$$'+
-            '$$\tan 2A = \frac{2\tan A}{1-\tan^2 A}$$';
-
-        if(q.includes('inverse trig')||q.includes('inverse trigonometric'))
-          return '<strong>Inverse Trigonometric Functions (Class 12):</strong><br>'+
-            '$$\sin^{-1}(-x) = -\sin^{-1}x,\quad \cos^{-1}(-x) = \pi - \cos^{-1}x$$'+
-            '$$\sin^{-1}x + \cos^{-1}x = \frac{\pi}{2}$$'+
-            '$$\tan^{-1}x + \cot^{-1}x = \frac{\pi}{2}$$'+
-            '$$\tan^{-1}x + \tan^{-1}y = \tan^{-1}\!\left(\frac{x+y}{1-xy}\right),\; xy<1$$';
-
-        /* AP / GP */
-        if(q.includes('arithmetic progression')||q.includes('ap formula'))
-          return '<strong>Arithmetic Progression (AP):</strong><br>'+
-            '$$a_n = a + (n-1)d$$'+
-            '$$S_n = \frac{n}{2}[2a + (n-1)d] = \frac{n}{2}(a + l)$$'+
-            'where $a$ = first term, $d$ = common difference, $l$ = last term.<br>'+
-            '<strong>Sum of first $n$ natural numbers:</strong> $\displaystyle\sum_{k=1}^{n}k = \dfrac{n(n+1)}{2}$<br>'+
-            '<strong>Sum of squares:</strong> $\displaystyle\sum_{k=1}^{n}k^2 = \dfrac{n(n+1)(2n+1)}{6}$<br>'+
-            '<strong>Sum of cubes:</strong> $\displaystyle\sum_{k=1}^{n}k^3 = \left[\dfrac{n(n+1)}{2}\right]^2$';
-
-        if(q.includes('geometric progression')||q.includes('gp formula'))
-          return '<strong>Geometric Progression (GP):</strong><br>'+
-            '$$a_n = ar^{n-1}$$'+
-            '$$S_n = \frac{a(r^n - 1)}{r - 1} \quad (r \ne 1)$$'+
-            '$$S_\infty = \frac{a}{1-r} \quad (|r| < 1)$$'+
-            'where $a$ = first term, $r$ = common ratio.';
-
-        /* Complex Numbers */
-        if(q.includes('complex number')||q.includes('argand'))
-          return '<strong>Complex Numbers (Class 11):</strong><br>'+
-            '$$z = a + bi, \quad i^2 = -1$$'+
-            '$$|z| = \sqrt{a^2+b^2} \quad (\text{Modulus})$$'+
-            '$$\bar{z} = a - bi \quad (\text{Conjugate})$$'+
-            '$$z \cdot \bar{z} = |z|^2$$'+
-            '<strong>Polar form:</strong> $z = r(\cos\theta + i\sin\theta) = re^{i\theta}$<br>'+
-            '<strong>Euler's Formula:</strong> $$e^{i\theta} = \cos\theta + i\sin\theta$$'+
-            '<strong>De Moivre's Theorem:</strong> $$(\cos\theta+i\sin\theta)^n = \cos n\theta + i\sin n\theta$$'+
-            'Powers of $i$: $i^1=i,\; i^2=-1,\; i^3=-i,\; i^4=1$ (cycle of 4)';
-
-        /* Permutation and Combination */
-        if(q.includes('permutation')||q.includes('combination')||q.includes('ncr')||q.includes('npr'))
-          return '<strong>Permutation and Combination (Class 11):</strong><br>'+
-            '$$^nP_r = \frac{n!}{(n-r)!}$$'+
-            '$$^nC_r = \frac{n!}{r!(n-r)!}$$'+
-            '$$^nC_r = ^nC_{n-r}$$'+
-            '$$^nC_r + ^nC_{r-1} = ^{n+1}C_r \quad (\text{Pascal's Identity})$$'+
-            '$$n! = n \times (n-1) \times (n-2) \cdots 1, \quad 0! = 1$$';
-
-        /* Binomial Theorem */
-        if(q.includes('binomial theorem')||q.includes('binomial expansion'))
-          return '<strong>Binomial Theorem (Class 11):</strong><br>'+
-            '$$(a+b)^n = \sum_{r=0}^{n} \binom{n}{r} a^{n-r} b^r$$'+
-            '<strong>General Term:</strong> $T_{r+1} = \binom{n}{r} a^{n-r} b^r$<br>'+
-            '<strong>Middle Term:</strong> If $n$ is even: $T_{n/2+1}$; if $n$ is odd: $T_{(n+1)/2}$ and $T_{(n+3)/2}$<br>'+
-            '<strong>Number of terms:</strong> $n+1$';
-
-        /* Limits */
-        if(q.includes('limit')||q.includes('limits standard'))
-          return '<strong>Standard Limits (Class 11–12):</strong><br>'+
-            '$$\lim_{x \to 0} \frac{\sin x}{x} = 1$$'+
-            '$$\lim_{x \to 0} \frac{\tan x}{x} = 1$$'+
-            '$$\lim_{x \to 0} (1+x)^{1/x} = e$$'+
-            '$$\lim_{x \to 0} \frac{e^x - 1}{x} = 1$$'+
-            '$$\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$$'+
-            '$$\lim_{x \to a} \frac{x^n - a^n}{x - a} = na^{n-1}$$'+
-            '<strong>Continuity:</strong> $f$ is continuous at $a$ if $\displaystyle\lim_{x\to a}f(x)=f(a)$';
-
-        /* Derivatives */
-        if(q.includes('derivative formula')||q.includes('differentiation formula')||q.includes('standard derivative'))
-          return '<strong>Standard Derivatives (Class 11–12):</strong><br>'+
-            '$$\frac{d}{dx}(x^n) = nx^{n-1}$$'+
-            '$$\frac{d}{dx}(\sin x) = \cos x, \quad \frac{d}{dx}(\cos x) = -\sin x$$'+
-            '$$\frac{d}{dx}(\tan x) = \sec^2 x, \quad \frac{d}{dx}(\cot x) = -\cosec^2 x$$'+
-            '$$\frac{d}{dx}(\sec x) = \sec x \tan x, \quad \frac{d}{dx}(\cosec x) = -\cosec x \cot x$$'+
-            '$$\frac{d}{dx}(e^x) = e^x, \quad \frac{d}{dx}(\ln x) = \frac{1}{x}$$'+
-            '$$\frac{d}{dx}(a^x) = a^x \ln a$$'+
-            '$$\frac{d}{dx}(\sin^{-1} x) = \frac{1}{\sqrt{1-x^2}}, \quad \frac{d}{dx}(\tan^{-1} x) = \frac{1}{1+x^2}$$';
-
-        if(q.includes('chain rule'))
-          return '<strong>Chain Rule:</strong><br>If $y = f(g(x))$:$$\frac{dy}{dx} = f'(g(x)) \cdot g'(x)$$<strong>Example:</strong> $\frac{d}{dx}\sin(x^2) = \cos(x^2) \cdot 2x$';
-
-        if(q.includes('product rule'))
-          return '<strong>Product Rule:</strong><br>If $y = u \cdot v$:$$\frac{dy}{dx} = u\frac{dv}{dx} + v\frac{du}{dx}$$';
-
-        if(q.includes('quotient rule'))
-          return '<strong>Quotient Rule:</strong><br>If $y = \dfrac{u}{v}$:$$\frac{dy}{dx} = \frac{v\dfrac{du}{dx} - u\dfrac{dv}{dx}}{v^2}$$';
-
-        if(q.includes('increasing')||q.includes('decreasing')||(q.includes('application')&&q.includes('derivative')))
-          return '<strong>Applications of Derivatives (Class 12):</strong><br>'+
-            '&bull; $f'(x)>0$ in $(a,b)$ &rarr; $f$ is <strong>increasing</strong> on $(a,b)$<br>'+
-            '&bull; $f'(x)<0$ in $(a,b)$ &rarr; $f$ is <strong>decreasing</strong> on $(a,b)$<br>'+
-            '&bull; $f'(c)=0$ &rarr; critical point at $x=c$<br>'+
-            '<strong>Second Derivative Test:</strong><br>'+
-            '$$f''(c)<0 \Rightarrow \text{local maximum}$$$$f''(c)>0 \Rightarrow \text{local minimum}$$'+
-            '<strong>Tangent at $(x_1,y_1)$:</strong> $y - y_1 = m(x-x_1)$ where $m=f'(x_1)$<br>'+
-            '<strong>Normal:</strong> slope $= -\dfrac{1}{f'(x_1)}$';
-
-        /* Integrals */
-        if(q.includes('integration formula')||q.includes('integral formula')||q.includes('standard integral'))
-          return '<strong>Standard Integrals (Class 12):</strong><br>'+
-            '$$\int x^n\,dx = \frac{x^{n+1}}{n+1} + C \quad (n \ne -1)$$'+
-            '$$\int \frac{1}{x}\,dx = \ln|x| + C$$'+
-            '$$\int e^x\,dx = e^x + C, \quad \int a^x\,dx = \frac{a^x}{\ln a} + C$$'+
-            '$$\int \sin x\,dx = -\cos x + C, \quad \int \cos x\,dx = \sin x + C$$'+
-            '$$\int \sec^2 x\,dx = \tan x + C, \quad \int \cosec^2 x\,dx = -\cot x + C$$'+
-            '$$\int \frac{1}{\sqrt{1-x^2}}\,dx = \sin^{-1}x + C$$'+
-            '$$\int \frac{1}{1+x^2}\,dx = \tan^{-1}x + C$$'+
-            '$$\int \frac{1}{\sqrt{x^2-a^2}}\,dx = \ln\left|x+\sqrt{x^2-a^2}\right|+C$$';
-
-        if(q.includes('by parts')||q.includes('integration by parts'))
-          return '<strong>Integration by Parts (ILATE Rule, Class 12):</strong><br>'+
-            '$$\int u\cdot v\,dx = u\int v\,dx - \int\left(\frac{du}{dx}\cdot\int v\,dx\right)dx$$'+
-            '<strong>ILATE preference order:</strong><br>'+
-            'I &rarr; Inverse trig &nbsp; L &rarr; Logarithm &nbsp; A &rarr; Algebraic<br>T &rarr; Trigonometric &nbsp; E &rarr; Exponential<br>'+
-            '<strong>Example:</strong> $\int x e^x dx = xe^x - e^x + C$';
-
-        if(q.includes('definite integral')||q.includes('fundamental theorem'))
-          return '<strong>Definite Integrals (Class 12):</strong><br>'+
-            '$$\int_a^b f(x)\,dx = F(b) - F(a)$$where $F'(x)=f(x)$ (Fundamental Theorem of Calculus).<br>'+
-            '<strong>Properties:</strong><br>'+
-            '$$\int_a^b f(x)\,dx = -\int_b^a f(x)\,dx$$'+
-            '$$\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx$$'+
-            '$$\int_0^{2a}f(x)\,dx = 2\int_0^a f(x)\,dx \text{ if } f(2a-x)=f(x)$$';
-
-        /* Matrices */
-        if(q.includes('matri')||q.includes('matrices formula'))
-          return '<strong>Matrices (Class 12):</strong><br>'+
-            '&bull; Symmetric: $A^T = A$ &nbsp;&nbsp; Skew-symmetric: $A^T = -A$<br>'+
-            '<strong>For $2 \times 2$ matrix $\begin{bmatrix}a&b\\c&d\end{bmatrix}$:</strong><br>'+
-            '$$\det(A) = ad - bc$$'+
-            '$$A^{-1} = \frac{1}{\det A}\begin{bmatrix}d & -b \\ -c & a\end{bmatrix}$$'+
-            '$(AB)^T = B^T A^T$, &nbsp; $(AB)^{-1} = B^{-1}A^{-1}$<br>'+
-            '<strong>Cayley-Hamilton:</strong> Every matrix satisfies its own characteristic equation.';
-
-        if(q.includes('determinant'))
-          return '<strong>Determinants (Class 12):</strong><br>'+
-            '$$|A| = \begin{vmatrix}a&b\\c&d\end{vmatrix} = ad - bc$$'+
-            '$$A^{-1} = \frac{\text{adj}(A)}{|A|}, \quad |A| \ne 0$$'+
-            '$$|AB| = |A||B|$$'+
-            '&bull; If two rows are identical, $|A|=0$.<br>'+
-            '&bull; $|A^T| = |A|$<br>'+
-            '<strong>Cramer's Rule:</strong> $x = \dfrac{D_1}{D},\; y = \dfrac{D_2}{D}$';
-
-        /* Eigenvalues */
-        if(q.includes('eigenvalue')||q.includes('eigenvector')||q.includes('characteristic equation'))
-          return '<strong>Eigenvalues and Eigenvectors:</strong><br>'+
-            'For matrix $A$, eigenvalue $\lambda$ satisfies:$$\det(A - \lambda I) = 0$$The resulting polynomial in $\lambda$ is the <strong>characteristic equation</strong>.<br>'+
-            'Eigenvector $\mathbf{v}$ satisfies:$$(A - \lambda I)\mathbf{v} = \mathbf{0}$$'+
-            '<strong>Trace:</strong> $\text{tr}(A) = \sum \lambda_i$ &nbsp;&nbsp; <strong>Det:</strong> $|A| = \prod \lambda_i$<br>'+
-            '<em>Cayley-Hamilton:</em> $A$ satisfies $p(A)=0$ where $p(\lambda)=\det(A-\lambda I)$.';
-
-        /* Vectors */
-        if(q.includes('vector formula')||(q.includes('vector')&&(q.includes('formula')||q.includes('product'))))
-          return '<strong>Vectors (Class 12):</strong><br>'+
-            '$$|\vec{a}| = \sqrt{a_1^2+a_2^2+a_3^2}$$'+
-            '$$\vec{a}\cdot\vec{b} = |\vec{a}||\vec{b}|\cos\theta = a_1b_1+a_2b_2+a_3b_3$$'+
-            '$$|\vec{a}\times\vec{b}| = |\vec{a}||\vec{b}|\sin\theta$$'+
-            '&bull; Perpendicular: $\vec{a}\cdot\vec{b}=0$ &nbsp;&nbsp; Parallel: $\vec{a}\times\vec{b}=\vec{0}$<br>'+
-            '$$\text{Projection of }\vec{a}\text{ on }\vec{b} = \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|}$$';
-
-        /* 3D Geometry */
-        if(q.includes('3d geometry')||q.includes('direction cosine')||q.includes('direction ratio'))
-          return '<strong>3D Geometry (Class 12):</strong><br>'+
-            '$$l^2 + m^2 + n^2 = 1 \quad (\text{direction cosines})$$'+
-            '$$d = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$$'+
-            '<strong>Line (symmetric form):</strong> $\dfrac{x-x_1}{a}=\dfrac{y-y_1}{b}=\dfrac{z-z_1}{c}$<br>'+
-            '<strong>Plane:</strong> $ax+by+cz+d=0$<br>'+
-            '$$\text{Distance from point to plane} = \frac{|ax_1+by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}$$';
-
-        /* LPP */
-        if(q.includes('linear programming')||q.includes('lpp')||q.includes('feasible region'))
-          return '<strong>Linear Programming (Class 12):</strong><br>'+
-            'Optimise $Z = ax + by$ subject to constraints $a_ix+b_iy \le c_i$.<br>'+
-            '<strong>Steps:</strong> 1. Write constraints &rarr; 2. Plot feasible region &rarr; 3. Find corner points &rarr; 4. Evaluate $Z$ at each corner.<br>'+
-            'The optimal value of $Z$ always occurs at a <strong>corner (vertex)</strong> of the feasible region.';
-
-        /* Probability Advanced */
-        if(q.includes('probability formula')||q.includes('bayes')||q.includes('conditional probability')||(q.includes('probability')&&q.includes('formula')))
-          return '<strong>Advanced Probability (Class 12):</strong><br>'+
-            '$$P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) \ne 0$$'+
-            '<strong>Bayes' Theorem:</strong>$$P(A_i|B) = \frac{P(A_i)\cdot P(B|A_i)}{\displaystyle\sum_{j}P(A_j)\cdot P(B|A_j)}$$'+
-            '<strong>Binomial Distribution:</strong>$$P(X=r) = \binom{n}{r}p^r q^{n-r}$$'+
-            'Mean $= np$, &nbsp; Variance $= npq$, &nbsp; SD $= \sqrt{npq}$';
-
-        /* Differential Equations */
-        if(q.includes('differential equation')||q.includes('diff. equation')||q.includes('diff equation'))
-          return '<strong>Differential Equations (Class 12):</strong><br>'+
-            '<strong>Order:</strong> highest derivative present. <strong>Degree:</strong> power of highest derivative.<br>'+
-            '<strong>Variable Separable:</strong> $\frac{dy}{dx}=f(x)g(y)$<br>'+
-            '$$\int \frac{dy}{g(y)} = \int f(x)\,dx + C$$'+
-            '<strong>Linear 1st-order:</strong> $\frac{dy}{dx} + Py = Q$<br>'+
-            '$$\text{IF} = e^{\int P\,dx}, \quad y\cdot\text{IF} = \int Q\cdot\text{IF}\,dx + C$$';
-
-        /* Relations and Functions */
-        if((q.includes('relation')||q.includes('function'))&&(q.includes('one-one')||q.includes('onto')||q.includes('bijective')||q.includes('type')))
-          return '<strong>Relations and Functions (Class 12):</strong><br>'+
-            '&bull; <strong>One-one (Injective):</strong> $f(a)=f(b) \Rightarrow a=b$<br>'+
-            '&bull; <strong>Onto (Surjective):</strong> Range $=$ Codomain<br>'+
-            '&bull; <strong>Bijective:</strong> both one-one and onto<br>'+
-            '&bull; <strong>Reflexive:</strong> $(a,a)\in R$ for all $a$<br>'+
-            '&bull; <strong>Symmetric:</strong> $(a,b)\in R \Rightarrow (b,a)\in R$<br>'+
-            '&bull; <strong>Transitive:</strong> $(a,b),(b,c)\in R \Rightarrow (a,c)\in R$<br>'+
-            'Equivalence relation = Reflexive + Symmetric + Transitive';
-
-        /* Straight Lines */
-        if(q.includes('straight line')||(q.includes('slope')&&q.includes('line')))
-          return '<strong>Straight Lines (Class 11):</strong><br>'+
-            '$$\text{Slope} = m = \tan\theta = \frac{y_2-y_1}{x_2-x_1}$$'+
-            '<strong>Forms:</strong><br>'+
-            'Slope-intercept: $y = mx + c$<br>'+
-            'Point-slope: $y-y_1 = m(x-x_1)$<br>'+
-            'Two-point: $\dfrac{y-y_1}{y_2-y_1} = \dfrac{x-x_1}{x_2-x_1}$<br>'+
-            'Intercept form: $\dfrac{x}{a}+\dfrac{y}{b}=1$<br>'+
-            '$$d = \frac{|ax_1+by_1+c|}{\sqrt{a^2+b^2}} \quad (\text{distance from point to line})$$';
-
-        /* Conic sections */
-        if(q.includes('conic')||q.includes('parabola')||q.includes('ellipse')||q.includes('hyperbola'))
-          return '<strong>Conic Sections (Class 11):</strong><br>'+
-            '<strong>Circle:</strong> $(x-h)^2+(y-k)^2=r^2$<br>'+
-            '<strong>Parabola:</strong> $y^2=4ax$ (focus $(a,0)$, directrix $x=-a$)<br>'+
-            '<strong>Ellipse:</strong> $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\; a>b>0$<br>'+
-            '$c^2=a^2-b^2,\;$ Eccentricity $e=\dfrac{c}{a}<1$<br>'+
-            '<strong>Hyperbola:</strong> $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$<br>'+
-            '$c^2=a^2+b^2,\;$ Eccentricity $e=\dfrac{c}{a}>1$';
-
-        /* ════════════ HIGHER / UNIVERSITY-LEVEL MATHEMATICS ════════════ */
-
-        /* Taylor / Maclaurin */
-        if(q.includes('taylor')||q.includes('maclaurin'))
-          return '<strong>Taylor & Maclaurin Series:</strong><br>'+
-            '<strong>Taylor series</strong> of $f(x)$ about $x=a$:'+
-            '$$f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n$$'+
-            '<strong>Maclaurin series</strong> (about $x=0$):'+
-            '$$e^x = \sum_{n=0}^{\infty}\frac{x^n}{n!} = 1+x+\frac{x^2}{2!}+\cdots$$'+
-            '$$\sin x = x - \frac{x^3}{3!}+\frac{x^5}{5!}-\cdots$$'+
-            '$$\cos x = 1 - \frac{x^2}{2!}+\frac{x^4}{4!}-\cdots$$'+
-            '$$\ln(1+x) = x - \frac{x^2}{2}+\frac{x^3}{3}-\cdots \quad |x|\le 1$$';
-
-        /* L'Hopital */
-        if(q.includes("l'hopital")||q.includes('lhopital')||q.includes("l'hôpital"))
-          return '<strong>L'H&ocirc;pital's Rule:</strong><br>'+
-            'If $\displaystyle\lim_{x\to a}\frac{f(x)}{g(x)}$ gives $\frac{0}{0}$ or $\frac{\infty}{\infty}$, then:'+
-            '$$\lim_{x\to a}\frac{f(x)}{g(x)} = \lim_{x\to a}\frac{f'(x)}{g'(x)}$$provided the right-side limit exists. Can be applied repeatedly.';
-
-        /* Fourier */
-        if(q.includes('fourier'))
-          return '<strong>Fourier Series:</strong><br>'+
-            'For a periodic function $f(x)$ with period $2L$:'+
-            '$$f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos\frac{n\pi x}{L} + b_n\sin\frac{n\pi x}{L}\right)$$'+
-            '$$a_0 = \frac{1}{L}\int_{-L}^{L}f(x)\,dx$$'+
-            '$$a_n = \frac{1}{L}\int_{-L}^{L}f(x)\cos\frac{n\pi x}{L}\,dx$$'+
-            '$$b_n = \frac{1}{L}\int_{-L}^{L}f(x)\sin\frac{n\pi x}{L}\,dx$$';
-
-        /* Laplace */
-        if(q.includes('laplace'))
-          return '<strong>Laplace Transform:</strong><br>'+
-            '$$\mathcal{L}\{f(t)\} = F(s) = \int_0^{\infty} e^{-st}f(t)\,dt$$'+
-            '<strong>Standard Transforms:</strong><br>'+
-            '$$\mathcal{L}\{1\}=\frac{1}{s},\quad \mathcal{L}\{t^n\}=\frac{n!}{s^{n+1}}$$'+
-            '$$\mathcal{L}\{e^{at}\}=\frac{1}{s-a},\quad \mathcal{L}\{\sin at\}=\frac{a}{s^2+a^2}$$'+
-            '$$\mathcal{L}\{\cos at\}=\frac{s}{s^2+a^2}$$'+
-            '<strong>Inverse:</strong> $f(t) = \mathcal{L}^{-1}\{F(s)\}$<br>'+
-            'Used to solve linear ODEs with constant coefficients.';
-
-        /* Real Analysis */
-        if(q.includes('real analysis')||q.includes('epsilon delta')||q.includes('cauchy'))
-          return '<strong>Real Analysis:</strong><br>'+
-            '<strong>Epsilon-Delta Definition of Limit:</strong>'+
-            '$$\lim_{x\to a}f(x)=L \iff \forall\,\varepsilon>0,\;\exists\,\delta>0: 0<|x-a|<\delta \Rightarrow |f(x)-L|<\varepsilon$$'+
-            '<strong>Cauchy Sequence:</strong> $(a_n)$ is Cauchy if $\forall\,\varepsilon>0,\;\exists\,N: m,n>N \Rightarrow |a_m-a_n|<\varepsilon$<br>'+
-            'Every Cauchy sequence in $\mathbb{R}$ converges (Completeness of $\mathbb{R}$).<br>'+
-            '<strong>Bolzano-Weierstrass:</strong> Every bounded sequence has a convergent subsequence.';
-
-        /* Complex Analysis */
-        if(q.includes('complex analysis')||q.includes('analytic function')||q.includes('cauchy riemann'))
-          return '<strong>Complex Analysis:</strong><br>'+
-            '<strong>Cauchy-Riemann Equations</strong> (for $f=u+iv$ to be analytic):'+
-            '$$\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}$$'+
-            '<strong>Cauchy's Integral Formula:</strong>$$f(a) = \frac{1}{2\pi i}\oint_C \frac{f(z)}{z-a}\,dz$$'+
-            '<strong>Residue Theorem:</strong>$$\oint_C f(z)\,dz = 2\pi i \sum \text{Res}(f,a_k)$$';
-
-        /* Group Theory */
-        if(q.includes('group theory')||q.includes('abelian group')||q.includes('group axiom'))
-          return '<strong>Group Theory (Abstract Algebra):</strong><br>'+
-            'A <strong>Group</strong> $(G, *)$ satisfies:<br>'+
-            '&bull; <strong>Closure:</strong> $a,b\in G \Rightarrow a*b \in G$<br>'+
-            '&bull; <strong>Associativity:</strong> $(a*b)*c = a*(b*c)$<br>'+
-            '&bull; <strong>Identity:</strong> $\exists\, e \in G: a*e = e*a = a$<br>'+
-            '&bull; <strong>Inverse:</strong> $\forall\, a\in G,\; \exists\, a^{-1}: a*a^{-1}=e$<br>'+
-            'If also $a*b=b*a$, the group is <strong>Abelian</strong>.<br>'+
-            '<strong>Lagrange's Theorem:</strong> If $H$ is a subgroup of finite group $G$, then $|H|$ divides $|G|$.';
-
-        /* Numerical Methods */
-        if(q.includes('numerical method')||q.includes('newton raphson')||q.includes('bisection'))
-          return '<strong>Numerical Methods:</strong><br>'+
-            '<strong>Newton-Raphson Method:</strong>$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$'+
-            '<strong>Bisection Method:</strong> If $f(a)\cdot f(b)<0$, root lies in $(a,b)$. Take midpoint $c=\frac{a+b}{2}$.<br>'+
-            '<strong>Trapezoidal Rule:</strong>$$\int_a^b f(x)\,dx \approx \frac{h}{2}[f(x_0)+2f(x_1)+\cdots+2f(x_{n-1})+f(x_n)]$$'+
-            '<strong>Simpson's $\frac{1}{3}$ Rule:</strong>$$\int_a^b f(x)\,dx \approx \frac{h}{3}[f(x_0)+4f(x_1)+2f(x_2)+\cdots+f(x_n)]$$';
-
-        /* Euler identity */
-        if(q.includes('euler')&&q.includes('formula'))
-          return '<strong>Euler's Formulas:</strong><br>'+
-            '$$e^{i\theta} = \cos\theta + i\sin\theta$$'+
-            '<strong>Euler's Identity</strong> (the most beautiful equation):$$e^{i\pi} + 1 = 0$$This connects $e,\, i,\, \pi,\, 1,\, 0$ in one equation.';
-
-        /* Site navigation */
-        if(q.includes('syllabus')) return 'View CBSE syllabus: '+lk('syllabus.html','Syllabus Portal');
-        if(q.includes('ioqm')||q.includes('olympiad')) return 'IOQM preparation: '+lk('ioqm.html','IOQM Prep Hub');
-        if(q.includes('exam')||q.includes('question paper')) return 'Question papers: '+lk('examination.html','Examinations Portal');
-        if(q.includes('lesson plan')) return 'Lesson plans: '+lk('lessonplan.html','Lesson Plans Vault');
-        if(q.includes('simulation')||q.includes('geogebra')) return 'Simulation tools: '+lk('simulations.html','Math Simulation Hub');
-
-        /* No stored answer → trigger online fallback */
-        return 'I have no stored answer for <strong>'+query+'</strong>.';
-      }
-
-      /* ── Quadratic Solver (LaTeX output) ── */
-      function solveQ(eq){
-        var s = eq.replace(/s+/g,'').replace(/x2/g,'x^2').replace(/²/g,'^2');
-        s = s.replace(/(^|[+-])x^2/,'$11x^2').replace(/([+-])x([+-=]|$)/,'$11x$2');
-        if(s.charAt(0)==='x') s='1'+s;
-        var m=s.match(/(-?d+(?:.d+)?)x^2(?:([+-]d+(?:.d+)?)x)?(?:([+-]d+(?:.d+)?))?(?:=0)?/);
-        if(!m) return null;
-        var a=parseFloat(m[1]),b=m[2]?parseFloat(m[2]):0,c=m[3]?parseFloat(m[3]):0;
-        if(!a) return null;
-        var D=b*b-4*a*c;
-        var out='<strong>Quadratic Equation Solved:</strong><br>'+
-          '$$'+a+'x^2 '+(b>=0?'+':'')+b+'x '+(c>=0?'+':'')+c+' = 0$$'+
-          '$$D = b^2-4ac = '+(b*b)+'-'+(4*a*c)+' = '+D+'$$<br>';
-        if(D>0){
-          out+='Two distinct real roots:<br>'+
-            '$$x_1 = \frac{'+ -b+'+\sqrt{'+D+'}}{'+2*a+'} = '+(((-b+Math.sqrt(D))/(2*a)).toFixed(4))+'$$'+
-            '$$x_2 = \frac{'+ -b+'-\sqrt{'+D+'}}{'+2*a+'} = '+(((-b-Math.sqrt(D))/(2*a)).toFixed(4))+'$$';
-        } else if(D===0){
-          out+='Equal (repeated) roots:<br>$$x = -\frac{b}{2a} = '+(-b/(2*a)).toFixed(4)+'$$';
-        } else {
-          var re=(-b/(2*a)).toFixed(4), im=(Math.sqrt(-D)/(2*a)).toFixed(4);
-          out+='Complex (imaginary) roots:<br>$$x_1 = '+re+' + '+im+'i$$$$x_2 = '+re+' - '+im+'i$$';
-        }
-        out+='<small style="color:rgba(255,255,255,0.5);">Sum of roots $= '+(-b/a).toFixed(4)+'$, Product $= '+(c/a).toFixed(4)+'$</small>';
-        return out;
-      }
-    }); /* DOMContentLoaded */
-  })(); /* IIFE */
-  </script>\n\n<script>
   // Mobile and Touch Screen Dropdown Menu Toggles
     document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
       trigger.addEventListener('click', function(e) {
@@ -6541,9 +5854,57 @@
         updateStartAreaUI();
       }
 
+      function updateHeaderCards(cls) {
+        let data = getQuizData(cls);
+        if (data) {
+          renderHeaderGrid(data);
+        }
+        if (window.location.protocol !== 'file:') {
+          fetch('/api/daily-quiz?class=' + encodeURIComponent(cls || activeClass))
+            .then(function(res) { return res.json(); })
+            .then(function(resData) {
+              if (resData && resData.formula_of_the_day) {
+                renderHeaderGrid(resData);
+              }
+            })
+            .catch(function() {
+              data = getQuizData(cls);
+              if (data) renderHeaderGrid(data);
+            });
+        }
+      }
+
+      function renderHeaderGrid(data) {
+        if (!data) return;
+        const f = data.formula_of_the_day || {};
+        const formulaEl = document.getElementById('dqFormulaText');
+        const meaningEl = document.getElementById('dqFormulaMeaning');
+        const varsEl = document.getElementById('dqFormulaVars');
+        const exEl = document.getElementById('dqFormulaEx');
+        const shortcutEl = document.getElementById('dqFormulaShortcut');
+        const mistakeEl = document.getElementById('dqFormulaMistake');
+        const factEl = document.getElementById('dqFactText');
+        const motivationEl = document.getElementById('dqMotivationText');
+
+        if (formulaEl) formulaEl.innerHTML = f.formula || '';
+        if (meaningEl) meaningEl.innerHTML = f.meaning || '';
+        if (varsEl) varsEl.innerHTML = f.variables || '';
+        if (exEl) exEl.innerHTML = f.example || '';
+        if (shortcutEl) shortcutEl.innerHTML = f.shortcut || '';
+        if (mistakeEl) mistakeEl.innerHTML = f.common_mistake || '';
+
+        if (factEl) factEl.innerHTML = data.did_you_know || '';
+        if (motivationEl) motivationEl.innerHTML = data.motivation || '';
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([document.querySelector('.dq-header-grid')]);
+        }
+      }
+
       function selectClass(cls) {
         activeClass = cls || '10';
         renderClassSelectionGrid();
+        updateHeaderCards(activeClass);
       }
 
       function updateStartAreaUI() {
