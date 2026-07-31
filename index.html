@@ -4222,119 +4222,97 @@
             </button>
           </div>
         </div>
-      </section>
 
-      <!-- ════════════ DAILY QUIZ ARENA POPUP MODAL WINDOW ════════════ -->
-      <div id="dqModalOverlay" class="dq-modal-overlay" style="display: none;" onclick="if(event.target===this &amp;&amp; window.closeDailyQuizModal) window.closeDailyQuizModal();">
-        <div class="dq-modal-window" role="dialog" aria-label="Interactive Mathematics Quiz Arena">
-          <!-- Modal Header -->
-          <div class="dq-modal-header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div class="dq-modal-icon"><i class="fas fa-trophy"></i></div>
-              <div>
-                <h4 style="margin: 0; font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 900; color: #ffffff;">DAILY QUIZ ARENA</h4>
-                <span style="font-size: 0.78rem; color: #c4b5fd; font-weight: 700;" id="dqModalSubtitle">CBSE Mathematics Quiz</span>
-              </div>
-            </div>
-            <button class="dq-modal-close-btn" onclick="if(window.closeDailyQuizModal) window.closeDailyQuizModal();" title="Close Quiz">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
+        <!-- ════════════ STEP 2: INTERACTIVE QUIZ ARENA (INLINE ON HOMEPAGE) ════════════ -->
+        <div id="dqQuizContainer" style="display: none; position: relative; margin-top: 24px;">
+          <!-- Floating Point Animation Popup -->
+          <div id="dqPointPopup" class="dq-float-popup" style="display: none;"></div>
 
-          <!-- Modal Body -->
-          <div class="dq-modal-body">
-            <!-- Floating Point Animation Popup -->
-            <div id="dqPointPopup" class="dq-float-popup" style="display: none;"></div>
-
-            <!-- Question Card Container -->
-            <div id="dqQuizContainer" style="display: none; position: relative;">
-              <div class="dq-quiz-card">
-                <!-- Progress Track -->
-                <div class="dq-progress-track">
-                  <div class="dq-progress-fill" id="dqProgressBar"></div>
-                </div>
-
-                <!-- Topbar (Question Count, Points Badge, Difficulty, Timer Badge) -->
-                <div class="dq-quiz-topbar">
-                  <div class="dq-q-count" id="dqQCount">Question 1 of 5</div>
-                  <div class="dq-points-badge" id="dqPointsBadge"><i class="fas fa-coins"></i> Score: <span id="dqLivePoints">0</span> PTS</div>
-                  <div class="dq-diff-badge" id="dqDiffBadge">Difficulty: Easy</div>
-                  <div class="dq-timer-badge" id="dqTimerBadge"><i class="fas fa-stopwatch"></i> Time Left: <span id="dqTimer">45</span>s</div>
-                </div>
-
-                <div class="dq-meta-strip">
-                  <span><i class="fas fa-book-open"></i> NCERT Chapter: <strong id="dqChapter" style="color:#4c1d95;">...</strong></span>
-                  <span><i class="fas fa-bookmark"></i> Topic: <strong id="dqTopic" style="color:#0f766e;">...</strong></span>
-                </div>
-
-                <div class="dq-question-heading" id="dqQuestionText">Loading Question...</div>
-
-                <div class="dq-options-grid" id="dqOptionsGrid">
-                  <!-- Rendered via JavaScript -->
-                </div>
-
-                <div id="dqExplanationContainer" style="display: none;">
-                  <div class="dq-explanation-box">
-                    <h5><i class="fas fa-check-circle"></i> Step-by-Step Explanation &amp; Solution</h5>
-                    <p id="dqExplanationText">...</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid #cbd5e1; padding-top: 10px;">
-                      <span class="dq-revision-chip"><i class="fas fa-lightbulb"></i> Quick Revision Tip: <span id="dqRevisionTip">...</span></span>
-                      <button id="dqNextBtn" class="btn-primary" style="padding: 8px 20px !important; font-size: 0.88rem !important;"><i class="fas fa-arrow-right"></i> Next Question</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <!-- Question Card Container -->
+          <div class="dq-quiz-card">
+            <!-- Progress Track -->
+            <div class="dq-progress-track">
+              <div class="dq-progress-fill" id="dqProgressBar"></div>
             </div>
 
-            <!-- Score Results Display Container -->
-            <div id="dqScoreContainer" style="display: none;">
-              <div class="dq-score-card">
-                <!-- Official Daily Completion Status Banner -->
-                <div id="dqDailyStatusBanner" style="display: none; background: #f0fdf4; border: 2px solid #059669; color: #047857; padding: 10px 20px; border-radius: 50px; font-weight: 850; font-size: 0.95rem; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(5,150,105,0.12);">
-                  <i class="fas fa-check-circle" style="color: #059669; margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today!
-                </div>
+            <!-- Topbar (Question Count, Points Badge, Difficulty, Timer Badge) -->
+            <div class="dq-quiz-topbar">
+              <div class="dq-q-count" id="dqQCount">Question 1 of 5</div>
+              <div class="dq-points-badge" id="dqPointsBadge"><i class="fas fa-coins"></i> Score: <span id="dqLivePoints">0</span> PTS</div>
+              <div class="dq-diff-badge" id="dqDiffBadge">Difficulty: Easy</div>
+              <div class="dq-timer-badge" id="dqTimerBadge"><i class="fas fa-stopwatch"></i> Time Left: <span id="dqTimer">45</span>s</div>
+            </div>
 
-                <div class="dq-stars-display" id="dqStars">⭐⭐⭐</div>
-                <h3 id="dqScoreTitle" style="font-size: 2.2rem; color: #1e1b18; font-weight: 900; margin: 10px 0 4px;">Math Champion!</h3>
-                <p id="dqRankBadge" style="display: inline-block; background: #f5f3ff; border: 2px solid #7c3aed; color: #5b21b6; padding: 6px 18px; border-radius: 50px; font-weight: 850; font-size: 1rem; margin-bottom: 16px;">💎 Diamond Math Master</p>
+            <div class="dq-meta-strip">
+              <span><i class="fas fa-book-open"></i> NCERT Chapter: <strong id="dqChapter" style="color:#4c1d95;">...</strong></span>
+              <span><i class="fas fa-bookmark"></i> Topic: <strong id="dqTopic" style="color:#0f766e;">...</strong></span>
+            </div>
 
-                <div class="dq-score-grid">
-                  <div class="dq-score-box">
-                    <div class="val" id="dqFinalPointsText" style="color: #4c1d95;">+80</div>
-                    <div class="lbl">Total Points</div>
-                  </div>
-                  <div class="dq-score-box">
-                    <div class="val" id="dqCorrectCountText" style="color: #059669;">4 / 5</div>
-                    <div class="lbl">Correct (+80)</div>
-                  </div>
-                  <div class="dq-score-box">
-                    <div class="val" id="dqWrongCountText" style="color: #dc2626;">1</div>
-                    <div class="lbl">Wrong (-10)</div>
-                  </div>
-                  <div class="dq-score-box">
-                    <div class="val" id="dqAccuracyText" style="color: #0f766e;">80%</div>
-                    <div class="lbl">Accuracy</div>
-                  </div>
-                </div>
+            <div class="dq-question-heading" id="dqQuestionText">Loading Question...</div>
 
-                <div class="dq-revision-recommendation">
-                  <h5 style="color: #9a3412; font-weight: 850; margin: 0 0 6px; font-size: 0.95rem;"><i class="fas fa-book-reader"></i> Suggested NCERT Topic for Revision</h5>
-                  <p id="dqSuggestedRevision" style="margin: 0; font-size: 0.92rem; color: #1e1b18; font-weight: 600;">Chapter 8: Introduction to Trigonometry (CBSE Class 10)</p>
-                </div>
+            <div class="dq-options-grid" id="dqOptionsGrid">
+              <!-- Rendered via JavaScript -->
+            </div>
 
-                <div class="dq-tomorrow-banner">
-                  <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> "Come back tomorrow for a brand-new NCERT Daily Challenge!"
-                </div>
-
-                <div style="margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                  <button id="dqRestartBtn" class="btn-primary" style="font-size: 0.9rem !important; padding: 10px 22px !important;" onclick="if(window.startQuizArena) window.startQuizArena();"><i class="fas fa-redo"></i> Retake Today's Quiz</button>
-                  <button class="btn-outline" style="font-size: 0.9rem !important; padding: 10px 22px !important;" onclick="if(window.closeDailyQuizModal) window.closeDailyQuizModal();"><i class="fas fa-times"></i> Close Quiz</button>
+            <div id="dqExplanationContainer" style="display: none;">
+              <div class="dq-explanation-box">
+                <h5><i class="fas fa-check-circle"></i> Step-by-Step Explanation &amp; Solution</h5>
+                <p id="dqExplanationText">...</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid #cbd5e1; padding-top: 10px;">
+                  <span class="dq-revision-chip"><i class="fas fa-lightbulb"></i> Quick Revision Tip: <span id="dqRevisionTip">...</span></span>
+                  <button id="dqNextBtn" class="btn-primary" style="padding: 8px 20px !important; font-size: 0.88rem !important;"><i class="fas fa-arrow-right"></i> Next Question</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- Score Results Display Container (Inline on Homepage) -->
+        <div id="dqScoreContainer" style="display: none; margin-top: 24px;">
+          <div class="dq-score-card">
+            <!-- Official Daily Completion Status Banner -->
+            <div id="dqDailyStatusBanner" style="display: none; background: #f0fdf4; border: 2px solid #059669; color: #047857; padding: 10px 20px; border-radius: 50px; font-weight: 850; font-size: 0.95rem; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(5,150,105,0.12);">
+              <i class="fas fa-check-circle" style="color: #059669; margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today!
+            </div>
+
+            <div class="dq-stars-display" id="dqStars">⭐⭐⭐</div>
+            <h3 id="dqScoreTitle" style="font-size: 2.2rem; color: #1e1b18; font-weight: 900; margin: 10px 0 4px;">Math Champion!</h3>
+            <p id="dqRankBadge" style="display: inline-block; background: #f5f3ff; border: 2px solid #7c3aed; color: #5b21b6; padding: 6px 18px; border-radius: 50px; font-weight: 850; font-size: 1rem; margin-bottom: 16px;">💎 Diamond Math Master</p>
+
+            <div class="dq-score-grid">
+              <div class="dq-score-box">
+                <div class="val" id="dqFinalPointsText" style="color: #4c1d95;">+80</div>
+                <div class="lbl">Total Points</div>
+              </div>
+              <div class="dq-score-box">
+                <div class="val" id="dqCorrectCountText" style="color: #059669;">4 / 5</div>
+                <div class="lbl">Correct (+80)</div>
+              </div>
+              <div class="dq-score-box">
+                <div class="val" id="dqWrongCountText" style="color: #dc2626;">1</div>
+                <div class="lbl">Wrong (-10)</div>
+              </div>
+              <div class="dq-score-box">
+                <div class="val" id="dqAccuracyText" style="color: #0f766e;">80%</div>
+                <div class="lbl">Accuracy</div>
+              </div>
+            </div>
+
+            <div class="dq-revision-recommendation">
+              <h5 style="color: #9a3412; font-weight: 850; margin: 0 0 6px; font-size: 0.95rem;"><i class="fas fa-book-reader"></i> Suggested NCERT Topic for Revision</h5>
+              <p id="dqSuggestedRevision" style="margin: 0; font-size: 0.92rem; color: #1e1b18; font-weight: 600;">Chapter 8: Introduction to Trigonometry (CBSE Class 10)</p>
+            </div>
+
+            <div class="dq-tomorrow-banner">
+              <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> "Come back tomorrow for a brand-new NCERT Daily Challenge!"
+            </div>
+
+            <div style="margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button id="dqRestartBtn" class="btn-primary" style="font-size: 0.9rem !important; padding: 10px 22px !important;" onclick="if(window.startQuizArena) window.startQuizArena();"><i class="fas fa-redo"></i> Retake Today's Quiz</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
 
       <!-- ======================== QUICK ACCESS SECTION ======================== -->
@@ -5823,9 +5801,10 @@
       function closeDailyQuizModal() {
         clearInterval(timerInterval);
         clearInterval(heartbeatInterval);
-        const modal = document.getElementById('dqModalOverlay');
-        if (modal) modal.style.display = 'none';
-        document.body.style.overflow = '';
+        const quizContainer = document.getElementById('dqQuizContainer');
+        const scoreContainer = document.getElementById('dqScoreContainer');
+        if (quizContainer) quizContainer.style.display = 'none';
+        if (scoreContainer) scoreContainer.style.display = 'none';
       }
 
       function selectClass(cls) {
@@ -5865,17 +5844,13 @@
         const progFill = document.getElementById('dqProgressBar');
         if (progFill) progFill.style.width = '0%';
 
-        // Open Modal Popup Window
-        const modal = document.getElementById('dqModalOverlay');
-        const modalSubtitle = document.getElementById('dqModalSubtitle');
-        if (modalSubtitle) modalSubtitle.textContent = 'CBSE Class ' + activeClass + ' Mathematics Quiz';
-        if (modal) modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-
         const scoreContainer = document.getElementById('dqScoreContainer');
         const quizContainer = document.getElementById('dqQuizContainer');
         if (scoreContainer) scoreContainer.style.display = 'none';
-        if (quizContainer) quizContainer.style.display = 'block';
+        if (quizContainer) {
+          quizContainer.style.display = 'block';
+          quizContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
         renderHeaderAndQuestion();
 
