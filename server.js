@@ -148,6 +148,57 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Handle ASK ME Math Knowledge Base API route
+  if (urlPath === '/api/ask-me') {
+    const params = new URLSearchParams(urlParts[1] || '');
+    const query = (params.get('q') || '').toLowerCase().trim();
+    if (!query) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'No query provided', results: [] }));
+      return;
+    }
+    try {
+      const askMeFile = path.join(__dirname, 'ASK ME', 'ask_me_data.js');
+      if (!fs.existsSync(askMeFile)) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'ASK ME data not found', results: [] }));
+        return;
+      }
+      // Read file, extract data array via simple parsing
+      const raw = fs.readFileSync(askMeFile, 'utf8');
+      // Eval in a safe sandboxed way by using Function
+      let askMeData = [];
+      try {
+        const fn = new Function('window', raw + '; return window.ASK_ME_DATA;');
+        const fakeWindow = {};
+        askMeData = fn(fakeWindow) || [];
+      } catch(e) {
+        // Fallback - match manually using regex
+        askMeData = [];
+      }
+      const words = query.split(/\s+/).filter(w => w.length >= 2);
+      const scored = askMeData.map(item => {
+        let score = 0;
+        words.forEach(word => {
+          (item.keywords || []).forEach(kw => {
+            if (kw.toLowerCase().includes(word)) score += 3;
+            if (word.includes(kw.toLowerCase())) score += 2;
+          });
+          if ((item.question || '').toLowerCase().includes(word)) score += 2;
+          if ((item.answer || '').toLowerCase().replace(/<[^>]+>/g, '').includes(word)) score += 1;
+        });
+        return { question: item.question, answer: item.answer, class: item.class, chapter: item.chapter, source: item.source, score };
+      });
+      const results = scored.filter(i => i.score > 0).sort((a, b) => b.score - a.score).slice(0, 3);
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify({ results }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message, results: [] }));
+    }
+    return;
+  }
+
   // Handle Daily Quiz API route
   if (urlPath === '/api/daily-quiz') {
     try {

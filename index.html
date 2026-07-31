@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1314,9 +1314,10 @@
       100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0px rgba(37, 211, 102, 0); }
     }
 
+    /* â”€â”€ Math AI Float (bottom-right, stacked above Sync btn) â”€â”€ */
     .chatbot-float {
       position: fixed;
-      bottom: 24px;
+      bottom: 96px;
       right: 24px;
       width: 60px;
       height: 60px;
@@ -1326,35 +1327,42 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
+      font-size: 24px;
       box-shadow: 0 4px 25px rgba(124, 58, 237, 0.45);
       cursor: pointer;
       z-index: 9999;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: pulseAI 2.5s infinite;
+    }
+    @keyframes pulseAI {
+      0%,100% { box-shadow: 0 4px 25px rgba(124,58,237,0.45), 0 0 0 0 rgba(124,58,237,0.3); }
+      50%      { box-shadow: 0 4px 25px rgba(124,58,237,0.45), 0 0 0 12px rgba(124,58,237,0); }
     }
     .chatbot-float:hover {
-      transform: scale(1.1) translateY(-5px);
-      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.65);
+      transform: scale(1.12) translateY(-4px);
+      box-shadow: 0 10px 35px rgba(124, 58, 237, 0.7);
+      animation: none;
     }
     .chatbot-badge {
       position: absolute;
       top: -6px;
       right: -6px;
-      background: #ef4444;
+      background: linear-gradient(135deg,#ef4444,#f97316);
       color: white;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 3px 7px;
       border-radius: 50px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      box-shadow: 0 2px 10px rgba(239, 68, 68, 0.4);
+      box-shadow: 0 2px 10px rgba(239, 68, 68, 0.5);
+      white-space: nowrap;
     }
 
-    /* Floating Website Content Update Button */
+    /* â”€â”€ Sync / Update Float (bottom-right, at very bottom) â”€â”€ */
     .update-float {
       position: fixed;
-      bottom: 96px;
+      bottom: 24px;
       right: 24px;
       width: 60px;
       height: 60px;
@@ -1571,28 +1579,85 @@
 
     .chatbot-panel {
       position: fixed;
-      bottom: 96px;
+      bottom: 168px;
       right: 24px;
-      width: 380px;
-      height: 520px;
-      background: rgba(15, 10, 36, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      width: clamp(340px, 92vw, 470px);
+      max-height: 82vh;
+      background: rgba(12, 8, 30, 0.97);
+      border: 1.5px solid rgba(139, 92, 246, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(124, 58, 237, 0.15);
       display: none;
       flex-direction: column;
       overflow: hidden;
-      z-index: 9998;
-      backdrop-filter: blur(20px);
-      transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
-      transform: translateY(20px);
+      z-index: 10000;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(24px) scale(0.97);
       opacity: 0;
     }
     .chatbot-panel.active {
       display: flex;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
       opacity: 1;
     }
+    /* Source filter tabs */
+    .chat-filter-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 10px 14px 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .chat-filter-tabs::-webkit-scrollbar { display: none; }
+    .filter-tab {
+      flex-shrink: 0;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .filter-tab.active {
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      color: #fff;
+      border-color: transparent;
+    }
+    .filter-tab:hover:not(.active) { background: rgba(255,255,255,0.12); color: #fff; }
+    /* Source badge */
+    .source-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.68rem; font-weight: 700; padding: 2px 8px;
+      border-radius: 20px; margin-top: 6px;
+    }
+    .source-badge.ask-me { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .source-badge.online  { background: rgba(59,130,246,0.18); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .source-badge.engine  { background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    /* Copy btn in chat */
+    .msg-copy-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 8px; padding: 4px 10px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; color: rgba(255,255,255,0.55); font-size: 0.72rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .msg-copy-btn:hover { background: rgba(255,255,255,0.13); color: #fff; }
+    /* Voice btn */
+    .chat-voice-btn {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.6); padding: 0 14px; border-radius: 50px;
+      cursor: pointer; transition: all 0.2s; font-size: 1rem;
+    }
+    .chat-voice-btn:hover, .chat-voice-btn.listening { background: rgba(239,68,68,0.2); color: #f87171; border-color: #ef4444; }
+    .chat-voice-btn.listening { animation: voicePulse 1s infinite; }
+    @keyframes voicePulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
     .chat-header {
       background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
       padding: 16px 20px;
@@ -1763,14 +1828,18 @@
       font-weight: 700;
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .chatbot-panel {
-        width: calc(100vw - 32px);
-        right: 16px;
-        left: 16px;
-        bottom: 96px;
-        height: 460px;
+        width: calc(100vw - 24px);
+        right: 12px;
+        left: 12px;
+        bottom: 170px;
+        max-height: 75vh;
+        border-radius: 18px;
       }
+      /* On very small screens, stack Sync below Math AI if needed */
+      .update-float { bottom: 24px; }
+      .chatbot-float { bottom: 96px; }
     }
 
     /* ==========================================================================
@@ -3473,27 +3542,27 @@
 <body>
   <!-- Global Background Mathematical Notations and Equations -->
   <div class="global-math-bg">
-    <span>e^(iπ) + 1 = 0</span>
-    <span>∑(1/n²) = π²/6</span>
-    <span>x = (-b ± √(b² - 4ac)) / 2a</span>
-    <span>f'(x) = lim[h→0] (f(x+h)-f(x))/h</span>
-    <span>∫ e^(-x²) dx = √π</span>
-    <span>a² + b² = c²</span>
-    <span>∇ × E = -∂B/∂t</span>
-    <span>lim [x→0] (sin x)/x = 1</span>
-    <span>sin²θ + cos²θ = 1</span>
-    <span>E = mc²</span>
+    <span>e^(iÏ€) + 1 = 0</span>
+    <span>âˆ‘(1/nÂ²) = Ï€Â²/6</span>
+    <span>x = (-b Â± âˆš(bÂ² - 4ac)) / 2a</span>
+    <span>f'(x) = lim[hâ†’0] (f(x+h)-f(x))/h</span>
+    <span>âˆ« e^(-xÂ²) dx = âˆšÏ€</span>
+    <span>aÂ² + bÂ² = cÂ²</span>
+    <span>âˆ‡ Ã— E = -âˆ‚B/âˆ‚t</span>
+    <span>lim [xâ†’0] (sin x)/x = 1</span>
+    <span>sinÂ²Î¸ + cosÂ²Î¸ = 1</span>
+    <span>E = mcÂ²</span>
     <span>P(A|B) = P(B|A)P(A)/P(B)</span>
-    <span>d = √((x₂-x₁)² + (y₂-y₁)²)</span>
-    <span>A = π r²</span>
-    <span>V = 4/3 π r³</span>
-    <span>φ = (1 + √5)/2</span>
+    <span>d = âˆš((xâ‚‚-xâ‚)Â² + (yâ‚‚-yâ‚)Â²)</span>
+    <span>A = Ï€ rÂ²</span>
+    <span>V = 4/3 Ï€ rÂ³</span>
+    <span>Ï† = (1 + âˆš5)/2</span>
     <span>1729</span>
-    <span>∞</span>
-    <span>ζ(s) = ∑(1/nˢ)</span>
-    <span>i² = -1</span>
+    <span>âˆž</span>
+    <span>Î¶(s) = âˆ‘(1/nË¢)</span>
+    <span>iÂ² = -1</span>
     <span>log(xy) = log(x) + log(y)</span>
-    <span>F = G(m₁m₂)/r²</span>
+    <span>F = G(mâ‚mâ‚‚)/rÂ²</span>
   </div>
 
   <!-- Animated Background Blobs -->
@@ -3527,10 +3596,10 @@
             <circle cx="57" cy="45" r="2.5" fill="#ffffff" />
             <circle cx="50" cy="41" r="2.5" fill="#9d174d" />
             <path d="M 45 54 Q 50 57 55 54" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" />
-            <text x="18" y="32" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">∑</text>
-            <text x="74" y="32" font-size="11" fill="#0f766e" font-family="sans-serif" font-weight="bold">π</text>
-            <text x="18" y="78" font-size="11" fill="#9a3412" font-family="sans-serif" font-weight="bold">√</text>
-            <text x="72" y="78" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">∞</text>
+            <text x="18" y="32" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">âˆ‘</text>
+            <text x="74" y="32" font-size="11" fill="#0f766e" font-family="sans-serif" font-weight="bold">Ï€</text>
+            <text x="18" y="78" font-size="11" fill="#9a3412" font-family="sans-serif" font-weight="bold">âˆš</text>
+            <text x="72" y="78" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">âˆž</text>
           </svg>
         </div>
         <span class="math-portrait-name">Shakuntala Devi</span>
@@ -3550,9 +3619,9 @@
             <circle cx="42" cy="45" r="2.5" fill="#ffffff" />
             <circle cx="58" cy="45" r="2.5" fill="#ffffff" />
             <path d="M 45 53 Q 50 56 55 53" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" />
-            <text x="18" y="30" font-size="11" fill="#9a3412" font-family="sans-serif" font-weight="bold">∫</text>
+            <text x="18" y="30" font-size="11" fill="#9a3412" font-family="sans-serif" font-weight="bold">âˆ«</text>
             <text x="74" y="30" font-size="11" fill="#4c1d95" font-family="sans-serif" font-weight="bold">e</text>
-            <text x="18" y="78" font-size="11" fill="#0f766e" font-family="sans-serif" font-weight="bold">x²</text>
+            <text x="18" y="78" font-size="11" fill="#0f766e" font-family="sans-serif" font-weight="bold">xÂ²</text>
             <text x="70" y="78" font-size="9" fill="#9d174d" font-family="sans-serif" font-weight="bold">1729</text>
           </svg>
         </div>
@@ -3561,8 +3630,8 @@
 
       <!-- Subtle background math symbols -->
       <div class="math-bg-symbols">
-        <span>α</span>
-        <span>∑</span><span>∫</span><span>π</span><span>√</span><span>∞</span><span>θ</span><span>λ</span><span>Δ</span><span>%</span><span>x²</span><span>log</span><span>sin</span><span>1729</span>
+        <span>Î±</span>
+        <span>âˆ‘</span><span>âˆ«</span><span>Ï€</span><span>âˆš</span><span>âˆž</span><span>Î¸</span><span>Î»</span><span>Î”</span><span>%</span><span>xÂ²</span><span>log</span><span>sin</span><span>1729</span>
       </div>
       <div class="container">
         <div class="hero-badge fade-in"><i class="fas fa-graduation-cap"></i>&nbsp; Excel in Mathematics Portal</div>
@@ -3658,7 +3727,15 @@
             </div>
           </div>
 
-          <!-- Group 6: Update Website Tab -->
+          <!-- Group 6: MATH AI Tab -->
+          <div class="nav-item">
+            <a href="javascript:void(0)" onclick="var p=document.getElementById('chatbotPanel'); if(p){p.classList.toggle('active'); if(p.classList.contains('active')){var i=document.getElementById('chatInput');if(i)i.focus();}}" style="color: #a78bfa; font-weight: 700; background: linear-gradient(135deg,rgba(124,58,237,0.18),rgba(37,99,235,0.12)); border-radius: 8px; border: 1px solid rgba(124,58,237,0.35); padding: 8px 16px; position: relative;">
+              <i class="fas fa-brain" style="color: #a78bfa;"></i> MATH AI
+              <span style="position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:20px;text-transform:uppercase;">LIVE</span>
+            </a>
+          </div>
+
+          <!-- Group 7: Update Website Tab -->
           <div class="nav-item">
             <a href="javascript:void(0)" onclick="if(window.openWebsiteUpdateModal) window.openWebsiteUpdateModal();" style="color: #10b981; font-weight: 700; background: rgba(16, 185, 129, 0.12); border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
               <i class="fas fa-rotate" style="color: #10b981;"></i> Update Website
@@ -3943,9 +4020,9 @@
               <i class="fas fa-check-circle" style="color: #059669; margin-right: 6px;"></i> Official Daily Quiz Attempt Locked &amp; Saved for Today!
             </div>
 
-            <div class="dq-stars-display" id="dqStars">⭐⭐⭐</div>
+            <div class="dq-stars-display" id="dqStars">â­â­â­</div>
             <h3 id="dqScoreTitle" style="font-size: 2.2rem; color: #1e1b18; font-weight: 900; margin: 10px 0 4px;">Math Champion!</h3>
-            <p id="dqRankBadge" style="display: inline-block; background: #f5f3ff; border: 2px solid #7c3aed; color: #5b21b6; padding: 6px 18px; border-radius: 50px; font-weight: 850; font-size: 1rem; margin-bottom: 16px;">💎 Diamond Math Master</p>
+            <p id="dqRankBadge" style="display: inline-block; background: #f5f3ff; border: 2px solid #7c3aed; color: #5b21b6; padding: 6px 18px; border-radius: 50px; font-weight: 850; font-size: 1rem; margin-bottom: 16px;">ðŸ’Ž Diamond Math Master</p>
 
             <div class="dq-score-grid">
               <div class="dq-score-box">
@@ -4201,7 +4278,7 @@
               <div class="stat-value">PM SHRI KV Ranikhet</div>
             </div>
             <div class="stat-card" style="border-color: #4c1d95 !important; background: #ffffff !important;">
-              <div class="stat-icon" style="font-size: 1.6em; margin-bottom: 4px;">👁️</div>
+              <div class="stat-icon" style="font-size: 1.6em; margin-bottom: 4px;">ðŸ‘ï¸</div>
               <div class="stat-label" style="color: #9d174d !important; font-weight: 850;">Total Hits</div>
               <div class="stat-value" id="siteHitsStatValue" style="color: #4c1d95 !important; font-size: 1.15em; font-weight: 900;">Loading...</div>
             </div>
@@ -4292,13 +4369,13 @@
           text-transform: none;
           display: inline-block;
         ">
-          🌿 <strong style="-webkit-text-fill-color:transparent;background:inherit;background-clip:text;">TEACHER'S DIGITAL DIARY</strong>
-          &nbsp;<span style="-webkit-text-fill-color:#166534;color:#166534;">©</span> 2026
-          &nbsp;<span style="-webkit-text-fill-color:#15803d;color:#15803d;font-size:1.1em;">·</span>&nbsp;
+          ðŸŒ¿ <strong style="-webkit-text-fill-color:transparent;background:inherit;background-clip:text;">TEACHER'S DIGITAL DIARY</strong>
+          &nbsp;<span style="-webkit-text-fill-color:#166534;color:#166534;">Â©</span> 2026
+          &nbsp;<span style="-webkit-text-fill-color:#15803d;color:#15803d;font-size:1.1em;">Â·</span>&nbsp;
           Designed by <strong style="-webkit-text-fill-color:transparent;background:inherit;background-clip:text;">K B Joshi</strong>,
           PGT Mathematics, PM SHRI KV Ranikhet
-          &nbsp;<span style="-webkit-text-fill-color:#15803d;color:#15803d;font-size:1.1em;">·</span>&nbsp;
-          Empowering Educators with Creative Tools 🎓
+          &nbsp;<span style="-webkit-text-fill-color:#15803d;color:#15803d;font-size:1.1em;">Â·</span>&nbsp;
+          Empowering Educators with Creative Tools ðŸŽ“
         </p>
         <style>
           @keyframes greenShimmer {
@@ -4427,7 +4504,7 @@
         { text: "Standard mathematics education is a slow process of learning to see the obvious.", author: "Richard Feynman" },
         { text: "An equation for me has no meaning unless it expresses a thought of God.", author: "Srinivasa Ramanujan" },
         { text: "The art of doing mathematics consists in finding that special case which contains all the germs of generality.", author: "David Hilbert" },
-        { text: "Perfect numbers like perfect men are very rare.", author: "René Descartes" },
+        { text: "Perfect numbers like perfect men are very rare.", author: "RenÃ© Descartes" },
         { text: "Errors using inadequate data are much less than those using no data at all.", author: "Charles Babbage" },
         { text: "Mathematics, rightly viewed, possesses not only truth, but supreme beauty.", author: "Bertrand Russell" },
         { text: "Obvious is the most dangerous word in mathematics.", author: "Eric Temple Bell" },
@@ -4678,13 +4755,13 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Chatbot Floating Button -->
-  <div class="chatbot-float" id="chatbotFloatBtn" title="Aryabhata Math AI">
-    <i class="fas fa-robot"></i>
+  <!-- Math AI Floating Button (stacked above Sync) -->
+  <div class="chatbot-float" id="chatbotFloatBtn" title="Aryabhata Math AI â€“ Click to Ask">
+    <i class="fas fa-brain"></i>
     <span class="chatbot-badge">Math AI</span>
   </div>
 
-  <!-- One-Click Website Content Update Floating Button -->
+  <!-- One-Click Website Content Update Floating Button (bottom of stack) -->
   <div class="update-float" id="updateWebsiteFloatBtn" title="Update Website Content in One Click">
     <i class="fas fa-sync-alt"></i>
     <span class="update-badge">Sync</span>
@@ -4718,45 +4795,65 @@
     </div>
   </div>
 
-  <!-- Chatbot Panel -->
-  <div class="chatbot-panel" id="chatbotPanel">
+  <!-- â•â•â•â•â•â•â•â•â•â• Enhanced Math AI Panel â•â•â•â•â•â•â•â•â•â• -->
+  <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-label="Aryabhata Math AI">
+    <!-- Header -->
     <div class="chat-header">
       <div class="chat-bot-info">
-        <div class="chat-bot-avatar"><i class="fas fa-square-root-alt" style="color:#fff;"></i></div>
+        <div class="chat-bot-avatar" style="background:linear-gradient(135deg,#7c3aed,#2563eb);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1em;border:2px solid rgba(167,139,250,0.5);">
+          <i class="fas fa-brain" style="color:#fff;"></i>
+        </div>
         <div class="chat-bot-name">
           <h4>Aryabhata Math AI</h4>
-          <span>CBSE Classes VI-XII Assistant</span>
+          <span>ASK ME + Online Resources | CBSE VIâ€“XII</span>
         </div>
       </div>
-      <button class="chat-close-btn" id="chatbotCloseBtn"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="chat-messages" id="chatMessages">
-      <div class="message bot">
-        Hello! I am <strong>Aryabhata</strong>, your CBSE Mathematics AI assistant.<br><br>
-        I can answer:<br>
-        📐 Formulas (Trig, Calculus, Algebra, Geometry)<br>
-        🔢 Quadratic solver and arithmetic<br>
-        📚 All CBSE Classes VI-XII chapters<br><br>
-        For complex questions I will open <strong>WolframAlpha</strong> or <strong>Google Gemini AI</strong> for you!
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button id="chatMinimizeBtn" title="Minimize" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.8em;"><i class="fas fa-minus"></i></button>
+        <button class="chat-close-btn" id="chatbotCloseBtn" title="Close"><i class="fas fa-times"></i></button>
       </div>
     </div>
+
+    <!-- Source Filter Tabs -->
+    <div class="chat-filter-tabs" id="chatFilterTabs">
+      <button class="filter-tab active" data-filter="all">ðŸ” All Sources</button>
+      <button class="filter-tab" data-filter="askme">ðŸ“ ASK ME Folder</button>
+      <button class="filter-tab" data-filter="engine">ðŸ§® Math Solver</button>
+      <button class="filter-tab" data-filter="online">ðŸŒ Online Resources</button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">
+        ðŸ‘‹ Hello! I am <strong>Aryabhata</strong>, your upgraded CBSE Mathematics AI.<br><br>
+        I now search <span style="color:#34d399;font-weight:700;">ðŸ“ ASK ME Folder</span> (local knowledge base), use <span style="color:#fbbf24;font-weight:700;">ðŸ§® Math Solver</span> (step-by-step), and link to <span style="color:#60a5fa;font-weight:700;">ðŸŒ Online Resources</span> (WolframAlpha, Gemini, Mathway).<br><br>
+        ðŸŽ™ï¸ Use the microphone button for voice questions!<br>
+        ðŸ“‹ Copy any answer with the copy button.
+      </div>
+    </div>
+
+    <!-- Quick Shortcuts -->
     <div class="chat-shortcuts" id="chatShortcuts">
       <button class="shortcut-btn" data-query="quadratic formula">Quadratic</button>
       <button class="shortcut-btn" data-query="derivative formulas">Derivatives</button>
       <button class="shortcut-btn" data-query="integration formulas">Integrals</button>
       <button class="shortcut-btn" data-query="trigonometry formulas">Trig</button>
-      <button class="shortcut-btn" data-query="matrices formulas">Matrices</button>
-      <button class="shortcut-btn" data-query="probability formulas">Probability</button>
-      <button class="shortcut-btn" data-query="solve x^2 - 5x + 6 = 0">Solve x2-5x+6</button>
+      <button class="shortcut-btn" data-query="matrices formula">Matrices</button>
+      <button class="shortcut-btn" data-query="probability formula">Probability</button>
+      <button class="shortcut-btn" data-query="solve x^2 - 5x + 6 = 0">Solve xÂ²âˆ’5x+6=0</button>
       <button class="shortcut-btn" data-query="heron formula">Heron</button>
       <button class="shortcut-btn" data-query="pythagoras theorem">Pythagoras</button>
-      <button class="shortcut-btn" data-query="ap formulas">AP/GP</button>
-      <button class="shortcut-btn" data-query="vector formulas">Vectors</button>
-      <button class="shortcut-btn" data-query="algebraic identities">Identities</button>
+      <button class="shortcut-btn" data-query="arithmetic progression formula">AP/GP</button>
+      <button class="shortcut-btn" data-query="vector formula">Vectors</button>
+      <button class="shortcut-btn" data-query="binomial theorem">Binomial</button>
+      <button class="shortcut-btn" data-query="cbse board blueprint class 12">Board Tips</button>
     </div>
-    <div class="chat-input-area">
-      <input type="text" class="chat-input" id="chatInput" placeholder="Ask any maths question...">
-      <button class="chat-send-btn" id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+
+    <!-- Input Area -->
+    <div class="chat-input-area" style="display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(255,255,255,0.08);">
+      <button class="chat-voice-btn" id="chatVoiceBtn" title="Voice Input"><i class="fas fa-microphone"></i></button>
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask any maths question..." autocomplete="off" style="flex:1;">
+      <button class="chat-send-btn" id="chatSendBtn" title="Send"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
 
@@ -4766,168 +4863,329 @@
     @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
   </style>
 
-  <!-- Chatbot Script Enhanced v2 -->
+  <!-- Math AI Enhanced Script v3 â€“ ASK ME Folder + Online Resources + Voice -->
+  <script src="ASK ME/ask_me_data.js"></script>
   <script>
   (function(){
     document.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('chatbotFloatBtn');
-      var panel = document.getElementById('chatbotPanel');
+      /* â”€â”€ DOM refs â”€â”€ */
+      var btn      = document.getElementById('chatbotFloatBtn');
+      var panel    = document.getElementById('chatbotPanel');
       var closeBtn = document.getElementById('chatbotCloseBtn');
-      var input = document.getElementById('chatInput');
-      var sendBtn = document.getElementById('chatSendBtn');
-      var msgs = document.getElementById('chatMessages');
+      var minBtn   = document.getElementById('chatMinimizeBtn');
+      var input    = document.getElementById('chatInput');
+      var sendBtn  = document.getElementById('chatSendBtn');
+      var msgs     = document.getElementById('chatMessages');
+      var voiceBtn = document.getElementById('chatVoiceBtn');
+      var activeFilter = 'all';
+      var isMinimized  = false;
 
-      btn.addEventListener('click', function(){ panel.classList.toggle('active'); if(panel.classList.contains('active')) input.focus(); });
+      /* â”€â”€ Filter tabs â”€â”€ */
+      document.querySelectorAll('.filter-tab').forEach(function(tab){
+        tab.addEventListener('click', function(){
+          document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
+          tab.classList.add('active');
+          activeFilter = tab.getAttribute('data-filter');
+        });
+      });
+
+      /* â”€â”€ Panel open / close / minimize â”€â”€ */
+      btn.addEventListener('click', function(){
+        panel.classList.toggle('active');
+        if(panel.classList.contains('active')){ isMinimized=false; panel.style.height=''; input.focus(); }
+      });
       closeBtn.addEventListener('click', function(){ panel.classList.remove('active'); });
+      minBtn.addEventListener('click', function(){
+        isMinimized = !isMinimized;
+        if(isMinimized){
+          panel.style.height = '58px';
+          panel.style.overflow = 'hidden';
+          minBtn.innerHTML = '<i class="fas fa-expand-alt"></i>';
+        } else {
+          panel.style.height = '';
+          panel.style.overflow = 'hidden';
+          minBtn.innerHTML = '<i class="fas fa-minus"></i>';
+        }
+      });
 
+      /* â”€â”€ Send â”€â”€ */
       function send(){
-        var q = input.value.trim(); if(!q) return;
-        addMsg(q,'user'); input.value=''; showTyping();
-        setTimeout(function(){ removeTyping(); addMsg(answer(q),'bot'); }, 700);
+        var q = input.value.trim();
+        if(!q) return;
+        addMsg(q, 'user');
+        input.value = '';
+        showTyping();
+        processQuery(q);
       }
       sendBtn.addEventListener('click', send);
       input.addEventListener('keypress', function(e){ if(e.key==='Enter') send(); });
       document.querySelectorAll('.shortcut-btn').forEach(function(b){
         b.addEventListener('click', function(){
-          var q=b.getAttribute('data-query'); addMsg(q,'user'); showTyping();
-          setTimeout(function(){ removeTyping(); addMsg(answer(q),'bot'); }, 600);
+          var q = b.getAttribute('data-query');
+          addMsg(q, 'user');
+          showTyping();
+          processQuery(q);
         });
       });
 
-      function addMsg(t,s){ var d=document.createElement('div'); d.className='message '+s; d.innerHTML=t; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; }
-      function showTyping(){ var t=document.createElement('div'); t.className='message bot typing-indicator'; t.id='typingDots'; t.innerHTML='<span></span><span></span><span></span>'; msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight; }
+      /* â”€â”€ Voice input (Web Speech API) â”€â”€ */
+      var recognition = null;
+      if(window.SpeechRecognition || window.webkitSpeechRecognition){
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.onresult = function(e){ var t=e.results[0][0].transcript; input.value=t; send(); };
+        recognition.onend = function(){ voiceBtn.classList.remove('listening'); voiceBtn.innerHTML='<i class="fas fa-microphone"></i>'; };
+        recognition.onerror = function(){ voiceBtn.classList.remove('listening'); voiceBtn.innerHTML='<i class="fas fa-microphone"></i>'; };
+        voiceBtn.addEventListener('click', function(){
+          if(voiceBtn.classList.contains('listening')){
+            recognition.stop();
+          } else {
+            voiceBtn.classList.add('listening');
+            voiceBtn.innerHTML = '<i class="fas fa-stop"></i>';
+            recognition.start();
+          }
+        });
+      } else {
+        voiceBtn.title = 'Voice not supported in this browser';
+        voiceBtn.style.opacity = '0.4';
+      }
+
+      /* â”€â”€ Message helpers â”€â”€ */
+      function addMsg(t, s){
+        var d = document.createElement('div');
+        d.className = 'message ' + s;
+        d.innerHTML = t;
+        if(s==='bot'){
+          var stripHtml = t.replace(/<[^>]+>/g,'');
+          var copyBtn = document.createElement('button');
+          copyBtn.className = 'msg-copy-btn';
+          copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+          copyBtn.addEventListener('click', function(){
+            navigator.clipboard.writeText(stripHtml).then(function(){
+              copyBtn.innerHTML='<i class="fas fa-check"></i> Copied!';
+              setTimeout(function(){ copyBtn.innerHTML='<i class="fas fa-copy"></i> Copy'; }, 2000);
+            });
+          });
+          d.appendChild(copyBtn);
+        }
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+      }
+      function showTyping(){
+        var t = document.createElement('div');
+        t.className='message bot typing-indicator'; t.id='typingDots';
+        t.innerHTML='<span></span><span></span><span></span>';
+        msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight;
+      }
       function removeTyping(){ var t=document.getElementById('typingDots'); if(t) t.remove(); }
-
       function hl(t){ return '<span class="math-highlight">'+t+'</span>'; }
-      function lk(href,label){ return '<a href="'+href+'" style="color:#a78bfa;font-weight:700;">'+label+'</a>'; }
+      function lk(href,label){ return '<a href="'+href+'" style="color:#a78bfa;font-weight:700;" target="_blank">'+label+'</a>'; }
+      function srcBadge(cls,icon,label){ return '<br><span class="source-badge '+cls+'">'+icon+' '+label+'</span>'; }
 
+      /* â”€â”€ Main query processor â”€â”€ */
+      function processQuery(query){
+        // Determine what to show based on active filter
+        if(activeFilter === 'online'){
+          setTimeout(function(){
+            removeTyping();
+            addMsg(getOnlineLinks(query), 'bot');
+          }, 500);
+          return;
+        }
+        if(activeFilter === 'engine'){
+          setTimeout(function(){
+            removeTyping();
+            var result = answer(query);
+            addMsg(result + srcBadge('engine','ðŸ§®','Math Engine'), 'bot');
+          }, 700);
+          return;
+        }
+        if(activeFilter === 'askme'){
+          setTimeout(function(){
+            removeTyping();
+            var result = searchAskMeFolder(query);
+            if(result){
+              addMsg(result, 'bot');
+            } else {
+              addMsg('No matching answer found in ASK ME Folder for "<strong>'+query+'</strong>".<br><br>Try switching to <em>All Sources</em> or <em>Online Resources</em> tab.' + srcBadge('ask-me','ðŸ“','ASK ME Folder'), 'bot');
+            }
+          }, 600);
+          return;
+        }
+
+        // Default: All Sources â€“ try in priority order
+        setTimeout(function(){
+          removeTyping();
+          // 1. Try ASK ME folder first
+          var askMeResult = searchAskMeFolder(query);
+          if(askMeResult){
+            addMsg(askMeResult, 'bot');
+            return;
+          }
+          // 2. Try built-in engine
+          var engineResult = answer(query);
+          if(engineResult && engineResult.indexOf('do not have a stored answer')===-1){
+            addMsg(engineResult + srcBadge('engine','ðŸ§®','Math Engine'), 'bot');
+            return;
+          }
+          // 3. Fall back to online resources
+          addMsg(getOnlineLinks(query), 'bot');
+        }, 750);
+      }
+
+      /* â”€â”€ ASK ME Folder Search â”€â”€ */
+      function searchAskMeFolder(query){
+        if(!window.searchAskMe) return null;
+        var results = window.searchAskMe(query);
+        if(!results || results.length===0) return null;
+        var best = results[0];
+        var out = '<strong>' + best.question + '</strong><br><br>' + best.answer;
+        out += '<br><span class="source-badge ask-me">ðŸ“ ASK ME Folder &nbsp;|&nbsp; Class ' + best.class + ' &nbsp;|&nbsp; ' + best.chapter + '</span>';
+        if(results.length > 1){
+          out += '<br><br><small style="color:rgba(255,255,255,0.45);">Also matched: ';
+          for(var i=1;i<Math.min(results.length,3);i++){
+            out += '<em>' + results[i].question + '</em>';
+            if(i < results.length-1) out += ', ';
+          }
+          out += '</small>';
+        }
+        return out;
+      }
+
+      /* â”€â”€ Online resource links â”€â”€ */
+      function getOnlineLinks(query){
+        var wq = encodeURIComponent(query);
+        var gq = encodeURIComponent(query + ' mathematics CBSE');
+        return 'Here are the best online resources for "<strong>'+query+'</strong>":<br><br>' +
+          '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">' +
+          '<a href="https://www.wolframalpha.com/input?i='+wq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#ef4444,#f59e0b);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-atom"></i> Solve on WolframAlpha</a>' +
+          '<a href="https://gemini.google.com/?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-robot"></i> Ask Google Gemini AI</a>' +
+          '<a href="https://www.mathway.com/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#06b6d4,#10b981);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-calculator"></i> Solve on Mathway</a>' +
+          '<a href="https://en.wikipedia.org/w/index.php?search='+wq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-book-open"></i> Wikipedia â€“ Math</a>' +
+          '<a href="https://www.google.com/search?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.15);border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fab fa-google"></i> Google Search</a>' +
+          '</div>' + srcBadge('online','ðŸŒ','Online Resources');
+      }
+
+      /* â”€â”€ Built-in Math Engine (kept from original, enhanced) â”€â”€ */
       function answer(query){
         var q = query.toLowerCase().trim();
 
         // Arithmetic evaluator
         if(/^[\d\s\+\-\*\/\^\(\)\.%]+$/.test(query) && query.length<60){
-          try{ var r=Function('"use strict";return('+query.replace(/\^/g,'**')+')')(); if(typeof r==='number'&&isFinite(r)) return 'Result: '+hl(query+' = '+r); }catch(e){}
+          try{
+            var r=Function('"use strict";return('+query.replace(/\^/g,'**')+')')();
+            if(typeof r==='number'&&isFinite(r)) return 'Result: '+hl(query+' = '+r)+srcBadge('engine','ðŸ§®','Math Engine');
+          }catch(e){}
         }
 
         // Quadratic solver
-        if(q.indexOf('x^2')>-1||q.indexOf('x2')>-1||q.indexOf('\u00b2')>-1){ var sol=solveQ(query); if(sol) return 'Quadratic:<br>'+sol; }
+        if(q.indexOf('x^2')>-1||q.indexOf('x2')>-1||q.indexOf('Â²')>-1){
+          var sol=solveQ(query); if(sol) return sol+srcBadge('engine','ðŸ§®','Math Solver');
+        }
 
         // Greetings
-        if(/^(hi|hello|hey|namaste)/.test(q)) return 'Hello! I am Aryabhata Math AI. Ask me any CBSE formula, theorem, or equation!';
-        if(q.indexOf('thank')>-1) return 'You are welcome! Keep loving mathematics!';
-        if(q.indexOf('who are you')>-1||q.indexOf('your name')>-1) return 'I am <strong>Aryabhata</strong> Math AI, built into K B Joshi\'s Digital Diary for CBSE students.';
+        if(/^(hi|hello|hey|namaste)/.test(q)) return 'Hello! I am Aryabhata Math AI. I now search the <strong>ASK ME Folder</strong>, use the <strong>Math Engine</strong>, and link to <strong>Online Resources</strong>. Ask me any CBSE question!';
+        if(q.indexOf('thank')>-1) return 'ðŸ™ You are welcome! Keep loving mathematics!';
+        if(q.indexOf('who are you')>-1||q.indexOf('your name')>-1) return 'I am <strong>Aryabhata Math AI v3</strong> â€“ now powered by the <strong>ASK ME Folder</strong>, a built-in Math Engine, and Online Resources (WolframAlpha, Gemini, Mathway). Built into K B Joshi\'s Digital Diary.';
 
         // HCF LCM
-        if(q.indexOf('hcf')>-1||q.indexOf('lcm')>-1) return '<strong>HCF and LCM:</strong><br>'+hl('HCF x LCM = Product of two numbers')+'<br>HCF = largest common factor; LCM = smallest common multiple.<br>Use prime factorisation or Euclid\'s division algorithm.';
-
-        // Rational/Irrational
-        if(q.indexOf('rational')>-1||q.indexOf('irrational')>-1) return '<strong>Number System:</strong><br>Rational: p/q form, q not 0. Decimal is terminating or recurring.<br>Irrational: cannot be p/q. e.g. root(2), pi, e.<br>'+hl('root(p) is irrational if p is prime.');
-
-        // Euclid
-        if(q.indexOf('euclid')>-1&&q.indexOf('formula')===-1) return '<strong>Euclid\'s Division Lemma:</strong><br>'+hl('a = bq + r, 0 <= r < b')+'<br>Used to find HCF by repeated division.';
+        if(q.indexOf('hcf')>-1||q.indexOf('lcm')>-1) return '<strong>HCF and LCM:</strong><br>'+hl('HCF Ã— LCM = Product of two numbers')+'<br>HCF = largest common factor; LCM = smallest common multiple.<br>Method: prime factorisation or Euclid\'s division algorithm.';
 
         // Algebraic Identities
         if(q.indexOf('algebraic identit')>-1||q.indexOf('(a+b)')>-1||q.indexOf('expansion')>-1)
-          return '<strong>Algebraic Identities:</strong><br>'+hl('(a+b)2 = a2+2ab+b2')+'<br>'+hl('(a-b)2 = a2-2ab+b2')+'<br>'+hl('(a+b)(a-b) = a2-b2')+'<br>'+hl('(a+b)3 = a3+3a2b+3ab2+b3')+'<br>'+hl('(a-b)3 = a3-3a2b+3ab2-b3')+'<br>'+hl('a3+b3=(a+b)(a2-ab+b2)')+'<br>'+hl('a3-b3=(a-b)(a2+ab+b2)');
+          return '<strong>Algebraic Identities:</strong><br>'+hl('(a+b)Â² = aÂ²+2ab+bÂ²')+'<br>'+hl('(a-b)Â² = aÂ²-2ab+bÂ²')+'<br>'+hl('(a+b)(a-b) = aÂ²-bÂ²')+'<br>'+hl('(a+b)Â³ = aÂ³+3aÂ²b+3abÂ²+bÂ³')+'<br>'+hl('(a-b)Â³ = aÂ³-3aÂ²b+3abÂ²-bÂ³')+'<br>'+hl('aÂ³+bÂ³=(a+b)(aÂ²-ab+bÂ²)')+'<br>'+hl('aÂ³-bÂ³=(a-b)(aÂ²+ab+bÂ²)');
 
         // Factor / Remainder
         if(q.indexOf('factor theorem')>-1) return '<strong>Factor Theorem:</strong><br>If p(a)=0, then (x-a) is a factor of p(x).';
-        if(q.indexOf('remainder theorem')>-1) return '<strong>Remainder Theorem:</strong><br>Remainder when p(x) / (x-a) = '+hl('p(a)');
+        if(q.indexOf('remainder theorem')>-1) return '<strong>Remainder Theorem:</strong><br>Remainder when p(x) Ã· (x-a) = '+hl('p(a)');
 
         // Linear equations
         if(q.indexOf('linear equation')>-1||(q.indexOf('pair')>-1&&q.indexOf('equation')>-1))
-          return '<strong>Pair of Linear Equations:</strong><br>a1x+b1y+c1=0 and a2x+b2y+c2=0<br>Unique solution: a1/a2 not equal b1/b2<br>No solution: a1/a2=b1/b2 not equal c1/c2<br>Infinite solutions: a1/a2=b1/b2=c1/c2';
+          return '<strong>Pair of Linear Equations:</strong><br>aâ‚x+bâ‚y+câ‚=0 and aâ‚‚x+bâ‚‚y+câ‚‚=0<br>'+hl('Unique solution: aâ‚/aâ‚‚ â‰  bâ‚/bâ‚‚')+'<br>'+hl('No solution: aâ‚/aâ‚‚=bâ‚/bâ‚‚ â‰  câ‚/câ‚‚')+'<br>'+hl('Infinite solutions: aâ‚/aâ‚‚=bâ‚/bâ‚‚=câ‚/câ‚‚');
 
         // Quadratic formula
         if(q.indexOf('quadratic formula')>-1||(q.indexOf('quadratic')>-1&&q.indexOf('formula')>-1))
-          return '<strong>Quadratic Formula:</strong><br>For ax2+bx+c=0:<br>'+hl('x = [-b +/- root(b2-4ac)] / 2a')+'<br>D=b2-4ac: D>0 two real roots, D=0 equal roots, D<0 complex roots<br>Sum of roots=-b/a, Product=c/a<br>Tip: type "x^2-5x+6=0" to solve instantly!';
+          return '<strong>Quadratic Formula:</strong><br>For axÂ²+bx+c=0:<br>'+hl('x = [âˆ’b Â± âˆš(bÂ²âˆ’4ac)] / 2a')+'<br>D=bÂ²âˆ’4ac: D>0 two real roots, D=0 equal roots, D<0 complex<br>Sum of roots = âˆ’b/a, Product = c/a<br>ðŸ’¡ Type "x^2-5x+6=0" to solve instantly!';
 
         // AP
         if(q.indexOf('arithmetic progression')>-1||q.indexOf('ap formula')>-1)
-          return '<strong>Arithmetic Progression (AP):</strong><br>nth term: '+hl('an = a+(n-1)d')+'<br>Sum: '+hl('Sn = n/2[2a+(n-1)d]')+'<br>where a=first term, d=common difference';
+          return '<strong>Arithmetic Progression (AP):</strong><br>nth term: '+hl('aâ‚™ = a+(nâˆ’1)d')+'<br>Sum: '+hl('Sâ‚™ = n/2[2a+(nâˆ’1)d]')+'<br>where a=first term, d=common difference';
 
         // GP
         if(q.indexOf('geometric progression')>-1||q.indexOf('gp formula')>-1)
-          return '<strong>Geometric Progression (GP):</strong><br>nth term: '+hl('an = a r^(n-1)')+'<br>Sum (r not 1): '+hl('Sn = a(r^n-1)/(r-1)')+'<br>Sum to infinity (|r|<1): '+hl('S = a/(1-r)');
+          return '<strong>Geometric Progression (GP):</strong><br>nth term: '+hl('aâ‚™ = ar^(n-1)')+'<br>Sum (râ‰ 1): '+hl('Sâ‚™ = a(râ¿âˆ’1)/(râˆ’1)')+'<br>Sum to infinity (|r|<1): '+hl('Sâˆž = a/(1âˆ’r)');
 
         // Heron
-        if(q.indexOf('heron')>-1) return '<strong>Heron\'s Formula:</strong><br>s=(a+b+c)/2<br>Area = '+hl('root[s(s-a)(s-b)(s-c)]');
+        if(q.indexOf('heron')>-1) return '<strong>Heron\'s Formula:</strong><br>s=(a+b+c)/2<br>Area = '+hl('âˆš[s(s-a)(s-b)(s-c)]');
 
         // Pythagoras
-        if(q.indexOf('pythagoras')>-1||q.indexOf('pythagorean')>-1) return '<strong>Pythagoras Theorem:</strong><br>'+hl('c2 = a2 + b2')+'<br>Triplets: (3,4,5) (5,12,13) (8,15,17) (7,24,25)';
+        if(q.indexOf('pythagoras')>-1||q.indexOf('pythagorean')>-1) return '<strong>Pythagoras Theorem:</strong><br>'+hl('cÂ² = aÂ² + bÂ²')+'<br>Triplets: (3,4,5) (5,12,13) (8,15,17) (7,24,25)';
 
         // Circle
         if(q.indexOf('circle formula')>-1||q.indexOf('area of circle')>-1||q.indexOf('circumference')>-1)
-          return '<strong>Circle:</strong><br>Area = '+hl('pi r2')+'<br>Circumference = '+hl('2 pi r')+'<br>Arc = (theta/360) x 2pi r<br>Sector area = (theta/360) x pi r2';
+          return '<strong>Circle:</strong><br>Area = '+hl('Ï€rÂ²')+'<br>Circumference = '+hl('2Ï€r')+'<br>Arc length = (Î¸/360) Ã— 2Ï€r<br>Sector area = (Î¸/360) Ã— Ï€rÂ²';
 
         // Mensuration
         if(q.indexOf('surface area')>-1||q.indexOf('volume')>-1||q.indexOf('mensuration')>-1)
-          return '<strong>Mensuration:</strong><br>Cube(a): SA=6a2, V=a3<br>Cuboid(l,b,h): SA=2(lb+bh+hl), V=lbh<br>Cylinder(r,h): CSA=2pirh, V=pir2h<br>Cone(r,h): CSA=pirl, V=1/3 pir2h, l=root(r2+h2)<br>Sphere(r): SA=4pir2, V=4/3 pir3';
+          return '<strong>Mensuration:</strong><br>Cube(a): SA=6aÂ², V=aÂ³<br>Cuboid(l,b,h): SA=2(lb+bh+hl), V=lbh<br>Cylinder(r,h): CSA=2Ï€rh, V=Ï€rÂ²h<br>Cone(r,h): CSA=Ï€rl, V=â…“Ï€rÂ²h, l=âˆš(rÂ²+hÂ²)<br>Sphere(r): SA=4Ï€rÂ², V=4/3 Ï€rÂ³';
 
         // Coordinate geometry
         if(q.indexOf('coordinate')>-1||q.indexOf('distance formula')>-1||q.indexOf('section formula')>-1||q.indexOf('midpoint')>-1)
-          return '<strong>Coordinate Geometry:</strong><br>Distance: '+hl('root[(x2-x1)2+(y2-y1)2]')+'<br>Midpoint: '+hl('((x1+x2)/2,(y1+y2)/2)')+'<br>Section (m:n): ((mx2+nx1)/(m+n),(my2+ny1)/(m+n))<br>Area of triangle: 1/2|x1(y2-y3)+x2(y3-y1)+x3(y1-y2)|';
+          return '<strong>Coordinate Geometry:</strong><br>Distance: '+hl('âˆš[(xâ‚‚âˆ’xâ‚)Â²+(yâ‚‚âˆ’yâ‚)Â²]')+'<br>Midpoint: '+hl('((xâ‚+xâ‚‚)/2,(yâ‚+yâ‚‚)/2)')+'<br>Section (m:n): ((mxâ‚‚+nxâ‚)/(m+n),(myâ‚‚+nyâ‚)/(m+n))<br>Area of triangle: Â½|xâ‚(yâ‚‚âˆ’yâ‚ƒ)+xâ‚‚(yâ‚ƒâˆ’yâ‚)+xâ‚ƒ(yâ‚âˆ’yâ‚‚)|';
 
         // Trigonometry
         if(q.indexOf('trig')>-1||(q.indexOf('sin')>-1&&q.indexOf('cos')>-1&&q.indexOf('formula')>-1))
-          return '<strong>Trigonometry (Class 10-11):</strong><br>'+hl('sin2 theta + cos2 theta = 1')+'<br>'+hl('1 + tan2 theta = sec2 theta')+'<br>'+hl('1 + cot2 theta = cosec2 theta')+'<br>Values: sin30=1/2, sin45=1/root2, sin60=root3/2<br>cos30=root3/2, cos45=1/root2, cos60=1/2<br>tan30=1/root3, tan45=1, tan60=root3';
+          return '<strong>Trigonometry:</strong><br>'+hl('sinÂ²Î¸ + cosÂ²Î¸ = 1')+'<br>'+hl('1 + tanÂ²Î¸ = secÂ²Î¸')+'<br>'+hl('1 + cotÂ²Î¸ = cosecÂ²Î¸')+'<br>sin30Â°=Â½, sin45Â°=1/âˆš2, sin60Â°=âˆš3/2<br>cos30Â°=âˆš3/2, cos45Â°=1/âˆš2, cos60Â°=Â½<br>tan30Â°=1/âˆš3, tan45Â°=1, tan60Â°=âˆš3';
 
         // Compound angles
         if((q.indexOf('compound angle')>-1||q.indexOf('addition formula')>-1)&&(q.indexOf('sin')>-1||q.indexOf('cos')>-1))
-          return '<strong>Compound Angles:</strong><br>'+hl('sin(A+B)=sinA cosB+cosA sinB')+'<br>'+hl('sin(A-B)=sinA cosB-cosA sinB')+'<br>'+hl('cos(A+B)=cosA cosB-sinA sinB')+'<br>'+hl('cos(A-B)=cosA cosB+sinA sinB')+'<br>'+hl('tan(A+B)=(tanA+tanB)/(1-tanA tanB)');
+          return '<strong>Compound Angles:</strong><br>'+hl('sin(A+B)=sinA cosB+cosA sinB')+'<br>'+hl('sin(A-B)=sinA cosB-cosA sinB')+'<br>'+hl('cos(A+B)=cosA cosB-sinA sinB')+'<br>'+hl('cos(A-B)=cosA cosB+sinA sinB')+'<br>'+hl('tan(A+B)=(tanA+tanB)/(1âˆ’tanA tanB)');
 
         // Double angle
-        if(q.indexOf('double angle')>-1) return '<strong>Double Angle:</strong><br>'+hl('sin2A=2sinA cosA')+'<br>'+hl('cos2A=cos2A-sin2A=2cos2A-1=1-2sin2A')+'<br>'+hl('tan2A=2tanA/(1-tan2A)');
+        if(q.indexOf('double angle')>-1) return '<strong>Double Angle:</strong><br>'+hl('sin2A=2sinA cosA')+'<br>'+hl('cos2A=cosÂ²Aâˆ’sinÂ²A=2cosÂ²Aâˆ’1=1âˆ’2sinÂ²A')+'<br>'+hl('tan2A=2tanA/(1âˆ’tanÂ²A)');
 
         // Inverse trig
         if(q.indexOf('inverse trig')>-1||q.indexOf('inverse trigonometric')>-1)
-          return '<strong>Inverse Trig (Class 12):</strong><br>'+hl('sin-1(-x)=-sin-1(x)')+'<br>'+hl('cos-1(-x)=pi-cos-1(x)')+'<br>'+hl('sin-1(x)+cos-1(x)=pi/2')+'<br>'+hl('tan-1(x)+cot-1(x)=pi/2')+'<br>'+hl('tan-1(x)+tan-1(y)=tan-1((x+y)/(1-xy)) for xy<1');
+          return '<strong>Inverse Trig (Class 12):</strong><br>'+hl('sinâ»Â¹(âˆ’x)=âˆ’sinâ»Â¹(x)')+'<br>'+hl('cosâ»Â¹(âˆ’x)=Ï€âˆ’cosâ»Â¹(x)')+'<br>'+hl('sinâ»Â¹(x)+cosâ»Â¹(x)=Ï€/2')+'<br>'+hl('tanâ»Â¹(x)+cotâ»Â¹(x)=Ï€/2')+'<br>'+hl('tanâ»Â¹(x)+tanâ»Â¹(y)=tanâ»Â¹((x+y)/(1âˆ’xy)) for xy<1');
 
         // Derivatives
         if(q.indexOf('derivative formula')>-1||q.indexOf('differentiation formula')>-1||q.indexOf('standard derivative')>-1)
-          return '<strong>Standard Derivatives:</strong><br>'+hl('d/dx(x^n)=nx^(n-1)')+'<br>d/dx(sinx)=cosx<br>d/dx(cosx)=-sinx<br>d/dx(tanx)=sec2x<br>d/dx(cotx)=-cosec2x<br>d/dx(secx)=secx tanx<br>d/dx(cosecx)=-cosecx cotx<br>d/dx(ex)=ex<br>d/dx(lnx)=1/x<br>d/dx(ax)=ax lna';
+          return '<strong>Standard Derivatives:</strong><br>'+hl('d/dx(xâ¿)=nxâ¿â»Â¹')+'<br>d/dx(sinx)=cosx<br>d/dx(cosx)=âˆ’sinx<br>d/dx(tanx)=secÂ²x<br>d/dx(cotx)=âˆ’cosecÂ²x<br>d/dx(secx)=secx tanx<br>d/dx(eË£)=eË£<br>d/dx(lnx)=1/x';
 
-        if(q.indexOf('derivative of sin')>-1||q.indexOf('d/dx sin')>-1) return 'd/dx(sinx) = '+hl('cosx');
-        if(q.indexOf('derivative of cos')>-1||q.indexOf('d/dx cos')>-1) return 'd/dx(cosx) = '+hl('-sinx');
-        if(q.indexOf('derivative of tan')>-1||q.indexOf('d/dx tan')>-1) return 'd/dx(tanx) = '+hl('sec2x');
-        if(q.indexOf('derivative of e')>-1||q.indexOf('d/dx e')>-1) return 'd/dx(ex) = '+hl('ex');
-        if(q.indexOf('derivative of log')>-1||q.indexOf('derivative of ln')>-1) return 'd/dx(lnx) = '+hl('1/x')+' for x>0';
-        if(q.indexOf('chain rule')>-1) return '<strong>Chain Rule:</strong><br>If y=f(g(x)), '+hl('dy/dx=f\'(g(x)) x g\'(x)')+'<br>Example: d/dx(sin(x2)) = cos(x2) x 2x';
-        if(q.indexOf('product rule')>-1) return '<strong>Product Rule:</strong><br>y=u.v: '+hl('dy/dx = u dv/dx + v du/dx');
-        if(q.indexOf('quotient rule')>-1) return '<strong>Quotient Rule:</strong><br>y=u/v: '+hl('dy/dx = (v du/dx - u dv/dx) / v2');
+        if(q.indexOf('chain rule')>-1) return '<strong>Chain Rule:</strong><br>If y=f(g(x)), '+hl('dy/dx=f\'(g(x)) Ã— g\'(x)')+'<br>Example: d/dx(sin(xÂ²)) = cos(xÂ²) Ã— 2x';
+        if(q.indexOf('product rule')>-1) return '<strong>Product Rule:</strong><br>y=uÂ·v: '+hl('dy/dx = u dv/dx + v du/dx');
+        if(q.indexOf('quotient rule')>-1) return '<strong>Quotient Rule:</strong><br>y=u/v: '+hl('dy/dx = (v du/dx âˆ’ u dv/dx) / vÂ²');
         if(q.indexOf('increasing')>-1||q.indexOf('decreasing')>-1||(q.indexOf('application')>-1&&q.indexOf('derivative')>-1))
           return '<strong>Applications of Derivatives:</strong><br>f\'(x)>0: increasing, f\'(x)<0: decreasing<br>f\'(x)=0: critical point<br>f\'\'(x)<0: local maxima, f\'\'(x)>0: local minima';
 
         // Integrals
         if(q.indexOf('integration formula')>-1||q.indexOf('integral formula')>-1||q.indexOf('standard integral')>-1)
-          return '<strong>Standard Integrals:</strong><br>'+hl('int x^n dx = x^(n+1)/(n+1)+C')+'<br>int 1/x dx=ln|x|+C<br>int ex dx=ex+C<br>int sinx dx=-cosx+C<br>int cosx dx=sinx+C<br>int sec2x dx=tanx+C<br>int cosec2x dx=-cotx+C<br>'+hl('int 1/root(1-x2) dx=sin-1x+C')+'<br>'+hl('int 1/(1+x2) dx=tan-1x+C');
+          return '<strong>Standard Integrals:</strong><br>'+hl('âˆ«xâ¿dx = xâ¿âºÂ¹/(n+1)+C')+'<br>âˆ«(1/x)dx=ln|x|+C<br>âˆ«eË£dx=eË£+C<br>âˆ«sinxdx=âˆ’cosx+C<br>âˆ«cosxdx=sinx+C<br>âˆ«secÂ²xdx=tanx+C<br>'+hl('âˆ«1/âˆš(1âˆ’xÂ²)dx=sinâ»Â¹x+C')+'<br>'+hl('âˆ«1/(1+xÂ²)dx=tanâ»Â¹x+C');
 
-        if(q.indexOf('integral of sin')>-1||q.indexOf('integrate sin')>-1) return 'int sinx dx = '+hl('-cosx + C');
-        if(q.indexOf('integral of cos')>-1||q.indexOf('integrate cos')>-1) return 'int cosx dx = '+hl('sinx + C');
-        if(q.indexOf('integral of e')>-1||q.indexOf('integrate e')>-1) return 'int ex dx = '+hl('ex + C');
-        if(q.indexOf('definite integral')>-1||q.indexOf('fundamental theorem')>-1)
-          return '<strong>Definite Integral:</strong><br>'+hl('int(a to b) f(x)dx = F(b)-F(a)')+'<br>where F(x) is anti-derivative of f(x).';
         if(q.indexOf('by parts')>-1||q.indexOf('integration by parts')>-1)
-          return '<strong>Integration by Parts (ILATE):</strong><br>'+hl('int u v dx = u int v dx - int (du/dx x int v dx) dx')+'<br>ILATE: Inverse trig > Logarithm > Algebraic > Trig > Exponential';
+          return '<strong>Integration by Parts (ILATE):</strong><br>'+hl('âˆ«uÂ·v dx = uâˆ«v dx âˆ’ âˆ«(u\'Â·âˆ«v dx)dx')+'<br>ILATE: Inverse trig > Logarithm > Algebraic > Trig > Exponential';
+        if(q.indexOf('definite integral')>-1||q.indexOf('fundamental theorem')>-1)
+          return '<strong>Definite Integral:</strong><br>'+hl('âˆ«â‚áµ‡ f(x)dx = F(b)âˆ’F(a)')+'<br>where F(x) is anti-derivative of f(x).';
 
         // Matrices
         if(q.indexOf('matri')>-1||q.indexOf('matrices formula')>-1)
-          return '<strong>Matrices (Class 12):</strong><br>Symmetric: AT=A; Skew-symmetric: AT=-A<br>For 2x2 [a b;c d]:<br>'+hl('det=ad-bc')+'<br>'+hl('A-1=(1/det)[d -b;-c a]')+'<br>(AB)T=BTAT, (AB)-1=B-1A-1';
+          return '<strong>Matrices (Class 12):</strong><br>Symmetric: Aáµ€=A; Skew-symmetric: Aáµ€=âˆ’A<br>For 2Ã—2 [a b;c d]:<br>'+hl('det=adâˆ’bc')+'<br>'+hl('Aâ»Â¹=(1/det)[d âˆ’b;âˆ’c a]')+'<br>(AB)áµ€=Báµ€Aáµ€, (AB)â»Â¹=Bâ»Â¹Aâ»Â¹';
 
         if(q.indexOf('determinant')>-1||(q.indexOf(' det ')>-1))
-          return '<strong>Determinants:</strong><br>2x2: '+hl('|A|=ad-bc')+'<br>Adjoint=transpose of cofactor matrix<br>'+hl('A-1=adj(A)/|A|, |A| not 0')+'<br>|AB|=|A||B|; identical rows gives |A|=0';
+          return '<strong>Determinants:</strong><br>2Ã—2: '+hl('|A|=adâˆ’bc')+'<br>Adjoint=transpose of cofactor matrix<br>'+hl('Aâ»Â¹=adj(A)/|A|, |A|â‰ 0')+'<br>|AB|=|A||B|; identical rows gives |A|=0';
 
         // Vectors
         if(q.indexOf('vector formula')>-1||(q.indexOf('vector')>-1&&(q.indexOf('formula')>-1||q.indexOf('product')>-1)))
-          return '<strong>Vectors (Class 12):</strong><br>Magnitude: '+hl('|a|=root(a12+a22+a32)')+'<br>Dot product: '+hl('a.b=|a||b|cos theta=a1b1+a2b2+a3b3')+'<br>Cross magnitude: '+hl('|axb|=|a||b|sin theta')+'<br>Perpendicular: a.b=0; Parallel: axb=0<br>Projection of a on b=(a.b)/|b|';
+          return '<strong>Vectors (Class 12):</strong><br>Magnitude: '+hl('|aâƒ—|=âˆš(aâ‚Â²+aâ‚‚Â²+aâ‚ƒÂ²)')+'<br>Dot product: '+hl('aâƒ—Â·bâƒ—=|a||b|cosÎ¸=aâ‚bâ‚+aâ‚‚bâ‚‚+aâ‚ƒbâ‚ƒ')+'<br>Cross magnitude: '+hl('|aâƒ—Ã—bâƒ—|=|a||b|sinÎ¸')+'<br>Perpendicular: aâƒ—Â·bâƒ—=0; Parallel: aâƒ—Ã—bâƒ—=0âƒ—<br>Projection of aâƒ— on bâƒ—=(aâƒ—Â·bâƒ—)/|bâƒ—|';
 
         // Probability
         if(q.indexOf('probability formula')>-1||(q.indexOf('probability')>-1&&q.indexOf('formula')>-1))
-          return '<strong>Probability (Class 11-12):</strong><br>'+hl('P(A)=n(A)/n(S)')+'<br>P(A\')=1-P(A)<br>P(AuB)=P(A)+P(B)-P(AnB)<br>Conditional: '+hl('P(B|A)=P(AnB)/P(A)')+'<br>Bayes: '+hl('P(A|B)=P(B|A)P(A)/P(B)')+'<br>Binomial: P(X=r)=nCr p^r q^(n-r)';
+          return '<strong>Probability (Class 11-12):</strong><br>'+hl('P(A)=n(A)/n(S)')+'<br>P(A\')=1âˆ’P(A)<br>P(AâˆªB)=P(A)+P(B)âˆ’P(Aâˆ©B)<br>Conditional: '+hl('P(B|A)=P(Aâˆ©B)/P(A)')+'<br>Bayes: '+hl('P(A|B)=P(B|A)P(A)/P(B)')+'<br>Binomial: P(X=r)=â¿Cáµ£ pÊ³ qâ¿â»Ê³';
 
         // 3D Geometry
         if(q.indexOf('3d geometry')>-1||q.indexOf('direction cosine')>-1||q.indexOf('direction ratio')>-1)
-          return '<strong>3D Geometry (Class 12):</strong><br>l2+m2+n2=1<br>Distance=root[(x2-x1)2+(y2-y1)2+(z2-z1)2]<br>Line: (x-x1)/a=(y-y1)/b=(z-z1)/c<br>Plane distance: '+hl('d=|ax1+by1+cz1+d|/root(a2+b2+c2)');
+          return '<strong>3D Geometry (Class 12):</strong><br>lÂ²+mÂ²+nÂ²=1<br>Distance=âˆš[(xâ‚‚âˆ’xâ‚)Â²+(yâ‚‚âˆ’yâ‚)Â²+(zâ‚‚âˆ’zâ‚)Â²]<br>Line: (xâˆ’xâ‚)/a=(yâˆ’yâ‚)/b=(zâˆ’zâ‚)/c<br>Plane distance: '+hl('d=|axâ‚+byâ‚+czâ‚+d|/âˆš(aÂ²+bÂ²+cÂ²)');
 
         // LPP
         if(q.indexOf('linear programming')>-1||q.indexOf('lpp')>-1||q.indexOf('feasible region')>-1)
@@ -4935,66 +5193,67 @@
 
         // Statistics
         if(q.indexOf('mean')>-1||q.indexOf('median')>-1||q.indexOf('mode')>-1||q.indexOf('statistics formula')>-1||q.indexOf('standard deviation')>-1)
-          return '<strong>Statistics:</strong><br>Mean: '+hl('x-bar=sum(fi xi)/sum(fi)')+'<br>Median(grouped): '+hl('M=l+[(n/2-cf)/f]xh')+'<br>Mode(grouped): '+hl('Mode=l+[(f1-f0)/(2f1-f0-f2)]xh')+'<br>SD=root(variance); Mode=3 Median-2 Mean';
+          return '<strong>Statistics:</strong><br>Mean: '+hl('xÌ„=Î£fáµ¢xáµ¢/Î£fáµ¢')+'<br>Median(grouped): '+hl('M=l+[(n/2âˆ’cf)/f]Ã—h')+'<br>Mode(grouped): '+hl('Mode=l+[(fâ‚âˆ’fâ‚€)/(2fâ‚âˆ’fâ‚€âˆ’fâ‚‚)]Ã—h')+'<br>SD=âˆš(variance); Mode=3 Medianâˆ’2 Mean';
 
         // Permutation Combination
         if(q.indexOf('permutation')>-1||q.indexOf('combination')>-1||q.indexOf('ncr')>-1||q.indexOf('npr')>-1)
-          return '<strong>P and C (Class 11):</strong><br>'+hl('nPr=n!/(n-r)!')+'<br>'+hl('nCr=n!/[r!(n-r)!]')+'<br>nCr=nCn-r; nCr+nCr-1=n+1Cr';
+          return '<strong>P and C (Class 11):</strong><br>'+hl('â¿Páµ£=n!/(nâˆ’r)!')+'<br>'+hl('â¿Cáµ£=n!/[r!(nâˆ’r)!]')+'<br>â¿Cáµ£=â¿Câ‚™â‚‹áµ£; â¿Cáµ£+â¿Cáµ£â‚‹â‚=â¿âºÂ¹Cáµ£';
 
         // Binomial theorem
         if(q.indexOf('binomial theorem')>-1||q.indexOf('binomial expansion')>-1)
-          return '<strong>Binomial Theorem (Class 11):</strong><br>'+hl('(a+b)^n = sum nCr a^(n-r) b^r')+'<br>General term T(r+1)=nCr a^(n-r) b^r<br>Number of terms = n+1';
+          return '<strong>Binomial Theorem (Class 11):</strong><br>'+hl('(a+b)â¿ = Î£ â¿Cáµ£ a^(nâˆ’r) bÊ³')+'<br>General term T(r+1)=â¿Cáµ£ a^(nâˆ’r) bÊ³<br>Number of terms = n+1';
 
         // Complex numbers
         if(q.indexOf('complex number')>-1||q.indexOf('argand')>-1)
-          return '<strong>Complex Numbers (Class 11):</strong><br>z=a+bi, i2=-1<br>Modulus: '+hl('|z|=root(a2+b2)')+'<br>Conjugate: z-bar=a-bi<br>Euler: '+hl('e^(i theta)=cos theta+i sin theta')+'<br>Powers of i: i,i2=-1,i3=-i,i4=1 (cycle 4)';
+          return '<strong>Complex Numbers (Class 11):</strong><br>z=a+bi, iÂ²=âˆ’1<br>Modulus: '+hl('|z|=âˆš(aÂ²+bÂ²)')+'<br>Conjugate: zÌ„=aâˆ’bi<br>Euler: '+hl('e^(iÎ¸)=cosÎ¸+i sinÎ¸')+'<br>Powers of i: i, iÂ²=âˆ’1, iÂ³=âˆ’i, iâ´=1 (cycle of 4)';
 
         // Limits
         if(q.indexOf('limit')>-1||q.indexOf('continuity')>-1||q.indexOf('differentiab')>-1)
-          return '<strong>Limits (Class 11-12):</strong><br>'+hl('lim(x->0) sinx/x=1')+'<br>'+hl('lim(x->0)(1+x)^(1/x)=e')+'<br>'+hl('lim(x->0)(ex-1)/x=1')+'<br>'+hl('lim(x->a)(x^n-a^n)/(x-a)=n a^(n-1)')+'<br>Continuity: lim(x->a)f(x)=f(a)';
+          return '<strong>Limits (Class 11-12):</strong><br>'+hl('lim(xâ†’0) sinx/x=1')+'<br>'+hl('lim(xâ†’0)(1+x)^(1/x)=e')+'<br>'+hl('lim(xâ†’0)(eË£âˆ’1)/x=1')+'<br>'+hl('lim(xâ†’a)(xâ¿âˆ’aâ¿)/(xâˆ’a)=naâ¿â»Â¹')+'<br>Continuity: lim(xâ†’a)f(x)=f(a)';
 
         // Euler
-        if(q.indexOf('euler')>-1&&q.indexOf('formula')>-1) return '<strong>Euler\'s Identity:</strong><br>'+hl('e^(i pi)+1=0')+'<br>General: '+hl('e^(i theta)=cos theta+i sin theta');
+        if(q.indexOf('euler')>-1&&q.indexOf('formula')>-1) return '<strong>Euler\'s Identity:</strong><br>'+hl('e^(iÏ€)+1=0')+'<br>General: '+hl('e^(iÎ¸)=cosÎ¸+i sinÎ¸');
 
         // Functions Relations
         if((q.indexOf('relation')>-1||q.indexOf('function')>-1)&&(q.indexOf('one-one')>-1||q.indexOf('onto')>-1||q.indexOf('bijective')>-1||q.indexOf('type')>-1))
-          return '<strong>Relations and Functions (Class 12):</strong><br>One-one: f(a)=f(b) implies a=b<br>Onto: Range=Codomain; Bijective: both<br>Reflexive:(a,a) in R; Symmetric:(a,b) implies (b,a); Transitive:(a,b)&(b,c) implies (a,c)<br>Equivalence = Reflexive+Symmetric+Transitive';
+          return '<strong>Relations and Functions (Class 12):</strong><br>One-one: f(a)=f(b) âŸ¹ a=b<br>Onto: Range=Codomain; Bijective: both<br>Reflexive:(a,a)âˆˆR; Symmetric:(a,b)âŸ¹(b,a); Transitive:(a,b)&(b,c)âŸ¹(a,c)<br>Equivalence = Reflexive+Symmetric+Transitive';
 
         // Site navigation
         if(q.indexOf('syllabus')>-1) return 'View CBSE syllabus: '+lk('syllabus.html','Syllabus Portal');
         if(q.indexOf('ioqm')>-1||q.indexOf('olympiad')>-1) return 'IOQM preparation: '+lk('ioqm.html','IOQM Prep Hub');
         if(q.indexOf('exam')>-1||q.indexOf('question paper')>-1) return 'Question papers: '+lk('examination.html','Examinations Portal');
         if(q.indexOf('lesson plan')>-1) return 'Lesson plans: '+lk('lessonplan.html','Lesson Plans Vault');
-        if(q.indexOf('simulation')>-1||q.indexOf('desmos')>-1||q.indexOf('geogebra')>-1||q.indexOf('phet')>-1) return 'Simulation tools: '+lk('simulations.html','Math Simulation Hub');
-        if(q.indexOf('study material')>-1||q.indexOf('notes')>-1) return 'Study materials: '+lk('studymaterial.html','Study Materials');
+        if(q.indexOf('simulation')>-1||q.indexOf('geogebra')>-1) return 'Simulation tools: '+lk('simulations.html','Math Simulation Hub');
 
-        // AI Fallback
-        var wq=encodeURIComponent(query), gq=encodeURIComponent(query+' mathematics CBSE');
-        return 'I do not have a stored answer for "<strong>'+query+'</strong>". Try these AI tools:<br><br>'+
-          '<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">'+
-          '<a href="https://www.wolframalpha.com/input?i='+wq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:linear-gradient(135deg,#ef4444,#f59e0b);color:#fff;border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fas fa-atom"></i> Solve on WolframAlpha</a>'+
-          '<a href="https://gemini.google.com/?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fas fa-robot"></i> Ask Google Gemini AI</a>'+
-          '<a href="https://www.mathway.com/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:linear-gradient(135deg,#06b6d4,#10b981);color:#fff;border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fas fa-calculator"></i> Solve on Mathway</a>'+
-          '<a href="https://www.google.com/search?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--glass-bg);color:var(--text-primary);border:1.5px solid var(--glass-border);border-radius:20px;text-decoration:none;font-weight:700;font-size:.82em;"><i class="fab fa-google"></i> Search on Google</a>'+
-          '</div><div style="margin-top:8px;font-size:.78em;color:var(--text-muted);">Tip: Try "quadratic formula", "integration formulas", "trig identities", or type an equation like x^2-5x+6=0</div>';
+        // No match â€“ return null to trigger online fallback
+        return 'I do not have a stored answer for "<strong>'+query+'</strong>".';
       }
 
+      /* â”€â”€ Quadratic solver â”€â”€ */
       function solveQ(eq){
-        var s=eq.replace(/\s+/g,'').replace(/x2/g,'x^2').replace(/\u00b2/g,'x^2').replace(/(^|[+\-])x\^2/,'$11x^2').replace(/([+\-])x([+\-]|=|$)/,'$11x$2');
+        var s=eq.replace(/\s+/g,'').replace(/x2/g,'x^2').replace(/Â²/g,'x^2').replace(/(^|[+\-])x\^2/,'$11x^2').replace(/([+\-])x([+\-]|=|$)/,'$11x$2');
         if(s.charAt(0)==='x') s='1'+s;
         var m=s.match(/(-?\d+(?:\.\d+)?)x\^2(?:([+\-]\d+(?:\.\d+)?)x)?(?:([+\-]\d+(?:\.\d+)?))?(?:=0)?/);
         if(!m) return null;
         var a=parseFloat(m[1]),b=m[2]?parseFloat(m[2]):0,c=m[3]?parseFloat(m[3]):0;
         if(!a) return null;
-        var D=b*b-4*a*c, out='Equation: <span class="math-highlight">'+a+'x2+('+b+')x+('+c+')=0</span><br>D=b2-4ac='+b*b+'-'+(4*a*c)+'=<span class="math-highlight">'+D+'</span><br>';
-        if(D>0){ out+='Two real roots:<br>x1=<span class="math-highlight">'+(((-b+Math.sqrt(D))/(2*a)).toFixed(4))+'</span>, x2=<span class="math-highlight">'+(((-b-Math.sqrt(D))/(2*a)).toFixed(4))+'</span>'; }
-        else if(D===0){ out+='Equal roots: x=<span class="math-highlight">'+(-b/(2*a)).toFixed(4)+'</span>'; }
-        else{ var re=(-b/(2*a)).toFixed(4),im=(Math.sqrt(-D)/(2*a)).toFixed(4); out+='Complex roots:<br>x1=<span class="math-highlight">'+re+'+'+im+'i</span>, x2=<span class="math-highlight">'+re+'-'+im+'i</span>'; }
+        var D=b*b-4*a*c;
+        var out='<strong>Quadratic Solved:</strong><br>'+hl(a+'xÂ²+('+b+')x+('+c+')=0')+'<br>D = bÂ²âˆ’4ac = '+b*b+'âˆ’'+(4*a*c)+' = '+hl(D)+'<br>';
+        if(D>0){ out+='Two real roots:<br>xâ‚='+hl(((-b+Math.sqrt(D))/(2*a)).toFixed(4))+', xâ‚‚='+hl(((-b-Math.sqrt(D))/(2*a)).toFixed(4)); }
+        else if(D===0){ out+='Equal roots: x='+hl((-b/(2*a)).toFixed(4)); }
+        else{ var re=(-b/(2*a)).toFixed(4),im=(Math.sqrt(-D)/(2*a)).toFixed(4); out+='Complex roots:<br>xâ‚='+hl(re+'+'+im+'i')+', xâ‚‚='+hl(re+'âˆ’'+im+'i'); }
         return out;
       }
     });
   })();
   </script>
+
+
+
+
+
+
+
 
   <script>
   // Mobile and Touch Screen Dropdown Menu Toggles
@@ -5293,21 +5552,21 @@
 
         // Stars calculation
         let stars = '';
-        if (pts >= 100) stars = '⭐⭐⭐';
-        else if (pts >= 70) stars = '⭐⭐';
-        else if (pts >= 40) stars = '⭐';
-        else stars = '📝';
+        if (pts >= 100) stars = 'â­â­â­';
+        else if (pts >= 70) stars = 'â­â­';
+        else if (pts >= 40) stars = 'â­';
+        else stars = 'ðŸ“';
 
         document.getElementById('dqStars').textContent = stars;
 
         // Rank Badge
-        let rankBadge = attempt.rankBadge || '💎 Diamond Math Master';
+        let rankBadge = attempt.rankBadge || 'ðŸ’Ž Diamond Math Master';
         if (!rankBadge) {
-          if (pts >= 100) rankBadge = '💎 Diamond Math Master (+100 PTS Perfect!)';
-          else if (pts >= 70) rankBadge = '🥇 Gold Math Scholar';
-          else if (pts >= 40) rankBadge = '🥈 Silver Math Explorer';
-          else if (pts >= 10) rankBadge = '🥉 Bronze Math Achiever';
-          else rankBadge = '📚 Math Apprentice';
+          if (pts >= 100) rankBadge = 'ðŸ’Ž Diamond Math Master (+100 PTS Perfect!)';
+          else if (pts >= 70) rankBadge = 'ðŸ¥‡ Gold Math Scholar';
+          else if (pts >= 40) rankBadge = 'ðŸ¥ˆ Silver Math Explorer';
+          else if (pts >= 10) rankBadge = 'ðŸ¥‰ Bronze Math Achiever';
+          else rankBadge = 'ðŸ“š Math Apprentice';
         }
         document.getElementById('dqRankBadge').textContent = rankBadge;
 
@@ -5548,20 +5807,20 @@
 
         // Stars calculation
         let stars = '';
-        if (userPoints >= 100) stars = '⭐⭐⭐';
-        else if (userPoints >= 70) stars = '⭐⭐';
-        else if (userPoints >= 40) stars = '⭐';
-        else stars = '📝';
+        if (userPoints >= 100) stars = 'â­â­â­';
+        else if (userPoints >= 70) stars = 'â­â­';
+        else if (userPoints >= 40) stars = 'â­';
+        else stars = 'ðŸ“';
 
         document.getElementById('dqStars').textContent = stars;
 
         // Rank Badge & Feedback Title
-        let rankBadge = '💎 Diamond Math Master';
-        if (userPoints >= 100) rankBadge = '💎 Diamond Math Master (+100 PTS Perfect!)';
-        else if (userPoints >= 70) rankBadge = '🥇 Gold Math Scholar';
-        else if (userPoints >= 40) rankBadge = '🥈 Silver Math Explorer';
-        else if (userPoints >= 10) rankBadge = '🥉 Bronze Math Achiever';
-        else rankBadge = '📚 Math Apprentice (Keep Practicing!)';
+        let rankBadge = 'ðŸ’Ž Diamond Math Master';
+        if (userPoints >= 100) rankBadge = 'ðŸ’Ž Diamond Math Master (+100 PTS Perfect!)';
+        else if (userPoints >= 70) rankBadge = 'ðŸ¥‡ Gold Math Scholar';
+        else if (userPoints >= 40) rankBadge = 'ðŸ¥ˆ Silver Math Explorer';
+        else if (userPoints >= 10) rankBadge = 'ðŸ¥‰ Bronze Math Achiever';
+        else rankBadge = 'ðŸ“š Math Apprentice (Keep Practicing!)';
 
         document.getElementById('dqRankBadge').textContent = rankBadge;
 
