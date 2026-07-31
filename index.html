@@ -5646,7 +5646,7 @@
             '<div class="dq-class-badge ' + (isDone ? 'done' : 'ready') + '">' + (isDone ? '✓ Completed Today' : '⚡ Ready') + '</div>' +
             '<div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">' + count + ' Attempts</div>';
 
-          card.onclick = function() { selectClass(cls); };
+          card.onclick = function() { openDailyQuizForClass(cls); };
           gridEl.appendChild(card);
         });
 
