@@ -4126,24 +4126,11 @@
             </div>
           </div>
 
-          <!-- Class Completion Lock Notice Banner (Hidden if unattempted today) -->
-          <div id="dqClassNoticeBanner" style="display: none; background: #fffbf0; border: 2px solid #d97706; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; text-align: center;">
-            <div style="font-weight: 850; color: #92400e; font-size: 0.98rem; margin-bottom: 4px;">
-              <i class="fas fa-lock" style="color: #d97706; margin-right: 6px;"></i> <span id="dqNoticeTitle">Official Attempt Completed for Today</span>
-            </div>
-            <p id="dqNoticeDesc" style="margin: 0; font-size: 0.88rem; color: #451a03;">You have already submitted today's official quiz for Class 10. Daily limit is 1 attempt per class per day!</p>
-          </div>
-
-          <!-- Prominent Start Quiz Action Button -->
-          <div>
-            <button id="dqStartQuizBtn" class="dq-start-btn">
-              <i class="fas fa-rocket"></i> <span id="dqStartBtnText">Start Class 10 Quiz Arena</span>
+          <!-- Prominent START QUIZ Action Button -->
+          <div style="margin-top: 20px;">
+            <button id="dqStartQuizBtn" class="dq-start-btn" onclick="if(window.startQuizArena) window.startQuizArena();">
+              <i class="fas fa-rocket"></i> <span id="dqStartBtnText">START QUIZ</span>
             </button>
-            <div style="margin-top: 12px;" id="dqPracticeLinkWrap">
-              <a href="javascript:void(0)" id="dqPracticeBtn" style="color: #7c3aed; font-weight: 700; font-size: 0.9rem; text-decoration: underline;">
-                <i class="fas fa-rotate-left"></i> Take Practice Attempt (No Points Penalty)
-              </a>
-            </div>
           </div>
         </div>
 
@@ -5714,56 +5701,27 @@
       }
 
       window.selectClass = selectClass;
+      window.startQuizArena = startQuizArena;
       window.openDailyQuizForClass = function(cls) {
         selectClass(cls);
-        const section = document.getElementById('daily-quiz-section');
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        startQuizArena(true);
       };
 
       function selectClass(cls) {
         activeClass = String(cls || '10');
-        
-        // Reset to start card view if quiz or score container was previously visible
-        const startCard = document.getElementById('dqStartCardContainer');
-        const quizContainer = document.getElementById('dqQuizContainer');
-        const scoreContainer = document.getElementById('dqScoreContainer');
-        if (startCard) startCard.style.display = 'block';
-        if (quizContainer) quizContainer.style.display = 'none';
-        if (scoreContainer) scoreContainer.style.display = 'none';
-
         renderClassSelectionGrid();
         updateHeaderCards(activeClass);
       }
 
       function updateStartAreaUI() {
-        const attempt = checkExistingDailyAttempt(activeClass);
         const startBtnText = document.getElementById('dqStartBtnText');
-        const startBtn = document.getElementById('dqStartQuizBtn');
-        const noticeBanner = document.getElementById('dqClassNoticeBanner');
-        const noticeTitle = document.getElementById('dqNoticeTitle');
-        const noticeDesc = document.getElementById('dqNoticeDesc');
-        const practiceWrap = document.getElementById('dqPracticeLinkWrap');
         const stepHeader = document.getElementById('dqStepHeader');
 
         if (stepHeader) {
-          stepHeader.textContent = 'Step 1: Class ' + activeClass + ' Selected — Click Below to Start';
+          stepHeader.textContent = 'Step 1: Choose Your Class & Unlock Today\'s Quiz';
         }
-
-        if (attempt) {
-          if (noticeBanner) noticeBanner.style.display = 'block';
-          if (noticeTitle) noticeTitle.textContent = 'Class ' + activeClass + ' Daily Quiz Attempt Completed Today!';
-          if (noticeDesc) noticeDesc.textContent = 'You earned ' + (attempt.userPoints || 0) + ' PTS (' + (attempt.userScore || 0) + '/5 correct). Daily limit is 1 official attempt per class per day!';
-
-          if (startBtnText) startBtnText.textContent = 'View Saved Result for Class ' + activeClass;
-          if (startBtn) startBtn.style.background = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
-          if (practiceWrap) practiceWrap.style.display = 'block';
-        } else {
-          if (noticeBanner) noticeBanner.style.display = 'none';
-          if (startBtnText) startBtnText.textContent = 'Start Class ' + activeClass + ' Quiz Arena';
-          if (startBtn) startBtn.style.background = 'linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)';
-          if (practiceWrap) practiceWrap.style.display = 'none';
+        if (startBtnText) {
+          startBtnText.textContent = 'START QUIZ';
         }
       }
 
