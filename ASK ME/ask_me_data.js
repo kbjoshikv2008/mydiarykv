@@ -1,15 +1,15 @@
 /**
- * ASK ME - CBSE Mathematics Knowledge Base
+ * ASK ME - Universal General Mathematics Knowledge Base
  * K B Joshi's Digital Diary
- * Covers Classes 6–12 | NCERT Aligned | Board Exam Focused
+ * All Standards & Levels | Basic Arithmetic to Higher Mathematics
  * 
- * Format: { keywords: [...], question: "...", answer: "...", class: "6-12", chapter: "...", source: "ASK ME Folder" }
+ * Format: { keywords: [...], question: "...", answer: "...", category: "General Mathematics", chapter: "...", source: "ASK ME Folder" }
  */
 
 window.ASK_ME_DATA = [
 
   // ═══════════════════════════════════════════════
-  //  CLASS 6 – 8
+  //  GENERAL MATHEMATICS – ARITHMETIC & NUMBER SYSTEMS (ALL STANDARDS)
   // ═══════════════════════════════════════════════
 
   { keywords:['hcf','lcm','highest common factor','lowest common multiple','euclid algorithm'],
