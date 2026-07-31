@@ -5505,12 +5505,11 @@
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && window.closeAskMe) window.closeAskMe();
-    });
   })();
   </script>
 
-  
-  // Mobile and Touch Screen Dropdown Menu Toggles
+  <script>
+    // Mobile and Touch Screen Dropdown Menu Toggles
     document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
       trigger.addEventListener('click', function(e) {
         // Toggle on mobile screens (width <= 768px)
