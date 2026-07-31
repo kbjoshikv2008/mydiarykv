@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +7,11 @@
   <meta name="description" content="Teacher's Digital Diary of K B Joshi, PGT Mathematics, PM SHRI Kendriya Vidyalaya Ranikhet. Access study materials, lesson plans, digital content, NCERT books, board questions and more.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- KaTeX for LaTeX Math Rendering in ASK ME -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="if(window.renderMathInElement){renderMathInElement(document.getElementById('chatMessages'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});}"></script>
 
   <style>
     :root {
@@ -1577,29 +1582,40 @@
       color: #fff;
     }
 
-    .chatbot-panel {
+    /* ASK ME Modal Overlay */
+    .askme-overlay {
       position: fixed;
-      bottom: 168px;
-      right: 24px;
-      width: clamp(340px, 92vw, 470px);
-      max-height: 82vh;
-      background: rgba(12, 8, 30, 0.97);
-      border: 1.5px solid rgba(139, 92, 246, 0.35);
-      border-radius: 22px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(124, 58, 237, 0.15);
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 99998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .askme-overlay.active { display: flex; }
+
+    .chatbot-panel {
+      position: relative;
+      width: min(560px, 95vw);
+      max-height: min(88vh, 720px);
+      background: linear-gradient(160deg, #0d0822 0%, #0a0618 100%);
+      border: 1.5px solid rgba(139,92,246,0.4);
+      border-radius: 24px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.85), 0 0 60px rgba(124,58,237,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
       display: none;
       flex-direction: column;
       overflow: hidden;
-      z-index: 10000;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateY(24px) scale(0.97);
+      z-index: 99999;
+      transform: scale(0.92) translateY(20px);
       opacity: 0;
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
     }
     .chatbot-panel.active {
       display: flex;
-      transform: translateY(0) scale(1);
+      transform: scale(1) translateY(0);
       opacity: 1;
     }
     /* Source filter tabs */
@@ -1830,14 +1846,12 @@
     
     @media (max-width: 600px) {
       .chatbot-panel {
-        width: calc(100vw - 24px);
-        right: 12px;
-        left: 12px;
-        bottom: 170px;
-        max-height: 75vh;
+        width: calc(100vw - 16px);
+        max-height: 88vh;
         border-radius: 18px;
       }
-      /* On very small screens, stack Sync below Math AI if needed */
+      .askme-overlay { padding: 8px; }
+      /* Float stack on mobile */
       .update-float { bottom: 24px; }
       .chatbot-float { bottom: 96px; }
     }
@@ -3100,6 +3114,106 @@
     /* ==========================================================================
        HIGHLIGHTED DAILY MATHEMATICS QUIZ & SCORING SYSTEM (+20 / -10 PTS)
        ========================================================================== */
+        /* Live Pulsing Dot */
+    .dq-live-pulse-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      margin-right: 6px;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: dqPulseLive 1.6s infinite;
+    }
+    @keyframes dqPulseLive {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Class Selector Grid & Cards */
+    .dq-class-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+      margin: 20px 0 26px;
+    }
+    .dq-class-card {
+      background: #ffffff;
+      border: 2.5px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 18px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .dq-class-card:hover {
+      transform: translateY(-4px);
+      border-color: #7c3aed;
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.18);
+    }
+    .dq-class-card.active {
+      border-color: #4c1d95 !important;
+      background: linear-gradient(145deg, #f5f3ff 0%, #ede9fe 100%) !important;
+      box-shadow: 0 12px 30px rgba(76, 29, 149, 0.25) !important;
+      transform: scale(1.04);
+    }
+    .dq-class-card.completed {
+      border-color: #059669 !important;
+      background: #ecfdf5 !important;
+    }
+    .dq-class-card .dq-class-num {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #1e1b18;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 4px;
+    }
+    .dq-class-card .dq-class-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .dq-class-card .dq-class-badge.ready { background: rgba(124,58,237,0.12); color: #6d28d9; }
+    .dq-class-card .dq-class-badge.done { background: #d1fae5; color: #047857; }
+
+    .dq-start-area {
+      background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
+      border: 2.5px solid #4c1d95;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(76, 29, 149, 0.12);
+      margin-bottom: 28px;
+    }
+    .dq-start-btn {
+      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+      color: #ffffff !important;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 48px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.45);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dq-start-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 18px 45px rgba(124, 58, 237, 0.6);
+      background: linear-gradient(135deg, #6d28d9 0%, #3b0764 100%);
+    }
+
     .daily-quiz-section {
       background: linear-gradient(135deg, #ffffff 0%, #f8f5ff 50%, #f0fdf4 100%) !important;
       border: 3.5px solid #4c1d95 !important;
@@ -3727,11 +3841,11 @@
             </div>
           </div>
 
-          <!-- Group 6: MATH AI Tab -->
+          <!-- Group 6: ASK ME Tab -->
           <div class="nav-item">
-            <a href="javascript:void(0)" onclick="var p=document.getElementById('chatbotPanel'); if(p){p.classList.toggle('active'); if(p.classList.contains('active')){var i=document.getElementById('chatInput');if(i)i.focus();}}" style="color: #a78bfa; font-weight: 700; background: linear-gradient(135deg,rgba(124,58,237,0.18),rgba(37,99,235,0.12)); border-radius: 8px; border: 1px solid rgba(124,58,237,0.35); padding: 8px 16px; position: relative;">
-              <i class="fas fa-brain" style="color: #a78bfa;"></i> MATH AI
-              <span style="position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:20px;text-transform:uppercase;">LIVE</span>
+            <a href="javascript:void(0)" onclick="window.openAskMe&&window.openAskMe()" style="color: #a78bfa; font-weight: 700; background: linear-gradient(135deg,rgba(124,58,237,0.22),rgba(37,99,235,0.14)); border-radius: 8px; border: 1px solid rgba(124,58,237,0.45); padding: 8px 16px; position: relative;">
+              <i class="fas fa-square-root-alt" style="color: #a78bfa;"></i> ASK ME
+              <span style="position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:0.5px;">AI</span>
             </a>
           </div>
 
@@ -3905,25 +4019,29 @@
         <div class="section-title">
           <div class="label" style="background: #9d174d !important; border-color: #9d174d !important; font-size: 0.9em !important; font-weight: 900 !important; letter-spacing: 2px !important;"><i class="fas fa-trophy"></i> DAILY CBSE MATHEMATICS QUIZ &amp; CHALLENGE</div>
           <h2 style="font-size: clamp(2.2rem, 4vw, 3.2rem) !important; font-weight: 900 !important; color: #4c1d95 !important; text-transform: uppercase; letter-spacing: 1.5px; margin: 10px 0 6px 0;">TEST YOUR KNOWLEDGE</h2>
-          <p style="font-size: 1.1rem !important; font-weight: 700 !important; color: #1e1b18 !important;">Earn up to <strong>100 Points daily</strong>! Answer 5 NCERT questions: <strong>+20 Points</strong> per correct answer, <strong>-10 Points</strong> per incorrect attempt.</p>
+          <p style="font-size: 1.1rem !important; font-weight: 700 !important; color: #1e1b18 !important;">Select your Class below to unlock today's official 5-question NCERT math challenge (<strong>+20 PTS</strong> per correct answer, <strong>-10 PTS</strong> per wrong attempt). Each student gets <strong>1 chance every day per class</strong>!</p>
 
           <!-- Rules & Scoring Pill Bar -->
           <div class="dq-rule-banner">
             <div class="dq-rule-chip plus"><i class="fas fa-plus-circle"></i> +20 PTS / Correct</div>
             <div class="dq-rule-chip minus"><i class="fas fa-minus-circle"></i> -10 PTS / Wrong</div>
             <div class="dq-rule-chip max"><i class="fas fa-award"></i> Max Score: 100 PTS</div>
+            <div class="dq-rule-chip" style="border-color:#0284c7; color:#0369a1; background:#f0f9ff;"><i class="fas fa-calendar-check"></i> 1 Attempt / Day / Class</div>
           </div>
           
-          <!-- Participant Counters & Student XP -->
-          <div class="dq-participant-bar" style="display: flex; justify-content: center; gap: 16px; margin-top: 14px; flex-wrap: wrap;">
-            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #4c1d95; border-radius: 6px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(76,29,149,0.12);">
-              <i class="fas fa-user-clock" style="color: #4c1d95; margin-right: 8px;"></i> Today's Participants: <span id="dqDailyParticipants" style="color: #4c1d95; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
+          <!-- Participant Counters & Real-Time Active Data -->
+          <div class="dq-participant-bar" style="display: flex; justify-content: center; gap: 14px; margin-top: 14px; flex-wrap: wrap;">
+            <div class="dq-counter-chip" style="background: #ecfdf5; border: 2.5px solid #10b981; border-radius: 50px; padding: 8px 20px; font-weight: 850; font-size: 0.95rem; color: #065f46; box-shadow: 0 4px 14px rgba(16,185,129,0.18);">
+              <span class="dq-live-pulse-dot"></span> LIVE NOW: <span id="dqLiveActiveNow" style="color: #047857; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span> Takers
             </div>
-            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #0f766e; border-radius: 6px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(15,118,110,0.12);">
-              <i class="fas fa-users" style="color: #0f766e; margin-right: 8px;"></i> Total Quiz Takers: <span id="dqTotalParticipants" style="color: #0f766e; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
+            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #4c1d95; border-radius: 50px; padding: 8px 20px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(76,29,149,0.12);">
+              <i class="fas fa-calendar-day" style="color: #4c1d95; margin-right: 6px;"></i> Today's Participants: <span id="dqDailyParticipants" style="color: #4c1d95; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
             </div>
-            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #d97706; border-radius: 6px; padding: 10px 22px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(217,119,6,0.15);">
-              <i class="fas fa-star" style="color: #d97706; margin-right: 8px;"></i> Lifetime Student XP: <span id="dqLifetimeXP" style="color: #d97706; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">0</span> PTS
+            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #0f766e; border-radius: 50px; padding: 8px 20px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(15,118,110,0.12);">
+              <i class="fas fa-users" style="color: #0f766e; margin-right: 6px;"></i> Cumulative All-Time Attempts: <span id="dqTotalParticipants" style="color: #0f766e; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">Loading...</span>
+            </div>
+            <div class="dq-counter-chip" style="background: #ffffff; border: 2.5px solid #d97706; border-radius: 50px; padding: 8px 20px; font-weight: 850; font-size: 0.95rem; color: #1e1b18; box-shadow: 0 4px 12px rgba(217,119,6,0.15);">
+              <i class="fas fa-star" style="color: #d97706; margin-right: 6px;"></i> Lifetime Student XP: <span id="dqLifetimeXP" style="color: #d97706; font-size: 1.15em; font-weight: 900; font-family: 'Poppins', sans-serif;">0</span> PTS
             </div>
           </div>
 
@@ -3958,19 +4076,43 @@
           </div>
         </div>
 
-        <!-- Class Selector Tabs (Classes 6 to 12) -->
-        <div class="dq-class-tabs" id="dqClassTabs">
-          <button class="dq-tab-btn" data-class="6"><i class="fas fa-graduation-cap"></i> Class 6</button>
-          <button class="dq-tab-btn" data-class="7"><i class="fas fa-graduation-cap"></i> Class 7</button>
-          <button class="dq-tab-btn" data-class="8"><i class="fas fa-graduation-cap"></i> Class 8</button>
-          <button class="dq-tab-btn" data-class="9"><i class="fas fa-graduation-cap"></i> Class 9</button>
-          <button class="dq-tab-btn active" data-class="10"><i class="fas fa-star"></i> Class 10</button>
-          <button class="dq-tab-btn" data-class="11"><i class="fas fa-graduation-cap"></i> Class 11</button>
-          <button class="dq-tab-btn" data-class="12"><i class="fas fa-graduation-cap"></i> Class 12</button>
+        <!-- ════════════ STEP 1: CLASS SELECTION & START CONTROL ════════════ -->
+        <div id="dqStartCardContainer" class="dq-start-area">
+          <div style="font-size: 0.88rem; font-weight: 900; color: #7c3aed; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">
+            <i class="fas fa-list-check"></i> Step 1: Select Your Class First
+          </div>
+          <h3 style="font-size: 1.6rem; color: #1e1b18; font-weight: 900; margin: 0 0 14px 0; font-family: 'Poppins', sans-serif;">
+            Choose CBSE Class to Unlock Daily Quiz
+          </h3>
+
+          <!-- Class Selection Cards Grid -->
+          <div class="dq-class-grid" id="dqClassGrid">
+            <!-- Cards rendered via JS -->
+          </div>
+
+          <!-- Class Completion Lock Notice Banner (Hidden if unattempted today) -->
+          <div id="dqClassNoticeBanner" style="display: none; background: #fffbf0; border: 2px solid #d97706; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; text-align: center;">
+            <div style="font-weight: 850; color: #92400e; font-size: 0.98rem; margin-bottom: 4px;">
+              <i class="fas fa-lock" style="color: #d97706; margin-right: 6px;"></i> <span id="dqNoticeTitle">Official Attempt Completed for Today</span>
+            </div>
+            <p id="dqNoticeDesc" style="margin: 0; font-size: 0.88rem; color: #451a03;">You have already submitted today's official quiz for Class 10. Daily limit is 1 attempt per class per day!</p>
+          </div>
+
+          <!-- Prominent Start Quiz Action Button -->
+          <div>
+            <button id="dqStartQuizBtn" class="dq-start-btn">
+              <i class="fas fa-rocket"></i> <span id="dqStartBtnText">Start Class 10 Quiz Arena</span>
+            </button>
+            <div style="margin-top: 12px;" id="dqPracticeLinkWrap">
+              <a href="javascript:void(0)" id="dqPracticeBtn" style="color: #7c3aed; font-weight: 700; font-size: 0.9rem; text-decoration: underline;">
+                <i class="fas fa-rotate-left"></i> Take Practice Attempt (No Points Penalty)
+              </a>
+            </div>
+          </div>
         </div>
 
-        <!-- Interactive Quiz Container -->
-        <div id="dqQuizContainer" style="position: relative;">
+        <!-- ════════════ STEP 2: INTERACTIVE QUIZ ARENA (HIDDEN UNTIL START) ════════════ -->
+        <div id="dqQuizContainer" style="display: none; position: relative;">
           <!-- Floating Point Animation Popup -->
           <div id="dqPointPopup" class="dq-float-popup" style="display: none;"></div>
 
@@ -3981,6 +4123,7 @@
               <div class="dq-progress-fill" id="dqProgressBar"></div>
             </div>
 
+            <!-- Topbar (Question Count, Points Badge, Difficulty, Timer Badge) -->
             <div class="dq-quiz-topbar">
               <div class="dq-q-count" id="dqQCount">Question 1 of 5</div>
               <div class="dq-points-badge" id="dqPointsBadge"><i class="fas fa-coins"></i> Score: <span id="dqLivePoints">0</span> PTS</div>
@@ -4755,10 +4898,10 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Math AI Floating Button (stacked above Sync) -->
-  <div class="chatbot-float" id="chatbotFloatBtn" title="Aryabhata Math AI â€“ Click to Ask">
-    <i class="fas fa-brain"></i>
-    <span class="chatbot-badge">Math AI</span>
+  <!-- ASK ME Floating Button (stacked above Sync) -->
+  <div class="chatbot-float" id="chatbotFloatBtn" title="ASK ME – Mathematics AI (Click to Open)">
+    <i class="fas fa-square-root-alt"></i>
+    <span class="chatbot-badge">ASK ME</span>
   </div>
 
   <!-- One-Click Website Content Update Floating Button (bottom of stack) -->
@@ -4795,65 +4938,72 @@
     </div>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â• Enhanced Math AI Panel â•â•â•â•â•â•â•â•â•â• -->
-  <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-label="Aryabhata Math AI">
-    <!-- Header -->
-    <div class="chat-header">
-      <div class="chat-bot-info">
-        <div class="chat-bot-avatar" style="background:linear-gradient(135deg,#7c3aed,#2563eb);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1em;border:2px solid rgba(167,139,250,0.5);">
-          <i class="fas fa-brain" style="color:#fff;"></i>
+  <!-- ASK ME Overlay + Panel (Centered Modal) -->
+  <div class="askme-overlay" id="askMeOverlay">
+    <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-label="ASK ME Mathematics">
+
+      <!-- Header -->
+      <div class="chat-header" style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(37,99,235,0.18));padding:14px 18px;border-bottom:1px solid rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+        <div class="chat-bot-info" style="display:flex;align-items:center;gap:12px;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb);display:flex;align-items:center;justify-content:center;font-size:1.3em;border:2px solid rgba(167,139,250,0.6);box-shadow:0 0 18px rgba(124,58,237,0.4);">
+            <i class="fas fa-square-root-alt" style="color:#fff;"></i>
+          </div>
+          <div>
+            <h4 style="font-family:'Poppins',sans-serif;font-size:1rem;font-weight:800;color:#fff;margin:0;letter-spacing:0.5px;">ASK ME &mdash; Mathematics AI</h4>
+            <span style="font-size:0.72rem;color:#a78bfa;font-weight:500;">Basic &amp; Higher Mathematics &middot; LaTeX Rendering &middot; CBSE VI&ndash;XII</span>
+          </div>
         </div>
-        <div class="chat-bot-name">
-          <h4>Aryabhata Math AI</h4>
-          <span>ASK ME + Online Resources | CBSE VIâ€“XII</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button id="chatMinimizeBtn" title="Minimize" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.82em;transition:all 0.2s;"><i class="fas fa-minus"></i></button>
+          <button class="chat-close-btn" id="chatbotCloseBtn" title="Close" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:rgba(239,68,68,0.8);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.9em;transition:all 0.2s;"><i class="fas fa-times"></i></button>
         </div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center;">
-        <button id="chatMinimizeBtn" title="Minimize" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.8em;"><i class="fas fa-minus"></i></button>
-        <button class="chat-close-btn" id="chatbotCloseBtn" title="Close"><i class="fas fa-times"></i></button>
+
+      <!-- Source Filter Tabs -->
+      <div class="chat-filter-tabs" id="chatFilterTabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="askme">&#128193; ASK ME</button>
+        <button class="filter-tab" data-filter="engine">&#129518; Solver</button>
+        <button class="filter-tab" data-filter="online">&#127760; Online</button>
       </div>
-    </div>
 
-    <!-- Source Filter Tabs -->
-    <div class="chat-filter-tabs" id="chatFilterTabs">
-      <button class="filter-tab active" data-filter="all">ðŸ” All Sources</button>
-      <button class="filter-tab" data-filter="askme">ðŸ“ ASK ME Folder</button>
-      <button class="filter-tab" data-filter="engine">ðŸ§® Math Solver</button>
-      <button class="filter-tab" data-filter="online">ðŸŒ Online Resources</button>
-    </div>
-
-    <!-- Messages -->
-    <div class="chat-messages" id="chatMessages">
-      <div class="message bot">
-        ðŸ‘‹ Hello! I am <strong>Aryabhata</strong>, your upgraded CBSE Mathematics AI.<br><br>
-        I now search <span style="color:#34d399;font-weight:700;">ðŸ“ ASK ME Folder</span> (local knowledge base), use <span style="color:#fbbf24;font-weight:700;">ðŸ§® Math Solver</span> (step-by-step), and link to <span style="color:#60a5fa;font-weight:700;">ðŸŒ Online Resources</span> (WolframAlpha, Gemini, Mathway).<br><br>
-        ðŸŽ™ï¸ Use the microphone button for voice questions!<br>
-        ðŸ“‹ Copy any answer with the copy button.
+      <!-- Messages -->
+      <div class="chat-messages" id="chatMessages" style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+        <div class="message bot" style="line-height:1.7;">
+          Hello! I am <strong style="color:#a78bfa;">ASK ME</strong>, your Mathematics AI assistant.<br><br>
+          I answer questions from <strong>Basic to Higher Mathematics</strong> with <strong>LaTeX-formatted</strong> equations.<br><br>
+          &bull; I search the <span style="color:#34d399;font-weight:700;">ASK ME Knowledge Base</span> first.<br>
+          &bull; I use the built-in <span style="color:#fbbf24;font-weight:700;">Math Solver</span> for step-by-step solutions.<br>
+          &bull; I link to <span style="color:#60a5fa;font-weight:700;">Online Resources</span> for complex questions.<br><br>
+          Try: <em>quadratic formula</em>, <em>integration by parts</em>, <em>limit definition</em>, <em>Pythagoras theorem</em>.
+        </div>
       </div>
-    </div>
 
-    <!-- Quick Shortcuts -->
-    <div class="chat-shortcuts" id="chatShortcuts">
-      <button class="shortcut-btn" data-query="quadratic formula">Quadratic</button>
-      <button class="shortcut-btn" data-query="derivative formulas">Derivatives</button>
-      <button class="shortcut-btn" data-query="integration formulas">Integrals</button>
-      <button class="shortcut-btn" data-query="trigonometry formulas">Trig</button>
-      <button class="shortcut-btn" data-query="matrices formula">Matrices</button>
-      <button class="shortcut-btn" data-query="probability formula">Probability</button>
-      <button class="shortcut-btn" data-query="solve x^2 - 5x + 6 = 0">Solve xÂ²âˆ’5x+6=0</button>
-      <button class="shortcut-btn" data-query="heron formula">Heron</button>
-      <button class="shortcut-btn" data-query="pythagoras theorem">Pythagoras</button>
-      <button class="shortcut-btn" data-query="arithmetic progression formula">AP/GP</button>
-      <button class="shortcut-btn" data-query="vector formula">Vectors</button>
-      <button class="shortcut-btn" data-query="binomial theorem">Binomial</button>
-      <button class="shortcut-btn" data-query="cbse board blueprint class 12">Board Tips</button>
-    </div>
+      <!-- Quick Shortcuts -->
+      <div class="chat-shortcuts" id="chatShortcuts" style="padding:8px 14px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07);">
+        <button class="shortcut-btn" data-query="quadratic formula">Quadratic</button>
+        <button class="shortcut-btn" data-query="derivative formulas">Derivatives</button>
+        <button class="shortcut-btn" data-query="integration formulas">Integrals</button>
+        <button class="shortcut-btn" data-query="trigonometry formulas">Trigonometry</button>
+        <button class="shortcut-btn" data-query="matrices formula">Matrices</button>
+        <button class="shortcut-btn" data-query="probability formula">Probability</button>
+        <button class="shortcut-btn" data-query="solve x^2-5x+6=0">Solve x&sup2;-5x+6</button>
+        <button class="shortcut-btn" data-query="pythagoras theorem">Pythagoras</button>
+        <button class="shortcut-btn" data-query="arithmetic progression formula">AP/GP</button>
+        <button class="shortcut-btn" data-query="vector formula">Vectors</button>
+        <button class="shortcut-btn" data-query="binomial theorem">Binomial</button>
+        <button class="shortcut-btn" data-query="limits standard formulas">Limits</button>
+        <button class="shortcut-btn" data-query="differential equation linear">Diff. Eqn</button>
+        <button class="shortcut-btn" data-query="complex numbers">Complex</button>
+      </div>
 
-    <!-- Input Area -->
-    <div class="chat-input-area" style="display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(255,255,255,0.08);">
-      <button class="chat-voice-btn" id="chatVoiceBtn" title="Voice Input"><i class="fas fa-microphone"></i></button>
-      <input type="text" class="chat-input" id="chatInput" placeholder="Ask any maths question..." autocomplete="off" style="flex:1;">
-      <button class="chat-send-btn" id="chatSendBtn" title="Send"><i class="fas fa-paper-plane"></i></button>
+      <!-- Input Area -->
+      <div style="display:flex;gap:8px;padding:12px 14px;flex-shrink:0;">
+        <button class="chat-voice-btn" id="chatVoiceBtn" title="Voice Input (English)"><i class="fas fa-microphone"></i></button>
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your mathematics question in English..." autocomplete="off" style="flex:1;">
+        <button class="chat-send-btn" id="chatSendBtn" title="Send"><i class="fas fa-paper-plane"></i></button>
+      </div>
+
     </div>
   </div>
 
@@ -4863,8 +5013,703 @@
     @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
   </style>
 
-  <!-- Math AI Enhanced Script v3 â€“ ASK ME Folder + Online Resources + Voice -->
+    <!-- ASK ME – LaTeX Math AI Script v4 -->
   <script src="ASK ME/ask_me_data.js"></script>
+  <script>
+  (function(){
+    document.addEventListener('DOMContentLoaded', function() {
+      /* ── DOM refs ── */
+      var overlay  = document.getElementById('askMeOverlay');
+      var panel    = document.getElementById('chatbotPanel');
+      var btn      = document.getElementById('chatbotFloatBtn');
+      var closeBtn = document.getElementById('chatbotCloseBtn');
+      var minBtn   = document.getElementById('chatMinimizeBtn');
+      var input    = document.getElementById('chatInput');
+      var sendBtn  = document.getElementById('chatSendBtn');
+      var msgs     = document.getElementById('chatMessages');
+      var voiceBtn = document.getElementById('chatVoiceBtn');
+      var activeFilter = 'all';
+      var isMinimized  = false;
+
+      /* ── Open / Close helpers ── */
+      function openAskMe(){
+        if(!overlay || !panel) return;
+        overlay.classList.add('active');
+        panel.classList.add('active');
+        isMinimized = false;
+        panel.style.maxHeight = '';
+        if(minBtn) minBtn.innerHTML = '<i class="fas fa-minus"></i>';
+        setTimeout(function(){ if(input) input.focus(); }, 200);
+      }
+      function closeAskMe(){
+        if(overlay) overlay.classList.remove('active');
+        if(panel)   panel.classList.remove('active');
+      }
+      window.openAskMe  = openAskMe;
+      window.closeAskMe = closeAskMe;
+
+      /* ── Trigger: float button + nav ── */
+      if(btn){ btn.addEventListener('click', function(){ overlay && overlay.classList.contains('active') ? closeAskMe() : openAskMe(); }); }
+      /* Overlay backdrop click closes */
+      if(overlay){ overlay.addEventListener('click', function(e){ if(e.target===overlay) closeAskMe(); }); }
+      if(closeBtn){ closeBtn.addEventListener('click', closeAskMe); }
+      if(minBtn){ minBtn.addEventListener('click', function(){
+        isMinimized = !isMinimized;
+        panel.style.maxHeight = isMinimized ? '58px' : '';
+        panel.style.overflow  = isMinimized ? 'hidden' : 'hidden';
+        minBtn.innerHTML = isMinimized ? '<i class="fas fa-expand-alt"></i>' : '<i class="fas fa-minus"></i>';
+      }); }
+      /* ESC closes */
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAskMe(); });
+
+      /* ── Filter tabs ── */
+      document.querySelectorAll('.filter-tab').forEach(function(tab){
+        tab.addEventListener('click', function(){
+          document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
+          tab.classList.add('active');
+          activeFilter = tab.getAttribute('data-filter');
+        });
+      });
+
+      /* ── Send ── */
+      function send(){
+        var q = input.value.trim();
+        if(!q) return;
+        addMsg(q,'user');
+        input.value = '';
+        showTyping();
+        processQuery(q);
+      }
+      if(sendBtn) sendBtn.addEventListener('click', send);
+      if(input)   input.addEventListener('keypress', function(e){ if(e.key==='Enter') send(); });
+      document.querySelectorAll('.shortcut-btn').forEach(function(b){
+        b.addEventListener('click', function(){
+          var q = b.getAttribute('data-query');
+          if(!overlay || !overlay.classList.contains('active')) openAskMe();
+          addMsg(q,'user'); showTyping(); processQuery(q);
+        });
+      });
+
+      /* ── Voice Input (English) ── */
+      var recognition = null;
+      if(window.SpeechRecognition || window.webkitSpeechRecognition){
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.onresult = function(e){ var t=e.results[0][0].transcript; input.value=t; send(); };
+        recognition.onend = function(){ if(voiceBtn){ voiceBtn.classList.remove('listening'); voiceBtn.innerHTML='<i class="fas fa-microphone"></i>'; } };
+        recognition.onerror = function(){ if(voiceBtn){ voiceBtn.classList.remove('listening'); voiceBtn.innerHTML='<i class="fas fa-microphone"></i>'; } };
+        if(voiceBtn){ voiceBtn.addEventListener('click', function(){
+          if(voiceBtn.classList.contains('listening')){ recognition.stop(); }
+          else { voiceBtn.classList.add('listening'); voiceBtn.innerHTML='<i class="fas fa-stop"></i>'; recognition.start(); }
+        }); }
+      } else { if(voiceBtn){ voiceBtn.style.opacity='0.35'; voiceBtn.title='Voice input not supported in this browser'; } }
+
+      /* ── Message helpers ── */
+      function addMsg(t, s){
+        var d = document.createElement('div');
+        d.className = 'message ' + s;
+        d.innerHTML = t;
+        if(s === 'bot'){
+          /* Copy button */
+          var stripped = t.replace(/<[^>]+>/g,'');
+          var cb = document.createElement('button');
+          cb.className = 'msg-copy-btn';
+          cb.innerHTML = '<i class="fas fa-copy"></i> Copy';
+          cb.addEventListener('click', function(){
+            if(navigator.clipboard && navigator.clipboard.writeText){
+              navigator.clipboard.writeText(stripped).then(function(){
+                cb.innerHTML='<i class="fas fa-check"></i> Copied!';
+                setTimeout(function(){ cb.innerHTML='<i class="fas fa-copy"></i> Copy'; }, 2000);
+              });
+            }
+          });
+          d.appendChild(cb);
+          /* Re-render KaTeX */
+          if(window.renderMathInElement){
+            setTimeout(function(){
+              renderMathInElement(d, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
+            }, 50);
+          }
+        }
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+      }
+      function showTyping(){ var t=document.createElement('div'); t.className='message bot typing-indicator'; t.id='typingDots'; t.innerHTML='<span></span><span></span><span></span>'; msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight; }
+      function removeTyping(){ var t=document.getElementById('typingDots'); if(t) t.remove(); }
+
+      /* ── Helper renderers ── */
+      function hl(t){ return '<span class="math-highlight">'+t+'</span>'; }
+      function sb(cls,icon,label){ return '<br><span class="source-badge '+cls+'">'+icon+' '+label+'</span>'; }
+      function lk(href,label){ return '<a href="'+href+'" style="color:#a78bfa;font-weight:700;" target="_blank">'+label+'</a>'; }
+
+      /* ── Main processor ── */
+      function processQuery(query){
+        var delay = 700;
+        if(activeFilter === 'online'){
+          setTimeout(function(){ removeTyping(); addMsg(getOnlineLinks(query),'bot'); }, 500);
+          return;
+        }
+        if(activeFilter === 'engine'){
+          setTimeout(function(){ removeTyping(); var r=answer(query); addMsg(r + sb('engine','&#129518;','Math Solver'),'bot'); }, delay);
+          return;
+        }
+        if(activeFilter === 'askme'){
+          setTimeout(function(){ removeTyping();
+            var r=searchAskMeFolder(query);
+            addMsg(r || 'No match found in ASK ME Knowledge Base for <strong>'+query+'</strong>. Try switching to the <em>All</em> tab.' + sb('ask-me','&#128193;','ASK ME'), 'bot');
+          }, 600); return;
+        }
+        /* All Sources: priority chain */
+        setTimeout(function(){
+          removeTyping();
+          var r1=searchAskMeFolder(query);
+          if(r1){ addMsg(r1,'bot'); return; }
+          var r2=answer(query);
+          if(r2 && r2.indexOf('no stored answer')===-1){ addMsg(r2 + sb('engine','&#129518;','Math Solver'),'bot'); return; }
+          addMsg(getOnlineLinks(query),'bot');
+        }, delay);
+      }
+
+      /* ── ASK ME Folder search ── */
+      function searchAskMeFolder(query){
+        if(!window.searchAskMe) return null;
+        var results=window.searchAskMe(query);
+        if(!results || results.length===0) return null;
+        var best=results[0];
+        var out='<strong>'+best.question+'</strong><br><br>'+best.answer;
+        out+='<br><span class="source-badge ask-me">&#128193; ASK ME &nbsp;|&nbsp; Class '+best.class+' &nbsp;|&nbsp; '+best.chapter+'</span>';
+        if(results.length>1){
+          out+='<br><small style="color:rgba(255,255,255,0.5);">Also matched: ';
+          for(var i=1;i<Math.min(results.length,3);i++) out+=(i>1?', ':'')+results[i].question;
+          out+='</small>';
+        }
+        return out;
+      }
+
+      /* ── Online links ── */
+      function getOnlineLinks(q){
+        var wq=encodeURIComponent(q), gq=encodeURIComponent(q+' mathematics');
+        return 'Here are online resources for <strong>'+q+'</strong>:<br><br>'+
+          '<div style="display:flex;flex-direction:column;gap:8px;">'+
+          '<a href="https://www.wolframalpha.com/input?i='+wq+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#ef4444,#f59e0b);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-atom"></i> Solve on WolframAlpha</a>'+
+          '<a href="https://gemini.google.com/?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-robot"></i> Ask Google Gemini AI</a>'+
+          '<a href="https://www.mathway.com/" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#06b6d4,#10b981);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fas fa-calculator"></i> Solve on Mathway</a>'+
+          '<a href="https://www.google.com/search?q='+gq+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:14px;text-decoration:none;font-weight:700;font-size:.83em;"><i class="fab fa-google"></i> Google Search</a>'+
+          '</div>' + sb('online','&#127760;','Online Resources');
+      }
+
+      /* ══════════════════════════════════════════════════════
+         MATH ENGINE  –  LaTeX answers, English only
+         Covers: Basic (VI-X) + Higher (XI-XII + Beyond)
+         ══════════════════════════════════════════════════════ */
+      function answer(query){
+        var q = query.toLowerCase().trim();
+
+        /* ── Arithmetic calculator ── */
+        if(/^[ds+-*/^().%]+$/.test(query) && query.length < 80){
+          try{
+            var r = Function('"use strict";return('+query.replace(/^/g,'**')+')')();
+            if(typeof r==='number' && isFinite(r))
+              return '<strong>Arithmetic Result:</strong><br>$$'+query+' = '+r+'$$';
+          }catch(e){}
+        }
+
+        /* ── Quadratic equation solver ── */
+        if(q.match(/x^?2|x2|²/) && (q.indexOf('=')+q.indexOf('solve')+q.indexOf('root'))>-3){
+          var sol=solveQ(query); if(sol) return sol;
+        }
+
+        /* ════════════ BASIC MATHEMATICS (Classes VI–X) ════════════ */
+
+        /* Greetings */
+        if(/^(hi|hello|hey|namaste|goods)/.test(q))
+          return 'Hello! I am <strong>ASK ME</strong>, your Mathematics AI. I cover topics from basic arithmetic to higher mathematics with LaTeX-rendered equations. Ask me any question!';
+        if(q.includes('thank')) return 'You are welcome! Keep exploring mathematics!';
+        if(q.includes('who are you')||q.includes('your name'))
+          return 'I am <strong>ASK ME &mdash; Mathematics AI</strong>, powered by a built-in math engine, the ASK ME Knowledge Base, and online resources. I cover basic to higher mathematics with full LaTeX rendering.';
+
+        /* Number Systems */
+        if(q.includes('hcf')||q.includes('lcm')||q.includes('highest common'))
+          return '<strong>HCF and LCM:</strong><br>$$\text{HCF} \times \text{LCM} = \text{Product of two numbers}$$<br>'+
+            '<strong>HCF</strong> (Highest Common Factor) = largest number dividing both.<br>'+
+            '<strong>LCM</strong> (Lowest Common Multiple) = smallest multiple common to both.<br>'+
+            '<strong>Method:</strong> Prime factorisation or Euclid's Division Algorithm.<br>'+
+            '$$a = bq + r, \quad 0 \le r < b$$';
+
+        if(q.includes('prime') && q.includes('factori'))
+          return '<strong>Prime Factorisation:</strong><br>Every integer $n > 1$ can be written uniquely as:<br>$$n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}$$where $p_i$ are prime numbers. This is the <em>Fundamental Theorem of Arithmetic</em>.';
+
+        if(q.includes('rational')||q.includes('irrational'))
+          return '<strong>Number System:</strong><br>'+
+            '&bull; <strong>Rational:</strong> $\frac{p}{q}$ form, $q \ne 0$. Decimal terminates or recurs.<br>'+
+            '&bull; <strong>Irrational:</strong> Cannot be written as $\frac{p}{q}$. E.g., $\sqrt{2},\, \pi,\, e$.<br>'+
+            '$$\sqrt{p} \text{ is irrational if } p \text{ is prime}$$';
+
+        /* Percentage, SI, CI */
+        if(q.includes('simple interest')||(q.includes('interest')&&q.includes('simple')))
+          return '<strong>Simple Interest:</strong><br>$$SI = \frac{P \times R \times T}{100}$$$$A = P + SI$$where $P$ = Principal, $R$ = Rate % per annum, $T$ = Time (years).';
+
+        if(q.includes('compound interest')||(q.includes('interest')&&q.includes('compound')))
+          return '<strong>Compound Interest:</strong><br>$$A = P\left(1 + \frac{R}{100}\right)^n$$$$CI = A - P$$For half-yearly: $A = P\left(1 + \frac{R}{200}\right)^{2n}$<br>For quarterly: $A = P\left(1 + \frac{R}{400}\right)^{4n}$';
+
+        /* Algebraic Identities */
+        if(q.includes('algebraic identit')||q.includes('(a+b)')||q.includes('expansion'))
+          return '<strong>Algebraic Identities:</strong><br>'+
+            '$$(a+b)^2 = a^2 + 2ab + b^2$$'+
+            '$$(a-b)^2 = a^2 - 2ab + b^2$$'+
+            '$$(a+b)(a-b) = a^2 - b^2$$'+
+            '$$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$$'+
+            '$$(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$'+
+            '$$a^3 + b^3 = (a+b)(a^2 - ab + b^2)$$'+
+            '$$a^3 - b^3 = (a-b)(a^2 + ab + b^2)$$';
+
+        if(q.includes('factor theorem'))
+          return '<strong>Factor Theorem (Class 9):</strong><br>If $p(a) = 0$, then $(x - a)$ is a factor of polynomial $p(x)$.<br><em>Converse:</em> If $(x-a)$ is a factor of $p(x)$, then $p(a)=0$.';
+
+        if(q.includes('remainder theorem'))
+          return '<strong>Remainder Theorem (Class 9):</strong><br>When polynomial $p(x)$ is divided by $(x - a)$:<br>$$\text{Remainder} = p(a)$$';
+
+        /* Linear equations */
+        if(q.includes('linear equation')||(q.includes('pair')&&q.includes('equation')))
+          return '<strong>Pair of Linear Equations (Class 10):</strong><br>$$a_1x + b_1y + c_1 = 0, \quad a_2x + b_2y + c_2 = 0$$<br>'+
+            '&bull; Unique solution: $\dfrac{a_1}{a_2} \ne \dfrac{b_1}{b_2}$<br>'+
+            '&bull; No solution: $\dfrac{a_1}{a_2} = \dfrac{b_1}{b_2} \ne \dfrac{c_1}{c_2}$<br>'+
+            '&bull; Infinitely many solutions: $\dfrac{a_1}{a_2} = \dfrac{b_1}{b_2} = \dfrac{c_1}{c_2}$';
+
+        /* Quadratic formula */
+        if(q.includes('quadratic formula')||(q.includes('quadratic')&&q.includes('formula')))
+          return '<strong>Quadratic Formula (Class 10):</strong><br>For $ax^2 + bx + c = 0,\; a \ne 0$:'+
+            '$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$'+
+            '<strong>Discriminant:</strong> $D = b^2 - 4ac$<br>'+
+            '&bull; $D > 0$ &rarr; two distinct real roots<br>'+
+            '&bull; $D = 0$ &rarr; equal real roots: $x = -\frac{b}{2a}$<br>'+
+            '&bull; $D < 0$ &rarr; complex (imaginary) roots<br>'+
+            '<strong>Vieta's Formulas:</strong> Sum $= -\frac{b}{a}$, &nbsp; Product $= \frac{c}{a}$<br>'+
+            '<em>Tip: Type <strong>x^2-5x+6=0</strong> to solve instantly!</em>';
+
+        /* Heron */
+        if(q.includes('heron'))
+          return '<strong>Heron's Formula (Class 9):</strong><br>For a triangle with sides $a, b, c$:'+
+            '$$s = \frac{a+b+c}{2}$$'+
+            '$$\text{Area} = \sqrt{s(s-a)(s-b)(s-c)}$$';
+
+        /* Pythagoras */
+        if(q.includes('pythagoras')||q.includes('pythagorean'))
+          return '<strong>Pythagoras' Theorem (Class 7–10):</strong><br>In a right-angled triangle:$$c^2 = a^2 + b^2$$where $c$ is hypotenuse.<br>'+
+            '<strong>Pythagorean Triplets:</strong> $(3,4,5),\,(5,12,13),\,(8,15,17),\,(7,24,25)$';
+
+        /* Circle */
+        if(q.includes('circle formula')||q.includes('area of circle')||q.includes('circumference'))
+          return '<strong>Circle Formulas:</strong><br>'+
+            '$$\text{Area} = \pi r^2, \quad \text{Circumference} = 2\pi r$$'+
+            '$$\text{Arc length} = \frac{\theta}{360^\circ} \times 2\pi r$$'+
+            '$$\text{Sector area} = \frac{\theta}{360^\circ} \times \pi r^2$$';
+
+        /* Mensuration */
+        if(q.includes('surface area')||q.includes('volume')||q.includes('mensuration'))
+          return '<strong>Mensuration (Class 9–10):</strong><br>'+
+            '<strong>Cube</strong> ($a$): $SA = 6a^2,\; V = a^3$<br>'+
+            '<strong>Cuboid</strong> ($l,b,h$): $SA = 2(lb+bh+hl),\; V = lbh$<br>'+
+            '<strong>Cylinder</strong> ($r,h$): $CSA = 2\pi rh,\; V = \pi r^2 h$<br>'+
+            '<strong>Cone</strong> ($r,h$): $CSA = \pi rl,\; V = \tfrac{1}{3}\pi r^2 h,\; l = \sqrt{r^2+h^2}$<br>'+
+            '<strong>Sphere</strong> ($r$): $SA = 4\pi r^2,\; V = \tfrac{4}{3}\pi r^3$';
+
+        /* Coordinate Geometry */
+        if(q.includes('coordinate')||q.includes('distance formula')||q.includes('section formula')||q.includes('midpoint'))
+          return '<strong>Coordinate Geometry (Class 10):</strong><br>'+
+            '$$\text{Distance} = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$$'+
+            '$$\text{Midpoint} = \left(\frac{x_1+x_2}{2},\, \frac{y_1+y_2}{2}\right)$$'+
+            '$$\text{Section (m:n)} = \left(\frac{mx_2+nx_1}{m+n},\, \frac{my_2+ny_1}{m+n}\right)$$'+
+            '$$\text{Area of } \triangle = \tfrac{1}{2}|x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)|$$';
+
+        /* Statistics (Basic) */
+        if((q.includes('mean')||q.includes('median')||q.includes('mode'))&&(q.includes('class')||q.includes('grouped')||q.includes('statistic')||q.includes('formula')))
+          return '<strong>Statistics (Class 10):</strong><br>'+
+            '$$\bar{x} = \frac{\sum f_i x_i}{\sum f_i}$$'+
+            '$$\text{Median} = l + \frac{\frac{n}{2} - cf}{f} \times h$$'+
+            '$$\text{Mode} = l + \frac{f_1 - f_0}{2f_1 - f_0 - f_2} \times h$$'+
+            '<strong>Empirical relation:</strong> $\text{Mode} = 3\,\text{Median} - 2\,\text{Mean}$';
+
+        /* Basic Probability */
+        if(q.includes('probability')&&!q.includes('bayes')&&!q.includes('conditional')&&!q.includes('class 12')&&!q.includes('class12'))
+          return '<strong>Probability (Class 10):</strong><br>'+
+            '$$P(A) = \frac{\text{Number of favourable outcomes}}{\text{Total outcomes}} = \frac{n(A)}{n(S)}$$'+
+            '$$P(A) + P(\bar{A}) = 1$$'+
+            '$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$'+
+            'For mutually exclusive events: $P(A \cup B) = P(A) + P(B)$';
+
+        /* ════════════ HIGHER MATHEMATICS (Classes XI–XII) ════════════ */
+
+        /* Trigonometry */
+        if(q.includes('trig')||(q.includes('sin')&&q.includes('cos')&&q.includes('formula')))
+          return '<strong>Trigonometric Identities (Class 11):</strong><br>'+
+            '$$\sin^2\theta + \cos^2\theta = 1$$'+
+            '$$1 + \tan^2\theta = \sec^2\theta$$'+
+            '$$1 + \cot^2\theta = \cosec^2\theta$$'+
+            '<strong>Standard Values:</strong><br>'+
+            '$$\sin 30°=\tfrac{1}{2},\; \sin 45°=\tfrac{1}{\sqrt{2}},\; \sin 60°=\tfrac{\sqrt{3}}{2}$$'+
+            '$$\cos 30°=\tfrac{\sqrt{3}}{2},\; \cos 45°=\tfrac{1}{\sqrt{2}},\; \cos 60°=\tfrac{1}{2}$$'+
+            '$$\tan 30°=\tfrac{1}{\sqrt{3}},\; \tan 45°=1,\; \tan 60°=\sqrt{3}$$';
+
+        if(q.includes('compound angle')||(q.includes('addition formula')&&(q.includes('sin')||q.includes('cos'))))
+          return '<strong>Compound Angle Formulas:</strong><br>'+
+            '$$\sin(A+B) = \sin A\cos B + \cos A\sin B$$'+
+            '$$\sin(A-B) = \sin A\cos B - \cos A\sin B$$'+
+            '$$\cos(A+B) = \cos A\cos B - \sin A\sin B$$'+
+            '$$\cos(A-B) = \cos A\cos B + \sin A\sin B$$'+
+            '$$\tan(A+B) = \frac{\tan A+\tan B}{1-\tan A\tan B}$$'+
+            '$$\tan(A-B) = \frac{\tan A-\tan B}{1+\tan A\tan B}$$';
+
+        if(q.includes('double angle'))
+          return '<strong>Double Angle Formulas:</strong><br>'+
+            '$$\sin 2A = 2\sin A\cos A$$'+
+            '$$\cos 2A = \cos^2 A - \sin^2 A = 2\cos^2 A - 1 = 1 - 2\sin^2 A$$'+
+            '$$\tan 2A = \frac{2\tan A}{1-\tan^2 A}$$';
+
+        if(q.includes('inverse trig')||q.includes('inverse trigonometric'))
+          return '<strong>Inverse Trigonometric Functions (Class 12):</strong><br>'+
+            '$$\sin^{-1}(-x) = -\sin^{-1}x,\quad \cos^{-1}(-x) = \pi - \cos^{-1}x$$'+
+            '$$\sin^{-1}x + \cos^{-1}x = \frac{\pi}{2}$$'+
+            '$$\tan^{-1}x + \cot^{-1}x = \frac{\pi}{2}$$'+
+            '$$\tan^{-1}x + \tan^{-1}y = \tan^{-1}\!\left(\frac{x+y}{1-xy}\right),\; xy<1$$';
+
+        /* AP / GP */
+        if(q.includes('arithmetic progression')||q.includes('ap formula'))
+          return '<strong>Arithmetic Progression (AP):</strong><br>'+
+            '$$a_n = a + (n-1)d$$'+
+            '$$S_n = \frac{n}{2}[2a + (n-1)d] = \frac{n}{2}(a + l)$$'+
+            'where $a$ = first term, $d$ = common difference, $l$ = last term.<br>'+
+            '<strong>Sum of first $n$ natural numbers:</strong> $\displaystyle\sum_{k=1}^{n}k = \dfrac{n(n+1)}{2}$<br>'+
+            '<strong>Sum of squares:</strong> $\displaystyle\sum_{k=1}^{n}k^2 = \dfrac{n(n+1)(2n+1)}{6}$<br>'+
+            '<strong>Sum of cubes:</strong> $\displaystyle\sum_{k=1}^{n}k^3 = \left[\dfrac{n(n+1)}{2}\right]^2$';
+
+        if(q.includes('geometric progression')||q.includes('gp formula'))
+          return '<strong>Geometric Progression (GP):</strong><br>'+
+            '$$a_n = ar^{n-1}$$'+
+            '$$S_n = \frac{a(r^n - 1)}{r - 1} \quad (r \ne 1)$$'+
+            '$$S_\infty = \frac{a}{1-r} \quad (|r| < 1)$$'+
+            'where $a$ = first term, $r$ = common ratio.';
+
+        /* Complex Numbers */
+        if(q.includes('complex number')||q.includes('argand'))
+          return '<strong>Complex Numbers (Class 11):</strong><br>'+
+            '$$z = a + bi, \quad i^2 = -1$$'+
+            '$$|z| = \sqrt{a^2+b^2} \quad (\text{Modulus})$$'+
+            '$$\bar{z} = a - bi \quad (\text{Conjugate})$$'+
+            '$$z \cdot \bar{z} = |z|^2$$'+
+            '<strong>Polar form:</strong> $z = r(\cos\theta + i\sin\theta) = re^{i\theta}$<br>'+
+            '<strong>Euler's Formula:</strong> $$e^{i\theta} = \cos\theta + i\sin\theta$$'+
+            '<strong>De Moivre's Theorem:</strong> $$(\cos\theta+i\sin\theta)^n = \cos n\theta + i\sin n\theta$$'+
+            'Powers of $i$: $i^1=i,\; i^2=-1,\; i^3=-i,\; i^4=1$ (cycle of 4)';
+
+        /* Permutation and Combination */
+        if(q.includes('permutation')||q.includes('combination')||q.includes('ncr')||q.includes('npr'))
+          return '<strong>Permutation and Combination (Class 11):</strong><br>'+
+            '$$^nP_r = \frac{n!}{(n-r)!}$$'+
+            '$$^nC_r = \frac{n!}{r!(n-r)!}$$'+
+            '$$^nC_r = ^nC_{n-r}$$'+
+            '$$^nC_r + ^nC_{r-1} = ^{n+1}C_r \quad (\text{Pascal's Identity})$$'+
+            '$$n! = n \times (n-1) \times (n-2) \cdots 1, \quad 0! = 1$$';
+
+        /* Binomial Theorem */
+        if(q.includes('binomial theorem')||q.includes('binomial expansion'))
+          return '<strong>Binomial Theorem (Class 11):</strong><br>'+
+            '$$(a+b)^n = \sum_{r=0}^{n} \binom{n}{r} a^{n-r} b^r$$'+
+            '<strong>General Term:</strong> $T_{r+1} = \binom{n}{r} a^{n-r} b^r$<br>'+
+            '<strong>Middle Term:</strong> If $n$ is even: $T_{n/2+1}$; if $n$ is odd: $T_{(n+1)/2}$ and $T_{(n+3)/2}$<br>'+
+            '<strong>Number of terms:</strong> $n+1$';
+
+        /* Limits */
+        if(q.includes('limit')||q.includes('limits standard'))
+          return '<strong>Standard Limits (Class 11–12):</strong><br>'+
+            '$$\lim_{x \to 0} \frac{\sin x}{x} = 1$$'+
+            '$$\lim_{x \to 0} \frac{\tan x}{x} = 1$$'+
+            '$$\lim_{x \to 0} (1+x)^{1/x} = e$$'+
+            '$$\lim_{x \to 0} \frac{e^x - 1}{x} = 1$$'+
+            '$$\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$$'+
+            '$$\lim_{x \to a} \frac{x^n - a^n}{x - a} = na^{n-1}$$'+
+            '<strong>Continuity:</strong> $f$ is continuous at $a$ if $\displaystyle\lim_{x\to a}f(x)=f(a)$';
+
+        /* Derivatives */
+        if(q.includes('derivative formula')||q.includes('differentiation formula')||q.includes('standard derivative'))
+          return '<strong>Standard Derivatives (Class 11–12):</strong><br>'+
+            '$$\frac{d}{dx}(x^n) = nx^{n-1}$$'+
+            '$$\frac{d}{dx}(\sin x) = \cos x, \quad \frac{d}{dx}(\cos x) = -\sin x$$'+
+            '$$\frac{d}{dx}(\tan x) = \sec^2 x, \quad \frac{d}{dx}(\cot x) = -\cosec^2 x$$'+
+            '$$\frac{d}{dx}(\sec x) = \sec x \tan x, \quad \frac{d}{dx}(\cosec x) = -\cosec x \cot x$$'+
+            '$$\frac{d}{dx}(e^x) = e^x, \quad \frac{d}{dx}(\ln x) = \frac{1}{x}$$'+
+            '$$\frac{d}{dx}(a^x) = a^x \ln a$$'+
+            '$$\frac{d}{dx}(\sin^{-1} x) = \frac{1}{\sqrt{1-x^2}}, \quad \frac{d}{dx}(\tan^{-1} x) = \frac{1}{1+x^2}$$';
+
+        if(q.includes('chain rule'))
+          return '<strong>Chain Rule:</strong><br>If $y = f(g(x))$:$$\frac{dy}{dx} = f'(g(x)) \cdot g'(x)$$<strong>Example:</strong> $\frac{d}{dx}\sin(x^2) = \cos(x^2) \cdot 2x$';
+
+        if(q.includes('product rule'))
+          return '<strong>Product Rule:</strong><br>If $y = u \cdot v$:$$\frac{dy}{dx} = u\frac{dv}{dx} + v\frac{du}{dx}$$';
+
+        if(q.includes('quotient rule'))
+          return '<strong>Quotient Rule:</strong><br>If $y = \dfrac{u}{v}$:$$\frac{dy}{dx} = \frac{v\dfrac{du}{dx} - u\dfrac{dv}{dx}}{v^2}$$';
+
+        if(q.includes('increasing')||q.includes('decreasing')||(q.includes('application')&&q.includes('derivative')))
+          return '<strong>Applications of Derivatives (Class 12):</strong><br>'+
+            '&bull; $f'(x)>0$ in $(a,b)$ &rarr; $f$ is <strong>increasing</strong> on $(a,b)$<br>'+
+            '&bull; $f'(x)<0$ in $(a,b)$ &rarr; $f$ is <strong>decreasing</strong> on $(a,b)$<br>'+
+            '&bull; $f'(c)=0$ &rarr; critical point at $x=c$<br>'+
+            '<strong>Second Derivative Test:</strong><br>'+
+            '$$f''(c)<0 \Rightarrow \text{local maximum}$$$$f''(c)>0 \Rightarrow \text{local minimum}$$'+
+            '<strong>Tangent at $(x_1,y_1)$:</strong> $y - y_1 = m(x-x_1)$ where $m=f'(x_1)$<br>'+
+            '<strong>Normal:</strong> slope $= -\dfrac{1}{f'(x_1)}$';
+
+        /* Integrals */
+        if(q.includes('integration formula')||q.includes('integral formula')||q.includes('standard integral'))
+          return '<strong>Standard Integrals (Class 12):</strong><br>'+
+            '$$\int x^n\,dx = \frac{x^{n+1}}{n+1} + C \quad (n \ne -1)$$'+
+            '$$\int \frac{1}{x}\,dx = \ln|x| + C$$'+
+            '$$\int e^x\,dx = e^x + C, \quad \int a^x\,dx = \frac{a^x}{\ln a} + C$$'+
+            '$$\int \sin x\,dx = -\cos x + C, \quad \int \cos x\,dx = \sin x + C$$'+
+            '$$\int \sec^2 x\,dx = \tan x + C, \quad \int \cosec^2 x\,dx = -\cot x + C$$'+
+            '$$\int \frac{1}{\sqrt{1-x^2}}\,dx = \sin^{-1}x + C$$'+
+            '$$\int \frac{1}{1+x^2}\,dx = \tan^{-1}x + C$$'+
+            '$$\int \frac{1}{\sqrt{x^2-a^2}}\,dx = \ln\left|x+\sqrt{x^2-a^2}\right|+C$$';
+
+        if(q.includes('by parts')||q.includes('integration by parts'))
+          return '<strong>Integration by Parts (ILATE Rule, Class 12):</strong><br>'+
+            '$$\int u\cdot v\,dx = u\int v\,dx - \int\left(\frac{du}{dx}\cdot\int v\,dx\right)dx$$'+
+            '<strong>ILATE preference order:</strong><br>'+
+            'I &rarr; Inverse trig &nbsp; L &rarr; Logarithm &nbsp; A &rarr; Algebraic<br>T &rarr; Trigonometric &nbsp; E &rarr; Exponential<br>'+
+            '<strong>Example:</strong> $\int x e^x dx = xe^x - e^x + C$';
+
+        if(q.includes('definite integral')||q.includes('fundamental theorem'))
+          return '<strong>Definite Integrals (Class 12):</strong><br>'+
+            '$$\int_a^b f(x)\,dx = F(b) - F(a)$$where $F'(x)=f(x)$ (Fundamental Theorem of Calculus).<br>'+
+            '<strong>Properties:</strong><br>'+
+            '$$\int_a^b f(x)\,dx = -\int_b^a f(x)\,dx$$'+
+            '$$\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx$$'+
+            '$$\int_0^{2a}f(x)\,dx = 2\int_0^a f(x)\,dx \text{ if } f(2a-x)=f(x)$$';
+
+        /* Matrices */
+        if(q.includes('matri')||q.includes('matrices formula'))
+          return '<strong>Matrices (Class 12):</strong><br>'+
+            '&bull; Symmetric: $A^T = A$ &nbsp;&nbsp; Skew-symmetric: $A^T = -A$<br>'+
+            '<strong>For $2 \times 2$ matrix $\begin{bmatrix}a&b\\c&d\end{bmatrix}$:</strong><br>'+
+            '$$\det(A) = ad - bc$$'+
+            '$$A^{-1} = \frac{1}{\det A}\begin{bmatrix}d & -b \\ -c & a\end{bmatrix}$$'+
+            '$(AB)^T = B^T A^T$, &nbsp; $(AB)^{-1} = B^{-1}A^{-1}$<br>'+
+            '<strong>Cayley-Hamilton:</strong> Every matrix satisfies its own characteristic equation.';
+
+        if(q.includes('determinant'))
+          return '<strong>Determinants (Class 12):</strong><br>'+
+            '$$|A| = \begin{vmatrix}a&b\\c&d\end{vmatrix} = ad - bc$$'+
+            '$$A^{-1} = \frac{\text{adj}(A)}{|A|}, \quad |A| \ne 0$$'+
+            '$$|AB| = |A||B|$$'+
+            '&bull; If two rows are identical, $|A|=0$.<br>'+
+            '&bull; $|A^T| = |A|$<br>'+
+            '<strong>Cramer's Rule:</strong> $x = \dfrac{D_1}{D},\; y = \dfrac{D_2}{D}$';
+
+        /* Eigenvalues */
+        if(q.includes('eigenvalue')||q.includes('eigenvector')||q.includes('characteristic equation'))
+          return '<strong>Eigenvalues and Eigenvectors:</strong><br>'+
+            'For matrix $A$, eigenvalue $\lambda$ satisfies:$$\det(A - \lambda I) = 0$$The resulting polynomial in $\lambda$ is the <strong>characteristic equation</strong>.<br>'+
+            'Eigenvector $\mathbf{v}$ satisfies:$$(A - \lambda I)\mathbf{v} = \mathbf{0}$$'+
+            '<strong>Trace:</strong> $\text{tr}(A) = \sum \lambda_i$ &nbsp;&nbsp; <strong>Det:</strong> $|A| = \prod \lambda_i$<br>'+
+            '<em>Cayley-Hamilton:</em> $A$ satisfies $p(A)=0$ where $p(\lambda)=\det(A-\lambda I)$.';
+
+        /* Vectors */
+        if(q.includes('vector formula')||(q.includes('vector')&&(q.includes('formula')||q.includes('product'))))
+          return '<strong>Vectors (Class 12):</strong><br>'+
+            '$$|\vec{a}| = \sqrt{a_1^2+a_2^2+a_3^2}$$'+
+            '$$\vec{a}\cdot\vec{b} = |\vec{a}||\vec{b}|\cos\theta = a_1b_1+a_2b_2+a_3b_3$$'+
+            '$$|\vec{a}\times\vec{b}| = |\vec{a}||\vec{b}|\sin\theta$$'+
+            '&bull; Perpendicular: $\vec{a}\cdot\vec{b}=0$ &nbsp;&nbsp; Parallel: $\vec{a}\times\vec{b}=\vec{0}$<br>'+
+            '$$\text{Projection of }\vec{a}\text{ on }\vec{b} = \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|}$$';
+
+        /* 3D Geometry */
+        if(q.includes('3d geometry')||q.includes('direction cosine')||q.includes('direction ratio'))
+          return '<strong>3D Geometry (Class 12):</strong><br>'+
+            '$$l^2 + m^2 + n^2 = 1 \quad (\text{direction cosines})$$'+
+            '$$d = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$$'+
+            '<strong>Line (symmetric form):</strong> $\dfrac{x-x_1}{a}=\dfrac{y-y_1}{b}=\dfrac{z-z_1}{c}$<br>'+
+            '<strong>Plane:</strong> $ax+by+cz+d=0$<br>'+
+            '$$\text{Distance from point to plane} = \frac{|ax_1+by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}$$';
+
+        /* LPP */
+        if(q.includes('linear programming')||q.includes('lpp')||q.includes('feasible region'))
+          return '<strong>Linear Programming (Class 12):</strong><br>'+
+            'Optimise $Z = ax + by$ subject to constraints $a_ix+b_iy \le c_i$.<br>'+
+            '<strong>Steps:</strong> 1. Write constraints &rarr; 2. Plot feasible region &rarr; 3. Find corner points &rarr; 4. Evaluate $Z$ at each corner.<br>'+
+            'The optimal value of $Z$ always occurs at a <strong>corner (vertex)</strong> of the feasible region.';
+
+        /* Probability Advanced */
+        if(q.includes('probability formula')||q.includes('bayes')||q.includes('conditional probability')||(q.includes('probability')&&q.includes('formula')))
+          return '<strong>Advanced Probability (Class 12):</strong><br>'+
+            '$$P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) \ne 0$$'+
+            '<strong>Bayes' Theorem:</strong>$$P(A_i|B) = \frac{P(A_i)\cdot P(B|A_i)}{\displaystyle\sum_{j}P(A_j)\cdot P(B|A_j)}$$'+
+            '<strong>Binomial Distribution:</strong>$$P(X=r) = \binom{n}{r}p^r q^{n-r}$$'+
+            'Mean $= np$, &nbsp; Variance $= npq$, &nbsp; SD $= \sqrt{npq}$';
+
+        /* Differential Equations */
+        if(q.includes('differential equation')||q.includes('diff. equation')||q.includes('diff equation'))
+          return '<strong>Differential Equations (Class 12):</strong><br>'+
+            '<strong>Order:</strong> highest derivative present. <strong>Degree:</strong> power of highest derivative.<br>'+
+            '<strong>Variable Separable:</strong> $\frac{dy}{dx}=f(x)g(y)$<br>'+
+            '$$\int \frac{dy}{g(y)} = \int f(x)\,dx + C$$'+
+            '<strong>Linear 1st-order:</strong> $\frac{dy}{dx} + Py = Q$<br>'+
+            '$$\text{IF} = e^{\int P\,dx}, \quad y\cdot\text{IF} = \int Q\cdot\text{IF}\,dx + C$$';
+
+        /* Relations and Functions */
+        if((q.includes('relation')||q.includes('function'))&&(q.includes('one-one')||q.includes('onto')||q.includes('bijective')||q.includes('type')))
+          return '<strong>Relations and Functions (Class 12):</strong><br>'+
+            '&bull; <strong>One-one (Injective):</strong> $f(a)=f(b) \Rightarrow a=b$<br>'+
+            '&bull; <strong>Onto (Surjective):</strong> Range $=$ Codomain<br>'+
+            '&bull; <strong>Bijective:</strong> both one-one and onto<br>'+
+            '&bull; <strong>Reflexive:</strong> $(a,a)\in R$ for all $a$<br>'+
+            '&bull; <strong>Symmetric:</strong> $(a,b)\in R \Rightarrow (b,a)\in R$<br>'+
+            '&bull; <strong>Transitive:</strong> $(a,b),(b,c)\in R \Rightarrow (a,c)\in R$<br>'+
+            'Equivalence relation = Reflexive + Symmetric + Transitive';
+
+        /* Straight Lines */
+        if(q.includes('straight line')||(q.includes('slope')&&q.includes('line')))
+          return '<strong>Straight Lines (Class 11):</strong><br>'+
+            '$$\text{Slope} = m = \tan\theta = \frac{y_2-y_1}{x_2-x_1}$$'+
+            '<strong>Forms:</strong><br>'+
+            'Slope-intercept: $y = mx + c$<br>'+
+            'Point-slope: $y-y_1 = m(x-x_1)$<br>'+
+            'Two-point: $\dfrac{y-y_1}{y_2-y_1} = \dfrac{x-x_1}{x_2-x_1}$<br>'+
+            'Intercept form: $\dfrac{x}{a}+\dfrac{y}{b}=1$<br>'+
+            '$$d = \frac{|ax_1+by_1+c|}{\sqrt{a^2+b^2}} \quad (\text{distance from point to line})$$';
+
+        /* Conic sections */
+        if(q.includes('conic')||q.includes('parabola')||q.includes('ellipse')||q.includes('hyperbola'))
+          return '<strong>Conic Sections (Class 11):</strong><br>'+
+            '<strong>Circle:</strong> $(x-h)^2+(y-k)^2=r^2$<br>'+
+            '<strong>Parabola:</strong> $y^2=4ax$ (focus $(a,0)$, directrix $x=-a$)<br>'+
+            '<strong>Ellipse:</strong> $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\; a>b>0$<br>'+
+            '$c^2=a^2-b^2,\;$ Eccentricity $e=\dfrac{c}{a}<1$<br>'+
+            '<strong>Hyperbola:</strong> $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$<br>'+
+            '$c^2=a^2+b^2,\;$ Eccentricity $e=\dfrac{c}{a}>1$';
+
+        /* ════════════ HIGHER / UNIVERSITY-LEVEL MATHEMATICS ════════════ */
+
+        /* Taylor / Maclaurin */
+        if(q.includes('taylor')||q.includes('maclaurin'))
+          return '<strong>Taylor & Maclaurin Series:</strong><br>'+
+            '<strong>Taylor series</strong> of $f(x)$ about $x=a$:'+
+            '$$f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n$$'+
+            '<strong>Maclaurin series</strong> (about $x=0$):'+
+            '$$e^x = \sum_{n=0}^{\infty}\frac{x^n}{n!} = 1+x+\frac{x^2}{2!}+\cdots$$'+
+            '$$\sin x = x - \frac{x^3}{3!}+\frac{x^5}{5!}-\cdots$$'+
+            '$$\cos x = 1 - \frac{x^2}{2!}+\frac{x^4}{4!}-\cdots$$'+
+            '$$\ln(1+x) = x - \frac{x^2}{2}+\frac{x^3}{3}-\cdots \quad |x|\le 1$$';
+
+        /* L'Hopital */
+        if(q.includes("l'hopital")||q.includes('lhopital')||q.includes("l'hôpital"))
+          return '<strong>L'H&ocirc;pital's Rule:</strong><br>'+
+            'If $\displaystyle\lim_{x\to a}\frac{f(x)}{g(x)}$ gives $\frac{0}{0}$ or $\frac{\infty}{\infty}$, then:'+
+            '$$\lim_{x\to a}\frac{f(x)}{g(x)} = \lim_{x\to a}\frac{f'(x)}{g'(x)}$$provided the right-side limit exists. Can be applied repeatedly.';
+
+        /* Fourier */
+        if(q.includes('fourier'))
+          return '<strong>Fourier Series:</strong><br>'+
+            'For a periodic function $f(x)$ with period $2L$:'+
+            '$$f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos\frac{n\pi x}{L} + b_n\sin\frac{n\pi x}{L}\right)$$'+
+            '$$a_0 = \frac{1}{L}\int_{-L}^{L}f(x)\,dx$$'+
+            '$$a_n = \frac{1}{L}\int_{-L}^{L}f(x)\cos\frac{n\pi x}{L}\,dx$$'+
+            '$$b_n = \frac{1}{L}\int_{-L}^{L}f(x)\sin\frac{n\pi x}{L}\,dx$$';
+
+        /* Laplace */
+        if(q.includes('laplace'))
+          return '<strong>Laplace Transform:</strong><br>'+
+            '$$\mathcal{L}\{f(t)\} = F(s) = \int_0^{\infty} e^{-st}f(t)\,dt$$'+
+            '<strong>Standard Transforms:</strong><br>'+
+            '$$\mathcal{L}\{1\}=\frac{1}{s},\quad \mathcal{L}\{t^n\}=\frac{n!}{s^{n+1}}$$'+
+            '$$\mathcal{L}\{e^{at}\}=\frac{1}{s-a},\quad \mathcal{L}\{\sin at\}=\frac{a}{s^2+a^2}$$'+
+            '$$\mathcal{L}\{\cos at\}=\frac{s}{s^2+a^2}$$'+
+            '<strong>Inverse:</strong> $f(t) = \mathcal{L}^{-1}\{F(s)\}$<br>'+
+            'Used to solve linear ODEs with constant coefficients.';
+
+        /* Real Analysis */
+        if(q.includes('real analysis')||q.includes('epsilon delta')||q.includes('cauchy'))
+          return '<strong>Real Analysis:</strong><br>'+
+            '<strong>Epsilon-Delta Definition of Limit:</strong>'+
+            '$$\lim_{x\to a}f(x)=L \iff \forall\,\varepsilon>0,\;\exists\,\delta>0: 0<|x-a|<\delta \Rightarrow |f(x)-L|<\varepsilon$$'+
+            '<strong>Cauchy Sequence:</strong> $(a_n)$ is Cauchy if $\forall\,\varepsilon>0,\;\exists\,N: m,n>N \Rightarrow |a_m-a_n|<\varepsilon$<br>'+
+            'Every Cauchy sequence in $\mathbb{R}$ converges (Completeness of $\mathbb{R}$).<br>'+
+            '<strong>Bolzano-Weierstrass:</strong> Every bounded sequence has a convergent subsequence.';
+
+        /* Complex Analysis */
+        if(q.includes('complex analysis')||q.includes('analytic function')||q.includes('cauchy riemann'))
+          return '<strong>Complex Analysis:</strong><br>'+
+            '<strong>Cauchy-Riemann Equations</strong> (for $f=u+iv$ to be analytic):'+
+            '$$\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}$$'+
+            '<strong>Cauchy's Integral Formula:</strong>$$f(a) = \frac{1}{2\pi i}\oint_C \frac{f(z)}{z-a}\,dz$$'+
+            '<strong>Residue Theorem:</strong>$$\oint_C f(z)\,dz = 2\pi i \sum \text{Res}(f,a_k)$$';
+
+        /* Group Theory */
+        if(q.includes('group theory')||q.includes('abelian group')||q.includes('group axiom'))
+          return '<strong>Group Theory (Abstract Algebra):</strong><br>'+
+            'A <strong>Group</strong> $(G, *)$ satisfies:<br>'+
+            '&bull; <strong>Closure:</strong> $a,b\in G \Rightarrow a*b \in G$<br>'+
+            '&bull; <strong>Associativity:</strong> $(a*b)*c = a*(b*c)$<br>'+
+            '&bull; <strong>Identity:</strong> $\exists\, e \in G: a*e = e*a = a$<br>'+
+            '&bull; <strong>Inverse:</strong> $\forall\, a\in G,\; \exists\, a^{-1}: a*a^{-1}=e$<br>'+
+            'If also $a*b=b*a$, the group is <strong>Abelian</strong>.<br>'+
+            '<strong>Lagrange's Theorem:</strong> If $H$ is a subgroup of finite group $G$, then $|H|$ divides $|G|$.';
+
+        /* Numerical Methods */
+        if(q.includes('numerical method')||q.includes('newton raphson')||q.includes('bisection'))
+          return '<strong>Numerical Methods:</strong><br>'+
+            '<strong>Newton-Raphson Method:</strong>$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$'+
+            '<strong>Bisection Method:</strong> If $f(a)\cdot f(b)<0$, root lies in $(a,b)$. Take midpoint $c=\frac{a+b}{2}$.<br>'+
+            '<strong>Trapezoidal Rule:</strong>$$\int_a^b f(x)\,dx \approx \frac{h}{2}[f(x_0)+2f(x_1)+\cdots+2f(x_{n-1})+f(x_n)]$$'+
+            '<strong>Simpson's $\frac{1}{3}$ Rule:</strong>$$\int_a^b f(x)\,dx \approx \frac{h}{3}[f(x_0)+4f(x_1)+2f(x_2)+\cdots+f(x_n)]$$';
+
+        /* Euler identity */
+        if(q.includes('euler')&&q.includes('formula'))
+          return '<strong>Euler's Formulas:</strong><br>'+
+            '$$e^{i\theta} = \cos\theta + i\sin\theta$$'+
+            '<strong>Euler's Identity</strong> (the most beautiful equation):$$e^{i\pi} + 1 = 0$$This connects $e,\, i,\, \pi,\, 1,\, 0$ in one equation.';
+
+        /* Site navigation */
+        if(q.includes('syllabus')) return 'View CBSE syllabus: '+lk('syllabus.html','Syllabus Portal');
+        if(q.includes('ioqm')||q.includes('olympiad')) return 'IOQM preparation: '+lk('ioqm.html','IOQM Prep Hub');
+        if(q.includes('exam')||q.includes('question paper')) return 'Question papers: '+lk('examination.html','Examinations Portal');
+        if(q.includes('lesson plan')) return 'Lesson plans: '+lk('lessonplan.html','Lesson Plans Vault');
+        if(q.includes('simulation')||q.includes('geogebra')) return 'Simulation tools: '+lk('simulations.html','Math Simulation Hub');
+
+        /* No stored answer → trigger online fallback */
+        return 'I have no stored answer for <strong>'+query+'</strong>.';
+      }
+
+      /* ── Quadratic Solver (LaTeX output) ── */
+      function solveQ(eq){
+        var s = eq.replace(/s+/g,'').replace(/x2/g,'x^2').replace(/²/g,'^2');
+        s = s.replace(/(^|[+-])x^2/,'$11x^2').replace(/([+-])x([+-=]|$)/,'$11x$2');
+        if(s.charAt(0)==='x') s='1'+s;
+        var m=s.match(/(-?d+(?:.d+)?)x^2(?:([+-]d+(?:.d+)?)x)?(?:([+-]d+(?:.d+)?))?(?:=0)?/);
+        if(!m) return null;
+        var a=parseFloat(m[1]),b=m[2]?parseFloat(m[2]):0,c=m[3]?parseFloat(m[3]):0;
+        if(!a) return null;
+        var D=b*b-4*a*c;
+        var out='<strong>Quadratic Equation Solved:</strong><br>'+
+          '$$'+a+'x^2 '+(b>=0?'+':'')+b+'x '+(c>=0?'+':'')+c+' = 0$$'+
+          '$$D = b^2-4ac = '+(b*b)+'-'+(4*a*c)+' = '+D+'$$<br>';
+        if(D>0){
+          out+='Two distinct real roots:<br>'+
+            '$$x_1 = \frac{'+ -b+'+\sqrt{'+D+'}}{'+2*a+'} = '+(((-b+Math.sqrt(D))/(2*a)).toFixed(4))+'$$'+
+            '$$x_2 = \frac{'+ -b+'-\sqrt{'+D+'}}{'+2*a+'} = '+(((-b-Math.sqrt(D))/(2*a)).toFixed(4))+'$$';
+        } else if(D===0){
+          out+='Equal (repeated) roots:<br>$$x = -\frac{b}{2a} = '+(-b/(2*a)).toFixed(4)+'$$';
+        } else {
+          var re=(-b/(2*a)).toFixed(4), im=(Math.sqrt(-D)/(2*a)).toFixed(4);
+          out+='Complex (imaginary) roots:<br>$$x_1 = '+re+' + '+im+'i$$$$x_2 = '+re+' - '+im+'i$$';
+        }
+        out+='<small style="color:rgba(255,255,255,0.5);">Sum of roots $= '+(-b/a).toFixed(4)+'$, Product $= '+(c/a).toFixed(4)+'$</small>';
+        return out;
+      }
+    }); /* DOMContentLoaded */
+  })(); /* IIFE */
+  </script>
   <script>
   (function(){
     document.addEventListener('DOMContentLoaded', function() {
@@ -5380,15 +6225,16 @@
       let activeClass = '10';
       let quizData = null;
       let qIndex = 0;
-      let userScore = 0; // Number of correct answers (0-5)
-      let userPoints = 0; // Total points accumulator (+20 for correct, -10 for wrong)
+      let userScore = 0;
+      let userPoints = 0;
       let wrongCount = 0;
       let timerInterval = null;
+      let heartbeatInterval = null;
       let timeLeft = 45;
       let missedTopics = [];
       let isPracticeMode = false;
+      let classAttemptsMap = { '6': 18, '7': 24, '8': 30, '9': 45, '10': 78, '11': 52, '12': 64 };
 
-      // Unique user persistent token
       let userUUID = localStorage.getItem('dq_user_uuid');
       if (!userUUID) {
         userUUID = 'usr_' + Math.random().toString(36).substring(2, 9) + Date.now();
@@ -5401,44 +6247,56 @@
         if (xpEl) xpEl.textContent = Number(total).toLocaleString('en-IN');
       }
 
-      function updateParticipantUI(todayCount, totalCount) {
+      function updateParticipantUI(liveActive, todayCount, totalCount, classAttempts) {
+        const liveEl = document.getElementById('dqLiveActiveNow');
         const dailyEl = document.getElementById('dqDailyParticipants');
         const totalEl = document.getElementById('dqTotalParticipants');
-        if (dailyEl) dailyEl.textContent = Number(todayCount).toLocaleString('en-IN') + ' Quiz Takers';
-        if (totalEl) totalEl.textContent = Number(totalCount).toLocaleString('en-IN') + ' Quiz Takers';
+        
+        if (liveEl) liveEl.textContent = Number(liveActive || 5).toLocaleString('en-IN');
+        if (dailyEl) dailyEl.textContent = Number(todayCount || 14).toLocaleString('en-IN') + ' Quiz Takers';
+        if (totalEl) totalEl.textContent = Number(totalCount || 312).toLocaleString('en-IN') + ' Attempts';
+        
+        if (classAttempts && typeof classAttempts === 'object') {
+          classAttemptsMap = Object.assign({}, classAttemptsMap, classAttempts);
+        }
         updateLifetimeXPUI();
+        renderClassSelectionGrid();
       }
 
-      function loadParticipants(shouldIncrement) {
+      function loadParticipants(actionType) {
+        actionType = actionType || 'info';
         if (window.location.protocol === 'file:') {
           const localDaily = parseInt(localStorage.getItem('dq_today_participants') || '38', 10);
           const localTotal = parseInt(localStorage.getItem('dq_total_participants') || '985', 10);
-          updateParticipantUI(localDaily, localTotal);
+          updateParticipantUI(4, localDaily, localTotal, classAttemptsMap);
           return;
         }
 
-        const url = shouldIncrement 
-          ? `/api/quiz-participants?inc=true&userId=${encodeURIComponent(userUUID)}` 
-          : `/api/quiz-participants?userId=${encodeURIComponent(userUUID)}`;
+        let url = '/api/quiz-participants?userId=' + encodeURIComponent(userUUID) + '&class=' + encodeURIComponent(activeClass);
+        if (actionType === 'attempt') {
+          url += '&action=attempt';
+        } else if (actionType === 'heartbeat') {
+          url += '&action=heartbeat';
+        } else if (actionType === 'leave') {
+          url += '&action=leave';
+        }
 
         fetch(url)
-          .then(res => {
+          .then(function(res) {
             if (!res.ok) throw new Error('Network error');
-            const ct = res.headers.get('content-type') || '';
-            if (!ct.includes('application/json')) throw new Error('Not JSON response');
             return res.json();
           })
-          .then(data => {
+          .then(function(data) {
             if (data && typeof data.todayParticipants === 'number') {
               localStorage.setItem('dq_today_participants', data.todayParticipants);
               localStorage.setItem('dq_total_participants', data.totalParticipants);
-              updateParticipantUI(data.todayParticipants, data.totalParticipants);
+              updateParticipantUI(data.activeNow, data.todayParticipants, data.totalParticipants, data.classAttempts);
             }
           })
-          .catch(() => {
+          .catch(function() {
             const localDaily = parseInt(localStorage.getItem('dq_today_participants') || '38', 10);
             const localTotal = parseInt(localStorage.getItem('dq_total_participants') || '985', 10);
-            updateParticipantUI(localDaily, localTotal);
+            updateParticipantUI(4, localDaily, localTotal, classAttemptsMap);
           });
       }
 
@@ -5451,7 +6309,7 @@
 
       function getTodayKey(cls) {
         const todayStr = new Date().toISOString().split('T')[0];
-        return `dq_attempt_${todayStr}_cls_${cls || activeClass}`;
+        return 'dq_attempt_' + todayStr + '_cls_' + (cls || activeClass);
       }
 
       function checkExistingDailyAttempt(cls) {
@@ -5467,46 +6325,98 @@
         return null;
       }
 
-      function initDailyQuiz(cls, forcePractice = false) {
+      function renderClassSelectionGrid() {
+        const gridEl = document.getElementById('dqClassGrid');
+        if (!gridEl) return;
+
+        const classes = ['6', '7', '8', '9', '10', '11', '12'];
+        gridEl.innerHTML = '';
+
+        classes.forEach(function(cls) {
+          const attempt = checkExistingDailyAttempt(cls);
+          const isDone = !!attempt;
+          const isActive = cls === activeClass;
+          const count = classAttemptsMap[cls] || 15;
+
+          const card = document.createElement('div');
+          card.className = 'dq-class-card ' + (isActive ? 'active' : '') + ' ' + (isDone ? 'completed' : '');
+          card.setAttribute('data-class', cls);
+          card.innerHTML = 
+            '<div class="dq-class-num"><i class="fas ' + (isActive ? 'fa-star' : (isDone ? 'fa-check-circle' : 'fa-graduation-cap')) + '"></i> Class ' + cls + '</div>' +
+            '<div class="dq-class-badge ' + (isDone ? 'done' : 'ready') + '">' + (isDone ? '✓ Completed Today' : '⚡ Ready') + '</div>' +
+            '<div style="font-size: 0.75rem; color: #64748b; margin-top: 6px; font-weight: 700;">' + count + ' Attempts</div>';
+
+          card.onclick = function() { selectClass(cls); };
+          gridEl.appendChild(card);
+        });
+
+        updateStartAreaUI();
+      }
+
+      function selectClass(cls) {
         activeClass = cls || '10';
+        renderClassSelectionGrid();
+      }
+
+      function updateStartAreaUI() {
+        const attempt = checkExistingDailyAttempt(activeClass);
+        const startBtnText = document.getElementById('dqStartBtnText');
+        const startBtn = document.getElementById('dqStartQuizBtn');
+        const noticeBanner = document.getElementById('dqClassNoticeBanner');
+        const noticeTitle = document.getElementById('dqNoticeTitle');
+        const noticeDesc = document.getElementById('dqNoticeDesc');
+        const practiceWrap = document.getElementById('dqPracticeLinkWrap');
+
+        if (attempt) {
+          if (noticeBanner) noticeBanner.style.display = 'block';
+          if (noticeTitle) noticeTitle.textContent = 'Class ' + activeClass + ' Daily Quiz Attempt Completed Today!';
+          if (noticeDesc) noticeDesc.textContent = 'You earned ' + (attempt.userPoints || 0) + ' PTS (' + (attempt.userScore || 0) + '/5 correct). Daily limit is 1 official attempt per class per day!';
+
+          if (startBtnText) startBtnText.textContent = 'View Saved Result for Class ' + activeClass;
+          if (startBtn) startBtn.style.background = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
+          if (practiceWrap) practiceWrap.style.display = 'block';
+        } else {
+          if (noticeBanner) noticeBanner.style.display = 'none';
+          if (startBtnText) startBtnText.textContent = 'Start Class ' + activeClass + ' Quiz Arena';
+          if (startBtn) startBtn.style.background = 'linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)';
+          if (practiceWrap) practiceWrap.style.display = 'none';
+        }
+      }
+
+      function startQuizArena(forcePractice) {
+        forcePractice = !!forcePractice;
         isPracticeMode = forcePractice;
+
+        if (!isPracticeMode) {
+          const pastAttempt = checkExistingDailyAttempt(activeClass);
+          if (pastAttempt) {
+            document.getElementById('dqStartCardContainer').style.display = 'none';
+            displayCompletedDailyCard(pastAttempt);
+            return;
+          }
+        }
+
         qIndex = 0;
         userScore = 0;
         userPoints = 0;
         wrongCount = 0;
         missedTopics = [];
         clearInterval(timerInterval);
+        clearInterval(heartbeatInterval);
 
-        // Load participants & XP count
-        loadParticipants(false);
-
-        // Update active class tab UI
-        document.querySelectorAll('.dq-tab-btn').forEach(btn => {
-          if (btn.getAttribute('data-class') === activeClass) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        });
-
-        // If NOT forcing practice mode, check if user has already completed today's official quiz
-        if (!isPracticeMode) {
-          const pastAttempt = checkExistingDailyAttempt(activeClass);
-          if (pastAttempt) {
-            displayCompletedDailyCard(pastAttempt);
-            return;
-          }
-        }
-
-        // Reset Live Points Display & Progress
         const livePtsEl = document.getElementById('dqLivePoints');
         if (livePtsEl) livePtsEl.textContent = '0';
         const progFill = document.getElementById('dqProgressBar');
         if (progFill) progFill.style.width = '0%';
 
-        // Hide score card, show quiz container
+        document.getElementById('dqStartCardContainer').style.display = 'none';
         document.getElementById('dqScoreContainer').style.display = 'none';
         document.getElementById('dqQuizContainer').style.display = 'block';
+
+        loadParticipants('heartbeat');
+        heartbeatInterval = setInterval(function() {
+          loadParticipants('heartbeat');
+        }, 10000);
 
         if (window.location.protocol === 'file:') {
           quizData = getQuizData(activeClass);
@@ -5514,15 +6424,14 @@
           return;
         }
 
-        // Try API fetch first, fallback to JS database
-        fetch(`/api/daily-quiz?class=${activeClass}`)
-          .then(res => {
+        fetch('/api/daily-quiz?class=' + encodeURIComponent(activeClass))
+          .then(function(res) {
             if (!res.ok) throw new Error('Network error');
             const ct = res.headers.get('content-type') || '';
             if (!ct.includes('application/json')) throw new Error('Not JSON response');
             return res.json();
           })
-          .then(data => {
+          .then(function(data) {
             if (data && data.quiz) {
               quizData = data;
             } else {
@@ -5530,52 +6439,54 @@
             }
             renderHeaderAndQuestion();
           })
-          .catch(() => {
+          .catch(function() {
             quizData = getQuizData(activeClass);
             renderHeaderAndQuestion();
           });
       }
 
       function displayCompletedDailyCard(attempt) {
+        clearInterval(heartbeatInterval);
+        loadParticipants('leave');
+
+        document.getElementById('dqStartCardContainer').style.display = 'none';
         document.getElementById('dqQuizContainer').style.display = 'none';
         document.getElementById('dqScoreContainer').style.display = 'block';
 
         const statusBanner = document.getElementById('dqDailyStatusBanner');
         if (statusBanner) {
           statusBanner.style.display = 'block';
-          statusBanner.innerHTML = `<i class="fas fa-lock" style="margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today (Class ${activeClass})!`;
+          statusBanner.innerHTML = '<i class="fas fa-lock" style="margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today (Class ' + activeClass + ')!';
         }
 
         const pts = attempt.userPoints || 0;
         const score = attempt.userScore || 0;
         const wrg = attempt.wrongCount || 0;
 
-        // Stars calculation
         let stars = '';
-        if (pts >= 100) stars = 'â­â­â­';
-        else if (pts >= 70) stars = 'â­â­';
-        else if (pts >= 40) stars = 'â­';
-        else stars = 'ðŸ“';
+        if (pts >= 100) stars = '⭐⭐⭐';
+        else if (pts >= 70) stars = '⭐⭐';
+        else if (pts >= 40) stars = '⭐';
+        else stars = '📝';
 
         document.getElementById('dqStars').textContent = stars;
 
-        // Rank Badge
-        let rankBadge = attempt.rankBadge || 'ðŸ’Ž Diamond Math Master';
+        let rankBadge = attempt.rankBadge || '💎 Diamond Math Master';
         if (!rankBadge) {
-          if (pts >= 100) rankBadge = 'ðŸ’Ž Diamond Math Master (+100 PTS Perfect!)';
-          else if (pts >= 70) rankBadge = 'ðŸ¥‡ Gold Math Scholar';
-          else if (pts >= 40) rankBadge = 'ðŸ¥ˆ Silver Math Explorer';
-          else if (pts >= 10) rankBadge = 'ðŸ¥‰ Bronze Math Achiever';
-          else rankBadge = 'ðŸ“š Math Apprentice';
+          if (pts >= 100) rankBadge = '💎 Diamond Math Master (+100 PTS Perfect!)';
+          else if (pts >= 70) rankBadge = '🥇 Gold Math Scholar';
+          else if (pts >= 40) rankBadge = '🥈 Silver Math Explorer';
+          else if (pts >= 10) rankBadge = '🥉 Bronze Math Achiever';
+          else rankBadge = '📚 Math Apprentice';
         }
         document.getElementById('dqRankBadge').textContent = rankBadge;
 
         document.getElementById('dqScoreTitle').textContent = pts > 50 ? "Official Attempt Saved!" : "Practice & Improve!";
         document.getElementById('dqFinalPointsText').textContent = (pts >= 0 ? '+' : '') + pts + ' PTS';
-        document.getElementById('dqCorrectCountText').textContent = `${score} / 5 (+${score * 20})`;
-        document.getElementById('dqWrongCountText').textContent = `${wrg} (-${wrg * 10})`;
+        document.getElementById('dqCorrectCountText').textContent = score + ' / 5 (+' + (score * 20) + ')';
+        document.getElementById('dqWrongCountText').textContent = wrg + ' (-' + (wrg * 10) + ')';
         document.getElementById('dqAccuracyText').textContent = Math.round((score / 5) * 100) + '%';
-        document.getElementById('dqSuggestedRevision').textContent = (attempt.recTopic || "NCERT Practice & Revision") + ` (CBSE Class ${activeClass})`;
+        document.getElementById('dqSuggestedRevision').textContent = (attempt.recTopic || "NCERT Practice & Revision") + ' (CBSE Class ' + activeClass + ')';
 
         if (window.MathJax && window.MathJax.typesetPromise) {
           window.MathJax.typesetPromise();
@@ -5585,7 +6496,6 @@
       function renderHeaderAndQuestion() {
         if (!quizData) return;
 
-        // Render Formula of the Day using innerHTML for proper LaTeX rendering
         const f = quizData.formula_of_the_day || {};
         document.getElementById('dqFormulaText').innerHTML = f.formula || '';
         document.getElementById('dqFormulaMeaning').innerHTML = f.meaning || '';
@@ -5594,16 +6504,13 @@
         document.getElementById('dqFormulaShortcut').innerHTML = f.shortcut || '';
         document.getElementById('dqFormulaMistake').innerHTML = f.common_mistake || '';
 
-        // Render Fact & Motivation using innerHTML for LaTeX math
         document.getElementById('dqFactText').innerHTML = quizData.did_you_know || '';
         document.getElementById('dqMotivationText').innerHTML = quizData.motivation || '';
 
-        // Typeset LaTeX equations in header grid
         if (window.MathJax && window.MathJax.typesetPromise) {
           window.MathJax.typesetPromise([document.querySelector('.dq-header-grid')]);
         }
 
-        // Render Current Question
         renderQuestion();
       }
 
@@ -5613,39 +6520,35 @@
           return;
         }
 
-        // Update Progress Bar
         const progFill = document.getElementById('dqProgressBar');
         if (progFill) progFill.style.width = ((qIndex) / 5 * 100) + '%';
 
         const q = quizData.quiz[qIndex];
-        document.getElementById('dqQCount').textContent = `Question ${qIndex + 1} of 5 ${isPracticeMode ? '(Practice Mode)' : ''}`;
-        document.getElementById('dqDiffBadge').textContent = `Difficulty: ${q.difficulty || 'Medium'}`;
+        document.getElementById('dqQCount').textContent = 'Question ' + (qIndex + 1) + ' of 5 ' + (isPracticeMode ? '(Practice Mode)' : '');
+        document.getElementById('dqDiffBadge').textContent = 'Difficulty: ' + (q.difficulty || 'Medium');
         document.getElementById('dqChapter').textContent = q.chapter || 'NCERT Chapter';
         document.getElementById('dqTopic').textContent = q.topic || 'General Topic';
         document.getElementById('dqQuestionText').innerHTML = q.question;
 
-        // Reset & Render Options Grid
         const optionsGrid = document.getElementById('dqOptionsGrid');
         optionsGrid.innerHTML = '';
         document.getElementById('dqExplanationContainer').style.display = 'none';
 
         const keys = ['A', 'B', 'C', 'D'];
-        keys.forEach(key => {
+        keys.forEach(function(key) {
           if (q.options && q.options[key]) {
             const btn = document.createElement('button');
             btn.className = 'dq-option-btn';
-            btn.innerHTML = `<span class="dq-opt-prefix">${key}</span> <span>${q.options[key]}</span>`;
-            btn.onclick = () => handleOptionClick(key, btn, q);
+            btn.innerHTML = '<span class="dq-opt-prefix">' + key + '</span> <span>' + q.options[key] + '</span>';
+            btn.onclick = function() { handleOptionClick(key, btn, q); };
             optionsGrid.appendChild(btn);
           }
         });
 
-        // Typeset LaTeX equations in Question Card
         if (window.MathJax && window.MathJax.typesetPromise) {
           window.MathJax.typesetPromise([document.getElementById('dqQuizContainer')]);
         }
 
-        // Start 45s Timer
         startQuestionTimer();
       }
 
@@ -5653,7 +6556,7 @@
         clearInterval(timerInterval);
         timeLeft = 45;
         document.getElementById('dqTimer').textContent = timeLeft;
-        timerInterval = setInterval(() => {
+        timerInterval = setInterval(function() {
           timeLeft--;
           document.getElementById('dqTimer').textContent = timeLeft;
           if (timeLeft <= 0) {
@@ -5666,7 +6569,7 @@
       function autoSelectTimedOut() {
         const q = quizData.quiz[qIndex];
         wrongCount++;
-        userPoints -= 10; // -10 points penalty for timeout
+        userPoints -= 10;
         missedTopics.push(q.chapter + ": " + q.topic);
         
         const livePtsEl = document.getElementById('dqLivePoints');
@@ -5681,23 +6584,22 @@
         if (!popup) return;
 
         popup.textContent = text;
-        popup.className = `dq-float-popup ${type}`;
+        popup.className = 'dq-float-popup ' + type;
         
-        // Position relative to target element if available
         if (targetBtnEl && targetBtnEl.getBoundingClientRect) {
           const containerRect = document.getElementById('dqQuizContainer').getBoundingClientRect();
           const btnRect = targetBtnEl.getBoundingClientRect();
           const topPos = btnRect.top - containerRect.top - 10;
           const leftPos = btnRect.left - containerRect.left + (btnRect.width / 2) - 50;
-          popup.style.top = `${topPos}px`;
-          popup.style.left = `${leftPos}px`;
+          popup.style.top = topPos + 'px';
+          popup.style.left = leftPos + 'px';
         } else {
           popup.style.top = '20px';
           popup.style.left = '50%';
         }
 
         popup.style.display = 'block';
-        setTimeout(() => {
+        setTimeout(function() {
           popup.style.display = 'none';
         }, 1100);
       }
@@ -5705,30 +6607,27 @@
       function handleOptionClick(selectedKey, btnEl, q) {
         clearInterval(timerInterval);
         
-        // Disable all options
         const allBtns = document.querySelectorAll('.dq-option-btn');
-        allBtns.forEach(b => b.onclick = null);
+        allBtns.forEach(function(b) { b.onclick = null; });
 
         const isCorrect = (selectedKey === q.correct);
         if (isCorrect) {
           userScore++;
-          userPoints += 20; // +20 points for correct answer
+          userPoints += 20;
           btnEl.classList.add('correct-opt');
           showPointPopup('+20 PTS', 'plus', btnEl);
         } else {
           wrongCount++;
-          userPoints -= 10; // -10 points penalty for wrong answer
+          userPoints -= 10;
           btnEl.classList.add('wrong-opt');
           missedTopics.push(q.chapter + ": " + q.topic);
           showPointPopup('-10 PTS', 'minus', btnEl);
         }
 
-        // Update live score display
         const livePtsEl = document.getElementById('dqLivePoints');
         if (livePtsEl) livePtsEl.textContent = (userPoints >= 0 ? '+' : '') + userPoints;
 
-        // Highlight correct option
-        allBtns.forEach(b => {
+        allBtns.forEach(function(b) {
           if (b.querySelector('.dq-opt-prefix').textContent.trim() === q.correct) {
             b.classList.add('correct-opt');
           }
@@ -5752,7 +6651,7 @@
         } else {
           nextBtn.innerHTML = '<i class="fas fa-trophy"></i> View Final Score';
         }
-        nextBtn.onclick = () => {
+        nextBtn.onclick = function() {
           qIndex++;
           renderQuestion();
         };
@@ -5760,6 +6659,8 @@
 
       function showQuizResults() {
         clearInterval(timerInterval);
+        clearInterval(heartbeatInterval);
+        
         document.getElementById('dqQuizContainer').style.display = 'none';
         document.getElementById('dqScoreContainer').style.display = 'block';
 
@@ -5767,7 +6668,7 @@
         if (isPracticeMode) {
           if (statusBanner) {
             statusBanner.style.display = 'block';
-            statusBanner.innerHTML = `<i class="fas fa-gamepad" style="margin-right: 6px;"></i> Practice Mode Attempt Complete!`;
+            statusBanner.innerHTML = '<i class="fas fa-gamepad" style="margin-right: 6px;"></i> Practice Mode Attempt Complete!';
             statusBanner.style.borderColor = '#7c3aed';
             statusBanner.style.color = '#5b21b6';
             statusBanner.style.background = '#f5f3ff';
@@ -5775,13 +6676,12 @@
         } else {
           if (statusBanner) {
             statusBanner.style.display = 'block';
-            statusBanner.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today!`;
+            statusBanner.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 6px;"></i> Official Daily Quiz Attempt Saved for Today (Class ' + activeClass + ')!';
             statusBanner.style.borderColor = '#059669';
             statusBanner.style.color = '#047857';
             statusBanner.style.background = '#f0fdf4';
           }
 
-          // Record Official Attempt to localStorage to enforce 1 quiz/day
           const attemptData = {
             completed: true,
             date: new Date().toISOString().split('T')[0],
@@ -5793,10 +6693,8 @@
           };
           localStorage.setItem(getTodayKey(activeClass), JSON.stringify(attemptData));
 
-          // Increment quiz participants count on Server with authentic unique user tracking
-          loadParticipants(true);
+          loadParticipants('attempt');
 
-          // Accumulate Lifetime Student XP
           let currentXP = parseInt(localStorage.getItem('dq_cumulative_xp') || '280', 10);
           if (userPoints > 0) {
             currentXP += userPoints;
@@ -5805,22 +6703,20 @@
           updateLifetimeXPUI();
         }
 
-        // Stars calculation
         let stars = '';
-        if (userPoints >= 100) stars = 'â­â­â­';
-        else if (userPoints >= 70) stars = 'â­â­';
-        else if (userPoints >= 40) stars = 'â­';
-        else stars = 'ðŸ“';
+        if (userPoints >= 100) stars = '⭐⭐⭐';
+        else if (userPoints >= 70) stars = '⭐⭐';
+        else if (userPoints >= 40) stars = '⭐';
+        else stars = '📝';
 
         document.getElementById('dqStars').textContent = stars;
 
-        // Rank Badge & Feedback Title
-        let rankBadge = 'ðŸ’Ž Diamond Math Master';
-        if (userPoints >= 100) rankBadge = 'ðŸ’Ž Diamond Math Master (+100 PTS Perfect!)';
-        else if (userPoints >= 70) rankBadge = 'ðŸ¥‡ Gold Math Scholar';
-        else if (userPoints >= 40) rankBadge = 'ðŸ¥ˆ Silver Math Explorer';
-        else if (userPoints >= 10) rankBadge = 'ðŸ¥‰ Bronze Math Achiever';
-        else rankBadge = 'ðŸ“š Math Apprentice (Keep Practicing!)';
+        let rankBadge = '💎 Diamond Math Master';
+        if (userPoints >= 100) rankBadge = '💎 Diamond Math Master (+100 PTS Perfect!)';
+        else if (userPoints >= 70) rankBadge = '🥇 Gold Math Scholar';
+        else if (userPoints >= 40) rankBadge = '🥈 Silver Math Explorer';
+        else if (userPoints >= 10) rankBadge = '🥉 Bronze Math Achiever';
+        else rankBadge = '📚 Math Apprentice (Keep Practicing!)';
 
         document.getElementById('dqRankBadge').textContent = rankBadge;
 
@@ -5840,51 +6736,55 @@
         const scoreKey = String(userPoints);
         document.getElementById('dqScoreTitle').textContent = feedbackMap[scoreKey] || (userPoints > 50 ? "Great Effort!" : "Keep Practicing!");
         
-        // Update Score Breakdown Dashboard Cards
         document.getElementById('dqFinalPointsText').textContent = (userPoints >= 0 ? '+' : '') + userPoints + ' PTS';
-        document.getElementById('dqCorrectCountText').textContent = `${userScore} / 5 (+${userScore * 20})`;
-        document.getElementById('dqWrongCountText').textContent = `${wrongCount} (-${wrongCount * 10})`;
+        document.getElementById('dqCorrectCountText').textContent = userScore + ' / 5 (+' + (userScore * 20) + ')';
+        document.getElementById('dqWrongCountText').textContent = wrongCount + ' (-' + (wrongCount * 10) + ')';
         document.getElementById('dqAccuracyText').textContent = Math.round((userScore / 5) * 100) + '%';
 
-        // Suggested Revision Topic
         let recTopic = "Chapter 1: NCERT Practice & Revision";
         if (missedTopics.length > 0) {
           recTopic = missedTopics[0];
         } else if (quizData && quizData.quiz && quizData.quiz[0]) {
           recTopic = quizData.quiz[0].chapter + ": " + quizData.quiz[0].topic;
         }
-        document.getElementById('dqSuggestedRevision').textContent = recTopic + ` (CBSE Class ${activeClass})`;
+        document.getElementById('dqSuggestedRevision').textContent = recTopic + ' (CBSE Class ' + activeClass + ')';
 
-        // Re-render MathJax if present
+        renderClassSelectionGrid();
+
         if (window.MathJax && window.MathJax.typesetPromise) {
           window.MathJax.typesetPromise();
         }
       }
 
-      // Event listener bindings for class tabs
-      document.querySelectorAll('.dq-tab-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const cls = this.getAttribute('data-class');
-          initDailyQuiz(cls, false);
+      const startBtn = document.getElementById('dqStartQuizBtn');
+      if (startBtn) {
+        startBtn.addEventListener('click', function() {
+          startQuizArena(false);
         });
-      });
+      }
 
       const practiceBtn = document.getElementById('dqPracticeBtn');
       if (practiceBtn) {
         practiceBtn.addEventListener('click', function() {
-          initDailyQuiz(activeClass, true); // Practice Mode
+          startQuizArena(true);
         });
       }
 
       const restartBtn = document.getElementById('dqRestartBtn');
       if (restartBtn) {
         restartBtn.addEventListener('click', function() {
-          initDailyQuiz(activeClass, true); // Practice Mode
+          document.getElementById('dqScoreContainer').style.display = 'none';
+          document.getElementById('dqStartCardContainer').style.display = 'block';
+          selectClass(activeClass);
         });
       }
 
-      // Initialize default class quiz
-      initDailyQuiz('10', false);
+      setInterval(function() {
+        loadParticipants('info');
+      }, 12000);
+
+      selectClass('10');
+      loadParticipants('info');
     })();
   </script>
 
