@@ -230,6 +230,55 @@ body {
   box-shadow: 0 5px 18px rgba(139,92,246,0.28);
 }
 
+/* ── Highlighted Back Navigation Buttons ────────────────── */
+.btn-back-prev {
+  background: linear-gradient(135deg, #dc2626, #991b1b) !important;
+  color: #ffffff !important;
+  padding: 8px 18px !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+.btn-back-prev:hover {
+  background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5) !important;
+}
+.btn-back-home {
+  background: linear-gradient(135deg, #6d28d9, #0d9488) !important;
+  color: #ffffff !important;
+  padding: 8px 18px !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  box-shadow: 0 4px 15px rgba(109, 40, 217, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  white-space: nowrap !important;
+}
+.btn-back-home:hover {
+  background: linear-gradient(135deg, #7c3aed, #14b8a6) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5) !important;
+}
+
 /* ── Dropdowns Styling (Home Page & Subpages) ───────────────── */
 .nav-item {
   position: relative;
