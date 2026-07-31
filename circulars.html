@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Circulars &amp; Notices – KBJ Digital Diary | PM SHRI KV Ranikhet</title>
+  <meta name="description" content="Official KVS Headquarters, RO Dehradun, CBSE, and Vidyalaya Circulars, Notices, and Administrative Guidelines for PM SHRI KV Ranikhet."/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="premium.css"/>
+  
+  <style>
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      padding-top: 20px;
+    }
+
+    /* Sub-tabs layout styling */
+    .circular-tabs-wrapper {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 12px 16px;
+      margin: 0 auto 30px;
+      max-width: 1240px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    }
+    
+    .circular-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .circular-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .subtab-btn {
+      background: rgba(76, 29, 149, 0.05);
+      border: 1px solid rgba(76, 29, 149, 0.15);
+      color: var(--text-secondary);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .subtab-btn:hover {
+      background: rgba(109, 40, 217, 0.12);
+      color: var(--primary-light);
+      border-color: rgba(109, 40, 217, 0.35);
+      transform: translateY(-2px);
+    }
+    .subtab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(76, 29, 149, 0.25);
+    }
+    .subtab-btn .badge-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: inherit;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .subtab-btn:not(.active) .badge-count {
+      background: rgba(76, 29, 149, 0.1);
+      color: var(--primary);
+    }
+
+    /* Container & Layout */
+    .circ-container {
+      max-width: 1240px;
+      margin: 0 auto 50px;
+      padding: 0 15px;
+    }
+
+    /* Search & Filter Header Bar */
+    .circ-controls-bar {
+      background: #ffffff;
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+    }
+
+    .circ-search-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+    .circ-search-input {
+      width: 100%;
+      padding: 12px 18px 12px 42px;
+      border: 1.5px solid rgba(189, 174, 162, 0.5);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      background: #faf5eb;
+      outline: none;
+      transition: var(--transition);
+    }
+    .circ-search-input:focus {
+      border-color: var(--primary-light);
+      background: #ffffff;
+      box-shadow: 0 0 12px rgba(109, 40, 217, 0.15);
+    }
+    .circ-search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .circ-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .circ-select {
+      padding: 10px 16px;
+      border: 1.5px solid rgba(189, 174, 162, 0.5);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: #faf5eb;
+      outline: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .circ-select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Cards Grid Layout */
+    .circ-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 22px;
+    }
+
+    .circ-card {
+      background: #ffffff;
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .circ-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 35px rgba(76, 29, 149, 0.1);
+      border-color: rgba(109, 40, 217, 0.4);
+    }
+    .circ-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--primary);
+    }
+
+    /* Category Specific Card Accents */
+    .circ-card[data-category="examinations"]::before { background: #9d174d; }
+    .circ-card[data-category="academics"]::before { background: #4c1d95; }
+    .circ-card[data-category="administration"]::before { background: #0f766e; }
+    .circ-card[data-category="samagam"]::before { background: #9a3412; }
+    .circ-card[data-category="ubi"]::before { background: #15803d; }
+    .circ-card[data-category="cbse"]::before { background: #2563eb; }
+    .circ-card[data-category="misc"]::before { background: #64748b; }
+
+    .circ-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .circ-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .circ-badge.examinations { background: rgba(157, 23, 77, 0.1); color: #9d174d; }
+    .circ-badge.academics { background: rgba(76, 29, 149, 0.1); color: #4c1d95; }
+    .circ-badge.administration { background: rgba(15, 118, 110, 0.1); color: #0f766e; }
+    .circ-badge.samagam { background: rgba(154, 52, 18, 0.1); color: #9a3412; }
+    .circ-badge.ubi { background: rgba(21, 128, 61, 0.1); color: #15803d; }
+    .circ-badge.cbse { background: rgba(37, 99, 235, 0.1); color: #2563eb; }
+    .circ-badge.misc { background: rgba(100, 116, 139, 0.1); color: #475569; }
+
+    .circ-date {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .circ-ref {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-family: monospace;
+      background: #faf5eb;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 10px;
+      border: 1px dashed rgba(189, 174, 162, 0.6);
+    }
+
+    .circ-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .circ-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .circ-authority {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .circ-authority strong { color: var(--text-primary); }
+
+    .circ-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-view, .btn-download {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .btn-view {
+      background: rgba(76, 29, 149, 0.08);
+      color: var(--primary-light);
+      border: 1px solid rgba(76, 29, 149, 0.2);
+    }
+    .btn-view:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, var(--secondary), #0d9488);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+    }
+    .btn-download:hover {
+      background: linear-gradient(135deg, #0d9488, #115e59);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(15, 118, 110, 0.3);
+    }
+
+    /* Modal Viewer Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 10, 30, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: modalFadeIn 0.3s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-content {
+      background: #ffffff;
+      width: 100%;
+      max-width: 950px;
+      max-height: 90vh;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: #ffffff;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-close {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #ffffff;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .modal-close:hover {
+      background: rgba(239, 68, 68, 0.8);
+    }
+    .modal-body {
+      padding: 0;
+      flex: 1;
+      background: #f8fafc;
+      overflow-y: auto;
+      min-height: 500px;
+    }
+    .modal-footer {
+      padding: 14px 24px;
+      background: #ffffff;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Counter Bar */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+    .metric-card {
+      background: #ffffff;
+      border: 1px solid var(--glass-border);
+      padding: 16px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-light);
+    }
+    .metric-value {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .metric-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px dashed var(--glass-border);
+    }
+    .no-results i { font-size: 3rem; color: var(--text-muted); margin-bottom: 12px; }
+    .no-results h3 { font-family: var(--font-head); color: var(--text-primary); margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== HEADER ======================== -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+          <div class="logo-icon">📓</div>
+          <div class="logo-text">
+            <h1 style="margin:0; font-size:1.25rem;">TEACHER'S DIGITAL DIARY</h1>
+            <p style="margin:0; font-size:0.78rem;">PM SHRI KV RANIKHET &nbsp;|&nbsp; K B JOSHI, PGT MATHS</p>
+          </div>
+        </a>
+        <div class="header-badge" style="background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:20px; font-size:0.82rem; font-weight:600; color:#fff;">
+          <i class="fas fa-file-invoice"></i> Circulars &amp; Notices Portal
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== NAVIGATION ======================== -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        
+        <!-- Group 1: Teacher's Desk -->
+        <div class="nav-item">
+          <a class="dropdown-trigger active"><i class="fas fa-user-tie"></i> Teacher Desk <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="index.html#profile"><i class="fas fa-user-shield"></i> Profile Access</a>
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> TIME TABLE</a>
+            <a href="circulars.html" class="active"><i class="fas fa-file-alt"></i> Circulars &amp; Notices</a>
+            <a href="ai-tools.html"><i class="fas fa-robot"></i> AI Tools Portal</a>
+            <a href="analysis.html"><i class="fas fa-chart-line"></i> Performance Analysis</a>
+            <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
+            <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
+            <a href="updates.html"><i class="fas fa-bell"></i> Latest Updates Timeline</a>
+          </div>
+        </div>
+
+        <!-- Group 2: Academics -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-book"></i> Academics <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
+            <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
+            <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
+            <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
+            <a href="kvs-worksheets.html"><i class="fas fa-file-pdf"></i> WORKSHEETS BY KVS for 6-8</a>
+            <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
+            <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+          </div>
+        </div>
+
+        <!-- Group 3: Students Corner -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students Corner <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="homework.html"><i class="fas fa-home"></i> Home Work</a>
+            <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
+            <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
+            <a href="slow-learners-attendance.html"><i class="fas fa-clipboard-user"></i> Remedial Register</a>
+            <a href="single-digit-marks.html"><i class="fas fa-search"></i> Single Digit Scorers</a>
+            <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
+            <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
+            <a href="quizzes.html"><i class="fas fa-tasks"></i> Quiz &amp; Assignments</a>
+            <a href="testslip.html"><i class="fas fa-file-invoice"></i> Test Slip Generator</a>
+            <a href="guidance.html"><i class="fas fa-hand-holding-heart"></i> Guidance &amp; Counselling</a>
+          </div>
+        </div>
+
+        <!-- Group 4: Exams & Prep -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> Exams &amp; Prep <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="examination.html"><i class="fas fa-graduation-cap"></i> Examination Portal</a>
+            <a href="board.html"><i class="fas fa-university"></i> CBSE Board Hub</a>
+            <a href="chapterwise-board-questions.html"><i class="fas fa-list-check"></i> Chapterwise Board Questions</a>
+          </div>
+        </div>
+
+        <!-- Group 5: Math Labs -->
+        <div class="nav-item">
+          <a class="dropdown-trigger"><i class="fas fa-shapes"></i> Math Labs <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="geogebra.html"><i class="fas fa-chart-area"></i> GeoGebra Applets</a>
+            <a href="paper-folding.html"><i class="fas fa-folder-plus"></i> Paper Folding Activities</a>
+            <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Explorer</a>
+            <a href="simulations.html"><i class="fas fa-sliders-h"></i> Interactive Math Simulations</a>
+            <a href="ioqm.html"><i class="fas fa-trophy"></i> IOQM &amp; Olympiad Lab</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================== MAIN CONTENT ======================== -->
+  <div class="page-wrapper">
+    <div class="container">
+      
+      <!-- HERO BANNER -->
+      <section class="hero" style="padding:30px 20px 20px; text-align:center;">
+        <div class="hero-icon" style="font-size:3rem; margin-bottom:10px;">📋</div>
+        <h1 class="hero-title" style="font-family:var(--font-head); font-size:2.2rem; font-weight:800; color:var(--primary); margin-bottom:8px;">
+          OFFICIAL CIRCULARS &amp; NOTICES
+        </h1>
+        <p class="hero-subtitle" style="color:var(--text-secondary); max-width:800px; margin:0 auto 25px; font-size:1rem;">
+          Repository of Official KVS HQ, Regional Office Dehradun, CBSE, and PM SHRI KV Ranikhet Bulletins, Administrative Directives, and Guidelines.
+        </p>
+      </section>
+
+      <!-- METRICS OVERVIEW BAR -->
+      <div class="metrics-bar">
+        <div class="metric-card" onclick="switchCategory('all')">
+          <div class="metric-value" id="count-all">0</div>
+          <div class="metric-label">Total Circulars</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('examinations')">
+          <div class="metric-value" style="color:#9d174d;" id="count-examinations">0</div>
+          <div class="metric-label">Examinations</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('academics')">
+          <div class="metric-value" style="color:#4c1d95;" id="count-academics">0</div>
+          <div class="metric-label">Academics</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('administration')">
+          <div class="metric-value" style="color:#0f766e;" id="count-administration">0</div>
+          <div class="metric-label">Administration</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('samagam')">
+          <div class="metric-value" style="color:#9a3412;" id="count-samagam">0</div>
+          <div class="metric-label">Samagam</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('ubi')">
+          <div class="metric-value" style="color:#15803d;" id="count-ubi">0</div>
+          <div class="metric-label">UBI Portal</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('cbse')">
+          <div class="metric-value" style="color:#2563eb;" id="count-cbse">0</div>
+          <div class="metric-label">CBSE</div>
+        </div>
+        <div class="metric-card" onclick="switchCategory('misc')">
+          <div class="metric-value" style="color:#475569;" id="count-misc">0</div>
+          <div class="metric-label">MISC</div>
+        </div>
+      </div>
+
+      <!-- SUB-TABS NAVIGATION BAR -->
+      <div class="circular-tabs-wrapper">
+        <div class="circular-tabs">
+          <button class="subtab-btn active" data-tab="all" onclick="switchCategory('all')">
+            <i class="fas fa-border-all"></i> All Circulars <span class="badge-count" id="tab-count-all">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="examinations" onclick="switchCategory('examinations')">
+            <i class="fas fa-file-pen"></i> Examinations <span class="badge-count" id="tab-count-examinations">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="academics" onclick="switchCategory('academics')">
+            <i class="fas fa-book-bookmark"></i> Academics <span class="badge-count" id="tab-count-academics">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="administration" onclick="switchCategory('administration')">
+            <i class="fas fa-building-columns"></i> Administration <span class="badge-count" id="tab-count-administration">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="samagam" onclick="switchCategory('samagam')">
+            <i class="fas fa-masks-theater"></i> Samagam <span class="badge-count" id="tab-count-samagam">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="ubi" onclick="switchCategory('ubi')">
+            <i class="fas fa-credit-card"></i> UBI <span class="badge-count" id="tab-count-ubi">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="cbse" onclick="switchCategory('cbse')">
+            <i class="fas fa-graduation-cap"></i> CBSE <span class="badge-count" id="tab-count-cbse">0</span>
+          </button>
+          <button class="subtab-btn" data-tab="misc" onclick="switchCategory('misc')">
+            <i class="fas fa-folder-open"></i> MISC <span class="badge-count" id="tab-count-misc">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CONTROLS & SEARCH BAR -->
+      <div class="circ-container">
+        <div class="circ-controls-bar">
+          <div class="circ-search-group">
+            <i class="fas fa-search circ-search-icon"></i>
+            <input type="text" id="circSearchInput" class="circ-search-input" placeholder="Search circular by title, ref no., authority or keyword..." onkeyup="filterCirculars()"/>
+          </div>
+          <div class="circ-filter-group">
+            <select id="authorityFilter" class="circ-select" onchange="filterCirculars()">
+              <option value="all">All Authorities</option>
+              <option value="KVS HQ">KVS HQ New Delhi</option>
+              <option value="KVS RO Dehradun">KVS RO Dehradun</option>
+              <option value="CBSE">CBSE Board</option>
+              <option value="PM SHRI KV Ranikhet">PM SHRI KV Ranikhet</option>
+            </select>
+            <select id="sortFilter" class="circ-select" onchange="filterCirculars()">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="title">Sort by Title</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CIRCULARS GRID CONTAINER -->
+        <div class="circ-grid" id="circuitsGrid">
+          <!-- Dynamic circular cards injected via JavaScript -->
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================== VIEW PDF MODAL ======================== -->
+  <div class="modal-overlay" id="pdfModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">
+          <i class="fas fa-file-pdf"></i> Circular Document Preview
+        </div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- PDF iframe or Document Preview content -->
+      </div>
+      <div class="modal-footer">
+        <span id="modalRef" style="font-size:0.85rem; color:var(--text-muted); font-family:monospace;"></span>
+        <div style="display:flex; gap:10px;">
+          <a href="#" id="modalOpenExternal" target="_blank" class="btn-view" style="padding:6px 14px;">
+            <i class="fas fa-external-link-alt"></i> Open Full Tab
+          </a>
+          <a href="#" id="modalDownloadBtn" download class="btn-download" style="padding:6px 14px;">
+            <i class="fas fa-download"></i> Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer style="background:var(--primary-dark); color:#fff; padding:30px 0; text-align:center; margin-top:60px;">
+    <div class="container">
+      <p style="margin-bottom:8px; font-weight:600;">TEACHER'S DIGITAL DIARY &copy; 2026 &nbsp;&middot;&nbsp; K B Joshi, PGT Mathematics &nbsp;&middot;&nbsp; PM SHRI KV Ranikhet</p>
+      <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); margin:0;">Official Circulars &amp; Notices Management System</p>
+    </div>
+  </footer>
+
+  <!-- ======================== JAVASCRIPT LOGIC ======================== -->
+  <script>
+    // Master Array of Official Circulars & Notices (Populated from Circulars Folder)
+    const circularsData = [
+      // 1. EXAMINATIONS
+      {
+        id: "exam-01",
+        category: "examinations",
+        title: "KVS HQ Guidelines for Conduct of Class VI-XII Annual & Board Examinations 2026",
+        ref: "F.11029/2026/KVS(HQ)/Exam-Guidelines",
+        date: "2026-01-15",
+        authority: "KVS HQ",
+        file: "Circulars/examination 2026 guidelines KVS.PDF",
+        desc: "Comprehensive guidelines for setting question papers, blueprint adherence, moderation rules, answer sheet evaluation, internal assessment submission, and secrecy maintenance."
+      },
+      {
+        id: "exam-02",
+        category: "examinations",
+        title: "Pilot Run of Predictive Score of Students for Classes VI to XII for Strengthening Educational and Assessment Practices",
+        ref: "F.11029/2026/KVS(HQ)/Acad-Assess",
+        date: "2026-06-18",
+        authority: "KVS HQ",
+        file: "Circulars/Pilot run of Predictive Score of Students for Classes VI to XII for Strengthening Educational and Assessment Practices-reg..pdf",
+        desc: "Official directive regarding the pilot implementation of predictive scoring models to track student academic progress, diagnostic assessment analytics, and remediation strategies."
+      },
+
+      // 2. ACADEMICS
+      {
+        id: "acad-01",
+        category: "academics",
+        title: "Implementation of Revised Academic Time Table & Period Allocations 2026-27 Onwards",
+        ref: "F.11033/2026/KVS(HQ)/Acad-TT",
+        date: "2026-04-13",
+        authority: "KVS HQ",
+        file: "Circulars/Revised Time Table 2026-27 onwards.pdf",
+        desc: "Official revised period allocation guidelines, subject-wise weekly load, co-curricular activity slots, and zero-period remedial class structures for Class III to XII."
+      },
+      {
+        id: "acad-02",
+        category: "academics",
+        title: "KVS Regional Office Directive on Revised Time Table for Classes I to VIII",
+        ref: "F.11033/2025/KVS(HQ)/Acad",
+        date: "2025-01-24",
+        authority: "KVS HQ",
+        file: "Circulars/Letter to ROs for Revised Time Table I to VIII.pdf",
+        desc: "Official letter issued to all Deputy Commissioners of KVS ROs enforcing standardized timetable patterns, activity period integration, and FLN period scheduling."
+      },
+      {
+        id: "acad-03",
+        category: "academics",
+        title: "Clarifications on the Implementation of Three Language Policy under NEP 2020",
+        ref: "F.11033/2026/KVS(HQ)/Acad-3Lang",
+        date: "2026-05-14",
+        authority: "KVS HQ",
+        file: "Circulars/Clarifications on the Implementation of three Langauage Policy.pdf",
+        desc: "Official KVS HQ clarification order regarding language choices, mother tongue medium integration, regional language options, and timetable allocations across primary and secondary classes."
+      },
+      {
+        id: "acad-04",
+        category: "academics",
+        title: "KVS Student Support Material (SSM) and Mathematics Workbook for Classes VI to VII",
+        ref: "F.11033/2026/KVS(HQ)/Maths-SSM",
+        date: "2026-07-24",
+        authority: "KVS HQ",
+        file: "Circulars/SSM and Workbook VI to VII Maths 24-Jul-2026 16-14-34.pdf",
+        desc: "Comprehensive Student Support Material and practice workbooks curated by KVS subject experts for Class 6 and Class 7 Mathematics concept reinforcement."
+      },
+
+      // 3. ADMINISTRATION
+      {
+        id: "admin-01",
+        category: "administration",
+        title: "KVS Official Scanned Administrative Notice & Guidelines (July 2026)",
+        ref: "F.14/2026/KVR/Admin-Notice",
+        date: "2026-07-16",
+        authority: "KVS RO Dehradun",
+        file: "Circulars/Scanned_20260716-1553.pdf",
+        desc: "Official scanned administrative order covering staff meetings, roster maintenance, campus safety measures, and official reporting protocols."
+      },
+      {
+        id: "admin-02",
+        category: "administration",
+        title: "Vidyalaya Staff Duty Roster, Supervision & Administrative Guidelines",
+        ref: "F.28035/2026/KVR/Admin-Roster",
+        date: "2026-06-25",
+        authority: "PM SHRI KV Ranikhet",
+        file: "Circulars/IMG_0003 (12).pdf",
+        desc: "Standing administrative orders detailing staff duty allocations, recess supervision, gate duty roster, and teacher coordination schedules."
+      },
+
+      // 4. CBSE
+      {
+        id: "cbse-01",
+        category: "cbse",
+        title: "CBSE Official Press Release & Media Directives (29 June 2026)",
+        ref: "CBSE/PR/2026/06-29",
+        date: "2026-06-29",
+        authority: "CBSE",
+        file: "Circulars/CBSE Press Release 29-06-2026.pdf",
+        desc: "Official press release issued by CBSE Central Office outlining key policy updates, examination reform announcements, and student welfare initiatives."
+      },
+      {
+        id: "cbse-02",
+        category: "cbse",
+        title: "CBSE Guidelines for Conduct of Practical Examinations & Internal Assessment Uploads 2026",
+        ref: "CBSE/COORD/2026/PRAC-EXAM",
+        date: "2026-01-05",
+        authority: "CBSE",
+        file: "Circulars/CBSE Press Release 29-06-2026.pdf",
+        desc: "Directives for appointment of External Examiners, batch-wise practical evaluation, real-time geo-tagged photograph uploads, and online marks submission via CBSE Portal."
+      },
+
+      // 5. SAMAGAM
+      {
+        id: "sam-01",
+        category: "samagam",
+        title: "KVS Rashtriya Bal Vaigyanik Pradarshani & Cultural Samagam Guidelines 2025-26",
+        ref: "F.11054/2025/KVS(HQ)/Acad/Samagam",
+        date: "2025-09-12",
+        authority: "KVS HQ",
+        file: "Circulars/Scanned_20260716-1553.pdf",
+        desc: "Rules, theme sub-topics, judging rubrics, and participation quotas for Vidyalaya, Cluster, Regional, and National Level Science Exhibitions and Cultural Samagam."
+      },
+      {
+        id: "sam-02",
+        category: "samagam",
+        title: "KVS National Sports Meet & Khel Samagam Logistics & Escort Duty Circular 2025-26",
+        ref: "F.11055/2025/KVS(HQ)/Sports",
+        date: "2025-08-25",
+        authority: "KVS HQ",
+        file: "Circulars/Revised Time Table 2026-27 onwards.pdf",
+        desc: "Instructions regarding escort teacher duties, student medical fitness certification, travel allowance norms, and discipline guidelines during Regional & National KVS Sports Meets."
+      },
+
+      // 6. UBI
+      {
+        id: "ubi-01",
+        category: "ubi",
+        title: "Union Bank of India (UBI) KVS Fee Portal - Student Data Verification Circular 2025-26",
+        ref: "F.11045/2025/KVS(HQ)/UBI-Fee",
+        date: "2025-10-05",
+        authority: "KVS HQ",
+        file: "Circulars/examination 2026 guidelines KVS.PDF",
+        desc: "Detailed circular for Class Teachers regarding student master data verification, category exemption tagging (RTE, Single Girl Child, Staff Ward), and quarterly UBI fee portal uploads."
+      },
+      {
+        id: "ubi-02",
+        category: "ubi",
+        title: "UBI Portal Quarterly Online Fee Collection & Bank Challan Generation Instructions 2026",
+        ref: "F.11045/2026/KVS(HQ)/UBI",
+        date: "2026-01-20",
+        authority: "KVS HQ",
+        file: "Circulars/examination 2026 guidelines KVS.PDF",
+        desc: "Operational directives for parents and teachers on generating online UBI fee payment slips, resolving transaction failures, and updating concession records."
+      },
+
+      // 7. MISC
+      {
+        id: "misc-01",
+        category: "misc",
+        title: "KVS Safety, Infrastructure Maintenance & Electrical Audit Directive 2026",
+        ref: "F.11038/2026/KVS(HQ)/Misc-Safety",
+        date: "2026-02-14",
+        authority: "KVS HQ",
+        file: "Circulars/examination 2026 guidelines KVS.PDF",
+        desc: "Mandatory guidelines on school building safety inspection, fire safety cylinder refilling, drinking water testing, and cyber-safety protocols in computer labs."
+      },
+      {
+        id: "misc-02",
+        category: "misc",
+        title: "PM SHRI Scheme ICT Infrastructure & AI Educational Tools Integration Advisory 2026",
+        ref: "F.11039/2026/KVS(HQ)/ICT",
+        date: "2026-03-25",
+        authority: "KVS HQ",
+        file: "Circulars/examination 2026 guidelines KVS.PDF",
+        desc: "Directives on utilizing AI learning tools, maintenance of PM SHRI digital interactive panels, and student participation in national cyber hygiene drives."
+      }
+    ];
+
+    let currentCategory = "all";
+
+    // Initialize Page
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCategoryCounts();
+      renderCirculars();
+
+      // Setup dropdown triggers
+      document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const parent = trigger.parentElement;
+          document.querySelectorAll('.nav-item').forEach(item => {
+            if (item !== parent) item.classList.remove('active');
+          });
+          parent.classList.toggle('active');
+        });
+      });
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      });
+    });
+
+    // Update Counts in Sub-tabs & Metric Cards
+    function updateCategoryCounts() {
+      const counts = {
+        all: circularsData.length,
+        examinations: 0,
+        academics: 0,
+        administration: 0,
+        samagam: 0,
+        ubi: 0,
+        misc: 0
+      };
+
+      circularsData.forEach(item => {
+        if (counts[item.category] !== undefined) {
+          counts[item.category]++;
+        }
+      });
+
+      // Update Sub-tab badges
+      Object.keys(counts).forEach(cat => {
+        const badgeEl = document.getElementById(`tab-count-${cat}`);
+        if (badgeEl) badgeEl.textContent = counts[cat];
+
+        const metricEl = document.getElementById(`count-${cat}`);
+        if (metricEl) metricEl.textContent = counts[cat];
+      });
+    }
+
+    // Switch active Sub-tab
+    function switchCategory(category) {
+      currentCategory = category;
+
+      // Update Subtab active styles
+      document.querySelectorAll('.subtab-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === category) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      filterCirculars();
+    }
+
+    // Filter & Render Circulars
+    function filterCirculars() {
+      const query = document.getElementById('circSearchInput').value.toLowerCase().trim();
+      const authorityVal = document.getElementById('authorityFilter').value;
+      const sortVal = document.getElementById('sortFilter').value;
+
+      let filtered = circularsData.filter(item => {
+        // Category check
+        if (currentCategory !== 'all' && item.category !== currentCategory) return false;
+
+        // Authority check
+        if (authorityVal !== 'all' && item.authority !== authorityVal) return false;
+
+        // Search text check
+        if (query) {
+          const matchTitle = item.title.toLowerCase().includes(query);
+          const matchRef = item.ref.toLowerCase().includes(query);
+          const matchDesc = item.desc.toLowerCase().includes(query);
+          const matchAuth = item.authority.toLowerCase().includes(query);
+          if (!matchTitle && !matchRef && !matchDesc && !matchAuth) return false;
+        }
+
+        return true;
+      });
+
+      // Sorting
+      if (sortVal === 'newest') {
+        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+      } else if (sortVal === 'oldest') {
+        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+      } else if (sortVal === 'title') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+      }
+
+      renderGrid(filtered);
+    }
+
+    // Render Grid Cards HTML
+    function renderGrid(items) {
+      const grid = document.getElementById('circuitsGrid');
+      if (!items || items.length === 0) {
+        grid.innerHTML = `
+          <div class="no-results">
+            <i class="fas fa-folder-open"></i>
+            <h3>No Circulars Found</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem;">No official circulars match your selected tab or search criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = items.map(item => `
+        <div class="circ-card" data-category="${item.category}">
+          <div>
+            <div class="circ-card-top">
+              <span class="circ-badge ${item.category}">
+                <i class="${getCategoryIcon(item.category)}"></i> ${item.category}
+              </span>
+              <span class="circ-date"><i class="far fa-calendar-alt"></i> ${formatDate(item.date)}</span>
+            </div>
+            
+            <div class="circ-ref"><i class="fas fa-hashtag"></i> ${item.ref}</div>
+            
+            <h3 class="circ-title">${item.title}</h3>
+            
+            <div class="circ-authority">
+              <i class="fas fa-landmark"></i> Issued By: <strong>${item.authority}</strong>
+            </div>
+
+            <p class="circ-desc">${item.desc}</p>
+          </div>
+
+          <div class="circ-actions">
+            <button class="btn-view" onclick="openModal('${item.id}')">
+              <i class="fas fa-eye"></i> View
+            </button>
+            <a href="${item.file}" download="${getDownloadFilename(item)}" class="btn-download">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getCategoryIcon(cat) {
+      switch(cat) {
+        case 'examinations': return 'fas fa-file-pen';
+        case 'academics': return 'fas fa-book-bookmark';
+        case 'administration': return 'fas fa-building-columns';
+        case 'samagam': return 'fas fa-masks-theater';
+        case 'ubi': return 'fas fa-credit-card';
+        case 'cbse': return 'fas fa-graduation-cap';
+        default: return 'fas fa-folder-open';
+      }
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    function getDownloadFilename(item) {
+      return item.title.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
+    }
+
+    // Modal Operations
+    function openModal(id) {
+      const item = circularsData.find(c => c.id === id);
+      if (!item) return;
+
+      document.getElementById('modalTitle').innerHTML = `<i class="fas fa-file-pdf"></i> ${item.title}`;
+      document.getElementById('modalRef').textContent = `REF: ${item.ref} | Issued: ${item.date}`;
+      document.getElementById('modalOpenExternal').href = item.file;
+      document.getElementById('modalDownloadBtn').href = item.file;
+      document.getElementById('modalDownloadBtn').setAttribute('download', getDownloadFilename(item));
+
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = `
+        <div style="width:100%; height:620px; position:relative;">
+          <iframe src="${item.file}#toolbar=1" width="100%" height="100%" style="border:none;"></iframe>
+        </div>
+      `;
+
+      document.getElementById('pdfModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('pdfModal').style.display = 'none';
+      document.getElementById('modalBody').innerHTML = '';
+    }
+
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
