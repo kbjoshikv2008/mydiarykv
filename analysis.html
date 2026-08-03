@@ -2092,7 +2092,7 @@
       };
 
       const fallbackMarks = {
-        "12": {ch1:"2026-04-13",ch2:"2026-04-20",ch3:"2026-04-02",ch4:"2026-04-08",mixed:"2026-06-02",ch5:"2026-06-09",ch6:"2026-06-22",ch7:"2026-07-28",ch7_def:"2026-07-31",pt1:"2026-07-03"},
+        "12": {
           "ch1": {
             "ABHIMANYU SINGH": 11,
             "ANUJ GOSWAMI": 11,
@@ -3292,7 +3292,7 @@
 
       // 2. Filter & Sort Students
       let students = [...(studentData[activeClass] || [])];
-      const searchValue = document.getElementById("studentSearchInput").value.trim().toLowerCase();
+      const searchValue = (document.getElementById("studentSearchInput")?.value || "").trim().toLowerCase();
 
       if (searchValue) {
         students = students.filter(s => s.name.toLowerCase().includes(searchValue));
