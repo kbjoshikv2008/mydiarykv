@@ -808,7 +808,15 @@
           { id: "see", label: "SEE", maxMarks: 80 }
         ],
         "12": [
-          ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
+          { id: "ch1", label: "Ch 1", maxMarks: 20 },
+          { id: "ch2", label: "Ch 2", maxMarks: 20 },
+          { id: "ch3", label: "Ch 3", maxMarks: 20 },
+          { id: "ch4", label: "Ch 4", maxMarks: 20 },
+          { id: "ch5", label: "Ch 5", maxMarks: 20 },
+          { id: "ch6", label: "Ch 6", maxMarks: 20 },
+          { id: "ch7", label: "Ch 7 (Indefinite)", maxMarks: 20 },
+          { id: "ch7_def", label: "Ch 7 (Definite)", maxMarks: 20 },
+          ...Array.from({length: 8}, (_, i) => ({ id: `ch${i+8}`, label: `Ch ${i+8}`, maxMarks: 20 })),
           { id: "pt1", label: "PT1", maxMarks: 40 },
           { id: "pt2", label: "PT2", maxMarks: 40 },
           { id: "pb1", label: "PB1", maxMarks: 80 },
@@ -825,7 +833,9 @@
         see: "SEE (Session Ending Exam)",
         pb1: "PB1 (Pre-Board 1)",
         pb2: "PB2 (Pre-Board 2)",
-        pb3: "PB3 (Pre-Board 3)"
+        pb3: "PB3 (Pre-Board 3)",
+        ch7: "Chapter 7: Indefinite Integrals",
+        ch7_def: "Chapter 7: Definite Integrals"
       };
 
       const defaultRosters = {
@@ -885,6 +895,8 @@
           if (!testDates["7C"]) testDates["7C"] = {};
           if (!testDates["11B"]) testDates["11B"] = {};
           if (!testDates["12"]) testDates["12"] = {};
+          testDates["12"].ch7 = "2026-07-28";
+          testDates["12"].ch7_def = "2026-07-31";
           testDates["12"].pt1 = "2026-07-03";
           testDates["11B"].pt1 = "2026-07-02";
           testDates["7C"].pt1 = "2026-07-06";
