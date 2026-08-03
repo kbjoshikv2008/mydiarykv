@@ -71,7 +71,7 @@ const server = http.createServer((req, res) => {
   // Handle Website Content Update API route (Password Protected)
   if (urlPath === '/api/update-website') {
     const handleUpdate = (pass) => {
-      if (pass !== '08@AkshitA@31') {
+      if (pass !== 'kbjkvrkt2023') {
         res.writeHead(401, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ success: false, message: 'Incorrect password! Update denied.' }));
         return;

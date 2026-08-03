@@ -1842,7 +1842,7 @@
   });
   submitPassword.addEventListener('click', () => {
     const val = (passwordInput.value || '').trim().toLowerCase();
-    if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
+    if (['kbjkvrkt2023'].includes(val)) {
       modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {
@@ -1904,7 +1904,7 @@
         if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
         return;
       }
-      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
+      if (['kbjkvrkt2023'].includes(val)) {
         sessionStorage.setItem('learners_access_granted', 'yes');
         if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
         setTimeout(hideLearnersGate, 800);

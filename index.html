@@ -4886,7 +4886,7 @@
         }
         
         const pVal = (password || '').trim().toLowerCase();
-        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(pVal)) {
+        if (['kbjkvrkt2023'].includes(pVal)) {
           // Success - redirect to profile page
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;
@@ -6208,7 +6208,7 @@
           return;
         }
 
-        if (password !== '08@AkshitA@31') {
+        if (password !== 'kbjkvrkt2023') {
           if (updateErrorMsg) {
             updateErrorMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Incorrect password! Update denied.';
             updateErrorMsg.style.display = 'block';

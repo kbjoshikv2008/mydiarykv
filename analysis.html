@@ -2929,7 +2929,7 @@
       const errorMsg = document.getElementById("gateError");
       errorMsg.textContent = "";
 
-      if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(pwd)) {
+      if (['kbjkvrkt2023'].includes(pwd)) {
         sessionStorage.setItem("analysis_access_granted", "yes");
         hideSecurityGate();
       } else {
@@ -2997,7 +2997,7 @@
         const password = (passwordInput.value || '').trim().toLowerCase();
         errorMessage.textContent = '';
         
-        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(password)) {
+        if (['kbjkvrkt2023'].includes(password)) {
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;
           setTimeout(() => {

@@ -726,7 +726,7 @@
             if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
             return;
           }
-          if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(val)) {
+          if (['kbjkvrkt2023'].includes(val)) {
             sessionStorage.setItem('ptm_access_granted', 'yes');
             if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
             setTimeout(hidePtmGate, 800);
@@ -768,7 +768,7 @@
         const password = passwordInputProfile.value;
         errorMessageProfile.textContent = '';
         if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-        if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(password.toLowerCase())) {
+        if (['kbjkvrkt2023'].includes(password.toLowerCase())) {
           submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
         } else {

@@ -212,12 +212,12 @@
       <h2 class="gate-title">Math Lab Access</h2>
       <p class="gate-sub">Enter password to access Interactive Lessons</p>
       <div class="gate-input-wrap">
-        <input type="password" id="gatePasswordInput" placeholder="Enter password (kbj@2008)" autocomplete="off">
-        <button id="gateToggle" type="button" onclick="toggleGatePwd()"><i class="fas fa-eye" id="gateEyeIcon"></i></button>
+        <input type="password" id="gatePasswordInput" placeholder="Enter password (kbjkvrkt2023)" autocomplete="off">
+        <button id="gateEyeToggle" class="gate-eye-btn" type="button" onclick="toggleGatePwd()"><i id="gateEyeIcon" class="fas fa-eye"></i></button>
       </div>
       <button id="submitGatePassword">&#128275; UNLOCK MATH LAB</button>
-      <div id="gateErrorMessage"></div>
-      <div style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-top:10px;"><i class="fas fa-key"></i> Password: <strong>kbj@2008</strong></div>
+      <div id="gateErrorMsg" style="color:#ef4444;font-weight:600;margin-top:10px;font-size:0.9rem;min-height:20px;"></div>
+      <div style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-top:10px;"><i class="fas fa-key"></i> Password: <strong>kbjkvrkt2023</strong></div>
     </div>
   </div>
 
@@ -482,7 +482,7 @@
 
     gateSubmit.addEventListener('click', function() {
       const val = (gateInput ? gateInput.value : '').trim().toLowerCase();
-      const isOk = ['kbj@2008', 'kbj2008', 'kbjkvrkt', 'kbjkvrkt@2008', 'kbjkvrkt2008', 'kvrktdigital', '2008', 'kbj', 'math123', 'admin', 'password', 'pass'].includes(val) || val.length > 0;
+      const isOk = ['kbjkvrkt2023'].includes(val);
       if (isOk) {
         sessionStorage.setItem('interactive_unlocked', 'true');
         gateOverlay.style.opacity = '0';
@@ -619,7 +619,7 @@
           const password = passwordInputProfile.value;
           errorMessageProfile.textContent = '';
           if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-          if (['kbj@2008', 'kbjkvrkt@2008', 'kbj2008', 'kbjkvrkt2008', '2008', 'kbj', 'kbjkvrkt', 'kvrktdigital'].includes(password.toLowerCase())) {
+          if (['kbjkvrkt2023'].includes(password.toLowerCase())) {
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {
