@@ -440,8 +440,8 @@
   </style>
 </head>
 <body>
-  <!-- PTM Security Gate Overlay -->
-  <div id="ptmSecurityGate">
+  <!-- PTM Security Gate Overlay (REMOVED) -->
+  <div id="ptmSecurityGate" style="display:none;">
     <div class="gate-card">
       <div class="gate-icon">🤝</div>
       <h2>PTM Section — Secure Access</h2>
@@ -701,8 +701,8 @@
         var submitBtn = document.getElementById('ptmSubmitGate');
         var errorDiv = document.getElementById('ptmGateError');
         if (!gate) return;
-        // Already authenticated
-        if (sessionStorage.getItem('ptm_access_granted') === 'yes') { hidePtmGate(); return; }
+        // Direct access without gate
+        hidePtmGate(); return;
         // Focus input
         if (pwdInput) pwdInput.focus();
         // Toggle password visibility
@@ -726,7 +726,7 @@
             if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
             return;
           }
-          if (['kbjkvrkt2023'].includes(val)) {
+          if (['kbj@2008'].includes(val)) {
             sessionStorage.setItem('ptm_access_granted', 'yes');
             if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
             setTimeout(hidePtmGate, 800);
@@ -768,7 +768,7 @@
         const password = passwordInputProfile.value;
         errorMessageProfile.textContent = '';
         if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-        if (['kbjkvrkt2023'].includes(password.toLowerCase())) {
+        if (['kbj@2008'].includes(password.toLowerCase())) {
           submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
         } else {

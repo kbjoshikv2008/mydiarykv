@@ -212,12 +212,11 @@
       <h2 class="gate-title">Math Lab Access</h2>
       <p class="gate-sub">Enter password to access Interactive Lessons</p>
       <div class="gate-input-wrap">
-        <input type="password" id="gatePasswordInput" placeholder="Enter password (kbjkvrkt2023)" autocomplete="off">
+        <input type="password" id="gatePasswordInput" placeholder="Enter Access Password" autocomplete="off">
         <button id="gateEyeToggle" class="gate-eye-btn" type="button" onclick="toggleGatePwd()"><i id="gateEyeIcon" class="fas fa-eye"></i></button>
       </div>
       <button id="submitGatePassword">&#128275; UNLOCK MATH LAB</button>
       <div id="gateErrorMsg" style="color:#ef4444;font-weight:600;margin-top:10px;font-size:0.9rem;min-height:20px;"></div>
-      <div style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-top:10px;"><i class="fas fa-key"></i> Password: <strong>kbjkvrkt2023</strong></div>
     </div>
   </div>
 
@@ -482,7 +481,7 @@
 
     gateSubmit.addEventListener('click', function() {
       const val = (gateInput ? gateInput.value : '').trim().toLowerCase();
-      const isOk = ['kbjkvrkt2023'].includes(val);
+      const isOk = ['kbj@2008'].includes(val);
       if (isOk) {
         sessionStorage.setItem('interactive_unlocked', 'true');
         gateOverlay.style.opacity = '0';
@@ -619,7 +618,7 @@
           const password = passwordInputProfile.value;
           errorMessageProfile.textContent = '';
           if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-          if (['kbjkvrkt2023'].includes(password.toLowerCase())) {
+          if (['kbj@2008'].includes(password.toLowerCase())) {
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {

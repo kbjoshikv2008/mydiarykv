@@ -515,8 +515,8 @@
 </head>
 <body>
 
-  <!-- Learners Security Gate Overlay -->
-  <div id="learnersSecurityGate">
+  <!-- Learners Security Gate Overlay (REMOVED) -->
+  <div id="learnersSecurityGate" style="display:none;">
     <div class="gate-card">
       <div class="gate-icon">🎓</div>
       <h2>Learners Directory — Secure Access</h2>
@@ -1842,7 +1842,7 @@
   });
   submitPassword.addEventListener('click', () => {
     const val = (passwordInput.value || '').trim().toLowerCase();
-    if (['kbjkvrkt2023'].includes(val)) {
+    if (['kbj@2008'].includes(val)) {
       modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {
@@ -1876,10 +1876,9 @@
 
     if (!gate) return;
 
-    if (sessionStorage.getItem('learners_access_granted') === 'yes') {
-      hideLearnersGate();
-      return;
-    }
+    // Direct access without gate
+    hideLearnersGate();
+    return;
 
     if (pwdInput) pwdInput.focus();
 
@@ -1904,7 +1903,7 @@
         if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
         return;
       }
-      if (['kbjkvrkt2023'].includes(val)) {
+      if (['kbj@2008'].includes(val)) {
         sessionStorage.setItem('learners_access_granted', 'yes');
         if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
         setTimeout(hideLearnersGate, 800);

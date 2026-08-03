@@ -1392,7 +1392,7 @@
       const errorMessage = document.getElementById('errorMessage');
       const val = (passwordInput ? passwordInput.value : '').trim().toLowerCase();
       
-      const isOk = ['kbjkvrkt2023'].includes(val);
+      const isOk = ['kbj@2008'].includes(val);
       
       if (isOk) {
         sessionStorage.setItem('lessonplan_unlocked', 'true');
@@ -2119,7 +2119,7 @@
           const password = passwordInputProfile.value;
           errorMessageProfile.textContent = '';
           if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-          if (['kbjkvrkt2023'].includes(password.toLowerCase())) {
+          if (['kbj@2008'].includes(password.toLowerCase())) {
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {
