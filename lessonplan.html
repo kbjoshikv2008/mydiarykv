@@ -1480,285 +1480,185 @@
 
     // AI Lesson Plan Generator Template with customizable inputs
     function generateLessonPlanHTML(subject, className, chapter, topic, periods, customDate, teacherName, schoolName, sectionName, detailsText) {
-      const displayDate = customDate ? new Date(customDate).toLocaleDateString('en-IN') : new Date().toLocaleDateString('en-IN');
+      const displayDate = customDate ? new Date(customDate).toLocaleDateString('en-IN') : '15/07/2025';
       const displaySection = sectionName ? `${className} - ${sectionName}` : `${className} - A`;
       const displayTeacher = teacherName || "K B Joshi";
-      const displaySchool = schoolName || "PM SHRI KV Ranikhet";
+      const displaySubject = subject || "Mathematics";
+      const displayChapter = `${chapter}: ${topic}`;
+      const displayPeriods = periods || "10";
       
-      // Calculate future completion date (simulating planning)
       const startDateVal = customDate ? new Date(customDate) : new Date();
       const future = new Date(startDateVal);
-      future.setDate(future.getDate() + parseInt(periods) * 2);
+      future.setDate(future.getDate() + parseInt(displayPeriods) * 2);
       const completionStr = future.toLocaleDateString('en-IN');
 
-      let referenceInfoHtml = "";
-      if (detailsText.trim() || uploadedFileName) {
-        let referenceContent = "";
-        if (detailsText.trim()) referenceContent += `<p style="margin: 5px 0; font-size: 0.92em; color: #a78bfa; line-height:1.5;"><strong>Topic Guidelines:</strong> ${detailsText}</p>`;
-        if (uploadedFileName) referenceContent += `<p style="margin: 5px 0; font-size: 0.92em; color: #34d399; line-height:1.5;"><strong>Uploaded Content Context:</strong> ${uploadedFileName} (successfully parsed reference details).</p>`;
-        
-        referenceInfoHtml = `
-          <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(139, 92, 246, 0.3); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <h4 style="margin: 0 0 8px 0; font-size: 0.95em; color: #a78bfa; font-family: var(--font-head); text-transform: uppercase;">Custom Topic Reference Details</h4>
-            ${referenceContent}
-          </div>
-        `;
-      }
-
       return `
-        <div class="lesson-plan-document" style="background: rgba(255, 255, 255, 0.02); color: #fff; padding: 40px; border-radius: 16px; border: 1px solid var(--glass-border); font-family: 'Inter', sans-serif; line-height: 1.6;">
-          <div style="border-bottom: 3px solid #8b5cf6; padding-bottom: 20px; margin-bottom: 35px; text-align: center;">
-            <h1 style="font-size: 1.8em; color: #fff; font-family: var(--font-head); font-weight: 800; text-transform: uppercase; margin: 0 0 8px 0; letter-spacing: 0.5px;">COMPREHENSIVE COMPETENCY-BASED LESSON PLAN</h1>
-            <p style="color: #a78bfa; font-size: 0.88em; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin: 0;">NEP 2020 & NCF 2023 ALIGNED &middot; CBSE / KVS / PM SHRI STANDARDS</p>
-          </div>
+        <div class="lp-paper-document" style="color: #000; font-family: 'Poppins', 'Segoe UI', sans-serif;">
+          
+          <!-- PAGE 1 OF PDF -->
+          <div class="lp-paper-page" style="width: 100%; max-width: 297mm; background: #fff; color: #000; padding: 12mm 15mm; margin: 0 auto 25px auto; border: 1px solid #d1d5db; box-shadow: 0 8px 30px rgba(0,0,0,0.12); box-sizing: border-box;">
+            <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 6px; margin-bottom: 10px;">
+              <h2 style="font-size: 1.35rem; font-weight: 700; color: #000; text-transform: uppercase; margin: 0;">पाठ योजना / LESSON PLAN ORGANISER</h2>
+            </div>
 
-          ${referenceInfoHtml}
+            <!-- Meta Table 1 -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed;">
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 50%; color: #000;"><strong>दिनांक / Date:</strong> ${displayDate}</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 50%; color: #000;"><strong>कक्षा एवं वर्ग / Class and Section:</strong> ${displaySection}</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>विषय / Subject:</strong> ${displaySubject}</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>नामांकित विद्यार्थियों की संख्या / Number of Enrolled Students:</strong> 40</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>पाठ-शीर्षक / Chapter/Topic:</strong> ${displayChapter}</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>प्रारम्भ की तिथि / Date of commencement:</strong> ${displayDate}</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>अपेक्षित कक्षाओं की संख्या / No. of periods required:</strong> ${displayPeriods}</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>पूर्ण होने की तिथि / Actual date of completion:</strong> ${completionStr}</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>पाठ योजना का स्रोत / Source of the Lesson Plan:</strong></td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>Self</strong> / पाठ्यपुस्तक / Resource Pool</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;"><strong>पाठ योजना विकासकर्ता / Lesson Plan Developer:</strong></td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">${displayTeacher}</td>
+              </tr>
+            </table>
 
-          <!-- Section 1 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">1</span>
-              1. GENERAL FACTS
-            </h2>
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 15px;">
+            <!-- Section Title: Content -->
+            <div style="font-size: 1.05rem; font-weight: 700; color: #000; margin: 10px 0 6px 0; text-transform: uppercase;">विषयवस्तु / Content</div>
+
+            <!-- Content Table (5 Columns) -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed;">
+              <thead>
+                <tr style="background: #f8fafc;">
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 18%; color: #000; text-align: center;">अवधारणा / Concepts</th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 22%; color: #000; text-align: center;">अधिगम परिणाम (एनसीईआरटी) / Learning Outcomes (NCERT)</th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 22%; color: #000; text-align: center;">शैक्षिक रणनीतियाँ / Pedagogical Strategies</th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 19%; color: #000; text-align: center;">21वीं सदी के कौशल / मूल्य शिक्षा / व्यावसायिक कौशल<br><span style="font-size:0.72rem; font-weight:normal;">21st Century Skills / Value Education / Vocational skills</span></th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 19%; color: #000; text-align: center;">विस्तार / वास्तविक जीवन अनुप्रयोग<br><span style="font-size:0.72rem; font-weight:normal;">Extension / Real life applications</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Core definitions, fundamental properties and procedural framework of ${topic}.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Students will define, verify and apply core theorems of ${topic} to solve standard and non-standard problems.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Guided inquiry, GeoGebra visual demonstrations, peer problem solving and step-by-step mathematical deduction.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Critical Thinking, Logical Deduction, Analytical Reasoning, Digital Literacy & Collaborative Communication.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Real-world mathematical modeling, computer science algorithms, physical systems optimization and data partitioning.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Integration, Resources & Assessment Table -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed;">
               <tr>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; width: 25%; color: #c4b5fd;">Date:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${displayDate}</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; width: 25%; color: #c4b5fd;">Class & Section:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); width: 25%;">${displaySection}</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 30%; font-weight: 700; color: #000;">अन्य विषयों के साथ एकीकरण / Integration with other subjects:</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 70%; color: #000;">Integration with Physics vectors & kinetics, Computer Science database relations & algorithms, and Financial Economics.</td>
               </tr>
               <tr>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Subject:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${subject}</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Number of Students:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">40</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; color: #000;">संसाधन / पाठ्यपुस्तक / Resources / Digital / Physical:</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">NCERT ${className} Mathematics Textbook, GeoGebra Applets, Interactive Smart Panel, Concept Mind Maps and Worksheets.</td>
               </tr>
               <tr>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Chapter / Topic:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);" colspan="3"><strong>${chapter}</strong> &middot; ${topic}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Date of Commencement:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${displayDate}</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Number of Periods:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${periods}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Actual Date of Completion:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${completionStr} (Expected)</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">School:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${displaySchool}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Lesson Plan Developer:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${displayTeacher}</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); font-weight: 600; color: #c4b5fd;">Source of Lesson Plan:</td>
-                <td style="padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08);">${uploadedFileName ? `Uploaded file (${uploadedFileName})` : "NCERT / CBSE Curriculum Framework"}</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; color: #000;">आकलन / Assessment:</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">
+                  <div style="margin-bottom:4px;"><strong>FORMATIVE - </strong> Concept check exit tickets, oral questioning, GeoGebra exploration tasks and peer group problem solving.</div>
+                  <div><strong>SUMMATIVE - </strong> End-of-chapter assessment paper, periodic test questions and graded homework assignments.</div>
+                </td>
               </tr>
             </table>
           </div>
 
-          <!-- Section 2 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">2</span>
-              2. CONTENT AND CONCEPTS
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Important Concepts:</strong> Key conceptual pillars of <em>${topic}</em> within <em>${chapter}</em>.</li>
-              <li style="margin-bottom: 6px;"><strong>Key Ideas:</strong> Conceptual definitions, mathematical formulas/laws, boundary condition validations, and logical theorems.</li>
-              <li style="margin-bottom: 6px;"><strong>Sequence of Content:</strong> Review of Prerequisites &rarr; Conceptual Introduction &rarr; Core Derivation/Logical Explanations &rarr; Class Exercises &rarr; Competency Assessment &rarr; Exit Ticket evaluation.</li>
-              <li style="margin-bottom: 6px;"><strong>Concept Map:</strong> prior_knowledge &rarr; core_definition &rarr; visual_representation &rarr; competency_questions &rarr; real_world_application.</li>
-            </ul>
-          </div>
-
-          <!-- Section 3 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">3</span>
-              3. LEARNING OUTCOMES (NCERT/CBSE)
-            </h2>
-            <p style="margin: 0 0 10px 0;">By the end of this lesson, students will achieve the following measurable outcomes:</p>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Cognitive/Recall (LO1):</strong> State, write, and identify the primary rules and definitions governing <em>${topic}</em>.</li>
-              <li style="margin-bottom: 6px;"><strong>Understanding (LO2):</strong> Explain the conceptual relation of <em>${topic}</em> and illustrate it with examples.</li>
-              <li style="margin-bottom: 6px;"><strong>Application (LO3):</strong> Solve multi-step mathematical problems and competency cases involving <em>${topic}</em> with high procedural accuracy.</li>
-              <li style="margin-bottom: 6px;"><strong>Analysis (LO4):</strong> Compare different solution methods to select the most efficient logical pathway.</li>
-            </ul>
-          </div>
-
-          <!-- Section 4 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">4</span>
-              4. PEDAGOGICAL STRATEGIES
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Discussion:</strong> Peer dialogues analyzing boundary edge cases.</li>
-              <li style="margin-bottom: 6px;"><strong>Demonstration:</strong> Graphical/algebraic demonstrations of <em>${topic}</em> on the interactive smart panel.</li>
-              <li style="margin-bottom: 6px;"><strong>Activity-Based & Experiential Learning:</strong> Hands-on activity where students model and solve worksheets collaboratively.</li>
-              <li style="margin-bottom: 6px;"><strong>ICT Integration:</strong> Using digital slides, YouTube videos, and interactive applets (like GeoGebra) to explore concepts dynamically.</li>
-            </ul>
-          </div>
-
-          <!-- Section 5 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">5</span>
-              5. 21st CENTURY SKILLS / VALUE EDUCATION / VOCATIONAL SKILLS
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Critical Thinking & Problem Solving:</strong> Evaluating mathematical assertions and explaining reasoning.</li>
-              <li style="margin-bottom: 6px;"><strong>Collaboration & Communication:</strong> Team projects drafting real-world examples and presenting them to the class.</li>
-              <li style="margin-bottom: 6px;"><strong>Ethical Values & Life Skills:</strong> Intellectual honesty, respecting divergent peer opinions, and collaborating productively.</li>
-            </ul>
-          </div>
-
-          <!-- Section 6 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">6</span>
-              6. EXTENSION / REAL-LIFE APPLICATIONS
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Everyday Life & Society:</strong> How <em>${topic}</em> helps organize information, schedule timetables, or partition groups.</li>
-              <li style="margin-bottom: 6px;"><strong>Careers & Technology:</strong> Foundations in Data Science, Software Engineering algorithms, Economics forecasting, and Physics modeling.</li>
-            </ul>
-          </div>
-
-          <!-- Section 7 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">7</span>
-              7. INTEGRATION WITH OTHER SUBJECTS
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Computer Science:</strong> Linking <em>${topic}</em> directly with array collections, function definitions, database relations, and Boolean logic systems.</li>
-              <li style="margin-bottom: 6px;"><strong>Physics & Chemistry:</strong> Modeling vector systems, thermodynamic properties, and reaction rates.</li>
-            </ul>
-          </div>
-
-          <!-- Section 8 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">8</span>
-              8. ASSESSMENT (COMPETENCY-BASED)
-            </h2>
-            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.06); padding: 20px; border-radius: 8px;">
-              <p style="margin: 0 0 10px 0;"><strong>Diagnostic:</strong> 3-question warm-up at the start on prerequisite concepts from <em>${chapter}</em>.</p>
-              <p style="margin: 0 0 10px 0;"><strong>Formative:</strong> Continuous evaluation during group activities, monitoring student board work, and peer discussions.</p>
-              <p style="margin: 0 0 10px 0;"><strong>Summative (Competency-Based Tasks):</strong></p>
-              <ul style="margin: 0 0 12px 0; padding-left: 20px;">
-                <li style="margin-bottom: 4px;"><em>MCQs:</em> Selecting correct properties of <em>${topic}</em> from dynamic option sets.</li>
-                <li style="margin-bottom: 4px;"><em>Assertion-Reason:</em> Critical validation of mathematical claims and logical proofs.</li>
-                <li style="margin-bottom: 4px;"><em>Case-based:</em> A contextual worksheet showing real data and requiring students to apply <em>${topic}</em> properties to solve it.</li>
-                <li style="margin-bottom: 4px;"><em>HOTS Questions:</em> Devising complex generalizations from specific mathematical observations.</li>
-              </ul>
-              <p style="margin: 0;"><strong>Exit Ticket:</strong> A quick, 2-minute card problem solved individually and handed in before leaving class.</p>
+          <!-- PAGE 2 OF PDF -->
+          <div class="lp-paper-page" style="width: 100%; max-width: 297mm; background: #fff; color: #000; padding: 12mm 15mm; margin: 0 auto; border: 1px solid #d1d5db; box-shadow: 0 8px 30px rgba(0,0,0,0.12); box-sizing: border-box;">
+            <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 6px; margin-bottom: 10px;">
+              <h2 style="font-size: 1.35rem; font-weight: 700; color: #000; text-transform: uppercase; margin: 0;">दक्षता आधारित पाठ योजना / Competency Based Lesson Plan</h2>
             </div>
+
+            <!-- Competencies Table (4 Columns) -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed;">
+              <thead>
+                <tr style="background: #f8fafc;">
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 25%; color: #000; text-align: center;">उद्देश्य / Objectives</th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 25%; color: #000; text-align: center;">शिक्षण पद्धति / Teaching Methodology</th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 25%; color: #000; text-align: center;">कौशल एवं दृष्टिकोण / Skills and Attitude</th>
+                  <th style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; font-weight: 700; width: 25%; color: #000; text-align: center;">दक्षताएँ / Competencies</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">1. Recall and state core definitions.<br>2. Demonstrate conceptual understanding.<br>3. Apply formulas accurately in numerical problems.<br>4. Analyze edge cases and verify proof logic.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Think-Pair-Share, Guided Inquiry, Flipped Classroom pre-reading, Interactive GeoGebra Visualizations and Competency-based peer learning.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Analytical thinking, precision in mathematical notation, resilience in complex problem solving, and positive attitude towards constructive feedback.</td>
+                  <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; vertical-align: top; color: #000;">Conceptual Understanding, Procedural Fluency, Problem Solving & Mathematical Reasoning, Modeling Real-world Scenarios.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Section Title: Reflection -->
+            <div style="font-size: 1.05rem; font-weight: 700; color: #000; margin: 10px 0 6px 0; text-transform: uppercase;">पाठ पश्चात चिंतन / Post Teaching Reflection</div>
+
+            <div style="border: 1px solid #000; padding: 10px 12px; margin-bottom: 12px; min-height: 85px; font-size: 0.82rem; line-height: 1.4; color: #000;">
+              <div style="font-weight: 700; margin-bottom: 2px;">अपवादात्मक शिक्षण की योजना / Planning for remedial teaching:</div>
+              <div style="font-size: 0.75rem; color: #4b5563; margin-bottom: 6px;">(इस पाठ के लिए किसे कक्षाएं आवश्यक हैं / Concepts for which remedial classes are required)</div>
+              <div>Identified students needing extra support in abstract algebraic proofs. Formed peer-mentoring pairs and conducted focused remedial problem-solving sessions.</div>
+            </div>
+
+            <!-- Section Title: Self Assessment -->
+            <div style="font-size: 1.05rem; font-weight: 700; color: #000; margin: 10px 0 6px 0; text-transform: uppercase;">शिक्षक द्वारा आत्म-मूल्यांकन / Self-assessment by the teacher</div>
+
+            <!-- Self Assessment Questions Table -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; table-layout: fixed;">
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 80%; color: #000;">1. क्या सभी विद्यार्थी क्रियाओं में शामिल थे? / Were all students engaged in all activities?</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 20%; text-align: center; color: #000;"><span style="font-family:Arial;">☑</span> Yes / <span style="font-family:Arial;">☐</span> No</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">2. क्या सभी प्रश्न छात्रों को समझ में आ रहे थे? / Were the questions posed to students understandable?</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; text-align: center; color: #000;"><span style="font-family:Arial;">☑</span> Yes / <span style="font-family:Arial;">☐</span> No</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">3. क्या मैं विभिन्न चरणों को सफलतापूर्वक पूरा कर पाया? / Was I able to move through the various stages successfully?</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; text-align: center; color: #000;"><span style="font-family:Arial;">☑</span> Yes / <span style="font-family:Arial;">☐</span> No</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">4. क्या मैं समय पर ही काम पूरा कर पाया? / Was I able to keep to time?</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; text-align: center; color: #000;"><span style="font-family:Arial;">☑</span> Yes / <span style="font-family:Arial;">☐</span> No</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">5. योजना का कार्यान्वयन कितना संतोषजनक था? / How satisfactory has been the implementation of the plan?</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; text-align: center; color: #000;"><span style="font-family:Arial;">☑</span> Yes / <span style="font-family:Arial;">☐</span> No</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; color: #000;">6. क्या मुझे योजना में कोई संशोधन की आवश्यकता है? / Do I need any modifications in the plan?</td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; text-align: center; color: #000;"><span style="font-family:Arial;">☐</span> Yes / <span style="font-family:Arial;">☑</span> No</td>
+              </tr>
+            </table>
+
+            <!-- Signature Footer Table -->
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px; table-layout: fixed;">
+              <tr>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 50%; color: #000;">
+                  <div style="min-height: 45px;"></div>
+                  <div><strong>अध्यापक के हस्ताक्षर / Signature of Teacher with date</strong></div>
+                </td>
+                <td style="border: 1px solid #000; padding: 6px 8px; font-size: 0.8rem; width: 50%; color: #000;">
+                  <div style="min-height: 45px;"></div>
+                  <div><strong>प्रधानाचार्य / उप-प्रधानाचार्य के हस्ताक्षर / Signature of HM / Vice Principal / Principal</strong></div>
+                </td>
+              </tr>
+            </table>
           </div>
 
-          <!-- Section 9 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">9</span>
-              9. RESOURCES (DIGITAL & PHYSICAL)
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;">NCERT Textbook & KVS/PM SHRI Teacher Handbooks.</li>
-              <li style="margin-bottom: 6px;"><strong>Digital Tools:</strong> Presentation PPT slides, interactive GeoGebra applets, YouTube videos, and smart boards.</li>
-              <li style="margin-bottom: 6px;"><strong>Physical Tools:</strong> Coordinate charts, geometric models, physical card sets, and custom worksheets.</li>
-            </ul>
-          </div>
-
-          <!-- Section 10 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">10</span>
-              10. OBJECTIVES (BLOOM'S TAXONOMY)
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Knowledge:</strong> Recall key definitions, terminology, and standard formulas of <em>${topic}</em>.</li>
-              <li style="margin-bottom: 6px;"><strong>Understanding:</strong> Distinguish between different forms and representations of the topic.</li>
-              <li style="margin-bottom: 6px;"><strong>Application:</strong> Apply properties to compute values in numerical assignments.</li>
-              <li style="margin-bottom: 6px;"><strong>Analysis & Evaluation:</strong> Criticize mathematical arguments and verify correctness using logic.</li>
-              <li style="margin-bottom: 6px;"><strong>Creation:</strong> Devise new situational contexts and problem frameworks based on <em>${topic}</em>.</li>
-            </ul>
-          </div>
-
-          <!-- Section 11 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">11</span>
-              11. TEACHING METHODOLOGY
-            </h2>
-            <p style="margin: 0 0 10px 0;">Combining multiple active-pedagogical methodologies:</p>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 4px;">Think-Pair-Share during conceptual discussions.</li>
-              <li style="margin-bottom: 4px;">Guided discovery where student exercises lead to deduction of mathematical properties.</li>
-              <li style="margin-bottom: 4px;">Flipped classroom structures prompting pre-reading of <em>${chapter}</em>.</li>
-              <li style="margin-bottom: 4px;">Cooperative and competency-based peer learning configurations.</li>
-            </ul>
-          </div>
-
-          <!-- Section 12 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">12</span>
-              12. SKILLS AND ATTITUDE
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Conceptual & Analytical Skills:</strong> Logical deduction, pattern extraction, and structural reasoning.</li>
-              <li style="margin-bottom: 6px;"><strong>Communication & Collaboration:</strong> Explaining mathematical logic to peers and coordinating in teams.</li>
-              <li style="margin-bottom: 6px;"><strong>Attitude:</strong> Resilience when solving complex problems, scientific curiosity, and positive response to corrections.</li>
-            </ul>
-          </div>
-
-          <!-- Section 13 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">13</span>
-              13. COMPETENCY-BASED LESSON PLAN FOCUS
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Conceptual Understanding:</strong> Focusing on core principles instead of rote formula application.</li>
-              <li style="margin-bottom: 6px;"><strong>Procedural Fluency:</strong> Selecting optimal derivation routes.</li>
-              <li style="margin-bottom: 6px;"><strong>Problem Solving & Reasoning:</strong> Formulating mathematical models for complex word challenges.</li>
-            </ul>
-          </div>
-
-          <!-- Section 14 -->
-          <div style="margin-bottom: 35px;">
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">14</span>
-              14. POST TEACHING REFLECTION
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Actual Periods Taken:</strong> ${periods} (Planned).</li>
-              <li style="margin-bottom: 6px;"><strong>Difficult Concepts Identified:</strong> Resolving edge/boundary cases for complex topics in <em>${topic}</em>.</li>
-              <li style="margin-bottom: 6px;"><strong>Remedial Plan:</strong> Small-group mentoring and simplified worksheets for slow/average learners.</li>
-              <li style="margin-bottom: 6px;"><strong>Enrichment Activities:</strong> Complex challenge sets and extension research tasks for gifted learners.</li>
-            </ul>
-          </div>
-
-          <!-- Section 15 -->
-          <div>
-            <h2 style="font-size: 1.15em; color: #38bdf8; border-bottom: 1px solid rgba(56, 189, 248, 0.25); padding-bottom: 8px; margin-bottom: 16px; font-family: var(--font-head); display: flex; align-items: center; gap: 10px; font-weight: 700;">
-              <span style="background: rgba(56, 189, 248, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.8em; color: #38bdf8; font-weight: 700;">15</span>
-              15. TEACHER SELF-ASSESSMENT
-            </h2>
-            <ul style="margin: 0; padding-left: 20px;">
-              <li style="margin-bottom: 6px;"><strong>Engagement:</strong> Evaluating student participation rates during GeoGebra visualizations.</li>
-              <li style="margin-bottom: 6px;"><strong>Outcomes:</strong> Assessing achievement rates of the learning outcomes based on formative assessment grades.</li>
-              <li style="margin-bottom: 6px;"><strong>Time Management:</strong> Balancing lectures and student activities.</li>
-              <li style="margin-bottom: 6px;"><strong>ICT Effectiveness:</strong> Reviewing the impact of the interactive panels and tools.</li>
-            </ul>
-          </div>
         </div>
       `;
     }
-
-    function copyLessonPlan() {
+function copyLessonPlan() {
       const content = document.getElementById('lpResultContent').innerText;
       navigator.clipboard.writeText(content).then(() => {
         alert("Lesson plan copied to clipboard successfully!");

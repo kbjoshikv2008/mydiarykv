@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Plan Organiser - Chapter 10: Circles (Class 10)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .no-print-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .btn-action {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-print { background: #4f46e5; color: white; }
+        .btn-print:hover { background: #4338ca; }
+        .btn-back { background: #4b5563; color: white; }
+        .btn-back:hover { background: #374151; }
+        
+        .lp-paper-page {
+            width: 297mm;
+            min-height: 210mm;
+            background: white;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            padding: 12mm 15mm;
+            margin-bottom: 25px;
+            border: 1px solid #d1d5db;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        .pdf-header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .pdf-header h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #000;
+            margin: 10px 0 6px 0;
+            text-transform: uppercase;
+        }
+        
+        .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+            table-layout: fixed;
+        }
+        
+        .grid-table th, .grid-table td {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            vertical-align: top;
+            color: #000;
+            word-wrap: break-word;
+        }
+        
+        .grid-table th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .bold-lbl {
+            font-weight: 700;
+        }
+        
+        .checkbox-mark {
+            font-family: Arial, sans-serif;
+            font-size: 1.05rem;
+        }
+        
+        .rem-box {
+            border: 1px solid #000;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            min-height: 90px;
+            font-size: 0.82rem;
+            line-height: 1.4;
+        }
+
+        ul, ol {
+            padding-left: 16px;
+            margin: 4px 0;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+        
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .no-print, .no-print-bar {
+                display: none !important;
+            }
+            .lp-paper-page {
+                width: 100% !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 10mm !important;
+                box-shadow: none !important;
+                border: none !important;
+                page-break-after: always;
+            }
+            .lp-paper-page:last-child {
+                page-break-after: avoid;
+            }
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print-bar">
+        <button onclick="window.print()" class="btn-action btn-print"><i class="fas fa-print"></i> Print / Save PDF</button>
+        <a href="../lessonplan.html" class="btn-action btn-back"><i class="fas fa-arrow-left"></i> Back to Lesson Plans</a>
+    </div>
+
+    <!-- PAGE 1 OF PDF -->
+    <div class="lp-paper-page">
+        <div class="pdf-header">
+            <h2>पाठ योजना / LESSON PLAN ORGANISER</h2>
+        </div>
+
+        <!-- Meta Table 1 -->
+        <table class="grid-table">
+            <tr>
+                <td width="50%"><span class="bold-lbl">दिनांक / Date:</span> 15/07/2025</td>
+                <td width="50%"><span class="bold-lbl">कक्षा एवं वर्ग / Class and Section:</span> Class 10 - Section A</td>
+            </tr>
+            <tr>
+                <td><span class="bold-lbl">विषय / Subject:</span> Mathematics</td>
+                <td><span class="bold-lbl">नामांकित विद्यार्थियों की संख्या / Number of Enrolled Students:</span> 40</td>
+            </tr>
+            <tr>
+                <td><span class="bold-lbl">पाठ-शीर्षक / Chapter/Topic:</span> Chapter 10: Circles</td>
+                <td><span class="bold-lbl">प्रारम्भ की तिथि / Date of commencement:</span> 15/07/2025</td>
+            </tr>
+            <tr>
+                <td><span class="bold-lbl">अपेक्षित कक्षाओं की संख्या / No. of periods required:</span> 10</td>
+                <td><span class="bold-lbl">पूर्ण होने की तिथि / Actual date of completion:</span> 01/08/2025</td>
+            </tr>
+            <tr>
+                <td><span class="bold-lbl">पाठ योजना का स्रोत / Source of the Lesson Plan:</span></td>
+                <td><strong>Self</strong> / पाठ्यपुस्तक / Resource Pool</td>
+            </tr>
+            <tr>
+                <td><span class="bold-lbl">पाठ योजना विकासकर्ता / Lesson Plan Developer:</span></td>
+                <td>Mathematics Department</td>
+            </tr>
+        </table>
+
+        <!-- Section Title: Content -->
+        <div class="section-title">विषयवस्तु / Content</div>
+
+        <!-- Content Table (5 Columns) -->
+        <table class="grid-table">
+            <thead>
+                <tr>
+                    <th width="18%">अवधारणा / Concepts</th>
+                    <th width="22%">अधिगम परिणाम (एनसीईआरटी) / Learning Outcomes (NCERT)</th>
+                    <th width="22%">शैक्षिक रणनीतियाँ / Pedagogical Strategies</th>
+                    <th width="19%">21वीं सदी के कौशल / मूल्य शिक्षा / व्यावसायिक कौशल<br><span style="font-size:0.75rem; font-weight:normal;">21st Century Skills / Value Education / Vocational skills</span></th>
+                    <th width="19%">विस्तार / वास्तविक जीवन अनुप्रयोग<br><span style="font-size:0.75rem; font-weight:normal;">Extension / Real life applications</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Fundamental definitions, core theorems, properties, visual models and problem-solving techniques of <em>Chapter 10: Circles</em>.</td>
+                    <td>Students will define, identify, compute, and apply core principles of <em>Chapter 10: Circles</em> in standard and real-life mathematical scenarios.</td>
+                    <td>Guided inquiry, active questioning, interactive GeoGebra applets, group activities, and step-by-step mathematical deduction.</td>
+                    <td>Critical Thinking, Problem Solving, Analytical Reasoning, Digital Literacy, Logical Deduction & Collaborative Communication.</td>
+                    <td>Real-world data modeling, interdisciplinary applications in science/engineering, and advanced challenge problem sets related to <em>Chapter 10: Circles</em>.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Integration, Resources & Assessment Table -->
+        <table class="grid-table">
+            <tr>
+                <td width="30%" class="bold-lbl">अन्य विषयों के साथ एकीकरण / Integration with other subjects:</td>
+                <td width="70%">Integration with Physics, Computer Science algorithms, Geometry & Architectural Design, and Financial Economics.</td>
+            </tr>
+            <tr>
+                <td class="bold-lbl">संसाधन / पाठ्यपुस्तक / Resources / Digital / Physical:</td>
+                <td>NCERT Class 10 Mathematics Textbook, GeoGebra Interactive Models, Smart Panel, Mind Maps, and Concept Worksheets.</td>
+            </tr>
+            <tr>
+                <td class="bold-lbl">आकलन / Assessment:</td>
+                <td>
+                    <div style="margin-bottom:4px;"><strong>FORMATIVE - </strong> Class participation, oral concept checks, GeoGebra exploration tasks and exit tickets.</div>
+                    <div><strong>SUMMATIVE - </strong> End-of-chapter test paper, periodic assessment questions, and graded homework.</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- PAGE 2 OF PDF -->
+    <div class="lp-paper-page">
+        <div class="pdf-header">
+            <h2>दक्षता आधारित पाठ योजना / Competency Based Lesson Plan</h2>
+        </div>
+
+        <!-- Competencies Table (4 Columns) -->
+        <table class="grid-table">
+            <thead>
+                <tr>
+                    <th width="25%">उद्देश्य / Objectives</th>
+                    <th width="25%">शिक्षण पद्धति / Teaching Methodology</th>
+                    <th width="25%">कौशल एवं दृष्टिकोण / Skills and Attitude</th>
+                    <th width="25%">दक्षताएँ / Competencies</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. Recall key terminology and standard formulas of <em>Chapter 10: Circles</em>.<br>2. Solve numerical and conceptual problems.<br>3. Analyze logical edge cases and verify proof steps.</td>
+                    <td>Think-Pair-Share, Guided Inquiry, Flipped Classroom pre-readings, Visual GeoGebra Demonstrations, and Competency-based peer learning.</td>
+                    <td>Precision in mathematical notation, logical rigor, resilience in complex problem solving, and a positive response to constructive feedback.</td>
+                    <td>Conceptual Understanding, Procedural Fluency, Problem Solving & Reasoning, Communication of Mathematical Logic.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Section Title: Reflection -->
+        <div class="section-title">पाठ पश्चात चिंतन / Post Teaching Reflection</div>
+
+        <div class="rem-box">
+            <div class="bold-lbl" style="margin-bottom:2px;">अपवादात्मक शिक्षण की योजना / Planning for remedial teaching:</div>
+            <div style="font-size:0.75rem; color:#4b5563; margin-bottom:6px;">(इस पाठ के लिए किसे कक्षाएं आवश्यक हैं / Concepts for which remedial classes are required)</div>
+            <div>Addressed common student misconceptions in <em>Chapter 10: Circles</em>. Conducted remedial peer-tutoring sessions and distributed simplified concept worksheets for struggling learners.</div>
+        </div>
+
+        <!-- Section Title: Self Assessment -->
+        <div class="section-title">शिक्षक द्वारा आत्म-मूल्यांकन / Self-assessment by the teacher</div>
+
+        <!-- Self Assessment Questions Table -->
+        <table class="grid-table">
+            <tr>
+                <td width="80%">1. क्या सभी विद्यार्थी क्रियाओं में शामिल थे? / Were all students engaged in all activities?</td>
+                <td width="20%" style="text-align:center;"><span class="checkbox-mark">☑</span> Yes / <span class="checkbox-mark">☐</span> No</td>
+            </tr>
+            <tr>
+                <td>2. क्या सभी प्रश्न छात्रों को समझ में आ रहे थे? / Were the questions posed to students understandable?</td>
+                <td style="text-align:center;"><span class="checkbox-mark">☑</span> Yes / <span class="checkbox-mark">☐</span> No</td>
+            </tr>
+            <tr>
+                <td>3. क्या मैं विभिन्न चरणों को सफलतापूर्वक पूरा कर पाया? / Was I able to move through the various stages successfully?</td>
+                <td style="text-align:center;"><span class="checkbox-mark">☑</span> Yes / <span class="checkbox-mark">☐</span> No</td>
+            </tr>
+            <tr>
+                <td>4. क्या मैं समय पर ही काम पूरा कर पाया? / Was I able to keep to time?</td>
+                <td style="text-align:center;"><span class="checkbox-mark">☑</span> Yes / <span class="checkbox-mark">☐</span> No</td>
+            </tr>
+            <tr>
+                <td>5. योजना का कार्यान्वयन कितना संतोषजनक था? / How satisfactory has been the implementation of the plan?</td>
+                <td style="text-align:center;"><span class="checkbox-mark">☑</span> Yes / <span class="checkbox-mark">☐</span> No</td>
+            </tr>
+            <tr>
+                <td>6. क्या मुझे योजना में कोई संशोधन की आवश्यकता है? / Do I need any modifications in the plan?</td>
+                <td style="text-align:center;"><span class="checkbox-mark">☐</span> Yes / <span class="checkbox-mark">☑</span> No</td>
+            </tr>
+        </table>
+
+        <!-- Signature Footer Table -->
+        <table class="grid-table" style="margin-top:20px;">
+            <tr>
+                <td width="50%">
+                    <div style="min-height:45px;"></div>
+                    <div class="bold-lbl">अध्यापक के हस्ताक्षर / Signature of Teacher with date</div>
+                </td>
+                <td width="50%">
+                    <div style="min-height:45px;"></div>
+                    <div class="bold-lbl">प्रधानाचार्य / उप-प्रधानाचार्य के हस्ताक्षर / Signature of HM / Vice Principal / Principal</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
