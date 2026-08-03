@@ -14,14 +14,27 @@
        ===================================================== */
     .gdrive-hero {
       background: linear-gradient(135deg, #1a0533 0%, #2d1060 40%, #1a1060 70%, #0a1a60 100%);
-      border-radius: 20px; padding: 36px 32px; margin-bottom: 24px;
+      border-radius: 24px; padding: 38px 34px; margin-bottom: 24px;
       position: relative; overflow: hidden;
       box-shadow: 0 20px 60px rgba(124,58,237,0.35);
-      border: 1px solid rgba(124,58,237,0.25);
+      border: 1px solid rgba(124,58,237,0.3);
     }
-    .hero-title { font-size: 2rem; font-weight: 800; color: #fff; margin: 0 0 6px; line-height: 1.2; }
+    .hero-title { font-size: 2.1rem; font-weight: 800; color: #fff; margin: 0 0 8px; line-height: 1.25; }
     .hero-title span { color: #a78bfa; }
-    .hero-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin: 0 0 16px; }
+    .hero-subtitle { font-size: 0.96rem; color: rgba(255,255,255,0.8); margin: 0 0 20px; line-height: 1.6; }
+    
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+    }
+    .btn-main-drive {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #7c3aed, #3b82f6);
+      color: #fff; padding: 12px 24px; border-radius: 30px;
+      font-size: 0.92rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(124,58,237,0.4); transition: all 0.25s ease;
+    }
+    .btn-main-drive:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(124,58,237,0.6); color: #fff; text-decoration: none; }
+
     .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -59,6 +72,37 @@
       transition: all 0.25s ease; box-shadow: 0 4px 15px rgba(220,38,38,0.35);
     }
     .cross-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(220,38,38,0.5); color: #fff; text-decoration: none; }
+
+    /* View Switcher Tabs */
+    .view-mode-tabs {
+      display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;
+    }
+    .view-tab-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+      border-radius: 12px; padding: 10px 20px; font-size: 0.88rem; font-weight: 700;
+      color: var(--text-secondary); cursor: pointer; transition: all 0.25s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .view-tab-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .view-tab-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #3b82f6);
+      border-color: transparent; color: #fff; box-shadow: 0 4px 15px rgba(124,58,237,0.35);
+    }
+
+    /* Embedded Drive Viewer Box */
+    .drive-iframe-container {
+      background: #0f0a2a; border: 1px solid rgba(124,58,237,0.35);
+      border-radius: 20px; overflow: hidden; height: 680px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin-bottom: 30px;
+    }
+    .drive-iframe-header {
+      padding: 14px 20px; background: rgba(124,58,237,0.2);
+      border-bottom: 1px solid rgba(124,58,237,0.3);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .drive-iframe-header h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0; display: flex; align-items: center; gap: 8px; }
+    .drive-iframe-header a { color: #a78bfa; font-size: 0.82rem; font-weight: 600; text-decoration: none; }
+    .drive-iframe-header a:hover { text-decoration: underline; }
 
     /* Filter & Search Bar */
     .filter-panel {
@@ -198,9 +242,9 @@
     .gate-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin: 0 0 28px; }
     .gate-input-wrap { position: relative; margin-bottom: 16px; }
     #gatePasswordInput { width: 100%; padding: 14px 48px 14px 18px; border-radius: 14px; border: 2px solid rgba(124,58,237,0.4); background: rgba(255,255,255,0.05); color: #fff; font-size: 1rem; font-family: 'Poppins',sans-serif; outline: none; box-sizing: border-box; }
-    #gateToggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: rgba(255,255,255,0.4); background: none; border: none; font-size: 1.1rem; }
+    .gate-eye-btn { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: rgba(255,255,255,0.4); background: none; border: none; font-size: 1.1rem; }
     #submitGatePassword { width: 100%; padding: 15px; border-radius: 14px; border: none; background: linear-gradient(135deg,#7c3aed,#3b82f6); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; }
-    #gateErrorMessage { color: #f87171; font-size: 0.85rem; margin-top: 10px; min-height: 20px; }
+    #gateErrorMsg { color: #f87171; font-size: 0.85rem; margin-top: 10px; min-height: 20px; }
   </style>
 </head>
 <body>
@@ -216,7 +260,7 @@
         <button id="gateEyeToggle" class="gate-eye-btn" type="button" onclick="toggleGatePwd()"><i id="gateEyeIcon" class="fas fa-eye"></i></button>
       </div>
       <button id="submitGatePassword">&#128275; UNLOCK MATH LAB</button>
-      <div id="gateErrorMsg" style="color:#ef4444;font-weight:600;margin-top:10px;font-size:0.9rem;min-height:20px;"></div>
+      <div id="gateErrorMsg"></div>
     </div>
   </div>
 
@@ -248,7 +292,14 @@
     <!-- Hero -->
     <div class="gdrive-hero">
       <h1 class="hero-title">&#129514; Interactive <span>Lesson Hub</span></h1>
-      <p class="hero-subtitle">CBSE Mathematics — Classes 7, 11 &amp; 12 &nbsp;|&nbsp; Direct Google Drive &amp; Interactive Media Links</p>
+      <p class="hero-subtitle">CBSE Mathematics — Classes 7, 11 &amp; 12 &nbsp;|&nbsp; Official Google Drive Interactive Content &amp; Digital Resources</p>
+      
+      <div class="hero-actions">
+        <a href="https://drive.google.com/drive/folders/1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d?usp=sharing" target="_blank" class="btn-main-drive">
+          <i class="fab fa-google-drive" style="font-size:1.2rem;"></i> Open Main Google Drive Folder
+        </a>
+      </div>
+
       <div class="hero-badges">
         <span class="hero-badge"><i class="fas fa-video" style="color:#f87171;"></i> 19 Videos</span>
         <span class="hero-badge"><i class="fas fa-file-powerpoint" style="color:#fbbf24;"></i> 21 Slide Decks</span>
@@ -276,7 +327,7 @@
       <i class="fab fa-google-drive" style="color:#a78bfa;"></i> Direct Google Drive Folders
     </h2>
     <div class="drive-folders-bar">
-      <a href="https://drive.google.com/drive/folders/1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d" target="_blank" class="folder-tab-btn">
+      <a href="https://drive.google.com/drive/folders/1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d?usp=sharing" target="_blank" class="folder-tab-btn" style="border-color:#a78bfa;background:rgba(124,58,237,0.25);">
         <i class="fab fa-google-drive" style="color:#a78bfa;"></i> Main Drive Folder (All 178 Files)
       </a>
       <a href="https://drive.google.com/drive/folders/1SIbIipnyG7V7YdreD80JOmR9rfh4v-iy" target="_blank" class="folder-tab-btn">
@@ -296,37 +347,63 @@
       </a>
     </div>
 
-    <!-- Filter & Search Panel -->
-    <div class="filter-panel">
-      <div class="search-row">
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" id="lessonSearch" placeholder="Search by topic, chapter or file name (e.g., Vectors, Matrices, Ch 3)..." onkeyup="filterLessons()">
+    <!-- View Mode Switcher Tabs -->
+    <div class="view-mode-tabs">
+      <button class="view-tab-btn active" id="btnTabDrive" onclick="switchViewMode('drive', this)">
+        <i class="fab fa-google-drive"></i> Embedded Drive Explorer
+      </button>
+      <button class="view-tab-btn" id="btnTabCards" onclick="switchViewMode('cards', this)">
+        <i class="fas fa-th-large"></i> 178 Chapter Resource Cards
+      </button>
+    </div>
+
+    <!-- View Mode 1: Embedded Drive Explorer -->
+    <div id="driveExplorerView" style="display:block;">
+      <div class="drive-iframe-container">
+        <div class="drive-iframe-header">
+          <h3><i class="fab fa-google-drive" style="color:#a78bfa;"></i> Google Drive Live Explorer — Math Lab Folder</h3>
+          <a href="https://drive.google.com/drive/folders/1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d?usp=sharing" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Open Full Drive in New Tab
+          </a>
         </div>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Class:</span>
-        <button class="filter-pill active" data-class="all" onclick="setClassFilter('all', this)">All Classes</button>
-        <button class="filter-pill" data-class="class7" onclick="setClassFilter('class7', this)">Class 7</button>
-        <button class="filter-pill" data-class="class11" onclick="setClassFilter('class11', this)">Class 11</button>
-        <button class="filter-pill" data-class="class12" onclick="setClassFilter('class12', this)">Class 12</button>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Resource:</span>
-        <button class="filter-pill active" data-cat="all" onclick="setCatFilter('all', this)">All Types (178)</button>
-        <button class="filter-pill" data-cat="videos" onclick="setCatFilter('videos', this)">🎥 Videos (19)</button>
-        <button class="filter-pill" data-cat="slides" onclick="setCatFilter('slides', this)">📊 Slide Decks (21)</button>
-        <button class="filter-pill" data-cat="mindmaps" onclick="setCatFilter('mindmaps', this)">🗺️ Mind Maps (23)</button>
-        <button class="filter-pill" data-cat="infographics" onclick="setCatFilter('infographics', this)">📈 Infographics (42)</button>
-        <button class="filter-pill" data-cat="html" onclick="setCatFilter('html', this)">🌐 HTML Plans (73)</button>
+        <iframe src="https://drive.google.com/embeddedfolderview?id=1hVUoPsnCLTpBisUWpfOr1FsiTHuX_H2d#grid" style="width:100%;height:calc(100% - 50px);border:none;background:#fff;" title="Google Drive Viewer"></iframe>
       </div>
     </div>
 
-    <!-- Resource Grid -->
-    <div class="lessons-grid" id="lessonsGrid">
-      <!-- Populated dynamically by JavaScript -->
+    <!-- View Mode 2: Resource Cards Grid with Search & Filters -->
+    <div id="cardsGridView" style="display:none;">
+      <!-- Filter & Search Panel -->
+      <div class="filter-panel">
+        <div class="search-row">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="lessonSearch" placeholder="Search by topic, chapter or file name (e.g., Vectors, Matrices, Ch 3)..." onkeyup="filterLessons()">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Class:</span>
+          <button class="filter-pill active" data-class="all" onclick="setClassFilter('all', this)">All Classes</button>
+          <button class="filter-pill" data-class="class7" onclick="setClassFilter('class7', this)">Class 7</button>
+          <button class="filter-pill" data-class="class11" onclick="setClassFilter('class11', this)">Class 11</button>
+          <button class="filter-pill" data-class="class12" onclick="setClassFilter('class12', this)">Class 12</button>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Resource:</span>
+          <button class="filter-pill active" data-cat="all" onclick="setCatFilter('all', this)">All Types (178)</button>
+          <button class="filter-pill" data-cat="videos" onclick="setCatFilter('videos', this)">🎥 Videos (19)</button>
+          <button class="filter-pill" data-cat="slides" onclick="setCatFilter('slides', this)">📊 Slide Decks (21)</button>
+          <button class="filter-pill" data-cat="mindmaps" onclick="setCatFilter('mindmaps', this)">🗺️ Mind Maps (23)</button>
+          <button class="filter-pill" data-cat="infographics" onclick="setCatFilter('infographics', this)">📈 Infographics (42)</button>
+          <button class="filter-pill" data-cat="html" onclick="setCatFilter('html', this)">🌐 HTML Plans (73)</button>
+        </div>
+      </div>
+
+      <!-- Resource Grid -->
+      <div class="lessons-grid" id="lessonsGrid">
+        <!-- Populated dynamically by JavaScript -->
+      </div>
     </div>
 
   </main>
@@ -354,7 +431,7 @@
         <button class="media-modal-close" onclick="closeModal('htmlModal')">&times;</button>
       </div>
       <div class="media-modal-body" style="flex:1;">
-        <iframe id="htmlIframe" src="" style="width:100%;height:100%;border:none;background:#fff;"></iframe>
+        <iframe id="htmlIframe" src="" style="width:100%;height:100%;border:none;background:#fff;" title="Resource Previewer"></iframe>
       </div>
     </div>
   </div>
@@ -459,7 +536,7 @@
     const gateOverlay = document.getElementById('passwordGateOverlay');
     const gateInput   = document.getElementById('gatePasswordInput');
     const gateSubmit  = document.getElementById('submitGatePassword');
-    const gateError   = document.getElementById('gateErrorMessage');
+    const gateError   = document.getElementById('gateErrorMsg');
 
     function checkGate() {
       if (sessionStorage.getItem('interactive_unlocked') === 'true') {
@@ -480,22 +557,36 @@
     }
 
     gateSubmit.addEventListener('click', function() {
-      const val = (gateInput ? gateInput.value : '').trim().toLowerCase();
-      const isOk = ['kbj@2008'].includes(val);
-      if (isOk) {
+      const pVal = (gateInput ? gateInput.value : '').trim().toLowerCase();
+      if (['kvrktdigital', 'kbjkvrkt', 'kbj@2008'].includes(pVal)) {
         sessionStorage.setItem('interactive_unlocked', 'true');
         gateOverlay.style.opacity = '0';
         setTimeout(() => {
           gateOverlay.style.display = 'none';
           document.body.style.overflow = 'auto';
           renderGrid();
-        }, 300);
+        }, 400);
       } else {
         gateError.textContent = 'Wrong Password! Please try again.';
         gateInput.value = ''; gateInput.focus();
       }
     });
     gateInput.addEventListener('keypress', e => { if (e.key === 'Enter') gateSubmit.click(); });
+
+    function switchViewMode(mode, btn) {
+      document.querySelectorAll('.view-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const dView = document.getElementById('driveExplorerView');
+      const cView = document.getElementById('cardsGridView');
+      if (mode === 'drive') {
+        dView.style.display = 'block';
+        cView.style.display = 'none';
+      } else {
+        dView.style.display = 'none';
+        cView.style.display = 'block';
+        renderGrid();
+      }
+    }
 
     function setClassFilter(c, btn) {
       activeClass = c;
@@ -524,7 +615,9 @@
 
     function renderGrid() {
       const grid = document.getElementById('lessonsGrid');
-      const q = document.getElementById('lessonSearch').value.toLowerCase().trim();
+      const qInput = document.getElementById('lessonSearch');
+      if (!grid || !qInput) return;
+      const q = qInput.value.toLowerCase().trim();
 
       const filtered = db.filter(item => {
         const matchesClass = (activeClass === 'all' || item.classKey === activeClass);
@@ -543,7 +636,7 @@
         let catLabel = item.category.toUpperCase();
         let badgeClass = "badge-" + item.category;
 
-        let previewBtnHTML = '<button onclick="openPreview(\'' + item.id + '\')" class="card-btn btn-preview"><i class="fas fa-eye"></i> Quick Preview</button>';
+        let previewBtnHTML = '<button onclick="openPreview('' + item.id + '')" class="card-btn btn-preview"><i class="fas fa-eye"></i> Quick Preview</button>';
 
         return '<div class="lesson-card"><div><div class="card-top"><span class="cat-badge ' + badgeClass + '">' + catLabel + '</span><span class="class-badge">' + item.class + '</span></div><h3 class="card-title">' + item.title + '</h3><p class="card-path"><i class="fas fa-file-alt"></i> ' + item.name + ' (' + item.size + ')</p></div><div class="card-actions"><a href="' + driveUrl + '" target="_blank" class="card-btn btn-drive" title="Open this resource folder in Google Drive"><i class="fab fa-google-drive"></i> Open in Drive</a>' + previewBtnHTML + '</div></div>';
       }).join('');
@@ -618,7 +711,7 @@
           const password = passwordInputProfile.value;
           errorMessageProfile.textContent = '';
           if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-          if (['kbj@2008'].includes(password.toLowerCase())) {
+          if (['kbj@2008', 'kbjkvrkt', 'kvrktdigital', 'kbj2008'].includes(password.toLowerCase())) {
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {
