@@ -1207,7 +1207,45 @@
       setTimeout(() => { toast.style.opacity = '0'; }, 3000);
     }
 
+    function syncChapterStatusesFromStorage() {
+      let studentData = {};
+      let testDates = {};
+      try {
+        const sd = localStorage.getItem("student_performance_data");
+        if (sd) studentData = JSON.parse(sd);
+        const td = localStorage.getItem("student_performance_test_dates");
+        if (td) testDates = JSON.parse(td);
+      } catch(e) {}
+
+      const classMap = { class7: "7C", class11: "11B", class12: "12" };
+
+      Object.keys(classTestData).forEach(ckey => {
+        const sysClass = classMap[ckey];
+        if (!sysClass) return;
+        const students = studentData[sysClass] || [];
+        const dates = testDates[sysClass] || {};
+
+        classTestData[ckey].chapters.forEach(ch => {
+          const chKey = `ch${ch.num}`;
+          const hasDate = Boolean(dates[chKey]);
+          const hasMarks = students.some(s => s.marks && s.marks[chKey] !== undefined && s.marks[chKey] !== null && s.marks[chKey] !== "");
+          if (hasDate || hasMarks) {
+            ch.status = "Completed";
+          }
+        });
+      });
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'student_performance_data' || e.key === 'student_performance_test_dates') {
+        syncChapterStatusesFromStorage();
+        renderChapterTable();
+        if (currentChapterId) onChapterSelect(currentChapterId);
+      }
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
+      syncChapterStatusesFromStorage();
       selectClass('class12');
     });
   </script>

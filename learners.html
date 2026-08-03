@@ -1425,6 +1425,14 @@
     });
   }
 
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'student_performance_data' || e.key === 'student_performance_test_dates' || e.key === 'student_learner_remarks') {
+      loadData();
+      if (typeof renderTables === 'function') renderTables();
+      if (typeof renderScoreFilterResults === 'function') renderScoreFilterResults();
+    }
+  });
+
   const isClassTest = id => id === 'crm' || id.startsWith('ch');
 
   function getLearners(cls) {

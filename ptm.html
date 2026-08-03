@@ -940,6 +940,14 @@
         }
       }
 
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'student_performance_data' || e.key === 'student_performance_test_dates') {
+          loadData();
+          if (typeof populateStudents === 'function') populateStudents();
+          if (typeof updateContactField === 'function') updateContactField();
+        }
+      });
+
       function getStudentList(className) {
         if (studentData[className] && studentData[className].length > 0) {
           return [...studentData[className]].sort((a, b) => a.name.localeCompare(b.name));

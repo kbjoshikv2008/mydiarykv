@@ -1136,6 +1136,12 @@
       return slowList;
     }
 
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'student_performance_data' || e.key === 'student_performance_test_dates') {
+        if (typeof renderAttendanceSheet === 'function') renderAttendanceSheet();
+      }
+    });
+
     // State for extra dynamic rows
     let currentExtraRows = [];
 

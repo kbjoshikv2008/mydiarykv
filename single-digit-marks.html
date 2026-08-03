@@ -993,6 +993,13 @@
       return studentData;
     }
 
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'student_performance_data' || e.key === 'student_performance_test_dates') {
+        studentData = loadStudentData();
+        if (typeof render === 'function') render();
+      }
+    });
+
     const isValidScore = score => score !== undefined && score !== null && score !== "" && score !== 'AB' && score !== 'ab' && !isNaN(Number(score));
 
     // ── Find all single-digit entries ──

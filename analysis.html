@@ -2825,13 +2825,23 @@
               });
             }
 
-            // Force sync Class 7C Chapter 4 marks if missing
+            // Force sync Class 7C Chapter 4 marks if missing or empty
+            const fallback7cCh4 = {
+              "ABHAY": "ab", "ABHINAY": 0, "ANAIKA": 6, "ARYAN": 7, "BHAVIKA": 8,
+              "CHANDNI": 0, "DEEPIKA": 0, "DISHA": 4, "GEETA": 0, "GUNJAN": "ab",
+              "HARSHUL": 1, "HIMANSHI": 0, "KAMAL": 0, "KARISHMA": 2, "KARTIK": 1,
+              "KRITIKA GODIYAL": 2, "KRITIKA RAWAT": 4, "LAKSHIT RAWAT": 1, "LAKSHIT SINGH": 6.5, "MALVIKA": 4,
+              "NAMAN TAMTA": 4, "MAULIK": 6, "MOITRIKA": 6, "MRITYUNJAY": 4, "MUNKASHIF": 6,
+              "NAITIK": 7, "NAMAN SATI": 6, "NISHTHI": 3.5, "PARIDHI": 5, "PARTH": 3,
+              "PRACHI": 5, "PRASUN DEV": 0, "RUDRA": 5, "SHRAVANI": 0, "TANISHA": 0,
+              "YAMAN": 2, "YASHPAL": 4, "ARPITA": 2.5, "MAANSHA": 7, "PARTH BISHT": 8
+            };
             if (studentData["7C"]) {
               studentData["7C"].forEach(student => {
                 if (!student.marks) student.marks = {};
                 const nameUpper = student.name ? student.name.toUpperCase() : "";
-                if (student.marks.ch4 === undefined && ch4_7c[nameUpper] !== undefined) {
-                  student.marks.ch4 = ch4_7c[nameUpper];
+                if ((student.marks.ch4 === undefined || student.marks.ch4 === "") && fallback7cCh4[nameUpper] !== undefined) {
+                  student.marks.ch4 = fallback7cCh4[nameUpper];
                 }
               });
             }
@@ -2924,6 +2934,15 @@
 
       setupOriginalProfileModal();
       switchClass("7C");
+    });
+
+    window.addEventListener("storage", (e) => {
+      if (e.key === "student_performance_data" || e.key === "student_performance_test_dates" || e.key === "student_performance_db_version") {
+        loadData();
+        if (typeof switchClass === "function" && typeof activeClass !== "undefined") {
+          switchClass(activeClass);
+        }
+      }
     });
 
     function toggleGatePasswordVisibility() {
