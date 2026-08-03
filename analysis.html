@@ -1556,8 +1556,8 @@
 </head>
 <body>
 
-  <!-- ======================== SECURITY ACCESS GATE (REMOVED) ======================== -->
-  <div class="security-gate" id="securityGate" style="display: none;">
+  <!-- ======================== SECURITY ACCESS GATE ======================== -->
+  <div class="security-gate" id="securityGate">
     <div class="security-card">
       <div class="security-icon">
         <i class="fas fa-lock"></i>
@@ -1582,7 +1582,7 @@
   </div>
 
   <!-- ======================== MAIN PAGE CONTENT ======================== -->
-  <div class="page-wrapper" id="mainDashboardWrapper" style="display: flex;">
+  <div class="page-wrapper" id="mainDashboardWrapper" style="display: none;">
     
     <!-- Site Header -->
     <header class="site-header">
@@ -2761,8 +2761,10 @@
         btnToggle.addEventListener("click", toggleGatePasswordVisibility);
       }
 
-      // Direct access without password requirement
-      hideSecurityGate();
+      // Check Security session
+      if (sessionStorage.getItem("analysis_access_granted") === "yes") {
+        hideSecurityGate();
+      }
 
       // Load Date Metadata
       const savedDates = localStorage.getItem("student_performance_test_dates");
@@ -2777,10 +2779,15 @@
       if (!testDates["11B"]) testDates["11B"] = {};
       if (!testDates["12"]) testDates["12"] = {};
 
-      // Force sync PT1 dates everywhere
+      // Force sync PT1 and test dates everywhere
       testDates["12"].pt1 = "2026-07-03";
       testDates["11B"].pt1 = "2026-07-02";
       testDates["7C"].pt1 = "2026-07-06";
+      testDates["7C"].crm = "2026-04-02";
+      testDates["7C"].ch1 = "2026-04-24";
+      testDates["7C"].ch2 = "2026-05-08";
+      testDates["7C"].ch3 = "2026-06-12";
+      testDates["7C"].ch4 = "2026-07-24";
       localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
 
       // Load Data (with version check for new subtabs schema)
@@ -2788,7 +2795,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v17") {
+      if (savedData && dbVersion === "v18") {
         try {
           studentData = JSON.parse(savedData);
             // Force sync SOUVIK SAHA in Class 12 (marked absent in all tests)
@@ -2816,10 +2823,21 @@
               studentData["12"].forEach((s, idx) => {
                 s.rollNo = idx + 1;
               });
-              localStorage.setItem("student_performance_data", JSON.stringify(studentData));
             }
 
-          if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch1 === undefined) {
+            // Force sync Class 7C Chapter 4 marks if missing
+            if (studentData["7C"]) {
+              studentData["7C"].forEach(student => {
+                if (!student.marks) student.marks = {};
+                const nameUpper = student.name ? student.name.toUpperCase() : "";
+                if (student.marks.ch4 === undefined && ch4_7c[nameUpper] !== undefined) {
+                  student.marks.ch4 = ch4_7c[nameUpper];
+                }
+              });
+            }
+            localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+
+          if (!studentData["7C"] || !studentData["7C"][0] || !studentData["7C"][0].marks || studentData["7C"][0].marks.ch4 === undefined) {
             resetNeeded = true;
           }
         } catch(e) {
@@ -2832,7 +2850,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v17");
+        localStorage.setItem("student_performance_db_version", "v18");
         
         // Also pre-seed the Class 12 and Class 11B test dates
         testDates["12"].ch1 = "2026-04-13";
