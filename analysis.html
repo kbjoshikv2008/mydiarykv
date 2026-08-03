@@ -2840,7 +2840,7 @@
       const dbVersion = localStorage.getItem("student_performance_db_version");
       
       let resetNeeded = false;
-      if (savedData && dbVersion === "v19") {
+      if (savedData && dbVersion === "v20") {
         try {
           studentData = JSON.parse(savedData);
             // Force sync SOUVIK SAHA in Class 12 (marked absent in all tests)
@@ -2850,15 +2850,14 @@
                 studentData["12"].push({
                   rollNo: 1,
                   name: "SOUVIK SAHA",
-                  marks: {}
+                  marks: {},
+                  mobile: "9892570352",
+                  parentMobile: "9892570352"
                 });
               }
               const souvik = studentData["12"].find(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
               if (souvik) {
                 if (!souvik.marks) souvik.marks = {};
-                Object.keys(souvik.marks).forEach(k => {
-                  souvik.marks[k] = "";
-                });
                 if (!souvik.mobile) souvik.mobile = "9892570352";
                 if (!souvik.parentMobile) souvik.parentMobile = "9892570352";
               }
@@ -2899,7 +2898,7 @@
       if (resetNeeded) {
         studentData = generateInitialData();
         saveData();
-        localStorage.setItem("student_performance_db_version", "v19");
+        localStorage.setItem("student_performance_db_version", "v20");
         
         // Pre-seed test dates
         testDates["12"].ch1 = "2026-04-13";
