@@ -788,18 +788,19 @@
     (function() {
       // Dynamic test configurations (matching analysis.html)
       const classTests = {
-        "7C": [
-          { id: "crm", label: "CRM", maxMarks: 20 },
-          { id: "ch1", label: "Ch 1", maxMarks: 10 },
-          { id: "ch2", label: "Ch 2", maxMarks: 10 },
-          { id: "ch3", label: "Ch 3", maxMarks: 10 },
-          { id: "ch4", label: "Ch 4", maxMarks: 10 },
-          ...Array.from({length: 11}, (_, i) => ({ id: `ch${i+5}`, label: `Ch ${i+5}`, maxMarks: 20 })),
-          { id: "pt1", label: "PT1", maxMarks: 40 },
-          { id: "pt2", label: "PT2", maxMarks: 40 },
-          { id: "hy", label: "HY", maxMarks: 60 },
-          { id: "see", label: "SEE", maxMarks: 60 }
-        ],
+          "7C": [
+    { id: "crm", label: "CRM", maxMarks: 20 },
+    { id: "ch1", label: "Ch 1", maxMarks: 10 },
+    { id: "ch2", label: "Ch 2", maxMarks: 10 },
+    { id: "ch3", label: "Ch 3", maxMarks: 10 },
+    { id: "ch4", label: "Ch 4", maxMarks: 10 },
+    { id: "ch5", label: "Ch 5", maxMarks: 10 },
+    ...Array.from({length: 10}, (_, i) => ({ id: `ch${i+6}`, label: `Ch ${i+6}`, maxMarks: 20 })),
+    { id: "pt1", label: "PT1", maxMarks: 40 },
+    { id: "pt2", label: "PT2", maxMarks: 40 },
+    { id: "hy", label: "HY", maxMarks: 60 },
+    { id: "see", label: "SEE", maxMarks: 60 }
+  ],
         "11B": [
           ...Array.from({length: 15}, (_, i) => ({ id: `ch${i+1}`, label: `Ch ${i+1}`, maxMarks: 20 })),
           { id: "pt1", label: "PT1", maxMarks: 40 },
@@ -840,7 +841,7 @@
 
       const defaultRosters = {
         "7C": ["ABHAY", "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI", "DEEPIKA", "DISHA", "GEETA", "GUNJAN", "HARSHUL", "HIMANSHI", "KAMAL", "KARISHMA", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA", "NAMAN TAMTA", "MAULIK", "MOITRIKA", "MRITYUNJAY", "MUNKASHIF", "NAITIK", "NAMAN SATI", "NISHTHI", "PARIDHI", "PARTH", "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA", "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"],
-        "11B": ["ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
+        "11B": ["ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
         "12": ["ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA", "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT", "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ", "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SOUVIK SAHA", "SPARSH BHATT", "TANMAY ADHIKARI", "PALAK", "NISHANT"]
       };
 
@@ -897,8 +898,11 @@
           if (!testDates["12"]) testDates["12"] = {};
           testDates["12"].ch7 = "2026-07-28";
           testDates["12"].ch7_def = "2026-07-31";
+          testDates["12"].ch8 = "2026-08-04";
           testDates["12"].pt1 = "2026-07-03";
+          testDates["11B"].ch6 = "2026-08-07";
           testDates["11B"].pt1 = "2026-07-02";
+          testDates["7C"].ch5 = "2026-08-04";
           testDates["7C"].pt1 = "2026-07-06";
           localStorage.setItem("student_performance_test_dates", JSON.stringify(testDates));
           // Sort alphabetically and assign sequential S.No (rollNo)
