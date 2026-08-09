@@ -1556,33 +1556,9 @@
 </head>
 <body>
 
-  <!-- ======================== SECURITY ACCESS GATE ======================== -->
-  <div class="security-gate" id="securityGate">
-    <div class="security-card">
-      <div class="security-icon">
-        <i class="fas fa-lock"></i>
-      </div>
-      <h2>SECURE PORTAL</h2>
-      <p>Enter the access credentials to view Student Performance Analysis dashboard.</p>
-      
-      <div class="security-input-group">
-        <input type="password" id="gatePassword" class="security-input" placeholder="ACCESS PASSWORD" autofocus>
-        <button class="security-toggle-pwd" id="toggleGatePassword"><i class="fas fa-eye"></i></button>
-      </div>
-      
-      <button class="security-btn" id="btnSubmitGate">ACCESS DASHBOARD</button>
-      <div class="security-error" id="gateError"></div>
-      
-      <div class="security-footer-links">
-        <a href="javascript:history.back()" class="btn-back-prev"><i class="fas fa-arrow-left"></i> BACK TO PREVIOUS PAGE</a>
-        <a href="index.html" class="btn-back-home"><i class="fas fa-home"></i> BACK TO HOME</a>
-        <a href="mailto:kboshikv2008@gmail.com"><i class="fas fa-envelope"></i> Request Access</a>
-      </div>
-    </div>
-  </div>
 
   <!-- ======================== MAIN PAGE CONTENT ======================== -->
-  <div class="page-wrapper" id="mainDashboardWrapper" style="display: none;">
+  <div class="page-wrapper" id="mainDashboardWrapper">
     
     <!-- Site Header -->
     <header class="site-header">
@@ -2546,22 +2522,6 @@
                             "GAURAV KUMAR": 3,
                             "ASHUTOSH": "ab"
                   }
-        }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Register Password Gate Event Listeners Immediately
-      const gatePwd = document.getElementById("gatePassword");
-      if (gatePwd) {
-        gatePwd.addEventListener("keypress", (e) => {
-          if (e.key === "Enter") {
-            verifyAccess();
-          }
-        });
-      }
-      const btnSubmit = document.getElementById("btnSubmitGate");
-      if (btnSubmit) {
-        btnSubmit.addEventListener("click", verifyAccess);
-      }
       const btnToggle = document.getElementById("toggleGatePassword");
       if (btnToggle) {
         btnToggle.addEventListener("click", toggleGatePasswordVisibility);
@@ -3019,16 +2979,11 @@
         }
       }
       renderSelectedTestInfo();
-    }
+        }
+      };
 
-    function calculateClassStats() {
-      const students = studentData[activeClass] || [];
-      if (students.length === 0) return;
-
-      const activeTests = classTests[activeClass];
-      const categoryTests = activeTests.filter(t => {
-        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
-        if (activeExamType === "pt") return t.id.startsWith("pt");
+    document.addEventListener("DOMContentLoaded", () => {
+      hideSecurityGate();
         if (activeExamType === "pb") return t.id.startsWith("pb");
         if (activeExamType === "hy") return t.id === "hy";
         if (activeExamType === "see") return t.id === "see";
