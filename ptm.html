@@ -585,6 +585,110 @@
           </div>
           
           <!-- Letter Preview Area -->
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('backToTop');
+      if (window.scrollY > 300) { btn.classList.add('visible'); } else { btn.classList.remove('visible'); }
+    });
+    // ===== PTM Security Gate Logic =====
+    (function() {
+      function hidePtmGate() {
+        var gate = document.getElementById('ptmSecurityGate');
+        if (gate) {
+          gate.style.transition = 'opacity 0.5s ease';
+          gate.style.opacity = '0';
+          setTimeout(function() { gate.style.display = 'none'; }, 500);
+        }
+      }
+      // Auto-unlock if already authenticated this session
+      if (sessionStorage.getItem('ptm_access_granted') === 'yes') {
+        document.addEventListener('DOMContentLoaded', hidePtmGate);
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        var gate = document.getElementById('ptmSecurityGate');
+        var pwdInput = document.getElementById('ptmGatePassword');
+        var toggleBtn = document.getElementById('ptmToggleGate');
+        var submitBtn = document.getElementById('ptmSubmitGate');
+        var errorDiv = document.getElementById('ptmGateError');
+        if (!gate) return;
+        // Direct access without gate
+        hidePtmGate(); return;
+        // Focus input
+        if (pwdInput) pwdInput.focus();
+        // Toggle password visibility
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function() {
+            var icon = this.querySelector('i');
+            if (pwdInput.type === 'password') {
+              pwdInput.type = 'text';
+              icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+              pwdInput.type = 'password';
+              icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+            pwdInput.focus();
+          });
+        }
+        function verifyPtmGate() {
+          var val = (pwdInput ? pwdInput.value : '').trim().toLowerCase();
+          if (errorDiv) errorDiv.textContent = '';
+          if (!val) {
+            if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
+            return;
+          }
+          if (['kbj@2008'].includes(val)) {
+            sessionStorage.setItem('ptm_access_granted', 'yes');
+            if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
+            setTimeout(hidePtmGate, 800);
+          } else {
+            if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect password. Please try again.';
+            if (pwdInput) { pwdInput.value = ''; pwdInput.focus(); }
+            var card = gate.querySelector('.gate-card');
+            if (card) {
+              card.classList.add('ptm-shake');
+              setTimeout(function() { card.classList.remove('ptm-shake'); }, 450);
+            }
+          }
+        }
+        if (submitBtn) submitBtn.addEventListener('click', verifyPtmGate);
+        if (pwdInput) pwdInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') verifyPtmGate(); });
+      });
+    })();
+    // ===== End PTM Security Gate =====
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('passwordModal');
+      const profileLink = document.getElementById('profileLink');
+      const closeModal = document.getElementById('closeModal');
+      const togglePasswordProfile = document.getElementById('togglePasswordProfile');
+      const passwordInputProfile = document.getElementById('password_profile');
+      const submitBtnProfile = document.getElementById('submitPassword');
+      const errorMessageProfile = document.getElementById('errorMessage');
+      if (profileLink) profileLink.addEventListener('click', function(e) { e.preventDefault(); modal.style.display = 'flex'; passwordInputProfile.focus(); });
+      closeModal.addEventListener('click', function() { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; });
+      window.addEventListener('click', function(e) { if (e.target === modal) { modal.style.display = 'none'; passwordInputProfile.value = ''; errorMessageProfile.textContent = ''; } });
+      
+      togglePasswordProfile.addEventListener('click', function() {
+        const type = passwordInputProfile.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputProfile.setAttribute('type', type);
+        this.textContent = type === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+      });
+
+      submitBtnProfile.addEventListener('click', function() {
+        const password = passwordInputProfile.value;
+        errorMessageProfile.textContent = '';
+        if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
+        if (['kbj@2008'].includes(password.toLowerCase())) {
+          submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
+          setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
+        } else {
+          errorMessageProfile.textContent = 'Wrong Password! Please try again.';
+          passwordInputProfile.value = ''; passwordInputProfile.focus();
+          submitBtnProfile.classList.add('shake');
+              <i class="fas fa-sync-alt"></i> Sync Contacts from Google Sheet
+            </button>
+          </div>
+          
+          <!-- Letter Preview Area -->
           <div style="display: flex; flex-direction: column; gap: 16px;">
             <label style="display: block; font-size: 0.82rem; color: #a78bfa; font-weight: 700; text-transform: uppercase; margin-bottom: -10px;">Letter Preview (Math Graph Backdrop)</label>
             
@@ -780,7 +884,6 @@
       });
       passwordInputProfile.addEventListener('keypress', function(e) { if (e.key === 'Enter') { submitBtnProfile.click(); } });
     });
-  </script>
   </script>
 
   <!-- PTM AI Parent Letter Generator Script -->
