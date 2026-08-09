@@ -407,7 +407,7 @@ body {
     position: relative !important;
   }
   .nav-item {
-    position: static !important;
+    position: relative !important;
     width: auto !important;
   }
   .nav-item .dropdown-trigger {

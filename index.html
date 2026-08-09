@@ -2028,7 +2028,7 @@
       border-radius: 4px !important; /* Crisp Rectangular Box Menu */
       width: 260px !important;
       padding: 8px !important;
-      display: flex !important;
+      display: none !important;
       flex-direction: column !important;
       gap: 4px !important;
       opacity: 0 !important;
@@ -2048,6 +2048,7 @@
       pointer-events: auto !important;
     }
     .nav-item:hover .dropdown-menu {
+      display: flex !important;
       opacity: 1 !important;
       visibility: visible !important;
       transform: translateX(-50%) translateY(8px) !important;
@@ -3070,7 +3071,7 @@
         position: relative !important;
       }
       .nav-item {
-        position: static !important;
+        position: relative !important;
         width: auto !important;
         margin-bottom: 0 !important;
       }
