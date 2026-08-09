@@ -2039,7 +2039,68 @@
       return dateString;
     }
 
-    function generateInitialData() {
+        const fallbackRosters = {
+      "7C": [
+        "ABHAY", "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI", "DEEPIKA", "DISHA", "GEETA", "GUNJAN",
+        "HARSHUL", "HIMANSHI", "KAMAL", "KARISHMA", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA",
+        "NAMAN TAMTA", "MAULIK", "MOITRIKA", "MRITYUNJAY", "MUNKASHIF", "NAITIK", "NAMAN SATI", "NISHTHI", "PARIDHI", "PARTH",
+        "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA", "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"
+      ],
+      "11B": [
+        "ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA",
+        "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "PARAS SATI",
+        "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"
+      ],
+      "12": [
+        "ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA", "HARSHIT ARYA",
+        "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT", "KARAN", "NITIN BISHT", "PARTH",
+        "PRIYANKA", "RAJ", "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SOUVIK SAHA", "SPARSH BHATT",
+        "TANMAY ADHIKARI", "PALAK", "NISHANT"
+      ]
+    };
+
+    function loadData() {
+      try {
+        const sd = localStorage.getItem("student_performance_data");
+        if (sd) {
+          studentData = JSON.parse(sd);
+        }
+        const td = localStorage.getItem("student_performance_test_dates");
+        if (td) {
+          testDates = JSON.parse(td);
+        }
+      } catch(e) {
+        console.error(e);
+      }
+
+      if (!testDates["7C"]) testDates["7C"] = {};
+      if (!testDates["11B"]) testDates["11B"] = {};
+      if (!testDates["12"]) testDates["12"] = {};
+
+      ["7C", "11B", "12"].forEach(cls => {
+        if (!studentData[cls] || !studentData[cls].length) {
+          studentData[cls] = (fallbackRosters[cls] || []).slice().sort((a, b) => a.localeCompare(b)).map((name, i) => {
+            const marks = {};
+            Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+              if (tmap[name] !== undefined) marks[tid] = tmap[name];
+            });
+            return { rollNo: i + 1, name, marks };
+          });
+        } else {
+          studentData[cls].forEach(student => {
+            if (!student.marks) student.marks = {};
+            const sName = student.name ? student.name.trim() : "";
+            Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+              if (tmap[sName] !== undefined && (student.marks[tid] === undefined || student.marks[tid] === "")) {
+                student.marks[tid] = tmap[sName];
+              }
+            });
+          });
+        }
+      });
+    }
+
+function generateInitialData() {
       const c11bNames = [
         "ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA",
         "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI",
