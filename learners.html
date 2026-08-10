@@ -1472,15 +1472,159 @@
       { id: "pt2", label: "PT2", maxMarks: 40 },
       { id: "hy", label: "HY", maxMarks: 80 },
       { id: "see", label: "SEE", maxMarks: 80 }
+    ],
+    "12": [
+      { id: "ch1", label: "Ch 1", maxMarks: 20 },
+      { id: "ch2", label: "Ch 2", maxMarks: 20 },
+      { id: "ch3", label: "Ch 3", maxMarks: 20 },
+      { id: "ch4", label: "Ch 4", maxMarks: 20 },
+      { id: "ch5", label: "Ch 5", maxMarks: 20 },
+      { id: "ch6", label: "Ch 6", maxMarks: 20 },
+      { id: "ch7", label: "Ch 7 (Indefinite)", maxMarks: 20 },
+      { id: "ch7_def", label: "Ch 7 (Definite)", maxMarks: 20 },
+      ...Array.from({length: 8}, (_, i) => ({ id: `ch${i+8}`, label: `Ch ${i+8}`, maxMarks: 20 })),
+      { id: "pt1", label: "PT1", maxMarks: 40 },
+      { id: "pt2", label: "PT2", maxMarks: 40 },
+      { id: "pb1", label: "PB1", maxMarks: 80 },
+      { id: "pb2", label: "PB2", maxMarks: 80 },
+      { id: "pb3", label: "PB3", maxMarks: 80 }
     ]
   };
 
   const classLabels = {"7C":"Class 7C","11B":"Class 11B","12":"Class 12"};
 
+  let studentData = {};
+  let testDates   = {};
+  let activeClass = '7C';
+  let remarksData = {};
+
+  const isValidScore = score => score !== undefined && score !== null && score !== "" && !(typeof score === 'string' && score.toUpperCase() === 'AB') && !isNaN(Number(score));
+
+  function loadData() {
+    try {
+      const sd = localStorage.getItem("student_performance_data");
+      if(sd) {
+        studentData = JSON.parse(sd);
+        if (studentData["11B"]) {
+          studentData["11B"] = studentData["11B"].filter(s => {
+            if (typeof s === "string") return s.toUpperCase() !== "NIHARIKA MOHAN";
+            if (s && s.name) return s.name.toUpperCase() !== "NIHARIKA MOHAN";
+            return true;
+          });
+        }
+
+        // Force sync SOUVIK SAHA in Class 12 (marked absent in all tests)
+        if (studentData["12"]) {
+          let hasSouvik = studentData["12"].some(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
+          if (!hasSouvik) {
+            studentData["12"].push({ rollNo: 1, name: "SOUVIK SAHA", marks: {} });
+          }
+          const souvik = studentData["12"].find(s => s && s.name && s.name.toUpperCase() === "SOUVIK SAHA");
+          if (souvik) {
+            if (!souvik.marks) souvik.marks = {};
+            Object.keys(souvik.marks).forEach(k => { souvik.marks[k] = ""; });
+            if (!souvik.mobile) souvik.mobile = "9892570352";
+            if (!souvik.parentMobile) souvik.parentMobile = "9892570352";
+          }
+          studentData["12"].sort((a, b) => a.name.localeCompare(b.name));
+          studentData["12"].forEach((s, idx) => { s.rollNo = idx + 1; });
+          localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+        }
+      }
+      const td = localStorage.getItem("student_performance_test_dates");
+      if(td) testDates = JSON.parse(td);
+      const rd = localStorage.getItem("student_learner_remarks");
+      if(rd) remarksData = JSON.parse(rd);
+    } catch(e) {}
+
+    if(!remarksData) remarksData = {};
+
+    // Sync database and fallbacks
+    ["7C","11B","12"].forEach(cls => {
+      if(!studentData[cls]||!studentData[cls].length) {
+        studentData[cls] = (fallbackRosters[cls]||[]).slice().sort((a,b)=>a.localeCompare(b)).map((name,i)=>{
+          const marks={};
+          Object.entries(fallbackMarks[cls]||{}).forEach(([tid,tmap])=>{ if(tmap[name]!==undefined) marks[tid]=tmap[name]; });
+          return {rollNo:i+1,name,marks};
+        });
+      } else {
+        studentData[cls].forEach(student => {
+          if (!student.marks) student.marks = {};
+          const sName = student.name ? student.name.trim() : "";
+          Object.entries(fallbackMarks[cls] || {}).forEach(([tid, tmap]) => {
+            // Only assign fallback if mark is undefined or empty (preserve user edits)
+            if (tmap[sName] !== undefined && (student.marks[tid] === undefined || student.marks[tid] === "")) {
+              student.marks[tid] = tmap[sName];
+            }
+          });
+        });
+      }
+    });
+  }
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'student_performance_data' || e.key === 'student_performance_test_dates' || e.key === 'student_learner_remarks') {
+      loadData();
+      if (typeof renderTables === 'function') renderTables();
+      if (typeof renderScoreFilterResults === 'function') renderScoreFilterResults();
+    }
+  });
+
+  const isClassTest = id => id === 'crm' || id.startsWith('ch');
+
+  function getLearners(cls) {
+    const conducted = classTests[cls] || [];
+    const ptTestsOnly = conducted.filter(t => t.id.startsWith('pt'));
+    const students = studentData[cls] || [];
+    const bright = [];
+    const slow = [];
+
+    students.forEach(s => {
+      let tot = 0, pos = 0;
+      ptTestsOnly.forEach(t => {
+        const score = s.marks[t.id];
+        if (isValidScore(score)) {
+          tot += Number(score);
+          pos += t.maxMarks;
+        }
+      });
+
+      if (pos > 0) {
+        const pct = (tot / pos) * 100;
+        const sObj = { rollNo: s.rollNo, name: s.name, pct: pct };
+        if (pct >= 80) {
+          bright.push(sObj);
+        } else if (pct < 40) {
+          slow.push(sObj);
+        }
+      }
+    });
+
+    bright.sort((a, b) => b.pct - a.pct);
+    slow.sort((a, b) => a.pct - b.pct);
+
+    return { bright, slow };
+  }
+
+  function saveRemark(cls, name, val) {
+    if(!remarksData[cls]) remarksData[cls] = {};
+    remarksData[cls][name] = val;
+    try {
+      localStorage.setItem("student_learner_remarks", JSON.stringify(remarksData));
+    } catch(e) {}
+  }
+
+  function getRemark(cls, name, isBright) {
+    if (remarksData[cls] && remarksData[cls][name] !== undefined) {
+      return remarksData[cls][name];
+    }
+    return isBright ? "Enrichment tasks & Olympiad guidance" : "Diagnostic review & remedial worksheets";
+  }
 
   function changeClass(cls) {
     activeClass = cls;
-    document.querySelectorAll('.class-tab').forEach(b => {
+    // Scope to only class tabs (not mode switcher tabs which lack data-class)
+    document.querySelectorAll('#categoriesClassTabs .class-tab').forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-class') === cls);
     });
     
