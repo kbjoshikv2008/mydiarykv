@@ -2999,7 +2999,8 @@ function generateInitialData() {
       }, 3000);
     }
 
-        function calculateClassStats() {
+    function calculateClassStats() {
+      updateSummaryCards();
       if (typeof renderTable === "function") renderTable();
       if (typeof updateCharts === "function") updateCharts();
     }
@@ -3148,7 +3149,13 @@ function switchClass(className) {
       }
       renderSelectedTestInfo();
 
-      const tests = classTests[activeClass].filter(t => {
+      updateSummaryCards();
+    }
+
+    function updateSummaryCards() {
+      const students = studentData[activeClass] || [];
+      const activeTests = classTests[activeClass] || [];
+      const tests = activeTests.filter(t => {
         if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (activeExamType === "pt") return t.id.startsWith("pt");
         if (activeExamType === "pb") return t.id.startsWith("pb");
@@ -3170,12 +3177,8 @@ function switchClass(className) {
         let studentTestCount = 0;
         
         tests.forEach(test => {
-          const val = student.marks[test.id];
-          if (val !== undefined && val !== null && val !== "" && typeof val !== 'string') {
-            studentObtained += Number(val);
-            studentMax += test.maxMarks;
-            studentTestCount++;
-          } else if (val !== undefined && val !== null && val !== "" && typeof val === 'string' && !isNaN(Number(val))) {
+          const val = student.marks ? student.marks[test.id] : undefined;
+          if (val !== undefined && val !== null && val !== "" && !(typeof val === 'string' && val.toUpperCase() === 'AB') && !isNaN(Number(val))) {
             studentObtained += Number(val);
             studentMax += test.maxMarks;
             studentTestCount++;
@@ -3200,18 +3203,24 @@ function switchClass(className) {
       const overallClassAvg = studentCountWithMarks > 0 ? totalStudentPctSum / studentCountWithMarks : null;
       const overallPassRate = studentCountWithMarks > 0 ? (passCount / studentCountWithMarks) * 100 : null;
 
-      document.getElementById("cardClassAverage").textContent = overallClassAvg !== null ? overallClassAvg.toFixed(1) + "%" : "--%";
-      document.getElementById("cardPassRate").textContent = overallPassRate !== null ? overallPassRate.toFixed(1) + "%" : "--%";
+      const elAvg = document.getElementById("cardClassAverage");
+      const elPass = document.getElementById("cardPassRate");
+      const elTopPerf = document.getElementById("cardTopPerformer");
+      const elTopScore = document.getElementById("cardTopScore");
+      const elLow = document.getElementById("cardLowCount");
+
+      if (elAvg) elAvg.textContent = overallClassAvg !== null ? overallClassAvg.toFixed(1) + "%" : "--%";
+      if (elPass) elPass.textContent = overallPassRate !== null ? overallPassRate.toFixed(1) + "%" : "--%";
 
       if (topStudent && topAvg !== -1) {
-        document.getElementById("cardTopPerformer").textContent = topStudent.name;
-        document.getElementById("cardTopScore").textContent = `Avg Performance: ${topAvg.toFixed(1)}%`;
+        if (elTopPerf) elTopPerf.textContent = topStudent.name;
+        if (elTopScore) elTopScore.textContent = `Avg Performance: ${topAvg.toFixed(1)}%`;
       } else {
-        document.getElementById("cardTopPerformer").textContent = "N/A";
-        document.getElementById("cardTopScore").textContent = "Avg Performance: --%";
+        if (elTopPerf) elTopPerf.textContent = "N/A";
+        if (elTopScore) elTopScore.textContent = "Avg Performance: --%";
       }
 
-      document.getElementById("cardLowCount").textContent = lowCount;
+      if (elLow) elLow.textContent = lowCount;
     }
 
     function handleSearch() {
@@ -3229,6 +3238,7 @@ function switchClass(className) {
     }
 
     function renderTable() {
+      updateSummaryCards();
       const thead = document.getElementById("tableHead");
       const tbody = document.getElementById("tableBody");
       
