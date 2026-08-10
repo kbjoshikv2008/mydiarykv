@@ -3607,17 +3607,28 @@ function switchClass(className) {
       const students = studentData[activeClass] || [];
       if (students.length === 0) return;
 
-      const activeTests = classTests[activeClass];
+      const activeTests = classTests[activeClass] || [];
+
+      // Filter tests based on active sub-tab
+      const categoryTests = activeTests.filter(t => {
+        if (activeExamType === "all") return true;
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        if (activeExamType === "hy") return t.id === "hy";
+        if (activeExamType === "see") return t.id === "see";
+        return false;
+      });
 
       const examAvgValues = [];
       const examLabels = [];
 
-      activeTests.forEach(test => {
+      categoryTests.forEach(test => {
         let sum = 0;
         let count = 0;
         students.forEach(s => {
-          const val = s.marks[test.id];
-          if (val !== undefined && val !== null && val !== "") {
+          const val = s.marks ? s.marks[test.id] : undefined;
+          if (val !== undefined && val !== null && val !== "" && !(typeof val === 'string' && val.toUpperCase() === 'AB') && !isNaN(Number(val))) {
             sum += Number(val);
             count++;
           }
@@ -3627,7 +3638,7 @@ function switchClass(className) {
           const avgRaw = sum / count;
           const avgPercent = test.maxMarks > 0 ? (avgRaw / test.maxMarks) * 100 : 0;
           examLabels.push(test.label);
-          examAvgValues.push(avgPercent.toFixed(1));
+          examAvgValues.push(Number(avgPercent.toFixed(1)));
         }
       });
 
@@ -3652,8 +3663,8 @@ function switchClass(className) {
             datasets: [{
               label: 'Class Avg (%)',
               data: examAvgValues,
-              backgroundColor: 'rgba(109, 40, 217, 0.65)',
-              borderColor: '#4c1d95',
+              backgroundColor: 'rgba(124, 58, 237, 0.75)',
+              borderColor: '#7c3aed',
               borderWidth: 2,
               borderRadius: 6
             }]
@@ -3670,11 +3681,18 @@ function switchClass(className) {
               },
               x: { 
                 grid: { display: false },
-                ticks: { font: { size: 9 }, autoSkip: false }
+                ticks: { font: { size: 10 }, autoSkip: false }
               }
             },
             plugins: {
-              legend: { display: false }
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `Class Average: ${context.parsed.y}%`;
+                  }
+                }
+              }
             }
           }
         });
@@ -3683,23 +3701,12 @@ function switchClass(className) {
       let countA = 0; let countB = 0; let countC = 0; let countD = 0; let countE = 0;
       let totalStudentsWithMarks = 0;
 
-      // Combined mode: use students' computed average percentages
-      const categoryTests = activeTests.filter(t => {
-        if (activeExamType === "all") return true;
-        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
-        if (activeExamType === "pt") return t.id.startsWith("pt");
-        if (activeExamType === "pb") return t.id.startsWith("pb");
-        if (activeExamType === "hy") return t.id === "hy";
-        if (activeExamType === "see") return t.id === "see";
-        return false;
-      });
-
       students.forEach(student => {
         let sumPct = 0;
         let countTests = 0;
         categoryTests.forEach(test => {
-          const val = student.marks[test.id];
-          if (val !== undefined && val !== null && val !== "") {
+          const val = student.marks ? student.marks[test.id] : undefined;
+          if (val !== undefined && val !== null && val !== "" && !(typeof val === 'string' && val.toUpperCase() === 'AB') && !isNaN(Number(val))) {
             sumPct += (Number(val) / test.maxMarks) * 100;
             countTests++;
           }
@@ -3803,16 +3810,16 @@ function switchClass(className) {
       const labels = [];
 
       activeTests.forEach(test => {
-        const val = student.marks[test.id];
-        if (val !== undefined && val !== null && val !== "") {
+        const val = student.marks ? student.marks[test.id] : undefined;
+        if (val !== undefined && val !== null && val !== "" && !(typeof val === 'string' && val.toUpperCase() === 'AB') && !isNaN(Number(val))) {
           labels.push(test.label);
           studentPercentages.push((Number(val) / test.maxMarks) * 100);
 
           let sum = 0;
           let count = 0;
           students.forEach(s => {
-            const sVal = s.marks[test.id];
-            if (sVal !== undefined && sVal !== null && sVal !== "") {
+            const sVal = s.marks ? s.marks[test.id] : undefined;
+            if (sVal !== undefined && sVal !== null && sVal !== "" && !(typeof sVal === 'string' && sVal.toUpperCase() === 'AB') && !isNaN(Number(sVal))) {
               sum += Number(sVal);
               count++;
             }
