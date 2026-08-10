@@ -1647,7 +1647,8 @@
               <i class="fas fa-tasks"></i> Select Examination Sub-Tab:
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-              <button class="exam-type-btn active" id="examTypeBtnChapter" onclick="switchExamType('chapter')"><i class="fas fa-book-open"></i> Class Tests / Chapterwise</button>
+              <button class="exam-type-btn active" id="examTypeBtnAll" onclick="switchExamType('all')"><i class="fas fa-layer-group"></i> All Conducted Tests Combined</button>
+              <button class="exam-type-btn" id="examTypeBtnChapter" onclick="switchExamType('chapter')"><i class="fas fa-book-open"></i> Class Tests / Chapterwise</button>
               <button class="exam-type-btn" id="examTypeBtnPT" onclick="switchExamType('pt')"><i class="fas fa-calendar-check"></i> Periodic Tests (PT1 & PT2)</button>
               <button class="exam-type-btn" id="examTypeBtnHY" onclick="switchExamType('hy')"><i class="fas fa-file-invoice"></i> Half Yearly (HY)</button>
               <button class="exam-type-btn" id="examTypeBtnPB" onclick="switchExamType('pb')"><i class="fas fa-graduation-cap"></i> Pre-Boards (PB of Class 12)</button>
@@ -2014,7 +2015,7 @@
     }
 
     var activeClass = "7C";
-    var activeExamType = "chapter";
+    var activeExamType = "all";
     var activeTestId = "ch1";
     var activeViewMode = "combined";
     var studentData = {};
@@ -3019,7 +3020,7 @@ function switchClass(className) {
       currentSortAscending = true;
 
       updateExamTypeButtonsVisibility();
-      switchExamType("chapter");
+      switchExamType("all");
     }
 
     function updateExamTypeButtonsVisibility() {
@@ -3028,13 +3029,13 @@ function switchClass(className) {
       const seeBtn = document.getElementById("examTypeBtnSEE");
       
       if (activeClass === "12") {
-        pbBtn.style.display = "flex";
-        hyBtn.style.display = "none";
-        seeBtn.style.display = "none";
+        if (pbBtn) pbBtn.style.display = "flex";
+        if (hyBtn) hyBtn.style.display = "none";
+        if (seeBtn) seeBtn.style.display = "none";
       } else { // 11B or 7C
-        pbBtn.style.display = "none";
-        hyBtn.style.display = "flex";
-        seeBtn.style.display = "flex";
+        if (pbBtn) pbBtn.style.display = "none";
+        if (hyBtn) hyBtn.style.display = "flex";
+        if (seeBtn) seeBtn.style.display = "flex";
       }
     }
 
@@ -3042,7 +3043,8 @@ function switchClass(className) {
       activeExamType = type;
       
       document.querySelectorAll(".exam-type-btn").forEach(btn => {
-        if (btn.id === "examTypeBtnChapter" && type === "chapter") btn.classList.add("active");
+        if (btn.id === "examTypeBtnAll" && type === "all") btn.classList.add("active");
+        else if (btn.id === "examTypeBtnChapter" && type === "chapter") btn.classList.add("active");
         else if (btn.id === "examTypeBtnPT" && type === "pt") btn.classList.add("active");
         else if (btn.id === "examTypeBtnHY" && type === "hy") btn.classList.add("active");
         else if (btn.id === "examTypeBtnPB" && type === "pb") btn.classList.add("active");
@@ -3051,8 +3053,9 @@ function switchClass(className) {
       });
 
       // Select default test ID for this type
-      const activeTests = classTests[activeClass];
+      const activeTests = classTests[activeClass] || [];
       const filtered = activeTests.filter(t => {
+        if (type === "all") return true;
         if (type === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (type === "pt") return t.id.startsWith("pt");
         if (type === "pb") return t.id.startsWith("pb");
@@ -3081,8 +3084,9 @@ function switchClass(className) {
         return;
       }
 
-      const activeTests = classTests[activeClass];
+      const activeTests = classTests[activeClass] || [];
       const filtered = activeTests.filter(t => {
+        if (activeExamType === "all") return true;
         if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (activeExamType === "pt") return t.id.startsWith("pt");
         if (activeExamType === "pb") return t.id.startsWith("pb");
@@ -3116,14 +3120,36 @@ function switchClass(className) {
 
     function renderSelectedTestInfo() {
       const container = document.getElementById("selectedTestInfoCard");
+      if (!container) return;
+
+      let typeText = "All Conducted Tests";
+      if (activeExamType === "chapter") typeText = "Class Tests / Chapterwise";
+      else if (activeExamType === "pt") typeText = "Periodic Tests (PT1 & PT2)";
+      else if (activeExamType === "hy") typeText = "Half Yearly (HY)";
+      else if (activeExamType === "pb") typeText = "Pre-Boards (PB)";
+      else if (activeExamType === "see") typeText = "Session Ending Exam (SEE)";
+
+      const activeTests = classTests[activeClass] || [];
+      const categoryTests = activeTests.filter(t => {
+        if (activeExamType === "all") return true;
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        if (activeExamType === "hy") return t.id === "hy";
+        if (activeExamType === "see") return t.id === "see";
+        return false;
+      });
+
+      const totalMax = categoryTests.reduce((sum, t) => sum + t.maxMarks, 0);
+
       container.innerHTML = `
         <div class="test-info-left">
           <div class="test-info-title">
             <i class="fas fa-table" style="color: var(--primary-light);"></i>
-            <span>Combined Progress Sheet</span>
+            <span>Combined Progress Sheet — ${typeText} (${categoryTests.length} Tests, ${totalMax} Max Marks)</span>
           </div>
           <div class="test-info-meta">
-            <span>Displaying progress and average performance of all class tests. Edit scores and dates directly in the spreadsheet columns below.</span>
+            <span>Displaying progress and average performance of ${activeExamType === 'all' ? 'all conducted tests' : typeText.toLowerCase()}. Edit scores and dates directly in the spreadsheet columns below.</span>
           </div>
         </div>
         <div class="test-info-right">
@@ -3156,6 +3182,7 @@ function switchClass(className) {
       const students = studentData[activeClass] || [];
       const activeTests = classTests[activeClass] || [];
       const tests = activeTests.filter(t => {
+        if (activeExamType === "all") return true;
         if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (activeExamType === "pt") return t.id.startsWith("pt");
         if (activeExamType === "pb") return t.id.startsWith("pb");
@@ -3247,6 +3274,7 @@ function switchClass(className) {
 
       const activeTests = classTests[activeClass];
       const categoryTests = activeTests.filter(t => {
+        if (activeExamType === "all") return true;
         if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (activeExamType === "pt") return t.id.startsWith("pt");
         if (activeExamType === "pb") return t.id.startsWith("pb");
@@ -3254,6 +3282,12 @@ function switchClass(className) {
         if (activeExamType === "see") return t.id === "see";
         return false;
       });
+
+      const maxOverviewEl = document.getElementById("classMaxMarksOverview");
+      if (maxOverviewEl) {
+        const totalMax = categoryTests.reduce((sum, t) => sum + t.maxMarks, 0);
+        maxOverviewEl.textContent = `Showing ${categoryTests.length} tests (${totalMax} Total Max Marks)`;
+      }
 
       const sortIcon = currentSortAscending ? ' <i class="fas fa-sort-up"></i>' : ' <i class="fas fa-sort-down"></i>';
 
@@ -3651,6 +3685,7 @@ function switchClass(className) {
 
       // Combined mode: use students' computed average percentages
       const categoryTests = activeTests.filter(t => {
+        if (activeExamType === "all") return true;
         if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
         if (activeExamType === "pt") return t.id.startsWith("pt");
         if (activeExamType === "pb") return t.id.startsWith("pb");
