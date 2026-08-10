@@ -635,8 +635,7 @@ function autoSyncExcelMarks() {
         chaptersRow.forEach((val, colIdx) => {
           if (val && typeof val === 'string') {
             let id = val.toLowerCase().trim();
-            if (id.includes('indefinite')) id = 'ch7';
-            else if (id.includes('definite')) id = 'ch7_def';
+            if (id.includes('indefinite') || id.includes('definite') || id.includes('integral')) id = 'ch7';
             if (id.startsWith('ch') || id === 'mixed') {
               chapterCols.push({ colIdx, id: id });
             }
