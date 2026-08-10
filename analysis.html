@@ -2939,12 +2939,19 @@ function generateInitialData() {
     }
 
     function hideSecurityGate() {
-      document.getElementById("securityGate").style.opacity = "0";
-      setTimeout(() => {
-        document.getElementById("securityGate").style.display = "none";
-        document.getElementById("mainDashboardWrapper").style.display = "flex";
-        updateCharts();
-      }, 500);
+      const gate = document.getElementById("securityGate");
+      const wrapper = document.getElementById("mainDashboardWrapper");
+      if (gate) {
+        gate.style.opacity = "0";
+        setTimeout(() => {
+          gate.style.display = "none";
+          if (wrapper) wrapper.style.display = "flex";
+          if (typeof updateCharts === "function") updateCharts();
+        }, 500);
+      } else {
+        if (wrapper) wrapper.style.display = "flex";
+        if (typeof updateCharts === "function") updateCharts();
+      }
     }
 
     function clearSessionAccess() {
