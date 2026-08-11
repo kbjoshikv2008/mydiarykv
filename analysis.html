@@ -1557,8 +1557,33 @@
 <body>
 
 
+  <!-- ======================== SECURITY ACCESS GATE ======================== -->
+  <div class="security-gate" id="securityGate">
+    <div class="security-card">
+      <div class="security-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+      <h2>SECURE PORTAL</h2>
+      <p>Enter the access credentials to view Student Performance Analysis dashboard.</p>
+      
+      <div class="security-input-group">
+        <input type="password" id="gatePassword" class="security-input" placeholder="ACCESS PASSWORD" autofocus>
+        <button class="security-toggle-pwd" id="toggleGatePassword"><i class="fas fa-eye"></i></button>
+      </div>
+      
+      <button class="security-btn" id="btnSubmitGate">ACCESS DASHBOARD</button>
+      <div class="security-error" id="gateError"></div>
+      
+      <div class="security-footer-links">
+        <a href="javascript:history.back()" class="btn-back-prev"><i class="fas fa-arrow-left"></i> BACK TO PREVIOUS PAGE</a>
+        <a href="index.html" class="btn-back-home"><i class="fas fa-home"></i> BACK TO HOME</a>
+        <a href="mailto:kboshikv2008@gmail.com"><i class="fas fa-envelope"></i> Request Access</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ======================== MAIN PAGE CONTENT ======================== -->
-  <div class="page-wrapper" id="mainDashboardWrapper">
+  <div class="page-wrapper" id="mainDashboardWrapper" style="display: none;">
     
     <!-- Site Header -->
     <header class="site-header">
@@ -2818,7 +2843,28 @@ function generateInitialData() {
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      hideSecurityGate();
+      // 1. Register Password Gate Event Listeners Immediately
+      const gatePwd = document.getElementById("gatePassword");
+      if (gatePwd) {
+        gatePwd.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            verifyAccess();
+          }
+        });
+      }
+      const btnSubmit = document.getElementById("btnSubmitGate");
+      if (btnSubmit) {
+        btnSubmit.addEventListener("click", verifyAccess);
+      }
+      const btnToggle = document.getElementById("toggleGatePassword");
+      if (btnToggle) {
+        btnToggle.addEventListener("click", toggleGatePasswordVisibility);
+      }
+
+      // Check Security session
+      if (sessionStorage.getItem("analysis_access_granted") === "yes") {
+        hideSecurityGate();
+      }
 
       // Load Date Metadata
       const savedDates = localStorage.getItem("student_performance_test_dates");
