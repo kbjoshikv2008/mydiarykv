@@ -20,3 +20,4 @@ if (content.includes(targetUnclosed)) {
 } else {
   console.log('targetUnclosed not matched exactly, inspecting lines around line 13...');
 }
+

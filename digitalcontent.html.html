@@ -371,7 +371,7 @@
         const password = passwordInput.value;
         errorMessage.textContent = '';
         if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
-        if (['kbj@2008'].includes(password.toLowerCase())) {
+        if (['kbjkv@2008'].includes(password.toLowerCase())) {
           submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
         } else {

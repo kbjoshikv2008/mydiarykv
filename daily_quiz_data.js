@@ -514,3 +514,4 @@ const DAILY_QUIZ_DATABASE = {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DAILY_QUIZ_DATABASE;
 }
+

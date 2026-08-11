@@ -1040,7 +1040,7 @@
           const password = passwordInputProfile.value;
           errorMessageProfile.textContent = '';
           if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-          if (['kbj@2008'].includes(password.toLowerCase())) {
+          if (['kbjkv@2008'].includes(password.toLowerCase())) {
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {
@@ -1077,7 +1077,7 @@
           
           pwdError.style.display = 'none';
 
-          if (pwd.toLowerCase() === 'kbj@2008') {
+          if (pwd.toLowerCase() === 'kbjkv@2008') {
             // Save request as approved
             const requests = JSON.parse(localStorage.getItem('pyq_requests') || '{}');
             requests[chapterPath] = {
@@ -1140,3 +1140,4 @@
   </script>
 </body>
 </html>
+

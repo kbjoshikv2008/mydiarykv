@@ -148,3 +148,4 @@ if (content.includes(oldHeadScript)) {
 
 fs.writeFileSync(filePath, content, 'utf8');
 console.log('Successfully updated HTML inline handlers in index.html!');
+

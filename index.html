@@ -4880,7 +4880,7 @@
         }
         
         const pVal = (password || '').trim().toLowerCase();
-        if (['kbj@2008'].includes(pVal)) {
+        if (['kbjkv@2008'].includes(pVal)) {
           // Success - redirect to profile page
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;
@@ -6198,7 +6198,7 @@
           return;
         }
 
-        if (password !== 'kbj@2008') {
+        if (password !== 'kbjkv@2008') {
           if (updateErrorMsg) {
             updateErrorMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> Incorrect password! Update denied.';
             updateErrorMsg.style.display = 'block';

@@ -1887,7 +1887,7 @@
     const errorMessage = document.getElementById('errorMessage');
     const modal = document.getElementById('passwordModal');
     const val = (passwordInput ? passwordInput.value : '').trim().toLowerCase();
-    const validPwds = ['kbj@2008'];
+    const validPwds = ['kbjkv@2008'];
     
     if (validPwds.includes(val)) {
       if (modal) modal.style.display = 'none';
@@ -2467,7 +2467,7 @@
 
   // DOM Elements & Initialization
   
-  // Time Table Authentication (Password: kbj@2008)
+  // Time Table Authentication (Password: kbjkv@2008)
   let pendingTTTab = null;
   window.checkTTAuth = function(targetTab) {
     if (targetTab === 'tab-teachers' || targetTab === 'tab-pocket' || targetTab === 'tab-classes' || targetTab === 'tab-daily-master') {
@@ -2492,7 +2492,7 @@
     const err = document.getElementById('ttAuthErrMsg');
     const modal = document.getElementById('ttAuthModal');
     const val = (input ? input.value : '').trim().toLowerCase();
-    const validPasswords = ['kbj@2008'];
+    const validPasswords = ['kbjkv@2008'];
     
     if (validPasswords.includes(val)) {
       sessionStorage.setItem('tt_auth_unlocked', 'true');
@@ -3598,7 +3598,7 @@
     });
     if (submitPassword) submitPassword.addEventListener('click', () => {
       const pVal = passwordInput ? passwordInput.value.trim().toLowerCase() : '';
-      if (['kbj@2008'].includes(pVal)) {
+      if (['kbjkv@2008'].includes(pVal)) {
         if(modal) modal.style.display = 'none';
         window.location.href = 'profile.html';
       } else {

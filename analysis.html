@@ -2943,7 +2943,7 @@ function generateInitialData() {
       const errorMsg = document.getElementById("gateError");
       errorMsg.textContent = "";
 
-      if (['kbj@2008'].includes(pwd)) {
+      if (['kbjkv@2008'].includes(pwd)) {
         sessionStorage.setItem("analysis_access_granted", "yes");
         hideSecurityGate();
       } else {
@@ -3018,7 +3018,7 @@ function generateInitialData() {
         const password = (passwordInput.value || '').trim().toLowerCase();
         errorMessage.textContent = '';
         
-        if (['kbj@2008'].includes(password)) {
+        if (['kbjkv@2008'].includes(password)) {
           submitBtn.textContent = 'Authenticating...';
           submitBtn.disabled = true;
           setTimeout(() => {
@@ -5052,3 +5052,4 @@ function switchClass(className) {
 
 </body>
 </html>
+

@@ -558,7 +558,7 @@
 
     gateSubmit.addEventListener('click', function() {
       const pVal = (gateInput ? gateInput.value : '').trim().toLowerCase();
-      if (['kvrktdigital', 'kbjkvrkt', 'kbj@2008'].includes(pVal)) {
+      if (['kvrktdigital', 'kbjkvrkt', 'kbjkv@2008'].includes(pVal)) {
         sessionStorage.setItem('interactive_unlocked', 'true');
         gateOverlay.style.opacity = '0';
         setTimeout(() => {
@@ -711,7 +711,7 @@
           const password = passwordInputProfile.value;
           errorMessageProfile.textContent = '';
           if (!password) { errorMessageProfile.textContent = 'Please enter your access password'; return; }
-          if (['kbj@2008', 'kbjkvrkt', 'kvrktdigital', 'kbj2008'].includes(password.toLowerCase())) {
+          if (['kbjkv@2008', 'kbjkvrkt', 'kvrktdigital', 'kbj2008'].includes(password.toLowerCase())) {
             submitBtnProfile.textContent = 'Authenticating...'; submitBtnProfile.disabled = true;
             setTimeout(() => { window.location.href = 'profile.html'; }, 1200);
           } else {

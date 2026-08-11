@@ -2303,7 +2303,7 @@
   });
   submitPassword.addEventListener('click', () => {
     const val = (passwordInput.value || '').trim().toLowerCase();
-    if (['kbj@2008'].includes(val)) {
+    if (['kbjkv@2008'].includes(val)) {
       modal.style.display = 'none';
       window.location.href = 'profile.html';
     } else {
@@ -2366,7 +2366,7 @@
         if (errorDiv) errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter the access password';
         return;
       }
-      if (['kbj@2008'].includes(val)) {
+      if (['kbjkv@2008'].includes(val)) {
         sessionStorage.setItem('learners_access_granted', 'yes');
         if (submitBtn) { submitBtn.textContent = '✅ Authenticating...'; submitBtn.disabled = true; }
         setTimeout(hideLearnersGate, 800);
@@ -2396,3 +2396,4 @@
 </script>
 </body>
 </html>
+

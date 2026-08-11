@@ -2200,7 +2200,7 @@
         const password = (passwordInput.value || '').trim().toLowerCase();
         errorMessage.textContent = '';
         if (!password) { errorMessage.textContent = 'Please enter your access password'; return; }
-        if (['kbj@2008'].includes(password)) {
+        if (['kbjkv@2008'].includes(password)) {
           submitBtn.textContent = 'Authenticating...'; submitBtn.disabled = true;
           setTimeout(() => { window.location.href = 'profile.html'; }, 400);
         } else {
