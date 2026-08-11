@@ -615,8 +615,8 @@
 </head>
 <body>
 
-  <!-- Learners Security Gate Overlay (REMOVED) -->
-  <div id="learnersSecurityGate" style="display:none;">
+  <!-- Learners Security Gate Overlay -->
+  <div id="learnersSecurityGate">
     <div class="gate-card">
       <div class="gate-icon">🎓</div>
       <h2>Learners Directory — Secure Access</h2>
@@ -2337,9 +2337,11 @@
 
     if (!gate) return;
 
-    // Direct access without gate
-    hideLearnersGate();
-    return;
+    // Check session authentication
+    if (sessionStorage.getItem('learners_access_granted') === 'yes') {
+      hideLearnersGate();
+      return;
+    }
 
     if (pwdInput) pwdInput.focus();
 

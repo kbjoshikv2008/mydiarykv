@@ -440,8 +440,8 @@
   </style>
 </head>
 <body>
-  <!-- PTM Security Gate Overlay (REMOVED) -->
-  <div id="ptmSecurityGate" style="display:none;">
+  <!-- PTM Security Gate Overlay -->
+  <div id="ptmSecurityGate">
     <div class="gate-card">
       <div class="gate-icon">🤝</div>
       <h2>PTM Section — Secure Access</h2>
@@ -701,8 +701,8 @@
         var submitBtn = document.getElementById('ptmSubmitGate');
         var errorDiv = document.getElementById('ptmGateError');
         if (!gate) return;
-        // Direct access without gate
-        hidePtmGate(); return;
+        // Check session authentication
+        if (sessionStorage.getItem('ptm_access_granted') === 'yes') { hidePtmGate(); return; }
         // Focus input
         if (pwdInput) pwdInput.focus();
         // Toggle password visibility
