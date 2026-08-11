@@ -226,12 +226,112 @@
       box-shadow: 0 0 5px rgba(167, 139, 250, 0.3);
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 30px;
-      color: var(--text-muted);
-      font-style: italic;
+    /* ── Single Digit Scorers Custom Styles ── */
+    .sd-class-btn {
+      padding: 9px 20px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-secondary);
+      font-family: var(--font-head, 'Poppins', sans-serif);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
     }
+    .sd-class-btn:hover {
+      background: rgba(139,92,246,0.15);
+      border-color: rgba(139,92,246,0.4);
+      color: #c4b5fd;
+      transform: translateY(-2px);
+    }
+    .sd-class-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border-color: #7c3aed;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(124,58,237,0.35);
+    }
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .summary-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .summary-card:hover {
+      border-color: rgba(139,92,246,0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .summary-card .sc-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .summary-card .sc-value {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .summary-card .sc-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 6px; font-weight: 500; }
+    .summary-card.danger .sc-value { color: #f87171; }
+    .summary-card.warning .sc-value { color: #fbbf24; }
+    .summary-card.info .sc-value { color: #60a5fa; }
+
+    .tbl-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .class-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      color: #c4b5fd;
+    }
+    .test-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: #93c5fd;
+    }
+    .marks-cell { font-weight: 800; font-size: 1.05rem; }
+    .marks-zero { color: #ef4444 !important; }
+    .marks-low { color: #f87171 !important; }
+    .marks-mid { color: #fbbf24 !important; }
+    .max-marks { font-size: 0.72rem; color: #64748b; font-weight: 400; }
+    .pct-critical { color: #ef4444 !important; }
+    .pct-low { color: #f87171 !important; }
+    .pct-mid { color: #fbbf24 !important; }
+    .freq-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .freq-high { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+    .freq-med { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); color: #fde68a; }
+    .freq-low { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
 
     /* Print styles — Compact A4 Narrow Margins */
     @media print {
@@ -562,7 +662,6 @@
         <a href="index.html" class="btn-back-home"><i class="fas fa-home"></i> BACK TO HOME</a>
     <a href="students.html"><i class="fas fa-user-graduate"></i> Students Dashboard</a>
     <a href="javascript:void(0)" onclick="switchMainMode('categories')" class="active"><i class="fas fa-list-ul"></i> Learners Directory</a>
-    <a href="javascript:void(0)" onclick="switchMainMode('scoreFilter')"><i class="fas fa-filter"></i> Exam Score Filter (&lt;40%, &lt;33%, &lt;25%)</a>
     <a href="slow-learners-attendance.html"><i class="fas fa-clipboard-user"></i> Remedial Attendance</a>
   </div>
 </nav>
@@ -577,10 +676,11 @@
     <p class="hero-subtitle">Dynamic performance tracking and remedial action planner based on PT (Periodic Test) marks only</p>
   </section>
 
-  <!-- Mode Navigation Tabs -->
-  <div class="class-tabs" style="max-width: 850px; margin-bottom: 25px;">
-    <button class="class-tab active" id="tabCategoriesMode" onclick="switchMainMode('categories')"><i class="fas fa-layer-group"></i> Learner Categories (PT Avg &ge;80% / &lt;40%)</button>
-    <button class="class-tab" id="tabFilterMode" onclick="switchMainMode('scoreFilter')"><i class="fas fa-filter"></i> Exam Score Filter (&lt;40%, &lt;33%, &lt;25%)</button>
+  <!-- Mode Navigation Tabs (Sub-Heads under Learner Directory) -->
+  <div class="class-tabs" style="max-width: 950px; margin-bottom: 25px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <button class="class-tab active" id="tabCategoriesMode" onclick="switchMainMode('categories')"><i class="fas fa-layer-group"></i> Learner Categories</button>
+    <button class="class-tab" id="tabFilterMode" onclick="switchMainMode('scoreFilter')"><i class="fas fa-filter"></i> Exam Score Filter</button>
+    <button class="class-tab" id="tabSingleDigitMode" onclick="switchMainMode('singleDigit')"><i class="fas fa-search"></i> Single Digit Scorers (0–9 Marks)</button>
     <a href="slow-learners-attendance.html" class="class-tab" style="text-decoration:none;"><i class="fas fa-clipboard-user"></i> Attendance Register</a>
   </div>
 
@@ -714,6 +814,41 @@
       <table id="filterResultsTable" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
         <!-- Dynamically Generated -->
       </table>
+    </div>
+
+  </div>
+
+  <!-- ── SINGLE DIGIT SCORERS REPORT SECTION ── -->
+  <div id="singleDigitSection" style="display: none; max-width: 1250px; margin: 0 auto 50px; padding: 0 24px;">
+    
+    <!-- Print Only Header Banner -->
+    <div class="print-header-banner">
+      <h2 style="font-size: 1.3rem; margin: 0; color: #000;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+      <p id="printSingleDigitSub" style="font-size: 0.9rem; margin: 4px 0 0 0; color: #333; font-weight: 600;">SINGLE DIGIT SCORERS REPORT (0–9 MARKS)</p>
+    </div>
+
+    <!-- Controls Bar -->
+    <div style="background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 28px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+        <button class="sd-class-btn active" data-class="all" onclick="filterSingleDigitClass('all', this)"><i class="fas fa-layer-group"></i> All Classes Combined</button>
+        <button class="sd-class-btn" data-class="7C" onclick="filterSingleDigitClass('7C', this)"><i class="fas fa-graduation-cap"></i> Class 7-C</button>
+        <button class="sd-class-btn" data-class="11B" onclick="filterSingleDigitClass('11B', this)"><i class="fas fa-graduation-cap"></i> Class 11-B</button>
+        <button class="sd-class-btn" data-class="12" onclick="filterSingleDigitClass('12', this)"><i class="fas fa-graduation-cap"></i> Class 12</button>
+      </div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="action-btn print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print Report</button>
+        <button class="action-btn excel-btn" onclick="downloadSingleDigitCSV()"><i class="fas fa-file-csv"></i> Download CSV</button>
+      </div>
+    </div>
+
+    <!-- Summary KPI Strip -->
+    <div class="summary-strip" id="sdSummaryStrip" style="margin-bottom: 28px;">
+      <!-- Dynamically Rendered -->
+    </div>
+
+    <!-- Table Container -->
+    <div class="tbl-wrap" id="sdReportTable">
+      <!-- Dynamically Rendered -->
     </div>
 
   </div>
@@ -1654,36 +1789,243 @@
     }
   }
 
-  // ── Mode Switcher (Categories vs Score Filter) ──
+  // ── Mode Switcher (Categories vs Score Filter vs Single Digit Scorers) ──
   function switchMainMode(mode) {
     document.body.setAttribute('data-mode', mode);
     const tabCat = document.getElementById('tabCategoriesMode');
     const tabFlt = document.getElementById('tabFilterMode');
+    const tabSD = document.getElementById('tabSingleDigitMode');
+
     const catClassTabs = document.getElementById('categoriesClassTabs');
     const catActionsRow = document.getElementById('categoriesActionsRow');
     const catGrid = document.getElementById('categoriesGrid');
     const fltSection = document.getElementById('scoreFilterSection');
+    const sdSection = document.getElementById('singleDigitSection');
+
+    if(tabCat) tabCat.classList.toggle('active', mode === 'categories');
+    if(tabFlt) tabFlt.classList.toggle('active', mode === 'scoreFilter');
+    if(tabSD) tabSD.classList.toggle('active', mode === 'singleDigit');
 
     if (mode === 'scoreFilter') {
-      if(tabCat) tabCat.classList.remove('active');
-      if(tabFlt) tabFlt.classList.add('active');
       if(catClassTabs) catClassTabs.style.display = 'none';
       if(catActionsRow) catActionsRow.style.display = 'none';
       if(catGrid) catGrid.style.display = 'none';
       if(fltSection) fltSection.style.display = 'block';
+      if(sdSection) sdSection.style.display = 'none';
 
       document.getElementById('dirTitle').textContent = `Exam Score Threshold Filter (<40%, <33%, <25%)`;
       onFilterClassChange();
+    } else if (mode === 'singleDigit') {
+      if(catClassTabs) catClassTabs.style.display = 'none';
+      if(catActionsRow) catActionsRow.style.display = 'none';
+      if(catGrid) catGrid.style.display = 'none';
+      if(fltSection) fltSection.style.display = 'none';
+      if(sdSection) sdSection.style.display = 'block';
+
+      document.getElementById('dirTitle').textContent = `Single Digit Scorers Report (0–9 Marks)`;
+      renderSingleDigitReport();
     } else {
-      if(tabCat) tabCat.classList.add('active');
-      if(tabFlt) tabFlt.classList.remove('active');
       if(catClassTabs) catClassTabs.style.display = 'flex';
       if(catActionsRow) catActionsRow.style.display = 'flex';
       if(catGrid) catGrid.style.display = 'grid';
       if(fltSection) fltSection.style.display = 'none';
+      if(sdSection) sdSection.style.display = 'none';
 
       changeClass(activeClass);
     }
+  }
+
+  // ── Single Digit Scorers Section Logic ──
+  let sdActiveFilter = 'all';
+  let sdAllResults = [];
+
+  function findSingleDigitScorers(stData) {
+    const results = [];
+    const classes = ['7C', '11B', '12'];
+    classes.forEach(cls => {
+      const students = stData[cls] || [];
+      const conductedTests = classTests[cls] || [];
+      students.forEach(student => {
+        conductedTests.forEach(test => {
+          const score = student.marks ? student.marks[test.id] : undefined;
+          if (isValidScore(score)) {
+            const numScore = Number(score);
+            if (numScore >= 0 && numScore <= 9) {
+              results.push({
+                className: cls,
+                classLabel: classLabels[cls] || cls,
+                studentName: student.name,
+                testLabel: test.label,
+                testId: test.id,
+                marks: numScore,
+                maxMarks: test.maxMarks,
+                percentage: ((numScore / test.maxMarks) * 100).toFixed(1)
+              });
+            }
+          }
+        });
+      });
+    });
+    return results;
+  }
+
+  function getSdFrequencyMap(results) {
+    const freq = {};
+    results.forEach(r => {
+      const key = r.className + '|' + r.studentName;
+      freq[key] = (freq[key] || 0) + 1;
+    });
+    return freq;
+  }
+
+  function filterSingleDigitClass(cls, btn) {
+    sdActiveFilter = cls;
+    document.querySelectorAll('.sd-class-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderSingleDigitReport();
+  }
+
+  function renderSingleDigitReport() {
+    loadData();
+    sdAllResults = findSingleDigitScorers(studentData);
+    const filtered = sdActiveFilter === 'all' ? sdAllResults : sdAllResults.filter(r => r.className === sdActiveFilter);
+    renderSdSummary(filtered);
+    renderSdTable(filtered);
+  }
+
+  function renderSdSummary(data) {
+    const uniqueStudents = new Set(data.map(r => r.className + '|' + r.studentName));
+    const totalInstances = data.length;
+    const zeroScorers = data.filter(r => r.marks === 0).length;
+    const avgMarks = data.length > 0 ? (data.reduce((s,r) => s + r.marks, 0) / data.length).toFixed(1) : '—';
+
+    const wrap = document.getElementById('sdSummaryStrip');
+    if (wrap) {
+      wrap.innerHTML = `
+        <div class="summary-card danger">
+          <div class="sc-icon">⚠️</div>
+          <div class="sc-value">${uniqueStudents.size}</div>
+          <div class="sc-label">Unique Students</div>
+        </div>
+        <div class="summary-card warning">
+          <div class="sc-icon">📊</div>
+          <div class="sc-value">${totalInstances}</div>
+          <div class="sc-label">Total Instances</div>
+        </div>
+        <div class="summary-card danger">
+          <div class="sc-icon">🔴</div>
+          <div class="sc-value">${zeroScorers}</div>
+          <div class="sc-label">Zero Scorers</div>
+        </div>
+        <div class="summary-card info">
+          <div class="sc-icon">📈</div>
+          <div class="sc-value">${avgMarks}</div>
+          <div class="sc-label">Avg. Marks Scored</div>
+        </div>
+      `;
+    }
+  }
+
+  function getSdMarksClass(marks) {
+    if (marks === 0) return 'marks-zero';
+    if (marks <= 4) return 'marks-low';
+    return 'marks-mid';
+  }
+
+  function getSdFreqClass(count) {
+    if (count >= 4) return 'freq-high';
+    if (count >= 2) return 'freq-med';
+    return 'freq-low';
+  }
+
+  function renderSdTable(data) {
+    const container = document.getElementById('sdReportTable');
+    if (!container) return;
+
+    if (data.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
+          <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 8px;">No Single Digit Scorers Found!</h3>
+          <p style="font-size: 0.88rem; max-width: 400px; margin: 0 auto; color: var(--text-secondary);">All students scored 10 or above in their tests for the selected class option. Great performance!</p>
+        </div>
+      `;
+      return;
+    }
+
+    const freq = getSdFrequencyMap(sdAllResults);
+
+    const sortedData = [...data].sort((a, b) => {
+      const freqA = freq[a.className + '|' + a.studentName] || 0;
+      const freqB = freq[b.className + '|' + b.studentName] || 0;
+      if (freqB !== freqA) return freqB - freqA;
+      if (a.marks !== b.marks) return a.marks - b.marks;
+      return a.studentName.localeCompare(b.studentName);
+    });
+
+    let html = `<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+      <thead>
+        <tr>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">S.No</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Student Name</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Class</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Test</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Marks</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Max Marks</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Percentage</th>
+          <th style="padding: 12px; text-align: left; background: rgba(17,24,39,0.85); color: #a78bfa; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">Frequency</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    sortedData.forEach((r, i) => {
+      const fKey = r.className + '|' + r.studentName;
+      const fCount = freq[fKey] || 1;
+      const pctClass = Number(r.percentage) === 0 ? 'pct-critical' : Number(r.percentage) < 25 ? 'pct-low' : 'pct-mid';
+
+      html += `<tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+        <td style="padding: 12px; color: #9ca3af; font-weight: 600;">${i + 1}</td>
+        <td style="padding: 12px; font-weight: 700; color: #fff;">${r.studentName}</td>
+        <td style="padding: 12px;"><span class="class-badge">${r.classLabel}</span></td>
+        <td style="padding: 12px;"><span class="test-badge">${r.testLabel}</span></td>
+        <td style="padding: 12px;" class="marks-cell ${getSdMarksClass(r.marks)}">${r.marks}</td>
+        <td style="padding: 12px;" class="max-marks">${r.maxMarks}</td>
+        <td style="padding: 12px;" class="pct-cell ${pctClass}">${r.percentage}%</td>
+        <td style="padding: 12px;"><span class="freq-badge ${getSdFreqClass(fCount)}"><i class="fas fa-redo"></i> ${fCount} test${fCount > 1 ? 's' : ''}</span></td>
+      </tr>`;
+    });
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+  }
+
+  function downloadSingleDigitCSV() {
+    const filtered = sdActiveFilter === 'all' ? sdAllResults : sdAllResults.filter(r => r.className === sdActiveFilter);
+    if (filtered.length === 0) {
+      alert("No data available to download.");
+      return;
+    }
+    const freq = getSdFrequencyMap(sdAllResults);
+    const sortedData = [...filtered].sort((a, b) => {
+      const freqA = freq[a.className + '|' + a.studentName] || 0;
+      const freqB = freq[b.className + '|' + b.studentName] || 0;
+      if (freqB !== freqA) return freqB - freqA;
+      if (a.marks !== b.marks) return a.marks - b.marks;
+      return a.studentName.localeCompare(b.studentName);
+    });
+
+    let csv = `S.No.,Student Name,Class,Test,Marks,Max Marks,Percentage,Frequency (Total Tests 0-9)\r\n`;
+    sortedData.forEach((r, i) => {
+      const fKey = r.className + '|' + r.studentName;
+      const fCount = freq[fKey] || 1;
+      csv += `${i + 1},"${r.studentName}","${r.classLabel}","${r.testLabel}",${r.marks},${r.maxMarks},${r.percentage}%,${fCount}\r\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `Single_Digit_Scorers_${sdActiveFilter.toUpperCase()}_${new Date().toISOString().slice(0,10)}.csv`;
+    link.click();
   }
 
   function onFilterClassChange() {
@@ -2039,10 +2381,14 @@
   // Initialize
   document.addEventListener('DOMContentLoaded', () => {
     loadData();
-    if (window.location.hash === '#score-filter' || window.location.search.includes('mode=scoreFilter')) {
+    const hash = window.location.hash;
+    const search = window.location.search;
+    if (hash === '#single-digit' || search.includes('mode=singleDigit')) {
+      switchMainMode('singleDigit');
+    } else if (hash === '#score-filter' || search.includes('mode=scoreFilter')) {
       switchMainMode('scoreFilter');
     } else {
-      changeClass('7C');
+      switchMainMode('categories');
     }
   });
 </script>
