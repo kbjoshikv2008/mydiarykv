@@ -1292,9 +1292,42 @@
               </div>
             </div>
 
-            <!-- Step 2 -->
+            <!-- Step 2: Select Chapters as per Class -->
+            <div class="gen-card" style="border-left:4px solid #8b5cf6;">
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                <div class="gen-card-title" style="margin:0;"><i class="fas fa-book-open" style="color:#8b5cf6;"></i> Step 2 — Select Chapters from List (<span id="genClassHeading" style="color:#a78bfa;">Class XII</span>)</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <button type="button" onclick="selectAllChaptersGen(true)" class="gen-btn gen-btn-preview" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-check-double"></i> Select All</button>
+                  <button type="button" onclick="selectAllChaptersGen(false)" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-times"></i> Clear All</button>
+                </div>
+              </div>
+
+              <!-- Quick Single Chapter Select & Presets Bar -->
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; background:rgba(255,255,255,0.03); padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.07);">
+                <span style="font-size:0.85rem; color:#c4b5fd; font-weight:600;"><i class="fas fa-filter"></i> Focus Single Chapter:</span>
+                <select class="gen-select" id="quickSingleChapterSelect" onchange="onQuickSingleChapter(this.value)" style="flex:1; min-width:220px; max-width:400px;">
+                  <option value="">-- All Selected Chapters (Multi-Select below) --</option>
+                </select>
+                <button type="button" onclick="generateQuickTestPreset(20)" class="gen-btn gen-btn-primary" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-bolt"></i> 20M Quick Test</button>
+                <button type="button" onclick="generateQuickTestPreset(40)" class="gen-btn gen-btn-preview" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-bolt"></i> 40M PT Test</button>
+              </div>
+
+              <!-- Interactive Chapter Grid -->
+              <div class="chapter-pdf-grid" id="chapterPdfSelector"></div>
+
+              <!-- Live Active Selection Badge & Instant Test Generator Button -->
+              <div style="margin-top:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:10px 14px; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.35); border-radius:10px;">
+                <div style="font-size:0.85rem; color:#c4b5fd; display:flex; align-items:center; gap:8px;">
+                  <i class="fas fa-check-circle" style="color:#34d399; font-size:1.1rem;"></i>
+                  <span id="selectedChaptersBadge">All 14 Chapters Selected (Full Syllabus)</span>
+                </div>
+                <button type="button" onclick="generateTestNow()" class="gen-btn gen-btn-primary" style="padding:8px 18px; font-size:0.88rem; box-shadow:0 0 15px rgba(139,92,246,0.4);"><i class="fas fa-magic"></i> Generate Test for Selected Chapters</button>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
             <div class="gen-card">
-              <div class="gen-card-title"><i class="fas fa-list-ol"></i> Step 2 — Question Distribution</div>
+              <div class="gen-card-title"><i class="fas fa-list-ol"></i> Step 3 — Question Distribution</div>
               <div class="q-counter-grid">
                 <div class="q-counter-card">
                   <span class="q-counter-label">Section A (1 Mark MCQ / A-R)</span>
@@ -1351,30 +1384,23 @@
               </div>
             </div>
 
-            <!-- Step 3 -->
+            <!-- Step 4 -->
             <div class="gen-card">
-              <div class="gen-card-title"><i class="fas fa-database"></i> Step 3 — Question Source Selection</div>
+              <div class="gen-card-title"><i class="fas fa-database"></i> Step 4 — Question Source &amp; References</div>
               <div class="source-tabs">
-                <button class="source-tab-btn" onclick="selectSource('pdf',this)"><i class="fas fa-file-pdf"></i> Chapter PDFs / Topics</button>
-                <button class="source-tab-btn active" onclick="selectSource('bank',this)"><i class="fas fa-database"></i> Question Bank</button>
+                <button class="source-tab-btn active" onclick="selectSource('pdf',this)"><i class="fas fa-file-pdf"></i> Selected Chapters (Above)</button>
+                <button class="source-tab-btn" onclick="selectSource('bank',this)"><i class="fas fa-database"></i> Question Bank &amp; Topics</button>
                 <button class="source-tab-btn" onclick="selectSource('online',this)"><i class="fas fa-globe"></i> Online Resources</button>
                 <button class="source-tab-btn" onclick="selectSource('qpfiles',this)"><i class="fas fa-folder-open"></i> Previous QP Files</button>
               </div>
 
-              <!-- Option A: Chapter PDFs -->
-              <div id="sourcePdf" class="source-content" style="display:none;">
-                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
-                  <p style="color:var(--text-secondary); font-size:0.85rem; margin:0;" id="chapterPdfHeading">Select specific chapters from available Chapter PDFs:</p>
-                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <button type="button" onclick="selectAllChaptersGen(true)" class="gen-btn gen-btn-edit" style="padding:5px 12px; font-size:0.78rem;"><i class="fas fa-check-double"></i> Select All</button>
-                    <button type="button" onclick="selectAllChaptersGen(false)" class="gen-btn gen-btn-edit" style="padding:5px 12px; font-size:0.78rem;"><i class="fas fa-times"></i> Clear</button>
-                  </div>
-                </div>
-                <div class="chapter-pdf-grid" id="chapterPdfSelector"></div>
+              <!-- Option A: Chapter PDFs info -->
+              <div id="sourcePdf" class="source-content">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">Generating question paper directly from the chapters checked in <strong>Step 2</strong> above.</p>
               </div>
 
               <!-- Option B: Question Bank -->
-              <div id="sourceBank" class="source-content">
+              <div id="sourceBank" class="source-content" style="display:none;">
                 <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">AI and generator draw strictly from NCERT textbook exercises, Exemplar, and CBSE standard question bank.</p>
                 <label class="gen-label" style="margin-bottom:4px; display:block;">Specify Focus Chapters / Topics (e.g. "Matrices, Determinants" or "Integrals, Differential Equations"):</label>
                 <textarea class="gen-input" id="customTopics" rows="2" style="width:100%; resize:vertical; box-sizing:border-box;" placeholder="Enter chapter names or specific topics to target, e.g. 'Matrices, Determinants' or 'Integration, Bayes Theorem, Linear Programming'" oninput="updateSourceSummary()"></textarea>
@@ -1404,9 +1430,9 @@
               </div>
             </div>
 
-            <!-- Step 4 -->
+            <!-- Step 5 -->
             <div class="gen-card">
-              <div class="gen-card-title"><i class="fas fa-robot"></i> Step 4 — Choose AI Tool</div>
+              <div class="gen-card-title"><i class="fas fa-robot"></i> Step 5 — Choose AI Tool &amp; Options</div>
               <div class="ai-tools-grid">
                 <div class="ai-tool-card ai-chatgpt selected" data-tool="chatgpt" onclick="selectAITool('chatgpt',this)">
                   <div class="ai-icon">🤖</div>
@@ -2661,21 +2687,196 @@
         }
       },
       'XI': {
-        1: { // Sets & Relations
-          secA: [{ q: "If \\(A = \\{1, 2, 3\\}\\) and \\(B = \\{3, 4\\}\\), then \\((A \\times B) \\cap (B \\times A)\\) is:", opt: ["(a) \\(\\{(3, 3)\\}\\)", "(b) \\(\\{(1, 3), (3, 1)\\}\\)", "(c) \\(\\phi\\)", "(d) None"] }],
+        1: { // Sets
+          secA: [{ q: "If \\(A = \\{1, 2, 3\\}\\) and \\(B = \\{3, 4\\}\\), then \\((A \\times B) \\cap (B \\times A)\\) is:", opt: ["(a) \\(\\{(3, 3)\\}\\)", "(b) \\(\\{(1, 3), (3, 1)\\}\\)", "(c) \\(\\phi\\)", "(d) None"] }, { q: "The number of non-empty subsets of a set containing 5 elements is:", opt: ["(a) 32", "(b) 31", "(c) 16", "(d) 25"] }],
           secB: ["If \\(U = \\{1, 2, 3, 4, 5, 6, 7, 8, 9\\}, A = \\{2, 4, 6, 8\\}, B = \\{2, 3, 5, 7\\}\\), verify De Morgan's Law: \\((A \\cup B)' = A' \\cap B'\\)."],
           secC: ["In a survey of 60 people, 25 read newspaper H, 26 read T, 26 read I, 9 read both H and I, 11 read H and T, 8 read T and I, 3 read all three. Find the number of people who read at least one newspaper."],
-          secD: ["Show that \\(f: \\mathbb{R} \\to \\mathbb{R}\\) defined by \\(f(x) = x^2\\) is neither one-one nor onto. Find the domain and range of \\(f(x) = \\sqrt{9 - x^2}\\)."],
-          secE: [{ passage: "<strong>Case Study — Survey of Student Clubs:</strong><br>In a school, 50 students joined Music club, 40 joined Robotics, 30 joined Drama. 15 were in Music & Robotics, 10 in Robotics & Drama, 12 in Music & Drama, and 5 in all three.", parts: ["(i) Find how many students are in Music only. &nbsp;<em>[1]</em>", "(ii) Find students in exactly two clubs. &nbsp;<em>[1]</em>", "(iii) Find total students in at least one club. &nbsp;<em>[2]</em>"] }]
+          secD: ["For any two sets \\(A\\) and \\(B\\), prove using properties: (i) \\(A \\cup (A \\cap B) = A\\), (ii) \\(A \\cap (A \\cup B) = A\\)."],
+          secE: [{ passage: "<strong>Case Study — Student Hobby Club Enrollment:</strong><br>In a school of 100 students, 35 like Football, 45 like Cricket, and 20 like both sports.", parts: ["(i) Find the number of students who like Football only. &nbsp;<em>[1]</em>", "(ii) Find students who like Cricket only. &nbsp;<em>[1]</em>", "(iii) Find students who like neither Football nor Cricket. &nbsp;<em>[2]</em>"] }]
+        },
+        2: { // Relations & Functions
+          secA: [{ q: "The domain of the function \\(f(x) = \\frac{1}{\\sqrt{9 - x^2}}\\) is:", opt: ["(a) \\((-3, 3)\\)", "(b) \\([-3, 3]\\)", "(c) \\((-\\infty, -3) \\cup (3, \\infty)\\)", "(d) \\(\\mathbb{R}\\)"] }],
+          secB: ["Find the domain and range of the real function \\(f(x) = \\sqrt{x - 1}\\)."],
+          secC: ["If \\(f(x) = x^2\\) and \\(g(x) = 2x + 1\\) are two real functions, find: (i) \\((f + g)(x)\\), (ii) \\((f - g)(x)\\), (iii) \\((fg)(x)\\), (iv) \\(\\left(\\frac{f}{g}\\right)(x)\\)."],
+          secD: ["Find the domain and range of the function \\(f(x) = \\frac{x^2 + 2x + 1}{x^2 - 8x + 12}\\). &nbsp;<strong>OR</strong>&nbsp; Draw the graph of the Modulus function \\(f(x) = |x|\\) and state its domain and range."],
+          secE: [{ passage: "<strong>Case Study — Cost Function Modeling:</strong><br>A company manufactures electric kettles with fixed setup cost ₹500 and production cost ₹150 per unit. Total cost function is \\(C(x) = 150x + 500\\).", parts: ["(i) State whether \\(C(x)\\) is a linear relation. &nbsp;<em>[1]</em>", "(ii) Find the cost of producing 50 kettles. &nbsp;<em>[1]</em>", "(iii) If total cost is ₹8000, find the number of units manufactured. &nbsp;<em>[2]</em>"] }]
+        },
+        3: { // Trigonometric Functions
+          secA: [{ q: "The principal value of \\(\\sin\\left(-\\frac{11\\pi}{3}\\right)\\) is:", opt: ["(a) \\(\\frac{\\sqrt{3}}{2}\\)", "(b) \\(-\\frac{\\sqrt{3}}{2}\\)", "(c) \\(\\frac{1}{2}\\)", "(d) \\(-\\frac{1}{2}\\)"] }],
+          secB: ["Find the value of \\(\\tan 15^\\circ\\) in radical form."],
+          secC: ["Prove that: \\(\\frac{\\sin 5x - 2\\sin 3x + \\sin x}{\\cos 5x - \\cos x} = \\tan x\\)."],
+          secD: ["Prove that: \\(\\cos 20^\\circ \\cos 40^\\circ \\cos 60^\\circ \\cos 80^\\circ = \\frac{1}{16}\\). &nbsp;<strong>OR</strong>&nbsp; Find the general solution of \\(\\sin 2x - \\sin 4x + \\sin 6x = 0\\)."],
+          secE: [{ passage: "<strong>Case Study — Oscillation and Wave Phase:</strong><br>An alternating current source produces voltage given by \\(V(t) = 220 \\sin\\left(100\\pi t + \\frac{\\pi}{6}\\right)\\) volts.", parts: ["(i) Find the peak amplitude of the voltage wave. &nbsp;<em>[1]</em>", "(ii) Find the instantaneous voltage at \\(t = 0\\) seconds. &nbsp;<em>[1]</em>", "(iii) Find the first positive time \\(t\\) when voltage attains maximum value. &nbsp;<em>[2]</em>"] }]
+        },
+        4: { // Complex Numbers
+          secA: [{ q: "The modulus of \\(\\frac{1 + i}{1 - i}\\) is:", opt: ["(a) 1", "(b) 2", "(c) \\(\\sqrt{2}\\)", "(d) 0"] }],
+          secB: ["Express \\(\\frac{(3 - 2i)(2 + 3i)}{(1 + 2i)(2 - i)}\\) in the standard form \\(a + ib\\)."],
+          secC: ["Find the modulus and argument of the complex number \\(z = -1 - i\\sqrt{3}\\) and represent in polar form."],
+          secD: ["Solve the quadratic equation: \\(27x^2 - 10x + 1 = 0\\) over complex numbers. &nbsp;<strong>OR</strong>&nbsp; If \\((x + iy)^3 = u + iv\\), prove that \\(\\frac{u}{x} + \\frac{v}{y} = 4(x^2 - y^2)\\)."],
+          secE: [{ passage: "<strong>Case Study — Electrical Impedance in AC Circuits:</strong><br>In an AC circuit, total impedance is represented by \\(Z = R + jX\\) where \\(R = 4\\,\\Omega\\) and \\(X = 3\\,\\Omega\\).", parts: ["(i) Write the impedance in polar form. &nbsp;<em>[1]</em>", "(ii) Find the magnitude of impedance \\(|Z|\\). &nbsp;<em>[1]</em>", "(iii) If current \\(I = 2 - j\\), find the voltage phasor \\(V = I \\times Z\\). &nbsp;<em>[2]</em>"] }]
+        },
+        5: { // Linear Inequalities
+          secA: [{ q: "The solution of \\(3x - 7 > 5x - 1\\) for \\(x \\in \\mathbb{R}\\) is:", opt: ["(a) \\((-\\infty, -3)\\)", "(b) \\((-3, \\infty)\\)", "(c) \\((-\\infty, 3)\\)", "(d) \\([3, \\infty)\\)"] }],
+          secB: ["Solve: \\(\\frac{3(x-2)}{5} \\le \\frac{5(2-x)}{3}\\) for \\(x \\in \\mathbb{R}\\)."],
+          secC: ["Solve the system of inequalities graphically: \\(2x + y \\ge 6, 3x + 4y \\le 12\\)."],
+          secD: ["A manufacturer has 600 litres of a 12% solution of acid. How many litres of a 30% acid solution must be added to it so that acid content in the resulting mixture will be more than 15% but less than 18%?"],
+          secE: [{ passage: "<strong>Case Study — Production Budget Planning:</strong><br>A factory produces items \\(A\\) and \\(B\\). Cost of \\(A\\) is ₹20 and \\(B\\) is ₹30. Budget is at most ₹600. Total units must be at least 15.", parts: ["(i) Write the inequality system. &nbsp;<em>[1]</em>", "(ii) Is producing 10 units of A and 10 units of B feasible? &nbsp;<em>[1]</em>", "(iii) Find the feasible coordinate range graphically. &nbsp;<em>[2]</em>"] }]
+        },
+        6: { // Permutations & Combinations
+          secA: [{ q: "If \\(^{n}C_{8} = ^{n}C_{2}\\), then \\(^{n}C_{2}\\) is:", opt: ["(a) 45", "(b) 10", "(c) 90", "(d) 36"] }],
+          secB: ["How many 4-digit numbers can be formed using digits 1, 2, 3, 4, 5 if repetition of digits is not allowed?"],
+          secC: ["In how many ways can 5 girls and 3 boys be seated in a row so that no two boys are together?"],
+          secD: ["A committee of 7 has to be formed from 9 boys and 4 girls. In how many ways can this be done if committee consists of: (i) exactly 3 girls, (ii) at least 3 girls, (iii) at most 3 girls?"],
+          secE: [{ passage: "<strong>Case Study — Team Selection for Science Olympiad:</strong><br>A school needs a 5-member team from 8 Physics students and 6 Chemistry students.", parts: ["(i) Find total possible teams without restriction. &nbsp;<em>[1]</em>", "(ii) Find teams with exactly 3 Physics students. &nbsp;<em>[1]</em>", "(iii) Find teams with at least 1 Chemistry student. &nbsp;<em>[2]</em>"] }]
+        },
+        7: { // Binomial Theorem
+          secA: [{ q: "The number of terms in the expansion of \\((1 + 2x + x^2)^{10}\\) is:", opt: ["(a) 21", "(b) 11", "(c) 20", "(d) 19"] }],
+          secB: ["Find the 4th term in the expansion of \\((x - 2y)^{12}\\)."],
+          secC: ["Find the middle term(s) in the expansion of \\(\\left(\\frac{x}{3} + 9y\\right)^{10}\\)."],
+          secD: ["Find the coefficient of \\(x^6 y^3\\) in the expansion of \\((x + 2y)^9\\). &nbsp;<strong>OR</strong>&nbsp; Prove that \\(6^n - 5n\\) always leaves remainder 1 when divided by 25 for all \\(n \\in \\mathbb{N}\\)."],
+          secE: [{ passage: "<strong>Case Study — Compound Interest Expansion:</strong><br>Growth factor \\((1 + r)^n\\) expanded via Binomial Theorem for small rate \\(r = 0.05\\) and \\(n = 5\\).", parts: ["(i) Write the first 3 terms of expansion. &nbsp;<em>[1]</em>", "(ii) Approximate \\((1.05)^5\\) using first 3 terms. &nbsp;<em>[1]</em>", "(iii) Calculate the percentage accuracy compared to exact value. &nbsp;<em>[2]</em>"] }]
+        },
+        8: { // Sequences & Series
+          secA: [{ q: "The 10th term of the GP \\(5, 25, 125, \\dots\\) is:", opt: ["(a) \\(5^{10}\\)", "(b) \\(5^9\\)", "(c) \\(5^{11}\\)", "(d) 50"] }],
+          secB: ["Find the sum to \\(n\\) terms of the GP: \\(0.15, 0.015, 0.0015, \\dots\\)."],
+          secC: ["If AM and GM of two positive numbers \\(a\\) and \\(b\\) are 10 and 8 respectively, find the numbers."],
+          secD: ["Find the sum of the series: \\(7 + 77 + 777 + 7777 + \\dots\\) to \\(n\\) terms. &nbsp;<strong>OR</strong>&nbsp; If the \\(p\\)-th, \\(q\\)-th and \\(r\\)-th terms of a GP are \\(a, b, c\\) respectively, prove that \\(a^{q-r} b^{r-p} c^{p-q} = 1\\)."],
+          secE: [{ passage: "<strong>Case Study — Bacterial Colony Growth:</strong><br>A bacterial culture doubles every hour. Initially there are 50 bacteria present.", parts: ["(i) Write the GP sequence for bacterial count at hours 0, 1, 2, 3. &nbsp;<em>[1]</em>", "(ii) How many bacteria are present after 6 hours? &nbsp;<em>[1]</em>", "(iii) After how many hours will count exceed 100,000? &nbsp;<em>[2]</em>"] }]
+        },
+        9: { // Straight Lines
+          secA: [{ q: "The slope of the line perpendicular to \\(3x - 4y + 10 = 0\\) is:", opt: ["(a) \\(-\\frac{4}{3}\\)", "(b) \\(\\frac{3}{4}\\)", "(c) \\(-\\frac{3}{4}\\)", "(d) \\(\\frac{4}{3}\\)"] }],
+          secB: ["Find the distance between parallel lines \\(3x - 4y + 7 = 0\\) and \\(3x - 4y + 5 = 0\\)."],
+          secC: ["Find the equation of the line passing through \\((2, 2)\\) and cutting off intercepts on the axes whose sum is 9."],
+          secD: ["Find the coordinates of the foot of perpendicular from \\((-1, 3)\\) to the line \\(3x - 4y - 16 = 0\\). &nbsp;<strong>OR</strong>&nbsp; Find the image of the point \\((3, 8)\\) with respect to the line \\(x + 3y = 7\\) assuming the line to be a plane mirror."],
+          secE: [{ passage: "<strong>Case Study — Highway Route Geometry:</strong><br>A highway passes through towns modeled at \\(A(1, 2)\\) and \\(B(5, 6)\\). A cell tower is situated at point \\(C(3, 8)\\).", parts: ["(i) Find the equation of the highway line AB. &nbsp;<em>[1]</em>", "(ii) Find the slope of the access road perpendicular to AB from tower C. &nbsp;<em>[1]</em>", "(iii) Find the shortest distance from the tower to the highway. &nbsp;<em>[2]</em>"] }]
+        },
+        10: { // Conic Sections
+          secA: [{ q: "The length of latus rectum of the parabola \\(y^2 = 12x\\) is:", opt: ["(a) 12", "(b) 6", "(c) 3", "(d) 24"] }],
+          secB: ["Find the equation of circle with centre \\((-2, 3)\\) and radius 4."],
+          secC: ["Find the coordinates of foci, vertices, eccentricity and length of latus rectum of ellipse \\(\\frac{x^2}{25} + \\frac{y^2}{9} = 1\\)."],
+          secD: ["Find the equation of the hyperbola with foci \\((0, \\pm \\sqrt{10})\\) and passing through \\((2, 3)\\). &nbsp;<strong>OR</strong>&nbsp; An arch is in the form of a parabola with vertical axis. The arch is 10 m high and 5 m wide at the base. How wide is it 2 m from vertex?"],
+          secE: [{ passage: "<strong>Case Study — Satellite Dish Parabolic Reflectors:</strong><br>A parabolic satellite dish antenna has diameter 100 cm and depth 20 cm. The receiver is placed at focus.", parts: ["(i) Set up coordinate axes and write equation of parabolic cross-section. &nbsp;<em>[1]</em>", "(ii) Find the focal length \\(a\\). &nbsp;<em>[1]</em>", "(iii) State the exact coordinates of receiver focus placement. &nbsp;<em>[2]</em>"] }]
+        },
+        11: { // 3D Geometry
+          secA: [{ q: "The distance of point \\(P(3, 4, 5)\\) from the \\(xy\\)-plane is:", opt: ["(a) 5", "(b) 3", "(c) 4", "(d) \\(\\sqrt{50}\\)"] }],
+          secB: ["Find the ratio in which the \\(yz\\)-plane divides the line segment joining \\((-2, 4, 7)\\) and \\((3, -5, 8)\\)."],
+          secC: ["Show that the points \\(A(1, 2, 3), B(-1, -2, -1), C(2, 3, 2)\\) and \\(D(4, 7, 6)\\) are the vertices of a parallelogram."],
+          secD: ["Find the coordinates of the centroid of triangle whose vertices are \\(A(x_1, y_1, z_1), B(x_2, y_2, z_2), C(x_3, y_3, z_3)\\) and find centroid for \\((3, -5, 7), (-1, 7, -6), (1, 1, 2)\\)."],
+          secE: [{ passage: "<strong>Case Study — Drone Navigation in 3D Space:</strong><br>A delivery drone flies from origin \\(O(0,0,0)\\) to waypoint \\(A(20, 30, 40)\\) and then to destination \\(B(50, 70, 80)\\) (coordinates in meters).", parts: ["(i) Find displacement vector from O to A. &nbsp;<em>[1]</em>", "(ii) Find straight-line distance from A to B. &nbsp;<em>[1]</em>", "(iii) Find coordinates of midpoint between A and B. &nbsp;<em>[2]</em>"] }]
+        },
+        12: { // Limits & Derivatives
+          secA: [{ q: "The value of \\(\\lim_{x \\to 0} \\frac{\\sin 4x}{2x}\\) is:", opt: ["(a) 2", "(b) 4", "(c) 1/2", "(d) 1"] }],
+          secB: ["Find the derivative of \\(f(x) = \\sin x \\cos x\\) with respect to \\(x\\)."],
+          secC: ["Find the derivative of \\(f(x) = \\frac{x + \\cos x}{\\tan x}\\) using quotient rule."],
+          secD: ["Find the derivative of \\(f(x) = \\cos(2x + 1)\\) from first principles. &nbsp;<strong>OR</strong>&nbsp; Evaluate \\(\\lim_{x \\to 0} \\frac{\\sqrt{1 + x} - \\sqrt{1 - x}}{\\sin x}\\)."],
+          secE: [{ passage: "<strong>Case Study — Instantaneous Velocity of Rocket:</strong><br>Altitude of a research rocket during launch is modeled by \\(h(t) = 4t^3 + 5t^2 + 2t\\) meters.", parts: ["(i) Find instantaneous velocity expression \\(v(t) = h'(t)\\). &nbsp;<em>[1]</em>", "(ii) Find velocity at \\(t = 3\\) seconds. &nbsp;<em>[1]</em>", "(iii) Find acceleration at \\(t = 3\\) seconds. &nbsp;<em>[2]</em>"] }]
+        },
+        13: { // Statistics
+          secA: [{ q: "If variance of a dataset is 25, its standard deviation is:", opt: ["(a) 5", "(b) 25", "(c) 625", "(d) 50"] }],
+          secB: ["Find the mean deviation about the mean for the data: 4, 7, 8, 9, 10, 12, 13, 17."],
+          secC: ["Find the mean and variance for the numbers: 6, 7, 10, 12, 13, 4, 8, 12."],
+          secD: ["Calculate the mean, variance and standard deviation for the frequency distribution: Classes 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 5, 8, 15, 16, 6."],
+          secE: [{ passage: "<strong>Case Study — Quality Control Variance Testing:</strong><br>Diameters of ball bearings produced by two machines A and B were sampled. Machine A has mean 10.2 mm with SD 0.04 mm; Machine B has mean 10.2 mm with SD 0.08 mm.", parts: ["(i) Calculate coefficient of variation (CV) for machine A. &nbsp;<em>[1]</em>", "(ii) Calculate CV for machine B. &nbsp;<em>[1]</em>", "(iii) Which machine produces more consistent quality? Justify. &nbsp;<em>[2]</em>"] }]
+        },
+        14: { // Probability
+          secA: [{ q: "If \\(P(A) = \\frac{3}{5}\\) and \\(P(B) = \\frac{1}{5}\\), then for independent events \\(P(A \\cap B)\\) is:", opt: ["(a) \\(\\frac{3}{25}\\)", "(b) \\(\\frac{4}{5}\\)", "(c) \\(\\frac{2}{5}\\)", "(d) \\(\\frac{3}{10}\\)"] }],
+          secB: ["A die is rolled. Find the probability of getting: (i) a prime number, (ii) a number greater than or equal to 3."],
+          secC: ["Two dice are thrown together. Find the probability that the sum of the numbers is greater than 8 given that first die shows a 4."],
+          secD: ["Three coins are tossed once. Find the probability of getting: (i) 3 heads, (ii) 2 heads, (iii) at least 2 heads, (iv) at most 2 heads. &nbsp;<strong>OR</strong>&nbsp; A card is drawn from a well-shuffled pack of 52 cards. What is the probability that card is a king or a diamond?"],
+          secE: [{ passage: "<strong>Case Study — Quality Inspection of Circuit Boards:</strong><br>A batch contains 100 printed circuit boards, of which 10 are defective. Two boards are inspected in succession without replacement.", parts: ["(i) Find probability first board is defective. &nbsp;<em>[1]</em>", "(ii) Find probability second is defective given first was defective. &nbsp;<em>[1]</em>", "(iii) Find probability both boards are good. &nbsp;<em>[2]</em>"] }]
         }
       },
       'VII': {
-        1: { // Integers & Basic Math
+        1: { // Integers
           secA: [{ q: "The value of \\((-30) \\div [(-10) + 5]\\) is:", opt: ["(a) 6", "(b) -6", "(c) -5", "(d) 5"] }],
           secB: ["Evaluate: \\((-20) \\times (-2) \\times (-5) \\times 7\\)."],
           secC: ["In a test (+5) marks are given for every correct answer and (-2) marks for incorrect. Radhika scored 20 marks with 12 correct answers. How many questions did she attempt incorrectly?"],
-          secD: ["Find the value of \\(x\\): \\(3(x-2) + 5 = 2(x+3) - 1\\). Check your answer."],
-          secE: [{ passage: "<strong>Case Study — Submarine Descent:</strong><br>A submarine descends into water at rate of 6 m/min. If descent starts from 10 m above sea level, calculate its position.", parts: ["(i) Write the starting altitude with proper sign. &nbsp;<em>[1]</em>", "(ii) How deep will it reach in 30 minutes? &nbsp;<em>[1]</em>", "(iii) How long will it take to reach -350 m depth? &nbsp;<em>[2]</em>"] }]
+          secD: ["Verify: \\(a \\times (b + c) = (a \\times b) + (a \\times c)\\) for \\(a = -12, b = -3, c = 5\\)."],
+          secE: [{ passage: "<strong>Case Study — Submarine Descent:</strong><br>A submarine descends into water at rate of 6 m/min from 10 m above sea level.", parts: ["(i) Write starting altitude with sign. &nbsp;<em>[1]</em>", "(ii) Position after 30 min? &nbsp;<em>[1]</em>", "(iii) Time to reach -350 m depth? &nbsp;<em>[2]</em>"] }]
+        },
+        2: { // Fractions and Decimals
+          secA: [{ q: "The reciprocal of \\(2\\frac{3}{5}\\) is:", opt: ["(a) \\(\\frac{5}{13}\\)", "(b) \\(\\frac{13}{5}\\)", "(c) \\(\\frac{5}{11}\\)", "(d) \\(\\frac{11}{5}\\)"] }],
+          secB: ["Find: \\(2.5 \\times 0.3\\) and \\(0.4 \\div 2\\)."],
+          secC: ["A car covers a distance of 89.1 km in 2.2 hours. What is the average distance covered by it in 1 hour?"],
+          secD: ["Solve: \\(3\\frac{1}{2} + 4\\frac{1}{3} - 2\\frac{1}{6}\\) and express answer in lowest mixed fraction form."],
+          secE: [{ passage: "<strong>Case Study — Recipe Flour Measurement:</strong><br>A cake recipe calls for \\(2\\frac{1}{4}\\) cups of flour. Maya has \\(5\\frac{1}{2}\\) cups in the jar.", parts: ["(i) How many full cakes can she bake? &nbsp;<em>[1]</em>", "(ii) How much flour remains after baking 2 cakes? &nbsp;<em>[1]</em>", "(iii) How much more is needed for a 3rd cake? &nbsp;<em>[2]</em>"] }]
+        },
+        3: { // Data Handling
+          secA: [{ q: "The mode of 1, 2, 2, 3, 3, 3, 4, 5 is:", opt: ["(a) 3", "(b) 2", "(c) 4", "(d) 1"] }],
+          secB: ["Find the range and mean of the marks: 32, 41, 28, 54, 35, 26, 33, 23."],
+          secC: ["The scores in mathematics test of 15 students are: 19, 25, 23, 20, 9, 20, 15, 10, 5, 16, 25, 20, 24, 12, 20. Find mode and median."],
+          secD: ["Draw a double bar graph to compare marks scored by a student in Term 1 and Term 2 across Math (80, 85), Science (75, 80), English (60, 65)."],
+          secE: [{ passage: "<strong>Case Study — Cricket Team Match Scores:</strong><br>Runs scored by 11 players: 6, 15, 120, 50, 100, 80, 10, 15, 8, 10, 15.", parts: ["(i) Find the mode of runs. &nbsp;<em>[1]</em>", "(ii) Find the median score. &nbsp;<em>[1]</em>", "(iii) Calculate the mean score. &nbsp;<em>[2]</em>"] }]
+        },
+        4: { // Simple Equations
+          secA: [{ q: "If \\(3n + 7 = 25\\), then \\(n =\\):", opt: ["(a) 6", "(b) 5", "(c) 7", "(d) 8"] }],
+          secB: ["Solve: \\(4(m + 3) = 18\\)."],
+          secC: ["People of Sundargram planted trees in village garden. Number of non-fruit trees was 2 more than 3 times fruit trees. If non-fruit trees were 77, find fruit trees."],
+          secD: ["Solve: \\(2(x - 2) + 3(4x - 1) = 9\\) and check the solution."],
+          secE: [{ passage: "<strong>Case Study — Age Word Problem:</strong><br>Raju's father's age is 5 years more than three times Raju's age. Father is 44 years old.", parts: ["(i) Form the algebraic equation. &nbsp;<em>[1]</em>", "(ii) Solve for Raju's present age. &nbsp;<em>[1]</em>", "(iii) Find father's age when Raju was born. &nbsp;<em>[2]</em>"] }]
+        },
+        5: { // Lines and Angles
+          secA: [{ q: "The supplement of an angle measuring \\(105^\\circ\\) is:", opt: ["(a) \\(75^\\circ\\)", "(b) \\(85^\\circ\\)", "(c) \\(95^\\circ\\)", "(d) \\(65^\\circ\\)"] }],
+          secB: ["An angle is equal to its complement. Find its measure."],
+          secC: ["In two parallel lines cut by a transversal, one interior angle is \\(65^\\circ\\). Find all remaining 7 angles."],
+          secD: ["In the given figure, if \\(l \\parallel m\\) and transversal \\(p\\) cuts them, prove that vertically opposite angles and alternate interior angles are equal."],
+          secE: [{ passage: "<strong>Case Study — Rooftop Truss Angle Design:</strong><br>A roof truss has parallel beams crossed by diagonal braces forming supplementary angles \\(3x\\) and \\(2x + 30^\\circ\\).", parts: ["(i) Set up the linear equation. &nbsp;<em>[1]</em>", "(ii) Find the value of \\(x\\). &nbsp;<em>[1]</em>", "(iii) Find the exact measure of both angles. &nbsp;<em>[2]</em>"] }]
+        },
+        6: { // Triangles
+          secA: [{ q: "A triangle cannot have more than:", opt: ["(a) One right angle", "(b) Two acute angles", "(c) Three sides", "(d) None"] }],
+          secB: ["The two angles of a triangle are \\(30^\\circ\\) and \\(80^\\circ\\). Find the third angle."],
+          secC: ["An exterior angle of a triangle is \\(110^\\circ\\) and one of its interior opposite angles is \\(30^\\circ\\). Find the other interior opposite angle."],
+          secD: ["A 15 m long ladder reached a window 12 m high from ground on placing it against a wall. Find distance of foot of ladder from wall using Pythagoras theorem."],
+          secE: [{ passage: "<strong>Case Study — Ramp Geometry:</strong><br>A wheelchair ramp forms a right triangle with base 8 m and vertical height 6 m.", parts: ["(i) State Pythagoras theorem formula. &nbsp;<em>[1]</em>", "(ii) Calculate length of the ramp slope. &nbsp;<em>[1]</em>", "(iii) If height increases to 9 m with base 12 m, find new ramp length. &nbsp;<em>[2]</em>"] }]
+        },
+        7: { // Comparing Quantities
+          secA: [{ q: "Ratio of 5 m to 10 km is:", opt: ["(a) 1:2000", "(b) 1:200", "(c) 1:20", "(d) 1:20000"] }],
+          secB: ["Convert \\(\\frac{3}{4}\\) into percentage and 28% into fraction."],
+          secC: ["Amina buys a book for ₹275 and sells it at a loss of 15%. How much does she sell it for?"],
+          secD: ["Find the amount to be paid at the end of 3 years on ₹7,500 at 5% per annum simple interest."],
+          secE: [{ passage: "<strong>Case Study — Discount and Profit Calculation:</strong><br>A shopkeeper marks a bicycle at ₹4000 and offers a 10% festival discount. He bought it for ₹3000.", parts: ["(i) Find the selling price after discount. &nbsp;<em>[1]</em>", "(ii) Find profit earned in rupees. &nbsp;<em>[1]</em>", "(iii) Calculate profit percentage. &nbsp;<em>[2]</em>"] }]
+        },
+        8: { // Rational Numbers
+          secA: [{ q: "The standard form of \\(\\frac{-18}{45}\\) is:", opt: ["(a) \\(-\\frac{2}{5}\\)", "(b) \\(\\frac{2}{5}\\)", "(c) \\(-\\frac{3}{5}\\)", "(d) \\(\\frac{3}{5}\\)"] }],
+          secB: ["Find five rational numbers between \\(-1\\) and 0."],
+          secC: ["Solve: \\(\\frac{-3}{5} \\times \\frac{10}{9} + \\frac{7}{6}\\)."],
+          secD: ["Find: \\(\\left(\\frac{-13}{5}\\right) \\div \\left(\\frac{-7}{10}\\right)\\) and plot the result on a number line."],
+          secE: [{ passage: "<strong>Case Study — Distance on a Map Scale:</strong><br>A map has scale where 1 cm represents \\(\\frac{3}{4}\\) km.", parts: ["(i) What actual distance does 8 cm represent? &nbsp;<em>[1]</em>", "(ii) How many cm on map for 15 km actual distance? &nbsp;<em>[1]</em>", "(iii) If route is \\(22\\frac{1}{2}\\) km, find map distance. &nbsp;<em>[2]</em>"] }]
+        },
+        9: { // Perimeter and Area
+          secA: [{ q: "Area of a triangle with base 4 cm and height 3 cm is:", opt: ["(a) 6 cm²", "(b) 12 cm²", "(c) 7 cm²", "(d) 14 cm²"] }],
+          secB: ["Find the circumference of a circle of radius 14 cm (Take \\(\\pi = \\frac{22}{7}\\))."],
+          secC: ["A rectangular park is 45 m long and 30 m wide. A path 2.5 m wide is constructed outside around the park. Find the area of the path."],
+          secD: ["The diameter of a circular garden is 28 m. A gardener wants to fence it with 2 rounds of rope. Find cost of rope at ₹4 per meter."],
+          secE: [{ passage: "<strong>Case Study — Tiling a Living Room:</strong><br>A hall is 15 m long and 10 m wide. Square tiles of side 50 cm are used for flooring.", parts: ["(i) Find floor area in m². &nbsp;<em>[1]</em>", "(ii) Find area of 1 tile in m². &nbsp;<em>[1]</em>", "(iii) Find total number of tiles needed. &nbsp;<em>[2]</em>"] }]
+        },
+        10: { // Algebraic Expressions
+          secA: [{ q: "The coefficient of \\(x\\) in \\(-7xy^2\\) is:", opt: ["(a) \\(-7y^2\\)", "(b) \\(-7\\)", "(c) \\(y^2\\)", "(d) 7"] }],
+          secB: ["Simplify combining like terms: \\(21b - 32 + 7b - 20b\\)."],
+          secC: ["Subtract \\(5a^2 - 7ab + 5b^2\\) from \\(3ab - 2a^2 - 2b^2\\)."],
+          secD: ["Find the value of the expression \\(a^3 + b^3 + 3ab(a+b)\\) when \\(a = 3, b = 2\\)."],
+          secE: [{ passage: "<strong>Case Study — Pattern of Matchstick Figures:</strong><br>A sequence of squares made with matchsticks requires \\(4\\) sticks for 1st square, \\(7\\) for 2, \\(10\\) for 3. Rule is \\(3n + 1\\).", parts: ["(i) How many sticks for 5 squares? &nbsp;<em>[1]</em>", "(ii) How many sticks for 20 squares? &nbsp;<em>[1]</em>", "(iii) If 91 sticks are available, how many squares can be made? &nbsp;<em>[2]</em>"] }]
+        },
+        11: { // Exponents and Powers
+          secA: [{ q: "The value of \\(2^3 \\times 2^2\\) is:", opt: ["(a) 32", "(b) 64", "(c) 16", "(d) 12"] }],
+          secB: ["Express 729 as a power of 3."],
+          secC: ["Simplify: \\(\\frac{(2^5)^2 \\times 7^3}{8^3 \\times 7}\\)."],
+          secD: ["Express in standard scientific notation: (i) 59,853,000,000, (ii) 0.0000073."],
+          secE: [{ passage: "<strong>Case Study — Computer Memory Storage Powers:</strong><br>A computer storage block holds \\(2^{10} = 1024\\) bytes (1 KB).", parts: ["(i) Express 1 MB (\\(2^{20}\\) bytes) in power of 2. &nbsp;<em>[1]</em>", "(ii) How many times larger is 1 MB than 1 KB? &nbsp;<em>[1]</em>", "(iii) Simplify \\(2^{20} \\div 2^{10}\\). &nbsp;<em>[2]</em>"] }]
+        },
+        12: { // Symmetry
+          secA: [{ q: "The number of lines of symmetry in an equilateral triangle is:", opt: ["(a) 3", "(b) 1", "(c) 2", "(d) 0"] }],
+          secB: ["State the order of rotational symmetry for a square and a rectangle."],
+          secC: ["Draw lines of symmetry for: (i) Regular Hexagon, (ii) Circle, (iii) Isosceles Trapezium."],
+          secD: ["Name any two figures that have both line symmetry and rotational symmetry of order more than 1. Draw and explain."],
+          secE: [{ passage: "<strong>Case Study — Kaleidoscope Mandala Design:</strong><br>A rotational mandala design has 8 identical petals arranged around a central axis.", parts: ["(i) Find angle of rotational symmetry. &nbsp;<em>[1]</em>", "(ii) State order of rotational symmetry. &nbsp;<em>[1]</em>", "(iii) Does it also possess reflectional symmetry? &nbsp;<em>[2]</em>"] }]
+        },
+        13: { // Visualising Solid Shapes
+          secA: [{ q: "Euler's formula for a polyhedron is:", opt: ["(a) \\(F + V - E = 2\\)", "(b) \\(F - V + E = 2\\)", "(c) \\(F + E - V = 2\\)", "(d) \\(F + V + E = 2\\)"] }],
+          secB: ["Verify Euler's formula for a cube (Faces=6, Vertices=8, Edges=12)."],
+          secC: ["Draw the net of: (i) a cylinder, (ii) an open cone."],
+          secD: ["Can a polyhedron have 10 faces, 20 edges and 15 vertices? Justify using Euler's formula."],
+          secE: [{ passage: "<strong>Case Study — Architectural 3D Building Blocks:</strong><br>A modern building roof is shaped like a square pyramid with 5 faces and 5 vertices.", parts: ["(i) Count number of edges. &nbsp;<em>[1]</em>", "(ii) Verify \\(F + V - E = 2\\). &nbsp;<em>[1]</em>", "(iii) Draw its 2D net layout. &nbsp;<em>[2]</em>"] }]
         }
       }
     };
@@ -2700,16 +2901,86 @@
     function renderChapterPDFSelector() {
       const cls = document.getElementById('genClass')?.value || 'XII';
       const grid = document.getElementById('chapterPdfSelector');
-      const heading = document.getElementById('chapterPdfHeading');
-      if (heading) heading.textContent = `Select chapters from Class ${cls} Mathematics syllabus:`;
-      if (!grid) return;
+      const heading = document.getElementById('genClassHeading');
+      if (heading) heading.textContent = `Class ${cls}`;
+      
       const chapters = classSyllabusData[cls] || classSyllabusData['XII'];
-      grid.innerHTML = chapters.map(ch => `
-        <label class="ch-pdf-item" id="chlabel_${ch.num}" for="chpdf_${ch.num}">
-          <input type="checkbox" id="chpdf_${ch.num}" value="${ch.num}" onchange="toggleChLabel(${ch.num})">
-          <span>Ch.${ch.num}: ${ch.title}</span>
-        </label>`).join('');
+
+      // Populate quick single chapter dropdown
+      const singleSel = document.getElementById('quickSingleChapterSelect');
+      if (singleSel) {
+        singleSel.innerHTML = `<option value="">-- All ${chapters.length} Selected Chapters (Multi-Select below) --</option>` +
+          chapters.map(ch => `<option value="${ch.num}">Ch.${ch.num}: ${ch.title}</option>`).join('');
+      }
+
+      if (grid) {
+        grid.innerHTML = chapters.map(ch => `
+          <label class="ch-pdf-item checked" id="chlabel_${ch.num}" for="chpdf_${ch.num}">
+            <input type="checkbox" id="chpdf_${ch.num}" value="${ch.num}" checked onchange="toggleChLabel(${ch.num})">
+            <span>Ch.${ch.num}: ${ch.title}</span>
+          </label>`).join('');
+      }
       updateSourceSummary();
+    }
+
+    function onQuickSingleChapter(chNum) {
+      if (!chNum) {
+        selectAllChaptersGen(true);
+        return;
+      }
+      const cls = document.getElementById('genClass')?.value || 'XII';
+      const chapters = classSyllabusData[cls] || classSyllabusData['XII'];
+      chapters.forEach(ch => {
+        const cb = document.getElementById(`chpdf_${ch.num}`);
+        const lb = document.getElementById(`chlabel_${ch.num}`);
+        const isMatch = String(ch.num) === String(chNum);
+        if (cb) cb.checked = isMatch;
+        if (lb) lb.classList.toggle('checked', isMatch);
+      });
+      updateSourceSummary();
+    }
+
+    function generateQuickTestPreset(marks) {
+      if (marks === 20) {
+        const typeEl = document.getElementById('genExamType');
+        if (typeEl) typeEl.value = 'Class Test';
+        const marksEl = document.getElementById('genTotalMarks');
+        if (marksEl) marksEl.value = 20;
+        const durEl = document.getElementById('genDuration');
+        if (durEl) durEl.value = 40;
+        const durUnitEl = document.getElementById('genDurationUnit');
+        if (durUnitEl) durUnitEl.value = 'minutes';
+        qConfig.q1mark = 5; qConfig.q2mark = 3; qConfig.q3mark = 1; qConfig.q5mark = 1; qConfig.qcase = 0;
+      } else if (marks === 40) {
+        const typeEl = document.getElementById('genExamType');
+        if (typeEl) typeEl.value = 'Periodic Test 1';
+        const marksEl = document.getElementById('genTotalMarks');
+        if (marksEl) marksEl.value = 40;
+        const durEl = document.getElementById('genDuration');
+        if (durEl) durEl.value = 90;
+        const durUnitEl = document.getElementById('genDurationUnit');
+        if (durUnitEl) durUnitEl.value = 'minutes';
+        qConfig.q1mark = 10; qConfig.q2mark = 3; qConfig.q3mark = 4; qConfig.q5mark = 1; qConfig.qcase = 1;
+      }
+      syncDurationLabel();
+      ['q1mark','q2mark','q3mark','q5mark','qcase'].forEach(k => {
+        const el = document.getElementById(k);
+        if (el) el.textContent = qConfig[k];
+        const tot = document.getElementById(k + 'Total');
+        if (tot) tot.textContent = `= ${qConfig[k] * qMult[k]} marks`;
+      });
+      updateMarksTotal();
+      generateTestNow();
+    }
+
+    function generateTestNow() {
+      const sel = getSelectedChapters();
+      if (sel.length === 0) {
+        selectAllChaptersGen(true);
+      }
+      previewQP();
+      const el = document.getElementById('qpPreviewContainer');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function renderQPFilesSelector() {
@@ -2757,6 +3028,8 @@
         const lb = document.getElementById(`chlabel_${ch.num}`);
         if (lb) lb.classList.toggle('checked', val);
       });
+      const singleSel = document.getElementById('quickSingleChapterSelect');
+      if (singleSel) singleSel.value = '';
       updateSourceSummary();
     }
 
@@ -2777,31 +3050,40 @@
 
     function updateSourceSummary() {
       const summaryText = document.getElementById('activeSourceSummaryText');
-      if (!summaryText) return;
+      const badge = document.getElementById('selectedChaptersBadge');
       const cls = document.getElementById('genClass')?.value || 'XII';
+      const totalChapters = (classSyllabusData[cls] || []).length;
+      const sel = getSelectedChapters();
 
-      if (currentSource === 'pdf') {
-        const sel = getSelectedChapters();
+      // Update Step 2 badge
+      if (badge) {
+        if (sel.length === totalChapters) {
+          badge.textContent = `All ${totalChapters} Chapters Selected (Full Syllabus — Class ${cls})`;
+        } else if (sel.length === 0) {
+          badge.textContent = `0 Chapters Selected — Click "Select All" or choose chapters`;
+        } else if (sel.length === 1) {
+          badge.textContent = `1 Chapter Selected: Ch.${sel[0].num} (${sel[0].title})`;
+        } else {
+          badge.textContent = `${sel.length} of ${totalChapters} Chapters Selected: ` + sel.map(c => `Ch.${c.num}`).join(', ');
+        }
+      }
+
+      if (!summaryText) return;
+
+      if (currentSource === 'pdf' || currentSource === 'bank') {
         if (sel.length === 0) {
           summaryText.innerHTML = `<strong>Active Source:</strong> All Syllabus Chapters for Class ${cls} (Full Course)`;
         } else {
           const list = sel.map(c => `Ch.${c.num} (${c.title})`).join(', ');
           summaryText.innerHTML = `<strong>Active Source (${sel.length} Selected Chapter${sel.length>1?'s':''}):</strong> ${list}`;
         }
-      } else if (currentSource === 'bank') {
-        const topics = document.getElementById('customTopics')?.value.trim();
-        if (topics) {
-          summaryText.innerHTML = `<strong>Active Source:</strong> Question Bank — Focus Topics: <em>"${topics}"</em>`;
-        } else {
-          summaryText.innerHTML = `<strong>Active Source:</strong> CBSE Standard Question Bank & NCERT Exemplar (Class ${cls})`;
-        }
       } else if (currentSource === 'online') {
-        const sel = [];
-        if (document.getElementById('srcOnlineCBSE')?.checked) sel.push('CBSE Board (2020-25)');
-        if (document.getElementById('srcOnlineKVS')?.checked) sel.push('KVS Regional');
-        if (document.getElementById('srcOnlineExemplar')?.checked) sel.push('NCERT Exemplar');
-        if (document.getElementById('srcOnlineJEE')?.checked) sel.push('NDA/JEE');
-        summaryText.innerHTML = `<strong>Active Source (Online):</strong> ${sel.join(', ') || 'Standard CBSE'}`;
+        const sOnline = [];
+        if (document.getElementById('srcOnlineCBSE')?.checked) sOnline.push('CBSE Board (2020-25)');
+        if (document.getElementById('srcOnlineKVS')?.checked) sOnline.push('KVS Regional');
+        if (document.getElementById('srcOnlineExemplar')?.checked) sOnline.push('NCERT Exemplar');
+        if (document.getElementById('srcOnlineJEE')?.checked) sOnline.push('NDA/JEE');
+        summaryText.innerHTML = `<strong>Active Source (Online):</strong> ${sOnline.join(', ') || 'Standard CBSE'}`;
       } else if (currentSource === 'qpfiles') {
         const files = getSelectedQPFiles();
         if (files.length === 0) {
@@ -2876,15 +3158,11 @@
       const topics      = document.getElementById('customTopics')?.value || '';
 
       let srcDesc = '';
-      if (currentSource === 'pdf') {
-        const sel = getSelectedChapters();
-        if (sel.length > 0) {
-          srcDesc = `CRITICAL MANDATORY INSTRUCTION: You MUST generate ALL questions STRICTLY and EXCLUSIVELY from the following selected chapters only:\n` +
-            sel.map(c => `  - Chapter ${c.num}: ${c.title} (Source PDF: "${c.file || c.title}")`).join('\n') +
-            `\nDO NOT include any questions from other chapters outside this selected list.`;
-        } else {
-          srcDesc = `All standard chapters from the Class ${cls} Mathematics NCERT Chapter PDFs.`;
-        }
+      const sel = getSelectedChapters();
+      if (sel.length > 0) {
+        srcDesc = `CRITICAL MANDATORY INSTRUCTION: You MUST generate ALL questions STRICTLY and EXCLUSIVELY from the following selected chapters only:\n` +
+          sel.map(c => `  - Chapter ${c.num}: ${c.title} (Source: Class ${cls} Chapter ${c.num})`).join('\n') +
+          `\nDO NOT include any questions from other chapters outside this selected list.`;
       } else if (currentSource === 'bank') {
         srcDesc = `CBSE standard question bank, NCERT exercises, and PYQs (2018–2025).` + (topics ? `\nCRITICAL FOCUS TOPICS: Only create questions from: "${topics}".` : '');
       } else if (currentSource === 'online') {
