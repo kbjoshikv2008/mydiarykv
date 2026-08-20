@@ -2009,35 +2009,47 @@
     // PAPER COLLECTION DATA (maps to real files in question papers/)
     // ============================================================
     const paperCollectionData = [
+      // Class Test Papers & Records
+      { name: "Class Test Ch 6 (Class 7C)", type: "HTML", category: "ClassTest", cls: "VII", session: "2025-26", file: "question papers/CT/class test ch 6 class 7C.html" },
+      { name: "Class 12 Chapterwise Tests Bundle", type: "PDF", category: "ClassTest", cls: "XII", session: "2025-26", file: "class test/class test 12/Class Test Chapterwise.pdf" },
+      { name: "Class 12 CT Test Record 2026", type: "XLSX", category: "ClassTest", cls: "XII", session: "2025-26", file: "class test/class test 12/CT TEST RECORD 2026.xlsx" },
+      { name: "Class 7C Test Record 2026", type: "XLSX", category: "ClassTest", cls: "VII", session: "2025-26", file: "class test/class test 7/test record class 7 c 2026.xlsx" },
+      { name: "Class 11 Test Record", type: "XLSX", category: "ClassTest", cls: "XI", session: "2025-26", file: "class test/class test 11/Test Record.xlsx" },
+
       // PT Papers
-      { name: "PT1 Class 12 Mathematics 2026", type: "PDF", category: "PT", cls: "XII", session: "2025-26", file: "question papers/PT1/12MATHS@KBJ_PT1.pdf", docx: "question papers/PT1/12MATHS@KBJ_PT1.docx" },
-      { name: "PT1 Class 11 Mathematics 2026", type: "PDF", category: "PT", cls: "XI", session: "2025-26", file: "question papers/PT1/11MATHS@KBJ_PT1.pdf", docx: "question papers/PT1/11MATHS@KBJ_PT1.docx" },
-      { name: "PT1 Class 11 — Retest 2026", type: "DOCX", category: "PT", cls: "XI", session: "2025-26", file: "question papers/PT1/11MATHS@KBJ_PT1 - Retest.docx" },
-      { name: "PT1 Class 12 Mathematics 2025", type: "DOCX", category: "PT", cls: "XII", session: "2024-25", file: "question papers/MATH_PT1_12_2025.docx" },
-      { name: "PT2 Class 12 Mathematics 2024", type: "DOCX", category: "PT", cls: "XII", session: "2023-24", file: "question papers/12math_KBJ PT224.docx" },
-      { name: "PT1 Class 11 Mathematics 2024", type: "DOCX", category: "PT", cls: "XI", session: "2023-24", file: "question papers/11math_KBJ PT124.docx" },
-      { name: "PT1 Class 7 Mathematics 2024", type: "DOCX", category: "PT", cls: "VII", session: "2023-24", file: "question papers/MATH_PT1_7_2024.docx" },
-      { name: "Maths PT1 (KBJ Collection)", type: "DOCX", category: "PT", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_PT1.docx" },
-      { name: "Maths PT2 (KBJ Collection)", type: "DOCX", category: "PT", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_PT2.docx" },
+      { name: "PT1 Class 12 Mathematics 2026", type: "PDF", category: "PT", cls: "XII", session: "2025-26", file: "question papers/PT/12MATHS@KBJ_PT1.pdf", docx: "question papers/PT/12MATHS@KBJ_PT1.docx" },
+      { name: "PT1 Class 11 Mathematics 2026", type: "PDF", category: "PT", cls: "XI", session: "2025-26", file: "question papers/PT/11MATHS@KBJ_PT1.pdf", docx: "question papers/PT/11MATHS@KBJ_PT1.docx" },
+      { name: "PT1 Class 11 — Retest 2026", type: "DOCX", category: "PT", cls: "XI", session: "2025-26", file: "question papers/PT/11MATHS@KBJ_PT1 - Retest.docx" },
+      { name: "PT1 Class 12 Mathematics 2025", type: "DOCX", category: "PT", cls: "XII", session: "2024-25", file: "question papers/PT/MATH_PT1_12_2025.docx" },
+      { name: "PT2 Class 12 Mathematics 2024", type: "DOCX", category: "PT", cls: "XII", session: "2023-24", file: "question papers/PT/12math_KBJ PT224.docx", docx: "question papers/PT/12math_KBJ PT224.pdf" },
+      { name: "PT1 Class 11 Mathematics 2024", type: "DOCX", category: "PT", cls: "XI", session: "2023-24", file: "question papers/PT/11math_KBJ PT124.docx", docx: "question papers/PT/11math_KBJ PT124.pdf" },
+      { name: "PT1 Class 7 Mathematics 2024", type: "DOCX", category: "PT", cls: "VII", session: "2023-24", file: "question papers/PT/MATH_PT1_7_2024.docx" },
+      { name: "Maths PT1 (KBJ Collection)", type: "DOCX", category: "PT", cls: "XII", session: "2022-23", file: "question papers/PT/Maths@KBJ_PT1.docx" },
+      { name: "Maths PT2 (KBJ Collection)", type: "DOCX", category: "PT", cls: "XII", session: "2022-23", file: "question papers/PT/Maths@KBJ_PT2.docx" },
+      { name: "Blueprint PT1 Class 11 & 12 (2026)", type: "XLSX", category: "PT", cls: "XI/XII", session: "2025-26", file: "question papers/PT/Blue Print class 11 and 12 PT1 2026.xlsx" },
+      { name: "Blueprint PT1 Class 11 & 12 (PDF)", type: "PDF", category: "PT", cls: "XI/XII", session: "2024-25", file: "question papers/PT/Blue Print 11 12.pdf", docx: "question papers/PT/Blue Print 11 12.docx" },
+
       // HY Papers
-      { name: "HY QP Class 11 Mathematics 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.pdf", docx: "question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.docx" },
-      { name: "HY Blueprint Class 11 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.pdf", docx: "question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.docx" },
-      { name: "HY QP Class 11 (Alt) 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/Class 11 Qp HY KVR 2024/Maths qp 11 hy.pdf" },
-      { name: "HY QP Class 11 (Full File) 2024", type: "DOCX", category: "HY", cls: "XI", session: "2023-24", file: "question papers/XI MATHS_QP HY 2024.docx" },
-      // Preboard
-      { name: "Pre-Board 1 QP Class 12 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/QP-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/QP-MATHS-XII-4.docx" },
-      { name: "Pre-Board 1 Marking Scheme 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/MS-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/MS-MATHS-XII-4.docx" },
-      { name: "Pre-Board 1 Blueprint 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/BP-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/BP-MATHS-XII-4.docx" },
-      { name: "Pre-Board 1 Solution (Interactive HTML)", type: "HTML", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/Solution PB1 2025.html" },
-      { name: "Pre-Board 3 QP Class 12", type: "DOCX", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/QP MATH_12_PB3.docx" },
+      { name: "HY QP Class 11 Mathematics 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/HY/XI MATHS_QP HY 2024.pdf", docx: "question papers/HY/XI MATHS_QP HY 2024.docx" },
+      { name: "HY Blueprint Class 11 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/HY/XI MATHS HY BP 2024.pdf", docx: "question papers/HY/XI MATHS HY BP 2024.docx" },
+      { name: "HY QP Class 11 (Alt) 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/HY/Maths qp 11 hy.pdf" },
+
+      // Preboard Papers
+      { name: "Pre-Board 1 QP Class 12 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB/QP-MATHS-XII-4.pdf", docx: "question papers/PB/QP-MATHS-XII-4.docx" },
+      { name: "Pre-Board 1 Marking Scheme 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB/MS-MATHS-XII-4.pdf", docx: "question papers/PB/MS-MATHS-XII-4.docx" },
+      { name: "Pre-Board 1 Blueprint 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB/BP-MATHS-XII-4.pdf", docx: "question papers/PB/BP-MATHS-XII-4.docx" },
+      { name: "Pre-Board 1 Solution (Interactive HTML)", type: "HTML", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB/Solution PB1 2025.html" },
+      { name: "Pre-Board 3 QP Class 12", type: "DOCX", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB/QP MATH_12_PB3.docx" },
+
       // Monthly Test Papers
-      { name: "Monthly Test 2 Mathematics (KBJ)", type: "DOCX", category: "Monthly", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT2.docx" },
-      { name: "Monthly Test 3 Mathematics (KBJ)", type: "DOCX", category: "Monthly", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT3.docx" },
+      { name: "Monthly Test 4 Set 1 Class 12", type: "DOCX", category: "Monthly", cls: "XII", session: "2024-25", file: "question papers/MT/12MATH(set1)_MT4@KBJ.docx" },
+      { name: "Monthly Test 4 Set 2 Class 12", type: "DOCX", category: "Monthly", cls: "XII", session: "2024-25", file: "question papers/MT/12MATH(set2)_MT4@KBJ.docx" },
+      { name: "Monthly Test 2 Mathematics (KBJ)", type: "DOCX", category: "Monthly", cls: "XII", session: "2022-23", file: "question papers/MT/Maths@KBJ_MT2.docx" },
+      { name: "Monthly Test 3 Mathematics (KBJ)", type: "DOCX", category: "Monthly", cls: "XII", session: "2022-23", file: "question papers/MT/Maths@KBJ_MT3.docx" },
+
       // SEE Papers
-      { name: "SEE QP Class 11 Mathematics 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/11_MATHS_QP_SEE2024.docx" },
-      { name: "SEE Marking Scheme Class 11 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/11_MATHS_MS_SEE2024.docx" },
-      // Class Test
-      { name: "QP Bundle PT1 (Class 11) & PT2 (Class 12) 2024", type: "ZIP", category: "ClassTest", cls: "XI/XII", session: "2023-24", file: "question papers/QP PT1 11 PT2 12 2024 MATHS.zip" },
+      { name: "SEE QP Class 11 Mathematics 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/SEE/11_MATHS_QP_SEE2024.docx" },
+      { name: "SEE Marking Scheme Class 11 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/SEE/11_MATHS_MS_SEE2024.docx" },
     ];
 
     let currentPaperFilter = 'all';
@@ -2123,26 +2135,26 @@
     // PT papers by class
     const ptPapersData = {
       '12': [
-        { name:"PT1 Class 12 Mathematics 2026", type:"PDF", file:"question papers/PT1/12MATHS@KBJ_PT1.pdf", docx:"question papers/PT1/12MATHS@KBJ_PT1.docx" },
-        { name:"PT1 Class 12 Mathematics 2025", type:"DOCX", file:"question papers/MATH_PT1_12_2025.docx" },
-        { name:"PT2 Class 12 Mathematics 2024", type:"DOCX", file:"question papers/12math_KBJ PT224.docx" },
-        { name:"Maths PT1 KBJ (Collection)", type:"DOCX", file:"question papers/Maths@KBJ_PT1.docx" },
-        { name:"Maths PT2 KBJ (Collection)", type:"DOCX", file:"question papers/Maths@KBJ_PT2.docx" },
+        { name:"PT1 Class 12 Mathematics 2026", type:"PDF", file:"question papers/PT/12MATHS@KBJ_PT1.pdf", docx:"question papers/PT/12MATHS@KBJ_PT1.docx" },
+        { name:"PT1 Class 12 Mathematics 2025", type:"DOCX", file:"question papers/PT/MATH_PT1_12_2025.docx" },
+        { name:"PT2 Class 12 Mathematics 2024", type:"DOCX", file:"question papers/PT/12math_KBJ PT224.docx", docx:"question papers/PT/12math_KBJ PT224.pdf" },
+        { name:"Maths PT1 KBJ (Collection)", type:"DOCX", file:"question papers/PT/Maths@KBJ_PT1.docx" },
+        { name:"Maths PT2 KBJ (Collection)", type:"DOCX", file:"question papers/PT/Maths@KBJ_PT2.docx" },
       ],
       '11': [
-        { name:"PT1 Class 11 Mathematics 2026", type:"PDF", file:"question papers/PT1/11MATHS@KBJ_PT1.pdf", docx:"question papers/PT1/11MATHS@KBJ_PT1.docx" },
-        { name:"PT1 Class 11 — Retest 2026", type:"DOCX", file:"question papers/PT1/11MATHS@KBJ_PT1 - Retest.docx" },
-        { name:"PT1 Class 11 Mathematics 2024", type:"DOCX", file:"question papers/11math_KBJ PT124.docx" },
+        { name:"PT1 Class 11 Mathematics 2026", type:"PDF", file:"question papers/PT/11MATHS@KBJ_PT1.pdf", docx:"question papers/PT/11MATHS@KBJ_PT1.docx" },
+        { name:"PT1 Class 11 — Retest 2026", type:"DOCX", file:"question papers/PT/11MATHS@KBJ_PT1 - Retest.docx" },
+        { name:"PT1 Class 11 Mathematics 2024", type:"DOCX", file:"question papers/PT/11math_KBJ PT124.docx", docx:"question papers/PT/11math_KBJ PT124.pdf" },
       ],
       '7': [
-        { name:"PT1 Class 7 Mathematics 2024", type:"DOCX", file:"question papers/MATH_PT1_7_2024.docx" },
+        { name:"PT1 Class 7 Mathematics 2024", type:"DOCX", file:"question papers/PT/MATH_PT1_7_2024.docx" },
       ]
     };
     const ptBlueprintsData = [
-      { name:"Blueprint PT1 Class 11 & 12 (2026)", type:"XLSX", file:"question papers/PT1/Blue Print class 11 and 12 PT1 2026.xlsx" },
-      { name:"Blueprint PT1 (2024)", type:"PDF", file:"question papers/PT1/Blueprint.pdf", docx:"question papers/PT1/Blueprint.docx" },
-      { name:"Date Sheet PT1 2026", type:"JPEG", file:"question papers/PT1/date sheet Pt1.jpeg" },
-      { name:"PT1 Scan 2026 (PDF)", type:"PDF", file:"question papers/PT1/Whatsapp Scan 9 June 2026 at 13.47.02.pdf" },
+      { name:"Blueprint PT1 Class 11 & 12 (2026)", type:"XLSX", file:"question papers/PT/Blue Print class 11 and 12 PT1 2026.xlsx" },
+      { name:"Blueprint PT1 Class 11 & 12 (PDF)", type:"PDF", file:"question papers/PT/Blue Print 11 12.pdf", docx:"question papers/PT/Blue Print 11 12.docx" },
+      { name:"Date Sheet PT1 2026", type:"JPEG", file:"question papers/PT/date sheet Pt1.jpeg" },
+      { name:"PT1 Scan 2026 (PDF)", type:"PDF", file:"question papers/PT/Whatsapp Scan 9 June 2026 at 13.47.02.pdf" },
     ];
 
     function buildSimpleCard(p) {
@@ -2177,52 +2189,55 @@
     function renderStaticGrids() {
       // HY
       const hy = [
-        { name:"HY QP Class 11 Mathematics 2024", type:"PDF", file:"question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.pdf", docx:"question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.docx" },
-        { name:"HY Blueprint Class 11 2024", type:"PDF", file:"question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.pdf", docx:"question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.docx" },
-        { name:"HY QP Class 11 (Alt) 2024", type:"PDF", file:"question papers/Class 11 Qp HY KVR 2024/Maths qp 11 hy.pdf" },
-        { name:"HY QP Class 11 (Full File) 2024", type:"DOCX", file:"question papers/XI MATHS_QP HY 2024.docx" },
+        { name:"HY QP Class 11 Mathematics 2024", type:"PDF", file:"question papers/HY/XI MATHS_QP HY 2024.pdf", docx:"question papers/HY/XI MATHS_QP HY 2024.docx" },
+        { name:"HY Blueprint Class 11 2024", type:"PDF", file:"question papers/HY/XI MATHS HY BP 2024.pdf", docx:"question papers/HY/XI MATHS HY BP 2024.docx" },
+        { name:"HY QP Class 11 (Alt) 2024", type:"PDF", file:"question papers/HY/Maths qp 11 hy.pdf" },
       ];
       const hyG = document.getElementById('hyPaperGrid');
       if (hyG) hyG.innerHTML = hy.map(buildSimpleCard).join('');
 
       // Preboard QP
       const pb = [
-        { name:"Pre-Board 1 QP Class 12 2025", type:"PDF", file:"question papers/PB1 QP/QP-MATHS-XII-4.pdf", docx:"question papers/PB1 QP/QP-MATHS-XII-4.docx" },
-        { name:"Pre-Board 1 Blueprint 2025", type:"PDF", file:"question papers/PB1 QP/BP-MATHS-XII-4.pdf", docx:"question papers/PB1 QP/BP-MATHS-XII-4.docx" },
-        { name:"Pre-Board 3 QP Class 12", type:"DOCX", file:"question papers/QP MATH_12_PB3.docx" },
-        { name:"Monthly Test 2 (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT2.docx" },
-        { name:"Monthly Test 3 (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT3.docx" },
+        { name:"Pre-Board 1 QP Class 12 2025", type:"PDF", file:"question papers/PB/QP-MATHS-XII-4.pdf", docx:"question papers/PB/QP-MATHS-XII-4.docx" },
+        { name:"Pre-Board 1 Blueprint 2025", type:"PDF", file:"question papers/PB/BP-MATHS-XII-4.pdf", docx:"question papers/PB/BP-MATHS-XII-4.docx" },
+        { name:"Pre-Board 3 QP Class 12", type:"DOCX", file:"question papers/PB/QP MATH_12_PB3.docx" },
       ];
       const pbG = document.getElementById('preboardPaperGrid');
       if (pbG) pbG.innerHTML = pb.map(buildSimpleCard).join('');
 
       // Preboard solutions
       const pbSol = [
-        { name:"Pre-Board 1 Marking Scheme 2025", type:"PDF", file:"question papers/PB1 QP/MS-MATHS-XII-4.pdf", docx:"question papers/PB1 QP/MS-MATHS-XII-4.docx" },
-        { name:"Pre-Board 1 Full Solution (Interactive)", type:"HTML", file:"question papers/PB1 QP/Solution PB1 2025.html" },
+        { name:"Pre-Board 1 Marking Scheme 2025", type:"PDF", file:"question papers/PB/MS-MATHS-XII-4.pdf", docx:"question papers/PB/MS-MATHS-XII-4.docx" },
+        { name:"Pre-Board 1 Full Solution (Interactive)", type:"HTML", file:"question papers/PB/Solution PB1 2025.html" },
       ];
       const pbSG = document.getElementById('preboardSolutionGrid');
       if (pbSG) pbSG.innerHTML = pbSol.map(buildSimpleCard).join('');
 
       // SEE
       const see = [
-        { name:"SEE QP Class 11 Mathematics 2024", type:"DOCX", file:"question papers/11_MATHS_QP_SEE2024.docx" },
-        { name:"SEE Marking Scheme Class 11 2024", type:"DOCX", file:"question papers/11_MATHS_MS_SEE2024.docx" },
+        { name:"SEE QP Class 11 Mathematics 2024", type:"DOCX", file:"question papers/SEE/11_MATHS_QP_SEE2024.docx" },
+        { name:"SEE Marking Scheme Class 11 2024", type:"DOCX", file:"question papers/SEE/11_MATHS_MS_SEE2024.docx" },
       ];
       const seeG = document.getElementById('seePaperGrid');
       if (seeG) seeG.innerHTML = see.map(buildSimpleCard).join('');
 
-      // Class Test downloadable
+      // Class Test papers (from CT subfolder and Class Test chapter archives)
       const ct = [
-        { name:"PT1 Class 11 & PT2 Class 12 Bundle (ZIP)", type:"ZIP", file:"question papers/QP PT1 11 PT2 12 2024 MATHS.zip" },
+        { name:"Class Test Ch 6 (Class 7C)", type:"HTML", file:"question papers/CT/class test ch 6 class 7C.html" },
+        { name:"Class 12 Chapterwise Tests Bundle", type:"PDF", file:"class test/class test 12/Class Test Chapterwise.pdf" },
+        { name:"Class 12 CT Test Record (2026)", type:"XLSX", file:"class test/class test 12/CT TEST RECORD 2026.xlsx" },
+        { name:"Class 7C Test Record (2026)", type:"XLSX", file:"class test/class test 7/test record class 7 c 2026.xlsx" },
+        { name:"Class 11 Test Record (2026)", type:"XLSX", file:"class test/class test 11/Test Record.xlsx" },
       ];
       const ctG = document.getElementById('classTestPaperGrid');
       if (ctG) ctG.innerHTML = ct.map(buildSimpleCard).join('');
 
       // Monthly Test papers
       const mt = [
-        { name:"Monthly Test 2 Mathematics (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT2.docx" },
-        { name:"Monthly Test 3 Mathematics (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT3.docx" },
+        { name:"Monthly Test 4 Set 1 Class 12", type:"DOCX", file:"question papers/MT/12MATH(set1)_MT4@KBJ.docx" },
+        { name:"Monthly Test 4 Set 2 Class 12", type:"DOCX", file:"question papers/MT/12MATH(set2)_MT4@KBJ.docx" },
+        { name:"Monthly Test 2 Mathematics (KBJ)", type:"DOCX", file:"question papers/MT/Maths@KBJ_MT2.docx" },
+        { name:"Monthly Test 3 Mathematics (KBJ)", type:"DOCX", file:"question papers/MT/Maths@KBJ_MT3.docx" },
       ];
       const mtG = document.getElementById('monthlyPaperGrid');
       if (mtG) mtG.innerHTML = mt.map(buildSimpleCard).join('');
@@ -2693,14 +2708,16 @@
       const grid = document.getElementById('qpFilesSelector');
       if (!grid) return;
       const qpFiles = [
-        { id:'qpf_pt1_26', title:'PT1 Class 12 (2026)', file:'question papers/PT1/12MATHS@KBJ_PT1.pdf' },
-        { id:'qpf_pb1_25', title:'Pre-Board 1 Class 12 (2025)', file:'question papers/PB1 QP/QP-MATHS-XII-4.pdf' },
-        { id:'qpf_hy_24',  title:'Half Yearly Class 11 (2024)', file:'question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.pdf' },
-        { id:'qpf_pb3_12', title:'Pre-Board 3 Class 12', file:'question papers/QP MATH_12_PB3.docx' },
-        { id:'qpf_mt2',    title:'Monthly Test 2 (KBJ Collection)', file:'question papers/Maths@KBJ_MT2.docx' },
-        { id:'qpf_mt3',    title:'Monthly Test 3 (KBJ Collection)', file:'question papers/Maths@KBJ_MT3.docx' },
-        { id:'qpf_see_24', title:'SEE Annual Class 11 (2024)', file:'question papers/11_MATHS_QP_SEE2024.docx' },
-        { id:'qpf_pt1_11', title:'PT1 Class 11 (2026)', file:'question papers/PT1/11MATHS@KBJ_PT1.pdf' },
+        { id:'qpf_ct_ch6', title:'Class Test Ch 6 (Class 7C)', file:'question papers/CT/class test ch 6 class 7C.html' },
+        { id:'qpf_pt1_26', title:'PT1 Class 12 (2026)', file:'question papers/PT/12MATHS@KBJ_PT1.pdf' },
+        { id:'qpf_pb1_25', title:'Pre-Board 1 Class 12 (2025)', file:'question papers/PB/QP-MATHS-XII-4.pdf' },
+        { id:'qpf_hy_24',  title:'Half Yearly Class 11 (2024)', file:'question papers/HY/XI MATHS_QP HY 2024.pdf' },
+        { id:'qpf_pb3_12', title:'Pre-Board 3 Class 12', file:'question papers/PB/QP MATH_12_PB3.docx' },
+        { id:'qpf_mt4_s1', title:'Monthly Test 4 Set 1 (Class 12)', file:'question papers/MT/12MATH(set1)_MT4@KBJ.docx' },
+        { id:'qpf_mt2',    title:'Monthly Test 2 (KBJ Collection)', file:'question papers/MT/Maths@KBJ_MT2.docx' },
+        { id:'qpf_mt3',    title:'Monthly Test 3 (KBJ Collection)', file:'question papers/MT/Maths@KBJ_MT3.docx' },
+        { id:'qpf_see_24', title:'SEE Annual Class 11 (2024)', file:'question papers/SEE/11_MATHS_QP_SEE2024.docx' },
+        { id:'qpf_pt1_11', title:'PT1 Class 11 (2026)', file:'question papers/PT/11MATHS@KBJ_PT1.pdf' },
       ];
       grid.innerHTML = qpFiles.map(qf => `
         <label class="ch-pdf-item" id="qflabel_${qf.id}" for="${qf.id}">
