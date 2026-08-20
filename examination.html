@@ -1140,6 +1140,7 @@
             <button class="qp-subtab-btn" data-qptab="qp-hy"><i class="fas fa-award"></i> HY Papers</button>
             <button class="qp-subtab-btn" data-qptab="qp-preboard"><i class="fas fa-graduation-cap"></i> Preboard</button>
             <button class="qp-subtab-btn" data-qptab="qp-see"><i class="fas fa-university"></i> SEE / Annual</button>
+            <button class="qp-subtab-btn" data-qptab="qp-monthly"><i class="fas fa-calendar-alt"></i> Monthly Test</button>
             <button class="qp-subtab-btn" data-qptab="qp-generator"><i class="fas fa-robot"></i> AI Generator</button>
           </div>
 
@@ -1159,6 +1160,7 @@
               <button class="source-tab-btn" onclick="filterCollection('Preboard',this)">🎓 Preboard</button>
               <button class="source-tab-btn" onclick="filterCollection('SEE',this)">🏫 SEE / Annual</button>
               <button class="source-tab-btn" onclick="filterCollection('ClassTest',this)">✏️ Class Test</button>
+              <button class="source-tab-btn" onclick="filterCollection('Monthly',this)">📅 Monthly Test</button>
             </div>
             <div id="paperCollectionGrid" class="paper-cards-grid">
               <div style="color:var(--text-secondary); text-align:center; padding:30px; grid-column:1/-1;"><i class="fas fa-spinner fa-spin"></i> Loading papers...</div>
@@ -1209,6 +1211,13 @@
             <div id="seePaperGrid" class="paper-cards-grid"></div>
           </div>
 
+          <!-- ===== MONTHLY TEST PAPERS ===== -->
+          <div class="qp-subtab-content" id="qp-monthly">
+            <div class="paper-section-header"><i class="fas fa-calendar-alt"></i> Monthly Test Question Papers</div>
+            <p style="color:var(--text-secondary); font-size:0.9em; margin-bottom:14px;">Monthly Test 2 and MT3 question papers for Class 12 Mathematics (KBJ Collection).</p>
+            <div id="monthlyPaperGrid" class="paper-cards-grid"></div>
+          </div>
+
           <!-- ===== AI GENERATOR ===== -->
           <div class="qp-subtab-content" id="qp-generator">
 
@@ -1220,6 +1229,9 @@
                   <label class="gen-label">Exam Type</label>
                   <select class="gen-select" id="genExamType" onchange="applyExamPreset()">
                     <option value="Class Test">Class Test (20M / 40 min)</option>
+                    <option value="Monthly Test 1">Monthly Test 1 (30M / 60 min)</option>
+                    <option value="Monthly Test 2">Monthly Test 2 (40M / 90 min)</option>
+                    <option value="Monthly Test 3">Monthly Test 3 (40M / 90 min)</option>
                     <option value="Periodic Test 1">Periodic Test 1 (40M / 90 min)</option>
                     <option value="Periodic Test 2">Periodic Test 2 (40M / 90 min)</option>
                     <option value="Half Yearly" selected>Half Yearly (80M / 3 hrs)</option>
@@ -1250,8 +1262,15 @@
                   <input type="number" class="gen-input" id="genTotalMarks" value="80" min="10" max="100" oninput="updateMarksTotal()">
                 </div>
                 <div class="gen-form-group">
-                  <label class="gen-label">Duration (hours)</label>
-                  <input type="number" class="gen-input" id="genDuration" value="3" min="0.5" max="4" step="0.5">
+                  <label class="gen-label">Duration</label>
+                  <div style="display:flex; gap:6px;">
+                    <input type="number" class="gen-input" id="genDuration" value="3" min="1" max="300" step="1" style="flex:1; min-width:0;" oninput="syncDurationLabel()">
+                    <select class="gen-select" id="genDurationUnit" style="width:110px; flex-shrink:0;" onchange="syncDurationLabel()">
+                      <option value="hours">Hours</option>
+                      <option value="minutes">Minutes</option>
+                    </select>
+                  </div>
+                  <span id="genDurationHint" style="font-size:0.72rem; color:#10b981; margin-top:3px; display:block;">= 3 Hours</span>
                 </div>
                 <div class="gen-form-group">
                   <label class="gen-label">Session / Year</label>
@@ -1988,8 +2007,9 @@
       { name: "Pre-Board 1 Blueprint 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/BP-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/BP-MATHS-XII-4.docx" },
       { name: "Pre-Board 1 Solution (Interactive HTML)", type: "HTML", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/Solution PB1 2025.html" },
       { name: "Pre-Board 3 QP Class 12", type: "DOCX", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/QP MATH_12_PB3.docx" },
-      { name: "Monthly Test 2 Mathematics (KBJ)", type: "DOCX", category: "Preboard", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT2.docx" },
-      { name: "Monthly Test 3 Mathematics (KBJ)", type: "DOCX", category: "Preboard", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT3.docx" },
+      // Monthly Test Papers
+      { name: "Monthly Test 2 Mathematics (KBJ)", type: "DOCX", category: "Monthly", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT2.docx" },
+      { name: "Monthly Test 3 Mathematics (KBJ)", type: "DOCX", category: "Monthly", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT3.docx" },
       // SEE Papers
       { name: "SEE QP Class 11 Mathematics 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/11_MATHS_QP_SEE2024.docx" },
       { name: "SEE Marking Scheme Class 11 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/11_MATHS_MS_SEE2024.docx" },
@@ -2016,10 +2036,10 @@
       return { PDF:'pdf', HTML:'html-type', ZIP:'zip' }[t] || 'docx';
     }
     function catColor(c) {
-      return { PT:'#10b981', HY:'#f59e0b', Preboard:'#8b5cf6', SEE:'#0ea5e9', ClassTest:'#ef4444' }[c] || '#6b7280';
+      return { PT:'#10b981', HY:'#f59e0b', Preboard:'#8b5cf6', SEE:'#0ea5e9', ClassTest:'#ef4444', Monthly:'#f472b6' }[c] || '#6b7280';
     }
     function catLabel(c) {
-      return { PT:'Periodic Test', HY:'Half Yearly', Preboard:'Pre-Board', SEE:'SEE/Annual', ClassTest:'Class Test' }[c] || c;
+      return { PT:'Periodic Test', HY:'Half Yearly', Preboard:'Pre-Board', SEE:'SEE/Annual', ClassTest:'Class Test', Monthly:'Monthly Test' }[c] || c;
     }
 
     function buildPaperCard(p) {
@@ -2175,6 +2195,14 @@
       ];
       const ctG = document.getElementById('classTestPaperGrid');
       if (ctG) ctG.innerHTML = ct.map(buildSimpleCard).join('');
+
+      // Monthly Test papers
+      const mt = [
+        { name:"Monthly Test 2 Mathematics (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT2.docx" },
+        { name:"Monthly Test 3 Mathematics (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT3.docx" },
+      ];
+      const mtG = document.getElementById('monthlyPaperGrid');
+      if (mtG) mtG.innerHTML = mt.map(buildSimpleCard).join('');
     }
 
     // ============================================================
@@ -2207,20 +2235,26 @@
     // ============================================================
     function applyExamPreset() {
       const type = document.getElementById('genExamType')?.value;
+      // dur: value, unit: 'hours'|'minutes'
       const presets = {
-        'Class Test':      { marks:20, dur:0.67, q1:5, q2:3, q3:2, q5:1, qc:0 },
-        'Periodic Test 1': { marks:40, dur:1.5,  q1:10, q2:4, q3:3, q5:2, qc:1 },
-        'Periodic Test 2': { marks:40, dur:1.5,  q1:10, q2:4, q3:3, q5:2, qc:1 },
-        'Half Yearly':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
-        'Pre-Board 1':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
-        'Pre-Board 2':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
-        'Pre-Board 3':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
-        'SEE / Annual Exam':{ marks:80, dur:3,   q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Class Test':      { marks:20, dur:40,  unit:'minutes', q1:5,  q2:3, q3:2, q5:1, qc:0 },
+        'Monthly Test 1':  { marks:30, dur:60,  unit:'minutes', q1:8,  q2:3, q3:3, q5:1, qc:1 },
+        'Monthly Test 2':  { marks:40, dur:90,  unit:'minutes', q1:10, q2:4, q3:3, q5:2, qc:1 },
+        'Monthly Test 3':  { marks:40, dur:90,  unit:'minutes', q1:10, q2:4, q3:3, q5:2, qc:1 },
+        'Periodic Test 1': { marks:40, dur:90,  unit:'minutes', q1:10, q2:4, q3:3, q5:2, qc:1 },
+        'Periodic Test 2': { marks:40, dur:90,  unit:'minutes', q1:10, q2:4, q3:3, q5:2, qc:1 },
+        'Half Yearly':     { marks:80, dur:3,   unit:'hours',   q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Pre-Board 1':     { marks:80, dur:3,   unit:'hours',   q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Pre-Board 2':     { marks:80, dur:3,   unit:'hours',   q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Pre-Board 3':     { marks:80, dur:3,   unit:'hours',   q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'SEE / Annual Exam':{ marks:80, dur:3,  unit:'hours',   q1:18, q2:5, q3:6, q5:4, qc:3 },
       };
       const p = presets[type];
       if (!p) return;
       document.getElementById('genTotalMarks').value = p.marks;
       document.getElementById('genDuration').value = p.dur;
+      const unitEl = document.getElementById('genDurationUnit');
+      if (unitEl) unitEl.value = p.unit;
       qConfig.q1mark = p.q1; qConfig.q2mark = p.q2; qConfig.q3mark = p.q3;
       qConfig.q5mark = p.q5; qConfig.qcase = p.qc;
       ['q1mark','q2mark','q3mark','q5mark','qcase'].forEach(k => {
@@ -2229,6 +2263,21 @@
         adjustQ(k, 0); // refresh hint
       });
       updateMarksTotal();
+      syncDurationLabel();
+    }
+
+    function syncDurationLabel() {
+      const val  = document.getElementById('genDuration')?.value || '3';
+      const unit = document.getElementById('genDurationUnit')?.value || 'hours';
+      const hint = document.getElementById('genDurationHint');
+      if (!hint) return;
+      if (unit === 'minutes') {
+        const hrs = Math.floor(val / 60);
+        const mins = val % 60;
+        hint.textContent = hrs > 0 ? `= ${hrs}h ${mins > 0 ? mins + 'min' : ''}`.trim() : `= ${val} Minutes`;
+      } else {
+        hint.textContent = `= ${val} Hour${val == 1 ? '' : 's'}`;
+      }
     }
 
     // ============================================================
@@ -2348,7 +2397,9 @@
       const cls         = document.getElementById('genClass')?.value || 'XII';
       const subj        = document.getElementById('genSubject')?.value || 'Mathematics (041)';
       const marks       = document.getElementById('genTotalMarks')?.value || '80';
-      const dur         = document.getElementById('genDuration')?.value || '3';
+      const durVal      = document.getElementById('genDuration')?.value || '3';
+      const durUnit     = document.getElementById('genDurationUnit')?.value || 'hours';
+      const dur         = durUnit === 'minutes' ? `${durVal} Minutes` : `${durVal} Hour${durVal==1?'':'s'}`;
       const session     = document.getElementById('genSession')?.value || '2025-26';
       const dt          = document.getElementById('genDate')?.value || '';
       const numSets     = document.getElementById('genSets')?.value || '1';
@@ -2576,7 +2627,9 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       const et=document.getElementById('genExamType')?.value||'Examination';
       const cl=document.getElementById('genClass')?.value||'XII';
       const mk=document.getElementById('genTotalMarks')?.value||'80';
-      const du=document.getElementById('genDuration')?.value||'3';
+      const duVal=document.getElementById('genDuration')?.value||'3';
+      const duUnit=document.getElementById('genDurationUnit')?.value||'hours';
+      const du=duUnit==='minutes'?`${duVal} Minutes`:`${duVal} Hour${duVal==1?'':'s'}`;
       const ss=document.getElementById('genSession')?.value||'2025-26';
       return `<div style="font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;color:#000;max-width:210mm;margin:0 auto;padding:12mm 18mm;background:#fff;">
         <div style="text-align:center;margin-bottom:12px;">
@@ -2588,7 +2641,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             <td style="text-align:center;">${et.toUpperCase()}</td>
             <td style="text-align:right;">Max. Marks: ${mk}</td>
           </tr><tr>
-            <td></td><td style="text-align:center;font-weight:normal;font-size:9.5pt;">Time Allowed: ${du} Hour${du==1?'':'s'}</td><td></td>
+            <td></td><td style="text-align:center;font-weight:normal;font-size:9.5pt;">Time Allowed: ${du}</td><td></td>
           </tr></table>
           <hr style="border:1px solid #000;margin:5px 0;">
         </div>
@@ -2619,7 +2672,9 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       const et=document.getElementById('genExamType')?.value||'Half Yearly';
       const cl=document.getElementById('genClass')?.value||'XII';
       const mk=parseInt(document.getElementById('genTotalMarks')?.value||80);
-      const du=document.getElementById('genDuration')?.value||'3';
+      const duVal=document.getElementById('genDuration')?.value||'3';
+      const duUnit=document.getElementById('genDurationUnit')?.value||'hours';
+      const du=duUnit==='minutes'?`${duVal} Minutes`:`${duVal} Hour${duVal==1?'':'s'}`;
       const ss=document.getElementById('genSession')?.value||'2025-26';
       const dt=document.getElementById('genDate')?.value||'';
       let qn=1, secA='', secB='', secC='', secD='', secE='';
@@ -2703,7 +2758,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             <td style="text-align:right;">Max. Marks: ${mk}</td>
           </tr><tr>
             <td style="text-align:left;font-weight:normal;font-size:9.5pt;">${et.toUpperCase()}</td>
-            <td style="text-align:right;font-weight:normal;font-size:9.5pt;">Time: ${du} Hour${du==1?'':'s'}</td>
+            <td style="text-align:right;font-weight:normal;font-size:9.5pt;">Time: ${du}</td>
           </tr></table>
           <hr style="border:1px solid #000;margin:5px 0;">
         </div>
@@ -2819,6 +2874,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       renderPTGrid('12');
       renderChapterPDFSelector();
       updateMarksTotal();
+      syncDurationLabel();
       loadSavedAPIKeys();
       const dateEl=document.getElementById('genDate');
       if (dateEl) dateEl.valueAsDate=new Date();
