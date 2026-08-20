@@ -354,6 +354,15 @@
     }
 
     /* Vault Customizer Stylings */
+    .vault-lp-canvas .lp-paper-page {
+      background: #ffffff;
+      color: #000000;
+      padding: 20px;
+      margin-bottom: 25px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
     .vault-lp-canvas table {
       width: 100%;
       border-collapse: collapse;
@@ -985,7 +994,7 @@
                     <i class="fas fa-chevron-right"></i>
                   </a>
                   <a href="Lesson plan/class10_chapter12.html" data-class="Class 10" data-chapter="Chapter 12: Surface Areas and Volumes" class="chapter-link">
-                    <span class="chapter-num">Chapter 10:</span> Surface Areas and Volumes
+                    <span class="chapter-num">Chapter 12:</span> Surface Areas and Volumes
                     <i class="fas fa-chevron-right"></i>
                   </a>
                   <a href="Lesson plan/class10_chapter13.html" data-class="Class 10" data-chapter="Chapter 13: Statistics" class="chapter-link">
@@ -1106,7 +1115,7 @@
                 
                 <h3><i class="fas fa-book"></i> Part II</h3>
                 <div class="chapters">
-                  <a href="Lesson plan/class12_part2_chapter7_Indefinite.html" data-class="Class 12" data-chapter="Chapter 7: Indefinite Integrals" class="chapter-link">
+                  <a href="Lesson plan/class12_part2_chapter7_indefinite.html" data-class="Class 12" data-chapter="Chapter 7: Indefinite Integrals" class="chapter-link">
                     <span class="chapter-num">Chapter 7:</span> Indefinite Integrals
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -1706,8 +1715,23 @@ function copyLessonPlan() {
         .then(htmlText => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(htmlText, 'text/html');
-          const lpContainer = doc.querySelector('.container');
-          if (!lpContainer) throw new Error("Invalid layout structure");
+          
+          // Remove top action header bar if present in pre-rendered file
+          doc.querySelectorAll('.no-print-bar, .no-print').forEach(el => el.remove());
+
+          // Find pages or container
+          const pages = doc.querySelectorAll('.lp-paper-page');
+          let innerContent = '';
+          if (pages.length > 0) {
+            pages.forEach(p => { innerContent += p.outerHTML; });
+          } else {
+            const container = doc.querySelector('.container') || doc.body;
+            innerContent = container ? container.innerHTML : htmlText;
+          }
+
+          if (!innerContent || innerContent.trim() === '') {
+            throw new Error("Invalid or empty layout structure");
+          }
 
           const modal = document.getElementById('vaultLpModal');
           const editorBody = document.getElementById('vaultLpEditorBody');
@@ -1715,7 +1739,7 @@ function copyLessonPlan() {
           document.getElementById('vaultLangFilter').value = 'bilingual';
           document.getElementById('vaultCompactToggle').checked = false;
           editorBody.className = 'vault-lp-canvas';
-          editorBody.innerHTML = lpContainer.innerHTML;
+          editorBody.innerHTML = innerContent;
           
           // Remove mandatory note paragraph if present
           editorBody.querySelectorAll('p').forEach(p => {
@@ -1730,7 +1754,7 @@ function copyLessonPlan() {
           });
           
           // Prefill teacher name if developer field exists
-          const defaultTeacherName = document.getElementById('lpTeacherName').value || "K B Joshi";
+          const defaultTeacherName = document.getElementById('lpTeacherName')?.value || "K B Joshi";
           editorBody.querySelectorAll('td').forEach(td => {
             const text = td.textContent.toLowerCase();
             if (text.includes('lesson plan developer') || text.includes('विकासकर्ता')) {
@@ -1771,22 +1795,34 @@ function copyLessonPlan() {
           modal.setAttribute('data-title', doc.title || "Lesson Plan");
         })
         .catch(err => {
+          console.warn("Could not load in modal editor:", err);
+          
+          // Direct fallback: if file protocol prevents fetch, navigate directly to pre-rendered HTML file
+          if (url && (window.location.protocol === 'file:' || err.message.includes('Failed to fetch') || err.message.includes('NetworkError'))) {
+            window.location.href = url;
+            return;
+          }
+
           // Intelligent fallback to AI Generator tab if HTML file is not pre-rendered
           switchLessonPlanTab('generator');
           if (className) {
             const classSelect = document.getElementById('lpClass');
-            for (let i = 0; i < classSelect.options.length; i++) {
-              if (classSelect.options[i].value === className || classSelect.options[i].text.includes(className)) {
-                classSelect.selectedIndex = i;
-                break;
+            if (classSelect) {
+              for (let i = 0; i < classSelect.options.length; i++) {
+                if (classSelect.options[i].value === className || classSelect.options[i].text.includes(className)) {
+                  classSelect.selectedIndex = i;
+                  break;
+                }
               }
             }
           }
           if (chapterName) {
-            document.getElementById('lpChapter').value = chapterName;
-            document.getElementById('lpTopic').value = chapterName.replace(/^Chapter \d+:\s*/, '');
+            const chInput = document.getElementById('lpChapter');
+            const topicInput = document.getElementById('lpTopic');
+            if (chInput) chInput.value = chapterName;
+            if (topicInput) topicInput.value = chapterName.replace(/^Chapter \d+:\s*/, '');
           }
-          document.getElementById('aiPlannerForm').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('aiPlannerForm')?.scrollIntoView({ behavior: 'smooth' });
         });
     }
 
@@ -2100,9 +2136,27 @@ function copyLessonPlan() {
         link.addEventListener('click', function(e) {
           e.preventDefault();
           const url = this.getAttribute('href');
-          openVaultLpEditor(url);
+          const className = this.getAttribute('data-class');
+          const chapterName = this.getAttribute('data-chapter');
+          openVaultLpEditor(url, className, chapterName);
         });
       });
+
+      // 4. Handle URL query parameters and hashes (tab & class filtering)
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedTab = urlParams.get('tab') || (window.location.hash ? window.location.hash.replace('#', '') : null);
+      const requestedClass = urlParams.get('class');
+      
+      if (requestedTab === 'generator' || requestedTab === 'planner') {
+        switchLessonPlanTab('generator');
+      } else if (requestedTab === 'vault') {
+        switchLessonPlanTab('vault');
+      }
+      
+      if (requestedClass) {
+        const matchingBtn = document.querySelector(`.filter-pill[onclick*="'${requestedClass}'"]`);
+        filterVaultClass(requestedClass, matchingBtn);
+      }
     });
 
     // Add shake animation for errors
