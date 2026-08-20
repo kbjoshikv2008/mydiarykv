@@ -8,6 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
+  <!-- KaTeX for LaTeX math rendering in question papers -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   <style>
     /* Examination specific styling */
     .password-overlay-section {
@@ -463,6 +467,276 @@
       border: none;
       background: white;
     }
+
+    /* ============================================================
+       QUESTION PAPERS TAB — SUBTABS, CARDS & AI GENERATOR STYLES
+       ============================================================ */
+    .qp-subtabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 0 0 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 7px;
+    }
+    .qp-subtab-btn {
+      flex: 1;
+      min-width: 110px;
+      padding: 9px 14px;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.25s ease;
+      font-size: 0.8em;
+      font-family: var(--font-head);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .qp-subtab-btn:hover { background: rgba(139,92,246,0.12); color: #c4b5fd; }
+    .qp-subtab-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: #fff;
+      box-shadow: 0 3px 12px rgba(124,58,237,0.35);
+    }
+    .qp-subtab-content { display: none; animation: fadeIn 0.4s ease-out; }
+    .qp-subtab-content.active { display: block; }
+
+    /* Paper collection */
+    .paper-section-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 18px;
+      background: rgba(139,92,246,0.1);
+      border-left: 4px solid #8b5cf6;
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0 14px;
+      font-family: var(--font-head); font-weight: 700;
+      color: #c4b5fd; font-size: 1rem;
+    }
+    .paper-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .paper-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 18px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .paper-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+    }
+    .paper-card.pdf::before { background: linear-gradient(90deg, #ef4444, #f97316); }
+    .paper-card.docx::before { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
+    .paper-card.zip::before { background: linear-gradient(90deg, #f59e0b, #eab308); }
+    .paper-card.html-type::before { background: linear-gradient(90deg, #10b981, #34d399); }
+    .paper-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      border-color: rgba(139,92,246,0.4);
+    }
+    .paper-card-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .paper-card h4 {
+      color: #fff; font-family: var(--font-head);
+      font-size: 0.9rem; font-weight: 700;
+      margin: 0 0 8px; line-height: 1.4;
+    }
+    .paper-card p { color: var(--text-secondary); font-size: 0.8rem; margin: 0 0 12px; }
+    .paper-card-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pc-btn {
+      padding: 5px 12px; border-radius: 6px; border: none;
+      font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 5px;
+      text-decoration: none; transition: all 0.2s ease;
+    }
+    .pc-btn-view { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+    .pc-btn-dl { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .pc-btn-dl2 { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .pc-btn-print { background: rgba(14,165,233,0.15); color: #38bdf8; border: 1px solid rgba(14,165,233,0.3); }
+    .pc-btn:hover { opacity: 0.85; transform: scale(1.04); }
+
+    /* Generator form */
+    .gen-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: 22px; margin-bottom: 18px;
+    }
+    .gen-card-title {
+      font-family: var(--font-head); font-size: 1rem; font-weight: 700;
+      color: #c4b5fd; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .gen-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+    .gen-form-group { display: flex; flex-direction: column; gap: 6px; }
+    .gen-label { font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+    .gen-input, .gen-select {
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(139,92,246,0.35);
+      color: #fff; padding: 10px 14px; border-radius: 8px;
+      font-size: 0.92rem; outline: none; transition: all 0.2s; font-family: inherit;
+    }
+    .gen-input:focus, .gen-select:focus { border-color: #a78bfa; box-shadow: 0 0 10px rgba(167,139,250,0.3); }
+    .gen-select option { background: #1e293b; }
+    .gen-input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+
+    /* Question counters */
+    .q-counter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; }
+    .q-counter-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 14px; text-align: center;
+    }
+    .q-counter-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 10px; display: block; }
+    .q-counter-controls { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .q-counter-btn {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(139,92,246,0.5);
+      background: rgba(139,92,246,0.15); color: #a78bfa;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .q-counter-btn:hover { background: rgba(139,92,246,0.35); }
+    .q-counter-val { font-size: 1.5rem; font-weight: 800; color: #fff; min-width: 32px; }
+    .q-marks-hint { font-size: 0.72rem; color: #10b981; margin-top: 6px; }
+    .marks-total-banner {
+      background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.07));
+      border: 1px solid rgba(16,185,129,0.3); border-radius: 10px;
+      padding: 14px 20px; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 16px;
+    }
+    .marks-total-val { font-size: 1.4rem; font-weight: 800; color: #34d399; font-family: var(--font-head); }
+
+    /* Chapter PDF selector */
+    .chapter-pdf-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 8px; max-height: 270px; overflow-y: auto; padding: 4px;
+    }
+    .ch-pdf-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer; transition: all 0.2s;
+      font-size: 0.82rem; color: var(--text-secondary);
+    }
+    .ch-pdf-item:hover { background: rgba(139,92,246,0.1); color: #c4b5fd; border-color: rgba(139,92,246,0.3); }
+    .ch-pdf-item input[type="checkbox"] { accent-color: #8b5cf6; width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
+    .ch-pdf-item.checked { background: rgba(139,92,246,0.12); color: #c4b5fd; border-color: rgba(139,92,246,0.35); }
+
+    /* AI Tools */
+    .ai-tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .ai-tool-card {
+      padding: 14px; border-radius: 12px; border: 2px solid transparent;
+      cursor: pointer; text-align: center; transition: all 0.25s;
+      background: rgba(255,255,255,0.04);
+    }
+    .ai-tool-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+    .ai-tool-card.selected { border-color: currentColor !important; }
+    .ai-tool-card .ai-icon { font-size: 1.8rem; margin-bottom: 6px; }
+    .ai-tool-card .ai-name { font-size: 0.85rem; font-weight: 700; font-family: var(--font-head); }
+    .ai-tool-card .ai-desc { font-size: 0.72rem; color: var(--text-secondary); margin-top: 3px; }
+    .ai-chatgpt { color: #10a37f; border-color: rgba(16,163,127,0.3); background: rgba(16,163,127,0.06); }
+    .ai-deepseek { color: #5b5fc7; border-color: rgba(91,95,199,0.3); background: rgba(91,95,199,0.06); }
+    .ai-gemini { color: #4285f4; border-color: rgba(66,133,244,0.3); background: rgba(66,133,244,0.06); }
+    .ai-copilot { color: #0078d4; border-color: rgba(0,120,212,0.3); background: rgba(0,120,212,0.06); }
+    .ai-tool-card.selected.ai-chatgpt { background: rgba(16,163,127,0.15); }
+    .ai-tool-card.selected.ai-deepseek { background: rgba(91,95,199,0.15); }
+    .ai-tool-card.selected.ai-gemini { background: rgba(66,133,244,0.15); }
+    .ai-tool-card.selected.ai-copilot { background: rgba(0,120,212,0.15); }
+
+    /* Source tabs */
+    .source-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .source-tab-btn {
+      padding: 8px 16px; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent; color: var(--text-secondary);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .source-tab-btn.active { background: rgba(139,92,246,0.2); color: #c4b5fd; border-color: rgba(139,92,246,0.5); }
+
+    /* Generator action buttons */
+    .gen-action-bar { display: flex; gap: 10px; flex-wrap: wrap; padding: 16px 0 10px; }
+    .gen-btn {
+      padding: 11px 20px; border-radius: 50px; border: none;
+      font-size: 0.87rem; font-weight: 700; font-family: var(--font-head);
+      cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+      transition: all 0.25s ease; text-decoration: none;
+    }
+    .gen-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+    .gen-btn-primary { background: linear-gradient(135deg, #7c3aed, #0ea5e9); color: #fff; }
+    .gen-btn-preview { background: linear-gradient(135deg, #0ea5e9, #06b6d4); color: #fff; }
+    .gen-btn-dl { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .gen-btn-print { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; }
+    .gen-btn-edit { background: rgba(255,255,255,0.08); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.15); }
+    .gen-btn-set { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+    .gen-btn-danger { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .gen-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Preview paper area */
+    #qpPreviewArea {
+      background: #fff; color: #000; border-radius: 10px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      overflow: hidden;
+    }
+    #qpEditArea {
+      width: 100%; min-height: 380px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(139,92,246,0.4); color: #e2e8f0;
+      padding: 16px; border-radius: 12px;
+      font-family: 'Courier New', monospace; font-size: 0.82rem;
+      resize: vertical; outline: none; line-height: 1.6; box-sizing: border-box;
+    }
+    .sets-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+    .set-badge {
+      padding: 5px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      border: 1px solid rgba(255,255,255,0.15); background: transparent; color: var(--text-secondary);
+    }
+    .set-badge.active { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border-color: transparent; }
+
+    /* Prompt modal */
+    .prompt-modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.78); z-index: 9998;
+      align-items: center; justify-content: center;
+    }
+    .prompt-modal-overlay.open { display: flex; }
+    .prompt-modal {
+      background: #1e293b; border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 18px; padding: 26px; max-width: 680px; width: 92%;
+      max-height: 88vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .prompt-modal h3 { font-family: var(--font-head); color: #fff; margin-bottom: 12px; font-size: 1.1rem; }
+    .prompt-textarea {
+      width: 100%; min-height: 200px;
+      background: rgba(15,23,42,0.9); border: 1px solid rgba(255,255,255,0.1);
+      color: #e2e8f0; padding: 14px; border-radius: 10px;
+      font-family: 'Courier New', monospace; font-size: 0.78rem;
+      resize: vertical; outline: none; line-height: 1.5; box-sizing: border-box;
+    }
+    .prompt-modal-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .api-advanced { display: none; }
+    .api-advanced.open { display: block; }
+
+    @media print {
+      body > *:not(#qpPrintTarget) { display: none !important; }
+    }
+    @media (max-width: 600px) {
+      .qp-subtab-btn { min-width: 90px; font-size: 0.72em; padding: 7px 10px; }
+      .gen-form-grid { grid-template-columns: 1fr; }
+      .q-counter-grid { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -534,6 +808,7 @@
           <button class="tab-btn" data-tab="periodic-test"><i class="fas fa-clipboard-list"></i> Periodic Test</button>
           <button class="tab-btn" data-tab="half-yearly"><i class="fas fa-award"></i> Half Yearly</button>
           <button class="tab-btn" data-tab="ioqm-tab"><i class="fas fa-medal"></i> IOQM</button>
+          <button class="tab-btn" data-tab="question-papers-tab"><i class="fas fa-folder-open"></i> Question Papers</button>
         </div>
         
         <!-- Chapterwise Test Tab -->
@@ -844,6 +1119,343 @@
             </a>
           </div>
         </div>
+
+
+        <!-- ============================================================ -->
+        <!-- QUESTION PAPERS TAB                                          -->
+        <!-- ============================================================ -->
+        <div class="tab-content" id="question-papers-tab">
+          <h2 style="font-family:var(--font-head); font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:6px;">
+            <i class="fas fa-folder-open" style="color:#a78bfa; margin-right:8px;"></i> Question Papers Hub
+          </h2>
+          <p style="color:var(--text-secondary); margin-bottom:20px; font-size:0.92em;">
+            Browse all existing question paper collections or generate new AI-powered papers with proper LaTeX math rendering.
+          </p>
+
+          <!-- Subtab navigation -->
+          <div class="qp-subtabs">
+            <button class="qp-subtab-btn active" data-qptab="qp-collection"><i class="fas fa-archive"></i> Papers Collection</button>
+            <button class="qp-subtab-btn" data-qptab="qp-classtest"><i class="fas fa-pencil-alt"></i> Class Test</button>
+            <button class="qp-subtab-btn" data-qptab="qp-pt"><i class="fas fa-clipboard-list"></i> PT Papers</button>
+            <button class="qp-subtab-btn" data-qptab="qp-hy"><i class="fas fa-award"></i> HY Papers</button>
+            <button class="qp-subtab-btn" data-qptab="qp-preboard"><i class="fas fa-graduation-cap"></i> Preboard</button>
+            <button class="qp-subtab-btn" data-qptab="qp-see"><i class="fas fa-university"></i> SEE / Annual</button>
+            <button class="qp-subtab-btn" data-qptab="qp-generator"><i class="fas fa-robot"></i> AI Generator</button>
+          </div>
+
+          <!-- ===== PAPERS COLLECTION ===== -->
+          <div class="qp-subtab-content active" id="qp-collection">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+              <p style="color:var(--text-secondary); font-size:0.9em; margin:0;">All available question papers from the local file folder — view, download or print directly.</p>
+              <div style="position:relative;">
+                <i class="fas fa-search" style="position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--text-secondary); font-size:0.78rem;"></i>
+                <input type="text" id="paperSearchInput" placeholder="Search papers..." oninput="filterPaperCards(this.value)" style="padding:8px 12px 8px 32px; background:rgba(15,23,42,0.8); border:1px solid rgba(255,255,255,0.1); color:#fff; border-radius:8px; font-size:0.85rem; outline:none; width:210px;">
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;" id="collectionFilters">
+              <button class="source-tab-btn active" onclick="filterCollection('all',this)">📋 All Papers</button>
+              <button class="source-tab-btn" onclick="filterCollection('PT',this)">📊 PT Papers</button>
+              <button class="source-tab-btn" onclick="filterCollection('HY',this)">📝 Half Yearly</button>
+              <button class="source-tab-btn" onclick="filterCollection('Preboard',this)">🎓 Preboard</button>
+              <button class="source-tab-btn" onclick="filterCollection('SEE',this)">🏫 SEE / Annual</button>
+              <button class="source-tab-btn" onclick="filterCollection('ClassTest',this)">✏️ Class Test</button>
+            </div>
+            <div id="paperCollectionGrid" class="paper-cards-grid">
+              <div style="color:var(--text-secondary); text-align:center; padding:30px; grid-column:1/-1;"><i class="fas fa-spinner fa-spin"></i> Loading papers...</div>
+            </div>
+          </div>
+
+          <!-- ===== CLASS TEST PAPERS ===== -->
+          <div class="qp-subtab-content" id="qp-classtest">
+            <div class="paper-section-header"><i class="fas fa-pencil-alt"></i> Class Test Question Papers</div>
+            <p style="color:var(--text-secondary); font-size:0.9em; margin-bottom:8px;">Interactive chapterwise class tests (20 marks, 40 min) are in the <strong style="color:#a78bfa;">Chapterwise Test</strong> tab. Downloadable test paper files are listed below.</p>
+            <div id="classTestPaperGrid" class="paper-cards-grid"></div>
+          </div>
+
+          <!-- ===== PT PAPERS ===== -->
+          <div class="qp-subtab-content" id="qp-pt">
+            <div class="paper-section-header"><i class="fas fa-clipboard-list"></i> Periodic Test (PT) Question Papers</div>
+            <p style="color:var(--text-secondary); font-size:0.9em; margin-bottom:14px;">PT1 and PT2 question papers for Class 12, 11 and 7 Mathematics with blueprints and date sheets.</p>
+            <div class="class-selector-wrapper" style="margin-bottom:16px;">
+              <button class="class-pill-btn active" data-ptclass="12" onclick="selectPTClass('12',this)"><i class="fas fa-graduation-cap"></i> Class 12</button>
+              <button class="class-pill-btn" data-ptclass="11" onclick="selectPTClass('11',this)"><i class="fas fa-user-graduate"></i> Class 11</button>
+              <button class="class-pill-btn" data-ptclass="7" onclick="selectPTClass('7',this)"><i class="fas fa-child"></i> Class 7</button>
+            </div>
+            <div id="ptPaperGrid" class="paper-cards-grid"></div>
+            <div class="paper-section-header" style="margin-top:10px;"><i class="fas fa-sitemap"></i> Blueprints & Date Sheets</div>
+            <div id="ptBlueprintGrid" class="paper-cards-grid"></div>
+          </div>
+
+          <!-- ===== HY PAPERS ===== -->
+          <div class="qp-subtab-content" id="qp-hy">
+            <div class="paper-section-header"><i class="fas fa-award"></i> Half Yearly Examination Papers</div>
+            <p style="color:var(--text-secondary); font-size:0.9em; margin-bottom:14px;">Half Yearly exam question papers, blueprints, and marking schemes.</p>
+            <div id="hyPaperGrid" class="paper-cards-grid"></div>
+          </div>
+
+          <!-- ===== PREBOARD PAPERS ===== -->
+          <div class="qp-subtab-content" id="qp-preboard">
+            <div class="paper-section-header"><i class="fas fa-graduation-cap"></i> Pre-Board Examination Papers</div>
+            <p style="color:var(--text-secondary); font-size:0.9em; margin-bottom:14px;">Pre-Board 1, 2 & 3 question papers with marking schemes for Class 12 Mathematics.</p>
+            <div id="preboardPaperGrid" class="paper-cards-grid"></div>
+            <div class="paper-section-header" style="margin-top:10px;"><i class="fas fa-check-double"></i> Marking Schemes & Solutions</div>
+            <div id="preboardSolutionGrid" class="paper-cards-grid"></div>
+          </div>
+
+          <!-- ===== SEE PAPERS ===== -->
+          <div class="qp-subtab-content" id="qp-see">
+            <div class="paper-section-header"><i class="fas fa-university"></i> SEE / Annual Examination Papers</div>
+            <p style="color:var(--text-secondary); font-size:0.9em; margin-bottom:14px;">Summative Evaluation Examination (SEE) / Annual Exam question papers and marking schemes.</p>
+            <div id="seePaperGrid" class="paper-cards-grid"></div>
+          </div>
+
+          <!-- ===== AI GENERATOR ===== -->
+          <div class="qp-subtab-content" id="qp-generator">
+
+            <!-- Step 1 -->
+            <div class="gen-card">
+              <div class="gen-card-title"><i class="fas fa-cog"></i> Step 1 — Exam Configuration</div>
+              <div class="gen-form-grid">
+                <div class="gen-form-group">
+                  <label class="gen-label">Exam Type</label>
+                  <select class="gen-select" id="genExamType" onchange="applyExamPreset()">
+                    <option value="Class Test">Class Test (20M / 40 min)</option>
+                    <option value="Periodic Test 1">Periodic Test 1 (40M / 90 min)</option>
+                    <option value="Periodic Test 2">Periodic Test 2 (40M / 90 min)</option>
+                    <option value="Half Yearly" selected>Half Yearly (80M / 3 hrs)</option>
+                    <option value="Pre-Board 1">Pre-Board 1 (80M / 3 hrs)</option>
+                    <option value="Pre-Board 2">Pre-Board 2 (80M / 3 hrs)</option>
+                    <option value="Pre-Board 3">Pre-Board 3 (80M / 3 hrs)</option>
+                    <option value="SEE / Annual Exam">SEE / Annual Exam (80M / 3 hrs)</option>
+                    <option value="Custom">Custom</option>
+                  </select>
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Class</label>
+                  <select class="gen-select" id="genClass" onchange="updateChapterListGen()">
+                    <option value="XII" selected>Class XII</option>
+                    <option value="XI">Class XI</option>
+                    <option value="VII">Class VII</option>
+                  </select>
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Subject</label>
+                  <select class="gen-select" id="genSubject">
+                    <option value="Mathematics (041)">Mathematics (Code: 041)</option>
+                    <option value="Applied Mathematics (241)">Applied Mathematics (241)</option>
+                  </select>
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Total Marks</label>
+                  <input type="number" class="gen-input" id="genTotalMarks" value="80" min="10" max="100" oninput="updateMarksTotal()">
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Duration (hours)</label>
+                  <input type="number" class="gen-input" id="genDuration" value="3" min="0.5" max="4" step="0.5">
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Session / Year</label>
+                  <input type="text" class="gen-input" id="genSession" value="2025-26" placeholder="e.g. 2025-26">
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Number of Sets</label>
+                  <select class="gen-select" id="genSets">
+                    <option value="1">1 Set</option>
+                    <option value="2">2 Sets (A, B)</option>
+                    <option value="3">3 Sets (A, B, C)</option>
+                    <option value="4">4 Sets (A, B, C, D)</option>
+                  </select>
+                </div>
+                <div class="gen-form-group">
+                  <label class="gen-label">Date of Exam</label>
+                  <input type="date" class="gen-input" id="genDate">
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="gen-card">
+              <div class="gen-card-title"><i class="fas fa-list-ol"></i> Step 2 — Question Distribution</div>
+              <div class="q-counter-grid">
+                <div class="q-counter-card">
+                  <span class="q-counter-label">Section A (1 Mark MCQ / A-R)</span>
+                  <div class="q-counter-controls">
+                    <button class="q-counter-btn" onclick="adjustQ('q1mark',-1)">−</button>
+                    <span class="q-counter-val" id="q1mark">18</span>
+                    <button class="q-counter-btn" onclick="adjustQ('q1mark',1)">+</button>
+                  </div>
+                  <div class="q-marks-hint" id="q1markTotal">= 18 marks</div>
+                </div>
+                <div class="q-counter-card">
+                  <span class="q-counter-label">Section B (2 Marks VSA)</span>
+                  <div class="q-counter-controls">
+                    <button class="q-counter-btn" onclick="adjustQ('q2mark',-1)">−</button>
+                    <span class="q-counter-val" id="q2mark">5</span>
+                    <button class="q-counter-btn" onclick="adjustQ('q2mark',1)">+</button>
+                  </div>
+                  <div class="q-marks-hint" id="q2markTotal">= 10 marks</div>
+                </div>
+                <div class="q-counter-card">
+                  <span class="q-counter-label">Section C (3 Marks SA)</span>
+                  <div class="q-counter-controls">
+                    <button class="q-counter-btn" onclick="adjustQ('q3mark',-1)">−</button>
+                    <span class="q-counter-val" id="q3mark">6</span>
+                    <button class="q-counter-btn" onclick="adjustQ('q3mark',1)">+</button>
+                  </div>
+                  <div class="q-marks-hint" id="q3markTotal">= 18 marks</div>
+                </div>
+                <div class="q-counter-card">
+                  <span class="q-counter-label">Section D (5 Marks LA)</span>
+                  <div class="q-counter-controls">
+                    <button class="q-counter-btn" onclick="adjustQ('q5mark',-1)">−</button>
+                    <span class="q-counter-val" id="q5mark">4</span>
+                    <button class="q-counter-btn" onclick="adjustQ('q5mark',1)">+</button>
+                  </div>
+                  <div class="q-marks-hint" id="q5markTotal">= 20 marks</div>
+                </div>
+                <div class="q-counter-card">
+                  <span class="q-counter-label">Section E (4 Marks Case-Based)</span>
+                  <div class="q-counter-controls">
+                    <button class="q-counter-btn" onclick="adjustQ('qcase',-1)">−</button>
+                    <span class="q-counter-val" id="qcase">3</span>
+                    <button class="q-counter-btn" onclick="adjustQ('qcase',1)">+</button>
+                  </div>
+                  <div class="q-marks-hint" id="qcaseTotal">= 12 marks (with sub-parts)</div>
+                </div>
+              </div>
+              <div class="marks-total-banner">
+                <div>
+                  <span style="color:var(--text-secondary); font-size:0.85rem;">Computed Total</span>
+                  <div id="marksBreakdown" style="font-size:0.75rem; color:var(--text-muted); margin-top:3px;"></div>
+                </div>
+                <span class="marks-total-val" id="computedTotal">80</span>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="gen-card">
+              <div class="gen-card-title"><i class="fas fa-database"></i> Step 3 — Question Source</div>
+              <div class="source-tabs">
+                <button class="source-tab-btn active" onclick="selectSource('bank',this)"><i class="fas fa-database"></i> Question Bank</button>
+                <button class="source-tab-btn" onclick="selectSource('online',this)"><i class="fas fa-globe"></i> Online Resources</button>
+                <button class="source-tab-btn" onclick="selectSource('pdf',this)"><i class="fas fa-file-pdf"></i> Chapter PDFs (Class 12)</button>
+              </div>
+              <div id="sourceBank" class="source-content">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">AI draws from CBSE standard question bank, NCERT exercises, and previous year board papers (2018–2025).</p>
+                <textarea class="gen-input" id="customTopics" rows="2" style="width:100%; resize:vertical; box-sizing:border-box;" placeholder="Optional: Specify topics, e.g. 'Integration by Parts, Bayes Theorem, Application of Derivatives'"></textarea>
+              </div>
+              <div id="sourceOnline" class="source-content" style="display:none;">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">AI references CBSE official sample papers, KVS regional papers, and CBSE board papers (2018–2025).</p>
+                <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked style="accent-color:#8b5cf6;"> CBSE Board Papers (2020–25)</label>
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked style="accent-color:#8b5cf6;"> KVS Regional Papers</label>
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" style="accent-color:#8b5cf6;"> NDA / JEE Style</label>
+                </div>
+              </div>
+              <div id="sourcePdf" class="source-content" style="display:none;">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">Select chapters from available Chapter PDFs (Class XII Mathematics):</p>
+                <div class="chapter-pdf-grid" id="chapterPdfSelector"></div>
+                <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                  <button onclick="selectAllChaptersGen(true)" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-check-double"></i> Select All</button>
+                  <button onclick="selectAllChaptersGen(false)" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-times"></i> Clear All</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="gen-card">
+              <div class="gen-card-title"><i class="fas fa-robot"></i> Step 4 — Choose AI Tool</div>
+              <div class="ai-tools-grid">
+                <div class="ai-tool-card ai-chatgpt selected" data-tool="chatgpt" onclick="selectAITool('chatgpt',this)">
+                  <div class="ai-icon">🤖</div>
+                  <div class="ai-name">ChatGPT</div>
+                  <div class="ai-desc">GPT-4o (Free &amp; Pro)</div>
+                </div>
+                <div class="ai-tool-card ai-deepseek" data-tool="deepseek" onclick="selectAITool('deepseek',this)">
+                  <div class="ai-icon">🔮</div>
+                  <div class="ai-name">DeepSeek</div>
+                  <div class="ai-desc">R1 / V3 (Free)</div>
+                </div>
+                <div class="ai-tool-card ai-gemini" data-tool="gemini" onclick="selectAITool('gemini',this)">
+                  <div class="ai-icon">✨</div>
+                  <div class="ai-name">Gemini</div>
+                  <div class="ai-desc">Google AI (Free)</div>
+                </div>
+                <div class="ai-tool-card ai-copilot" data-tool="copilot" onclick="selectAITool('copilot',this)">
+                  <div class="ai-icon">💡</div>
+                  <div class="ai-name">Copilot</div>
+                  <div class="ai-desc">Microsoft (Free)</div>
+                </div>
+              </div>
+              <div style="margin-top:14px;">
+                <button onclick="toggleAPISettings()" class="gen-btn gen-btn-edit" style="padding:7px 16px; font-size:0.8rem;"><i class="fas fa-key"></i> Advanced: Use API Key (Optional)</button>
+                <div id="apiKeySection" class="api-advanced" style="margin-top:12px; padding:14px; background:rgba(255,255,255,0.03); border-radius:10px; border:1px solid rgba(255,255,255,0.07);">
+                  <p style="color:var(--text-secondary); font-size:0.82rem; margin-bottom:10px;"><i class="fas fa-info-circle" style="color:#a78bfa;"></i> API keys are stored only in your browser (localStorage). They are never sent anywhere except directly to the AI provider.</p>
+                  <div class="gen-form-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+                    <div class="gen-form-group">
+                      <label class="gen-label">OpenAI API Key</label>
+                      <input type="password" class="gen-input" id="openaiKey" placeholder="sk-..." style="font-family:monospace; font-size:0.8rem;">
+                    </div>
+                    <div class="gen-form-group">
+                      <label class="gen-label">DeepSeek API Key</label>
+                      <input type="password" class="gen-input" id="deepseekKey" placeholder="sk-..." style="font-family:monospace; font-size:0.8rem;">
+                    </div>
+                    <div class="gen-form-group">
+                      <label class="gen-label">Gemini API Key</label>
+                      <input type="password" class="gen-input" id="geminiKey" placeholder="AIza..." style="font-family:monospace; font-size:0.8rem;">
+                    </div>
+                  </div>
+                  <div style="margin-top:10px; display:flex; gap:8px;">
+                    <button onclick="saveAPIKeys()" class="gen-btn gen-btn-dl" style="padding:7px 16px; font-size:0.8rem;"><i class="fas fa-save"></i> Save Keys</button>
+                    <button onclick="clearAPIKeys()" class="gen-btn gen-btn-danger" style="padding:7px 16px; font-size:0.8rem;"><i class="fas fa-trash"></i> Clear Keys</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="gen-card">
+              <div class="gen-card-title"><i class="fas fa-pen-fancy"></i> Step 5 — Custom Instructions (Optional)</div>
+              <textarea class="gen-input" id="genCustomInstructions" rows="3" style="width:100%; resize:vertical; box-sizing:border-box;" placeholder="E.g. 'Include a question on Bayes theorem', 'Add drug-medicine passage for case study', 'Make Sec-A all MCQ', 'Add figure-based question on 3D geometry'"></textarea>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="gen-action-bar">
+              <button class="gen-btn gen-btn-primary" onclick="generateQP()"><i class="fas fa-robot"></i> Generate with AI</button>
+              <button class="gen-btn gen-btn-preview" onclick="previewQP()"><i class="fas fa-eye"></i> Preview Sample</button>
+              <button class="gen-btn gen-btn-dl" onclick="downloadQP()" id="btnDownloadQP" style="display:none;"><i class="fas fa-download"></i> Download HTML</button>
+              <button class="gen-btn gen-btn-print" onclick="printQP()" id="btnPrintQP" style="display:none;"><i class="fas fa-print"></i> Print Paper</button>
+              <button class="gen-btn gen-btn-edit" onclick="toggleEditArea()" id="btnEditQP" style="display:none;"><i class="fas fa-edit"></i> Modify / Edit</button>
+              <button class="gen-btn gen-btn-set" onclick="generateNewSet()" id="btnNewSet" style="display:none;"><i class="fas fa-random"></i> Generate New Set</button>
+            </div>
+
+            <!-- Sets bar -->
+            <div id="setsBar" class="sets-bar" style="display:none;"></div>
+
+            <!-- Edit area -->
+            <div id="qpEditWrapper" style="display:none; margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                <span style="color:#c4b5fd; font-weight:700; font-size:0.9rem;"><i class="fas fa-edit"></i> Edit Question Paper (HTML)</span>
+                <button onclick="applyEdits()" class="gen-btn gen-btn-primary" style="padding:7px 16px; font-size:0.82rem;"><i class="fas fa-check"></i> Apply Changes</button>
+              </div>
+              <textarea id="qpEditArea"></textarea>
+            </div>
+
+            <!-- Preview -->
+            <div id="qpPreviewWrapper" style="display:none; margin-bottom:24px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+                <span style="color:#a78bfa; font-weight:700; font-size:1rem; font-family:var(--font-head);"><i class="fas fa-file-alt"></i> Question Paper Preview</span>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <button onclick="printQP()" class="gen-btn gen-btn-print" style="padding:7px 16px; font-size:0.82rem;"><i class="fas fa-print"></i> Print</button>
+                  <button onclick="downloadQP()" class="gen-btn gen-btn-dl" style="padding:7px 16px; font-size:0.82rem;"><i class="fas fa-download"></i> Download</button>
+                  <button onclick="document.getElementById('qpPreviewWrapper').style.display='none';" class="gen-btn gen-btn-danger" style="padding:7px 16px; font-size:0.82rem;"><i class="fas fa-times"></i> Close</button>
+                </div>
+              </div>
+              <div id="qpPreviewArea"></div>
+            </div>
+
+          </div><!-- end AI Generator subtab -->
+        </div><!-- end Question Papers tab -->
 
         <div class="add-test">
           <button class="add-test-btn">
@@ -1331,7 +1943,886 @@
     document.addEventListener('DOMContentLoaded', function() {
       syncChapterStatusesFromStorage();
       selectClass('class12');
+      initQPGenerator();
     });
+
+    // ============================================================
+    // QUESTION PAPERS HUB — SUBTAB SYSTEM
+    // ============================================================
+    function initQPSubtabs() {
+      document.querySelectorAll('.qp-subtab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const parent = this.closest('.tab-content');
+          parent.querySelectorAll('.qp-subtab-btn').forEach(b => b.classList.remove('active'));
+          parent.querySelectorAll('.qp-subtab-content').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          const tabId = this.getAttribute('data-qptab');
+          const target = parent.querySelector('#' + tabId);
+          if (target) target.classList.add('active');
+        });
+      });
+    }
+
+    // ============================================================
+    // PAPER COLLECTION DATA (maps to real files in question papers/)
+    // ============================================================
+    const paperCollectionData = [
+      // PT Papers
+      { name: "PT1 Class 12 Mathematics 2026", type: "PDF", category: "PT", cls: "XII", session: "2025-26", file: "question papers/PT1/12MATHS@KBJ_PT1.pdf", docx: "question papers/PT1/12MATHS@KBJ_PT1.docx" },
+      { name: "PT1 Class 11 Mathematics 2026", type: "PDF", category: "PT", cls: "XI", session: "2025-26", file: "question papers/PT1/11MATHS@KBJ_PT1.pdf", docx: "question papers/PT1/11MATHS@KBJ_PT1.docx" },
+      { name: "PT1 Class 11 — Retest 2026", type: "DOCX", category: "PT", cls: "XI", session: "2025-26", file: "question papers/PT1/11MATHS@KBJ_PT1 - Retest.docx" },
+      { name: "PT1 Class 12 Mathematics 2025", type: "DOCX", category: "PT", cls: "XII", session: "2024-25", file: "question papers/MATH_PT1_12_2025.docx" },
+      { name: "PT2 Class 12 Mathematics 2024", type: "DOCX", category: "PT", cls: "XII", session: "2023-24", file: "question papers/12math_KBJ PT224.docx" },
+      { name: "PT1 Class 11 Mathematics 2024", type: "DOCX", category: "PT", cls: "XI", session: "2023-24", file: "question papers/11math_KBJ PT124.docx" },
+      { name: "PT1 Class 7 Mathematics 2024", type: "DOCX", category: "PT", cls: "VII", session: "2023-24", file: "question papers/MATH_PT1_7_2024.docx" },
+      { name: "Maths PT1 (KBJ Collection)", type: "DOCX", category: "PT", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_PT1.docx" },
+      { name: "Maths PT2 (KBJ Collection)", type: "DOCX", category: "PT", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_PT2.docx" },
+      // HY Papers
+      { name: "HY QP Class 11 Mathematics 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.pdf", docx: "question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.docx" },
+      { name: "HY Blueprint Class 11 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.pdf", docx: "question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.docx" },
+      { name: "HY QP Class 11 (Alt) 2024", type: "PDF", category: "HY", cls: "XI", session: "2023-24", file: "question papers/Class 11 Qp HY KVR 2024/Maths qp 11 hy.pdf" },
+      { name: "HY QP Class 11 (Full File) 2024", type: "DOCX", category: "HY", cls: "XI", session: "2023-24", file: "question papers/XI MATHS_QP HY 2024.docx" },
+      // Preboard
+      { name: "Pre-Board 1 QP Class 12 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/QP-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/QP-MATHS-XII-4.docx" },
+      { name: "Pre-Board 1 Marking Scheme 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/MS-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/MS-MATHS-XII-4.docx" },
+      { name: "Pre-Board 1 Blueprint 2025", type: "PDF", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/BP-MATHS-XII-4.pdf", docx: "question papers/PB1 QP/BP-MATHS-XII-4.docx" },
+      { name: "Pre-Board 1 Solution (Interactive HTML)", type: "HTML", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/PB1 QP/Solution PB1 2025.html" },
+      { name: "Pre-Board 3 QP Class 12", type: "DOCX", category: "Preboard", cls: "XII", session: "2024-25", file: "question papers/QP MATH_12_PB3.docx" },
+      { name: "Monthly Test 2 Mathematics (KBJ)", type: "DOCX", category: "Preboard", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT2.docx" },
+      { name: "Monthly Test 3 Mathematics (KBJ)", type: "DOCX", category: "Preboard", cls: "XII", session: "2022-23", file: "question papers/Maths@KBJ_MT3.docx" },
+      // SEE Papers
+      { name: "SEE QP Class 11 Mathematics 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/11_MATHS_QP_SEE2024.docx" },
+      { name: "SEE Marking Scheme Class 11 2024", type: "DOCX", category: "SEE", cls: "XI", session: "2023-24", file: "question papers/11_MATHS_MS_SEE2024.docx" },
+      // Class Test
+      { name: "QP Bundle PT1 (Class 11) & PT2 (Class 12) 2024", type: "ZIP", category: "ClassTest", cls: "XI/XII", session: "2023-24", file: "question papers/QP PT1 11 PT2 12 2024 MATHS.zip" },
+    ];
+
+    let currentPaperFilter = 'all';
+    let currentPaperSearch = '';
+    let currentPTClass = '12';
+    let currentAITool = 'chatgpt';
+    let currentSource = 'bank';
+    let currentQPHTML = '';
+    let generatedSets = {};
+    let activeSetLetter = 'A';
+
+    const qConfig = { q1mark: 18, q2mark: 5, q3mark: 6, q5mark: 4, qcase: 3 };
+    const qMult  = { q1mark: 1, q2mark: 2, q3mark: 3, q5mark: 5, qcase: 4 };
+
+    function fileIcon(t) {
+      return { PDF:'📄', DOCX:'📝', XLSX:'📊', ZIP:'🗜️', HTML:'🌐' }[t] || '📁';
+    }
+    function fileClass(t) {
+      return { PDF:'pdf', HTML:'html-type', ZIP:'zip' }[t] || 'docx';
+    }
+    function catColor(c) {
+      return { PT:'#10b981', HY:'#f59e0b', Preboard:'#8b5cf6', SEE:'#0ea5e9', ClassTest:'#ef4444' }[c] || '#6b7280';
+    }
+    function catLabel(c) {
+      return { PT:'Periodic Test', HY:'Half Yearly', Preboard:'Pre-Board', SEE:'SEE/Annual', ClassTest:'Class Test' }[c] || c;
+    }
+
+    function buildPaperCard(p) {
+      const cc = catColor(p.category);
+      const isPDF  = p.file.endsWith('.pdf');
+      const isHTML = p.file.endsWith('.html');
+      const canView = isPDF || isHTML;
+      return `
+        <div class="paper-card ${fileClass(p.type)}" data-category="${p.category}" data-name="${p.name.toLowerCase()}">
+          <div class="paper-card-icon">${fileIcon(p.type)}</div>
+          <div style="display:flex; gap:5px; margin-bottom:7px; flex-wrap:wrap;">
+            <span style="background:${cc}22; color:${cc}; padding:2px 9px; border-radius:50px; font-size:0.7rem; font-weight:700; border:1px solid ${cc}44;">${catLabel(p.category)}</span>
+            <span style="background:rgba(255,255,255,0.07); color:#94a3b8; padding:2px 9px; border-radius:50px; font-size:0.7rem;">${p.cls} | ${p.session}</span>
+          </div>
+          <h4>${p.name}</h4>
+          <div class="paper-card-btns">
+            ${canView ? `<a href="${p.file}" target="_blank" class="pc-btn pc-btn-view"><i class="fas fa-eye"></i> View</a>` : ''}
+            <a href="${p.file}" download class="pc-btn pc-btn-dl"><i class="fas fa-download"></i> ${p.type}</a>
+            ${p.docx ? `<a href="${p.docx}" download class="pc-btn pc-btn-dl2"><i class="fas fa-file-word"></i> DOCX</a>` : ''}
+            ${isPDF ? `<button onclick="printPaperFile('${p.file.replace(/'/g,"\\\'")}')" class="pc-btn pc-btn-print"><i class="fas fa-print"></i> Print</button>` : ''}
+          </div>
+        </div>`;
+    }
+
+    function renderPaperCollection(filter, search) {
+      const grid = document.getElementById('paperCollectionGrid');
+      if (!grid) return;
+      const f = filter || currentPaperFilter;
+      const s = (search !== undefined ? search : currentPaperSearch).toLowerCase();
+      const filtered = paperCollectionData.filter(p =>
+        (f === 'all' || p.category === f) &&
+        (!s || p.name.toLowerCase().includes(s))
+      );
+      if (!filtered.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); padding:30px;"><i class="fas fa-search" style="font-size:2rem; display:block; margin-bottom:10px;"></i>No papers found.</div>';
+        return;
+      }
+      grid.innerHTML = filtered.map(buildPaperCard).join('');
+    }
+
+    function filterCollection(cat, btn) {
+      currentPaperFilter = cat;
+      document.querySelectorAll('#collectionFilters .source-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderPaperCollection();
+    }
+
+    function filterPaperCards(search) {
+      currentPaperSearch = search;
+      renderPaperCollection();
+    }
+
+    function printPaperFile(url) {
+      const w = window.open(url, '_blank');
+      if (w) w.onload = () => setTimeout(() => w.print(), 500);
+    }
+
+    // PT papers by class
+    const ptPapersData = {
+      '12': [
+        { name:"PT1 Class 12 Mathematics 2026", type:"PDF", file:"question papers/PT1/12MATHS@KBJ_PT1.pdf", docx:"question papers/PT1/12MATHS@KBJ_PT1.docx" },
+        { name:"PT1 Class 12 Mathematics 2025", type:"DOCX", file:"question papers/MATH_PT1_12_2025.docx" },
+        { name:"PT2 Class 12 Mathematics 2024", type:"DOCX", file:"question papers/12math_KBJ PT224.docx" },
+        { name:"Maths PT1 KBJ (Collection)", type:"DOCX", file:"question papers/Maths@KBJ_PT1.docx" },
+        { name:"Maths PT2 KBJ (Collection)", type:"DOCX", file:"question papers/Maths@KBJ_PT2.docx" },
+      ],
+      '11': [
+        { name:"PT1 Class 11 Mathematics 2026", type:"PDF", file:"question papers/PT1/11MATHS@KBJ_PT1.pdf", docx:"question papers/PT1/11MATHS@KBJ_PT1.docx" },
+        { name:"PT1 Class 11 — Retest 2026", type:"DOCX", file:"question papers/PT1/11MATHS@KBJ_PT1 - Retest.docx" },
+        { name:"PT1 Class 11 Mathematics 2024", type:"DOCX", file:"question papers/11math_KBJ PT124.docx" },
+      ],
+      '7': [
+        { name:"PT1 Class 7 Mathematics 2024", type:"DOCX", file:"question papers/MATH_PT1_7_2024.docx" },
+      ]
+    };
+    const ptBlueprintsData = [
+      { name:"Blueprint PT1 Class 11 & 12 (2026)", type:"XLSX", file:"question papers/PT1/Blue Print class 11 and 12 PT1 2026.xlsx" },
+      { name:"Blueprint PT1 (2024)", type:"PDF", file:"question papers/PT1/Blueprint.pdf", docx:"question papers/PT1/Blueprint.docx" },
+      { name:"Date Sheet PT1 2026", type:"JPEG", file:"question papers/PT1/date sheet Pt1.jpeg" },
+      { name:"PT1 Scan 2026 (PDF)", type:"PDF", file:"question papers/PT1/Whatsapp Scan 9 June 2026 at 13.47.02.pdf" },
+    ];
+
+    function buildSimpleCard(p) {
+      const isPDF = p.file.endsWith('.pdf') || p.file.endsWith('.html');
+      return `
+        <div class="paper-card ${fileClass(p.type)}">
+          <div class="paper-card-icon">${fileIcon(p.type)}</div>
+          <h4>${p.name}</h4>
+          <div class="paper-card-btns">
+            ${isPDF ? `<a href="${p.file}" target="_blank" class="pc-btn pc-btn-view"><i class="fas fa-eye"></i> View</a>` : ''}
+            <a href="${p.file}" download class="pc-btn pc-btn-dl"><i class="fas fa-download"></i> ${p.type}</a>
+            ${p.docx ? `<a href="${p.docx}" download class="pc-btn pc-btn-dl2"><i class="fas fa-file-word"></i> DOCX</a>` : ''}
+            ${isPDF ? `<button onclick="printPaperFile('${p.file.replace(/'/g,"\\\'")}')" class="pc-btn pc-btn-print"><i class="fas fa-print"></i> Print</button>` : ''}
+          </div>
+        </div>`;
+    }
+
+    function renderPTGrid(cls) {
+      const g = document.getElementById('ptPaperGrid');
+      const bg = document.getElementById('ptBlueprintGrid');
+      if (g) g.innerHTML = (ptPapersData[cls]||[]).map(buildSimpleCard).join('') || '<p style="color:var(--text-secondary);">No papers available.</p>';
+      if (bg) bg.innerHTML = ptBlueprintsData.map(buildSimpleCard).join('');
+    }
+
+    function selectPTClass(cls, btn) {
+      currentPTClass = cls;
+      document.querySelectorAll('[data-ptclass]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderPTGrid(cls);
+    }
+
+    function renderStaticGrids() {
+      // HY
+      const hy = [
+        { name:"HY QP Class 11 Mathematics 2024", type:"PDF", file:"question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.pdf", docx:"question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.docx" },
+        { name:"HY Blueprint Class 11 2024", type:"PDF", file:"question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.pdf", docx:"question papers/Class 11 Qp HY KVR 2024/XI MATHS HY BP 2024.docx" },
+        { name:"HY QP Class 11 (Alt) 2024", type:"PDF", file:"question papers/Class 11 Qp HY KVR 2024/Maths qp 11 hy.pdf" },
+        { name:"HY QP Class 11 (Full File) 2024", type:"DOCX", file:"question papers/XI MATHS_QP HY 2024.docx" },
+      ];
+      const hyG = document.getElementById('hyPaperGrid');
+      if (hyG) hyG.innerHTML = hy.map(buildSimpleCard).join('');
+
+      // Preboard QP
+      const pb = [
+        { name:"Pre-Board 1 QP Class 12 2025", type:"PDF", file:"question papers/PB1 QP/QP-MATHS-XII-4.pdf", docx:"question papers/PB1 QP/QP-MATHS-XII-4.docx" },
+        { name:"Pre-Board 1 Blueprint 2025", type:"PDF", file:"question papers/PB1 QP/BP-MATHS-XII-4.pdf", docx:"question papers/PB1 QP/BP-MATHS-XII-4.docx" },
+        { name:"Pre-Board 3 QP Class 12", type:"DOCX", file:"question papers/QP MATH_12_PB3.docx" },
+        { name:"Monthly Test 2 (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT2.docx" },
+        { name:"Monthly Test 3 (KBJ)", type:"DOCX", file:"question papers/Maths@KBJ_MT3.docx" },
+      ];
+      const pbG = document.getElementById('preboardPaperGrid');
+      if (pbG) pbG.innerHTML = pb.map(buildSimpleCard).join('');
+
+      // Preboard solutions
+      const pbSol = [
+        { name:"Pre-Board 1 Marking Scheme 2025", type:"PDF", file:"question papers/PB1 QP/MS-MATHS-XII-4.pdf", docx:"question papers/PB1 QP/MS-MATHS-XII-4.docx" },
+        { name:"Pre-Board 1 Full Solution (Interactive)", type:"HTML", file:"question papers/PB1 QP/Solution PB1 2025.html" },
+      ];
+      const pbSG = document.getElementById('preboardSolutionGrid');
+      if (pbSG) pbSG.innerHTML = pbSol.map(buildSimpleCard).join('');
+
+      // SEE
+      const see = [
+        { name:"SEE QP Class 11 Mathematics 2024", type:"DOCX", file:"question papers/11_MATHS_QP_SEE2024.docx" },
+        { name:"SEE Marking Scheme Class 11 2024", type:"DOCX", file:"question papers/11_MATHS_MS_SEE2024.docx" },
+      ];
+      const seeG = document.getElementById('seePaperGrid');
+      if (seeG) seeG.innerHTML = see.map(buildSimpleCard).join('');
+
+      // Class Test downloadable
+      const ct = [
+        { name:"PT1 Class 11 & PT2 Class 12 Bundle (ZIP)", type:"ZIP", file:"question papers/QP PT1 11 PT2 12 2024 MATHS.zip" },
+      ];
+      const ctG = document.getElementById('classTestPaperGrid');
+      if (ctG) ctG.innerHTML = ct.map(buildSimpleCard).join('');
+    }
+
+    // ============================================================
+    // QUESTION COUNTER LOGIC
+    // ============================================================
+    function adjustQ(key, delta) {
+      qConfig[key] = Math.max(0, qConfig[key] + delta);
+      const valEl = document.getElementById(key);
+      if (valEl) valEl.textContent = qConfig[key];
+      const totalEl = document.getElementById(key + 'Total');
+      const m = qConfig[key] * qMult[key];
+      if (totalEl) totalEl.textContent = `= ${m} marks${key==='qcase' ? ' (sub-parts)' : ''}`;
+      updateMarksTotal();
+    }
+
+    function updateMarksTotal() {
+      const computed = Object.keys(qConfig).reduce((s, k) => s + qConfig[k] * qMult[k], 0);
+      const el = document.getElementById('computedTotal');
+      if (el) {
+        el.textContent = computed;
+        const target = parseInt(document.getElementById('genTotalMarks')?.value || 80);
+        el.style.color = computed === target ? '#34d399' : (computed > target ? '#f87171' : '#f59e0b');
+      }
+      const bd = document.getElementById('marksBreakdown');
+      if (bd) bd.textContent = `A:${qConfig.q1mark}×1 + B:${qConfig.q2mark}×2 + C:${qConfig.q3mark}×3 + D:${qConfig.q5mark}×5 + E:${qConfig.qcase}×4 = ${computed}`;
+    }
+
+    // ============================================================
+    // EXAM PRESET
+    // ============================================================
+    function applyExamPreset() {
+      const type = document.getElementById('genExamType')?.value;
+      const presets = {
+        'Class Test':      { marks:20, dur:0.67, q1:5, q2:3, q3:2, q5:1, qc:0 },
+        'Periodic Test 1': { marks:40, dur:1.5,  q1:10, q2:4, q3:3, q5:2, qc:1 },
+        'Periodic Test 2': { marks:40, dur:1.5,  q1:10, q2:4, q3:3, q5:2, qc:1 },
+        'Half Yearly':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Pre-Board 1':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Pre-Board 2':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'Pre-Board 3':     { marks:80, dur:3,    q1:18, q2:5, q3:6, q5:4, qc:3 },
+        'SEE / Annual Exam':{ marks:80, dur:3,   q1:18, q2:5, q3:6, q5:4, qc:3 },
+      };
+      const p = presets[type];
+      if (!p) return;
+      document.getElementById('genTotalMarks').value = p.marks;
+      document.getElementById('genDuration').value = p.dur;
+      qConfig.q1mark = p.q1; qConfig.q2mark = p.q2; qConfig.q3mark = p.q3;
+      qConfig.q5mark = p.q5; qConfig.qcase = p.qc;
+      ['q1mark','q2mark','q3mark','q5mark','qcase'].forEach(k => {
+        const el = document.getElementById(k);
+        if (el) el.textContent = qConfig[k];
+        adjustQ(k, 0); // refresh hint
+      });
+      updateMarksTotal();
+    }
+
+    // ============================================================
+    // SOURCE SELECTION
+    // ============================================================
+    function selectSource(src, btn) {
+      currentSource = src;
+      document.querySelectorAll('.source-tabs .source-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      ['sourceBank','sourceOnline','sourcePdf'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      const map = { bank:'sourceBank', online:'sourceOnline', pdf:'sourcePdf' };
+      const t = document.getElementById(map[src]);
+      if (t) t.style.display = 'block';
+    }
+
+    // ============================================================
+    // CHAPTER PDF SELECTOR (Class 12)
+    // ============================================================
+    const class12ChaptersData = [
+      { num:1,  title:"Relations and Functions",         file:"all chapters pdf/1 RELATIONS AND FUNCTIONS.pdf" },
+      { num:2,  title:"Inverse Trigonometric Functions", file:"all chapters pdf/2 INVERSE TRIGONOMETRIC FUNCTIONS.pdf" },
+      { num:3,  title:"Matrices",                        file:"all chapters pdf/3 MATRICES.pdf" },
+      { num:4,  title:"Determinants",                    file:"all chapters pdf/4 DETERMINANTS.pdf" },
+      { num:5,  title:"Continuity & Differentiability",  file:"all chapters pdf/5 CONTINUITY AND DIFFERENTIABILITY.pdf" },
+      { num:6,  title:"Applications of Derivatives",     file:"all chapters pdf/6 APPLICATIONS OF DERIVATIVES.pdf" },
+      { num:7,  title:"Integrals (Indefinite)",           file:"all chapters pdf/7 INTEGRALS INDEFINITE.pdf" },
+      { num:8,  title:"Integrals (Definite)",             file:"all chapters pdf/8 INTEGRALS DEFINITE.pdf" },
+      { num:9,  title:"Applications of Integrals",       file:"all chapters pdf/9 APPLICATIONS OF INTEGRALS.pdf" },
+      { num:10, title:"Differential Equations",          file:"all chapters pdf/10 DIFFERENTIAL EQUATIONS.pdf" },
+      { num:11, title:"Vector Algebra",                  file:"all chapters pdf/11 VECTORS.pdf" },
+      { num:12, title:"Three Dimensional Geometry",      file:"all chapters pdf/12 3-DIMENSIONAL GEOMETRY.pdf" },
+      { num:13, title:"Linear Programming",              file:"all chapters pdf/13 LINEAR PRAGRAMMING.pdf" },
+      { num:14, title:"Probability",                     file:"all chapters pdf/14 PROBABILITY.pdf" },
+    ];
+
+    function renderChapterPDFSelector() {
+      const grid = document.getElementById('chapterPdfSelector');
+      if (!grid) return;
+      grid.innerHTML = class12ChaptersData.map(ch => `
+        <label class="ch-pdf-item" id="chlabel_${ch.num}" for="chpdf_${ch.num}">
+          <input type="checkbox" id="chpdf_${ch.num}" value="${ch.num}" onchange="toggleChLabel(${ch.num})">
+          <span>Ch.${ch.num}: ${ch.title}</span>
+        </label>`).join('');
+    }
+
+    function toggleChLabel(n) {
+      const cb = document.getElementById(`chpdf_${n}`);
+      const lb = document.getElementById(`chlabel_${n}`);
+      if (cb && lb) lb.classList.toggle('checked', cb.checked);
+    }
+
+    function selectAllChaptersGen(val) {
+      class12ChaptersData.forEach(ch => {
+        const cb = document.getElementById(`chpdf_${ch.num}`);
+        if (cb) { cb.checked = val; toggleChLabel(ch.num); }
+      });
+    }
+
+    function getSelectedChapters() {
+      return class12ChaptersData.filter(ch => {
+        const cb = document.getElementById(`chpdf_${ch.num}`);
+        return cb && cb.checked;
+      });
+    }
+
+    function updateChapterListGen() { renderChapterPDFSelector(); }
+
+    // ============================================================
+    // AI TOOL SELECTION
+    // ============================================================
+    function selectAITool(tool, el) {
+      currentAITool = tool;
+      document.querySelectorAll('.ai-tool-card').forEach(c => c.classList.remove('selected'));
+      if (el) el.classList.add('selected');
+    }
+
+    const aiURLs = {
+      chatgpt: 'https://chat.openai.com/',
+      deepseek: 'https://chat.deepseek.com/',
+      gemini: 'https://gemini.google.com/',
+      copilot: 'https://copilot.microsoft.com/'
+    };
+    const aiNames = { chatgpt:'ChatGPT', deepseek:'DeepSeek', gemini:'Gemini', copilot:'Copilot' };
+
+    // ============================================================
+    // API KEY MANAGEMENT
+    // ============================================================
+    function toggleAPISettings() {
+      document.getElementById('apiKeySection')?.classList.toggle('open');
+    }
+    function saveAPIKeys() {
+      const pairs = [['openaiKey','qp_openai_key'],['deepseekKey','qp_deepseek_key'],['geminiKey','qp_gemini_key']];
+      pairs.forEach(([id, lk]) => { const v = document.getElementById(id)?.value; if (v) localStorage.setItem(lk, v); });
+      showToast('✅ API keys saved to browser storage!');
+    }
+    function clearAPIKeys() {
+      ['qp_openai_key','qp_deepseek_key','qp_gemini_key'].forEach(k => localStorage.removeItem(k));
+      ['openaiKey','deepseekKey','geminiKey'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      showToast('🗑️ API keys cleared!');
+    }
+    function loadSavedAPIKeys() {
+      [['openaiKey','qp_openai_key'],['deepseekKey','qp_deepseek_key'],['geminiKey','qp_gemini_key']].forEach(([id, lk]) => {
+        const v = localStorage.getItem(lk);
+        const el = document.getElementById(id);
+        if (v && el) el.value = v;
+      });
+    }
+
+    // ============================================================
+    // PROMPT BUILDER
+    // ============================================================
+    function buildQPPrompt() {
+      const examType    = document.getElementById('genExamType')?.value || 'Half Yearly';
+      const cls         = document.getElementById('genClass')?.value || 'XII';
+      const subj        = document.getElementById('genSubject')?.value || 'Mathematics (041)';
+      const marks       = document.getElementById('genTotalMarks')?.value || '80';
+      const dur         = document.getElementById('genDuration')?.value || '3';
+      const session     = document.getElementById('genSession')?.value || '2025-26';
+      const dt          = document.getElementById('genDate')?.value || '';
+      const numSets     = document.getElementById('genSets')?.value || '1';
+      const customInstr = document.getElementById('genCustomInstructions')?.value || '';
+      const topics      = document.getElementById('customTopics')?.value || '';
+
+      let srcDesc = '';
+      if (currentSource === 'bank')
+        srcDesc = `CBSE standard question bank, NCERT exercises, PYQs (2018–2025).${topics ? ' Focus on: ' + topics : ''}`;
+      else if (currentSource === 'online')
+        srcDesc = 'CBSE official sample papers, KVS regional papers (2018–2025).';
+      else {
+        const sel = getSelectedChapters();
+        srcDesc = sel.length ? 'From selected chapters: ' + sel.map(c => `Ch.${c.num} ${c.title}`).join(', ') + '.' : 'All chapters of Class XII Mathematics.';
+      }
+
+      const totalQ = Object.keys(qConfig).reduce((s, k) => s + qConfig[k], 0);
+      const totalM = Object.keys(qConfig).reduce((s, k) => s + qConfig[k] * qMult[k], 0);
+
+      return `You are an expert CBSE Mathematics teacher. Generate a complete, print-ready ${examType} question paper for Class ${cls} ${subj} in proper LaTeX format.
+
+EXAM DETAILS:
+• School: PM SHRI KENDRIYA VIDYALAYA RANIKHET
+• Class: ${cls} | Subject: ${subj}
+• Exam: ${examType} | Session: ${session}${dt ? ' | Date: ' + dt : ''}
+• Time: ${dur} Hours | Maximum Marks: ${marks}
+
+QUESTION DISTRIBUTION (Total: ${totalQ} Questions = ${totalM} Marks):
+• Section A — ${qConfig.q1mark} questions × 1 mark = ${qConfig.q1mark} marks
+  (MCQs and Assertion-Reason type; last 2 should be Assertion-Reason)
+• Section B — ${qConfig.q2mark} questions × 2 marks = ${qConfig.q2mark*2} marks
+  (Very Short Answer; no internal choice)
+• Section C — ${qConfig.q3mark} questions × 3 marks = ${qConfig.q3mark*3} marks
+  (Short Answer; provide internal choice in 2 questions)
+• Section D — ${qConfig.q5mark} questions × 5 marks = ${qConfig.q5mark*5} marks
+  (Long Answer; provide internal choice in 2 questions)
+• Section E — ${qConfig.qcase} case-based questions × 4 marks = ${qConfig.qcase*4} marks
+  (Each has a real-world passage + 3 sub-parts: 1+1+2 marks; last sub-part has internal choice)
+
+QUESTION SOURCES: ${srcDesc}
+
+LaTeX FORMAT REQUIREMENTS:
+\\documentclass[12pt]{article}
+\\usepackage[a4paper, top=1.2cm, bottom=1.2cm, left=1.5cm, right=1.5cm]{geometry}
+\\usepackage{amsmath, amssymb, amsthm, enumitem, multicol, array, tabularx}
+\\usepackage{graphicx, xcolor, fancyhdr, mdframed}
+
+Requirements:
+1. School header with name, class, subject, exam name, time, marks — formatted with \\hrule
+2. 8-point CBSE-style General Instructions
+3. Section headings showing question count and marks (e.g., "SECTION A (18 × 1 = 18 Marks)")
+4. ALL math in proper LaTeX: \\frac{}{}, \\int_{a}^{b}, \\lim_{x \\to}, \\vec{a}, matrix environments
+5. Assertion-Reason: Show A-B-C-D options in standard CBSE format
+6. Case-based questions: realistic context passage (medicine/environment/geometry/business), then (i)(ii)(iii) sub-parts
+7. Internal choice shown as "\\textbf{OR}" between alternatives
+8. Consecutive numbering Q1 through Q${totalQ}
+9. A4 page, minimum margins, ready for pdflatex compilation
+${parseInt(numSets) > 1 ? `10. After main paper, add "\\newpage" and generate SET B with questions in different order.` : ''}
+${customInstr ? '\nADDITIONAL INSTRUCTIONS:\n' + customInstr : ''}
+
+Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\documentclass and end with \\end{document}.`;
+    }
+
+    // ============================================================
+    // GENERATE PAPER (AI or prompt-copy)
+    // ============================================================
+    function generateQP() {
+      const keyMap = { chatgpt: localStorage.getItem('qp_openai_key'), deepseek: localStorage.getItem('qp_deepseek_key'), gemini: localStorage.getItem('qp_gemini_key') };
+      const apiKey = keyMap[currentAITool];
+      const prompt = buildQPPrompt();
+      if (apiKey && ['chatgpt','deepseek','gemini'].includes(currentAITool)) {
+        generateWithAPI(apiKey, prompt);
+      } else {
+        showPromptModal(prompt);
+      }
+    }
+
+    async function generateWithAPI(apiKey, prompt) {
+      const btn = document.querySelector('.gen-btn-primary');
+      if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...'; btn.disabled = true; }
+      try {
+        let result = '';
+        if (currentAITool === 'chatgpt') {
+          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+            body:JSON.stringify({ model:'gpt-4o', messages:[{role:'user',content:prompt}], max_tokens:4000, temperature:0.7 })
+          });
+          const d = await res.json();
+          if (d.error) throw new Error(d.error.message);
+          result = d.choices[0].message.content;
+        } else if (currentAITool === 'deepseek') {
+          const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
+            body:JSON.stringify({ model:'deepseek-chat', messages:[{role:'user',content:prompt}], temperature:0.7 })
+          });
+          const d = await res.json();
+          if (d.error) throw new Error(d.error.message);
+          result = d.choices[0].message.content;
+        } else if (currentAITool === 'gemini') {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+          });
+          const d = await res.json();
+          if (d.error) throw new Error(d.error.message);
+          result = d.candidates[0].content.parts[0].text;
+        }
+        if (result) { renderGeneratedPaper(result); showToast('✅ Question paper generated!'); }
+      } catch (err) {
+        showToast('❌ API Error: ' + err.message + '. Switching to prompt-copy mode.');
+        showPromptModal(buildQPPrompt());
+      } finally {
+        if (btn) { btn.innerHTML = '<i class="fas fa-robot"></i> Generate with AI'; btn.disabled = false; }
+      }
+    }
+
+    function showPromptModal(prompt) {
+      let modal = document.getElementById('qpPromptModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'qpPromptModal';
+        modal.className = 'prompt-modal-overlay';
+        modal.innerHTML = `
+          <div class="prompt-modal">
+            <h3><i class="fas fa-robot" style="color:#a78bfa;"></i> AI Question Paper Generator</h3>
+            <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">
+              Your LaTeX prompt is ready. Copy it, open the AI tool, paste and run. Then paste the AI-generated output below to render &amp; print.
+            </p>
+            <textarea class="prompt-textarea" id="qpPromptText" readonly></textarea>
+            <div class="prompt-modal-actions">
+              <button onclick="copyPromptText()" class="gen-btn gen-btn-primary" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-copy"></i> Copy Prompt</button>
+              <button id="qpOpenAIBtn" class="gen-btn gen-btn-preview" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-external-link-alt"></i> Open AI Tool</button>
+              <button onclick="closePromptModal()" class="gen-btn gen-btn-edit" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-times"></i> Close</button>
+            </div>
+            <hr style="border-color:rgba(255,255,255,0.08); margin:16px 0;">
+            <p style="color:var(--text-secondary); font-size:0.82rem; margin-bottom:8px;"><i class="fas fa-paste" style="color:#a78bfa;"></i> Paste AI-generated LaTeX/HTML output here:</p>
+            <textarea id="qpAIOutputInput" class="prompt-textarea" placeholder="Paste the AI output here..." style="min-height:150px;"></textarea>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+              <button onclick="renderPastedOutput()" class="gen-btn gen-btn-primary" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-magic"></i> Render &amp; Preview</button>
+            </div>
+          </div>`;
+        document.body.appendChild(modal);
+        modal.addEventListener('click', e => { if (e.target === modal) closePromptModal(); });
+      }
+      document.getElementById('qpPromptText').value = prompt;
+      const ob = document.getElementById('qpOpenAIBtn');
+      if (ob) { ob.innerHTML = `<i class="fas fa-external-link-alt"></i> Open ${aiNames[currentAITool]||'AI Tool'}`; ob.onclick = () => window.open(aiURLs[currentAITool],'_blank'); }
+      navigator.clipboard.writeText(prompt).catch(()=>{});
+      modal.classList.add('open');
+      showToast(`📋 Prompt copied! Paste into ${aiNames[currentAITool]||'AI'}`);
+    }
+
+    function closePromptModal() { document.getElementById('qpPromptModal')?.classList.remove('open'); }
+    function copyPromptText() {
+      const t = document.getElementById('qpPromptText')?.value;
+      if (t) navigator.clipboard.writeText(t).then(()=>showToast('📋 Prompt copied!'));
+    }
+    function renderPastedOutput() {
+      const text = document.getElementById('qpAIOutputInput')?.value?.trim();
+      if (!text) { showToast('⚠️ Please paste AI output first.'); return; }
+      closePromptModal();
+      renderGeneratedPaper(text);
+    }
+
+    // ============================================================
+    // RENDER GENERATED PAPER (LaTeX → HTML + KaTeX)
+    // ============================================================
+    function renderGeneratedPaper(content) {
+      currentQPHTML = content;
+      let html = content.includes('\\documentclass') ? latexToHTML(content) : content;
+      const preview = document.getElementById('qpPreviewArea');
+      const wrapper = document.getElementById('qpPreviewWrapper');
+      if (preview) {
+        preview.innerHTML = html;
+        if (window.renderMathInElement) {
+          renderMathInElement(preview, {
+            delimiters: [
+              {left:'\\(',  right:'\\)',  display:false},
+              {left:'\\[',  right:'\\]',  display:true},
+              {left:'$$',   right:'$$',   display:true},
+              {left:'$',    right:'$',    display:false},
+            ],
+            throwOnError: false
+          });
+        }
+      }
+      if (wrapper) { wrapper.style.display = 'block'; wrapper.scrollIntoView({behavior:'smooth'}); }
+      const editArea = document.getElementById('qpEditArea');
+      if (editArea) editArea.value = content;
+      ['btnDownloadQP','btnPrintQP','btnEditQP','btnNewSet'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.style.display = 'inline-flex';
+      });
+      const numSets = parseInt(document.getElementById('genSets')?.value || 1);
+      generatedSets['A'] = content; activeSetLetter = 'A';
+      updateSetsBar(numSets);
+    }
+
+    function latexToHTML(latex) {
+      let body = latex;
+      const bm = latex.match(/\\begin\{document\}([\s\S]*?)\\end\{document\}/);
+      if (bm) body = bm[1];
+      body = body
+        .replace(/\\textbf\{([^}]+)\}/g, '<strong>$1</strong>')
+        .replace(/\\textit\{([^}]+)\}/g, '<em>$1</em>')
+        .replace(/\\underline\{([^}]+)\}/g, '<u>$1</u>')
+        .replace(/\\section\*?\{([^}]+)\}/g, '<h2 style="font-size:1.05rem;font-weight:bold;margin:14px 0 6px;text-align:center;background:#f5f5f5;padding:5px;border:1px solid #ccc;">$1</h2>')
+        .replace(/\\hrule/g, '<hr style="border:1.5px solid #000;margin:6px 0;">')
+        .replace(/\\newline|\\\\(?!\[)/g, '<br>')
+        .replace(/\\vspace\{[^}]+\}/g, '<div style="margin:6px 0;"></div>')
+        .replace(/\\hspace\{[^}]+\}/g, '&nbsp;&nbsp;&nbsp;')
+        .replace(/\\noindent/g,'')
+        .replace(/\\centering/g,'')
+        .replace(/\\begin\{center\}([\s\S]*?)\\end\{center\}/g, '<div style="text-align:center;">$1</div>')
+        .replace(/\\begin\{enumerate\}(?:\[[^\]]*\])?([\s\S]*?)\\end\{enumerate\}/g,'<ol style="margin-left:18px;margin-top:4px;">$1</ol>')
+        .replace(/\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,'<ul style="margin-left:18px;">$1</ul>')
+        .replace(/\\item\s+/g,'<li style="margin:2px 0;">')
+        .replace(/\\begin\{multicols\}\{[^}]+\}([\s\S]*?)\\end\{multicols\}/g,'<div style="column-count:2;gap:20px;">$1</div>')
+        .replace(/\\columnbreak/g,'<div style="break-after:column;"></div>')
+        .replace(/\\newpage/g,'<div style="page-break-before:always;margin-top:20px;"></div>')
+        .replace(/\\%/g,'%').replace(/\\&/g,'&amp;').replace(/\\\$/g,'$')
+        .replace(/\n\n+/g,'</p><p style="margin:3px 0;">');
+      const et=document.getElementById('genExamType')?.value||'Examination';
+      const cl=document.getElementById('genClass')?.value||'XII';
+      const mk=document.getElementById('genTotalMarks')?.value||'80';
+      const du=document.getElementById('genDuration')?.value||'3';
+      const ss=document.getElementById('genSession')?.value||'2025-26';
+      return `<div style="font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;color:#000;max-width:210mm;margin:0 auto;padding:12mm 18mm;background:#fff;">
+        <div style="text-align:center;margin-bottom:12px;">
+          <div style="font-size:13pt;font-weight:bold;text-transform:uppercase;letter-spacing:0.5px;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
+          <div style="font-size:9.5pt;color:#333;margin:2px 0;">Affiliated to CBSE | Session: ${ss}</div>
+          <hr style="border:2px solid #000;margin:5px 0;">
+          <table style="width:100%;font-size:10pt;font-weight:bold;"><tr>
+            <td style="text-align:left;">Class: ${cl}</td>
+            <td style="text-align:center;">${et.toUpperCase()}</td>
+            <td style="text-align:right;">Max. Marks: ${mk}</td>
+          </tr><tr>
+            <td></td><td style="text-align:center;font-weight:normal;font-size:9.5pt;">Time Allowed: ${du} Hour${du==1?'':'s'}</td><td></td>
+          </tr></table>
+          <hr style="border:1px solid #000;margin:5px 0;">
+        </div>
+        <div style="font-size:9.5pt;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed #555;">
+          <strong>General Instructions:</strong>
+          <ol style="margin:4px 0 0 16px;line-height:1.75;">
+            <li>This paper contains <strong>five sections A, B, C, D and E</strong>. All sections are compulsory.</li>
+            <li>Section A: <strong>${qConfig.q1mark} MCQs/Assertion-Reason</strong> of 1 mark each.</li>
+            <li>Section B: <strong>${qConfig.q2mark} Very Short Answer</strong> of 2 marks each.</li>
+            <li>Section C: <strong>${qConfig.q3mark} Short Answer</strong> of 3 marks each.</li>
+            <li>Section D: <strong>${qConfig.q5mark} Long Answer</strong> of 5 marks each.</li>
+            <li>Section E: <strong>${qConfig.qcase} Case-Based</strong> of 4 marks each with sub-parts.</li>
+            <li>Internal choice is provided in Sections C, D and E. Attempt <em>any one</em>.</li>
+            <li>Use of calculator is <strong>NOT</strong> permitted. Draw neat figures wherever necessary.</li>
+          </ol>
+        </div>
+        <p style="margin:3px 0;">${body}</p>
+        <div style="text-align:center;margin-top:16px;padding-top:8px;border-top:2px solid #000;font-size:10pt;font-weight:bold;">✦ ✦ ✦ END OF QUESTION PAPER ✦ ✦ ✦</div>
+      </div>`;
+    }
+
+    // ============================================================
+    // PREVIEW SAMPLE (without AI — uses real CBSE questions)
+    // ============================================================
+    function previewQP() { renderGeneratedPaper(buildSampleQPHTML()); }
+
+    function buildSampleQPHTML() {
+      const et=document.getElementById('genExamType')?.value||'Half Yearly';
+      const cl=document.getElementById('genClass')?.value||'XII';
+      const mk=parseInt(document.getElementById('genTotalMarks')?.value||80);
+      const du=document.getElementById('genDuration')?.value||'3';
+      const ss=document.getElementById('genSession')?.value||'2025-26';
+      const dt=document.getElementById('genDate')?.value||'';
+      let qn=1, secA='', secB='', secC='', secD='', secE='';
+
+      const aqns = [
+        [`If \\(A\\) is a square matrix of order 3 such that \\(|A| = -5\\), then \\(|{\\rm adj}\\, A|\\) is:`, ['(a) 25','(b) −25','(c) −5','(d) 125']],
+        [`The value of \\(\\cos^{-1}\\!\\left(\\cos\\frac{7\\pi}{6}\\right)\\) is:`, ['(a) \\(\\frac{7\\pi}{6}\\)','(b) \\(\\frac{5\\pi}{6}\\)','(c) \\(\\frac{\\pi}{6}\\)','(d) \\(\\frac{\\pi}{3}\\)']],
+        [`If \\(y = \\sin^{-1}(2x\\sqrt{1-x^2})\\), then \\(\\frac{dy}{dx}\\) is:`, ['(a) \\(\\frac{1}{\\sqrt{1-x^2}}\\)','(b) \\(\\frac{2}{\\sqrt{1-x^2}}\\)','(c) \\(\\frac{-2}{\\sqrt{1-x^2}}\\)','(d) \\(2\\sqrt{1-x^2}\\)']],
+        [`\\(\\int_0^{\\pi/2} \\cos^2 x\\, dx\\) equals:`, ['(a) 0','(b) \\(\\frac{\\pi}{4}\\)','(c) \\(\\frac{\\pi}{2}\\)','(d) 1']],
+        [`The degree of differential equation \\(\\left(\\frac{d^2y}{dx^2}\\right)^3 + \\left(\\frac{dy}{dx}\\right)^2 + \\sin\\left(\\frac{dy}{dx}\\right)+1=0\\) is:`, ['(a) 3','(b) 2','(c) 1','(d) Not defined']],
+        [`If \\(\\vec{a}\\) and \\(\\vec{b}\\) are unit vectors and \\(\\theta\\) is the angle between them, then \\(|\\vec{a}+\\vec{b}|\\) is a unit vector when \\(\\theta\\) is:`, ['(a) \\(\\frac{\\pi}{4}\\)','(b) \\(\\frac{\\pi}{3}\\)','(c) \\(\\frac{2\\pi}{3}\\)','(d) \\(\\pi\\)']],
+        [`<strong>Assertion (A):</strong> The function \\(f(x)=|x-1|\\) is not differentiable at \\(x=1\\).<br><strong>Reason (R):</strong> The left-hand derivative and right-hand derivative of \\(f\\) at \\(x=1\\) are \\(-1\\) and \\(1\\) respectively.`, ['(a) Both A and R are true; R is the correct explanation of A.','(b) Both A and R are true but R is not the correct explanation of A.','(c) A is true but R is false.','(d) A is false but R is true.']],
+      ];
+      for (let i=0;i<qConfig.q1mark;i++){
+        const q=aqns[i]||[`Sample MCQ / A-R Question ${i+1}. [Auto-generated placeholder]`,['(a) Option 1','(b) Option 2','(c) Option 3','(d) Option 4']];
+        secA+=`<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${q[0]}</p><p style="margin:2px 0 10px 20px;">${q[1].join(' &nbsp;&nbsp; ')}</p>`;
+        qn++;
+      }
+
+      const bqns=[
+        `Find \\(\\frac{dy}{dx}\\) if \\(y=\\left(\\tan x\\right)^{\\cot x}\\).`,
+        `Find \\(\\int \\frac{\\sin x}{\\sin(x-a)}\\,dx\\).`,
+        `If \\(\\vec{a}+\\vec{b}+\\vec{c}=\\vec{0}\\) and \\(|\\vec{a}|=3,\\,|\\vec{b}|=5,\\,|\\vec{c}|=7\\), find the angle between \\(\\vec{a}\\) and \\(\\vec{b}\\).`,
+        `Evaluate: \\(\\int_0^{\\pi/4} \\log(1+\\tan x)\\,dx\\).`,
+        `Find the foot of perpendicular drawn from point \\((1,6,3)\\) to the line \\(\\frac{x}{1}=\\frac{y-1}{2}=\\frac{z-2}{3}\\).`,
+      ];
+      for(let i=0;i<qConfig.q2mark;i++){
+        secB+=`<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${bqns[i]||`[2-mark question ${qn}]`}</p>`;
+        qn++;
+      }
+
+      const cqns=[
+        `Find \\(\\int x^2 e^{3x}\\,dx\\).`,
+        `Prove that the function \\(f(x)=\\frac{x^3}{3}-x^2+x+1\\) is strictly increasing on \\(\\mathbb{R}\\). &nbsp;<strong>OR</strong>&nbsp; Find the intervals in which \\(f(x)=\\sin x + \\cos x,\\; x\\in[0,2\\pi]\\) is strictly increasing.`,
+        `Solve the differential equation: \\((1+x^2)\\,dy + 2xy\\,dx = \\cot x\\,dx\\). &nbsp;<strong>OR</strong>&nbsp; Solve: \\(\\frac{dy}{dx} = \\frac{y-x}{y+x}\\).`,
+        `Using properties of determinants, prove that \\(\\begin{vmatrix}1+a & 1 & 1\\\\ 1 & 1+b & 1\\\\ 1 & 1 & 1+c\\end{vmatrix}=abc\\left(1+\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}\\right)\\).`,
+        `Find the position vector of the foot of perpendicular and the perpendicular distance from the point \\(P(2,3,-8)\\) to the plane \\(2y - x + z = -5\\).`,
+        `If \\(A\\) and \\(B\\) are two events such that \\(P(A)=\\frac{1}{4}\\), \\(P(B)=\\frac{1}{3}\\) and \\(P(A\\cap B)=\\frac{1}{5}\\), find \\(P(\\bar{A}|\\bar{B})\\).`,
+      ];
+      for(let i=0;i<qConfig.q3mark;i++){
+        secC+=`<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${cqns[i]||`[3-mark question ${qn}]`}</p>`;
+        qn++;
+      }
+
+      const dqns=[
+        `Find the area of the region bounded by the curves \\(y^2=4x\\) and \\(x^2=4y\\). &nbsp;<strong>OR</strong>&nbsp; Using integration find the area bounded by the triangle whose vertices are \\((1,0),\\,(2,2)\\) and \\((3,1)\\).`,
+        `Let \\(A=\\{-4,-3,-2,0,1,2,3,4\\}\\) and \\(R=\\{(a,b): a=b^2\\}\\). Show that \\(R\\) is neither reflexive nor symmetric nor transitive. &nbsp;<strong>OR</strong>&nbsp; Show that \\(f:\\mathbb{N}\\to\\mathbb{N}\\) defined by \\(f(n)=\\begin{cases}\\frac{n+1}{2}&\\text{if }n\\text{ is odd}\\\\\\frac{n}{2}&\\text{if }n\\text{ is even}\\end{cases}\\) is onto but not one-one.`,
+        `Solve the system of linear equations using matrix method: \\(x+y+z=6,\\; y+3z=11,\\; x-2y+z=0\\).`,
+        `A manufacturer produces two types of items \\(P\\) and \\(Q\\). Item \\(P\\) requires 2 hours on machine \\(A\\) and 1 hour on machine \\(B\\); item \\(Q\\) requires 1 hour on \\(A\\) and 3 hours on \\(B\\). Machines \\(A\\) and \\(B\\) are available for 10 and 15 hours per day. Profit on \\(P\\) is ₹150 and on \\(Q\\) is ₹200. Formulate and solve the L.P.P. graphically to maximise profit.`,
+      ];
+      for(let i=0;i<qConfig.q5mark;i++){
+        secD+=`<p style="margin:10px 0;"><strong>Q${qn}.</strong> ${dqns[i]||`[5-mark question ${qn}]`}</p>`;
+        qn++;
+      }
+
+      const eqns=[
+        { passage:`<strong>Case Study 1 — Medicine Distribution:</strong><br>A medical company has three types of vaccine batches \\(V_1, V_2, V_3\\) with proportions \\(3:4:3\\). Their effectiveness rates are \\(70\\%\\), \\(80\\%\\) and \\(90\\%\\) respectively. A randomly selected vaccine is found effective.`,
+          parts:[`(i) Find the total probability that a randomly chosen vaccine is effective. &nbsp;<em>[1]</em>`,`(ii) Find \\(P(V_2)\\cdot P(E|V_2)\\). &nbsp;<em>[1]</em>`,`(iii) Using Bayes' theorem, find the probability that effective vaccine is from batch \\(V_3\\). &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find the probability that it is NOT from \\(V_1\\). &nbsp;<em>[2]</em>`]},
+        { passage:`<strong>Case Study 2 — Box Design:</strong><br>An open rectangular box with square base is to be made from a cardboard of area \\(432\\text{ cm}^2\\). Let the side of square base be \\(x\\) cm and height be \\(h\\) cm.`,
+          parts:[`(i) Express \\(h\\) in terms of \\(x\\). &nbsp;<em>[1]</em>`,`(ii) Write the volume \\(V(x)\\) of the box. &nbsp;<em>[1]</em>`,`(iii) Find the value of \\(x\\) that maximizes the volume, and find the maximum volume. &nbsp;<em>[2]</em>`]},
+        { passage:`<strong>Case Study 3 — Traffic Flow:</strong><br>At a traffic junction, the number of vehicles passing per minute follows a certain pattern. The probability of exactly \\(n\\) vehicles arriving in time \\(t\\) minutes is \\(P(n)=\\frac{(\\lambda t)^n e^{-\\lambda t}}{n!}\\) where \\(\\lambda=2\\) vehicles/min.`,
+          parts:[`(i) Find \\(P(0)\\) when \\(t=1\\). &nbsp;<em>[1]</em>`,`(ii) Find \\(P(1)\\) when \\(t=1\\). &nbsp;<em>[1]</em>`,`(iii) Find \\(P(n\\geq 1)\\) when \\(t=1\\) min. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find mean number of vehicles in 2 minutes. &nbsp;<em>[2]</em>`]},
+      ];
+      for(let i=0;i<qConfig.qcase;i++){
+        const q=eqns[i]||{passage:`Case Study ${i+1}. [Context passage here.]`,parts:['(i) sub-part 1 [1]','(ii) sub-part 2 [1]','(iii) sub-part 3 [2]']};
+        secE+=`<p style="margin:10px 0 5px;"><strong>Q${qn}.</strong> ${q.passage}</p>${q.parts.map(p=>`<p style="margin:3px 0 3px 18px;">${p}</p>`).join('')}`;
+        qn++;
+      }
+
+      const sec=(title,marks,content)=>`
+        <div style="font-size:10.5pt;font-weight:bold;text-align:center;margin:14px 0 4px;background:#f5f5f5;padding:4px 8px;border:1px solid #ccc;">${title}</div>
+        <div style="font-size:9pt;text-align:right;color:#444;margin-bottom:6px;">[${marks}]</div>${content}`;
+
+      return `<div style="font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;color:#000;max-width:210mm;margin:0 auto;padding:12mm 18mm;background:#fff;">
+        <div style="text-align:center;margin-bottom:12px;">
+          <div style="font-size:13pt;font-weight:bold;text-transform:uppercase;letter-spacing:0.5px;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
+          <div style="font-size:9.5pt;color:#555;margin:2px 0;">Session: ${ss}${dt?' | Date: '+dt:''}</div>
+          <hr style="border:2px solid #000;margin:5px 0;">
+          <table style="width:100%;font-size:10.5pt;font-weight:bold;"><tr>
+            <td style="text-align:left;">Class: ${cl} | Subject: Mathematics (041)</td>
+            <td style="text-align:right;">Max. Marks: ${mk}</td>
+          </tr><tr>
+            <td style="text-align:left;font-weight:normal;font-size:9.5pt;">${et.toUpperCase()}</td>
+            <td style="text-align:right;font-weight:normal;font-size:9.5pt;">Time: ${du} Hour${du==1?'':'s'}</td>
+          </tr></table>
+          <hr style="border:1px solid #000;margin:5px 0;">
+        </div>
+        <div style="font-size:9.5pt;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed #555;">
+          <strong>General Instructions:</strong>
+          <ol style="margin:4px 0 0 16px;line-height:1.75;">
+            <li>This paper has <strong>five sections A, B, C, D, E</strong>. All sections are compulsory.</li>
+            <li>Section A — ${qConfig.q1mark} questions of 1 mark (MCQ &amp; Assertion-Reason type).</li>
+            <li>Section B — ${qConfig.q2mark} questions of 2 marks (VSA; no internal choice).</li>
+            <li>Section C — ${qConfig.q3mark} questions of 3 marks (SA; internal choice in 2 Qs).</li>
+            <li>Section D — ${qConfig.q5mark} questions of 5 marks (LA; internal choice in 2 Qs).</li>
+            <li>Section E — ${qConfig.qcase} case-based questions of 4 marks each (sub-parts 1+1+2).</li>
+            <li>Internal choice: attempt <em>any one</em> of the two alternatives.</li>
+            <li>Use of calculator is <strong>NOT</strong> permitted. Write neat solutions with proper steps.</li>
+          </ol>
+        </div>
+        ${sec(`SECTION A`,`${qConfig.q1mark} × 1 = ${qConfig.q1mark} Marks — MCQ / Assertion-Reason`,secA)}
+        ${sec(`SECTION B`,`${qConfig.q2mark} × 2 = ${qConfig.q2mark*2} Marks — Very Short Answer`,secB)}
+        ${sec(`SECTION C`,`${qConfig.q3mark} × 3 = ${qConfig.q3mark*3} Marks — Short Answer`,secC)}
+        ${sec(`SECTION D`,`${qConfig.q5mark} × 5 = ${qConfig.q5mark*5} Marks — Long Answer`,secD)}
+        ${sec(`SECTION E`,`${qConfig.qcase} × 4 = ${qConfig.qcase*4} Marks — Case-Based (Sub-parts)`,secE)}
+        <div style="text-align:center;margin-top:16px;padding-top:8px;border-top:2px solid #000;font-weight:bold;font-size:10pt;">✦ ✦ ✦ END OF QUESTION PAPER ✦ ✦ ✦</div>
+      </div>`;
+    }
+
+    // ============================================================
+    // DOWNLOAD & PRINT
+    // ============================================================
+    function downloadQP() {
+      const preview = document.getElementById('qpPreviewArea');
+      if (!preview?.innerHTML) { showToast('⚠️ Generate or preview a paper first.'); return; }
+      const et=document.getElementById('genExamType')?.value||'Exam';
+      const cl=document.getElementById('genClass')?.value||'XII';
+      const ss=document.getElementById('genSession')?.value||'2026';
+      const html=`<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>${et} Class ${cl} Mathematics ${ss}</title>\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">\n<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>\n<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\\\(',right:'\\\\)',display:false},{left:'\\\\[',right:'\\\\]',display:true},{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"><\/script>\n<style>\n@page{size:A4;margin:10mm 12mm;}\nbody{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;margin:0;padding:0;background:#fff;color:#000;}\n@media print{body{margin:0;}}\n</style>\n</head>\n<body>\n${preview.innerHTML}\n</body>\n</html>`;
+      const blob=new Blob([html],{type:'text/html'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download=`QP_${cl}_Maths_${et.replace(/\s+/g,'_')}_${ss}.html`; a.click();
+      URL.revokeObjectURL(url);
+      showToast('⬇️ Question paper downloaded as HTML!');
+    }
+
+    function printQP() {
+      const preview = document.getElementById('qpPreviewArea');
+      if (!preview?.innerHTML) { showToast('⚠️ Generate or preview a paper first.'); return; }
+      const pw=window.open('','_blank','width=900,height=700');
+      pw.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{throwOnError:false});setTimeout(()=>window.print(),800);"><\/script><style>@page{size:A4;margin:10mm 12mm;}body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;background:#fff;color:#000;margin:0;}</style></head><body>${preview.innerHTML}</body></html>`);
+      pw.document.close();
+    }
+
+    // ============================================================
+    // EDIT / MODIFY
+    // ============================================================
+    function toggleEditArea() {
+      const w=document.getElementById('qpEditWrapper');
+      if (!w) return;
+      const shown=w.style.display==='block';
+      w.style.display=shown?'none':'block';
+      const btn=document.getElementById('btnEditQP');
+      if (btn) btn.innerHTML=shown?'<i class="fas fa-edit"></i> Modify / Edit':'<i class="fas fa-times"></i> Close Editor';
+    }
+    function applyEdits() {
+      const ea=document.getElementById('qpEditArea');
+      if (ea) { renderGeneratedPaper(ea.value); toggleEditArea(); showToast('✅ Changes applied!'); }
+    }
+
+    // ============================================================
+    // SET GENERATION (A, B, C, D)
+    // ============================================================
+    function updateSetsBar(n) {
+      const bar=document.getElementById('setsBar');
+      if (!bar) return;
+      if (n<=1) { bar.style.display='none'; return; }
+      const letters=['A','B','C','D'].slice(0,n);
+      bar.style.display='flex';
+      bar.innerHTML=`<span style="color:var(--text-secondary);font-size:0.83rem;font-weight:600;margin-right:4px;">Active Set:</span>`;
+      letters.forEach(l => {
+        const b=document.createElement('button');
+        b.className=`set-badge${l===activeSetLetter?' active':''}`;
+        b.textContent=`Set ${l}`; b.onclick=()=>switchSet(l); bar.appendChild(b);
+      });
+    }
+    function switchSet(l) {
+      activeSetLetter=l;
+      document.querySelectorAll('.set-badge').forEach(b=>b.classList.toggle('active',b.textContent===`Set ${l}`));
+      if (generatedSets[l]) renderGeneratedPaper(generatedSets[l]);
+      else generateNewSet(l);
+    }
+    function generateNewSet(targetL) {
+      const letters=['A','B','C','D'];
+      const l=targetL||(letters.find(x=>!generatedSets[x]));
+      if (!l) { showToast('ℹ️ All sets already generated.'); return; }
+      const base=buildSampleQPHTML();
+      const setHTML=base.replace(
+        'PM SHRI KENDRIYA VIDYALAYA RANIKHET',
+        `PM SHRI KENDRIYA VIDYALAYA RANIKHET</div><div style="font-size:10pt;font-weight:bold;color:#000;">SET: ${l}`
+      );
+      generatedSets[l]=setHTML; activeSetLetter=l;
+      renderGeneratedPaper(setHTML);
+      const n=parseInt(document.getElementById('genSets')?.value||1);
+      updateSetsBar(n);
+      showToast(`✅ Set ${l} generated!`);
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    function initQPGenerator() {
+      initQPSubtabs();
+      renderPaperCollection();
+      renderStaticGrids();
+      renderPTGrid('12');
+      renderChapterPDFSelector();
+      updateMarksTotal();
+      loadSavedAPIKeys();
+      const dateEl=document.getElementById('genDate');
+      if (dateEl) dateEl.valueAsDate=new Date();
+    }
   </script>
 </body>
 </html>
