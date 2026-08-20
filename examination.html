@@ -1353,31 +1353,54 @@
 
             <!-- Step 3 -->
             <div class="gen-card">
-              <div class="gen-card-title"><i class="fas fa-database"></i> Step 3 — Question Source</div>
+              <div class="gen-card-title"><i class="fas fa-database"></i> Step 3 — Question Source Selection</div>
               <div class="source-tabs">
+                <button class="source-tab-btn" onclick="selectSource('pdf',this)"><i class="fas fa-file-pdf"></i> Chapter PDFs / Topics</button>
                 <button class="source-tab-btn active" onclick="selectSource('bank',this)"><i class="fas fa-database"></i> Question Bank</button>
                 <button class="source-tab-btn" onclick="selectSource('online',this)"><i class="fas fa-globe"></i> Online Resources</button>
-                <button class="source-tab-btn" onclick="selectSource('pdf',this)"><i class="fas fa-file-pdf"></i> Chapter PDFs (Class 12)</button>
+                <button class="source-tab-btn" onclick="selectSource('qpfiles',this)"><i class="fas fa-folder-open"></i> Previous QP Files</button>
               </div>
-              <div id="sourceBank" class="source-content">
-                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">AI draws from CBSE standard question bank, NCERT exercises, and previous year board papers (2018–2025).</p>
-                <textarea class="gen-input" id="customTopics" rows="2" style="width:100%; resize:vertical; box-sizing:border-box;" placeholder="Optional: Specify topics, e.g. 'Integration by Parts, Bayes Theorem, Application of Derivatives'"></textarea>
-              </div>
-              <div id="sourceOnline" class="source-content" style="display:none;">
-                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">AI references CBSE official sample papers, KVS regional papers, and CBSE board papers (2018–2025).</p>
-                <div style="display:flex; gap:14px; flex-wrap:wrap;">
-                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked style="accent-color:#8b5cf6;"> CBSE Board Papers (2020–25)</label>
-                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked style="accent-color:#8b5cf6;"> KVS Regional Papers</label>
-                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" style="accent-color:#8b5cf6;"> NDA / JEE Style</label>
-                </div>
-              </div>
+
+              <!-- Option A: Chapter PDFs -->
               <div id="sourcePdf" class="source-content" style="display:none;">
-                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">Select chapters from available Chapter PDFs (Class XII Mathematics):</p>
-                <div class="chapter-pdf-grid" id="chapterPdfSelector"></div>
-                <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
-                  <button onclick="selectAllChaptersGen(true)" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-check-double"></i> Select All</button>
-                  <button onclick="selectAllChaptersGen(false)" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-times"></i> Clear All</button>
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+                  <p style="color:var(--text-secondary); font-size:0.85rem; margin:0;" id="chapterPdfHeading">Select specific chapters from available Chapter PDFs:</p>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button type="button" onclick="selectAllChaptersGen(true)" class="gen-btn gen-btn-edit" style="padding:5px 12px; font-size:0.78rem;"><i class="fas fa-check-double"></i> Select All</button>
+                    <button type="button" onclick="selectAllChaptersGen(false)" class="gen-btn gen-btn-edit" style="padding:5px 12px; font-size:0.78rem;"><i class="fas fa-times"></i> Clear</button>
+                  </div>
                 </div>
+                <div class="chapter-pdf-grid" id="chapterPdfSelector"></div>
+              </div>
+
+              <!-- Option B: Question Bank -->
+              <div id="sourceBank" class="source-content">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">AI and generator draw strictly from NCERT textbook exercises, Exemplar, and CBSE standard question bank.</p>
+                <label class="gen-label" style="margin-bottom:4px; display:block;">Specify Focus Chapters / Topics (e.g. "Matrices, Determinants" or "Integrals, Differential Equations"):</label>
+                <textarea class="gen-input" id="customTopics" rows="2" style="width:100%; resize:vertical; box-sizing:border-box;" placeholder="Enter chapter names or specific topics to target, e.g. 'Matrices, Determinants' or 'Integration, Bayes Theorem, Linear Programming'" oninput="updateSourceSummary()"></textarea>
+              </div>
+
+              <!-- Option C: Online Resources -->
+              <div id="sourceOnline" class="source-content" style="display:none;">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">Target external board exam archives and standardized competitive question formats:</p>
+                <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" id="srcOnlineCBSE" checked style="accent-color:#8b5cf6;" onchange="updateSourceSummary()"> CBSE Official Board Papers (2020–2025)</label>
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" id="srcOnlineKVS" checked style="accent-color:#8b5cf6;" onchange="updateSourceSummary()"> KVS Regional / Pre-Board Papers</label>
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" id="srcOnlineExemplar" checked style="accent-color:#8b5cf6;" onchange="updateSourceSummary()"> NCERT Exemplar Problems</label>
+                  <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" id="srcOnlineJEE" style="accent-color:#8b5cf6;" onchange="updateSourceSummary()"> NDA / JEE Foundation Level</label>
+                </div>
+              </div>
+
+              <!-- Option D: Previous QP Files -->
+              <div id="sourceQpFiles" class="source-content" style="display:none;">
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">Select past school examination files to reference structure or repeat/vary questions:</p>
+                <div class="chapter-pdf-grid" id="qpFilesSelector"></div>
+              </div>
+
+              <!-- Active Scope Summary Banner -->
+              <div id="activeSourceSummary" style="margin-top:14px; padding:10px 14px; background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.35); border-radius:10px; font-size:0.83rem; color:#c4b5fd; display:flex; align-items:center; gap:8px;">
+                <i class="fas fa-bullseye" style="color:#a78bfa;"></i>
+                <span id="activeSourceSummaryText">Active Source: All Syllabus Chapters (CBSE Standard Bank)</span>
               </div>
             </div>
 
@@ -2281,48 +2304,408 @@
     }
 
     // ============================================================
-    // SOURCE SELECTION
+    // SYLLABUS & CHAPTER DATABASE
+    // ============================================================
+    const classSyllabusData = {
+      'XII': [
+        { num:1,  title:"Relations and Functions",         file:"all chapters pdf/1 RELATIONS AND FUNCTIONS.pdf", tags:["relations","functions","equivalence","one-one","onto","bijective"] },
+        { num:2,  title:"Inverse Trigonometric Functions", file:"all chapters pdf/2 INVERSE TRIGONOMETRIC FUNCTIONS.pdf", tags:["inverse trig","itf","principal value","domain","range"] },
+        { num:3,  title:"Matrices",                        file:"all chapters pdf/3 MATRICES.pdf", tags:["matrices","matrix","symmetric","skew-symmetric","transpose","inverse","multiplication"] },
+        { num:4,  title:"Determinants",                    file:"all chapters pdf/4 DETERMINANTS.pdf", tags:["determinants","determinant","adjoint","singular","cramer","matrix method"] },
+        { num:5,  title:"Continuity & Differentiability",  file:"all chapters pdf/5 CONTINUITY AND DIFFERENTIABILITY.pdf", tags:["continuity","differentiability","derivatives","chain rule","logarithmic differentiation","implicit"] },
+        { num:6,  title:"Applications of Derivatives",     file:"all chapters pdf/6 APPLICATIONS OF DERIVATIVES.pdf", tags:["aod","increasing","decreasing","maxima","minima","rate of change","tangents","normals"] },
+        { num:7,  title:"Integrals (Indefinite)",           file:"all chapters pdf/7 INTEGRALS INDEFINITE.pdf", tags:["integrals","integration","indefinite integral","substitution","partial fractions","by parts"] },
+        { num:8,  title:"Integrals (Definite)",             file:"all chapters pdf/8 INTEGRALS DEFINITE.pdf", tags:["definite integrals","definite integration","properties of integrals","odd even function"] },
+        { num:9,  title:"Applications of Integrals",       file:"all chapters pdf/9 APPLICATIONS OF INTEGRALS.pdf", tags:["aoi","area under curve","area bounded","parabola","circle","ellipse","triangle area"] },
+        { num:10, title:"Differential Equations",          file:"all chapters pdf/10 DIFFERENTIAL EQUATIONS.pdf", tags:["differential equations","order","degree","variable separable","homogeneous","linear differential equation"] },
+        { num:11, title:"Vector Algebra",                  file:"all chapters pdf/11 VECTORS.pdf", tags:["vectors","vector algebra","dot product","cross product","scalar product","unit vector","projection"] },
+        { num:12, title:"Three Dimensional Geometry",      file:"all chapters pdf/12 3-DIMENSIONAL GEOMETRY.pdf", tags:["3d geometry","three dimensional","direction cosines","direction ratios","shortest distance","skew lines","planes"] },
+        { num:13, title:"Linear Programming",              file:"all chapters pdf/13 LINEAR PRAGRAMMING.pdf", tags:["linear programming","lpp","feasible region","corner point method","objective function","constraints"] },
+        { num:14, title:"Probability",                     file:"all chapters pdf/14 PROBABILITY.pdf", tags:["probability","conditional probability","bayes theorem","bayes' theorem","total probability","independent events"] },
+      ],
+      'XI': [
+        { num:1,  title:"Sets", tags:["sets","subsets","union","intersection","venn diagram"] },
+        { num:2,  title:"Relations & Functions", tags:["relations","functions","domain","range","cartesian product"] },
+        { num:3,  title:"Trigonometric Functions", tags:["trigonometry","radian","compound angles","multiple angles"] },
+        { num:4,  title:"Complex Numbers & Quadratic Equations", tags:["complex numbers","modulus","argument","quadratic"] },
+        { num:5,  title:"Linear Inequalities", tags:["inequalities","graphical solution","number line"] },
+        { num:6,  title:"Permutations & Combinations", tags:["permutations","combinations","factorial","npr","ncr"] },
+        { num:7,  title:"Binomial Theorem", tags:["binomial theorem","general term","coefficients"] },
+        { num:8,  title:"Sequences & Series", tags:["sequences","series","ap","gp","arithmetic progression","geometric progression"] },
+        { num:9,  title:"Straight Lines", tags:["straight lines","slope","intercept form","distance of point from line"] },
+        { num:10, title:"Conic Sections", tags:["conic sections","circle","parabola","ellipse","hyperbola"] },
+        { num:11, title:"Introduction to 3D Geometry", tags:["3d geometry","octants","distance formula","section formula"] },
+        { num:12, title:"Limits & Derivatives", tags:["limits","derivatives","first principles","standard limits"] },
+        { num:13, title:"Statistics", tags:["statistics","mean","variance","standard deviation"] },
+        { num:14, title:"Probability", tags:["probability","sample space","events","mutually exclusive"] },
+      ],
+      'VII': [
+        { num:1,  title:"Integers", tags:["integers","addition","subtraction","multiplication","division"] },
+        { num:2,  title:"Fractions and Decimals", tags:["fractions","decimals","reciprocal"] },
+        { num:3,  title:"Data Handling", tags:["data handling","mean","median","mode","bar graph"] },
+        { num:4,  title:"Simple Equations", tags:["simple equations","linear equation","variable"] },
+        { num:5,  title:"Lines and Angles", tags:["lines","angles","complementary","supplementary","vertically opposite"] },
+        { num:6,  title:"The Triangle and Its Properties", tags:["triangles","median","altitude","pythagoras theorem"] },
+        { num:7,  title:"Comparing Quantities", tags:["ratio","percentage","profit","loss","simple interest"] },
+        { num:8,  title:"Rational Numbers", tags:["rational numbers","standard form","number line"] },
+        { num:9,  title:"Perimeter and Area", tags:["perimeter","area","rectangle","square","triangle","circle"] },
+        { num:10, title:"Algebraic Expressions", tags:["algebraic expressions","terms","coefficients","monomial"] },
+        { num:11, title:"Exponents and Powers", tags:["exponents","powers","laws of exponents"] },
+        { num:12, title:"Symmetry", tags:["symmetry","line symmetry","rotational symmetry"] },
+        { num:13, title:"Visualising Solid Shapes", tags:["solid shapes","faces","edges","vertices","nets"] },
+      ]
+    };
+
+    // Authenticated chapterwise question bank (CBSE standard)
+    const chapterQuestionBank = {
+      'XII': {
+        1: { // Relations & Functions
+          secA: [
+            { q: "Let \\(A = \\{1, 2, 3\\}\\). The number of equivalence relations containing \\((1, 2)\\) is:", opt: ["(a) 1", "(b) 2", "(c) 3", "(d) 4"] },
+            { q: "Let \\(f: \\mathbb{R} \\to \\mathbb{R}\\) be defined as \\(f(x) = 3x\\). Then \\(f\\) is:", opt: ["(a) one-one and onto", "(b) many-one and onto", "(c) one-one but not onto", "(d) neither one-one nor onto"] },
+            { q: "<strong>Assertion (A):</strong> The relation \\(R = \\{(a, b) : a \\le b\\}\\) in \\(\\mathbb{R}\\) is reflexive and transitive but not symmetric.<br><strong>Reason (R):</strong> \\(a \\le a\\) for all \\(a\\), and \\(a \\le b, b \\le c \\implies a \\le c\\), but \\(a \\le b\\) does not imply \\(b \\le a\\).", opt: ["(a) Both A and R are true; R is correct explanation of A.", "(b) Both A and R are true; R is not correct explanation of A.", "(c) A is true but R is false.", "(d) A is false but R is true."] }
+          ],
+          secB: [
+            "Show that the relation \\(R\\) in \\(\\mathbb{R}\\) defined as \\(R = \\{(a, b) : a \\le b^2\\}\\) is neither reflexive nor symmetric nor transitive.",
+            "Let \\(f: \\mathbb{R} - \\{3\\} \\to \\mathbb{R} - \\{1\\}\\) be given by \\(f(x) = \\frac{x-2}{x-3}\\). Show that \\(f\\) is bijective."
+          ],
+          secC: [
+            "Let \\(T\\) be the set of all triangles in a plane with \\(R = \\{(T_1, T_2) : T_1 \\cong T_2\\}\\). Show that \\(R\\) is an equivalence relation. &nbsp;<strong>OR</strong>&nbsp; Prove that the function \\(f: \\mathbb{N} \\to \\mathbb{N}\\) defined by \\(f(n) = \\begin{cases} (n+1)/2, & \\text{if } n \\text{ is odd} \\\\ n/2, & \\text{if } n \\text{ is even} \\end{cases}\\) is onto but not one-one.",
+            "Show that the relation \\(R\\) in \\(\\mathbb{Z}\\times\\mathbb{Z}\\) defined by \\((a, b) R (c, d) \\iff ad = bc\\) is an equivalence relation."
+          ],
+          secD: [
+            "Let \\(A = \\mathbb{R} - \\{3\\}\\) and \\(B = \\mathbb{R} - \\{1\\}\\). Consider the function \\(f: A \\to B\\) defined by \\(f(x) = \\frac{x-2}{x-3}\\). Prove that \\(f\\) is invertible and find its inverse \\(f^{-1}\\). &nbsp;<strong>OR</strong>&nbsp; Let \\(S\\) be the set of all integers. If relation \\(R\\) is defined on \\(S\\) by \\(aRb \\iff a-b\\) is divisible by 5, prove that \\(R\\) is an equivalence relation. Find the equivalence class of 2."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Student Enrollment & Subject Allotment:</strong><br>A school offers two vocational streams: AI (A) and Data Science (D). Out of 100 students, 60 chose A, 50 chose D, and 20 chose both.", parts: ["(i) Write the domain and range of the relation connecting students to courses. &nbsp;<em>[1]</em>", "(ii) Find the number of students who opted for AI only. &nbsp;<em>[1]</em>", "(iii) Determine whether the mapping from students to streams is a bijective function. Justify your answer. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; How many students opted for neither stream? &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        2: { // Inverse Trig
+          secA: [
+            { q: "The principal value of \\(\\sin^{-1}\\!\\left(-\\frac{1}{2}\\right)\\) is:", opt: ["(a) \\(-\\frac{\\pi}{6}\\)", "(b) \\(\\frac{5\\pi}{6}\\)", "(c) \\(\\frac{\\pi}{6}\\)", "(d) \\(-\\frac{\\pi}{3}\\)"] },
+            { q: "The value of \\(\\tan^{-1}\\!(\\sqrt{3}) - \\sec^{-1}(-2)\\) is:", opt: ["(a) \\(-\\frac{\\pi}{3}\\)", "(b) \\(\\frac{\\pi}{3}\\)", "(c) \\(\\frac{2\\pi}{3}\\)", "(d) \\(\\pi\\)"] }
+          ],
+          secB: [
+            "Find the domain of \\(f(x) = \\sin^{-1}(2x - 3)\\).",
+            "Evaluate: \\(\\tan\\left(2\\tan^{-1}\\frac{1}{5} - \\frac{\\pi}{4}\\right)\\)."
+          ],
+          secC: [
+            "Simplify: \\(\\tan^{-1}\\!\\left(\\frac{\\cos x - \\sin x}{\\cos x + \\sin x}\\right),\\; 0 < x < \\pi\\). &nbsp;<strong>OR</strong>&nbsp; Solve for \\(x\\): \\(\\sin^{-1}(1-x) - 2\\sin^{-1}x = \\frac{\\pi}{2}\\)."
+          ],
+          secD: [
+            "Prove that: \\(\\sin^{-1}\\frac{3}{5} + \\sin^{-1}\\frac{8}{17} = \\sin^{-1}\\frac{77}{85}\\). &nbsp;<strong>OR</strong>&nbsp; Solve for \\(x\\): \\(\\tan^{-1}\\!\\left(\\frac{x-1}{x-2}\\right) + \\tan^{-1}\\!\\left(\\frac{x+1}{x+2}\\right) = \\frac{\\pi}{4}\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Satellite Signal Angle of Elevation:</strong><br>An ground antenna tracks a communication satellite. The angle of elevation \\(\\theta\\) is modeled as \\(\\theta = \\tan^{-1}\\!\\left(\\frac{h}{x}\\right)\\), where \\(h = 12\\text{ km}\\) is altitude and \\(x\\) is horizontal ground distance in km.", parts: ["(i) Find \\(\\theta\\) when \\(x = 12\\sqrt{3}\\text{ km}\\). &nbsp;<em>[1]</em>", "(ii) What is the maximum principal value range for \\(\\theta\\)? &nbsp;<em>[1]</em>", "(iii) If the satellite moves such that \\(x = 12\\text{ km}\\), find the value of \\(\\sin(2\\theta)\\). &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Evaluate \\(\\cos^{-1}(\\cos \\theta)\\) at \\(x = 12\\text{ km}\\). &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        3: { // Matrices
+          secA: [
+            { q: "If \\(A\\) is a square matrix of order 3 such that \\(A^2 = A\\), then \\((I+A)^3 - 7A\\) equals:", opt: ["(a) \\(I\\)", "(b) \\(A\\)", "(c) \\(I - A\\)", "(d) \\(3I\\)"] },
+            { q: "If \\(A = \\begin{bmatrix} \\alpha & \\beta \\\\ \\gamma & -\\alpha \\end{bmatrix}\\) is such that \\(A^2 = I\\), then:", opt: ["(a) \\(1 + \\alpha^2 + \\beta\\gamma = 0\\)", "(b) \\(1 - \\alpha^2 + \\beta\\gamma = 0\\)", "(c) \\(1 - \\alpha^2 - \\beta\\gamma = 0\\)", "(d) \\(1 + \\alpha^2 - \\beta\\gamma = 0\\)"] },
+            { q: "If \\(A\\) is symmetric and skew-symmetric matrix simultaneously, then \\(A\\) is:", opt: ["(a) A diagonal matrix", "(b) A zero matrix", "(c) A scalar matrix", "(d) None of these"] }
+          ],
+          secB: [
+            "Express the matrix \\(A = \\begin{bmatrix} 3 & 5 \\\\ 1 & -1 \\end{bmatrix}\\) as the sum of a symmetric and a skew-symmetric matrix.",
+            "Find the values of \\(x, y\\) from: \\(2\\begin{bmatrix} x & 5 \\\\ 7 & y-3 \\end{bmatrix} + \\begin{bmatrix} 3 & -4 \\\\ 1 & 2 \\end{bmatrix} = \\begin{bmatrix} 7 & 6 \\\\ 15 & 14 \\end{bmatrix}\\)."
+          ],
+          secC: [
+            "If \\(A = \\begin{bmatrix} 1 & 2 & 2 \\\\ 2 & 1 & 2 \\\\ 2 & 2 & 1 \\end{bmatrix}\\), prove that \\(A^2 - 4A - 5I = O\\). Hence find \\(A^{-1}\\).",
+            "If \\(A = \\begin{bmatrix} 0 & -\\tan\\frac{\\alpha}{2} \\\\ \\tan\\frac{\\alpha}{2} & 0 \\end{bmatrix}\\) and \\(I\\) is unit matrix of order 2, show that \\(I+A = (I-A)\\begin{bmatrix} \\cos\\alpha & -\\sin\\alpha \\\\ \\sin\\alpha & \\cos\\alpha \\end{bmatrix}\\)."
+          ],
+          secD: [
+            "Find \\(AB\\) where \\(A = \\begin{bmatrix} 1 & -1 & 0 \\\\ 2 & 3 & 4 \\\\ 0 & 1 & 2 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 2 & 2 & -4 \\\\ -4 & 2 & -4 \\\\ 2 & -1 & 5 \\end{bmatrix}\\). Hence solve the system: \\(x - y = 3,\\; 2x + 3y + 4z = 17,\\; y + 2z = 7\\). &nbsp;<strong>OR</strong>&nbsp; Using matrix method, solve the system of linear equations: \\(2x + 3y + 3z = 5,\\; x - 2y + z = -4,\\; 3x - y - 2z = 3\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Smart Manufacturing Inventory:</strong><br>An electronic company produces three models of smartphones: Basic (X), Pro (Y), Ultra (Z). Factory A produces \\([10, 20, 30]\\) units per day and Factory B produces \\([20, 15, 25]\\) units per day. The selling price per unit is ₹10,000, ₹20,000, and ₹35,000 respectively.", parts: ["(i) Express the daily production of the two factories as a \\(2 \\times 3\\) matrix \\(P\\). &nbsp;<em>[1]</em>", "(ii) Express the unit selling prices as a \\(3 \\times 1\\) matrix \\(S\\). &nbsp;<em>[1]</em>", "(iii) Compute the total daily revenue generated by each factory using matrix multiplication \\(P \\times S\\). &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; If production costs are 60% of revenue, find the net profit matrix for both factories. &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        4: { // Determinants
+          secA: [
+            { q: "If \\(A\\) is a non-singular matrix of order 3 and \\(|A| = 4\\), then \\(|{\\rm adj}\\, A|\\) is:", opt: ["(a) 4", "(b) 16", "(c) 64", "(d) \\(\\frac{1}{4}\\)"] },
+            { q: "If \\(A\\) is an invertible matrix of order 2, then \\(\\det(A^{-1})\\) is equal to:", opt: ["(a) \\(\\det(A)\\)", "(b) \\(\\frac{1}{\\det(A)}\\)", "(c) 1", "(d) 0"] },
+            { q: "If area of triangle is 35 sq units with vertices \\((2, -6), (5, 4)\\) and \\((k, 4)\\), then \\(k\\) is:", opt: ["(a) 12", "(b) -2", "(c) -12, -2", "(d) 12, -2"] }
+          ],
+          secB: [
+            "If \\(A = \\begin{bmatrix} 1 & 2 \\\\ 4 & 2 \\end{bmatrix}\\), then show that \\(|2A| = 4|A|\\).",
+            "Find the adjoint of the matrix \\(A = \\begin{bmatrix} 1 & -1 & 2 \\\\ 2 & 3 & 5 \\\\ -2 & 0 & 1 \\end{bmatrix}\\)."
+          ],
+          secC: [
+            "Using properties of determinants, prove that \\(\\begin{vmatrix} a-b-c & 2a & 2a \\\\ 2b & b-c-a & 2b \\\\ 2c & 2c & c-a-b \\end{vmatrix} = (a+b+c)^3\\).",
+            "For the matrix \\(A = \\begin{bmatrix} 3 & 2 \\\\ 1 & 1 \\end{bmatrix}\\), find numbers \\(a\\) and \\(b\\) such that \\(A^2 + aA + bI = O\\). Hence evaluate \\(A^{-1}\\)."
+          ],
+          secD: [
+            "Solve the following system of linear equations using matrix method:<br>\\(\\frac{2}{x} + \\frac{3}{y} + \\frac{10}{z} = 4,\\; \\frac{4}{x} - \\frac{6}{y} + \\frac{5}{z} = 1,\\; \\frac{6}{x} + \\frac{9}{y} - \\frac{20}{z} = 2\\). &nbsp;<strong>OR</strong>&nbsp; If \\(A = \\begin{bmatrix} 2 & -3 & 5 \\\\ 3 & 2 & -4 \\\\ 1 & 1 & -2 \\end{bmatrix}\\), find \\(A^{-1}\\). Using \\(A^{-1}\\), solve the system: \\(2x - 3y + 5z = 11,\\; 3x + 2y - 4z = -5,\\; x + y - 2z = -3\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Nutritional Diet Planning:</strong><br>A dietician wishes to mix three types of food \\(F_1, F_2, F_3\\) so that the mixture contains 10 units of Vitamin A, 14 units of Vitamin B, and 18 units of Vitamin C. The matrix equation representing this is \\(AX = B\\) where \\(A\\) is the content matrix.", parts: ["(i) State the condition for system \\(AX = B\\) to have a unique solution in terms of \\(\\det(A)\\). &nbsp;<em>[1]</em>", "(ii) If \\(\\det(A) = 6\\), find the value of \\(|{\\rm adj}(A)|\\) where \\(A\\) is \\(3 \\times 3\\). &nbsp;<em>[1]</em>", "(iii) Find the quantity of each food item using matrix inversion if \\(A^{-1} = \\frac{1}{6}\\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & -2 & 3 \\\\ 2 & 1 & -1 \\end{bmatrix}\\). &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; What happens to the solution if \\(\\det(A) = 0\\) and \\(({\\rm adj}\\,A)B = O\\)? &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        5: { // Continuity & Differentiability
+          secA: [
+            { q: "The function \\(f(x) = |x| + |x-1|\\) is:", opt: ["(a) continuous and differentiable at \\(x=0, 1\\)", "(b) continuous everywhere but not differentiable at \\(x=0, 1\\)", "(c) continuous only at \\(x=0\\)", "(d) not continuous at \\(x=0, 1\\)"] },
+            { q: "If \\(y = \\log_7(\\log x)\\), then \\(\\frac{dy}{dx}\\) is:", opt: ["(a) \\(\\frac{1}{x\\log x}\\)", "(b) \\(\\frac{\\log_7 e}{x\\log x}\\)", "(c) \\(\\frac{\\log 7}{x\\log x}\\)", "(d) \\(\\frac{1}{x\\log 7}\\)"] },
+            { q: "If \\(x = a\\cos^3\\theta,\\; y = a\\sin^3\\theta\\), then \\(\\frac{dy}{dx}\\) at \\(\\theta = \\frac{\\pi}{4}\\) is:", opt: ["(a) -1", "(b) 1", "(c) \\(-a\\)", "(d) \\(\\sqrt{2}\\)"] }
+          ],
+          secB: [
+            "Find the value of \\(k\\) for which \\(f(x) = \\begin{cases} kx + 1, & x \\le 5 \\\\ 3x - 5, & x > 5 \\end{cases}\\) is continuous at \\(x = 5\\).",
+            "If \\(y = (\\log x)^{\\cos x}\\), find \\(\\frac{dy}{dx}\\)."
+          ],
+          secC: [
+            "If \\(y = e^{a\\cos^{-1}x}\\), prove that \\((1-x^2)\\frac{d^2y}{dx^2} - x\\frac{dy}{dx} - a^2y = 0\\). &nbsp;<strong>OR</strong>&nbsp; If \\(x\\sqrt{1+y} + y\\sqrt{1+x} = 0\\) for \\(-1 < x < 1\\), prove that \\(\\frac{dy}{dx} = -\\frac{1}{(1+x)^2}\\).",
+            "Find \\(\\frac{dy}{dx}\\) if \\(x^y + y^x = a^b\\)."
+          ],
+          secD: [
+            "If \\(y = \\left(x + \\sqrt{x^2+1}\\right)^m\\), show that \\((x^2+1)y_2 + x y_1 - m^2y = 0\\). &nbsp;<strong>OR</strong>&nbsp; Find the values of \\(a\\) and \\(b\\) such that the function \\(f(x) = \\begin{cases} x^2 + 3x + a, & x \\le 1 \\\\ bx + 2, & x > 1 \\end{cases}\\) is differentiable at every point \\(x \\in \\mathbb{R}\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Damped Oscillation in Automobile Suspension:</strong><br>The displacement \\(y(t)\\) of a car chassis over a speed bump is modeled by \\(y(t) = e^{-2t}\\cos(3t)\\) where \\(t\\) is time in seconds.", parts: ["(i) Find the initial displacement \\(y(0)\\). &nbsp;<em>[1]</em>", "(ii) Find the velocity function \\(v(t) = \\frac{dy}{dt}\\). &nbsp;<em>[1]</em>", "(iii) Compute the acceleration \\(a(t) = \\frac{d^2y}{dt^2}\\) at \\(t = 0\\). &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Verify whether \\(y(t)\\) satisfies \\(\\frac{d^2y}{dt^2} + 4\\frac{dy}{dt} + 13y = 0\\). &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        6: { // Applications of Derivatives
+          secA: [
+            { q: "The rate of change of area of a circle with respect to its radius \\(r\\) at \\(r = 6\\text{ cm}\\) is:", opt: ["(a) \\(10\\pi\\)", "(b) \\(12\\pi\\)", "(c) \\(8\\pi\\)", "(d) \\(11\\pi\\)"] },
+            { q: "The interval in which \\(f(x) = 2x^3 - 3x^2 - 36x + 7\\) is strictly decreasing is:", opt: ["(a) \\((-2, 3)\\)", "(b) \\((-\\infty, -2)\\)", "(c) \\((3, \\infty)\\)", "(d) \\([-2, 3]\\)"] }
+          ],
+          secB: [
+            "Find the intervals in which \\(f(x) = x^2 - 4x + 6\\) is: (a) strictly increasing, (b) strictly decreasing.",
+            "An edge of a variable cube is increasing at 3 cm/s. How fast is volume increasing when edge is 10 cm?"
+          ],
+          secC: [
+            "Find the local maxima and local minima of \\(f(x) = \\sin x - \\cos x,\\; 0 < x < 2\\pi\\). &nbsp;<strong>OR</strong>&nbsp; Find the equation of tangent to the curve \\(y = \\sqrt{3x-2}\\) which is parallel to the line \\(4x - 2y + 5 = 0\\)."
+          ],
+          secD: [
+            "Show that the height of the cylinder of maximum volume that can be inscribed in a sphere of radius \\(R\\) is \\(\\frac{2R}{\\sqrt{3}}\\). Also find the maximum volume. &nbsp;<strong>OR</strong>&nbsp; A window is in the form of a rectangle surmounted by a semi-circular opening. The total perimeter is 10 m. Find dimensions of window to admit maximum light."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Fuel Cost Optimization for Cargo Ship:</strong><br>The cost of fuel per hour in operating a container ship is proportional to the square of its speed. At 10 km/h, fuel cost is ₹100/hr. Fixed charges are ₹1,600/hr. Let \\(v\\) be ship speed in km/h.", parts: ["(i) Express the total cost per km as a function \\(C(v)\\). &nbsp;<em>[1]</em>", "(ii) Find \\(\\frac{dC}{dv}\\). &nbsp;<em>[1]</em>", "(iii) Find the most economical speed that minimizes the total cost per km. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; What is the minimum cost per km for a voyage of 500 km? &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        7: { // Integrals (Indefinite)
+          secA: [
+            { q: "\\(\\int e^x(\\sin x + \\cos x)\\, dx\\) equals:", opt: ["(a) \\(e^x\\sin x + C\\)", "(b) \\(e^x\\cos x + C\\)", "(c) \\(-e^x\\sin x + C\\)", "(d) \\(-e^x\\cos x + C\\)"] },
+            { q: "\\(\\int \\frac{dx}{\\sin^2 x \\cos^2 x}\\) equals:", opt: ["(a) \\(\\tan x + \\cot x + C\\)", "(b) \\(\\tan x - \\cot x + C\\)", "(c) \\(\\tan x\\cot x + C\\)", "(d) \\(\\tan x - \\cot 2x + C\\)"] }
+          ],
+          secB: [
+            "Evaluate: \\(\\int \\frac{x^2}{1-x^6}\\, dx\\).",
+            "Evaluate: \\(\\int \\frac{\\cos 2x - \\cos 2\\alpha}{\\cos x - \\cos \\alpha}\\, dx\\)."
+          ],
+          secC: [
+            "Evaluate: \\(\\int \\frac{x}{(x^2+1)(x-1)}\\, dx\\). &nbsp;<strong>OR</strong>&nbsp; Evaluate: \\(\\int \\frac{2x+3}{x^2+4x+5}\\, dx\\).",
+            "Find \\(\\int x\\tan^{-1}x\\, dx\\)."
+          ],
+          secD: [
+            "Evaluate: \\(\\int \\frac{x^2+1}{x^4+1}\\, dx\\). &nbsp;<strong>OR</strong>&nbsp; Evaluate: \\(\\int \\frac{dx}{\\sin x + \\sin 2x}\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Power Grid Energy Consumption Modeling:</strong><br>The instantaneous power consumption (in MW) in an industrial sector follows \\(P(t) = t^2 e^{-t/4}\\) where \\(t\\) is hours from midnight. The total energy consumed in time interval \\([0, T]\\) is \\(E = \\int_0^T P(t)\\, dt\\).", parts: ["(i) Which integration technique is suited to integrate \\(\\int t^2 e^{-t/4} dt\\)? &nbsp;<em>[1]</em>", "(ii) Find the indefinite integral \\(\\int t e^{-t/4} dt\\). &nbsp;<em>[1]</em>", "(iii) Compute the total energy consumed in the first 4 hours using integration by parts. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find the asymptotic energy consumed as \\(T \\to \\infty\\). &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        8: { // Integrals (Definite)
+          secA: [
+            { q: "\\(\\int_{-1}^1 \\sin^5 x \\cos^4 x\\, dx\\) equals:", opt: ["(a) 0", "(b) 1", "(c) 2", "(d) -1"] },
+            { q: "\\(\\int_0^{\\pi/2} \\frac{\\sqrt{\\sin x}}{\\sqrt{\\sin x} + \\sqrt{\\cos x}}\\, dx\\) equals:", opt: ["(a) \\(\\frac{\\pi}{2}\\)", "(b) \\(\\frac{\\pi}{4}\\)", "(c) 0", "(d) 1"] }
+          ],
+          secB: [
+            "Evaluate: \\(\\int_0^3 |x-1|\\, dx\\).",
+            "Evaluate: \\(\\int_{-\\pi/2}^{\\pi/2} (x^3 + x\\cos x + \\tan^5 x + 1)\\, dx\\)."
+          ],
+          secC: [
+            "Evaluate: \\(\\int_0^\\pi \\frac{x\\sin x}{1+\\cos^2 x}\\, dx\\). &nbsp;<strong>OR</strong>&nbsp; Evaluate: \\(\\int_0^{\\pi/4} \\log(1+\\tan x)\\, dx\\)."
+          ],
+          secD: [
+            "Evaluate: \\(\\int_0^{\\pi/2} \\log(\\sin x)\\, dx\\). &nbsp;<strong>OR</strong>&nbsp; Evaluate: \\(\\int_0^1 \\cot^{-1}\\!(1 - x + x^2)\\, dx\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Fluid Flow Rate:</strong><br>A dam gate releases water at rate \\(R(t) = \\sqrt{16 - t^2}\\text{ m}^3/\\text{sec}\\) from \\(t=0\\) to \\(t=4\\) seconds. The total volume released is \\(V = \\int_0^4 \\sqrt{16-t^2}\\, dt\\).", parts: ["(i) Identify the geometric region represented by the integral. &nbsp;<em>[1]</em>", "(ii) Write the standard integral formula for \\(\\int \\sqrt{a^2-x^2}\\, dx\\). &nbsp;<em>[1]</em>", "(iii) Evaluate the total water released during the 4-second burst. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Evaluate \\(\\int_0^2 \\sqrt{16-t^2}\\, dt\\). &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        9: { // Applications of Integrals
+          secA: [
+            { q: "The area bounded by the curve \\(y = \\cos x\\) between \\(x=0\\) and \\(x=2\\pi\\) is:", opt: ["(a) 1", "(b) 2", "(c) 4", "(d) 0"] },
+            { q: "Area of the region bounded by \\(y^2 = 4x\\), \\(y\\)-axis and \\(y = 3\\) is:", opt: ["(a) 2", "(b) \\(\\frac{9}{4}\\)", "(c) \\(\\frac{9}{3}\\)", "(d) \\(\\frac{9}{2}\\)"] }
+          ],
+          secB: [
+            "Find the area of the region bounded by \\(y^2 = 8x\\) and the line \\(x = 2\\).",
+            "Find the area bounded by the ellipse \\(\\frac{x^2}{16} + \\frac{y^2}{9} = 1\\) in the first quadrant."
+          ],
+          secC: [
+            "Find the area of the region bounded by the parabola \\(y = x^2\\) and \\(y = |x|\\). &nbsp;<strong>OR</strong>&nbsp; Find the area enclosed between \\(y = x\\) and \\(y = x^3\\)."
+          ],
+          secD: [
+            "Using integration, find the area of the triangular region whose vertices are \\((1, 0), (2, 2)\\) and \\((3, 1)\\). &nbsp;<strong>OR</strong>&nbsp; Find the area of the region bounded by the two parabolas \\(y^2 = 4ax\\) and \\(x^2 = 4ay\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Bridge Arch Design:</strong><br>An architect designs an elliptical bridge arch modeled by \\(\\frac{x^2}{100} + \\frac{y^2}{25} = 1\\) for \\(y \\ge 0\\). A highway passes underneath bounded by \\(x = -6\\) and \\(x = 6\\).", parts: ["(i) Find the maximum height of the arch at the center \\(x=0\\). &nbsp;<em>[1]</em>", "(ii) Set up the definite integral for total area under the half-ellipse. &nbsp;<em>[1]</em>", "(iii) Compute the total cross-sectional area under the upper half of the arch. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find the clearance area above the roadway between \\(x = -6\\) and \\(x = 6\\). &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        10: { // Differential Equations
+          secA: [
+            { q: "The order and degree of \\(\\left(\\frac{d^2y}{dx^2}\\right)^3 + \\left(\\frac{dy}{dx}\\right)^4 + y = 0\\) are respectively:", opt: ["(a) 2, 3", "(b) 3, 2", "(c) 2, 4", "(d) 3, 4"] },
+            { q: "The integrating factor of the differential equation \\(x\\frac{dy}{dx} - y = 2x^2\\) is:", opt: ["(a) \\(e^{-x}\\)", "(b) \\(e^{-y}\\)", "(c) \\(\\frac{1}{x}\\)", "(d) \\(x\\)"] }
+          ],
+          secB: [
+            "Find the general solution of the differential equation \\(\\frac{dy}{dx} = \\frac{1+y^2}{1+x^2}\\).",
+            "Verify that \\(y = A\\cos x - B\\sin x\\) is a solution of \\(\\frac{d^2y}{dx^2} + y = 0\\)."
+          ],
+          secC: [
+            "Solve the differential equation: \\((x^2+xy)\\, dy = (x^2+y^2)\\, dx\\). &nbsp;<strong>OR</strong>&nbsp; Solve: \\(\\frac{dy}{dx} + y\\cot x = 2x + x^2\\cot x\\; (x \\ne 0)\\)."
+          ],
+          secD: [
+            "Find the particular solution of \\((1+e^{2x})\\, dy + (1+y^2)e^x\\, dx = 0\\), given that \\(y=1\\) when \\(x=0\\). &nbsp;<strong>OR</strong>&nbsp; Solve: \\((x\\cos\\frac{y}{x} + y\\sin\\frac{y}{x})y\\,dx = (y\\sin\\frac{y}{x} - x\\cos\\frac{y}{x})x\\,dy\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Bacterial Culture Growth:</strong><br>In a laboratory experiment, the rate of growth of a bacteria culture is proportional to the number present \\(N(t)\\). That is, \\(\\frac{dN}{dt} = kN\\). Initially at \\(t=0\\), \\(N = 1000\\), and it doubles in 2 hours.", parts: ["(i) Find the general solution of \\(\\frac{dN}{dt} = kN\\). &nbsp;<em>[1]</em>", "(ii) Find the growth constant \\(k\\). &nbsp;<em>[1]</em>", "(iii) Find the population after 6 hours. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; How long will it take for the population to reach 10,000? &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        11: { // Vector Algebra
+          secA: [
+            { q: "If \\(|\\vec{a}| = 2, |\\vec{b}| = 3\\) and \\(\\vec{a}\\cdot\\vec{b} = 4\\), then \\(|\\vec{a}-\\vec{b}|\\) is:", opt: ["(a) \\(\\sqrt{5}\\)", "(b) \\(\\sqrt{13}\\)", "(c) 5", "(d) \\(\\sqrt{17}\\)"] },
+            { q: "The projection of vector \\(\\vec{a} = 2\\hat{i} + 3\\hat{j} + 2\\hat{k}\\) on vector \\(\\vec{b} = \\hat{i} + 2\\hat{j} + \\hat{k}\\) is:", opt: ["(a) \\(\\frac{10}{\\sqrt{6}}\\)", "(b) \\(\\frac{10}{\\sqrt{17}}\\)", "(c) \\(\\frac{5}{\\sqrt{6}}\\)", "(d) \\(\\frac{6}{\\sqrt{10}}\\)"] }
+          ],
+          secB: [
+            "Find a unit vector perpendicular to both \\(\\vec{a} = \\hat{i} + \\hat{j} + \\hat{k}\\) and \\(\\vec{b} = 2\\hat{i} + 3\\hat{j} - \\hat{k}\\).",
+            "If \\(\\vec{a}, \\vec{b}, \\vec{c}\\) are unit vectors such that \\(\\vec{a}+\\vec{b}+\\vec{c}=\\vec{0}\\), find \\(\\vec{a}\\cdot\\vec{b} + \\vec{b}\\cdot\\vec{c} + \\vec{c}\\cdot\\vec{a}\\)."
+          ],
+          secC: [
+            "If \\(\\vec{a} = \\hat{i} + 4\\hat{j} + 2\\hat{k}\\), \\(\\vec{b} = 3\\hat{i} - 2\\hat{j} + 7\\hat{k}\\) and \\(\\vec{c} = 2\\hat{i} - \\hat{j} + 4\\hat{k}\\), find a vector \\(\\vec{d}\\) perpendicular to both \\(\\vec{a}\\) and \\(\\vec{b}\\) such that \\(\\vec{c}\\cdot\\vec{d} = 15\\). &nbsp;<strong>OR</strong>&nbsp; Prove using vectors that the median to the base of an isosceles triangle is perpendicular to the base."
+          ],
+          secD: [
+            "Let \\(\\vec{a} = 4\\hat{i} + 5\\hat{j} - \\hat{k}\\), \\(\\vec{b} = \\hat{i} - 4\\hat{j} + 5\\hat{k}\\), and \\(\\vec{c} = 3\\hat{i} + \\hat{j} - \\hat{k}\\). Find a vector \\(\\vec{d}\\) which is perpendicular to both \\(\\vec{a}\\) and \\(\\vec{b}\\) and \\(\\vec{d}\\cdot\\vec{c} = 21\\). &nbsp;<strong>OR</strong>&nbsp; Show that the points \\(A(1, 2, 7), B(2, 6, 3)\\) and \\(C(3, 10, -1)\\) are collinear using vector cross-product."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Drone Surveillance Flight Path:</strong><br>Two military surveillance drones are flying along straight vectors \\(\\vec{r}_1 = t(2\\hat{i} + 3\\hat{j} + 6\\hat{k})\\) and \\(\\vec{r}_2 = (3\\hat{i} + 2\\hat{j}) + s(6\\hat{i} + 2\\hat{j} - 3\\hat{k})\\).", parts: ["(i) Find the velocity vector of Drone 1. &nbsp;<em>[1]</em>", "(ii) Check whether the flight directions of the two drones are perpendicular. &nbsp;<em>[1]</em>", "(iii) Find the cosine of the angle between their flight vectors. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find the area of the parallelogram formed by the velocity vectors of the two drones. &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        12: { // 3D Geometry
+          secA: [
+            { q: "Direction cosines of the line passing through \\((0,0,0)\\) and \\((1, 2, 3)\\) are:", opt: ["(a) \\(\\frac{1}{\\sqrt{14}}, \\frac{2}{\\sqrt{14}}, \\frac{3}{\\sqrt{14}}\\)", "(b) 1, 2, 3", "(c) \\(\\frac{1}{6}, \\frac{2}{6}, \\frac{3}{6}\\)", "(d) \\(\\frac{1}{14}, \\frac{2}{14}, \\frac{3}{14}\\)"] },
+            { q: "The angle between the lines \\(\\frac{x-2}{2} = \\frac{y-1}{5} = \\frac{z+3}{-3}\\) and \\(\\frac{x+2}{-1} = \\frac{y-4}{8} = \\frac{z-5}{4}\\) is:", opt: ["(a) \\(\\cos^{-1}\\!\\left(\\frac{26}{9\\sqrt{38}}\\right)\\)", "(b) \\(\\frac{\\pi}{2}\\)", "(c) \\(\\frac{\\pi}{3}\\)", "(d) 0"] }
+          ],
+          secB: [
+            "Find the vector equation of the line passing through points \\((-1, 0, 2)\\) and \\((3, 4, 6)\\).",
+            "Find the distance of point \\((2, 3, -5)\\) from the plane \\(x + 2y - 2z = 9\\)."
+          ],
+          secC: [
+            "Find the shortest distance between the skew lines:<br>\\(\\vec{r} = (\\hat{i} + 2\\hat{j} + \\hat{k}) + \\lambda(\\hat{i} - \\hat{j} + \\hat{k})\\) and \\(\\vec{r} = (2\\hat{i} - \\hat{j} - \\hat{k}) + \\mu(2\\hat{i} + \\hat{j} + 2\\hat{k})\\). &nbsp;<strong>OR</strong>&nbsp; Find the coordinates of the foot of perpendicular from \\((1, 2, 3)\\) to the line \\(\\frac{x-6}{3} = \\frac{y-7}{2} = \\frac{z-7}{-2}\\)."
+          ],
+          secD: [
+            "Find the image of the point \\((1, 6, 3)\\) in the line \\(\\frac{x}{1} = \\frac{y-1}{2} = \\frac{z-2}{3}\\). Also find the length of perpendicular segment. &nbsp;<strong>OR</strong>&nbsp; Find the vector equation of the plane passing through \\((1, 1, 0), (1, 2, 1)\\) and \\((-2, 2, -1)\\)."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Air Traffic Control (ATC) Radar Coordination:</strong><br>An ATC radar tracks two commercial aircraft on flight paths \\(L_1: \\vec{r} = (3\\hat{i} + 8\\hat{j} + 3\\hat{k}) + \\lambda(3\\hat{i} - \\hat{j} + \\hat{k})\\) and \\(L_2: \\vec{r} = (-3\\hat{i} - 7\\hat{j} + 6\\hat{k}) + \\mu(-3\\hat{i} + 2\\hat{j} + 4\\hat{k})\\).", parts: ["(i) Write the coordinates of the starting point of Flight 1. &nbsp;<em>[1]</em>", "(ii) Express the unit vector along Flight 1 direction. &nbsp;<em>[1]</em>", "(iii) Compute the shortest distance between the two flight paths to verify clearance safety. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Do the flight paths intersect? Justify mathematically. &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        13: { // Linear Programming
+          secA: [
+            { q: "In an LPP, the objective function \\(Z = ax + by\\) is always:", opt: ["(a) Quadratic", "(b) Linear", "(c) Constant", "(d) None of these"] },
+            { q: "The corner points of feasible region are \\((0,0), (0,40), (20,40), (60,20), (60,0)\\). Maximum of \\(Z = 4x + 3y\\) occurs at:", opt: ["(a) (0, 40)", "(b) (20, 40)", "(c) (60, 20)", "(d) (60, 0)"] }
+          ],
+          secB: [
+            "Maximize \\(Z = 3x + 4y\\) subject to constraints: \\(x + y \\le 4,\\; x \\ge 0,\\; y \\ge 0\\).",
+            "Define: (a) Feasible Region, (b) Infeasible Solution."
+          ],
+          secC: [
+            "Minimize \\(Z = 200x + 500y\\) subject to: \\(x + 2y \\ge 10,\\; 3x + 4y \\le 24,\\; x \\ge 0, y \\ge 0\\). &nbsp;<strong>OR</strong>&nbsp; Solve graphically: Maximize \\(Z = 5x + 3y\\) subject to \\(3x + 5y \\le 15,\\; 5x + 2y \\le 10,\\; x, y \\ge 0\\)."
+          ],
+          secD: [
+            "A dealer wishes to purchase table fans and ceiling fans. He has ₹57,600 to invest and space for at most 20 items. A table fan costs ₹3,600 and ceiling fan costs ₹2,400. Profit on table fan is ₹220 and ceiling fan is ₹180. Formulate LPP and solve graphically for maximum profit. &nbsp;<strong>OR</strong>&nbsp; A manufacturing company makes two models \\(A\\) and \\(B\\) of a product. Model \\(A\\) requires 9 labor hours and 1 hour for finishing; model \\(B\\) requires 12 hours for labor and 3 hours for finishing. Maximum available labor hours is 180 and finishing hours is 30. Profit on \\(A\\) is ₹8000 and on \\(B\\) is ₹12000. Find optimal product mix."
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Organic Bakery Production Optimization:</strong><br>An organic bakery produces Cakes (X) and Cookies (Y). Each batch of Cake requires 200g flour and 25g fat, while Cookies require 100g flour and 50g fat. Maximum available flour is 5 kg (5000g) and fat is 1 kg (1000g). Profit is ₹100 per cake batch and ₹80 per cookie batch.", parts: ["(i) Formulate the mathematical inequalities for flour and fat constraints. &nbsp;<em>[1]</em>", "(ii) State the non-negativity restrictions. &nbsp;<em>[1]</em>", "(iii) Find the corner points and maximize profit graphically. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; If profit on cookie increases to ₹120, what is the new optimal batch allocation? &nbsp;<em>[2]</em>"] }
+          ]
+        },
+        14: { // Probability
+          secA: [
+            { q: "If \\(P(A) = \\frac{7}{13}, P(B) = \\frac{9}{13}\\) and \\(P(A \\cap B) = \\frac{4}{13}\\), then \\(P(A|B)\\) is:", opt: ["(a) \\(\\frac{4}{9}\\)", "(b) \\(\\frac{4}{7}\\)", "(c) \\(\\frac{7}{9}\\)", "(d) \\(\\frac{9}{13}\\)"] },
+            { q: "If \\(A\\) and \\(B\\) are independent events with \\(P(A) = 0.3\\) and \\(P(B) = 0.4\\), then \\(P(A \\cup B)\\) is:", opt: ["(a) 0.70", "(b) 0.58", "(c) 0.12", "(d) 0.42"] },
+            { q: "A die is thrown 6 times. If 'getting an odd number' is a success, the probability of 5 successes is:", opt: ["(a) \\(\\frac{3}{32}\\)", "(b) \\(\\frac{3}{64}\\)", "(c) \\(\\frac{6}{64}\\)", "(d) \\(\\frac{1}{64}\\)"] }
+          ],
+          secB: [
+            "If \\(P(A) = 0.8, P(B) = 0.5\\) and \\(P(B|A) = 0.4\\), find: (i) \\(P(A \\cap B)\\), (ii) \\(P(A|B)\\).",
+            "Two cards are drawn without replacement from a pack of 52 cards. Find the probability that both cards are black."
+          ],
+          secC: [
+            "A problem in mathematics is given to three students whose chances of solving it are \\(\\frac{1}{2}, \\frac{1}{3}, \\frac{1}{4}\\). What is the probability that the problem is solved? &nbsp;<strong>OR</strong>&nbsp; Find the probability distribution of number of doublets in three throws of a pair of dice.",
+            "An insurance company insured 2000 scooter drivers, 4000 car drivers and 6000 truck drivers. Probability of accident is 0.01, 0.03, 0.15 respectively. One insured person meets with an accident. What is probability that he is a scooter driver?"
+          ],
+          secD: [
+            "Bag I contains 3 red and 4 black balls and Bag II contains 5 red and 6 black balls. One ball is transferred from Bag I to Bag II and then a ball is drawn from Bag II. The ball so drawn is found to be red in colour. Find the probability that the transferred ball was black. &nbsp;<strong>OR</strong>&nbsp; A doctor is to visit a patient. From past experience, probabilities that he comes by train, bus, scooter or other means are \\(\\frac{3}{10}, \\frac{1}{5}, \\frac{1}{10}, \\frac{2}{5}\\) and probabilities that he will be late are \\(\\frac{1}{4}, \\frac{1}{3}, \\frac{1}{12}\\) and 0 respectively. When he arrives, he is late. What is the probability that he came by train?"
+          ],
+          secE: [
+            { passage: "<strong>Case Study — Clinical Diagnostic Test for Viral Infection:</strong><br>In a diagnostic testing facility, a test is 99% effective in detecting a disease when present. However, it gives a false positive result for 0.5% of healthy persons tested. In the general population, 0.1% of people have the disease. A person is selected at random and tested positive.", parts: ["(i) Let \\(E_1\\) be person has disease and \\(E_2\\) be person is healthy. State \\(P(E_1)\\) and \\(P(E_2)\\). &nbsp;<em>[1]</em>", "(ii) Find \\(P(A|E_1)\\) and \\(P(A|E_2)\\) where \\(A\\) is event of positive test. &nbsp;<em>[1]</em>", "(iii) Using Bayes' Theorem, find the posterior probability that the person actually has the disease given positive test. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find the total probability that any randomly tested person tests positive. &nbsp;<em>[2]</em>"] }
+          ]
+        }
+      },
+      'XI': {
+        1: { // Sets & Relations
+          secA: [{ q: "If \\(A = \\{1, 2, 3\\}\\) and \\(B = \\{3, 4\\}\\), then \\((A \\times B) \\cap (B \\times A)\\) is:", opt: ["(a) \\(\\{(3, 3)\\}\\)", "(b) \\(\\{(1, 3), (3, 1)\\}\\)", "(c) \\(\\phi\\)", "(d) None"] }],
+          secB: ["If \\(U = \\{1, 2, 3, 4, 5, 6, 7, 8, 9\\}, A = \\{2, 4, 6, 8\\}, B = \\{2, 3, 5, 7\\}\\), verify De Morgan's Law: \\((A \\cup B)' = A' \\cap B'\\)."],
+          secC: ["In a survey of 60 people, 25 read newspaper H, 26 read T, 26 read I, 9 read both H and I, 11 read H and T, 8 read T and I, 3 read all three. Find the number of people who read at least one newspaper."],
+          secD: ["Show that \\(f: \\mathbb{R} \\to \\mathbb{R}\\) defined by \\(f(x) = x^2\\) is neither one-one nor onto. Find the domain and range of \\(f(x) = \\sqrt{9 - x^2}\\)."],
+          secE: [{ passage: "<strong>Case Study — Survey of Student Clubs:</strong><br>In a school, 50 students joined Music club, 40 joined Robotics, 30 joined Drama. 15 were in Music & Robotics, 10 in Robotics & Drama, 12 in Music & Drama, and 5 in all three.", parts: ["(i) Find how many students are in Music only. &nbsp;<em>[1]</em>", "(ii) Find students in exactly two clubs. &nbsp;<em>[1]</em>", "(iii) Find total students in at least one club. &nbsp;<em>[2]</em>"] }]
+        }
+      },
+      'VII': {
+        1: { // Integers & Basic Math
+          secA: [{ q: "The value of \\((-30) \\div [(-10) + 5]\\) is:", opt: ["(a) 6", "(b) -6", "(c) -5", "(d) 5"] }],
+          secB: ["Evaluate: \\((-20) \\times (-2) \\times (-5) \\times 7\\)."],
+          secC: ["In a test (+5) marks are given for every correct answer and (-2) marks for incorrect. Radhika scored 20 marks with 12 correct answers. How many questions did she attempt incorrectly?"],
+          secD: ["Find the value of \\(x\\): \\(3(x-2) + 5 = 2(x+3) - 1\\). Check your answer."],
+          secE: [{ passage: "<strong>Case Study — Submarine Descent:</strong><br>A submarine descends into water at rate of 6 m/min. If descent starts from 10 m above sea level, calculate its position.", parts: ["(i) Write the starting altitude with proper sign. &nbsp;<em>[1]</em>", "(ii) How deep will it reach in 30 minutes? &nbsp;<em>[1]</em>", "(iii) How long will it take to reach -350 m depth? &nbsp;<em>[2]</em>"] }]
+        }
+      }
+    };
+
+    // ============================================================
+    // SOURCE SELECTION & SCOPE HANDLING
     // ============================================================
     function selectSource(src, btn) {
       currentSource = src;
       document.querySelectorAll('.source-tabs .source-tab-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      ['sourceBank','sourceOnline','sourcePdf'].forEach(id => {
+      ['sourceBank','sourceOnline','sourcePdf','sourceQpFiles'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
       });
-      const map = { bank:'sourceBank', online:'sourceOnline', pdf:'sourcePdf' };
+      const map = { bank:'sourceBank', online:'sourceOnline', pdf:'sourcePdf', qpfiles:'sourceQpFiles' };
       const t = document.getElementById(map[src]);
       if (t) t.style.display = 'block';
+      updateSourceSummary();
     }
 
-    // ============================================================
-    // CHAPTER PDF SELECTOR (Class 12)
-    // ============================================================
-    const class12ChaptersData = [
-      { num:1,  title:"Relations and Functions",         file:"all chapters pdf/1 RELATIONS AND FUNCTIONS.pdf" },
-      { num:2,  title:"Inverse Trigonometric Functions", file:"all chapters pdf/2 INVERSE TRIGONOMETRIC FUNCTIONS.pdf" },
-      { num:3,  title:"Matrices",                        file:"all chapters pdf/3 MATRICES.pdf" },
-      { num:4,  title:"Determinants",                    file:"all chapters pdf/4 DETERMINANTS.pdf" },
-      { num:5,  title:"Continuity & Differentiability",  file:"all chapters pdf/5 CONTINUITY AND DIFFERENTIABILITY.pdf" },
-      { num:6,  title:"Applications of Derivatives",     file:"all chapters pdf/6 APPLICATIONS OF DERIVATIVES.pdf" },
-      { num:7,  title:"Integrals (Indefinite)",           file:"all chapters pdf/7 INTEGRALS INDEFINITE.pdf" },
-      { num:8,  title:"Integrals (Definite)",             file:"all chapters pdf/8 INTEGRALS DEFINITE.pdf" },
-      { num:9,  title:"Applications of Integrals",       file:"all chapters pdf/9 APPLICATIONS OF INTEGRALS.pdf" },
-      { num:10, title:"Differential Equations",          file:"all chapters pdf/10 DIFFERENTIAL EQUATIONS.pdf" },
-      { num:11, title:"Vector Algebra",                  file:"all chapters pdf/11 VECTORS.pdf" },
-      { num:12, title:"Three Dimensional Geometry",      file:"all chapters pdf/12 3-DIMENSIONAL GEOMETRY.pdf" },
-      { num:13, title:"Linear Programming",              file:"all chapters pdf/13 LINEAR PRAGRAMMING.pdf" },
-      { num:14, title:"Probability",                     file:"all chapters pdf/14 PROBABILITY.pdf" },
-    ];
-
     function renderChapterPDFSelector() {
+      const cls = document.getElementById('genClass')?.value || 'XII';
       const grid = document.getElementById('chapterPdfSelector');
+      const heading = document.getElementById('chapterPdfHeading');
+      if (heading) heading.textContent = `Select chapters from Class ${cls} Mathematics syllabus:`;
       if (!grid) return;
-      grid.innerHTML = class12ChaptersData.map(ch => `
+      const chapters = classSyllabusData[cls] || classSyllabusData['XII'];
+      grid.innerHTML = chapters.map(ch => `
         <label class="ch-pdf-item" id="chlabel_${ch.num}" for="chpdf_${ch.num}">
           <input type="checkbox" id="chpdf_${ch.num}" value="${ch.num}" onchange="toggleChLabel(${ch.num})">
           <span>Ch.${ch.num}: ${ch.title}</span>
+        </label>`).join('');
+      updateSourceSummary();
+    }
+
+    function renderQPFilesSelector() {
+      const grid = document.getElementById('qpFilesSelector');
+      if (!grid) return;
+      const qpFiles = [
+        { id:'qpf_pt1_26', title:'PT1 Class 12 (2026)', file:'question papers/PT1/12MATHS@KBJ_PT1.pdf' },
+        { id:'qpf_pb1_25', title:'Pre-Board 1 Class 12 (2025)', file:'question papers/PB1 QP/QP-MATHS-XII-4.pdf' },
+        { id:'qpf_hy_24',  title:'Half Yearly Class 11 (2024)', file:'question papers/Class 11 Qp HY KVR 2024/XI MATHS_QP HY 2024.pdf' },
+        { id:'qpf_pb3_12', title:'Pre-Board 3 Class 12', file:'question papers/QP MATH_12_PB3.docx' },
+        { id:'qpf_mt2',    title:'Monthly Test 2 (KBJ Collection)', file:'question papers/Maths@KBJ_MT2.docx' },
+        { id:'qpf_mt3',    title:'Monthly Test 3 (KBJ Collection)', file:'question papers/Maths@KBJ_MT3.docx' },
+        { id:'qpf_see_24', title:'SEE Annual Class 11 (2024)', file:'question papers/11_MATHS_QP_SEE2024.docx' },
+        { id:'qpf_pt1_11', title:'PT1 Class 11 (2026)', file:'question papers/PT1/11MATHS@KBJ_PT1.pdf' },
+      ];
+      grid.innerHTML = qpFiles.map(qf => `
+        <label class="ch-pdf-item" id="qflabel_${qf.id}" for="${qf.id}">
+          <input type="checkbox" id="${qf.id}" value="${qf.title}" onchange="toggleQPFileLabel('${qf.id}')">
+          <span>📄 ${qf.title}</span>
         </label>`).join('');
     }
 
@@ -2330,23 +2713,84 @@
       const cb = document.getElementById(`chpdf_${n}`);
       const lb = document.getElementById(`chlabel_${n}`);
       if (cb && lb) lb.classList.toggle('checked', cb.checked);
+      updateSourceSummary();
+    }
+
+    function toggleQPFileLabel(id) {
+      const cb = document.getElementById(id);
+      const lb = document.getElementById(`qflabel_${id}`);
+      if (cb && lb) lb.classList.toggle('checked', cb.checked);
+      updateSourceSummary();
     }
 
     function selectAllChaptersGen(val) {
-      class12ChaptersData.forEach(ch => {
+      const cls = document.getElementById('genClass')?.value || 'XII';
+      const chapters = classSyllabusData[cls] || classSyllabusData['XII'];
+      chapters.forEach(ch => {
         const cb = document.getElementById(`chpdf_${ch.num}`);
-        if (cb) { cb.checked = val; toggleChLabel(ch.num); }
+        if (cb) { cb.checked = val; }
+        const lb = document.getElementById(`chlabel_${ch.num}`);
+        if (lb) lb.classList.toggle('checked', val);
       });
+      updateSourceSummary();
     }
 
     function getSelectedChapters() {
-      return class12ChaptersData.filter(ch => {
+      const cls = document.getElementById('genClass')?.value || 'XII';
+      const chapters = classSyllabusData[cls] || classSyllabusData['XII'];
+      return chapters.filter(ch => {
         const cb = document.getElementById(`chpdf_${ch.num}`);
         return cb && cb.checked;
       });
     }
 
-    function updateChapterListGen() { renderChapterPDFSelector(); }
+    function getSelectedQPFiles() {
+      const checked = [];
+      document.querySelectorAll('#qpFilesSelector input[type="checkbox"]:checked').forEach(cb => checked.push(cb.value));
+      return checked;
+    }
+
+    function updateSourceSummary() {
+      const summaryText = document.getElementById('activeSourceSummaryText');
+      if (!summaryText) return;
+      const cls = document.getElementById('genClass')?.value || 'XII';
+
+      if (currentSource === 'pdf') {
+        const sel = getSelectedChapters();
+        if (sel.length === 0) {
+          summaryText.innerHTML = `<strong>Active Source:</strong> All Syllabus Chapters for Class ${cls} (Full Course)`;
+        } else {
+          const list = sel.map(c => `Ch.${c.num} (${c.title})`).join(', ');
+          summaryText.innerHTML = `<strong>Active Source (${sel.length} Selected Chapter${sel.length>1?'s':''}):</strong> ${list}`;
+        }
+      } else if (currentSource === 'bank') {
+        const topics = document.getElementById('customTopics')?.value.trim();
+        if (topics) {
+          summaryText.innerHTML = `<strong>Active Source:</strong> Question Bank — Focus Topics: <em>"${topics}"</em>`;
+        } else {
+          summaryText.innerHTML = `<strong>Active Source:</strong> CBSE Standard Question Bank & NCERT Exemplar (Class ${cls})`;
+        }
+      } else if (currentSource === 'online') {
+        const sel = [];
+        if (document.getElementById('srcOnlineCBSE')?.checked) sel.push('CBSE Board (2020-25)');
+        if (document.getElementById('srcOnlineKVS')?.checked) sel.push('KVS Regional');
+        if (document.getElementById('srcOnlineExemplar')?.checked) sel.push('NCERT Exemplar');
+        if (document.getElementById('srcOnlineJEE')?.checked) sel.push('NDA/JEE');
+        summaryText.innerHTML = `<strong>Active Source (Online):</strong> ${sel.join(', ') || 'Standard CBSE'}`;
+      } else if (currentSource === 'qpfiles') {
+        const files = getSelectedQPFiles();
+        if (files.length === 0) {
+          summaryText.innerHTML = `<strong>Active Source:</strong> All Local School Examination Archive Files`;
+        } else {
+          summaryText.innerHTML = `<strong>Active Source (${files.length} Selected Papers):</strong> ${files.join('; ')}`;
+        }
+      }
+    }
+
+    function updateChapterListGen() {
+      renderChapterPDFSelector();
+      updateSourceSummary();
+    }
 
     // ============================================================
     // AI TOOL SELECTION
@@ -2407,13 +2851,27 @@
       const topics      = document.getElementById('customTopics')?.value || '';
 
       let srcDesc = '';
-      if (currentSource === 'bank')
-        srcDesc = `CBSE standard question bank, NCERT exercises, PYQs (2018–2025).${topics ? ' Focus on: ' + topics : ''}`;
-      else if (currentSource === 'online')
-        srcDesc = 'CBSE official sample papers, KVS regional papers (2018–2025).';
-      else {
+      if (currentSource === 'pdf') {
         const sel = getSelectedChapters();
-        srcDesc = sel.length ? 'From selected chapters: ' + sel.map(c => `Ch.${c.num} ${c.title}`).join(', ') + '.' : 'All chapters of Class XII Mathematics.';
+        if (sel.length > 0) {
+          srcDesc = `CRITICAL MANDATORY INSTRUCTION: You MUST generate ALL questions STRICTLY and EXCLUSIVELY from the following selected chapters only:\n` +
+            sel.map(c => `  - Chapter ${c.num}: ${c.title} (Source PDF: "${c.file || c.title}")`).join('\n') +
+            `\nDO NOT include any questions from other chapters outside this selected list.`;
+        } else {
+          srcDesc = `All standard chapters from the Class ${cls} Mathematics NCERT Chapter PDFs.`;
+        }
+      } else if (currentSource === 'bank') {
+        srcDesc = `CBSE standard question bank, NCERT exercises, and PYQs (2018–2025).` + (topics ? `\nCRITICAL FOCUS TOPICS: Only create questions from: "${topics}".` : '');
+      } else if (currentSource === 'online') {
+        const sel = [];
+        if (document.getElementById('srcOnlineCBSE')?.checked) sel.push('CBSE Official Board Papers (2020–2025)');
+        if (document.getElementById('srcOnlineKVS')?.checked) sel.push('KVS Regional Sample Papers');
+        if (document.getElementById('srcOnlineExemplar')?.checked) sel.push('NCERT Exemplar Advanced Problems');
+        if (document.getElementById('srcOnlineJEE')?.checked) sel.push('NDA / JEE Foundation Level');
+        srcDesc = `External online repository sources: ${sel.join(', ') || 'CBSE National Archive'}.`;
+      } else if (currentSource === 'qpfiles') {
+        const qpFiles = getSelectedQPFiles();
+        srcDesc = `Reference from existing school test collection papers: ${qpFiles.join(', ') || 'School Examination Archive'}. Generate balanced variations of questions found in these papers.`;
       }
 
       const totalQ = Object.keys(qConfig).reduce((s, k) => s + qConfig[k], 0);
@@ -2425,11 +2883,14 @@ EXAM DETAILS:
 • School: PM SHRI KENDRIYA VIDYALAYA RANIKHET
 • Class: ${cls} | Subject: ${subj}
 • Exam: ${examType} | Session: ${session}${dt ? ' | Date: ' + dt : ''}
-• Time: ${dur} Hours | Maximum Marks: ${marks}
+• Time: ${dur} | Maximum Marks: ${marks}
+
+SOURCE REQUIREMENT:
+${srcDesc}
 
 QUESTION DISTRIBUTION (Total: ${totalQ} Questions = ${totalM} Marks):
 • Section A — ${qConfig.q1mark} questions × 1 mark = ${qConfig.q1mark} marks
-  (MCQs and Assertion-Reason type; last 2 should be Assertion-Reason)
+  (MCQs and Assertion-Reason type; last 2 questions should be Assertion-Reason)
 • Section B — ${qConfig.q2mark} questions × 2 marks = ${qConfig.q2mark*2} marks
   (Very Short Answer; no internal choice)
 • Section C — ${qConfig.q3mark} questions × 3 marks = ${qConfig.q3mark*3} marks
@@ -2439,8 +2900,6 @@ QUESTION DISTRIBUTION (Total: ${totalQ} Questions = ${totalM} Marks):
 • Section E — ${qConfig.qcase} case-based questions × 4 marks = ${qConfig.qcase*4} marks
   (Each has a real-world passage + 3 sub-parts: 1+1+2 marks; last sub-part has internal choice)
 
-QUESTION SOURCES: ${srcDesc}
-
 LaTeX FORMAT REQUIREMENTS:
 \\documentclass[12pt]{article}
 \\usepackage[a4paper, top=1.2cm, bottom=1.2cm, left=1.5cm, right=1.5cm]{geometry}
@@ -2448,12 +2907,12 @@ LaTeX FORMAT REQUIREMENTS:
 \\usepackage{graphicx, xcolor, fancyhdr, mdframed}
 
 Requirements:
-1. School header with name, class, subject, exam name, time, marks — formatted with \\hrule
+1. School header with PM SHRI KENDRIYA VIDYALAYA RANIKHET, class, subject, exam name, time, marks — formatted with \\hrule
 2. 8-point CBSE-style General Instructions
 3. Section headings showing question count and marks (e.g., "SECTION A (18 × 1 = 18 Marks)")
 4. ALL math in proper LaTeX: \\frac{}{}, \\int_{a}^{b}, \\lim_{x \\to}, \\vec{a}, matrix environments
 5. Assertion-Reason: Show A-B-C-D options in standard CBSE format
-6. Case-based questions: realistic context passage (medicine/environment/geometry/business), then (i)(ii)(iii) sub-parts
+6. Case-based questions: realistic context passage, then (i)(ii)(iii) sub-parts
 7. Internal choice shown as "\\textbf{OR}" between alternatives
 8. Consecutive numbering Q1 through Q${totalQ}
 9. A4 page, minimum margins, ready for pdflatex compilation
@@ -2464,294 +2923,74 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     }
 
     // ============================================================
-    // GENERATE PAPER (AI or prompt-copy)
+    // SAMPLE QUESTION PAPER GENERATION ENGINE (Filtered by Source)
     // ============================================================
-    function generateQP() {
-      const keyMap = { chatgpt: localStorage.getItem('qp_openai_key'), deepseek: localStorage.getItem('qp_deepseek_key'), gemini: localStorage.getItem('qp_gemini_key') };
-      const apiKey = keyMap[currentAITool];
-      const prompt = buildQPPrompt();
-      if (apiKey && ['chatgpt','deepseek','gemini'].includes(currentAITool)) {
-        generateWithAPI(apiKey, prompt);
-      } else {
-        showPromptModal(prompt);
-      }
+    function previewQP() {
+      renderGeneratedPaper(buildSampleQPHTML());
     }
-
-    async function generateWithAPI(apiKey, prompt) {
-      const btn = document.querySelector('.gen-btn-primary');
-      if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...'; btn.disabled = true; }
-      try {
-        let result = '';
-        if (currentAITool === 'chatgpt') {
-          const res = await fetch('https://api.openai.com/v1/chat/completions', {
-            method:'POST',
-            headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
-            body:JSON.stringify({ model:'gpt-4o', messages:[{role:'user',content:prompt}], max_tokens:4000, temperature:0.7 })
-          });
-          const d = await res.json();
-          if (d.error) throw new Error(d.error.message);
-          result = d.choices[0].message.content;
-        } else if (currentAITool === 'deepseek') {
-          const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
-            method:'POST',
-            headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},
-            body:JSON.stringify({ model:'deepseek-chat', messages:[{role:'user',content:prompt}], temperature:0.7 })
-          });
-          const d = await res.json();
-          if (d.error) throw new Error(d.error.message);
-          result = d.choices[0].message.content;
-        } else if (currentAITool === 'gemini') {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
-          });
-          const d = await res.json();
-          if (d.error) throw new Error(d.error.message);
-          result = d.candidates[0].content.parts[0].text;
-        }
-        if (result) { renderGeneratedPaper(result); showToast('✅ Question paper generated!'); }
-      } catch (err) {
-        showToast('❌ API Error: ' + err.message + '. Switching to prompt-copy mode.');
-        showPromptModal(buildQPPrompt());
-      } finally {
-        if (btn) { btn.innerHTML = '<i class="fas fa-robot"></i> Generate with AI'; btn.disabled = false; }
-      }
-    }
-
-    function showPromptModal(prompt) {
-      let modal = document.getElementById('qpPromptModal');
-      if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'qpPromptModal';
-        modal.className = 'prompt-modal-overlay';
-        modal.innerHTML = `
-          <div class="prompt-modal">
-            <h3><i class="fas fa-robot" style="color:#a78bfa;"></i> AI Question Paper Generator</h3>
-            <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:10px;">
-              Your LaTeX prompt is ready. Copy it, open the AI tool, paste and run. Then paste the AI-generated output below to render &amp; print.
-            </p>
-            <textarea class="prompt-textarea" id="qpPromptText" readonly></textarea>
-            <div class="prompt-modal-actions">
-              <button onclick="copyPromptText()" class="gen-btn gen-btn-primary" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-copy"></i> Copy Prompt</button>
-              <button id="qpOpenAIBtn" class="gen-btn gen-btn-preview" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-external-link-alt"></i> Open AI Tool</button>
-              <button onclick="closePromptModal()" class="gen-btn gen-btn-edit" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-times"></i> Close</button>
-            </div>
-            <hr style="border-color:rgba(255,255,255,0.08); margin:16px 0;">
-            <p style="color:var(--text-secondary); font-size:0.82rem; margin-bottom:8px;"><i class="fas fa-paste" style="color:#a78bfa;"></i> Paste AI-generated LaTeX/HTML output here:</p>
-            <textarea id="qpAIOutputInput" class="prompt-textarea" placeholder="Paste the AI output here..." style="min-height:150px;"></textarea>
-            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
-              <button onclick="renderPastedOutput()" class="gen-btn gen-btn-primary" style="padding:9px 18px; font-size:0.85rem;"><i class="fas fa-magic"></i> Render &amp; Preview</button>
-            </div>
-          </div>`;
-        document.body.appendChild(modal);
-        modal.addEventListener('click', e => { if (e.target === modal) closePromptModal(); });
-      }
-      document.getElementById('qpPromptText').value = prompt;
-      const ob = document.getElementById('qpOpenAIBtn');
-      if (ob) { ob.innerHTML = `<i class="fas fa-external-link-alt"></i> Open ${aiNames[currentAITool]||'AI Tool'}`; ob.onclick = () => window.open(aiURLs[currentAITool],'_blank'); }
-      navigator.clipboard.writeText(prompt).catch(()=>{});
-      modal.classList.add('open');
-      showToast(`📋 Prompt copied! Paste into ${aiNames[currentAITool]||'AI'}`);
-    }
-
-    function closePromptModal() { document.getElementById('qpPromptModal')?.classList.remove('open'); }
-    function copyPromptText() {
-      const t = document.getElementById('qpPromptText')?.value;
-      if (t) navigator.clipboard.writeText(t).then(()=>showToast('📋 Prompt copied!'));
-    }
-    function renderPastedOutput() {
-      const text = document.getElementById('qpAIOutputInput')?.value?.trim();
-      if (!text) { showToast('⚠️ Please paste AI output first.'); return; }
-      closePromptModal();
-      renderGeneratedPaper(text);
-    }
-
-    // ============================================================
-    // RENDER GENERATED PAPER (LaTeX → HTML + KaTeX)
-    // ============================================================
-    function renderGeneratedPaper(content) {
-      currentQPHTML = content;
-      let html = content.includes('\\documentclass') ? latexToHTML(content) : content;
-      const preview = document.getElementById('qpPreviewArea');
-      const wrapper = document.getElementById('qpPreviewWrapper');
-      if (preview) {
-        preview.innerHTML = html;
-        if (window.renderMathInElement) {
-          renderMathInElement(preview, {
-            delimiters: [
-              {left:'\\(',  right:'\\)',  display:false},
-              {left:'\\[',  right:'\\]',  display:true},
-              {left:'$$',   right:'$$',   display:true},
-              {left:'$',    right:'$',    display:false},
-            ],
-            throwOnError: false
-          });
-        }
-      }
-      if (wrapper) { wrapper.style.display = 'block'; wrapper.scrollIntoView({behavior:'smooth'}); }
-      const editArea = document.getElementById('qpEditArea');
-      if (editArea) editArea.value = content;
-      ['btnDownloadQP','btnPrintQP','btnEditQP','btnNewSet'].forEach(id => {
-        const el = document.getElementById(id); if (el) el.style.display = 'inline-flex';
-      });
-      const numSets = parseInt(document.getElementById('genSets')?.value || 1);
-      generatedSets['A'] = content; activeSetLetter = 'A';
-      updateSetsBar(numSets);
-    }
-
-    function latexToHTML(latex) {
-      let body = latex;
-      const bm = latex.match(/\\begin\{document\}([\s\S]*?)\\end\{document\}/);
-      if (bm) body = bm[1];
-      body = body
-        .replace(/\\textbf\{([^}]+)\}/g, '<strong>$1</strong>')
-        .replace(/\\textit\{([^}]+)\}/g, '<em>$1</em>')
-        .replace(/\\underline\{([^}]+)\}/g, '<u>$1</u>')
-        .replace(/\\section\*?\{([^}]+)\}/g, '<h2 style="font-size:1.05rem;font-weight:bold;margin:14px 0 6px;text-align:center;background:#f5f5f5;padding:5px;border:1px solid #ccc;">$1</h2>')
-        .replace(/\\hrule/g, '<hr style="border:1.5px solid #000;margin:6px 0;">')
-        .replace(/\\newline|\\\\(?!\[)/g, '<br>')
-        .replace(/\\vspace\{[^}]+\}/g, '<div style="margin:6px 0;"></div>')
-        .replace(/\\hspace\{[^}]+\}/g, '&nbsp;&nbsp;&nbsp;')
-        .replace(/\\noindent/g,'')
-        .replace(/\\centering/g,'')
-        .replace(/\\begin\{center\}([\s\S]*?)\\end\{center\}/g, '<div style="text-align:center;">$1</div>')
-        .replace(/\\begin\{enumerate\}(?:\[[^\]]*\])?([\s\S]*?)\\end\{enumerate\}/g,'<ol style="margin-left:18px;margin-top:4px;">$1</ol>')
-        .replace(/\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/g,'<ul style="margin-left:18px;">$1</ul>')
-        .replace(/\\item\s+/g,'<li style="margin:2px 0;">')
-        .replace(/\\begin\{multicols\}\{[^}]+\}([\s\S]*?)\\end\{multicols\}/g,'<div style="column-count:2;gap:20px;">$1</div>')
-        .replace(/\\columnbreak/g,'<div style="break-after:column;"></div>')
-        .replace(/\\newpage/g,'<div style="page-break-before:always;margin-top:20px;"></div>')
-        .replace(/\\%/g,'%').replace(/\\&/g,'&amp;').replace(/\\\$/g,'$')
-        .replace(/\n\n+/g,'</p><p style="margin:3px 0;">');
-      const et=document.getElementById('genExamType')?.value||'Examination';
-      const cl=document.getElementById('genClass')?.value||'XII';
-      const mk=document.getElementById('genTotalMarks')?.value||'80';
-      const duVal=document.getElementById('genDuration')?.value||'3';
-      const duUnit=document.getElementById('genDurationUnit')?.value||'hours';
-      const du=duUnit==='minutes'?`${duVal} Minutes`:`${duVal} Hour${duVal==1?'':'s'}`;
-      const ss=document.getElementById('genSession')?.value||'2025-26';
-      return `<div style="font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;color:#000;max-width:210mm;margin:0 auto;padding:12mm 18mm;background:#fff;">
-        <div style="text-align:center;margin-bottom:12px;">
-          <div style="font-size:13pt;font-weight:bold;text-transform:uppercase;letter-spacing:0.5px;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
-          <div style="font-size:9.5pt;color:#333;margin:2px 0;">Affiliated to CBSE | Session: ${ss}</div>
-          <hr style="border:2px solid #000;margin:5px 0;">
-          <table style="width:100%;font-size:10pt;font-weight:bold;"><tr>
-            <td style="text-align:left;">Class: ${cl}</td>
-            <td style="text-align:center;">${et.toUpperCase()}</td>
-            <td style="text-align:right;">Max. Marks: ${mk}</td>
-          </tr><tr>
-            <td></td><td style="text-align:center;font-weight:normal;font-size:9.5pt;">Time Allowed: ${du}</td><td></td>
-          </tr></table>
-          <hr style="border:1px solid #000;margin:5px 0;">
-        </div>
-        <div style="font-size:9.5pt;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed #555;">
-          <strong>General Instructions:</strong>
-          <ol style="margin:4px 0 0 16px;line-height:1.75;">
-            <li>This paper contains <strong>five sections A, B, C, D and E</strong>. All sections are compulsory.</li>
-            <li>Section A: <strong>${qConfig.q1mark} MCQs/Assertion-Reason</strong> of 1 mark each.</li>
-            <li>Section B: <strong>${qConfig.q2mark} Very Short Answer</strong> of 2 marks each.</li>
-            <li>Section C: <strong>${qConfig.q3mark} Short Answer</strong> of 3 marks each.</li>
-            <li>Section D: <strong>${qConfig.q5mark} Long Answer</strong> of 5 marks each.</li>
-            <li>Section E: <strong>${qConfig.qcase} Case-Based</strong> of 4 marks each with sub-parts.</li>
-            <li>Internal choice is provided in Sections C, D and E. Attempt <em>any one</em>.</li>
-            <li>Use of calculator is <strong>NOT</strong> permitted. Draw neat figures wherever necessary.</li>
-          </ol>
-        </div>
-        <p style="margin:3px 0;">${body}</p>
-        <div style="text-align:center;margin-top:16px;padding-top:8px;border-top:2px solid #000;font-size:10pt;font-weight:bold;">✦ ✦ ✦ END OF QUESTION PAPER ✦ ✦ ✦</div>
-      </div>`;
-    }
-
-    // ============================================================
-    // PREVIEW SAMPLE (without AI — uses real CBSE questions)
-    // ============================================================
-    function previewQP() { renderGeneratedPaper(buildSampleQPHTML()); }
 
     function buildSampleQPHTML() {
-      const et=document.getElementById('genExamType')?.value||'Half Yearly';
-      const cl=document.getElementById('genClass')?.value||'XII';
-      const mk=parseInt(document.getElementById('genTotalMarks')?.value||80);
-      const duVal=document.getElementById('genDuration')?.value||'3';
-      const duUnit=document.getElementById('genDurationUnit')?.value||'hours';
-      const du=duUnit==='minutes'?`${duVal} Minutes`:`${duVal} Hour${duVal==1?'':'s'}`;
-      const ss=document.getElementById('genSession')?.value||'2025-26';
-      const dt=document.getElementById('genDate')?.value||'';
-      let qn=1, secA='', secB='', secC='', secD='', secE='';
+      const et      = document.getElementById('genExamType')?.value || 'Half Yearly';
+      const cl      = document.getElementById('genClass')?.value || 'XII';
+      const mk      = parseInt(document.getElementById('genTotalMarks')?.value || 80);
+      const duVal   = document.getElementById('genDuration')?.value || '3';
+      const duUnit  = document.getElementById('genDurationUnit')?.value || 'hours';
+      const du      = duUnit === 'minutes' ? `${duVal} Minutes` : `${duVal} Hour${duVal==1?'':'s'}`;
+      const ss      = document.getElementById('genSession')?.value || '2025-26';
+      const dt      = document.getElementById('genDate')?.value || '';
+      const topics  = document.getElementById('customTopics')?.value.trim().toLowerCase();
 
-      const aqns = [
-        [`If \\(A\\) is a square matrix of order 3 such that \\(|A| = -5\\), then \\(|{\\rm adj}\\, A|\\) is:`, ['(a) 25','(b) −25','(c) −5','(d) 125']],
-        [`The value of \\(\\cos^{-1}\\!\\left(\\cos\\frac{7\\pi}{6}\\right)\\) is:`, ['(a) \\(\\frac{7\\pi}{6}\\)','(b) \\(\\frac{5\\pi}{6}\\)','(c) \\(\\frac{\\pi}{6}\\)','(d) \\(\\frac{\\pi}{3}\\)']],
-        [`If \\(y = \\sin^{-1}(2x\\sqrt{1-x^2})\\), then \\(\\frac{dy}{dx}\\) is:`, ['(a) \\(\\frac{1}{\\sqrt{1-x^2}}\\)','(b) \\(\\frac{2}{\\sqrt{1-x^2}}\\)','(c) \\(\\frac{-2}{\\sqrt{1-x^2}}\\)','(d) \\(2\\sqrt{1-x^2}\\)']],
-        [`\\(\\int_0^{\\pi/2} \\cos^2 x\\, dx\\) equals:`, ['(a) 0','(b) \\(\\frac{\\pi}{4}\\)','(c) \\(\\frac{\\pi}{2}\\)','(d) 1']],
-        [`The degree of differential equation \\(\\left(\\frac{d^2y}{dx^2}\\right)^3 + \\left(\\frac{dy}{dx}\\right)^2 + \\sin\\left(\\frac{dy}{dx}\\right)+1=0\\) is:`, ['(a) 3','(b) 2','(c) 1','(d) Not defined']],
-        [`If \\(\\vec{a}\\) and \\(\\vec{b}\\) are unit vectors and \\(\\theta\\) is the angle between them, then \\(|\\vec{a}+\\vec{b}|\\) is a unit vector when \\(\\theta\\) is:`, ['(a) \\(\\frac{\\pi}{4}\\)','(b) \\(\\frac{\\pi}{3}\\)','(c) \\(\\frac{2\\pi}{3}\\)','(d) \\(\\pi\\)']],
-        [`<strong>Assertion (A):</strong> The function \\(f(x)=|x-1|\\) is not differentiable at \\(x=1\\).<br><strong>Reason (R):</strong> The left-hand derivative and right-hand derivative of \\(f\\) at \\(x=1\\) are \\(-1\\) and \\(1\\) respectively.`, ['(a) Both A and R are true; R is the correct explanation of A.','(b) Both A and R are true but R is not the correct explanation of A.','(c) A is true but R is false.','(d) A is false but R is true.']],
-      ];
-      for (let i=0;i<qConfig.q1mark;i++){
-        const q=aqns[i]||[`Sample MCQ / A-R Question ${i+1}. [Auto-generated placeholder]`,['(a) Option 1','(b) Option 2','(c) Option 3','(d) Option 4']];
-        secA+=`<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${q[0]}</p><p style="margin:2px 0 10px 20px;">${q[1].join(' &nbsp;&nbsp; ')}</p>`;
+      // Resolve questions pool filtered by selected chapters / topics / source
+      const qPool = resolveQuestionPool(cl, topics);
+
+      let qn = 1, secA = '', secB = '', secC = '', secD = '', secE = '';
+
+      // Section A
+      for (let i = 0; i < qConfig.q1mark; i++) {
+        const item = qPool.secA[i % qPool.secA.length] || { q: `Sample Question ${qn} (${qPool.chapterScope})`, opt: ['(a) Option A', '(b) Option B', '(c) Option C', '(d) Option D'] };
+        secA += `<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${item.q}</p><p style="margin:2px 0 10px 20px;">${item.opt.join(' &nbsp;&nbsp; ')}</p>`;
         qn++;
       }
 
-      const bqns=[
-        `Find \\(\\frac{dy}{dx}\\) if \\(y=\\left(\\tan x\\right)^{\\cot x}\\).`,
-        `Find \\(\\int \\frac{\\sin x}{\\sin(x-a)}\\,dx\\).`,
-        `If \\(\\vec{a}+\\vec{b}+\\vec{c}=\\vec{0}\\) and \\(|\\vec{a}|=3,\\,|\\vec{b}|=5,\\,|\\vec{c}|=7\\), find the angle between \\(\\vec{a}\\) and \\(\\vec{b}\\).`,
-        `Evaluate: \\(\\int_0^{\\pi/4} \\log(1+\\tan x)\\,dx\\).`,
-        `Find the foot of perpendicular drawn from point \\((1,6,3)\\) to the line \\(\\frac{x}{1}=\\frac{y-1}{2}=\\frac{z-2}{3}\\).`,
-      ];
-      for(let i=0;i<qConfig.q2mark;i++){
-        secB+=`<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${bqns[i]||`[2-mark question ${qn}]`}</p>`;
+      // Section B
+      for (let i = 0; i < qConfig.q2mark; i++) {
+        const item = qPool.secB[i % qPool.secB.length] || `Solve standard problem on ${qPool.chapterScope}.`;
+        secB += `<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${item}</p>`;
         qn++;
       }
 
-      const cqns=[
-        `Find \\(\\int x^2 e^{3x}\\,dx\\).`,
-        `Prove that the function \\(f(x)=\\frac{x^3}{3}-x^2+x+1\\) is strictly increasing on \\(\\mathbb{R}\\). &nbsp;<strong>OR</strong>&nbsp; Find the intervals in which \\(f(x)=\\sin x + \\cos x,\\; x\\in[0,2\\pi]\\) is strictly increasing.`,
-        `Solve the differential equation: \\((1+x^2)\\,dy + 2xy\\,dx = \\cot x\\,dx\\). &nbsp;<strong>OR</strong>&nbsp; Solve: \\(\\frac{dy}{dx} = \\frac{y-x}{y+x}\\).`,
-        `Using properties of determinants, prove that \\(\\begin{vmatrix}1+a & 1 & 1\\\\ 1 & 1+b & 1\\\\ 1 & 1 & 1+c\\end{vmatrix}=abc\\left(1+\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}\\right)\\).`,
-        `Find the position vector of the foot of perpendicular and the perpendicular distance from the point \\(P(2,3,-8)\\) to the plane \\(2y - x + z = -5\\).`,
-        `If \\(A\\) and \\(B\\) are two events such that \\(P(A)=\\frac{1}{4}\\), \\(P(B)=\\frac{1}{3}\\) and \\(P(A\\cap B)=\\frac{1}{5}\\), find \\(P(\\bar{A}|\\bar{B})\\).`,
-      ];
-      for(let i=0;i<qConfig.q3mark;i++){
-        secC+=`<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${cqns[i]||`[3-mark question ${qn}]`}</p>`;
+      // Section C
+      for (let i = 0; i < qConfig.q3mark; i++) {
+        const item = qPool.secC[i % qPool.secC.length] || `Prove the identity or evaluate the expression on ${qPool.chapterScope}.`;
+        secC += `<p style="margin:8px 0;"><strong>Q${qn}.</strong> ${item}</p>`;
         qn++;
       }
 
-      const dqns=[
-        `Find the area of the region bounded by the curves \\(y^2=4x\\) and \\(x^2=4y\\). &nbsp;<strong>OR</strong>&nbsp; Using integration find the area bounded by the triangle whose vertices are \\((1,0),\\,(2,2)\\) and \\((3,1)\\).`,
-        `Let \\(A=\\{-4,-3,-2,0,1,2,3,4\\}\\) and \\(R=\\{(a,b): a=b^2\\}\\). Show that \\(R\\) is neither reflexive nor symmetric nor transitive. &nbsp;<strong>OR</strong>&nbsp; Show that \\(f:\\mathbb{N}\\to\\mathbb{N}\\) defined by \\(f(n)=\\begin{cases}\\frac{n+1}{2}&\\text{if }n\\text{ is odd}\\\\\\frac{n}{2}&\\text{if }n\\text{ is even}\\end{cases}\\) is onto but not one-one.`,
-        `Solve the system of linear equations using matrix method: \\(x+y+z=6,\\; y+3z=11,\\; x-2y+z=0\\).`,
-        `A manufacturer produces two types of items \\(P\\) and \\(Q\\). Item \\(P\\) requires 2 hours on machine \\(A\\) and 1 hour on machine \\(B\\); item \\(Q\\) requires 1 hour on \\(A\\) and 3 hours on \\(B\\). Machines \\(A\\) and \\(B\\) are available for 10 and 15 hours per day. Profit on \\(P\\) is ₹150 and on \\(Q\\) is ₹200. Formulate and solve the L.P.P. graphically to maximise profit.`,
-      ];
-      for(let i=0;i<qConfig.q5mark;i++){
-        secD+=`<p style="margin:10px 0;"><strong>Q${qn}.</strong> ${dqns[i]||`[5-mark question ${qn}]`}</p>`;
+      // Section D
+      for (let i = 0; i < qConfig.q5mark; i++) {
+        const item = qPool.secD[i % qPool.secD.length] || `Solve the comprehensive 5-mark application problem on ${qPool.chapterScope}.`;
+        secD += `<p style="margin:10px 0;"><strong>Q${qn}.</strong> ${item}</p>`;
         qn++;
       }
 
-      const eqns=[
-        { passage:`<strong>Case Study 1 — Medicine Distribution:</strong><br>A medical company has three types of vaccine batches \\(V_1, V_2, V_3\\) with proportions \\(3:4:3\\). Their effectiveness rates are \\(70\\%\\), \\(80\\%\\) and \\(90\\%\\) respectively. A randomly selected vaccine is found effective.`,
-          parts:[`(i) Find the total probability that a randomly chosen vaccine is effective. &nbsp;<em>[1]</em>`,`(ii) Find \\(P(V_2)\\cdot P(E|V_2)\\). &nbsp;<em>[1]</em>`,`(iii) Using Bayes' theorem, find the probability that effective vaccine is from batch \\(V_3\\). &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find the probability that it is NOT from \\(V_1\\). &nbsp;<em>[2]</em>`]},
-        { passage:`<strong>Case Study 2 — Box Design:</strong><br>An open rectangular box with square base is to be made from a cardboard of area \\(432\\text{ cm}^2\\). Let the side of square base be \\(x\\) cm and height be \\(h\\) cm.`,
-          parts:[`(i) Express \\(h\\) in terms of \\(x\\). &nbsp;<em>[1]</em>`,`(ii) Write the volume \\(V(x)\\) of the box. &nbsp;<em>[1]</em>`,`(iii) Find the value of \\(x\\) that maximizes the volume, and find the maximum volume. &nbsp;<em>[2]</em>`]},
-        { passage:`<strong>Case Study 3 — Traffic Flow:</strong><br>At a traffic junction, the number of vehicles passing per minute follows a certain pattern. The probability of exactly \\(n\\) vehicles arriving in time \\(t\\) minutes is \\(P(n)=\\frac{(\\lambda t)^n e^{-\\lambda t}}{n!}\\) where \\(\\lambda=2\\) vehicles/min.`,
-          parts:[`(i) Find \\(P(0)\\) when \\(t=1\\). &nbsp;<em>[1]</em>`,`(ii) Find \\(P(1)\\) when \\(t=1\\). &nbsp;<em>[1]</em>`,`(iii) Find \\(P(n\\geq 1)\\) when \\(t=1\\) min. &nbsp;<em>[2]</em> &nbsp;<strong>OR</strong>&nbsp; Find mean number of vehicles in 2 minutes. &nbsp;<em>[2]</em>`]},
-      ];
-      for(let i=0;i<qConfig.qcase;i++){
-        const q=eqns[i]||{passage:`Case Study ${i+1}. [Context passage here.]`,parts:['(i) sub-part 1 [1]','(ii) sub-part 2 [1]','(iii) sub-part 3 [2]']};
-        secE+=`<p style="margin:10px 0 5px;"><strong>Q${qn}.</strong> ${q.passage}</p>${q.parts.map(p=>`<p style="margin:3px 0 3px 18px;">${p}</p>`).join('')}`;
+      // Section E
+      for (let i = 0; i < qConfig.qcase; i++) {
+        const item = qPool.secE[i % qPool.secE.length] || {
+          passage: `<strong>Case Study ${i+1} — Real-world Application (${qPool.chapterScope}):</strong><br>An applied engineering scenario requires calculating parameters using concepts from ${qPool.chapterScope}.`,
+          parts: ['(i) State the initial formulation. [1]', '(ii) Calculate the intermediate variable. [1]', '(iii) Find the final optimal solution. [2] <strong>OR</strong> State the alternative method. [2]']
+        };
+        secE += `<p style="margin:10px 0 5px;"><strong>Q${qn}.</strong> ${item.passage}</p>${item.parts.map(p => `<p style="margin:3px 0 3px 18px;">${p}</p>`).join('')}`;
         qn++;
       }
 
-      const sec=(title,marks,content)=>`
+      const sec = (title, marks, content) => `
         <div style="font-size:10.5pt;font-weight:bold;text-align:center;margin:14px 0 4px;background:#f5f5f5;padding:4px 8px;border:1px solid #ccc;">${title}</div>
         <div style="font-size:9pt;text-align:right;color:#444;margin-bottom:6px;">[${marks}]</div>${content}`;
 
       return `<div style="font-family:'Times New Roman',serif;font-size:12pt;line-height:1.65;color:#000;max-width:210mm;margin:0 auto;padding:12mm 18mm;background:#fff;">
         <div style="text-align:center;margin-bottom:12px;">
           <div style="font-size:13pt;font-weight:bold;text-transform:uppercase;letter-spacing:0.5px;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
-          <div style="font-size:9.5pt;color:#555;margin:2px 0;">Session: ${ss}${dt?' | Date: '+dt:''}</div>
+          <div style="font-size:9.5pt;color:#555;margin:2px 0;">Affiliated to CBSE | Session: ${ss}${dt ? ' | Date: ' + dt : ''}</div>
           <hr style="border:2px solid #000;margin:5px 0;">
           <table style="width:100%;font-size:10.5pt;font-weight:bold;"><tr>
             <td style="text-align:left;">Class: ${cl} | Subject: Mathematics (041)</td>
@@ -2760,29 +2999,87 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             <td style="text-align:left;font-weight:normal;font-size:9.5pt;">${et.toUpperCase()}</td>
             <td style="text-align:right;font-weight:normal;font-size:9.5pt;">Time: ${du}</td>
           </tr></table>
+          <div style="font-size:8.5pt; color:#444; margin-top:4px; font-style:italic; border-top:1px solid #ddd; padding-top:2px;">
+            Targeted Syllabus / Source: ${qPool.chapterScope}
+          </div>
           <hr style="border:1px solid #000;margin:5px 0;">
         </div>
         <div style="font-size:9.5pt;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed #555;">
           <strong>General Instructions:</strong>
           <ol style="margin:4px 0 0 16px;line-height:1.75;">
-            <li>This paper has <strong>five sections A, B, C, D, E</strong>. All sections are compulsory.</li>
-            <li>Section A — ${qConfig.q1mark} questions of 1 mark (MCQ &amp; Assertion-Reason type).</li>
-            <li>Section B — ${qConfig.q2mark} questions of 2 marks (VSA; no internal choice).</li>
-            <li>Section C — ${qConfig.q3mark} questions of 3 marks (SA; internal choice in 2 Qs).</li>
-            <li>Section D — ${qConfig.q5mark} questions of 5 marks (LA; internal choice in 2 Qs).</li>
-            <li>Section E — ${qConfig.qcase} case-based questions of 4 marks each (sub-parts 1+1+2).</li>
-            <li>Internal choice: attempt <em>any one</em> of the two alternatives.</li>
-            <li>Use of calculator is <strong>NOT</strong> permitted. Write neat solutions with proper steps.</li>
+            <li>This question paper contains <strong>five sections A, B, C, D and E</strong>. All sections are compulsory.</li>
+            <li>Section A contains <strong>${qConfig.q1mark} questions</strong> of 1 mark each (MCQs and Assertion-Reason type).</li>
+            <li>Section B contains <strong>${qConfig.q2mark} questions</strong> of 2 marks each (Very Short Answer).</li>
+            <li>Section C contains <strong>${qConfig.q3mark} questions</strong> of 3 marks each (Short Answer with internal choices).</li>
+            <li>Section D contains <strong>${qConfig.q5mark} questions</strong> of 5 marks each (Long Answer with internal choices).</li>
+            <li>Section E contains <strong>${qConfig.qcase} Case-Based questions</strong> of 4 marks each (sub-parts 1+1+2).</li>
+            <li>Internal choice is provided in Sections C, D and E. Attempt <em>any one</em> alternative.</li>
+            <li>Use of calculators is <strong>NOT</strong> permitted. Write clean steps with units where applicable.</li>
           </ol>
         </div>
-        ${sec(`SECTION A`,`${qConfig.q1mark} × 1 = ${qConfig.q1mark} Marks — MCQ / Assertion-Reason`,secA)}
-        ${sec(`SECTION B`,`${qConfig.q2mark} × 2 = ${qConfig.q2mark*2} Marks — Very Short Answer`,secB)}
-        ${sec(`SECTION C`,`${qConfig.q3mark} × 3 = ${qConfig.q3mark*3} Marks — Short Answer`,secC)}
-        ${sec(`SECTION D`,`${qConfig.q5mark} × 5 = ${qConfig.q5mark*5} Marks — Long Answer`,secD)}
-        ${sec(`SECTION E`,`${qConfig.qcase} × 4 = ${qConfig.qcase*4} Marks — Case-Based (Sub-parts)`,secE)}
+        ${sec(`SECTION A`, `${qConfig.q1mark} × 1 = ${qConfig.q1mark} Marks — Multiple Choice / Assertion-Reason`, secA)}
+        ${sec(`SECTION B`, `${qConfig.q2mark} × 2 = ${qConfig.q2mark*2} Marks — Very Short Answer Type`, secB)}
+        ${sec(`SECTION C`, `${qConfig.q3mark} × 3 = ${qConfig.q3mark*3} Marks — Short Answer Type`, secC)}
+        ${sec(`SECTION D`, `${qConfig.q5mark} × 5 = ${qConfig.q5mark*5} Marks — Long Answer Type`, secD)}
+        ${sec(`SECTION E`, `${qConfig.qcase} × 4 = ${qConfig.qcase*4} Marks — Case-Based / Passage Questions`, secE)}
         <div style="text-align:center;margin-top:16px;padding-top:8px;border-top:2px solid #000;font-weight:bold;font-size:10pt;">✦ ✦ ✦ END OF QUESTION PAPER ✦ ✦ ✦</div>
       </div>`;
     }
+
+    function resolveQuestionPool(cls, topics) {
+      const db = chapterQuestionBank[cls] || chapterQuestionBank['XII'];
+      const syllabus = classSyllabusData[cls] || classSyllabusData['XII'];
+
+      let targetChapters = [];
+      let scopeLabel = '';
+
+      if (currentSource === 'pdf') {
+        const sel = getSelectedChapters();
+        if (sel.length > 0) {
+          targetChapters = sel.map(s => s.num);
+          scopeLabel = sel.map(s => `Ch.${s.num} ${s.title}`).join(', ');
+        }
+      } else if (currentSource === 'bank' && topics) {
+        // match keywords in topics against chapter titles & tags
+        const matched = syllabus.filter(ch => {
+          const text = (ch.title + ' ' + (ch.tags||[]).join(' ')).toLowerCase();
+          return topics.split(/[\s,]+/).some(w => w.length > 2 && text.includes(w));
+        });
+        if (matched.length > 0) {
+          targetChapters = matched.map(m => m.num);
+          scopeLabel = `Focus Topics: "${topics}" (${matched.map(m=>'Ch.'+m.num).join(', ')})`;
+        }
+      }
+
+      // Default: if no specific chapter filtered, use all available chapters in class
+      if (targetChapters.length === 0) {
+        targetChapters = Object.keys(db).map(k => parseInt(k));
+        scopeLabel = `Full Class ${cls} Syllabus (${syllabus.length} Chapters)`;
+      }
+
+      // Collect questions from matching chapters
+      const pool = { secA:[], secB:[], secC:[], secD:[], secE:[], chapterScope: scopeLabel };
+      targetChapters.forEach(cNum => {
+        const chData = db[cNum];
+        if (chData) {
+          if (chData.secA) pool.secA.push(...chData.secA);
+          if (chData.secB) pool.secB.push(...chData.secB);
+          if (chData.secC) pool.secC.push(...chData.secC);
+          if (chData.secD) pool.secD.push(...chData.secD);
+          if (chData.secE) pool.secE.push(...chData.secE);
+        }
+      });
+
+      // Fallback guarantees if pool is empty
+      if (!pool.secA.length) pool.secA = chapterQuestionBank['XII'][3].secA;
+      if (!pool.secB.length) pool.secB = chapterQuestionBank['XII'][3].secB;
+      if (!pool.secC.length) pool.secC = chapterQuestionBank['XII'][3].secC;
+      if (!pool.secD.length) pool.secD = chapterQuestionBank['XII'][3].secD;
+      if (!pool.secE.length) pool.secE = chapterQuestionBank['XII'][3].secE;
+
+      return pool;
+    }
+
 
     // ============================================================
     // DOWNLOAD & PRINT
@@ -2873,6 +3170,8 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       renderStaticGrids();
       renderPTGrid('12');
       renderChapterPDFSelector();
+      renderQPFilesSelector();
+      updateSourceSummary();
       updateMarksTotal();
       syncDurationLabel();
       loadSavedAPIKeys();
