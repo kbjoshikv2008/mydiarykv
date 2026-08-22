@@ -10,137 +10,179 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
-:root{--pr:#7c3aed;--prl:#a78bfa;--bg:#06060c;--cbg:rgba(255,255,255,0.04);--bdr:rgba(255,255,255,0.08);--tx:#f8fafc;--txm:#94a3b8;--grn:#10b981;--ora:#f59e0b;--red:#ef4444;--blu:#3b82f6;}
+:root{
+  --pr:#7c3aed;--pr-dark:#5b21b6;--pr-light:#a78bfa;
+  --bg:#070712;--cbg:#120f29;--bdr:rgba(167,139,250,0.22);
+  --tx:#ffffff;--tx-sub:#cbd5e1;--tx-muted:#94a3b8;
+  --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.12);
+  --amb:#f59e0b;--amb-bg:rgba(245,158,11,0.14);
+  --red:#ef4444;--blu:#3b82f6;--blu-dark:#1d4ed8;
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.5;}
 
-/* AUTH */
-#authGate{position:fixed;inset:0;background:rgba(6,6,12,.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(12px);}
-.auth-box{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.35);border-radius:22px;padding:50px 42px;text-align:center;max-width:430px;width:92%;}
-.auth-icon{font-size:3.2rem;color:var(--pr);margin-bottom:18px;}
-.auth-box h2{font-size:1.55rem;margin-bottom:8px;font-weight:700;}
-.auth-box p{color:var(--txm);font-size:.88rem;margin-bottom:26px;line-height:1.6;}
-.auth-in{width:100%;padding:14px 16px;background:rgba(255,255,255,.06);border:1px solid var(--bdr);border-radius:11px;color:var(--tx);font-size:1rem;font-family:inherit;margin-bottom:14px;outline:none;transition:border-color .3s;}
-.auth-in:focus{border-color:var(--pr);}
-.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:11px;color:#fff;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;transition:opacity .3s;}
-.auth-btn:hover{opacity:.85;}
-#authErr{color:var(--red);font-size:.84rem;margin-top:8px;display:none;}
+/* AUTH GATE */
+#authGate{position:fixed;inset:0;background:rgba(7,7,18,0.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(14px);}
+.auth-box{background:#161238;border:2px solid var(--pr-light);border-radius:24px;padding:48px 38px;text-align:center;max-width:440px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 40px rgba(124,58,237,0.25);}
+.auth-icon{font-size:3.5rem;color:var(--pr-light);margin-bottom:16px;filter:drop-shadow(0 4px 12px rgba(124,58,237,0.5));}
+.auth-box h2{font-size:1.6rem;margin-bottom:8px;font-weight:800;color:#ffffff;}
+.auth-box p{color:var(--tx-sub);font-size:.9rem;margin-bottom:24px;line-height:1.6;}
+.auth-in{width:100%;padding:14px 16px;background:#0d0a24;border:2px solid rgba(167,139,250,0.4);border-radius:12px;color:#ffffff;font-size:1.05rem;font-family:inherit;margin-bottom:16px;outline:none;transition:all .3s;}
+.auth-in:focus{border-color:var(--pr-light);box-shadow:0 0 0 4px rgba(124,58,237,0.3);background:#130e33;}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#9333ea);border:none;border-radius:12px;color:#ffffff;font-size:1.05rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;box-shadow:0 6px 20px rgba(124,58,237,0.4);}
+.auth-btn:hover{opacity:.92;transform:translateY(-2px);}
+#authErr{color:#f87171;font-size:.88rem;margin-top:12px;display:none;font-weight:600;}
 
-/* LAYOUT */
+/* MAIN LAYOUT */
 #mc{display:none;}
-.wrap{max-width:1400px;margin:0 auto;padding:0 24px;}
+.wrap{max-width:1420px;margin:0 auto;padding:0 24px;}
 
 /* NAV */
-.nav-bar{background:rgba(6,6,12,.95);border-bottom:1px solid var(--bdr);backdrop-filter:blur(10px);position:sticky;top:0;z-index:500;}
-.nav{display:flex;align-items:center;justify-content:space-between;height:60px;}
-.nav-brand{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
-.nav-links{display:flex;gap:4px;align-items:center;}
+.nav-bar{background:#0d0a24;border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:500;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px;}
+.nav-brand{font-size:1.15rem;font-weight:800;background:linear-gradient(135deg,#c4b5fd,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-links{display:flex;gap:6px;align-items:center;}
 .nav-item{position:relative;}
-.nav-lnk,.dd-trig{padding:8px 12px;color:var(--txm);text-decoration:none;font-size:.84rem;font-weight:500;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;border:none;background:none;font-family:inherit;}
-.nav-lnk:hover,.dd-trig:hover,.nav-lnk.act{color:var(--prl);background:rgba(124,58,237,.1);}
-.dd-menu{position:absolute;top:100%;left:0;background:rgba(10,10,20,.98);border:1px solid var(--bdr);border-radius:12px;padding:8px;min-width:210px;display:none;z-index:600;backdrop-filter:blur(20px);}
+.nav-lnk,.dd-trig{padding:8px 14px;color:var(--tx-sub);text-decoration:none;font-size:.88rem;font-weight:600;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .25s;border:none;background:none;font-family:inherit;}
+.nav-lnk:hover,.dd-trig:hover,.nav-lnk.act{color:#ffffff;background:rgba(124,58,237,0.25);}
+.dd-menu{position:absolute;top:100%;left:0;background:#130e33;border:1px solid var(--bdr);border-radius:12px;padding:8px;min-width:220px;display:none;z-index:600;box-shadow:0 12px 36px rgba(0,0,0,0.6);}
 .nav-item:hover .dd-menu{display:block;}
-.dd-menu a{display:flex;align-items:center;gap:10px;padding:9px 12px;color:var(--txm);text-decoration:none;font-size:.83rem;border-radius:8px;transition:all .3s;}
-.dd-menu a:hover,.dd-menu a.act{background:rgba(124,58,237,.15);color:var(--prl);}
+.dd-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;color:var(--tx-sub);text-decoration:none;font-size:.86rem;font-weight:500;border-radius:8px;transition:all .2s;}
+.dd-menu a:hover,.dd-menu a.act{background:rgba(124,58,237,0.3);color:#ffffff;}
 
 /* PAGE HEADER */
-.ph{background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(168,85,247,.07));border-bottom:1px solid var(--bdr);padding:22px 0;}
-.ph-inner{display:flex;align-items:center;gap:16px;}
-.ph-icon{width:54px;height:54px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
-.ph h1{font-size:1.5rem;font-weight:700;}
-.ph p{color:var(--txm);font-size:.83rem;margin-top:2px;}
+.ph{background:linear-gradient(135deg,#1b1347,#28185e);border-bottom:2px solid rgba(167,139,250,0.3);padding:22px 0;}
+.ph-inner{display:flex;align-items:center;gap:18px;}
+.ph-icon{width:58px;height:58px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;box-shadow:0 8px 24px rgba(124,58,237,0.4);color:#ffffff;}
+.ph h1{font-size:1.55rem;font-weight:800;color:#ffffff;}
+.ph p{color:#cbd5e1;font-size:.86rem;margin-top:3px;font-weight:500;}
 
 /* SECTION HEADERS */
-.sec-hdr{display:flex;align-items:center;gap:12px;padding:20px 0 8px;}
-.sec-hdr .sec-badge{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:5px 14px;border-radius:30px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
-.sec-hdr .sec-line{flex:1;height:1px;background:var(--bdr);}
+.sec-hdr{display:flex;align-items:center;gap:14px;padding:24px 0 12px;}
+.sec-badge{background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#ffffff;padding:6px 16px;border-radius:30px;font-size:.84rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(109,40,217,0.4);}
+.sec-line{flex:1;height:2px;background:linear-gradient(90deg,rgba(167,139,250,0.4),transparent);}
+.sec-sub{color:var(--tx-sub);font-size:.84rem;font-weight:600;}
 
 /* ENTRY GROUP TABS */
-.entry-tabs{display:flex;gap:8px;margin-bottom:20px;background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:14px;padding:6px;}
-.etab{flex:1;padding:12px 16px;border:none;background:none;color:var(--txm);font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;border-radius:10px;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.etab:hover{color:var(--tx);}
-.etab.active{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.35);}
+.entry-tabs{display:flex;gap:10px;margin-bottom:22px;background:#0d0a24;border:2px solid var(--bdr);border-radius:16px;padding:8px;}
+.etab{flex:1;padding:14px 20px;border:none;background:none;color:var(--tx-sub);font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;border-radius:12px;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.etab:hover{color:#ffffff;background:rgba(255,255,255,0.06);}
+.etab.active{background:linear-gradient(135deg,#7c3aed,#9333ea);color:#ffffff;box-shadow:0 6px 20px rgba(124,58,237,0.45);}
+.etab-tag{background:rgba(0,0,0,0.3);padding:3px 10px;border-radius:20px;font-size:.76rem;font-weight:600;letter-spacing:.02em;}
 
 /* ENTRY PANEL */
 .epanel{display:none;}
 .epanel.active{display:block;}
 
-/* SELECTOR ROW */
-.sel-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
-.sel-row.one{grid-template-columns:1fr;}
-.fg{display:flex;flex-direction:column;gap:6px;}
-.fg label{font-size:.82rem;color:var(--txm);font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
-.fsel{padding:11px 14px;background:rgba(255,255,255,.07);border:1px solid var(--bdr);border-radius:10px;color:var(--tx);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .3s;width:100%;cursor:pointer;}
-.fsel:focus{border-color:var(--pr);}
-.fsel option{background:#1a1a2e;color:var(--tx);}
+/* CARD STYLES */
+.entry-card{background:var(--cbg);border:2px solid var(--bdr);border-radius:20px;padding:26px;box-shadow:0 12px 36px rgba(0,0,0,0.45);}
+.ctitle{font-size:1.15rem;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:#ffffff;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:12px;}
+.ctitle i{color:var(--pr-light);font-size:1.3rem;}
 
-/* CARD */
-.card{background:var(--cbg);border:1px solid var(--bdr);border-radius:16px;padding:22px;}
-.ctitle{font-size:1rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--tx);}
-.ctitle i{color:var(--prl);}
+/* SELECTION BOX */
+.selection-box{background:#18133f;border:2px solid #6d28d9;border-radius:16px;padding:18px 20px;margin-bottom:22px;box-shadow:0 4px 18px rgba(0,0,0,0.3);}
+.sel-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.sel-row.one{grid-template-columns:1fr;}
+.fg{display:flex;flex-direction:column;gap:8px;}
+.fg label{font-size:.88rem;color:#f1f5f9;font-weight:700;display:flex;align-items:center;gap:8px;}
+.fg label i{color:var(--pr-light);}
+.fsel{padding:13px 16px;background:#0d0a26;border:2px solid #8b5cf6;border-radius:12px;color:#ffffff;font-size:1rem;font-weight:700;font-family:inherit;outline:none;transition:all .25s;width:100%;cursor:pointer;}
+.fsel:focus{border-color:#c4b5fd;box-shadow:0 0 0 4px rgba(139,92,246,0.35);background:#120c38;}
+.fsel option{background:#161238;color:#ffffff;padding:8px;}
+
+/* ACTIVE BANNER */
+.active-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:linear-gradient(135deg,#1e1b4b,#2e1065);border:2px solid #7c3aed;border-radius:14px;padding:14px 18px;margin-bottom:18px;}
+.ab-title{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:800;color:#ffffff;}
+.ab-title i{color:#34d399;font-size:1.2rem;}
+.ab-stats{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.ab-stat-badge{background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px;font-size:.82rem;font-weight:700;color:#e2e8f0;}
+.ab-stat-badge strong{color:#34d399;font-size:.92rem;}
+
+/* SEARCH / FILTER BAR */
+.filter-bar{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+.search-in-wrap{position:relative;flex:1;min-width:240px;}
+.search-in-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:.95rem;}
+.search-in{width:100%;padding:11px 16px 11px 38px;background:#0d0a26;border:2px solid rgba(167,139,250,0.35);border-radius:10px;color:#ffffff;font-size:.9rem;font-family:inherit;outline:none;transition:all .25s;}
+.search-in:focus{border-color:#a78bfa;box-shadow:0 0 0 3px rgba(124,58,237,0.25);}
+.quick-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.qp{padding:6px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;color:var(--tx-sub);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.qp:hover,.qp.active{background:#7c3aed;color:#ffffff;border-color:#7c3aed;}
 
 /* ENTRY TABLE */
-.etw{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);max-height:420px;overflow-y:auto;}
+.etw{overflow-x:auto;border-radius:14px;border:2px solid rgba(167,139,250,0.3);max-height:480px;overflow-y:auto;background:#0d0a26;box-shadow:inset 0 2px 10px rgba(0,0,0,0.5);}
 .et{width:100%;border-collapse:collapse;}
-.et th{padding:10px 14px;background:rgba(124,58,237,.22);color:var(--prl);font-size:.78rem;font-weight:700;text-align:left;position:sticky;top:0;z-index:2;text-transform:uppercase;letter-spacing:.04em;}
-.et td{padding:8px 14px;border-top:1px solid var(--bdr);font-size:.85rem;vertical-align:middle;}
-.et tr:hover td{background:rgba(255,255,255,.03);}
-.et .sno{color:var(--txm);font-size:.78rem;width:36px;}
-.qi{width:90px;padding:7px 10px;background:rgba(255,255,255,.09);border:1px solid var(--bdr);border-radius:8px;color:var(--tx);font-family:inherit;font-size:.88rem;text-align:center;outline:none;transition:border-color .3s;}
-.qi:focus{border-color:var(--pr);}
+.et th{padding:14px 16px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-size:.82rem;font-weight:800;text-align:left;position:sticky;top:0;z-index:10;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid rgba(255,255,255,0.2);}
+.et td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.07);font-size:.92rem;vertical-align:middle;transition:all .2s;}
+.et tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+.et tr:hover td{background:rgba(124,58,237,0.18);}
+.et tr.filled td{background:rgba(16,185,129,0.1);border-left:4px solid #10b981;}
+.et .sno{color:#fbbf24;font-weight:800;font-size:.86rem;width:48px;text-align:center;}
+.et .iname{color:#ffffff;font-weight:600;letter-spacing:.01em;}
+.et .icat{color:#94a3b8;font-size:.75rem;margin-top:2px;}
+
+/* STEPPER CONTROLS */
+.stepper{display:inline-flex;align-items:center;gap:4px;background:#18133f;border:2px solid rgba(167,139,250,0.4);border-radius:12px;padding:3px 4px;}
+.step-btn{width:34px;height:34px;border:none;border-radius:8px;background:#312e81;color:#ffffff;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
+.step-btn:hover{background:#4f46e5;transform:scale(1.08);}
+.step-btn:active{transform:scale(0.95);}
+.qi{width:76px;height:34px;padding:0 6px;background:#ffffff;border:2px solid #818cf8;border-radius:8px;color:#0f172a;font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:800;text-align:center;outline:none;transition:all .2s;}
+.qi:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,0.3);background:#faf5ff;}
+.qi.has-val{border-color:#059669;background:#ecfdf5;color:#065f46;}
 
 /* ACTION BAR */
-.abar{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--bdr);}
+.abar{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:2px solid rgba(255,255,255,0.08);align-items:center;}
 
 /* BUTTONS */
-.btn{padding:10px 20px;border:none;border-radius:10px;font-family:inherit;font-size:.87rem;font-weight:700;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;}
-.btn-pr{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
-.btn-pr:hover{opacity:.85;transform:translateY(-1px);}
-.btn-gr{background:linear-gradient(135deg,#059669,#10b981);color:#fff;}
-.btn-gr:hover{opacity:.85;}
-.btn-bl{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;}
-.btn-bl:hover{opacity:.85;}
-.btn-or{background:linear-gradient(135deg,#b45309,#f59e0b);color:#fff;}
-.btn-or:hover{opacity:.85;}
-.btn-out{background:transparent;border:1px solid var(--bdr);color:var(--txm);}
-.btn-out:hover{border-color:var(--pr);color:var(--prl);}
-.btn-sm{padding:8px 16px;font-size:.82rem;}
-.btn-xs{padding:6px 12px;font-size:.78rem;}
+.btn{padding:12px 24px;border:none;border-radius:12px;font-family:inherit;font-size:.92rem;font-weight:800;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(0,0,0,0.3);}
+.btn-save{background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;box-shadow:0 6px 20px rgba(16,185,129,0.4);}
+.btn-save:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,0.55);}
+.btn-gr{background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;}
+.btn-gr:hover{opacity:.92;}
+.btn-bl{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#ffffff;}
+.btn-bl:hover{opacity:.92;}
+.btn-or{background:linear-gradient(135deg,#d97706,#f59e0b);color:#ffffff;}
+.btn-or:hover{opacity:.92;}
+.btn-out{background:#161238;border:2px solid rgba(167,139,250,0.35);color:#cbd5e1;}
+.btn-out:hover{border-color:#a78bfa;color:#ffffff;background:#1e184d;}
+.btn-sm{padding:9px 18px;font-size:.84rem;}
 
 /* REPORT TABS */
-.rtab-nav{display:flex;gap:4px;border-bottom:1px solid var(--bdr);margin-bottom:20px;overflow-x:auto;}
-.rtab{padding:12px 20px;background:none;border:none;color:var(--txm);font-family:inherit;font-size:.86rem;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .3s;display:flex;align-items:center;gap:8px;}
-.rtab:hover{color:var(--tx);}
-.rtab.active{color:var(--prl);border-bottom-color:var(--pr);}
+.rtab-nav{display:flex;gap:6px;border-bottom:2px solid rgba(167,139,250,0.25);margin-bottom:22px;overflow-x:auto;}
+.rtab{padding:14px 22px;background:none;border:none;color:var(--tx-sub);font-family:inherit;font-size:.92rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .25s;display:flex;align-items:center;gap:8px;}
+.rtab:hover{color:#ffffff;}
+.rtab.active{color:#c4b5fd;border-bottom-color:#7c3aed;}
 .rpanel{display:none;}
 .rpanel.active{display:block;}
 
 /* CONSOLIDATED TABLE */
-.conwrap{overflow:auto;border-radius:12px;border:1px solid var(--bdr);}
-.con-t{width:100%;border-collapse:collapse;font-size:.77rem;}
-.con-t th{padding:8px 10px;background:rgba(124,58,237,.26);color:var(--prl);font-weight:700;text-align:center;white-space:nowrap;border:1px solid rgba(124,58,237,.2);position:sticky;top:0;z-index:3;}
-.con-t th:first-child{text-align:left;position:sticky;left:0;z-index:4;background:rgba(28,10,80,.97);min-width:150px;}
-.con-t td{padding:6px 9px;border:1px solid rgba(255,255,255,.06);text-align:center;white-space:nowrap;}
-.con-t td:first-child{text-align:left;position:sticky;left:0;background:rgba(12,8,38,.96);font-weight:600;font-size:.8rem;}
-.con-t .gr-row td{background:rgba(124,58,237,.18);font-weight:700;color:var(--prl);}
-.con-t tr:hover td{background:rgba(255,255,255,.04);}
-.nz{color:#6ee7b7;font-weight:600;}
-.zr{color:rgba(255,255,255,.2);}
+.conwrap{overflow:auto;border-radius:14px;border:2px solid rgba(167,139,250,0.3);background:#0d0a26;}
+.con-t{width:100%;border-collapse:collapse;font-size:.78rem;}
+.con-t th{padding:10px 12px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-weight:800;text-align:center;white-space:nowrap;border:1px solid rgba(167,139,250,0.25);position:sticky;top:0;z-index:3;}
+.con-t th:first-child{text-align:left;position:sticky;left:0;z-index:5;background:#3b147a;min-width:160px;color:#fde047;}
+.con-t td{padding:8px 10px;border:1px solid rgba(255,255,255,0.07);text-align:center;white-space:nowrap;}
+.con-t td:first-child{text-align:left;position:sticky;left:0;background:#15103a;font-weight:700;font-size:.82rem;color:#ffffff;z-index:2;}
+.con-t .gr-row td{background:linear-gradient(135deg,#581c87,#4c1d95);font-weight:800;color:#fde047;border-top:2px solid #a855f7;}
+.con-t tr:hover td{background:rgba(124,58,237,0.18);}
+.nz{color:#34d399;font-weight:800;font-size:.84rem;}
+.zr{color:rgba(148,163,184,0.35);}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px;}
-.sc{background:var(--cbg);border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;}
-.sv{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.sl{color:var(--txm);font-size:.8rem;margin-top:3px;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
+.sc{background:var(--cbg);border:2px solid var(--bdr);border-radius:16px;padding:20px;text-align:center;}
+.sv{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#c4b5fd,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sl{color:var(--tx-sub);font-size:.84rem;font-weight:600;margin-top:4px;}
 
 /* ALERT */
-.alrt{padding:11px 16px;border-radius:10px;font-size:.86rem;margin-bottom:14px;}
-.alrt-ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7;}
+.alrt{padding:14px 18px;border-radius:12px;font-size:.9rem;margin-bottom:16px;font-weight:700;display:flex;align-items:center;gap:10px;}
+.alrt-ok{background:rgba(16,185,129,0.16);border:2px solid #10b981;color:#6ee7b7;}
 
 /* PLACEHOLDER */
-.ph-msg{text-align:center;padding:42px 20px;color:var(--txm);}
-.ph-msg i{font-size:2.2rem;margin-bottom:14px;display:block;opacity:.5;}
-.ph-msg p{font-size:.9rem;}
+.ph-msg{text-align:center;padding:50px 20px;color:var(--tx-sub);background:#130e33;border:2px dashed rgba(167,139,250,0.3);border-radius:14px;}
+.ph-msg i{font-size:2.8rem;margin-bottom:14px;display:block;color:var(--pr-light);opacity:.7;}
+.ph-msg p{font-size:.95rem;font-weight:600;}
+
+/* TOAST */
+#toastBox{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;padding:16px 24px;border-radius:14px;font-size:.95rem;font-weight:700;z-index:9999;box-shadow:0 10px 32px rgba(0,0,0,0.5);display:none;align-items:center;gap:10px;}
 
 /* PRINT */
 @media print{
@@ -150,19 +192,19 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
   .rpanel{display:block!important;}
   .con-t{font-size:.58rem;}
   .con-t th{background:#7c3aed!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .con-t td:first-child{background:#f1f0ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .con-t .gr-row td{background:#e9d5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-t td:first-child{background:#f1f0ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000!important;}
+  .con-t .gr-row td{background:#e9d5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000!important;}
   .con-t .nz{color:#065f46!important;}
   .print-hdr{display:block!important;color:#000!important;}
   .conwrap{border:none;overflow:visible;}
   .wrap,.content-area{padding:0;}
 }
 .print-hdr{display:none;text-align:center;margin-bottom:10px;}
-.print-hdr h2{font-size:.95rem;font-weight:800;}
-.print-hdr p{font-size:.78rem;color:#333;}
+.print-hdr h2{font-size:1.05rem;font-weight:800;}
+.print-hdr p{font-size:.82rem;color:#333;}
 
 .content-area{padding:24px 0 40px;}
-@media(max-width:640px){.sel-row{grid-template-columns:1fr;}.abar{flex-direction:column;}.entry-tabs{flex-direction:column;}}
+@media(max-width:700px){.sel-row{grid-template-columns:1fr;}.abar{flex-direction:column;}.entry-tabs{flex-direction:column;}}
 </style>
 </head>
 <body>
@@ -174,7 +216,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
     <h2>Furniture &amp; Fixtures</h2>
     <p>PM SHRI Kendriya Vidyalaya Ranikhet<br>Enter password to access the stock register</p>
     <input type="password" id="authPwd" class="auth-in" placeholder="Enter Password" onkeydown="if(event.key==='Enter')doAuth()">
-    <button class="auth-btn" onclick="doAuth()"><i class="fas fa-unlock-alt"></i> Unlock Portal</button>
+    <button class="auth-btn" onclick="doAuth()"><i class="fas fa-unlock-alt"></i> &nbsp;Unlock Portal</button>
     <div id="authErr">&#10007; Incorrect password. Please try again.</div>
   </div>
 </div>
@@ -226,8 +268,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
       <div class="ph-inner">
         <div class="ph-icon"><i class="fas fa-couch"></i></div>
         <div>
-          <h1 class="ph">Furniture &amp; Fixtures Stock Register</h1>
-          <p class="ph">PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Maths &nbsp;|&nbsp; Session 2025â€“26</p>
+          <h1>Furniture &amp; Fixtures Stock Register</h1>
+          <p>PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Maths &nbsp;|&nbsp; Session 2025â€“26</p>
         </div>
       </div>
     </div>
@@ -236,110 +278,181 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
   <div class="wrap content-area">
 
     <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         SECTION 1 â€” DATA ENTRY
+         SECTION 1 â€” DATA ENTRY (TOP)
     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <div class="entry-sec no-print">
       <div class="sec-hdr">
         <span class="sec-badge"><i class="fas fa-edit"></i> &nbsp;Data Entry</span>
         <div class="sec-line"></div>
-        <span style="color:var(--txm);font-size:.8rem;white-space:nowrap">Class Teachers &amp; Department In-charges</span>
+        <span class="sec-sub">Class Teachers &amp; Department In-charges</span>
       </div>
 
-      <!-- TWO-WAY ENTRY TOGGLE -->
+      <!-- ENTRY TOGGLE TABS -->
       <div class="entry-tabs">
         <button class="etab active" id="etab-cls" onclick="switchETab('cls')">
-          <i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry &nbsp;<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;font-size:.75rem;">Class / Section Wise</span>
+          <i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry &nbsp;<span class="etab-tag">Class &amp; Section Wise</span>
         </button>
         <button class="etab" id="etab-dpt" onclick="switchETab('dpt')">
-          <i class="fas fa-door-open"></i> Department In-charge Entry &nbsp;<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;font-size:.75rem;">Room / Lab Wise</span>
+          <i class="fas fa-door-open"></i> Department In-charge Entry &nbsp;<span class="etab-tag">Room &amp; Lab Wise</span>
         </button>
       </div>
 
-      <!-- â”€â”€ CLASS ENTRY PANEL â”€â”€ -->
+      <!-- â”€â”€ CLASS TEACHER ENTRY PANEL â”€â”€ -->
       <div id="epanel-cls" class="epanel active">
-        <div class="card">
-          <div class="ctitle"><i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry â€” Select Your Class &amp; Section</div>
+        <div class="entry-card">
+          <div class="ctitle"><i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry Form</div>
           <div id="cls-alert"></div>
-          <div class="sel-row">
-            <div class="fg">
-              <label><i class="fas fa-layer-group"></i> &nbsp;Class</label>
-              <select id="selCls" class="fsel" onchange="onClsChange()">
-                <option value="">â€” Select Class â€”</option>
-                <option>Balvatika</option>
-                <option>I</option><option>II</option><option>III</option>
-                <option>IV</option><option>V</option><option>VI</option>
-                <option>VII</option><option>VIII</option><option>IX</option>
-                <option>X</option><option>XI</option><option>XII</option>
-              </select>
-            </div>
-            <div class="fg">
-              <label><i class="fas fa-door-closed"></i> &nbsp;Section</label>
-              <select id="selSec" class="fsel" onchange="loadClsForm()">
-                <option value="">â€” Select Section â€”</option>
-              </select>
+          
+          <!-- Dropdown Selector Card -->
+          <div class="selection-box">
+            <div class="sel-row">
+              <div class="fg">
+                <label><i class="fas fa-layer-group"></i> Select Class</label>
+                <select id="selCls" class="fsel" onchange="onClsChange()">
+                  <option value="">â€” Choose Class â€”</option>
+                  <option>Balvatika</option>
+                  <option>I</option><option>II</option><option>III</option>
+                  <option>IV</option><option>V</option><option>VI</option>
+                  <option>VII</option><option>VIII</option><option>IX</option>
+                  <option>X</option><option>XI</option><option>XII</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label><i class="fas fa-door-closed"></i> Select Section</label>
+                <select id="selSec" class="fsel" onchange="loadClsForm()">
+                  <option value="">â€” Choose Section â€”</option>
+                </select>
+              </div>
             </div>
           </div>
 
+          <!-- Form Area -->
           <div id="cls-form" style="display:none">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-              <div style="font-size:.85rem;color:var(--txm);">Enter quantity of each item present in your classroom:</div>
-              <div id="cls-summary" style="font-size:.82rem;color:var(--prl);font-weight:600;"></div>
+            
+            <!-- Live Active Banner -->
+            <div class="active-banner">
+              <div class="ab-title">
+                <i class="fas fa-check-circle"></i>
+                <span id="cls-banner-title">Editing: Class</span>
+              </div>
+              <div class="ab-stats">
+                <span class="ab-stat-badge">Articles Filled: <strong id="cls-articles-count">0 / 24</strong></span>
+                <span class="ab-stat-badge">Total Quantity: <strong id="cls-total-count">0 items</strong></span>
+              </div>
             </div>
+
+            <!-- Quick Filter Bar -->
+            <div class="filter-bar">
+              <div class="search-in-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="clsSearch" class="search-in" placeholder="Quick search item name... (e.g. Desk, Chair, Table, Board)" oninput="filterClsTable()">
+              </div>
+            </div>
+
+            <!-- Table -->
             <div class="etw">
               <table class="et">
-                <thead><tr><th class="sno">#</th><th>Furniture / Fixture Item</th><th style="width:110px;text-align:center">Qty</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th class="sno">#</th>
+                    <th>Furniture / Fixture Item Name</th>
+                    <th style="width:190px;text-align:center">Quantity (Use + / - or Type)</th>
+                  </tr>
+                </thead>
                 <tbody id="cls-tbody"></tbody>
               </table>
             </div>
+
+            <!-- Action Buttons -->
             <div class="abar">
-              <button class="btn btn-pr" onclick="saveClsEntry()"><i class="fas fa-save"></i> Save Entry</button>
+              <button class="btn btn-save" onclick="saveClsEntry()"><i class="fas fa-save"></i> Save Entry</button>
               <button class="btn btn-out" onclick="loadClsForm()"><i class="fas fa-undo"></i> Discard Changes</button>
               <button class="btn btn-out btn-sm" onclick="clearClsForm()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
             </div>
           </div>
 
+          <!-- Empty state placeholder -->
           <div id="cls-ph" class="ph-msg">
             <i class="fas fa-hand-point-up"></i>
-            <p>Select a <strong>Class</strong> and <strong>Section</strong> above to begin entry.</p>
+            <p>Please select a <strong>Class</strong> and <strong>Section</strong> in the purple box above to start entering quantities.</p>
           </div>
         </div>
       </div>
 
-      <!-- â”€â”€ DEPARTMENT ENTRY PANEL â”€â”€ -->
+      <!-- â”€â”€ DEPARTMENT IN-CHARGE ENTRY PANEL â”€â”€ -->
       <div id="epanel-dpt" class="epanel">
-        <div class="card">
-          <div class="ctitle"><i class="fas fa-building"></i> Department In-charge Entry â€” Select Your Department / Room / Lab</div>
+        <div class="entry-card">
+          <div class="ctitle"><i class="fas fa-building"></i> Department / Room / Lab Entry Form</div>
           <div id="dpt-alert"></div>
-          <div class="sel-row one">
-            <div class="fg">
-              <label><i class="fas fa-map-marker-alt"></i> &nbsp;Department / Room / Lab</label>
-              <select id="selDpt" class="fsel" onchange="loadDptForm()">
-                <option value="">â€” Select Department / Room / Lab â€”</option>
-              </select>
+          
+          <!-- Dropdown Selector Card -->
+          <div class="selection-box">
+            <div class="sel-row one">
+              <div class="fg">
+                <label><i class="fas fa-map-marker-alt"></i> Select Department / Room / Lab</label>
+                <select id="selDpt" class="fsel" onchange="loadDptForm()">
+                  <option value="">â€” Choose Department / Room / Lab â€”</option>
+                </select>
+              </div>
             </div>
           </div>
 
+          <!-- Form Area -->
           <div id="dpt-form" style="display:none">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-              <div style="font-size:.85rem;color:var(--txm);">Enter quantity of each item present in this department/room:</div>
-              <div id="dpt-summary" style="font-size:.82rem;color:var(--prl);font-weight:600;"></div>
+            
+            <!-- Live Active Banner -->
+            <div class="active-banner">
+              <div class="ab-title">
+                <i class="fas fa-check-circle"></i>
+                <span id="dpt-banner-title">Editing: Department</span>
+              </div>
+              <div class="ab-stats">
+                <span class="ab-stat-badge">Articles Filled: <strong id="dpt-articles-count">0 / 50</strong></span>
+                <span class="ab-stat-badge">Total Quantity: <strong id="dpt-total-count">0 items</strong></span>
+              </div>
             </div>
+
+            <!-- Quick Filter Bar -->
+            <div class="filter-bar">
+              <div class="search-in-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="dptSearch" class="search-in" placeholder="Filter 50 department items... (e.g. Almirah, PM SHRI, Stool, Table)" oninput="filterDptTable()">
+              </div>
+              <div class="quick-pills">
+                <span class="qp active" onclick="setDptCatFilter('',this)">All (50)</span>
+                <span class="qp" onclick="setDptCatFilter('Chair',this)">Chairs</span>
+                <span class="qp" onclick="setDptCatFilter('Table',this)">Tables</span>
+                <span class="qp" onclick="setDptCatFilter('Almirah',this)">Almirahs</span>
+                <span class="qp" onclick="setDptCatFilter('PM SHRI',this)">PM SHRI</span>
+              </div>
+            </div>
+
+            <!-- Table -->
             <div class="etw">
               <table class="et">
-                <thead><tr><th class="sno">#</th><th>Furniture / Fixture Item</th><th style="width:110px;text-align:center">Qty</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th class="sno">#</th>
+                    <th>Furniture / Fixture Item Name</th>
+                    <th style="width:190px;text-align:center">Quantity (Use + / - or Type)</th>
+                  </tr>
+                </thead>
                 <tbody id="dpt-tbody"></tbody>
               </table>
             </div>
+
+            <!-- Action Buttons -->
             <div class="abar">
-              <button class="btn btn-pr" onclick="saveDptEntry()"><i class="fas fa-save"></i> Save Entry</button>
+              <button class="btn btn-save" onclick="saveDptEntry()"><i class="fas fa-save"></i> Save Entry</button>
               <button class="btn btn-out" onclick="loadDptForm()"><i class="fas fa-undo"></i> Discard Changes</button>
               <button class="btn btn-out btn-sm" onclick="clearDptForm()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
             </div>
           </div>
 
+          <!-- Empty state placeholder -->
           <div id="dpt-ph" class="ph-msg">
             <i class="fas fa-hand-point-up"></i>
-            <p>Select a <strong>Department / Room / Lab</strong> above to begin entry.</p>
+            <p>Please select a <strong>Department / Room / Lab</strong> in the purple box above to start entering quantities.</p>
           </div>
         </div>
       </div>
@@ -353,7 +466,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
       <div class="sec-hdr no-print">
         <span class="sec-badge"><i class="fas fa-table"></i> &nbsp;Consolidated Records</span>
         <div class="sec-line"></div>
-        <span style="color:var(--txm);font-size:.8rem;white-space:nowrap">Printable Â· Downloadable Â· Shareable</span>
+        <span class="sec-sub">Printable A3 Â· Excel Download Â· Shareable</span>
       </div>
 
       <!-- REPORT TAB NAV -->
@@ -370,8 +483,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
           <p>CONSOLIDATED FURNITURE &amp; FIXTURES â€” CLASS / SECTION WISE â€” AS ON APRIL 2026</p>
         </div>
         <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <div style="font-size:.88rem;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;">
-            <i class="fas fa-table" style="color:var(--prl)"></i> Class / Section Wise â€” 35 sections Ã— 24 items
+          <div style="font-size:.9rem;font-weight:700;color:#ffffff;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-table" style="color:var(--pr-light)"></i> Class / Section Wise Register â€” 35 sections Ã— 24 items
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print A3</button>
@@ -379,7 +492,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
             <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
           </div>
         </div>
-        <div class="conwrap" style="max-height:520px;">
+        <div class="conwrap" style="max-height:540px;">
           <table class="con-t"><thead id="cc-head"></thead><tbody id="cc-body"></tbody></table>
         </div>
       </div>
@@ -391,8 +504,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
           <p>CONSOLIDATED FURNITURE &amp; FIXTURES â€” DEPARTMENT / ROOM / LAB WISE â€” AS ON APRIL 2026</p>
         </div>
         <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <div style="font-size:.88rem;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;">
-            <i class="fas fa-building" style="color:var(--prl)"></i> Department / Room / Lab Wise â€” 31 rooms Ã— 50 items
+          <div style="font-size:.9rem;font-weight:700;color:#ffffff;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-building" style="color:var(--pr-light)"></i> Department / Room / Lab Wise Register â€” 31 rooms Ã— 50 items
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <button class="btn btn-gr btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print A3</button>
@@ -400,7 +513,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
             <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
           </div>
         </div>
-        <div class="conwrap" style="max-height:520px;">
+        <div class="conwrap" style="max-height:540px;">
           <table class="con-t"><thead id="dc-head"></thead><tbody id="dc-body"></tbody></table>
         </div>
       </div>
@@ -408,29 +521,29 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
       <!-- EXPORT & TOOLS -->
       <div id="rpanel-ex" class="rpanel">
         <div id="statsArea" class="stats"></div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
-          <div class="card">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+          <div class="entry-card">
             <div class="ctitle"><i class="fas fa-file-excel"></i> Download Full Workbook</div>
-            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Exports both class-wise and department-wise sheets in one Excel file matching the original register format.</p>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Exports both class-wise and department-wise sheets in one Excel file (.xlsx) formatted with headers matching the official school register.</p>
             <button class="btn btn-gr" onclick="exportBothXL()"><i class="fas fa-file-excel"></i> Download (.xlsx)</button>
           </div>
-          <div class="card">
-            <div class="ctitle"><i class="fas fa-print"></i> Print Reports</div>
-            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Opens print dialog set to A3 Landscape. Select A3 paper size in your printer/browser settings.</p>
+          <div class="entry-card">
+            <div class="ctitle"><i class="fas fa-print"></i> Print A3 Reports</div>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Opens print dialog set to A3 Landscape. Use your printer settings to output crisp, full-width physical register sheets.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
               <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Class Report (A3)</button>
               <button class="btn btn-bl btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Dept Report (A3)</button>
             </div>
           </div>
-          <div class="card">
-            <div class="ctitle"><i class="fas fa-share-alt"></i> Share Link</div>
-            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Copy the page URL to share with colleagues. They will need the password to access this portal.</p>
+          <div class="entry-card">
+            <div class="ctitle"><i class="fas fa-share-alt"></i> Share Portal</div>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Copy the link to share with teachers and in-charges. Password protection will ensure safe, authenticated access.</p>
             <button class="btn btn-or" onclick="doShare()"><i class="fas fa-copy"></i> Copy Page Link</button>
           </div>
-          <div class="card">
-            <div class="ctitle"><i class="fas fa-database"></i> Data Management</div>
-            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Reset all entries to the April 2026 verified stock data extracted from the official Excel register.</p>
-            <button class="btn btn-out" onclick="doReset()"><i class="fas fa-undo"></i> Reset to Default Data</button>
+          <div class="entry-card">
+            <div class="ctitle"><i class="fas fa-database"></i> Reset Baseline Data</div>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Restores verified stock counts to the official April 2026 data extracted from the departmental record Excel register.</p>
+            <button class="btn btn-out" onclick="doReset()"><i class="fas fa-undo"></i> Reset to April 2026 Baseline</button>
           </div>
         </div>
       </div>
@@ -439,6 +552,9 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
     <!-- /consolidated -->
   </div><!-- /wrap content-area -->
 </div><!-- /mc -->
+
+<!-- TOAST -->
+<div id="toastBox"><i class="fas fa-check-circle" style="font-size:1.3rem"></i> <span id="toastMsg">Saved!</span></div>
 
 <script>
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -617,8 +733,8 @@ function switchETab(id){
 function onClsChange(){
   const cls=document.getElementById('selCls').value;
   const sel=document.getElementById('selSec');
-  sel.innerHTML='<option value="">â€” Select Section â€”</option>';
-  if(cls&&CLS_SEC[cls]) CLS_SEC[cls].forEach(s=>sel.innerHTML+=`<option>${s}</option>`);
+  sel.innerHTML='<option value="">â€” Choose Section â€”</option>';
+  if(cls&&CLS_SEC[cls]) CLS_SEC[cls].forEach(s=>sel.innerHTML+=`<option value="${s}">Section ${s}</option>`);
   document.getElementById('cls-form').style.display='none';
   document.getElementById('cls-ph').style.display='block';
 }
@@ -632,24 +748,90 @@ function loadClsForm(){
   const c=document.getElementById('selCls').value, s=document.getElementById('selSec').value;
   if(!c||!s) return;
   const key=getClsKey();
+  document.getElementById('cls-banner-title').textContent = `Editing: Class ${key}`;
+  
   const vals=(clsData[key]||Array(CLS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);
   const tb=document.getElementById('cls-tbody');
-  tb.innerHTML=CLS_ITEMS.map((item,i)=>
-    `<tr><td class="sno">${i+1}</td><td>${item}</td><td style="text-align:center"><input type="number" class="qi" id="ci_${i}" value="${vals[i]}" min="0" oninput="updateClsSummary()"></td></tr>`
-  ).join('');
+  tb.innerHTML=CLS_ITEMS.map((item,i)=>{
+    const v=vals[i]||0;
+    return `
+    <tr id="cls-tr-${i}" class="${v>0?'filled':''}">
+      <td class="sno">${i+1}</td>
+      <td>
+        <div class="iname">${item}</div>
+      </td>
+      <td style="text-align:center">
+        <div class="stepper">
+          <button type="button" class="step-btn" onclick="stepVal('ci_${i}', -1, 'cls-tr-${i}')"><i class="fas fa-minus" style="font-size:.75rem"></i></button>
+          <input type="number" class="qi ${v>0?'has-val':''}" id="ci_${i}" value="${v}" min="0" oninput="onQtyInput('ci_${i}', 'cls-tr-${i}', updateClsSummary)">
+          <button type="button" class="step-btn" onclick="stepVal('ci_${i}', 1, 'cls-tr-${i}')"><i class="fas fa-plus" style="font-size:.75rem"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  
+  document.getElementById('clsSearch').value = '';
   document.getElementById('cls-form').style.display='block';
   document.getElementById('cls-ph').style.display='none';
   updateClsSummary();
 }
 
+function stepVal(inputId, delta, trId){
+  const el = document.getElementById(inputId);
+  if(!el) return;
+  let cur = parseInt(el.value) || 0;
+  cur = Math.max(0, cur + delta);
+  el.value = cur;
+  onQtyInput(inputId, trId, inputId.startsWith('ci_') ? updateClsSummary : updateDptSummary);
+}
+
+function onQtyInput(inputId, trId, updateFn){
+  const el = document.getElementById(inputId);
+  const tr = document.getElementById(trId);
+  const v = parseInt(el.value) || 0;
+  if(v > 0){
+    el.classList.add('has-val');
+    if(tr) tr.classList.add('filled');
+  } else {
+    el.classList.remove('has-val');
+    if(tr) tr.classList.remove('filled');
+  }
+  if(updateFn) updateFn();
+}
+
 function updateClsSummary(){
-  const total=CLS_ITEMS.reduce((s,_,i)=>s+(parseInt(document.getElementById('ci_'+i)?.value)||0),0);
-  const el=document.getElementById('cls-summary');
-  if(el) el.textContent=`Total items entered: ${total}`;
+  let filledCount = 0;
+  let totalQty = 0;
+  CLS_ITEMS.forEach((_,i)=>{
+    const v = parseInt(document.getElementById('ci_'+i)?.value) || 0;
+    if(v > 0) filledCount++;
+    totalQty += v;
+  });
+  document.getElementById('cls-articles-count').textContent = `${filledCount} / ${CLS_ITEMS.length}`;
+  document.getElementById('cls-total-count').textContent = `${totalQty} items`;
+}
+
+function filterClsTable(){
+  const q = document.getElementById('clsSearch').value.toLowerCase().trim();
+  CLS_ITEMS.forEach((item,i)=>{
+    const tr = document.getElementById(`cls-tr-${i}`);
+    if(!tr) return;
+    const match = item.toLowerCase().includes(q);
+    tr.style.display = match ? '' : 'none';
+  });
 }
 
 function clearClsForm(){
-  CLS_ITEMS.forEach((_,i)=>{const el=document.getElementById('ci_'+i);if(el)el.value=0;});
+  if(!confirm('Reset all items for this class to 0?')) return;
+  CLS_ITEMS.forEach((_,i)=>{
+    const el=document.getElementById('ci_'+i);
+    if(el){
+      el.value=0;
+      el.classList.remove('has-val');
+    }
+    const tr=document.getElementById(`cls-tr-${i}`);
+    if(tr) tr.classList.remove('filled');
+  });
   updateClsSummary();
 }
 
@@ -659,35 +841,93 @@ function saveClsEntry(){
   const vals=CLS_ITEMS.map((_,i)=>parseInt(document.getElementById('ci_'+i).value)||0);
   clsData[key]=vals;
   lsSave(LS_CLS,clsData);
-  showAlert('cls-alert',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${key}</strong> â€” ${vals.reduce((a,b)=>a+b,0)} total items`,'ok');
-  // refresh consolidated if visible
+  const tot = vals.reduce((a,b)=>a+b,0);
+  showAlert('cls-alert',`<i class="fas fa-check-circle" style="color:#10b981"></i> &nbsp;Successfully saved entry for <strong>${key}</strong> &nbsp;(${tot} total items).`,'ok');
+  showToast(`Saved ${key}: ${tot} items`);
   if(document.getElementById('rpanel-cc').classList.contains('active')) renderCC();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  DEPT ENTRY
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let currentDptFilter = '';
+
 function loadDptForm(){
   const dept=document.getElementById('selDpt').value;
   if(!dept) return;
+  document.getElementById('dpt-banner-title').textContent = `Editing: ${dept}`;
+  
   const vals=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);
   const tb=document.getElementById('dpt-tbody');
-  tb.innerHTML=DPT_ITEMS.map((item,i)=>
-    `<tr><td class="sno">${i+1}</td><td>${item}</td><td style="text-align:center"><input type="number" class="qi" id="di_${i}" value="${vals[i]}" min="0" oninput="updateDptSummary()"></td></tr>`
-  ).join('');
+  tb.innerHTML=DPT_ITEMS.map((item,i)=>{
+    const v=vals[i]||0;
+    return `
+    <tr id="dpt-tr-${i}" class="${v>0?'filled':''}">
+      <td class="sno">${i+1}</td>
+      <td>
+        <div class="iname">${item}</div>
+      </td>
+      <td style="text-align:center">
+        <div class="stepper">
+          <button type="button" class="step-btn" onclick="stepVal('di_${i}', -1, 'dpt-tr-${i}')"><i class="fas fa-minus" style="font-size:.75rem"></i></button>
+          <input type="number" class="qi ${v>0?'has-val':''}" id="di_${i}" value="${v}" min="0" oninput="onQtyInput('di_${i}', 'dpt-tr-${i}', updateDptSummary)">
+          <button type="button" class="step-btn" onclick="stepVal('di_${i}', 1, 'dpt-tr-${i}')"><i class="fas fa-plus" style="font-size:.75rem"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  
+  document.getElementById('dptSearch').value = '';
+  currentDptFilter = '';
+  document.querySelectorAll('.quick-pills .qp').forEach((p,idx)=>p.classList.toggle('active',idx===0));
+  
   document.getElementById('dpt-form').style.display='block';
   document.getElementById('dpt-ph').style.display='none';
   updateDptSummary();
 }
 
 function updateDptSummary(){
-  const total=DPT_ITEMS.reduce((s,_,i)=>s+(parseInt(document.getElementById('di_'+i)?.value)||0),0);
-  const el=document.getElementById('dpt-summary');
-  if(el) el.textContent=`Total items entered: ${total}`;
+  let filledCount = 0;
+  let totalQty = 0;
+  DPT_ITEMS.forEach((_,i)=>{
+    const v = parseInt(document.getElementById('di_'+i)?.value) || 0;
+    if(v > 0) filledCount++;
+    totalQty += v;
+  });
+  document.getElementById('dpt-articles-count').textContent = `${filledCount} / ${DPT_ITEMS.length}`;
+  document.getElementById('dpt-total-count').textContent = `${totalQty} items`;
+}
+
+function setDptCatFilter(keyword, pillEl){
+  currentDptFilter = keyword.toLowerCase();
+  document.querySelectorAll('.quick-pills .qp').forEach(p=>p.classList.remove('active'));
+  if(pillEl) pillEl.classList.add('active');
+  filterDptTable();
+}
+
+function filterDptTable(){
+  const searchQ = document.getElementById('dptSearch').value.toLowerCase().trim();
+  DPT_ITEMS.forEach((item,i)=>{
+    const tr = document.getElementById(`dpt-tr-${i}`);
+    if(!tr) return;
+    const name = item.toLowerCase();
+    const matchesSearch = !searchQ || name.includes(searchQ);
+    const matchesCat = !currentDptFilter || name.includes(currentDptFilter);
+    tr.style.display = (matchesSearch && matchesCat) ? '' : 'none';
+  });
 }
 
 function clearDptForm(){
-  DPT_ITEMS.forEach((_,i)=>{const el=document.getElementById('di_'+i);if(el)el.value=0;});
+  if(!confirm('Reset all items for this department to 0?')) return;
+  DPT_ITEMS.forEach((_,i)=>{
+    const el=document.getElementById('di_'+i);
+    if(el){
+      el.value=0;
+      el.classList.remove('has-val');
+    }
+    const tr=document.getElementById(`dpt-tr-${i}`);
+    if(tr) tr.classList.remove('filled');
+  });
   updateDptSummary();
 }
 
@@ -697,7 +937,9 @@ function saveDptEntry(){
   const vals=DPT_ITEMS.map((_,i)=>parseInt(document.getElementById('di_'+i).value)||0);
   dptData[dept]=vals;
   lsSave(LS_DPT,dptData);
-  showAlert('dpt-alert',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${dept}</strong> â€” ${vals.reduce((a,b)=>a+b,0)} total items`,'ok');
+  const tot = vals.reduce((a,b)=>a+b,0);
+  showAlert('dpt-alert',`<i class="fas fa-check-circle" style="color:#10b981"></i> &nbsp;Successfully saved entry for <strong>${dept}</strong> &nbsp;(${tot} total items).`,'ok');
+  showToast(`Saved ${dept}: ${tot} items`);
   if(document.getElementById('rpanel-dc').classList.contains('active')) renderDC();
 }
 
@@ -719,7 +961,7 @@ function switchRTab(id){
 function renderCC(){
   const head=document.getElementById('cc-head');
   const body=document.getElementById('cc-body');
-  head.innerHTML=`<tr><th>Class / Section</th>${CLS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.45)">TOTAL</th></tr>`;
+  head.innerHTML=`<tr><th>Class / Section</th>${CLS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047">TOTAL</th></tr>`;
   const gt=Array(CLS_ITEMS.length).fill(0);
   body.innerHTML=CLS_LIST.map(cls=>{
     const v=(clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
@@ -737,7 +979,7 @@ function renderCC(){
 function renderDC(){
   const head=document.getElementById('dc-head');
   const body=document.getElementById('dc-body');
-  head.innerHTML=`<tr><th>Department / Room / Lab</th>${DPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.45)">TOTAL</th></tr>`;
+  head.innerHTML=`<tr><th>Department / Room / Lab</th>${DPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047">TOTAL</th></tr>`;
   const gt=Array(DPT_ITEMS.length).fill(0);
   body.innerHTML=DPT_LIST.map(dept=>{
     const v=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
@@ -800,7 +1042,6 @@ function exportBothXL(){
 //  PRINT
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function doPrint(rid){
-  // activate the right panel
   ['cc','dc','ex'].forEach(t=>{
     document.getElementById('rtab-'+t).classList.toggle('active',t===rid);
     document.getElementById('rpanel-'+t).classList.toggle('active',t===rid);
@@ -816,7 +1057,7 @@ function doPrint(rid){
 function doShare(){
   const url=window.location.href.split('?')[0];
   if(navigator.share){navigator.share({title:'KV Ranikhet Furniture Register',url});}
-  else{navigator.clipboard.writeText(url).then(()=>toast('Link copied to clipboard!')).catch(()=>prompt('Copy this link:',url));}
+  else{navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard!')).catch(()=>prompt('Copy this link:',url));}
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -828,7 +1069,7 @@ function doReset(){
   dptData=JSON.parse(JSON.stringify(DEF_DPT));
   lsSave(LS_CLS,clsData);
   lsSave(LS_DPT,dptData);
-  toast('All data reset to April 2026 verified stock.');
+  showToast('All data reset to April 2026 baseline.');
   if(document.getElementById('rpanel-cc').classList.contains('active')) renderCC();
   if(document.getElementById('rpanel-dc').classList.contains('active')) renderDC();
 }
@@ -836,17 +1077,23 @@ function doReset(){
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  HELPERS
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function showAlert(id,msg,type){const el=document.getElementById(id);if(!el)return;el.innerHTML=`<div class="alrt alrt-${type}">${msg}</div>`;setTimeout(()=>el.innerHTML='',4000);}
-function toast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:28px;right:28px;background:rgba(124,58,237,.92);color:#fff;padding:13px 20px;border-radius:12px;font-size:.88rem;z-index:9999;backdrop-filter:blur(10px);box-shadow:0 8px 28px rgba(0,0,0,.45);font-family:Poppins,sans-serif;';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
+function showAlert(id,msg,type){const el=document.getElementById(id);if(!el)return;el.innerHTML=`<div class="alrt alrt-${type}">${msg}</div>`;setTimeout(()=>el.innerHTML='',4500);}
+function showToast(msg){
+  const b=document.getElementById('toastBox');
+  const m=document.getElementById('toastMsg');
+  if(!b||!m)return;
+  m.textContent=msg;
+  b.style.display='flex';
+  setTimeout(()=>b.style.display='none',3000);
+}
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  INIT
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initAll(){
-  // populate dept dropdown
   const sel=document.getElementById('selDpt');
-  DPT_LIST.forEach(d=>sel.innerHTML+=`<option>${d}</option>`);
-  // render class consolidated on load
+  sel.innerHTML='<option value="">â€” Choose Department / Room / Lab â€”</option>';
+  DPT_LIST.forEach(d=>sel.innerHTML+=`<option value="${d}">${d}</option>`);
   renderCC();
 }
 </script>

@@ -1915,9 +1915,9 @@
     { num: 2, label: "Period 2", time: "9:00 - 9:40 AM" },
     { num: "snack", label: "Snack Break", time: "9:40 - 9:50 AM" },
     { num: 3, label: "Period 3", time: "9:50 - 10:30 AM" },
-    { num: 4, label: "Period 4", time: "10:30 - 11:00 AM" },
-    { num: "lunch", label: "Lunch Break", time: "11:00 - 11:25 AM" },
-    { num: 5, label: "Period 5", time: "11:25 AM - 12:05 PM" },
+    { num: 4, label: "Period 4", time: "10:30 - 11:10 AM" },
+    { num: "lunch", label: "Lunch Break", time: "11:10 - 11:30 AM" },
+    { num: 5, label: "Period 5", time: "11:30 AM - 12:10 PM" },
     { num: 6, label: "Period 6", time: "12:10 - 12:50 PM" },
     { num: 7, label: "Period 7", time: "12:50 - 1:30 PM" },
     { num: 8, label: "Period 8", time: "1:30 - 2:10 PM" }
@@ -1934,12 +1934,12 @@
       subject: "MATHEMATICS",
       desig: "PGT MATH",
       schedule: {
-        Monday:    [ "", "12C / 12B", "", "11C / 11B", "11C", "7C", "12B / 12C", "12B / 12C" ],
+        Monday:    [ "", "12C / 12B", "11C", "11C / 11B", "", "7C", "12B / 12C", "12B / 12C" ],
         Tuesday:   [ "", "12C / 12B", "", "11C / 11B", "", "7C", "12B / 12C", "12B / 12C" ],
         Wednesday: [ "", "12C / 12B", "", "11C / 11B", "", "7C", "11B", "11B" ],
-        Thursday:  [ "", "12C / 12B", "", "11C / 11B", "", "7C", "11B", "11B" ],
-        Friday:    [ "", "12C / 12B", "", "11C / 11B", "7C (CT)", "7C", "", "" ],
-        Saturday:  [ "", "12B", "12B", "11C", "11C", "7C (CT)", "CLA", "CLA" ]
+        Thursday:  [ "", "12C / 12B", "11C", "11C / 11B", "", "7C", "11B", "11C" ],
+        Friday:    [ "", "12C / 12B", "", "11C / 11B", "", "7C", "", "" ],
+        Saturday:  [ "", "", "11C", "12B", "", "7C", "CLA", "CLA" ]
       }
     },
     {
@@ -2055,10 +2055,10 @@
       desig: "PGT HISTORY",
       schedule: {
         Monday:    [ "11A", "8A", "", "", "12A", "8B", "", "11A" ],
-        Tuesday:   [ "11A", "8A", "", "", "12A", "8B", "7B", "" ],
-        Wednesday: [ "11A", "8A", "12A", "", "12A", "8B", "7B", "11A" ],
+        Tuesday:   [ "11A", "8A", "", "", "12A", "8B", "", "" ],
+        Wednesday: [ "11A", "8A", "12A", "", "12A", "8B", "", "11A" ],
         Thursday:  [ "11A", "8A", "12A", "", "12A", "8B", "", "11A" ],
-        Friday:    [ "11A", "8A", "12A", "", "12A", "8B", "7B", "" ],
+        Friday:    [ "11A", "8A", "12A", "", "12A", "8B", "", "" ],
         Saturday:  [ "11A", "8A", "", "", "12A", "8B", "CLA", "CLA" ]
       }
     },
@@ -3198,10 +3198,10 @@
                 <th style="width:220px; text-align:left;">Teacher Name &amp; Designation</th>
                 <th>P1<br><small>08:20-09:00</small></th>
                 <th>P2<br><small>09:00-09:40</small></th>
-                <th>Snack</th>
+                <th>Snack<br><small>09:40-09:50</small></th>
                 <th>P3<br><small>09:50-10:30</small></th>
                 <th>P4<br><small>10:30-11:10</small></th>
-                <th>Lunch</th>
+                <th>Lunch<br><small>11:10-11:30</small></th>
                 <th>P5<br><small>11:30-12:10</small></th>
                 <th>P6<br><small>12:10-12:50</small></th>
                 <th>P7<br><small>12:50-01:30</small></th>
@@ -4062,10 +4062,10 @@
       locTbodyEn += '</tbody>';
 
       document.getElementById('recessDutyContainer').innerHTML = `
-        <div style="margin-bottom:12px;font-weight:800;color:var(--text-primary);font-size:0.98rem;border-left:4px solid #10b981;padding-left:8px;">1. 🇮🇳 स्थान-वार मध्यावकाश ड्यूटी चार्ट (हिन्दी) / Location-Wise Lunch Recess Duty Chart (Hindi) (11:00 – 11:25 AM)</div>
+        <div style="margin-bottom:12px;font-weight:800;color:var(--text-primary);font-size:0.98rem;border-left:4px solid #10b981;padding-left:8px;">1. 🇮🇳 स्थान-वार मध्यावकाश ड्यूटी चार्ट (हिन्दी) / Location-Wise Lunch Recess Duty Chart (Hindi) (11:10 – 11:30 AM)</div>
         <div style="overflow-x:auto;margin-bottom:28px;"><table style="width:100%;border-collapse:collapse;border:2px solid #064e3b;font-size:0.8rem;background:rgba(6,78,59,0.25);border-radius:8px;overflow:hidden;">${locTheadHi}${locTbodyHi}</table></div>
         
-        <div style="margin-bottom:12px;font-weight:800;color:var(--text-primary);font-size:0.98rem;border-left:4px solid #3b82f6;padding-left:8px;">2. 🇬🇧 Location-Wise Lunch Recess Duty Chart (English) (11:00 – 11:25 AM)</div>
+        <div style="margin-bottom:12px;font-weight:800;color:var(--text-primary);font-size:0.98rem;border-left:4px solid #3b82f6;padding-left:8px;">2. 🇬🇧 Location-Wise Lunch Recess Duty Chart (English) (11:10 – 11:30 AM)</div>
         <div style="overflow-x:auto;margin-bottom:25px;"><table style="width:100%;border-collapse:collapse;border:2px solid #1e3a5f;font-size:0.8rem;background:rgba(10,15,35,0.7);border-radius:8px;overflow:hidden;">${locTheadEn}${locTbodyEn}</table></div>
       `;
 
@@ -4150,7 +4150,7 @@
           </style></head><body>
           <div class="hdr">
             <div class="sch">केंद्रीय विद्यालय रानीखेत सत्र 2026-27</div>
-            <h1>मध्यावकाश (लंच ब्रेक 11:00 - 11:25 AM) ड्यूटी चार्ट</h1>
+            <h1>मध्यावकाश (लंच ब्रेक 11:10 - 11:30 AM) ड्यूटी चार्ट</h1>
             <div class="incharge">प्रभारी : श्री आशुतोष रायकवार</div>
           </div>
           <table>
@@ -4161,7 +4161,7 @@
             <tbody>${printRows}</tbody>
           </table>
           <div class="note">
-            1. मध्यावकाश/लंच ब्रेक (11:00 AM – 11:25 AM) ड्यूटी पर शिक्षक/कर्मचारियों को निर्धारित स्थान पर उपस्थित रहकर विद्यार्थियों की सुरक्षा सुनिश्चित करनी होगी।<br>
+            1. मध्यावकाश/लंच ब्रेक (11:10 AM – 11:30 AM) ड्यूटी पर शिक्षक/कर्मचारियों को निर्धारित स्थान पर उपस्थित रहकर विद्यार्थियों की सुरक्षा सुनिश्चित करनी होगी।<br>
             2. जिन शिक्षकों की उस दिन तीसरी, चौथी, पाँचवीं एवं छठी लगातार अवधि (Periods 3, 4, 5 &amp; 6) में कक्षाएँ हैं, उन्हें उस दिन ड्यूटी से छूट प्रदान की गई है।<br>
             3. कोच और योग शिक्षक शारीरिक शिक्षक के निर्देशन में परिसर में विद्यार्थियों के अनुशासन के लिए जिम्मेदार होंगे।<br>
             4. स्टाफ नर्स विद्यालय मध्यावकाश के समय विद्यार्थियों के प्राथमिक उपचार हेतु अपने कक्ष में उपस्थित रहेंगे।
@@ -4206,7 +4206,7 @@
           </style></head><body>
           <div class="hdr">
             <div class="sch">PM SHRI KENDRIYA VIDYALAYA RANIKHET — SESSION 2026-27</div>
-            <h1>LUNCH RECESS DUTY CHART (11:00 – 11:25 AM)</h1>
+            <h1>LUNCH RECESS DUTY CHART (11:10 – 11:30 AM)</h1>
             <div class="incharge">Incharge: Mr. Ashutosh Raikwar</div>
           </div>
           <table>
@@ -4217,7 +4217,7 @@
             <tbody>${printRows}</tbody>
           </table>
           <div class="note">
-            1. All assigned staff must report promptly at 11:00 AM to ensure safety and discipline.<br>
+            1. All assigned staff must report promptly at 11:10 AM to ensure safety and discipline.<br>
             2. Teachers having continuous classes in Periods 3, 4, 5, and 6 on a given day are exempt from duty on that day.<br>
             3. Coaches and Yoga Instructor will assist in maintaining campus discipline under PET supervision.<br>
             4. Staff Nurse must be available in Medical Room during lunch recess for student first-aid.
@@ -4254,7 +4254,7 @@
 
           const ws1Hi = XLSX.utils.aoa_to_sheet([
             ['केंद्रीय विद्यालय रानीखेत — सत्र 2026-27'],
-            ['मध्यावकाश (लंच ब्रेक 11:00 - 11:25 AM) ड्यूटी चार्ट (हिंदी)'],
+            ['मध्यावकाश (लंच ब्रेक 11:10 - 11:30 AM) ड्यूटी चार्ट (हिंदी)'],
             ['प्रभारी : श्री आशुतोष रायकवार'],
             [],
             header1Hi,
@@ -4278,7 +4278,7 @@
 
           const ws1En = XLSX.utils.aoa_to_sheet([
             ['PM SHRI KV RANIKHET — SESSION 2026-27'],
-            ['LUNCH RECESS DUTY CHART (ENGLISH) (11:00 - 11:25 AM)'],
+            ['LUNCH RECESS DUTY CHART (ENGLISH) (11:10 - 11:30 AM)'],
             ['Incharge: Mr. Ashutosh Raikwar'],
             [],
             header1En,
