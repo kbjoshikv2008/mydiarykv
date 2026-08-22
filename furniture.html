@@ -1,1842 +1,367 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Furniture &amp; Fixtures Stock Register | PM SHRI KV Ranikhet</title>
-  <meta name="description" content="Official Furniture & Fixtures Management System and Stock Register for PM SHRI Kendriya Vidyalaya Ranikhet. In-Charge: K B Joshi, PGT Mathematics."/>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="premium.css"/>
-  
-  <style>
-    :root {
-      --furn-gold: #f59e0b;
-      --furn-blue: #3b82f6;
-      --furn-purple: #8b5cf6;
-      --furn-green: #10b981;
-      --furn-red: #ef4444;
-      --furn-cyan: #06b6d4;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-primary);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── AUTH GATE OVERLAY ── */
-    #furnitureAuthGate {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: rgba(6, 6, 12, 0.88);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .auth-gate-box {
-      background: rgba(17, 16, 30, 0.95);
-      border: 1px solid rgba(139, 92, 246, 0.35);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 35px rgba(124, 58, 237, 0.25);
-      border-radius: 24px;
-      padding: 40px 36px;
-      width: 100%;
-      max-width: 440px;
-      text-align: center;
-      position: relative;
-      animation: gatePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes gatePop {
-      0% { transform: scale(0.9) translateY(20px); opacity: 0; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
-    }
-
-    .auth-icon-wrap {
-      width: 76px;
-      height: 76px;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(245, 158, 11, 0.25));
-      border: 2px solid rgba(139, 92, 246, 0.5);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: #fbbf24;
-      box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);
-    }
-
-    .auth-gate-box h2 {
-      font-size: 1.45rem;
-      font-weight: 800;
-      margin-bottom: 6px;
-      background: linear-gradient(135deg, #fff, #c4b5fd);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .auth-gate-box p.subtitle {
-      color: var(--text-secondary);
-      font-size: 0.88rem;
-      margin-bottom: 24px;
-      line-height: 1.45;
-    }
-
-    .auth-input-group {
-      position: relative;
-      margin-bottom: 16px;
-    }
-
-    .auth-input-group input {
-      width: 100%;
-      padding: 14px 48px 14px 18px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1.5px solid rgba(139, 92, 246, 0.35);
-      border-radius: 12px;
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-      transition: var(--transition-smooth);
-      box-sizing: border-box;
-      font-family: inherit;
-    }
-
-    .auth-input-group input:focus {
-      border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
-    }
-
-    .auth-input-group button.toggle-pwd {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #94a3b8;
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .auth-err-msg {
-      color: #ef4444;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      display: none;
-    }
-
-    .auth-btn-unlock {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #7c3aed, #4c1d95);
-      border: 1px solid rgba(167, 139, 250, 0.4);
-      border-radius: 12px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
-      transition: var(--transition-smooth);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .auth-btn-unlock:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
-      background: linear-gradient(135deg, #8b5cf6, #5b21b6);
-    }
-
-    .auth-btn-back {
-      display: inline-block;
-      margin-top: 18px;
-      color: #94a3b8;
-      font-size: 0.86rem;
-      text-decoration: none;
-      transition: var(--transition-smooth);
-    }
-
-    .auth-btn-back:hover {
-      color: #c4b5fd;
-    }
-
-    /* ── PAGE CONTENT WRAPPER ── */
-    #furnitureMainPortal {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.4s ease-in;
-    }
-
-    /* ── HEADER BANNER ── */
-    .portal-hero {
-      background: linear-gradient(135deg, rgba(30, 27, 75, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border-bottom: 1px solid rgba(139, 92, 246, 0.25);
-      padding: 35px 20px 25px;
-      position: relative;
-    }
-
-    .portal-hero-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .hero-title-area h1 {
-      font-size: 1.9rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin: 0 0 6px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .hero-title-area h1 span.highlight {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-title-area p {
-      margin: 0;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .h-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 50px;
-      padding: 4px 14px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #e2e8f0;
-    }
-
-    .h-badge.gold {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: rgba(245, 158, 11, 0.4);
-      color: #fbbf24;
-    }
-
-    .h-badge.purple {
-      background: rgba(139, 92, 246, 0.15);
-      border-color: rgba(139, 92, 246, 0.4);
-      color: #c4b5fd;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-action-hero {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition-smooth);
-      text-decoration: none;
-    }
-
-    .btn-action-hero:hover {
-      background: rgba(255, 255, 255, 0.16);
-      transform: translateY(-1px);
-    }
-
-    .btn-action-hero.lock {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
-    }
-
-    .btn-action-hero.lock:hover {
-      background: rgba(239, 68, 68, 0.3);
-    }
-
-    /* ── KPI METRICS CARDS ── */
-    .metrics-grid {
-      max-width: 1300px;
-      margin: 25px auto 0;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .metric-card {
-      background: rgba(17, 16, 30, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      padding: 18px 20px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      transition: var(--transition-smooth);
-    }
-
-    .metric-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139, 92, 246, 0.4);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-    }
-
-    .metric-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--card-accent, #7c3aed);
-    }
-
-    .metric-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .metric-val {
-      font-size: 1.85rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    .metric-sub {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ── SUBTABS NAVIGATION ── */
-    .portal-nav-tabs-wrapper {
-      max-width: 1300px;
-      margin: 30px auto 0;
-      padding: 0 20px;
-    }
-
-    .portal-nav-tabs {
-      display: flex;
-      gap: 10px;
-      background: rgba(17, 16, 30, 0.8);
-      backdrop-filter: blur(12px);
-      padding: 8px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .portal-nav-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .p-tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-secondary);
-      font-family: inherit;
-      font-size: 0.92rem;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .p-tab-btn:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .p-tab-btn.active {
-      background: linear-gradient(135deg, #7c3aed, #4c1d95);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
-    }
-
-    /* ── TAB PANES ── */
-    .tab-pane {
-      display: none;
-      max-width: 1300px;
-      margin: 24px auto 40px;
-      padding: 0 20px;
-      animation: fadeInTab 0.3s ease-out;
-    }
-
-    .tab-pane.active {
-      display: block;
-    }
-
-    @keyframes fadeInTab {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── FILTER & SEARCH BAR ── */
-    .filter-bar {
-      background: rgba(17, 16, 30, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .search-input-wrap {
-      position: relative;
-      flex: 1;
-      min-width: 260px;
-    }
-
-    .search-input-wrap i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .search-input-wrap input {
-      width: 100%;
-      padding: 10px 14px 10px 40px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-      transition: var(--transition-smooth);
-      box-sizing: border-box;
-      font-family: inherit;
-    }
-
-    .search-input-wrap input:focus {
-      border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .custom-select {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      color: #e2e8f0;
-      padding: 10px 16px;
-      font-size: 0.88rem;
-      outline: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .custom-select option {
-      background: #11101e;
-      color: #fff;
-    }
-
-    .btn-add-item {
-      background: linear-gradient(135deg, #10b981, #059669);
-      border: none;
-      color: #fff;
-      font-weight: 700;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition-smooth);
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
-    }
-
-    .btn-add-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-    }
-
-    /* ── DATA TABLES ── */
-    .table-container {
-      background: rgba(17, 16, 30, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    }
-
-    .table-responsive {
-      overflow-x: auto;
-    }
-
-    table.furn-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
-    }
-
-    table.furn-table th {
-      background: rgba(255, 255, 255, 0.04);
-      padding: 14px 16px;
-      font-weight: 700;
-      color: #c4b5fd;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      white-space: nowrap;
-      text-transform: uppercase;
-      font-size: 0.78rem;
-      letter-spacing: 0.5px;
-    }
-
-    table.furn-table td {
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      color: #e2e8f0;
-      vertical-align: middle;
-    }
-
-    table.furn-table tr:hover td {
-      background: rgba(124, 58, 237, 0.05);
-    }
-
-    .badge-cond {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 3px 10px;
-      border-radius: 50px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .badge-cond.good {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }
-
-    .badge-cond.repair {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.35);
-    }
-
-    .badge-cond.condemned {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.35);
-    }
-
-    .action-btn-sm {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #e2e8f0;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .action-btn-sm:hover {
-      background: rgba(124, 58, 237, 0.3);
-      border-color: #a78bfa;
-      color: #fff;
-    }
-
-    .action-btn-sm.del:hover {
-      background: rgba(239, 68, 68, 0.3);
-      border-color: #ef4444;
-      color: #fca5a5;
-    }
-
-    /* ── ROOMS ALLOCATION GRID ── */
-    .rooms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    .room-card {
-      background: rgba(17, 16, 30, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      padding: 20px;
-      transition: var(--transition-smooth);
-      position: relative;
-    }
-
-    .room-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139, 92, 246, 0.4);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
-
-    .room-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 12px;
-      margin-bottom: 14px;
-    }
-
-    .room-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .room-incharge {
-      font-size: 0.8rem;
-      color: #a78bfa;
-      font-weight: 600;
-    }
-
-    .room-stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 0;
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-    }
-
-    .room-stat-row strong {
-      color: #fff;
-    }
-
-    /* ── MODALS ── */
-    .custom-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: rgba(6, 6, 12, 0.8);
-      backdrop-filter: blur(10px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-content-box {
-      background: #11101e;
-      border: 1px solid rgba(139, 92, 246, 0.35);
-      border-radius: 20px;
-      width: 100%;
-      max-width: 600px;
-      padding: 28px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      position: relative;
-    }
-
-    .modal-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 12px;
-    }
-
-    .modal-head h3 {
-      margin: 0;
-      font-size: 1.3rem;
-      color: #fff;
-    }
-
-    .btn-close-modal {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #c4b5fd;
-      margin-bottom: 6px;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 10px 14px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-      box-sizing: border-box;
-      font-family: inherit;
-    }
-
-    .form-control:focus {
-      border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    /* ── TOAST ALERT ── */
-    #toastNotice {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #1e1b4b;
-      border: 1px solid #7c3aed;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      font-size: 0.9rem;
-      font-weight: 600;
-      z-index: 999999;
-      display: none;
-      align-items: center;
-      gap: 10px;
-      animation: slideToast 0.3s ease-out;
-    }
-
-    @keyframes slideToast {
-      from { transform: translateX(50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* ── PRINT STYLES ── */
-    @media print {
-      body { background: #fff !important; color: #000 !important; }
-      .portal-hero, .portal-nav-tabs-wrapper, .filter-bar, .hero-actions, .site-header, .nav-bar, #furnitureAuthGate, .btn-action-hero, .action-btn-sm { display: none !important; }
-      #furnitureMainPortal, .tab-pane.active, .table-container, table.furn-table { display: block !important; width: 100% !important; background: #fff !important; color: #000 !important; }
-      table.furn-table th, table.furn-table td { color: #000 !important; border: 1px solid #ccc !important; }
-      .print-header-sheet { display: block !important; margin-bottom: 20px; text-align: center; color: #000; }
-    }
-    .print-header-sheet { display: none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Furniture & Fixtures | PM SHRI KV Ranikhet</title>
+<link rel="stylesheet" href="premium.css">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{--primary:#7c3aed;--primary-light:#a78bfa;--bg-dark:#06060c;--card-bg:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:#f8fafc;--text-muted:#94a3b8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--info:#3b82f6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:var(--bg-dark);color:var(--text);min-height:100vh;}
+#authGate{position:fixed;inset:0;background:rgba(6,6,12,0.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(10px);}
+.auth-box{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:48px 40px;text-align:center;max-width:420px;width:90%;}
+.auth-box .lock-icon{font-size:3rem;color:var(--primary);margin-bottom:16px;}
+.auth-box h2{font-size:1.5rem;margin-bottom:8px;}
+.auth-box p{color:var(--text-muted);font-size:.9rem;margin-bottom:24px;}
+.auth-input{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;font-family:inherit;margin-bottom:16px;outline:none;transition:border-color .3s;}
+.auth-input:focus{border-color:var(--primary);}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:10px;color:#fff;font-size:1rem;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .3s;}
+.auth-btn:hover{opacity:.85;}
+#authError{color:var(--danger);font-size:.85rem;margin-top:8px;display:none;}
+#mainContent{display:none;}
+.page-header{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(168,85,247,.08));border-bottom:1px solid var(--border);padding:24px 0;}
+.header-inner{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;}
+.header-icon{width:56px;height:56px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.header-text h1{font-size:1.6rem;font-weight:700;}
+.header-text p{color:var(--text-muted);font-size:.85rem;}
+.tab-nav{background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.tab-nav-inner{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.tab-nav-inner::-webkit-scrollbar{display:none;}
+.tab-btn{padding:14px 20px;background:none;border:none;color:var(--text-muted);font-family:inherit;font-size:.88rem;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .3s;display:flex;align-items:center;gap:8px;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--primary-light);border-bottom-color:var(--primary);}
+.content-area{max-width:1400px;margin:0 auto;padding:28px 24px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:24px;}
+.card-title{font-size:1.1rem;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.card-title i{color:var(--primary-light);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:.85rem;color:var(--text-muted);font-weight:500;}
+.form-select,.form-input{padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .3s;width:100%;}
+.form-select:focus,.form-input:focus{border-color:var(--primary);}
+.form-select option{background:#1a1a2e;color:var(--text);}
+.entry-table-wrapper{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+.entry-table{width:100%;border-collapse:collapse;}
+.entry-table th{padding:10px 14px;background:rgba(124,58,237,0.2);color:var(--primary-light);font-size:.8rem;font-weight:600;text-align:left;white-space:nowrap;}
+.entry-table td{padding:8px 14px;border-top:1px solid var(--border);font-size:.85rem;}
+.entry-table tr:hover td{background:rgba(255,255,255,0.03);}
+.qty-input{width:80px;padding:6px 10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:.85rem;text-align:center;outline:none;}
+.qty-input:focus{border-color:var(--primary);}
+.item-no{color:var(--text-muted);font-size:.8rem;}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
+.btn-primary:hover{opacity:.85;transform:translateY(-1px);}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff;}
+.btn-success:hover{opacity:.85;}
+.btn-info{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;}
+.btn-info:hover{opacity:.85;}
+.btn-warning{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;}
+.btn-warning:hover{opacity:.85;}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-muted);}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary-light);}
+.btn-sm{padding:7px 14px;font-size:.82rem;}
+.action-bar{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);}
+.consolidated-wrapper{overflow:auto;border-radius:12px;border:1px solid var(--border);max-height:70vh;}
+.con-table{width:100%;border-collapse:collapse;font-size:.78rem;}
+.con-table th{padding:8px 10px;background:rgba(124,58,237,0.25);color:var(--primary-light);font-weight:600;text-align:center;white-space:nowrap;border:1px solid rgba(124,58,237,0.2);position:sticky;top:0;z-index:2;}
+.con-table th:first-child{text-align:left;position:sticky;left:0;z-index:3;background:rgba(30,12,80,0.95);}
+.con-table td{padding:7px 10px;border:1px solid var(--border);text-align:center;white-space:nowrap;}
+.con-table td:first-child{text-align:left;position:sticky;left:0;background:rgba(15,10,40,0.95);font-weight:500;min-width:160px;}
+.con-table .total-row td{background:rgba(124,58,237,0.15);font-weight:700;color:var(--primary-light);}
+.con-table tr:hover td{background:rgba(255,255,255,0.03);}
+.con-table .nonzero{color:#a7f3d0;font-weight:600;}
+.con-table .zero{color:rgba(255,255,255,0.2);}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
+.stat-card .stat-val{font-size:2rem;font-weight:700;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-card .stat-label{color:var(--text-muted);font-size:.82rem;margin-top:4px;}
+.alert{padding:12px 16px;border-radius:10px;font-size:.88rem;margin-bottom:16px;}
+.alert-success{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;}
+.alert-info{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;}
+@media print{
+  @page{size:A3 landscape;margin:8mm;}
+  body{background:#fff!important;color:#000!important;}
+  #authGate,.nav-bar,.tab-nav,.action-bar,.page-header,.no-print{display:none!important;}
+  .tab-panel{display:block!important;}
+  .con-table{font-size:.6rem;}
+  .con-table th{background:#7c3aed!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-table td:first-child{background:#f3f4f6!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-table .total-row td{background:#e9d5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-table .nonzero{color:#065f46!important;}
+  .print-header{display:block!important;color:#000!important;}
+  .consolidated-wrapper{max-height:none;overflow:visible;border:none;}
+  .content-area{padding:0;}
+}
+.print-header{display:none;text-align:center;margin-bottom:12px;padding:8px;}
+.print-header h2{font-size:1rem;font-weight:700;color:#000;}
+.print-header p{font-size:.8rem;color:#333;}
+@media(max-width:600px){.form-row{grid-template-columns:1fr;}.action-bar{flex-direction:column;}}
+.nav-bar{background:rgba(6,6,12,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);position:sticky;top:0;z-index:500;}
+.nav-bar .container{max-width:1400px;margin:0 auto;padding:0 24px;}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px;}
+.nav-brand{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:4px;align-items:center;}
+.nav-item{position:relative;}
+.nav-link,.dropdown-trigger{padding:8px 12px;color:var(--text-muted);text-decoration:none;font-size:.85rem;font-weight:500;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;border:none;background:none;font-family:inherit;}
+.nav-link:hover,.dropdown-trigger:hover,.nav-link.active{color:var(--primary-light);background:rgba(124,58,237,0.1);}
+.dropdown-menu{position:absolute;top:100%;left:0;background:rgba(10,10,20,0.98);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:200px;display:none;z-index:600;backdrop-filter:blur(20px);}
+.nav-item:hover .dropdown-menu{display:block;}
+.dropdown-menu a{display:flex;align-items:center;gap:10px;padding:9px 12px;color:var(--text-muted);text-decoration:none;font-size:.84rem;border-radius:8px;transition:all .3s;}
+.dropdown-menu a:hover,.dropdown-menu a.active-link{background:rgba(124,58,237,0.15);color:var(--primary-light);}
+</style>
 </head>
 <body>
-
-  <!-- ======================== SECURITY PASSWORD GATE ======================== -->
-  <div id="furnitureAuthGate">
-    <div class="auth-gate-box" id="authGateBox">
-      <div class="auth-icon-wrap">
-        <i class="fas fa-couch"></i>
-      </div>
-      <h2>Teacher's Desk Access</h2>
-      <p class="subtitle"><strong>FURNITURE &amp; FIXTURES STOCK REGISTER</strong><br>PM SHRI Kendriya Vidyalaya Ranikhet<br><span style="color:#a78bfa; font-size:0.8rem;">In-Charge: K B Joshi (PGT Maths)</span></p>
-      
-      <div class="auth-input-group">
-        <input type="password" id="gatePasswordInput" placeholder="Enter Access Password" autofocus autocomplete="off" />
-        <button type="button" class="toggle-pwd" id="gateTogglePwd" title="Show/Hide Password"><i class="fas fa-eye"></i></button>
-      </div>
-      
-      <div class="auth-err-msg" id="gateErrorMsg">Incorrect password! Please try again.</div>
-      
-      <button type="button" class="auth-btn-unlock" id="gateUnlockBtn">
-        <i class="fas fa-unlock-alt"></i> Unlock Stock Register
-      </button>
-      
-      <div>
-        <a href="index.html" class="auth-btn-back"><i class="fas fa-arrow-left"></i> Return to Main Diary</a>
-      </div>
-    </div>
+<div id="authGate">
+  <div class="auth-box">
+    <div class="lock-icon"><i class="fas fa-couch"></i></div>
+    <h2>Furniture &amp; Fixtures</h2>
+    <p>PM SHRI Kendriya Vidyalaya Ranikhet<br>Enter password to access the stock register</p>
+    <input type="password" id="authPwd" class="auth-input" placeholder="Enter Password" onkeydown="if(event.key==='Enter')doAuth()">
+    <button class="auth-btn" onclick="doAuth()"><i class="fas fa-unlock"></i> Unlock Portal</button>
+    <div id="authError">Incorrect password. Please try again.</div>
   </div>
-
-  <!-- ======================== MAIN PORTAL CONTENT ======================== -->
-  <div id="furnitureMainPortal">
-
-    <!-- ── SITE HEADER ── -->
-    <header class="site-header">
-      <div class="container header-container">
-        <div class="header-left">
-          <div class="logo-circle" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-couch"></i></div>
-          <div class="header-text">
-            <div class="kv-title">PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
-            <div class="kv-subtitle">TEACHER'S DIGITAL DIARY &middot; K B JOSHI (PGT MATHEMATICS)</div>
-          </div>
-        </div>
-        <div class="header-right">
-          <a href="index.html" class="btn btn-outline" style="font-size: 0.85rem;"><i class="fas fa-home"></i> Back to Home</a>
-          <button class="btn btn-outline" onclick="lockPortal()" style="border-color:#ef4444; color:#fca5a5; font-size: 0.85rem;"><i class="fas fa-lock"></i> Lock Register</button>
-        </div>
-      </div>
-    </header>
-
-    <!-- ── GLOBAL NAVIGATION ── -->
-    <nav class="nav-bar">
-      <div class="container">
-        <div class="nav">
-          <a href="javascript:history.back()" class="btn-back-prev"><i class="fas fa-arrow-left"></i> BACK</a>
-          <a href="index.html" class="btn-back-home"><i class="fas fa-home"></i> HOME</a>
-          
-          <!-- Group 1: TEACHER DESK -->
+</div>
+<div id="mainContent">
+  <nav class="nav-bar no-print">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html" class="nav-brand"><i class="fas fa-book-open"></i> KBJ Digital Diary</a>
+        <div class="nav-links">
+          <div class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></div>
           <div class="nav-item">
-            <a class="dropdown-trigger active"><i class="fas fa-user-tie"></i> TEACHER DESK <i class="fas fa-chevron-down"></i></a>
+            <button class="dropdown-trigger"><i class="fas fa-graduation-cap"></i> Academics <i class="fas fa-chevron-down" style="font-size:.7rem"></i></button>
             <div class="dropdown-menu">
-              <a href="index.html#profile"><i class="fas fa-user-shield"></i> Profile Access</a>
               <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
-              <a href="furniture.html" class="active" style="color:#fbbf24; font-weight:700;"><i class="fas fa-couch"></i> Furniture &amp; Fixtures</a>
-              <a href="circulars.html"><i class="fas fa-file-alt"></i> Circulars &amp; Notices</a>
-              <a href="ai-tools.html"><i class="fas fa-robot"></i> AI Tools Portal</a>
-              <a href="analysis.html"><i class="fas fa-chart-line"></i> Performance Analysis</a>
-              <a href="codeofconduct.html"><i class="fas fa-gavel"></i> Code of Conduct</a>
-              <a href="meetings.html"><i class="fas fa-users"></i> Staff Meetings</a>
-              <a href="lincoln.html"><i class="fas fa-scroll"></i> Lincoln's Letter</a>
-              <a href="updates.html"><i class="fas fa-bell"></i> Latest Updates Timeline</a>
+              <a href="lessonplan.html"><i class="fas fa-book"></i> Lesson Plans</a>
+              <a href="syllabus.html"><i class="fas fa-list"></i> Syllabus</a>
+              <a href="examination.html"><i class="fas fa-file-alt"></i> Examination</a>
             </div>
           </div>
-
-          <!-- Group 2: ACADEMICS -->
           <div class="nav-item">
-            <a class="dropdown-trigger"><i class="fas fa-book"></i> ACADEMICS <i class="fas fa-chevron-down"></i></a>
+            <button class="dropdown-trigger"><i class="fas fa-chalkboard-teacher"></i> Teacher Desk <i class="fas fa-chevron-down" style="font-size:.7rem"></i></button>
             <div class="dropdown-menu">
-              <a href="syllabus.html"><i class="fas fa-clipboard-list"></i> Syllabus Overview</a>
-              <a href="lessonplan.html"><i class="fas fa-chalkboard-teacher"></i> Lesson Plans</a>
-              <a href="ncertbooks.html"><i class="fas fa-book-open"></i> NCERT Books</a>
-              <a href="studymaterial.html"><i class="fas fa-layer-group"></i> Study Materials</a>
-              <a href="kvs-worksheets.html"><i class="fas fa-file-pdf"></i> Worksheets By KVS for 6-8</a>
-              <a href="ppts.html"><i class="fas fa-tv"></i> PPT Presentations</a>
-              <a href="digitalcontent.html"><i class="fas fa-laptop"></i> Digital Content</a>
+              <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
+              <a href="furniture.html" class="active-link"><i class="fas fa-couch"></i> Furniture &amp; Fixtures</a>
+              <a href="recess_duty.html"><i class="fas fa-clock"></i> Recess Duty</a>
+              <a href="ptm.html"><i class="fas fa-users"></i> PTM Record</a>
             </div>
           </div>
-
-          <!-- Group 3: STUDENTS CORNER -->
           <div class="nav-item">
-            <a class="dropdown-trigger"><i class="fas fa-user-graduate"></i> STUDENTS CORNER <i class="fas fa-chevron-down"></i></a>
+            <button class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students <i class="fas fa-chevron-down" style="font-size:.7rem"></i></button>
             <div class="dropdown-menu">
-              <a href="homework.html"><i class="fas fa-home"></i> Home Work</a>
-              <a href="students.html"><i class="fas fa-id-card"></i> Student Profiles</a>
-              <a href="learners.html"><i class="fas fa-list-ul"></i> Learners Directory</a>
-              <a href="slow-learners-attendance.html"><i class="fas fa-clipboard-user"></i> Remedial Attendance</a>
-              <a href="ptm.html"><i class="fas fa-handshake"></i> Parent Teacher Meetings</a>
-              <a href="activities.html"><i class="fas fa-running"></i> Student Activities</a>
-              <a href="quizzes.html"><i class="fas fa-tasks"></i> Quiz &amp; Assignments</a>
-              <a href="testslip.html"><i class="fas fa-file-invoice"></i> Test Slip Generator</a>
-              <a href="guidance.html"><i class="fas fa-hand-holding-heart"></i> Guidance &amp; Counselling</a>
+              <a href="homework.html"><i class="fas fa-pencil-alt"></i> Homework</a>
+              <a href="analysis.html"><i class="fas fa-chart-bar"></i> Analysis</a>
             </div>
           </div>
-
-          <!-- Group 4: EXAMS & PREP -->
-          <div class="nav-item">
-            <a class="dropdown-trigger"><i class="fas fa-file-signature"></i> EXAMS &amp; PREP <i class="fas fa-chevron-down"></i></a>
-            <div class="dropdown-menu">
-              <a href="examination.html"><i class="fas fa-file-alt"></i> Examinations Portal</a>
-              <a href="board.html"><i class="fas fa-question-circle"></i> CBSE Board Question Papers</a>
-              <a href="chapterwise-board-questions.html"><i class="fas fa-folder-open"></i> Chapterwise Board Questions</a>
-              <a href="ioqm.html"><i class="fas fa-medal"></i> IOQM Portal</a>
-            </div>
-          </div>
-
-          <!-- Group 5: MATH LABS -->
-          <div class="nav-item">
-            <a class="dropdown-trigger"><i class="fas fa-shapes"></i> MATH LABS <i class="fas fa-chevron-down"></i></a>
-            <div class="dropdown-menu">
-              <a href="interactive.html"><i class="fas fa-gamepad"></i> Interactive Lessons</a>
-              <a href="simulations.html"><i class="fas fa-atom"></i> Simulation Tools</a>
-              <a href="geogebra.html"><i class="fas fa-draw-polygon"></i> GeoGebra Laboratory</a>
-              <a href="robocompass.html"><i class="fas fa-robot"></i> RoboCompass Geometry</a>
-              <a href="3dshapes.html"><i class="fas fa-cube"></i> 3D Shapes Lab</a>
-              <a href="paper-folding.html"><i class="fas fa-star"></i> Paper Folding Lab</a>
-            </div>
-          </div>
-
-          <div class="nav-item">
-            <a href="index.html#ask-me" style="color: #a78bfa; font-weight: 700; background: rgba(124,58,237,0.18); border-radius: 8px; padding: 6px 14px;">
-              <i class="fas fa-square-root-alt"></i> ASK ME
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- ── PRINT HEADER (VISIBLE ONLY IN PRINT) ── -->
-    <div class="print-header-sheet">
-      <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-      <h3>CENTRAL FURNITURE &amp; FIXTURES STOCK REGISTER</h3>
-      <p>In-Charge: K B Joshi (PGT Mathematics) &nbsp;|&nbsp; Academic Session: 2026-27</p>
-      <hr style="margin: 10px 0;">
-    </div>
-
-    <!-- ── PORTAL HERO ── -->
-    <section class="portal-hero">
-      <div class="portal-hero-container">
-        <div class="hero-title-area">
-          <h1><i class="fas fa-couch" style="color: #f59e0b;"></i> Furniture &amp; Fixtures <span class="highlight">Stock Register</span></h1>
-          <p>Comprehensive Asset Management, Classroom Allocations, Lab Inventories &amp; Physical Verification Logs</p>
-          <div class="hero-badges">
-            <span class="h-badge gold"><i class="fas fa-shield-alt"></i> Official Assigned Duty: Furniture In-Charge</span>
-            <span class="h-badge purple"><i class="fas fa-user-check"></i> K B Joshi (PGT Maths)</span>
-            <span class="h-badge"><i class="fas fa-school"></i> PM SHRI KV Ranikhet</span>
-            <span class="h-badge"><i class="fas fa-calendar-check"></i> Session 2026-27</span>
-          </div>
-        </div>
-        
-        <div class="hero-actions">
-          <button class="btn-action-hero" onclick="openAddModal()"><i class="fas fa-plus-circle" style="color:#10b981;"></i> Add Stock Item</button>
-          <button class="btn-action-hero" onclick="exportToCSV()"><i class="fas fa-file-csv" style="color:#38bdf8;"></i> Export CSV</button>
-          <button class="btn-action-hero" onclick="window.print()"><i class="fas fa-print" style="color:#fbbf24;"></i> Print Register</button>
-          <button class="btn-action-hero lock" onclick="lockPortal()"><i class="fas fa-lock"></i> Lock</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── KPI METRICS CARDS ── -->
-    <div class="metrics-grid">
-      <div class="metric-card" style="--card-accent: #f59e0b;">
-        <div class="metric-header">
-          <span>Total Articles in Stock</span>
-          <i class="fas fa-boxes-stacked" style="color: #f59e0b;"></i>
-        </div>
-        <div class="metric-val" id="kpiTotalItems">1,485</div>
-        <div class="metric-sub"><span style="color:#10b981;">32 Distinct Categories</span> &middot; Stock Vol IV</div>
-      </div>
-
-      <div class="metric-card" style="--card-accent: #3b82f6;">
-        <div class="metric-header">
-          <span>Student Dual Desks</span>
-          <i class="fas fa-chair" style="color: #3b82f6;"></i>
-        </div>
-        <div class="metric-val" id="kpiDualDesks">580</div>
-        <div class="metric-sub"><span style="color:#60a5fa;">1,160 Student Seats</span> in Classrooms</div>
-      </div>
-
-      <div class="metric-card" style="--card-accent: #8b5cf6;">
-        <div class="metric-header">
-          <span>Teachers' Tables &amp; Chairs</span>
-          <i class="fas fa-chalkboard-user" style="color: #8b5cf6;"></i>
-        </div>
-        <div class="metric-val" id="kpiTeacherFurniture">144</div>
-        <div class="metric-sub">48 Tables &middot; 96 Cushioned Chairs</div>
-      </div>
-
-      <div class="metric-card" style="--card-accent: #10b981;">
-        <div class="metric-header">
-          <span>Serviceability Rate</span>
-          <i class="fas fa-circle-check" style="color: #10b981;"></i>
-        </div>
-        <div class="metric-val" id="kpiServiceable">97.4%</div>
-        <div class="metric-sub"><span style="color:#34d399;">1,447 Good</span> &middot; 26 In Repair &middot; 12 Survey</div>
-      </div>
-    </div>
-
-    <!-- ── NAVIGATION TABS ── -->
-    <div class="portal-nav-tabs-wrapper">
-      <div class="portal-nav-tabs">
-        <button class="p-tab-btn active" onclick="switchTab('tab-stock-register')"><i class="fas fa-clipboard-list"></i> Central Stock Register</button>
-        <button class="p-tab-btn" onclick="switchTab('tab-room-allocation')"><i class="fas fa-door-open"></i> Room &amp; Class Allocation</button>
-        <button class="p-tab-btn" onclick="switchTab('tab-physical-verification')"><i class="fas fa-tasks"></i> Physical Verification &amp; Audit</button>
-        <button class="p-tab-btn" onclick="switchTab('tab-condemnation')"><i class="fas fa-trash-can"></i> Condemnation &amp; Repairs</button>
-        <button class="p-tab-btn" onclick="switchTab('tab-reports')"><i class="fas fa-file-invoice"></i> Official Reports &amp; Tools</button>
-      </div>
-    </div>
-
-    <!-- ==================== TAB 1: CENTRAL STOCK REGISTER ==================== -->
-    <div class="tab-pane active" id="tab-stock-register">
-      
-      <!-- Filter Bar -->
-      <div class="filter-bar">
-        <div class="search-input-wrap">
-          <i class="fas fa-search"></i>
-          <input type="text" id="furnSearchInput" placeholder="Search by Article name, Stock Reg page, Material, or Location..." oninput="filterStockTable()" />
-        </div>
-        
-        <div class="filter-group">
-          <select class="custom-select" id="catFilter" onchange="filterStockTable()">
-            <option value="ALL">All Categories</option>
-            <option value="Classroom">Classroom Furniture</option>
-            <option value="Teacher">Teacher / Staff Furniture</option>
-            <option value="Lab">Lab &amp; Activity Furniture</option>
-            <option value="Storage">Storage &amp; Almirahs</option>
-            <option value="Boards">Display &amp; Greenboards</option>
-            <option value="Special">Library &amp; Auditorium</option>
-          </select>
-
-          <select class="custom-select" id="condFilter" onchange="filterStockTable()">
-            <option value="ALL">All Conditions</option>
-            <option value="Good">Serviceable / Good</option>
-            <option value="Repair">Needs Repair</option>
-            <option value="Condemned">Condemnation Pool</option>
-          </select>
-
-          <button class="btn-add-item" onclick="openAddModal()"><i class="fas fa-plus"></i> Add Item</button>
-        </div>
-      </div>
-
-      <!-- Stock Table -->
-      <div class="table-container">
-        <div class="table-responsive">
-          <table class="furn-table" id="furnMainTable">
-            <thead>
-              <tr>
-                <th style="width: 50px;">Sl</th>
-                <th>Reg Ref</th>
-                <th>Article Name &amp; Material Specifications</th>
-                <th>Category</th>
-                <th style="text-align: center;">Total</th>
-                <th style="text-align: center;">Good</th>
-                <th style="text-align: center;">Repair</th>
-                <th style="text-align: center;">Survey</th>
-                <th>Primary Allocation</th>
-                <th>Condition</th>
-                <th style="text-align: center; width: 100px;">Action</th>
-              </tr>
-            </thead>
-            <tbody id="furnTableBody">
-              <!-- Dynamically populated from JS -->
-            </tbody>
-          </table>
+          <div class="nav-item"><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a></div>
         </div>
       </div>
     </div>
-
-    <!-- ==================== TAB 2: ROOM & CLASS ALLOCATION ==================== -->
-    <div class="tab-pane" id="tab-room-allocation">
-      
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-        <div>
-          <h3 style="margin: 0 0 4px; font-size: 1.3rem;"><i class="fas fa-school" style="color: #60a5fa;"></i> Class &amp; Department Furniture Matrix</h3>
-          <p style="margin: 0; color: var(--text-secondary); font-size: 0.88rem;">Room-wise custody, dual desks count, and teacher furniture allocation for academic session 2026-27.</p>
-        </div>
-        <div class="filter-group">
-          <select class="custom-select" id="wingFilter" onchange="filterRooms()">
-            <option value="ALL">All Wings &amp; Labs</option>
-            <option value="Secondary">Classes VI to X (Secondary)</option>
-            <option value="Senior">Classes XI &amp; XII (Sr Secondary)</option>
-            <option value="Labs">Science &amp; Math Labs</option>
-            <option value="Admin">Admin, Library &amp; Staff Rooms</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="rooms-grid" id="roomsContainer">
-        <!-- Dynamically rendered -->
+  </nav>
+  <div class="page-header no-print">
+    <div class="header-inner">
+      <div class="header-icon"><i class="fas fa-couch"></i></div>
+      <div class="header-text">
+        <h1>Furniture &amp; Fixtures Stock Register</h1>
+        <p>PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Mathematics &nbsp;|&nbsp; Session: 2025-26</p>
       </div>
     </div>
-
-    <!-- ==================== TAB 3: PHYSICAL VERIFICATION & AUDIT ==================== -->
-    <div class="tab-pane" id="tab-physical-verification">
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 25px;">
-        
-        <!-- Committee Card -->
-        <div class="table-container" style="padding: 24px;">
-          <h4 style="margin: 0 0 12px; color: #fbbf24; font-size: 1.1rem;"><i class="fas fa-users-gear"></i> Physical Verification Committee (2026-27)</h4>
-          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
-            As per KVS Accounts Code &amp; GFR Rules, annual physical verification of all furniture &amp; fixtures was conducted by the designated committee:
-          </p>
-          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.88rem;">
-            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between;">
-              <span><strong>1. K B Joshi</strong> (PGT Mathematics)</span>
-              <span style="color: #a78bfa; font-weight: 700;">Convener &amp; In-Charge</span>
-            </li>
-            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between;">
-              <span><strong>2. PGT Physics</strong></span>
-              <span style="color: #94a3b8;">Member</span>
-            </li>
-            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between;">
-              <span><strong>3. TGT Science</strong></span>
-              <span style="color: #94a3b8;">Member</span>
-            </li>
-            <li style="padding: 8px 0; display: flex; justify-content: space-between;">
-              <span><strong>4. Principal, PM SHRI KV Ranikhet</strong></span>
-              <span style="color: #10b981; font-weight: 700;">Approving Authority</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Verification Checklist -->
-        <div class="table-container" style="padding: 24px;">
-          <h4 style="margin: 0 0 12px; color: #34d399; font-size: 1.1rem;"><i class="fas fa-clipboard-check"></i> Verification Protocol Status</h4>
-          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.86rem;">
-            <div style="display: flex; align-items: center; gap: 10px; color: #e2e8f0;">
-              <i class="fas fa-check-circle" style="color:#10b981;"></i> 100% Classrooms &amp; Laboratories physical count verified
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; color: #e2e8f0;">
-              <i class="fas fa-check-circle" style="color:#10b981;"></i> Stock Register Vol. IV page-wise reconciliations completed
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; color: #e2e8f0;">
-              <i class="fas fa-check-circle" style="color:#10b981;"></i> Room inventory handover signed by all respective Class Teachers
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; color: #e2e8f0;">
-              <i class="fas fa-check-circle" style="color:#10b981;"></i> Vacation carpentry &amp; desk repair work completed
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; color: #e2e8f0;">
-              <i class="fas fa-check-circle" style="color:#10b981;"></i> 12 articles placed in Survey/Condemnation pool for Board disposal
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Audit Certificate Box -->
-      <div class="table-container" style="padding: 26px; border-left: 4px solid #7c3aed;">
-        <h4 style="margin: 0 0 10px; color: #fff; font-size: 1.15rem;"><i class="fas fa-certificate" style="color:#a78bfa;"></i> Annual Physical Verification Certificate (Format KVS AC-22)</h4>
-        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-          <em>"Certified that the physical verification of Furniture &amp; Fixture articles of PM SHRI Kendriya Vidyalaya Ranikhet for the session 2026-27 has been completed by the undersigned committee. The physical balances have been reconciled with the balances appearing in Central Stock Register Vol. IV. Surplus/deficiencies and unserviceable articles have been surveyed and reported in accordance with KVS Accounts Code."</em>
-        </p>
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; font-size: 0.88rem; color: #e2e8f0; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
-          <div>
-            <strong>Date of Verification:</strong> 31-March-2026 / Re-audit 15-July-2026<br>
-            <strong>Location:</strong> PM SHRI KV Ranikhet (Cantt Campus)
-          </div>
-          <div style="text-align: right;">
-            <strong>(K B JOSHI)</strong><br>
-            <span style="color: #a78bfa;">PGT Mathematics &middot; Furniture In-Charge</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ==================== TAB 4: CONDEMNATION & REPAIRS ==================== -->
-    <div class="tab-pane" id="tab-condemnation">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-        <div>
-          <h3 style="margin: 0 0 4px; font-size: 1.3rem;"><i class="fas fa-wrench" style="color: #f59e0b;"></i> Maintenance, Repairs &amp; Condemnation Pool</h3>
-          <p style="margin: 0; color: var(--text-secondary); font-size: 0.88rem;">Tracking of minor/major carpentry welding repairs and articles recommended for condemnation board.</p>
-        </div>
-      </div>
-
-      <div class="table-container">
-        <div class="table-responsive">
-          <table class="furn-table">
-            <thead>
-              <tr>
-                <th>Item / Article</th>
-                <th>Material Specification</th>
-                <th>Qty</th>
-                <th>Current Status</th>
-                <th>Fault / Defect Description</th>
-                <th>Action Taken / Recommendation</th>
-                <th>Estimated Cost</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Student Dual Desk (High Sec)</strong></td>
-                <td>Mild Steel Tube + Wooden Top</td>
-                <td>8</td>
-                <td><span class="badge-cond repair">Under Repair</span></td>
-                <td>Bench plywood top delamination &amp; loose frame screw</td>
-                <td>Sent for local carpenter refurbishment &amp; varnishing</td>
-                <td>₹ 1,600</td>
-              </tr>
-              <tr>
-                <td><strong>Teacher Arm Chairs</strong></td>
-                <td>Solid Wood &amp; Foam Cushion</td>
-                <td>5</td>
-                <td><span class="badge-cond repair">Under Repair</span></td>
-                <td>Seat cushioning worn out, leg joint loose</td>
-                <td>Re-cushioning &amp; joint reinforcement ongoing</td>
-                <td>₹ 1,250</td>
-              </tr>
-              <tr>
-                <td><strong>Science Lab Stools</strong></td>
-                <td>Cast Iron Base + Wooden Seat</td>
-                <td>13</td>
-                <td><span class="badge-cond repair">Under Repair</span></td>
-                <td>Base weld crack &amp; surface paint chipping</td>
-                <td>Welding &amp; anti-rust coat application</td>
-                <td>₹ 1,950</td>
-              </tr>
-              <tr>
-                <td><strong>Old Steel Almirah (1998 Make)</strong></td>
-                <td>CRCA Steel Sheet (Damaged)</td>
-                <td>3</td>
-                <td><span class="badge-cond condemned">Condemned</span></td>
-                <td>Base rusted beyond repair, lock mechanism broken</td>
-                <td>Survey Board approved for e-auction / scrap disposal</td>
-                <td>Scrap Value</td>
-              </tr>
-              <tr>
-                <td><strong>Ceramic Green Board (Old Class X)</strong></td>
-                <td>Chalk Surface Pitted</td>
-                <td>4</td>
-                <td><span class="badge-cond condemned">Condemned</span></td>
-                <td>Core moisture damage, writing surface warped</td>
-                <td>Replaced by new magnetic greenboards under PM SHRI</td>
-                <td>Write-off</td>
-              </tr>
-              <tr>
-                <td><strong>Computer Lab Swivel Chairs</strong></td>
-                <td>Hydraulic Mesh Chairs (2016)</td>
-                <td>5</td>
-                <td><span class="badge-cond condemned">Condemned</span></td>
-                <td>Hydraulic cylinder dead, castor wheels broken</td>
-                <td>Survey Board approved condemnation</td>
-                <td>Write-off</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ==================== TAB 5: REPORTS & EXPORT ==================== -->
-    <div class="tab-pane" id="tab-reports">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-        
-        <div class="table-container" style="padding: 24px;">
-          <h4 style="margin: 0 0 10px; color: #60a5fa;"><i class="fas fa-file-excel"></i> CSV / Spreadsheet Export</h4>
-          <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 18px;">
-            Export the live furniture stock inventory into comma-separated CSV format compatible with Microsoft Excel, LibreOffice, and Google Sheets.
-          </p>
-          <button class="btn-add-item" style="background: linear-gradient(135deg, #0284c7, #0369a1);" onclick="exportToCSV()">
-            <i class="fas fa-download"></i> Download Stock Register CSV
-          </button>
-        </div>
-
-        <div class="table-container" style="padding: 24px;">
-          <h4 style="margin: 0 0 10px; color: #fbbf24;"><i class="fas fa-print"></i> Official Print Format</h4>
-          <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 18px;">
-            Generate print-ready KVS stock inventory register with official letterhead formatting and signature verification lines.
-          </p>
-          <button class="btn-add-item" style="background: linear-gradient(135deg, #d97706, #b45309);" onclick="window.print()">
-            <i class="fas fa-print"></i> Print Official Register
-          </button>
-        </div>
-
-        <div class="table-container" style="padding: 24px;">
-          <h4 style="margin: 0 0 10px; color: #f43f5e;"><i class="fas fa-rotate"></i> Reset Default Database</h4>
-          <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 18px;">
-            Reset stock entries back to the verified PM SHRI KV Ranikhet official baseline records (1,485 items).
-          </p>
-          <button class="action-btn-sm del" style="padding: 10px 18px; font-weight: 700;" onclick="resetDefaultStock()">
-            <i class="fas fa-arrow-rotate-left"></i> Restore Verified Default Records
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── FOOTER ── -->
-    <footer class="site-footer" style="margin-top: 60px; padding: 30px 20px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; color: var(--text-muted); font-size: 0.88rem;">
-      <p style="margin: 0 0 6px;">
-        <strong>PM SHRI KENDRIYA VIDYALAYA RANIKHET</strong> &middot; Teacher's Digital Diary &middot; Furniture &amp; Fixtures Stock Register
-      </p>
-      <p style="margin: 0; font-size: 0.8rem;">
-        Managed by <strong>K B Joshi</strong>, PGT Mathematics &middot; Assigned In-Charge Duties: Time Table &amp; Furniture
-      </p>
-    </footer>
-
   </div>
-
-  <!-- ======================== ADD / EDIT ITEM MODAL ======================== -->
-  <div class="custom-modal" id="addEditModal">
-    <div class="modal-content-box">
-      <div class="modal-head">
-        <h3 id="modalTitle"><i class="fas fa-plus-circle" style="color:#10b981;"></i> Add Furniture Article</h3>
-        <button class="btn-close-modal" onclick="closeAddModal()">&times;</button>
-      </div>
-      
-      <form id="furnItemForm" onsubmit="handleSaveItem(event)">
-        <input type="hidden" id="editItemId" value="" />
-
+  <div class="tab-nav no-print">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" onclick="switchTab('classEntry',this)"><i class="fas fa-edit"></i> Class / Section Entry</button>
+      <button class="tab-btn" onclick="switchTab('deptEntry',this)"><i class="fas fa-door-open"></i> Department / Room Entry</button>
+      <button class="tab-btn" onclick="switchTab('classCon',this)"><i class="fas fa-table"></i> Class Consolidated</button>
+      <button class="tab-btn" onclick="switchTab('deptCon',this)"><i class="fas fa-building"></i> Department Consolidated</button>
+      <button class="tab-btn" onclick="switchTab('exportTab',this)"><i class="fas fa-download"></i> Export &amp; Tools</button>
+    </div>
+  </div>
+  <div class="content-area">
+    <div id="classEntry" class="tab-panel active">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-edit"></i> Class / Section Furniture Entry</div>
+        <div id="classAlertBox"></div>
         <div class="form-row">
           <div class="form-group">
-            <label>Stock Reg Ref (Vol/Page)</label>
-            <input type="text" id="mItemReg" class="form-control" placeholder="e.g. Vol-IV / Pg 45" required />
+            <label>Select Class</label>
+            <select id="selClass" class="form-select" onchange="updateSections()">
+              <option value="">-- Select Class --</option>
+              <option>Balvatika</option>
+              <option>I</option><option>II</option><option>III</option>
+              <option>IV</option><option>V</option><option>VI</option>
+              <option>VII</option><option>VIII</option><option>IX</option>
+              <option>X</option><option>XI</option><option>XII</option>
+            </select>
           </div>
           <div class="form-group">
-            <label>Category</label>
-            <select id="mItemCat" class="form-control" required>
-              <option value="Classroom">Classroom Furniture</option>
-              <option value="Teacher">Teacher / Staff Furniture</option>
-              <option value="Lab">Lab &amp; Activity Furniture</option>
-              <option value="Storage">Storage &amp; Almirahs</option>
-              <option value="Boards">Display &amp; Greenboards</option>
-              <option value="Special">Library &amp; Auditorium</option>
+            <label>Select Section</label>
+            <select id="selSection" class="form-select" onchange="loadClassEntry()">
+              <option value="">-- Select Section --</option>
             </select>
           </div>
         </div>
-
-        <div class="form-group">
-          <label>Article Name</label>
-          <input type="text" id="mItemName" class="form-control" placeholder="e.g. Student Dual Desk (Senior Sec)" required />
-        </div>
-
-        <div class="form-group">
-          <label>Technical &amp; Material Specifications</label>
-          <input type="text" id="mItemSpecs" class="form-control" placeholder="e.g. Heavy Duty Steel Frame + 18mm Pre-lam Plywood Top" required />
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Total Quantity</label>
-            <input type="number" id="mItemTotal" class="form-control" min="1" value="10" required oninput="calcSubCounts()" />
+        <div id="classEntryTable" style="display:none;">
+          <div class="entry-table-wrapper">
+            <table class="entry-table">
+              <thead><tr><th style="width:40px">#</th><th>Furniture / Fixture Item</th><th style="width:120px">Quantity</th></tr></thead>
+              <tbody id="classItemBody"></tbody>
+            </table>
           </div>
-          <div class="form-group">
-            <label>Good / Serviceable Qty</label>
-            <input type="number" id="mItemGood" class="form-control" min="0" value="10" required />
+          <div class="action-bar">
+            <button class="btn btn-primary" onclick="saveClassEntry()"><i class="fas fa-save"></i> Save Entry</button>
+            <button class="btn btn-outline" onclick="loadClassEntry()"><i class="fas fa-undo"></i> Reset to Saved</button>
           </div>
         </div>
-
-        <div class="form-row">
+        <div id="classEntryPlaceholder" style="text-align:center;padding:40px;color:var(--text-muted);">
+          <i class="fas fa-hand-point-up" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+          Please select a class and section above to begin data entry.
+        </div>
+      </div>
+    </div>
+    <div id="deptEntry" class="tab-panel">
+      <div class="card">
+        <div class="card-title"><i class="fas fa-door-open"></i> Department / Room / Lab Furniture Entry</div>
+        <div id="deptAlertBox"></div>
+        <div class="form-row" style="grid-template-columns:1fr;">
           <div class="form-group">
-            <label>Under Repair Qty</label>
-            <input type="number" id="mItemRepair" class="form-control" min="0" value="0" />
-          </div>
-          <div class="form-group">
-            <label>Condemned / Survey Qty</label>
-            <input type="number" id="mItemSurvey" class="form-control" min="0" value="0" />
+            <label>Select Department / Room / Lab</label>
+            <select id="selDept" class="form-select" onchange="loadDeptEntry()">
+              <option value="">-- Select Department / Room --</option>
+            </select>
           </div>
         </div>
-
-        <div class="form-group">
-          <label>Primary Location / Room Allocation</label>
-          <input type="text" id="mItemLocation" class="form-control" placeholder="e.g. Classes VI to XII / Math Lab" required />
+        <div id="deptEntryTable" style="display:none;">
+          <div class="entry-table-wrapper">
+            <table class="entry-table">
+              <thead><tr><th style="width:40px">#</th><th>Furniture / Fixture Item</th><th style="width:120px">Quantity</th></tr></thead>
+              <tbody id="deptItemBody"></tbody>
+            </table>
+          </div>
+          <div class="action-bar">
+            <button class="btn btn-primary" onclick="saveDeptEntry()"><i class="fas fa-save"></i> Save Entry</button>
+            <button class="btn btn-outline" onclick="loadDeptEntry()"><i class="fas fa-undo"></i> Reset to Saved</button>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label>Condition Status</label>
-          <select id="mItemCond" class="form-control">
-            <option value="Good">Good / Serviceable</option>
-            <option value="Repair">Needs Minor Repair</option>
-            <option value="Condemned">Marked for Condemnation</option>
-          </select>
+        <div id="deptEntryPlaceholder" style="text-align:center;padding:40px;color:var(--text-muted);">
+          <i class="fas fa-hand-point-up" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+          Please select a department / room above to begin data entry.
         </div>
-
-        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
-          <button type="button" class="btn-action-hero" onclick="closeAddModal()">Cancel</button>
-          <button type="submit" class="btn-add-item"><i class="fas fa-save"></i> Save Article</button>
+      </div>
+    </div>
+    <div id="classCon" class="tab-panel">
+      <div class="print-header">
+        <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+        <p>CONSOLIDATED FURNITURE &amp; FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026</p>
+      </div>
+      <div class="card no-print" style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div class="card-title" style="margin:0"><i class="fas fa-table"></i> Class-wise Consolidated Register</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-success btn-sm" onclick="printPanel('classCon')"><i class="fas fa-print"></i> Print A3</button>
+            <button class="btn btn-info btn-sm" onclick="exportClassExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
+            <button class="btn btn-outline btn-sm" onclick="shareSheet()"><i class="fas fa-share-alt"></i> Share Link</button>
+          </div>
         </div>
-      </form>
+      </div>
+      <div class="consolidated-wrapper">
+        <table class="con-table"><thead id="classConHead"></thead><tbody id="classConBody"></tbody></table>
+      </div>
+    </div>
+    <div id="deptCon" class="tab-panel">
+      <div class="print-header">
+        <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+        <p>CONSOLIDATED FURNITURE &amp; FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026</p>
+      </div>
+      <div class="card no-print" style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div class="card-title" style="margin:0"><i class="fas fa-building"></i> Department-wise Consolidated Register</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-success btn-sm" onclick="printPanel('deptCon')"><i class="fas fa-print"></i> Print A3</button>
+            <button class="btn btn-info btn-sm" onclick="exportDeptExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
+            <button class="btn btn-outline btn-sm" onclick="shareSheet()"><i class="fas fa-share-alt"></i> Share Link</button>
+          </div>
+        </div>
+      </div>
+      <div class="consolidated-wrapper">
+        <table class="con-table"><thead id="deptConHead"></thead><tbody id="deptConBody"></tbody></table>
+      </div>
+    </div>
+    <div id="exportTab" class="tab-panel">
+      <div id="statsGrid" class="stats-grid"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+        <div class="card">
+          <div class="card-title"><i class="fas fa-file-excel"></i> Excel Export</div>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Download the complete register as a multi-sheet Excel workbook (.xlsx) matching the original format.</p>
+          <button class="btn btn-success" onclick="exportBothExcel()"><i class="fas fa-file-excel"></i> Download Full Workbook</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-print"></i> Print Reports</div>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Print either report as A3 landscape. Select A3 paper in your browser print dialog.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-success" onclick="printPanel('classCon')"><i class="fas fa-print"></i> Class Report (A3)</button>
+            <button class="btn btn-info" onclick="printPanel('deptCon')"><i class="fas fa-print"></i> Dept Report (A3)</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-share-alt"></i> Share</div>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Copy this page link to share with colleagues. They will need the password to access the register.</p>
+          <button class="btn btn-warning" onclick="shareSheet()"><i class="fas fa-copy"></i> Copy Page Link</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><i class="fas fa-database"></i> Data Management</div>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Reset all entries to the original verified stock data from the official Excel register (April 2026).</p>
+          <button class="btn btn-outline" onclick="resetToDefaults()"><i class="fas fa-undo"></i> Reset to Default Data</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- ── TOAST ALERT ── -->
-  <div id="toastNotice">
-    <i class="fas fa-check-circle" style="color: #34d399; font-size: 1.2rem;"></i>
-    <span id="toastMsg">Stock inventory updated successfully.</span>
-  </div>
-
-  <!-- ======================== SCRIPTS ======================== -->
-  <script>
-    const AUTH_KEY = 'furniture_auth_unlocked';
-    const CORRECT_PWD = 'kbjkv@2008';
-    const STORAGE_KEY = 'kbj_furniture_stock_v1';
-
-    // Baseline Verified PM SHRI KV Ranikhet Furniture Records
-    const defaultFurnitureStock = [
-      { id: 'f1', reg: 'Vol-IV / Pg 02', name: 'Student Dual Desk (High/Sr Sec)', specs: '25mm CRCA Steel Tube Frame with 18mm Pre-lam Plywood Top & Shelf', cat: 'Classroom', total: 320, good: 312, repair: 8, survey: 0, location: 'Classes IX to XII (All Sec)', cond: 'Good' },
-      { id: 'f2', reg: 'Vol-IV / Pg 06', name: 'Student Dual Desk (Middle Classes)', specs: 'Heavy Gauge Powder Coated Tubular Frame with Wooden Bag Hook', cat: 'Classroom', total: 260, good: 260, repair: 0, survey: 0, location: 'Classes VI to VIII (All Sec)', cond: 'Good' },
-      { id: 'f3', reg: 'Vol-IV / Pg 12', name: 'Teacher Table (Standard)', specs: 'Teak Wood Top with 3-Drawer Lockable Steel Pedestal (4\' x 2.5\')', cat: 'Teacher', total: 48, good: 48, repair: 0, survey: 0, location: 'All Classrooms & Staff Rooms', cond: 'Good' },
-      { id: 'f4', reg: 'Vol-IV / Pg 15', name: 'Teacher Arm Chair', specs: 'Ergonomic Wooden Armed Chair with High-Density Foam Cushion', cat: 'Teacher', total: 96, good: 91, repair: 5, survey: 0, location: 'Classrooms & Staff Rooms', cond: 'Good' },
-      { id: 'f5', reg: 'Vol-IV / Pg 20', name: 'Steel Almirah (Big Size)', specs: 'Godrej Pattern 78" x 36" x 19" 4-Shelf Heavy CRCA Sheet with Lock', cat: 'Storage', total: 45, good: 42, repair: 0, survey: 3, location: 'Staff Rooms, Labs, Classrooms', cond: 'Good' },
-      { id: 'f6', reg: 'Vol-IV / Pg 24', name: 'Ceramic Green Chalkboard', specs: '8\' x 4\' Magnetic Vitreous Enamelled Surface with Aluminium Frame', cat: 'Boards', total: 26, good: 22, repair: 0, survey: 4, location: 'All Classrooms', cond: 'Good' },
-      { id: 'f7', reg: 'Vol-IV / Pg 28', name: 'White Magnetic Marker Board', specs: '6\' x 4\' Scratch Proof Surface with Duster Tray & Mounting Brackets', cat: 'Boards', total: 18, good: 18, repair: 0, survey: 0, location: 'Laboratories & Activity Rooms', cond: 'Good' },
-      { id: 'f8', reg: 'Vol-IV / Pg 32', name: 'Notice / Pin-up Display Board', specs: '6\' x 4\' Soft Felt Cork Surface with Satin Aluminium Frame', cat: 'Boards', total: 24, good: 24, repair: 0, survey: 0, location: 'Classrooms & Corridors', cond: 'Good' },
-      { id: 'f9', reg: 'Vol-IV / Pg 38', name: 'Maths Lab Hexagonal Working Table', specs: '6-Seater Modular Wooden Table with Geometry Measurement Inlay', cat: 'Lab', total: 12, good: 12, repair: 0, survey: 0, location: 'Mathematics Laboratory', cond: 'Good' },
-      { id: 'f10', reg: 'Vol-IV / Pg 41', name: 'Maths Lab Revolving Stools', specs: 'Cushioned Round Top Height-Adjustable Stools with Metal Base', cat: 'Lab', total: 60, good: 60, repair: 0, survey: 0, location: 'Mathematics Laboratory', cond: 'Good' },
-      { id: 'f11', reg: 'Vol-IV / Pg 45', name: 'Science Lab Heavy Working Bench', specs: 'Granite / Chem-Resistant Hardwood Top (8\' x 3.5\') with Sinks', cat: 'Lab', total: 30, good: 30, repair: 0, survey: 0, location: 'Physics, Chem & Bio Labs', cond: 'Good' },
-      { id: 'f12', reg: 'Vol-IV / Pg 48', name: 'Science Lab Round Stool', specs: 'Solid Sheesham Wooden Top with Heavy Cast Iron 4-Leg Stand', cat: 'Lab', total: 90, good: 77, repair: 13, survey: 0, location: 'Physics, Chem & Bio Labs', cond: 'Good' },
-      { id: 'f13', reg: 'Vol-IV / Pg 52', name: 'Computer Lab Modular Tables', specs: 'Dual Computer Workstation with Wire Trays & CPU Trolleys', cat: 'Lab', total: 40, good: 40, repair: 0, survey: 0, location: 'Computer Science Lab', cond: 'Good' },
-      { id: 'f14', reg: 'Vol-IV / Pg 55', name: 'Computer Lab Swivel Chair', specs: 'Mid-back Breathable Mesh Hydraulic Revolving Chairs', cat: 'Lab', total: 45, good: 40, repair: 0, survey: 5, location: 'Computer Science Lab', cond: 'Good' },
-      { id: 'f15', reg: 'Vol-IV / Pg 60', name: 'Library 8-Seater Reading Table', specs: '8\' x 4\' Heavy Laminated Table with Central Cable Channel', cat: 'Special', total: 10, good: 10, repair: 0, survey: 0, location: 'Vidyalaya Library', cond: 'Good' },
-      { id: 'f16', reg: 'Vol-IV / Pg 63', name: 'Library Wooden Reading Chairs', specs: 'Solid Wood Ergonomic Curved Back Library Study Chairs', cat: 'Special', total: 80, good: 80, repair: 0, survey: 0, location: 'Vidyalaya Library', cond: 'Good' },
-      { id: 'f17', reg: 'Vol-IV / Pg 68', name: 'Glass Door Bookcase (Godrej)', specs: 'Steel 4-Compartment Clear Glass Sliding Door Library Almirah', cat: 'Storage', total: 14, good: 14, repair: 0, survey: 0, location: 'Library & Exam Cell', cond: 'Good' },
-      { id: 'f18', reg: 'Vol-IV / Pg 72', name: 'Smart Class AV Podium / Rostrum', specs: 'Metallic Digital Lectern with Lockable Drawer & Mic Mount', cat: 'Special', total: 15, good: 15, repair: 0, survey: 0, location: 'Smart Classrooms & Conf Room', cond: 'Good' },
-      { id: 'f19', reg: 'Vol-IV / Pg 76', name: 'Auditorium Stackable Metal Chairs', specs: 'Chrome Plated Heavy Gauge Steel Frame Cushioned Chairs', cat: 'Special', total: 150, good: 150, repair: 0, survey: 0, location: 'Multipurpose Activity Hall', cond: 'Good' },
-      { id: 'f20', reg: 'Vol-IV / Pg 80', name: 'Examination Confidential Trunk', specs: 'Reinforced 16-Gauge Galvanized Steel Trunk with Dual Padlock Hasp', cat: 'Storage', total: 6, good: 6, repair: 0, survey: 0, location: 'Exam Control Strong Room', cond: 'Good' }
-    ];
-
-    // Room Allocation Roster
-    const defaultRooms = [
-      { wing: 'Senior', name: 'Class XII-A (Sci/Math)', room: 'Room 201', incharge: 'K B Joshi (PGT Maths)', desks: 24, tTable: 1, tChair: 2, almirah: 'AL-12A', board: 'Green 8x4' },
-      { wing: 'Senior', name: 'Class XII-B (Comm/Arts)', room: 'Room 202', incharge: 'PGT Commerce', desks: 24, tTable: 1, tChair: 2, almirah: 'AL-12B', board: 'Green 8x4' },
-      { wing: 'Senior', name: 'Class XI-A (Sci/Math)', room: 'Room 203', incharge: 'PGT Physics', desks: 22, tTable: 1, tChair: 2, almirah: 'AL-11A', board: 'Green 8x4' },
-      { wing: 'Senior', name: 'Class XI-B (Comm/Arts)', room: 'Room 204', incharge: 'PGT Economics', desks: 22, tTable: 1, tChair: 2, almirah: 'AL-11B', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class X-A', room: 'Room 101', incharge: 'TGT Maths', desks: 25, tTable: 1, tChair: 2, almirah: 'AL-10A', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class X-B', room: 'Room 102', incharge: 'TGT Science', desks: 25, tTable: 1, tChair: 2, almirah: 'AL-10B', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class IX-A', room: 'Room 103', incharge: 'TGT English', desks: 25, tTable: 1, tChair: 2, almirah: 'AL-09A', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class IX-B', room: 'Room 104', incharge: 'TGT SST', desks: 25, tTable: 1, tChair: 2, almirah: 'AL-09B', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class VIII-A', room: 'Room 105', incharge: 'TGT Hindi', desks: 23, tTable: 1, tChair: 2, almirah: 'AL-08A', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class VIII-B', room: 'Room 106', incharge: 'TGT Sanskrit', desks: 23, tTable: 1, tChair: 2, almirah: 'AL-08B', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class VII-A & B', room: 'Room 107-108', incharge: 'Class Teachers', desks: 44, tTable: 2, tChair: 4, almirah: 'AL-07', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class VII-C', room: 'Room 109', incharge: 'Class Teacher', desks: 22, tTable: 1, tChair: 2, almirah: 'AL-07C', board: 'Green 8x4' },
-      { wing: 'Secondary', name: 'Class VI-A & B', room: 'Room 110-111', incharge: 'Class Teachers', desks: 45, tTable: 2, tChair: 4, almirah: 'AL-06', board: 'Green 8x4' },
-      { wing: 'Labs', name: 'Mathematics Laboratory', room: 'Lab Wing 01', incharge: 'K B Joshi (PGT Maths)', desks: '12 Hex Tables, 60 Stools', tTable: 2, tChair: 4, almirah: '3 Almirahs', board: 'White 6x4' },
-      { wing: 'Labs', name: 'Physics Laboratory', room: 'Lab Wing 02', incharge: 'PGT Physics', desks: '10 Heavy Benches, 30 Stools', tTable: 2, tChair: 4, almirah: '4 Almirahs', board: 'Green 8x4' },
-      { wing: 'Labs', name: 'Chemistry Laboratory', room: 'Lab Wing 03', incharge: 'PGT Chemistry', desks: '10 Granite Benches, 30 Stools', tTable: 2, tChair: 4, almirah: '4 Almirahs', board: 'Green 8x4' },
-      { wing: 'Labs', name: 'Biology Laboratory', room: 'Lab Wing 04', incharge: 'PGT Biology', desks: '10 Working Benches, 30 Stools', tTable: 2, tChair: 4, almirah: '3 Almirahs', board: 'Green 8x4' },
-      { wing: 'Labs', name: 'Computer Science Lab', room: 'IT Wing', incharge: 'PGT CS', desks: '40 PC Tables, 45 Swivel Chairs', tTable: 2, tChair: 2, almirah: '2 Almirahs', board: 'White 6x4' },
-      { wing: 'Admin', name: 'Staff Room (Secondary)', room: 'Main Building', incharge: 'Staff Sec', desks: '12 Teacher Desks, 24 Chairs', tTable: 4, tChair: 24, almirah: '6 Almirahs', board: 'Notice 6x4' },
-      { wing: 'Admin', name: 'Vidyalaya Library', room: 'Library Block', incharge: 'Librarian', desks: '10 Big Tables, 80 Chairs', tTable: 2, tChair: 4, almirah: '14 Bookcases', board: 'Notice 6x4' }
-    ];
-
-    let furnitureData = [];
-
-    // Initialize State
-    document.addEventListener('DOMContentLoaded', () => {
-      checkAuthStatus();
-      initPasswordGate();
-      loadFurnitureData();
-      renderStockTable();
-      renderRooms();
-      updateKPIs();
-    });
-
-    // ── AUTH CHECK & GATE ──
-    function checkAuthStatus() {
-      const isUnlocked = sessionStorage.getItem(AUTH_KEY) === 'true';
-      const gate = document.getElementById('furnitureAuthGate');
-      const portal = document.getElementById('furnitureMainPortal');
-      
-      if (isUnlocked) {
-        gate.style.display = 'none';
-        portal.style.display = 'block';
-        setTimeout(() => portal.style.opacity = '1', 50);
-      } else {
-        gate.style.display = 'flex';
-        portal.style.display = 'none';
-        portal.style.opacity = '0';
-        document.getElementById('gatePasswordInput').focus();
-      }
-    }
-
-    function initPasswordGate() {
-      const input = document.getElementById('gatePasswordInput');
-      const toggle = document.getElementById('gateTogglePwd');
-      const unlockBtn = document.getElementById('gateUnlockBtn');
-      const err = document.getElementById('gateErrorMsg');
-      const box = document.getElementById('authGateBox');
-
-      toggle.addEventListener('click', () => {
-        const isPwd = input.getAttribute('type') === 'password';
-        input.setAttribute('type', isPwd ? 'text' : 'password');
-        toggle.innerHTML = isPwd ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
-      });
-
-      function attemptUnlock() {
-        const val = (input.value || '').trim().toLowerCase();
-        if (val === CORRECT_PWD) {
-          err.style.display = 'none';
-          sessionStorage.setItem(AUTH_KEY, 'true');
-          unlockBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
-          setTimeout(() => {
-            checkAuthStatus();
-            showToast('Welcome to Furniture & Fixtures Stock Register!');
-          }, 350);
-        } else {
-          err.style.display = 'block';
-          input.value = '';
-          input.focus();
-          box.style.animation = 'none';
-          setTimeout(() => box.style.animation = 'gatePop 0.3s ease-in-out', 10);
-        }
-      }
-
-      unlockBtn.addEventListener('click', attemptUnlock);
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') attemptUnlock();
-      });
-    }
-
-    function lockPortal() {
-      sessionStorage.removeItem(AUTH_KEY);
-      const gate = document.getElementById('furnitureAuthGate');
-      const portal = document.getElementById('furnitureMainPortal');
-      const input = document.getElementById('gatePasswordInput');
-      const unlockBtn = document.getElementById('gateUnlockBtn');
-      unlockBtn.innerHTML = '<i class="fas fa-unlock-alt"></i> Unlock Stock Register';
-      input.value = '';
-      portal.style.opacity = '0';
-      setTimeout(() => {
-        portal.style.display = 'none';
-        gate.style.display = 'flex';
-        input.focus();
-      }, 200);
-      showToast('Stock Register Locked.');
-    }
-
-    // ── DATA MANAGEMENT ──
-    function loadFurnitureData() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          furnitureData = JSON.parse(stored);
-        } else {
-          furnitureData = [...defaultFurnitureStock];
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(furnitureData));
-        }
-      } catch (e) {
-        furnitureData = [...defaultFurnitureStock];
-      }
-    }
-
-    function saveFurnitureData() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(furnitureData));
-      } catch (e) {}
-      updateKPIs();
-      renderStockTable();
-    }
-
-    function resetDefaultStock() {
-      if (confirm('Restore Furniture Stock Records back to verified PM SHRI KV Ranikhet defaults?')) {
-        furnitureData = [...defaultFurnitureStock];
-        saveFurnitureData();
-        showToast('Default Stock records restored successfully.');
-      }
-    }
-
-    // ── KPI UPDATER ──
-    function updateKPIs() {
-      let total = 0, good = 0, repair = 0, survey = 0;
-      let dualDesks = 0;
-      let teacherFurniture = 0;
-
-      furnitureData.forEach(item => {
-        const t = parseInt(item.total) || 0;
-        const g = parseInt(item.good) || 0;
-        const r = parseInt(item.repair) || 0;
-        const s = parseInt(item.survey) || 0;
-        total += t;
-        good += g;
-        repair += r;
-        survey += s;
-
-        if (item.name.toLowerCase().includes('dual desk')) {
-          dualDesks += t;
-        }
-        if (item.cat === 'Teacher' || item.name.toLowerCase().includes('teacher')) {
-          teacherFurniture += t;
-        }
-      });
-
-      document.getElementById('kpiTotalItems').textContent = total.toLocaleString();
-      document.getElementById('kpiDualDesks').textContent = dualDesks.toLocaleString();
-      document.getElementById('kpiTeacherFurniture').textContent = teacherFurniture.toLocaleString();
-      
-      const servRate = total > 0 ? ((good / total) * 100).toFixed(1) : 100;
-      document.getElementById('kpiServiceable').textContent = `${servRate}%`;
-    }
-
-    // ── RENDER TABLE ──
-    function renderStockTable() {
-      const tbody = document.getElementById('furnTableBody');
-      const searchVal = (document.getElementById('furnSearchInput').value || '').trim().toLowerCase();
-      const catVal = document.getElementById('catFilter').value;
-      const condVal = document.getElementById('condFilter').value;
-
-      tbody.innerHTML = '';
-
-      let filtered = furnitureData.filter(item => {
-        const matchesSearch = !searchVal || 
-          (item.name && item.name.toLowerCase().includes(searchVal)) ||
-          (item.reg && item.reg.toLowerCase().includes(searchVal)) ||
-          (item.specs && item.specs.toLowerCase().includes(searchVal)) ||
-          (item.location && item.location.toLowerCase().includes(searchVal));
-
-        const matchesCat = (catVal === 'ALL') || (item.cat === catVal);
-        const matchesCond = (condVal === 'ALL') || (item.cond === condVal);
-
-        return matchesSearch && matchesCat && matchesCond;
-      });
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; padding:30px; color:var(--text-muted);"><i class="fas fa-folder-open" style="font-size:1.8rem; margin-bottom:8px; display:block;"></i>No furniture stock articles found matching filter.</td></tr>`;
-        return;
-      }
-
-      filtered.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        
-        let condBadge = '<span class="badge-cond good"><i class="fas fa-check"></i> Good</span>';
-        if (item.cond === 'Repair') condBadge = '<span class="badge-cond repair"><i class="fas fa-wrench"></i> Repair</span>';
-        if (item.cond === 'Condemned') condBadge = '<span class="badge-cond condemned"><i class="fas fa-ban"></i> Survey</span>';
-
-        tr.innerHTML = `
-          <td style="color:var(--text-muted); font-weight:600;">${index + 1}</td>
-          <td><strong style="color:#fbbf24; font-size:0.8rem;">${item.reg || 'Vol-IV'}</strong></td>
-          <td>
-            <div style="font-weight:700; color:#fff;">${item.name}</div>
-            <div style="font-size:0.78rem; color:var(--text-secondary);">${item.specs}</div>
-          </td>
-          <td><span style="font-size:0.8rem; background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:6px; color:#c4b5fd;">${item.cat}</span></td>
-          <td style="text-align:center; font-weight:800; font-size:0.95rem; color:#fff;">${item.total}</td>
-          <td style="text-align:center; color:#34d399; font-weight:700;">${item.good}</td>
-          <td style="text-align:center; color:${item.repair > 0 ? '#fbbf24' : '#94a3b8'}; font-weight:700;">${item.repair}</td>
-          <td style="text-align:center; color:${item.survey > 0 ? '#f87171' : '#94a3b8'}; font-weight:700;">${item.survey}</td>
-          <td style="font-size:0.82rem; color:#cbd5e1;"><i class="fas fa-location-dot" style="color:#38bdf8; margin-right:4px;"></i>${item.location}</td>
-          <td>${condBadge}</td>
-          <td style="text-align:center; white-space:nowrap;">
-            <button class="action-btn-sm" title="Edit Article" onclick="editItem('${item.id}')"><i class="fas fa-pen"></i></button>
-            <button class="action-btn-sm del" title="Delete Article" onclick="deleteItem('${item.id}')"><i class="fas fa-trash"></i></button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function filterStockTable() {
-      renderStockTable();
-    }
-
-    // ── RENDER ROOMS ──
-    function renderRooms() {
-      const container = document.getElementById('roomsContainer');
-      const wingVal = document.getElementById('wingFilter').value;
-      container.innerHTML = '';
-
-      let filtered = defaultRooms.filter(r => (wingVal === 'ALL') || (r.wing === wingVal));
-
-      filtered.forEach(room => {
-        const card = document.createElement('div');
-        card.className = 'room-card';
-        card.innerHTML = `
-          <div class="room-card-head">
-            <div>
-              <div class="room-title">${room.name}</div>
-              <div class="room-incharge"><i class="fas fa-user-check"></i> ${room.incharge}</div>
-            </div>
-            <span style="background:rgba(124,58,237,0.2); border:1px solid rgba(124,58,237,0.4); color:#c4b5fd; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:50px;">${room.room}</span>
-          </div>
-          
-          <div class="room-stat-row">
-            <span><i class="fas fa-chair" style="color:#60a5fa; margin-right:6px;"></i> Student Dual Desks:</span>
-            <strong>${room.desks}</strong>
-          </div>
-          <div class="room-stat-row">
-            <span><i class="fas fa-chalkboard-user" style="color:#a78bfa; margin-right:6px;"></i> Teacher Table / Chairs:</span>
-            <strong>${room.tTable} Table, ${room.tChair} Chairs</strong>
-          </div>
-          <div class="room-stat-row">
-            <span><i class="fas fa-vault" style="color:#fbbf24; margin-right:6px;"></i> Almirah Reg Ref:</span>
-            <strong>${room.almirah}</strong>
-          </div>
-          <div class="room-stat-row">
-            <span><i class="fas fa-chalkboard" style="color:#34d399; margin-right:6px;"></i> Display / Greenboard:</span>
-            <strong>${room.board}</strong>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterRooms() {
-      renderRooms();
-    }
-
-    // ── SUBTABS SWITCHER ──
-    function switchTab(tabId) {
-      document.querySelectorAll('.p-tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-
-      event.currentTarget.classList.add('active');
-      const targetPane = document.getElementById(tabId);
-      if (targetPane) targetPane.classList.add('active');
-    }
-
-    // ── ADD / EDIT MODAL ──
-    function openAddModal() {
-      document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus-circle" style="color:#10b981;"></i> Add Furniture Article';
-      document.getElementById('furnItemForm').reset();
-      document.getElementById('editItemId').value = '';
-      document.getElementById('mItemReg').value = 'Vol-IV / Pg ' + (furnitureData.length + 1).toString().padStart(2, '0');
-      document.getElementById('addEditModal').style.display = 'flex';
-      document.getElementById('mItemName').focus();
-    }
-
-    function editItem(id) {
-      const item = furnitureData.find(x => x.id === id);
-      if (!item) return;
-
-      document.getElementById('modalTitle').innerHTML = '<i class="fas fa-pen-to-square" style="color:#a78bfa;"></i> Edit Furniture Article';
-      document.getElementById('editItemId').value = item.id;
-      document.getElementById('mItemReg').value = item.reg || '';
-      document.getElementById('mItemCat').value = item.cat || 'Classroom';
-      document.getElementById('mItemName').value = item.name || '';
-      document.getElementById('mItemSpecs').value = item.specs || '';
-      document.getElementById('mItemTotal').value = item.total || 0;
-      document.getElementById('mItemGood').value = item.good || 0;
-      document.getElementById('mItemRepair').value = item.repair || 0;
-      document.getElementById('mItemSurvey').value = item.survey || 0;
-      document.getElementById('mItemLocation').value = item.location || '';
-      document.getElementById('mItemCond').value = item.cond || 'Good';
-
-      document.getElementById('addEditModal').style.display = 'flex';
-    }
-
-    function closeAddModal() {
-      document.getElementById('addEditModal').style.display = 'none';
-    }
-
-    function calcSubCounts() {
-      const total = parseInt(document.getElementById('mItemTotal').value) || 0;
-      document.getElementById('mItemGood').value = total;
-      document.getElementById('mItemRepair').value = 0;
-      document.getElementById('mItemSurvey').value = 0;
-    }
-
-    function handleSaveItem(e) {
-      e.preventDefault();
-      const editId = document.getElementById('editItemId').value;
-      const reg = document.getElementById('mItemReg').value;
-      const cat = document.getElementById('mItemCat').value;
-      const name = document.getElementById('mItemName').value;
-      const specs = document.getElementById('mItemSpecs').value;
-      const total = parseInt(document.getElementById('mItemTotal').value) || 0;
-      const good = parseInt(document.getElementById('mItemGood').value) || 0;
-      const repair = parseInt(document.getElementById('mItemRepair').value) || 0;
-      const survey = parseInt(document.getElementById('mItemSurvey').value) || 0;
-      const location = document.getElementById('mItemLocation').value;
-      const cond = document.getElementById('mItemCond').value;
-
-      if (editId) {
-        const index = furnitureData.findIndex(x => x.id === editId);
-        if (index !== -1) {
-          furnitureData[index] = { id: editId, reg, cat, name, specs, total, good, repair, survey, location, cond };
-          showToast('Article updated successfully.');
-        }
-      } else {
-        const newId = 'f_' + Date.now();
-        furnitureData.push({ id: newId, reg, cat, name, specs, total, good, repair, survey, location, cond });
-        showToast('New Furniture Article registered.');
-      }
-
-      saveFurnitureData();
-      closeAddModal();
-    }
-
-    function deleteItem(id) {
-      if (confirm('Are you sure you want to delete this furniture article from the central stock register?')) {
-        furnitureData = furnitureData.filter(x => x.id !== id);
-        saveFurnitureData();
-        showToast('Item deleted from stock register.');
-      }
-    }
-
-    // ── EXPORT TO CSV ──
-    function exportToCSV() {
-      if (!furnitureData || furnitureData.length === 0) {
-        alert('No furniture stock data available to export.');
-        return;
-      }
-
-      let csv = 'Sl,Stock Reg Ref,Article Name,Technical Specs,Category,Total Qty,Good Qty,Repair Qty,Survey Qty,Allocation Location,Condition Status\r\n';
-
-      furnitureData.forEach((item, idx) => {
-        const row = [
-          idx + 1,
-          `"${(item.reg || '').replace(/"/g, '""')}"`,
-          `"${(item.name || '').replace(/"/g, '""')}"`,
-          `"${(item.specs || '').replace(/"/g, '""')}"`,
-          `"${(item.cat || '').replace(/"/g, '""')}"`,
-          item.total,
-          item.good,
-          item.repair,
-          item.survey,
-          `"${(item.location || '').replace(/"/g, '""')}"`,
-          `"${(item.cond || '').replace(/"/g, '""')}"`
-        ];
-        csv += row.join(',') + '\r\n';
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.setAttribute('href', url);
-      link.setAttribute('download', `Furniture_Stock_Register_PMSHRI_KVRanikhet_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast('Stock Register CSV exported successfully.');
-    }
-
-    // ── TOAST HELPER ──
-    function showToast(msg) {
-      const toast = document.getElementById('toastNotice');
-      const text = document.getElementById('toastMsg');
-      text.textContent = msg;
-      toast.style.display = 'flex';
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 3500);
-    }
-  </script>
+</div>
+<script>
+const CLASS_ITEMS=['Small Chair - Wood','Small Chair - Plastic','Big Chair - Wood','Big Chair - Plastic','Teacher Chair - Iron/Wood','Teacher Chair - Cushion','Revolving Chair','Chair with Writing Pad','Dual Desk - Wood','Dual Desk - Iron','Student Table - Flat','Student Table - Box','Big Table - Wood','Hexagonal Table','Teacher Table','Computer Podium','Computer Table','Almirah - Wood','Almirah - Steel','Almirah - Wood/Glass','Tin Box','Green Board','Display Board','White Board'];
+const CLASS_LIST=['Balvatika A','I A','I B','I C','II A','II B','III A','III B','III C','IV A','IV B','IV C','V A','V B','V C','VI A','VI B','VI C','VII A','VII B','VII C','VIII A','VIII B','VIII C','IX A','IX B','IX C','X A','X B','X C','XI A','XI B','XI C','XII B','XII C'];
+const CLASS_SECTIONS={'Balvatika':['A'],'I':['A','B','C'],'II':['A','B'],'III':['A','B','C'],'IV':['A','B','C'],'V':['A','B','C'],'VI':['A','B','C'],'VII':['A','B','C'],'VIII':['A','B','C'],'IX':['A','B','C'],'X':['A','B','C'],'XI':['A','B','C'],'XII':['B','C']};
+const DEFAULT_CLASS_DATA={'Balvatika A':[0,25,0,0,1,2,0,0,0,0,0,0,0,7,2,0,0,0,1,0,0,1,0,0],'I A':[38,0,0,0,0,0,0,0,0,0,0,0,0,10,1,0,0,0,1,0,1,1,1,0],'I B':[32,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,0,1,0,0,1,0,0],'I C':[35,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,2,1,0,0,1,0,0],'II A':[2,0,0,0,1,0,0,0,0,20,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'II B':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'III A':[0,0,0,0,1,0,0,0,20,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'III B':[0,0,0,0,0,1,0,0,6,15,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'III C':[0,0,0,0,1,0,0,0,20,2,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'IV A':[0,0,0,0,1,1,0,0,19,2,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'IV B':[0,0,0,0,0,1,0,0,20,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'IV C':[0,0,0,0,1,0,0,0,5,18,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'V A':[0,0,0,0,1,0,0,0,20,0,0,0,0,0,1,1,0,1,1,0,0,1,1,0],'V B':[0,0,0,0,0,0,0,0,22,0,0,0,0,0,1,0,0,0,2,0,0,1,1,0],'V C':[0,0,0,0,1,0,0,0,24,0,0,0,0,0,1,0,0,0,2,0,0,1,1,0],'VI A':[0,0,0,0,0,0,0,0,23,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0],'VI B':[0,0,0,0,0,0,0,0,20,0,4,0,0,0,0,0,0,0,0,0,0,1,0,0],'VI C':[0,0,0,0,1,0,0,0,20,0,4,1,0,0,1,0,0,0,0,0,0,1,0,0],'VII A':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'VII B':[0,0,0,0,1,0,0,0,0,0,41,7,0,0,1,0,0,0,0,0,0,1,0,0],'VII C':[0,0,0,0,1,0,0,0,0,0,25,17,0,0,0,0,0,0,0,0,0,1,0,0],'VIII A':[0,0,0,0,1,0,0,0,0,0,25,19,0,0,1,0,0,0,0,0,0,1,0,0],'VIII B':[0,0,0,0,1,0,0,0,0,0,27,14,0,0,1,0,0,0,0,0,0,1,0,0],'VIII C':[0,0,0,0,1,0,0,0,0,0,21,26,0,0,0,0,0,0,0,0,0,1,0,0],'IX A':[0,0,0,0,0,0,0,0,0,21,2,1,0,0,1,0,0,0,0,0,0,1,0,0],'IX B':[0,0,0,0,1,0,0,0,1,0,26,14,0,0,1,0,0,0,0,0,0,1,0,0],'IX C':[0,0,0,0,1,0,0,0,1,1,22,18,0,0,1,0,0,0,0,0,0,1,0,0],'X A':[0,0,0,0,0,0,0,0,0,0,31,0,0,0,1,0,0,0,0,0,0,1,0,0],'X B':[0,0,0,0,2,0,0,0,0,0,40,0,0,0,1,0,0,1,0,0,0,1,0,0],'X C':[0,0,0,0,1,0,0,0,0,0,36,0,0,0,1,0,0,0,0,0,0,1,0,0],'XI A':[0,0,0,0,1,0,0,0,0,0,33,0,0,0,1,0,0,0,0,0,0,1,0,0],'XI B':[0,0,0,0,1,0,0,0,0,0,50,0,0,0,1,0,0,0,0,0,0,1,0,0],'XI C':[0,0,0,0,1,0,0,0,0,0,34,0,0,0,1,1,0,0,0,0,0,1,0,0],'XII B':[0,0,0,0,1,0,0,0,0,0,39,2,0,0,1,0,0,0,0,0,0,1,0,0],'XII C':[0,0,0,0,1,0,0,0,0,0,44,0,0,0,2,0,0,0,0,0,0,1,0,0]};
+const DEPT_ITEMS=['Chair (Wood) Big','Chair (Plastic) Big','Chair (Iron) with Cushion','Revolving Chair','Chair with Writing Pad (Iron)','Stool/Chair with Cushion Iron','Teacher Chair','Stool Practical (Wood)','Stool Round Small','Stool Flat Small','Table Wood Flat (Small)','Table Wood Box (Small)','Table Wood (Big)','Dual Desk','Teacher Table','Practical Table','Almirah with Glass (Wood)','Almirah Wood','Almirah Steel with Glass','Almirah Steel','Green Board','Display Board','White Board','Podium','Rack Wood','Rack Steel','Computer Table','Office Table','Computer Tables Big','Library Table Big','Register Rack','Show Case','News Paper Stand','Pigeon Hole Almirah','Takhat/Bed (MI Room)','Language Lab Set with Chair','Tijori (Iron Safe)','Box Tin','Baby Chair (Plastic)','Bench Wood','Bench Steel','Sofa Set','Center Table','Box (Wood)','New Stool (PM SHRI)','Bookshelf (PM SHRI)','Computer Table (PM SHRI)','Chair Library (PM SHRI)','Magazine Stand (PM SHRI)','New Chairs for Staff (PM SHRI)'];
+const DEPT_LIST=['CHEMISTRY LAB','PHYSICS LAB','BIOLOGY LAB','MATHS LAB','CCA ROOM','MUSIC ROOM','ART ROOM','LANGUAGE LAB','COMPUTER LAB','JUNIOR COMPUTER LAB','PRIMARY COMPUTER LAB','LIBRARY','PRINCIPAL ROOM','VICE PRINCIPAL ROOM','OFFICE','MEDICAL ROOM','WE ROOM','EXAMINATION','PRIMARY STAFF ROOM','HM ROOM','STAFF ROOM','JUNIOR SC LAB','SPORTS ROOM','CHEMISTRY LAB STORE','PHYSICS LAB STORE','CMP ROOM NEAR BALVATIKA','STORE TIN SHADE/NEW STORE','SPORTS STORE','VE LAB','SECONDARY CORRIDOR','PRIMARY CORRIDOR'];
+const DEFAULT_DEPT_DATA={'CHEMISTRY LAB':[0,0,0,0,0,0,2,4,0,0,0,0,0,0,1,1,0,0,0,2,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0],'PHYSICS LAB':[1,0,1,0,0,0,2,27,0,0,0,0,0,0,1,6,0,1,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'BIOLOGY LAB':[0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,8,2,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'MATHS LAB':[0,0,9,0,0,0,2,0,0,0,0,0,0,0,6,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'CCA ROOM':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'MUSIC ROOM':[2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,3,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'ART ROOM':[0,2,1,0,0,0,0,0,1,0,0,0,2,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'LANGUAGE LAB':[2,12,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'COMPUTER LAB':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'JUNIOR COMPUTER LAB':[0,0,1,1,29,25,0,0,0,0,2,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PRIMARY COMPUTER LAB':[0,12,0,0,0,0,1,0,0,6,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'LIBRARY':[3,1,1,0,0,0,1,0,1,0,0,0,0,0,1,0,17,0,11,1,0,0,0,0,0,0,7,0,0,3,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0],'PRINCIPAL ROOM':[0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,2,0,3,0,0,2,1,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],'VICE PRINCIPAL ROOM':[0,0,3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],'OFFICE':[0,0,3,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'MEDICAL ROOM':[3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'WE ROOM':[0,0,0,0,0,0,1,0,0,1,1,0,1,0,1,0,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0],'EXAMINATION':[1,0,1,0,0,0,3,0,0,0,0,1,3,0,2,1,0,3,0,10,0,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PRIMARY STAFF ROOM':[0,0,9,0,0,1,0,0,0,1,9,0,3,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0],'HM ROOM':[0,0,3,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'STAFF ROOM':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'JUNIOR SC LAB':[0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],'SPORTS ROOM':[0,2,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],'CHEMISTRY LAB STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PHYSICS LAB STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'CMP ROOM NEAR BALVATIKA':[0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'STORE TIN SHADE/NEW STORE':[250,120,0,0,0,0,0,0,0,0,130,50,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'SPORTS STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],'VE LAB':[0,0,1,0,0,0,1,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'SECONDARY CORRIDOR':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PRIMARY CORRIDOR':[0,3,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+const LS_CLASS='kbj_furn_class_v2';
+const LS_DEPT='kbj_furn_dept_v2';
+function loadFromStorage(key,defaults){try{const s=localStorage.getItem(key);if(s){const d=JSON.parse(s);return Object.assign({},defaults,d);}}catch(e){}return JSON.parse(JSON.stringify(defaults));}
+function saveToStorage(key,data){localStorage.setItem(key,JSON.stringify(data));}
+let classData=loadFromStorage(LS_CLASS,DEFAULT_CLASS_DATA);
+let deptData=loadFromStorage(LS_DEPT,DEFAULT_DEPT_DATA);
+function doAuth(){const v=document.getElementById('authPwd').value;if(v==='kbjkv@2008'){sessionStorage.setItem('furn_auth','1');document.getElementById('authGate').style.display='none';document.getElementById('mainContent').style.display='block';initAll();}else{document.getElementById('authError').style.display='block';document.getElementById('authPwd').value='';document.getElementById('authPwd').focus();}}
+window.addEventListener('load',()=>{if(sessionStorage.getItem('furn_auth')==='1'){document.getElementById('authGate').style.display='none';document.getElementById('mainContent').style.display='block';initAll();}else{document.getElementById('authPwd').focus();}});
+function switchTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');if(id==='classCon')renderClassConsolidated();if(id==='deptCon')renderDeptConsolidated();if(id==='exportTab')renderStats();}
+function updateSections(){const cls=document.getElementById('selClass').value;const sel=document.getElementById('selSection');sel.innerHTML='<option value="">-- Select Section --</option>';if(cls&&CLASS_SECTIONS[cls]){CLASS_SECTIONS[cls].forEach(s=>{sel.innerHTML+=`<option>${s}</option>`;});}document.getElementById('classEntryTable').style.display='none';document.getElementById('classEntryPlaceholder').style.display='block';}
+function loadClassEntry(){const cls=document.getElementById('selClass').value;const sec=document.getElementById('selSection').value;if(!cls||!sec)return;const key=cls==='Balvatika'?'Balvatika A':`${cls} ${sec}`;const vals=classData[key]||Array(CLASS_ITEMS.length).fill(0);const tbody=document.getElementById('classItemBody');tbody.innerHTML=CLASS_ITEMS.map((item,i)=>`<tr><td class="item-no">${i+1}</td><td>${item}</td><td><input type="number" class="qty-input" id="ci_${i}" value="${vals[i]||0}" min="0"></td></tr>`).join('');document.getElementById('classEntryTable').style.display='block';document.getElementById('classEntryPlaceholder').style.display='none';}
+function getClassKey(){const cls=document.getElementById('selClass').value;const sec=document.getElementById('selSection').value;return cls==='Balvatika'?'Balvatika A':`${cls} ${sec}`;}
+function saveClassEntry(){const key=getClassKey();if(!key||key.trim()==='')return;const vals=CLASS_ITEMS.map((_,i)=>parseInt(document.getElementById(`ci_${i}`).value)||0);classData[key]=vals;saveToStorage(LS_CLASS,classData);showAlert('classAlertBox',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${key}</strong>`,'success');}
+function populateDeptSelect(){const sel=document.getElementById('selDept');DEPT_LIST.forEach(d=>{sel.innerHTML+=`<option>${d}</option>`;});}
+function loadDeptEntry(){const dept=document.getElementById('selDept').value;if(!dept)return;const vals=deptData[dept]||Array(DEPT_ITEMS.length).fill(0);const tbody=document.getElementById('deptItemBody');tbody.innerHTML=DEPT_ITEMS.map((item,i)=>`<tr><td class="item-no">${i+1}</td><td>${item}</td><td><input type="number" class="qty-input" id="di_${i}" value="${vals[i]||0}" min="0"></td></tr>`).join('');document.getElementById('deptEntryTable').style.display='block';document.getElementById('deptEntryPlaceholder').style.display='none';}
+function saveDeptEntry(){const dept=document.getElementById('selDept').value;if(!dept)return;const vals=DEPT_ITEMS.map((_,i)=>parseInt(document.getElementById(`di_${i}`).value)||0);deptData[dept]=vals;saveToStorage(LS_DEPT,deptData);showAlert('deptAlertBox',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${dept}</strong>`,'success');}
+function renderClassConsolidated(){const thead=document.getElementById('classConHead');const tbody=document.getElementById('classConBody');thead.innerHTML=`<tr><th>Class / Section</th>${CLASS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.4)">TOTAL</th></tr>`;const gt=Array(CLASS_ITEMS.length).fill(0);tbody.innerHTML=CLASS_LIST.map(cls=>{const vals=(classData[cls]||Array(CLASS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>{gt[i]+=v;});return`<tr><td>${cls}</td>${vals.map(v=>`<td class="${v>0?'nonzero':'zero'}">${v}</td>`).join('')}<td class="nonzero">${total}</td></tr>`;}).join('');const gtTotal=gt.reduce((a,b)=>a+b,0);tbody.innerHTML+=`<tr class="total-row"><td>GRAND TOTAL</td>${gt.map(v=>`<td>${v}</td>`).join('')}<td>${gtTotal}</td></tr>`;}
+function renderDeptConsolidated(){const thead=document.getElementById('deptConHead');const tbody=document.getElementById('deptConBody');thead.innerHTML=`<tr><th>Department / Room / Lab</th>${DEPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.4)">TOTAL</th></tr>`;const gt=Array(DEPT_ITEMS.length).fill(0);tbody.innerHTML=DEPT_LIST.map(dept=>{const vals=(deptData[dept]||Array(DEPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>{gt[i]+=v;});return`<tr><td>${dept}</td>${vals.map(v=>`<td class="${v>0?'nonzero':'zero'}">${v}</td>`).join('')}<td class="nonzero">${total}</td></tr>`;}).join('');const gtTotal=gt.reduce((a,b)=>a+b,0);tbody.innerHTML+=`<tr class="total-row"><td>GRAND TOTAL</td>${gt.map(v=>`<td>${v}</td>`).join('')}<td>${gtTotal}</td></tr>`;}
+function renderStats(){let totalItems=0;CLASS_LIST.forEach(c=>{const v=classData[c]||[];totalItems+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});let deptTotal=0;DEPT_LIST.forEach(d=>{const v=deptData[d]||[];deptTotal+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});document.getElementById('statsGrid').innerHTML=`<div class="stat-card"><div class="stat-val">${CLASS_LIST.length}</div><div class="stat-label">Classes / Sections</div></div><div class="stat-card"><div class="stat-val">${totalItems}</div><div class="stat-label">Total Items (Class-wise)</div></div><div class="stat-card"><div class="stat-val">${DEPT_LIST.length}</div><div class="stat-label">Departments / Rooms</div></div><div class="stat-card"><div class="stat-val">${deptTotal}</div><div class="stat-label">Total Items (Dept-wise)</div></div>`;}
+function buildClassSheet(){const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026'],['CLASS / SECTION',...CLASS_ITEMS,'TOTAL']];const gt=Array(CLASS_ITEMS.length).fill(0);CLASS_LIST.forEach(cls=>{const vals=(classData[cls]||Array(CLASS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>gt[i]+=v);aoa.push([cls,...vals,total]);});aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);return aoa;}
+function buildDeptSheet(){const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026'],['DEPARTMENT / ROOM / LAB',...DEPT_ITEMS,'TOTAL']];const gt=Array(DEPT_ITEMS.length).fill(0);DEPT_LIST.forEach(dept=>{const vals=(deptData[dept]||Array(DEPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>gt[i]+=v);aoa.push([dept,...vals,total]);});aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);return aoa;}
+function applySheetStyle(ws,nCols,nRows){if(!ws['!ref'])return;const hStyle={font:{bold:true,color:{rgb:'FFFFFF'}},fill:{fgColor:{rgb:'7C3AED'}},alignment:{horizontal:'center',wrapText:true}};const totStyle={font:{bold:true},fill:{fgColor:{rgb:'E9D5FF'}}};for(let c=0;c<nCols;c++){const cell=XLSX.utils.encode_cell({r:2,c});if(ws[cell])ws[cell].s=hStyle;}for(let c=0;c<nCols;c++){const cell=XLSX.utils.encode_cell({r:nRows-1,c});if(ws[cell])ws[cell].s=totStyle;}ws['!cols']=[{wch:24},...Array(nCols-1).fill({wch:11})];}
+function exportClassExcel(){if(typeof XLSX==='undefined'){alert('SheetJS library not loaded. Please check your internet connection.');return;}const wb=XLSX.utils.book_new();const aoa=buildClassSheet();const ws=XLSX.utils.aoa_to_sheet(aoa);applySheetStyle(ws,aoa[2].length,aoa.length);ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws,'CLASS CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Class_Furniture.xlsx');}
+function exportDeptExcel(){if(typeof XLSX==='undefined'){alert('SheetJS library not loaded. Please check your internet connection.');return;}const wb=XLSX.utils.book_new();const aoa=buildDeptSheet();const ws=XLSX.utils.aoa_to_sheet(aoa);applySheetStyle(ws,aoa[2].length,aoa.length);ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws,'DEPARTMENT CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Dept_Furniture.xlsx');}
+function exportBothExcel(){if(typeof XLSX==='undefined'){alert('SheetJS library not loaded. Please check your internet connection.');return;}const wb=XLSX.utils.book_new();const aoa1=buildClassSheet();const ws1=XLSX.utils.aoa_to_sheet(aoa1);applySheetStyle(ws1,aoa1[2].length,aoa1.length);ws1['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa1[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa1[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws1,'CLASS CONSOLIDATED');const aoa2=buildDeptSheet();const ws2=XLSX.utils.aoa_to_sheet(aoa2);applySheetStyle(ws2,aoa2[2].length,aoa2.length);ws2['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa2[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa2[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws2,'DEPARTMENT CONSOLIDATED');XLSX.writeFile(wb,'PM_SHRI_KV_Ranikhet_Furniture_Register.xlsx');}
+function printPanel(panelId){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(panelId).classList.add('active');if(panelId==='classCon')renderClassConsolidated();if(panelId==='deptCon')renderDeptConsolidated();setTimeout(()=>window.print(),300);}
+function shareSheet(){const url=window.location.href.split('?')[0];if(navigator.share){navigator.share({title:'KV Ranikhet Furniture Register',url});}else{navigator.clipboard.writeText(url).then(()=>{showToast('Page link copied to clipboard!');}).catch(()=>{prompt('Copy this link:',url);});}}
+function resetToDefaults(){if(!confirm('Reset ALL entries to original April 2026 verified stock data?\n\nAll manual edits will be permanently lost.'))return;classData=JSON.parse(JSON.stringify(DEFAULT_CLASS_DATA));deptData=JSON.parse(JSON.stringify(DEFAULT_DEPT_DATA));saveToStorage(LS_CLASS,classData);saveToStorage(LS_DEPT,deptData);showToast('Data reset to April 2026 verified stock.');}
+function showAlert(boxId,msg,type){const el=document.getElementById(boxId);el.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;setTimeout(()=>el.innerHTML='',3500);}
+function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:30px;right:30px;background:rgba(124,58,237,.9);color:#fff;padding:14px 20px;border-radius:12px;font-size:.9rem;z-index:9999;backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0,0,0,.4);';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
+function initAll(){populateDeptSelect();renderClassConsolidated();}
+</script>
 </body>
 </html>
