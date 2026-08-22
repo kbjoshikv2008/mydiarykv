@@ -10,134 +10,188 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
-:root{--primary:#7c3aed;--primary-light:#a78bfa;--bg-dark:#06060c;--card-bg:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:#f8fafc;--text-muted:#94a3b8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--info:#3b82f6;}
+:root{--pr:#7c3aed;--prl:#a78bfa;--bg:#06060c;--cbg:rgba(255,255,255,0.04);--bdr:rgba(255,255,255,0.08);--tx:#f8fafc;--txm:#94a3b8;--grn:#10b981;--ora:#f59e0b;--red:#ef4444;--blu:#3b82f6;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins',sans-serif;background:var(--bg-dark);color:var(--text);min-height:100vh;}
-#authGate{position:fixed;inset:0;background:rgba(6,6,12,0.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(10px);}
-.auth-box{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:48px 40px;text-align:center;max-width:420px;width:90%;}
-.auth-box .lock-icon{font-size:3rem;color:var(--primary);margin-bottom:16px;}
-.auth-box h2{font-size:1.5rem;margin-bottom:8px;}
-.auth-box p{color:var(--text-muted);font-size:.9rem;margin-bottom:24px;}
-.auth-input{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;font-family:inherit;margin-bottom:16px;outline:none;transition:border-color .3s;}
-.auth-input:focus{border-color:var(--primary);}
-.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:10px;color:#fff;font-size:1rem;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .3s;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+
+/* AUTH */
+#authGate{position:fixed;inset:0;background:rgba(6,6,12,.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(12px);}
+.auth-box{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.35);border-radius:22px;padding:50px 42px;text-align:center;max-width:430px;width:92%;}
+.auth-icon{font-size:3.2rem;color:var(--pr);margin-bottom:18px;}
+.auth-box h2{font-size:1.55rem;margin-bottom:8px;font-weight:700;}
+.auth-box p{color:var(--txm);font-size:.88rem;margin-bottom:26px;line-height:1.6;}
+.auth-in{width:100%;padding:14px 16px;background:rgba(255,255,255,.06);border:1px solid var(--bdr);border-radius:11px;color:var(--tx);font-size:1rem;font-family:inherit;margin-bottom:14px;outline:none;transition:border-color .3s;}
+.auth-in:focus{border-color:var(--pr);}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:11px;color:#fff;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;transition:opacity .3s;}
 .auth-btn:hover{opacity:.85;}
-#authError{color:var(--danger);font-size:.85rem;margin-top:8px;display:none;}
-#mainContent{display:none;}
-.page-header{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(168,85,247,.08));border-bottom:1px solid var(--border);padding:24px 0;}
-.header-inner{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;}
-.header-icon{width:56px;height:56px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
-.header-text h1{font-size:1.6rem;font-weight:700;}
-.header-text p{color:var(--text-muted);font-size:.85rem;}
-.tab-nav{background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
-.tab-nav-inner{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
-.tab-nav-inner::-webkit-scrollbar{display:none;}
-.tab-btn{padding:14px 20px;background:none;border:none;color:var(--text-muted);font-family:inherit;font-size:.88rem;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .3s;display:flex;align-items:center;gap:8px;}
-.tab-btn:hover{color:var(--text);}
-.tab-btn.active{color:var(--primary-light);border-bottom-color:var(--primary);}
-.content-area{max-width:1400px;margin:0 auto;padding:28px 24px;}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
-.card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:24px;}
-.card-title{font-size:1.1rem;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.card-title i{color:var(--primary-light);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
-.form-group{display:flex;flex-direction:column;gap:6px;}
-.form-group label{font-size:.85rem;color:var(--text-muted);font-weight:500;}
-.form-select,.form-input{padding:11px 14px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .3s;width:100%;}
-.form-select:focus,.form-input:focus{border-color:var(--primary);}
-.form-select option{background:#1a1a2e;color:var(--text);}
-.entry-table-wrapper{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
-.entry-table{width:100%;border-collapse:collapse;}
-.entry-table th{padding:10px 14px;background:rgba(124,58,237,0.2);color:var(--primary-light);font-size:.8rem;font-weight:600;text-align:left;white-space:nowrap;}
-.entry-table td{padding:8px 14px;border-top:1px solid var(--border);font-size:.85rem;}
-.entry-table tr:hover td{background:rgba(255,255,255,0.03);}
-.qty-input{width:80px;padding:6px 10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:.85rem;text-align:center;outline:none;}
-.qty-input:focus{border-color:var(--primary);}
-.item-no{color:var(--text-muted);font-size:.8rem;}
-.btn{padding:10px 20px;border:none;border-radius:10px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;}
-.btn-primary{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
-.btn-primary:hover{opacity:.85;transform:translateY(-1px);}
-.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff;}
-.btn-success:hover{opacity:.85;}
-.btn-info{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;}
-.btn-info:hover{opacity:.85;}
-.btn-warning{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;}
-.btn-warning:hover{opacity:.85;}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-muted);}
-.btn-outline:hover{border-color:var(--primary);color:var(--primary-light);}
-.btn-sm{padding:7px 14px;font-size:.82rem;}
-.action-bar{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);}
-.consolidated-wrapper{overflow:auto;border-radius:12px;border:1px solid var(--border);max-height:70vh;}
-.con-table{width:100%;border-collapse:collapse;font-size:.78rem;}
-.con-table th{padding:8px 10px;background:rgba(124,58,237,0.25);color:var(--primary-light);font-weight:600;text-align:center;white-space:nowrap;border:1px solid rgba(124,58,237,0.2);position:sticky;top:0;z-index:2;}
-.con-table th:first-child{text-align:left;position:sticky;left:0;z-index:3;background:rgba(30,12,80,0.95);}
-.con-table td{padding:7px 10px;border:1px solid var(--border);text-align:center;white-space:nowrap;}
-.con-table td:first-child{text-align:left;position:sticky;left:0;background:rgba(15,10,40,0.95);font-weight:500;min-width:160px;}
-.con-table .total-row td{background:rgba(124,58,237,0.15);font-weight:700;color:var(--primary-light);}
-.con-table tr:hover td{background:rgba(255,255,255,0.03);}
-.con-table .nonzero{color:#a7f3d0;font-weight:600;}
-.con-table .zero{color:rgba(255,255,255,0.2);}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
-.stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;}
-.stat-card .stat-val{font-size:2rem;font-weight:700;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-card .stat-label{color:var(--text-muted);font-size:.82rem;margin-top:4px;}
-.alert{padding:12px 16px;border-radius:10px;font-size:.88rem;margin-bottom:16px;}
-.alert-success{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;}
-.alert-info{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;}
-@media print{
-  @page{size:A3 landscape;margin:8mm;}
-  body{background:#fff!important;color:#000!important;}
-  #authGate,.nav-bar,.tab-nav,.action-bar,.page-header,.no-print{display:none!important;}
-  .tab-panel{display:block!important;}
-  .con-table{font-size:.6rem;}
-  .con-table th{background:#7c3aed!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .con-table td:first-child{background:#f3f4f6!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .con-table .total-row td{background:#e9d5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .con-table .nonzero{color:#065f46!important;}
-  .print-header{display:block!important;color:#000!important;}
-  .consolidated-wrapper{max-height:none;overflow:visible;border:none;}
-  .content-area{padding:0;}
-}
-.print-header{display:none;text-align:center;margin-bottom:12px;padding:8px;}
-.print-header h2{font-size:1rem;font-weight:700;color:#000;}
-.print-header p{font-size:.8rem;color:#333;}
-@media(max-width:600px){.form-row{grid-template-columns:1fr;}.action-bar{flex-direction:column;}}
-.nav-bar{background:rgba(6,6,12,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);position:sticky;top:0;z-index:500;}
-.nav-bar .container{max-width:1400px;margin:0 auto;padding:0 24px;}
+#authErr{color:var(--red);font-size:.84rem;margin-top:8px;display:none;}
+
+/* LAYOUT */
+#mc{display:none;}
+.wrap{max-width:1400px;margin:0 auto;padding:0 24px;}
+
+/* NAV */
+.nav-bar{background:rgba(6,6,12,.95);border-bottom:1px solid var(--bdr);backdrop-filter:blur(10px);position:sticky;top:0;z-index:500;}
 .nav{display:flex;align-items:center;justify-content:space-between;height:60px;}
 .nav-brand{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
 .nav-links{display:flex;gap:4px;align-items:center;}
 .nav-item{position:relative;}
-.nav-link,.dropdown-trigger{padding:8px 12px;color:var(--text-muted);text-decoration:none;font-size:.85rem;font-weight:500;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;border:none;background:none;font-family:inherit;}
-.nav-link:hover,.dropdown-trigger:hover,.nav-link.active{color:var(--primary-light);background:rgba(124,58,237,0.1);}
-.dropdown-menu{position:absolute;top:100%;left:0;background:rgba(10,10,20,0.98);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:200px;display:none;z-index:600;backdrop-filter:blur(20px);}
-.nav-item:hover .dropdown-menu{display:block;}
-.dropdown-menu a{display:flex;align-items:center;gap:10px;padding:9px 12px;color:var(--text-muted);text-decoration:none;font-size:.84rem;border-radius:8px;transition:all .3s;}
-.dropdown-menu a:hover,.dropdown-menu a.active-link{background:rgba(124,58,237,0.15);color:var(--primary-light);}
+.nav-lnk,.dd-trig{padding:8px 12px;color:var(--txm);text-decoration:none;font-size:.84rem;font-weight:500;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;border:none;background:none;font-family:inherit;}
+.nav-lnk:hover,.dd-trig:hover,.nav-lnk.act{color:var(--prl);background:rgba(124,58,237,.1);}
+.dd-menu{position:absolute;top:100%;left:0;background:rgba(10,10,20,.98);border:1px solid var(--bdr);border-radius:12px;padding:8px;min-width:210px;display:none;z-index:600;backdrop-filter:blur(20px);}
+.nav-item:hover .dd-menu{display:block;}
+.dd-menu a{display:flex;align-items:center;gap:10px;padding:9px 12px;color:var(--txm);text-decoration:none;font-size:.83rem;border-radius:8px;transition:all .3s;}
+.dd-menu a:hover,.dd-menu a.act{background:rgba(124,58,237,.15);color:var(--prl);}
+
+/* PAGE HEADER */
+.ph{background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(168,85,247,.07));border-bottom:1px solid var(--bdr);padding:22px 0;}
+.ph-inner{display:flex;align-items:center;gap:16px;}
+.ph-icon{width:54px;height:54px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.ph h1{font-size:1.5rem;font-weight:700;}
+.ph p{color:var(--txm);font-size:.83rem;margin-top:2px;}
+
+/* SECTION HEADERS */
+.sec-hdr{display:flex;align-items:center;gap:12px;padding:20px 0 8px;}
+.sec-hdr .sec-badge{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:5px 14px;border-radius:30px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.sec-hdr .sec-line{flex:1;height:1px;background:var(--bdr);}
+
+/* ENTRY GROUP TABS */
+.entry-tabs{display:flex;gap:8px;margin-bottom:20px;background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:14px;padding:6px;}
+.etab{flex:1;padding:12px 16px;border:none;background:none;color:var(--txm);font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;border-radius:10px;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.etab:hover{color:var(--tx);}
+.etab.active{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.35);}
+
+/* ENTRY PANEL */
+.epanel{display:none;}
+.epanel.active{display:block;}
+
+/* SELECTOR ROW */
+.sel-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.sel-row.one{grid-template-columns:1fr;}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fg label{font-size:.82rem;color:var(--txm);font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
+.fsel{padding:11px 14px;background:rgba(255,255,255,.07);border:1px solid var(--bdr);border-radius:10px;color:var(--tx);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .3s;width:100%;cursor:pointer;}
+.fsel:focus{border-color:var(--pr);}
+.fsel option{background:#1a1a2e;color:var(--tx);}
+
+/* CARD */
+.card{background:var(--cbg);border:1px solid var(--bdr);border-radius:16px;padding:22px;}
+.ctitle{font-size:1rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--tx);}
+.ctitle i{color:var(--prl);}
+
+/* ENTRY TABLE */
+.etw{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);max-height:420px;overflow-y:auto;}
+.et{width:100%;border-collapse:collapse;}
+.et th{padding:10px 14px;background:rgba(124,58,237,.22);color:var(--prl);font-size:.78rem;font-weight:700;text-align:left;position:sticky;top:0;z-index:2;text-transform:uppercase;letter-spacing:.04em;}
+.et td{padding:8px 14px;border-top:1px solid var(--bdr);font-size:.85rem;vertical-align:middle;}
+.et tr:hover td{background:rgba(255,255,255,.03);}
+.et .sno{color:var(--txm);font-size:.78rem;width:36px;}
+.qi{width:90px;padding:7px 10px;background:rgba(255,255,255,.09);border:1px solid var(--bdr);border-radius:8px;color:var(--tx);font-family:inherit;font-size:.88rem;text-align:center;outline:none;transition:border-color .3s;}
+.qi:focus{border-color:var(--pr);}
+
+/* ACTION BAR */
+.abar{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--bdr);}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border:none;border-radius:10px;font-family:inherit;font-size:.87rem;font-weight:700;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;}
+.btn-pr{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
+.btn-pr:hover{opacity:.85;transform:translateY(-1px);}
+.btn-gr{background:linear-gradient(135deg,#059669,#10b981);color:#fff;}
+.btn-gr:hover{opacity:.85;}
+.btn-bl{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;}
+.btn-bl:hover{opacity:.85;}
+.btn-or{background:linear-gradient(135deg,#b45309,#f59e0b);color:#fff;}
+.btn-or:hover{opacity:.85;}
+.btn-out{background:transparent;border:1px solid var(--bdr);color:var(--txm);}
+.btn-out:hover{border-color:var(--pr);color:var(--prl);}
+.btn-sm{padding:8px 16px;font-size:.82rem;}
+.btn-xs{padding:6px 12px;font-size:.78rem;}
+
+/* REPORT TABS */
+.rtab-nav{display:flex;gap:4px;border-bottom:1px solid var(--bdr);margin-bottom:20px;overflow-x:auto;}
+.rtab{padding:12px 20px;background:none;border:none;color:var(--txm);font-family:inherit;font-size:.86rem;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .3s;display:flex;align-items:center;gap:8px;}
+.rtab:hover{color:var(--tx);}
+.rtab.active{color:var(--prl);border-bottom-color:var(--pr);}
+.rpanel{display:none;}
+.rpanel.active{display:block;}
+
+/* CONSOLIDATED TABLE */
+.conwrap{overflow:auto;border-radius:12px;border:1px solid var(--bdr);}
+.con-t{width:100%;border-collapse:collapse;font-size:.77rem;}
+.con-t th{padding:8px 10px;background:rgba(124,58,237,.26);color:var(--prl);font-weight:700;text-align:center;white-space:nowrap;border:1px solid rgba(124,58,237,.2);position:sticky;top:0;z-index:3;}
+.con-t th:first-child{text-align:left;position:sticky;left:0;z-index:4;background:rgba(28,10,80,.97);min-width:150px;}
+.con-t td{padding:6px 9px;border:1px solid rgba(255,255,255,.06);text-align:center;white-space:nowrap;}
+.con-t td:first-child{text-align:left;position:sticky;left:0;background:rgba(12,8,38,.96);font-weight:600;font-size:.8rem;}
+.con-t .gr-row td{background:rgba(124,58,237,.18);font-weight:700;color:var(--prl);}
+.con-t tr:hover td{background:rgba(255,255,255,.04);}
+.nz{color:#6ee7b7;font-weight:600;}
+.zr{color:rgba(255,255,255,.2);}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px;}
+.sc{background:var(--cbg);border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;}
+.sv{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#7c3aed,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sl{color:var(--txm);font-size:.8rem;margin-top:3px;}
+
+/* ALERT */
+.alrt{padding:11px 16px;border-radius:10px;font-size:.86rem;margin-bottom:14px;}
+.alrt-ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7;}
+
+/* PLACEHOLDER */
+.ph-msg{text-align:center;padding:42px 20px;color:var(--txm);}
+.ph-msg i{font-size:2.2rem;margin-bottom:14px;display:block;opacity:.5;}
+.ph-msg p{font-size:.9rem;}
+
+/* PRINT */
+@media print{
+  @page{size:A3 landscape;margin:7mm;}
+  body{background:#fff!important;color:#000!important;}
+  #authGate,.nav-bar,.ph,.entry-sec,.sec-hdr,.abar,.rtab-nav,.rpt-ctrl,.no-print{display:none!important;}
+  .rpanel{display:block!important;}
+  .con-t{font-size:.58rem;}
+  .con-t th{background:#7c3aed!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-t td:first-child{background:#f1f0ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-t .gr-row td{background:#e9d5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .con-t .nz{color:#065f46!important;}
+  .print-hdr{display:block!important;color:#000!important;}
+  .conwrap{border:none;overflow:visible;}
+  .wrap,.content-area{padding:0;}
+}
+.print-hdr{display:none;text-align:center;margin-bottom:10px;}
+.print-hdr h2{font-size:.95rem;font-weight:800;}
+.print-hdr p{font-size:.78rem;color:#333;}
+
+.content-area{padding:24px 0 40px;}
+@media(max-width:640px){.sel-row{grid-template-columns:1fr;}.abar{flex-direction:column;}.entry-tabs{flex-direction:column;}}
 </style>
 </head>
 <body>
+
+<!-- AUTH GATE -->
 <div id="authGate">
   <div class="auth-box">
-    <div class="lock-icon"><i class="fas fa-couch"></i></div>
+    <div class="auth-icon"><i class="fas fa-couch"></i></div>
     <h2>Furniture &amp; Fixtures</h2>
     <p>PM SHRI Kendriya Vidyalaya Ranikhet<br>Enter password to access the stock register</p>
-    <input type="password" id="authPwd" class="auth-input" placeholder="Enter Password" onkeydown="if(event.key==='Enter')doAuth()">
-    <button class="auth-btn" onclick="doAuth()"><i class="fas fa-unlock"></i> Unlock Portal</button>
-    <div id="authError">Incorrect password. Please try again.</div>
+    <input type="password" id="authPwd" class="auth-in" placeholder="Enter Password" onkeydown="if(event.key==='Enter')doAuth()">
+    <button class="auth-btn" onclick="doAuth()"><i class="fas fa-unlock-alt"></i> Unlock Portal</button>
+    <div id="authErr">&#10007; Incorrect password. Please try again.</div>
   </div>
 </div>
-<div id="mainContent">
+
+<!-- MAIN -->
+<div id="mc">
+
+  <!-- NAV -->
   <nav class="nav-bar no-print">
-    <div class="container">
+    <div class="wrap">
       <div class="nav">
         <a href="index.html" class="nav-brand"><i class="fas fa-book-open"></i> KBJ Digital Diary</a>
         <div class="nav-links">
-          <div class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></div>
+          <div class="nav-item"><a href="index.html" class="nav-lnk"><i class="fas fa-home"></i> Home</a></div>
           <div class="nav-item">
-            <button class="dropdown-trigger"><i class="fas fa-graduation-cap"></i> Academics <i class="fas fa-chevron-down" style="font-size:.7rem"></i></button>
-            <div class="dropdown-menu">
+            <button class="dd-trig"><i class="fas fa-graduation-cap"></i> Academics <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
+            <div class="dd-menu">
               <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
               <a href="lessonplan.html"><i class="fas fa-book"></i> Lesson Plans</a>
               <a href="syllabus.html"><i class="fas fa-list"></i> Syllabus</a>
@@ -145,223 +199,656 @@ body{font-family:'Poppins',sans-serif;background:var(--bg-dark);color:var(--text
             </div>
           </div>
           <div class="nav-item">
-            <button class="dropdown-trigger"><i class="fas fa-chalkboard-teacher"></i> Teacher Desk <i class="fas fa-chevron-down" style="font-size:.7rem"></i></button>
-            <div class="dropdown-menu">
+            <button class="dd-trig"><i class="fas fa-chalkboard-teacher"></i> Teacher Desk <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
+            <div class="dd-menu">
               <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
-              <a href="furniture.html" class="active-link"><i class="fas fa-couch"></i> Furniture &amp; Fixtures</a>
+              <a href="furniture.html" class="act"><i class="fas fa-couch"></i> Furniture &amp; Fixtures</a>
               <a href="recess_duty.html"><i class="fas fa-clock"></i> Recess Duty</a>
               <a href="ptm.html"><i class="fas fa-users"></i> PTM Record</a>
             </div>
           </div>
           <div class="nav-item">
-            <button class="dropdown-trigger"><i class="fas fa-user-graduate"></i> Students <i class="fas fa-chevron-down" style="font-size:.7rem"></i></button>
-            <div class="dropdown-menu">
+            <button class="dd-trig"><i class="fas fa-user-graduate"></i> Students <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
+            <div class="dd-menu">
               <a href="homework.html"><i class="fas fa-pencil-alt"></i> Homework</a>
               <a href="analysis.html"><i class="fas fa-chart-bar"></i> Analysis</a>
             </div>
           </div>
-          <div class="nav-item"><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a></div>
+          <div class="nav-item"><a href="profile.html" class="nav-lnk"><i class="fas fa-user"></i> Profile</a></div>
         </div>
       </div>
     </div>
   </nav>
-  <div class="page-header no-print">
-    <div class="header-inner">
-      <div class="header-icon"><i class="fas fa-couch"></i></div>
-      <div class="header-text">
-        <h1>Furniture &amp; Fixtures Stock Register</h1>
-        <p>PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Mathematics &nbsp;|&nbsp; Session: 2025-26</p>
-      </div>
-    </div>
-  </div>
-  <div class="tab-nav no-print">
-    <div class="tab-nav-inner">
-      <button class="tab-btn active" onclick="switchTab('classEntry',this)"><i class="fas fa-edit"></i> Class / Section Entry</button>
-      <button class="tab-btn" onclick="switchTab('deptEntry',this)"><i class="fas fa-door-open"></i> Department / Room Entry</button>
-      <button class="tab-btn" onclick="switchTab('classCon',this)"><i class="fas fa-table"></i> Class Consolidated</button>
-      <button class="tab-btn" onclick="switchTab('deptCon',this)"><i class="fas fa-building"></i> Department Consolidated</button>
-      <button class="tab-btn" onclick="switchTab('exportTab',this)"><i class="fas fa-download"></i> Export &amp; Tools</button>
-    </div>
-  </div>
-  <div class="content-area">
-    <div id="classEntry" class="tab-panel active">
-      <div class="card">
-        <div class="card-title"><i class="fas fa-edit"></i> Class / Section Furniture Entry</div>
-        <div id="classAlertBox"></div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Select Class</label>
-            <select id="selClass" class="form-select" onchange="updateSections()">
-              <option value="">-- Select Class --</option>
-              <option>Balvatika</option>
-              <option>I</option><option>II</option><option>III</option>
-              <option>IV</option><option>V</option><option>VI</option>
-              <option>VII</option><option>VIII</option><option>IX</option>
-              <option>X</option><option>XI</option><option>XII</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Select Section</label>
-            <select id="selSection" class="form-select" onchange="loadClassEntry()">
-              <option value="">-- Select Section --</option>
-            </select>
-          </div>
-        </div>
-        <div id="classEntryTable" style="display:none;">
-          <div class="entry-table-wrapper">
-            <table class="entry-table">
-              <thead><tr><th style="width:40px">#</th><th>Furniture / Fixture Item</th><th style="width:120px">Quantity</th></tr></thead>
-              <tbody id="classItemBody"></tbody>
-            </table>
-          </div>
-          <div class="action-bar">
-            <button class="btn btn-primary" onclick="saveClassEntry()"><i class="fas fa-save"></i> Save Entry</button>
-            <button class="btn btn-outline" onclick="loadClassEntry()"><i class="fas fa-undo"></i> Reset to Saved</button>
-          </div>
-        </div>
-        <div id="classEntryPlaceholder" style="text-align:center;padding:40px;color:var(--text-muted);">
-          <i class="fas fa-hand-point-up" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
-          Please select a class and section above to begin data entry.
-        </div>
-      </div>
-    </div>
-    <div id="deptEntry" class="tab-panel">
-      <div class="card">
-        <div class="card-title"><i class="fas fa-door-open"></i> Department / Room / Lab Furniture Entry</div>
-        <div id="deptAlertBox"></div>
-        <div class="form-row" style="grid-template-columns:1fr;">
-          <div class="form-group">
-            <label>Select Department / Room / Lab</label>
-            <select id="selDept" class="form-select" onchange="loadDeptEntry()">
-              <option value="">-- Select Department / Room --</option>
-            </select>
-          </div>
-        </div>
-        <div id="deptEntryTable" style="display:none;">
-          <div class="entry-table-wrapper">
-            <table class="entry-table">
-              <thead><tr><th style="width:40px">#</th><th>Furniture / Fixture Item</th><th style="width:120px">Quantity</th></tr></thead>
-              <tbody id="deptItemBody"></tbody>
-            </table>
-          </div>
-          <div class="action-bar">
-            <button class="btn btn-primary" onclick="saveDeptEntry()"><i class="fas fa-save"></i> Save Entry</button>
-            <button class="btn btn-outline" onclick="loadDeptEntry()"><i class="fas fa-undo"></i> Reset to Saved</button>
-          </div>
-        </div>
-        <div id="deptEntryPlaceholder" style="text-align:center;padding:40px;color:var(--text-muted);">
-          <i class="fas fa-hand-point-up" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
-          Please select a department / room above to begin data entry.
-        </div>
-      </div>
-    </div>
-    <div id="classCon" class="tab-panel">
-      <div class="print-header">
-        <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-        <p>CONSOLIDATED FURNITURE &amp; FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026</p>
-      </div>
-      <div class="card no-print" style="margin-bottom:16px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-          <div class="card-title" style="margin:0"><i class="fas fa-table"></i> Class-wise Consolidated Register</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn btn-success btn-sm" onclick="printPanel('classCon')"><i class="fas fa-print"></i> Print A3</button>
-            <button class="btn btn-info btn-sm" onclick="exportClassExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
-            <button class="btn btn-outline btn-sm" onclick="shareSheet()"><i class="fas fa-share-alt"></i> Share Link</button>
-          </div>
-        </div>
-      </div>
-      <div class="consolidated-wrapper">
-        <table class="con-table"><thead id="classConHead"></thead><tbody id="classConBody"></tbody></table>
-      </div>
-    </div>
-    <div id="deptCon" class="tab-panel">
-      <div class="print-header">
-        <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-        <p>CONSOLIDATED FURNITURE &amp; FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026</p>
-      </div>
-      <div class="card no-print" style="margin-bottom:16px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-          <div class="card-title" style="margin:0"><i class="fas fa-building"></i> Department-wise Consolidated Register</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn btn-success btn-sm" onclick="printPanel('deptCon')"><i class="fas fa-print"></i> Print A3</button>
-            <button class="btn btn-info btn-sm" onclick="exportDeptExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
-            <button class="btn btn-outline btn-sm" onclick="shareSheet()"><i class="fas fa-share-alt"></i> Share Link</button>
-          </div>
-        </div>
-      </div>
-      <div class="consolidated-wrapper">
-        <table class="con-table"><thead id="deptConHead"></thead><tbody id="deptConBody"></tbody></table>
-      </div>
-    </div>
-    <div id="exportTab" class="tab-panel">
-      <div id="statsGrid" class="stats-grid"></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-        <div class="card">
-          <div class="card-title"><i class="fas fa-file-excel"></i> Excel Export</div>
-          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Download the complete register as a multi-sheet Excel workbook (.xlsx) matching the original format.</p>
-          <button class="btn btn-success" onclick="exportBothExcel()"><i class="fas fa-file-excel"></i> Download Full Workbook</button>
-        </div>
-        <div class="card">
-          <div class="card-title"><i class="fas fa-print"></i> Print Reports</div>
-          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Print either report as A3 landscape. Select A3 paper in your browser print dialog.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn btn-success" onclick="printPanel('classCon')"><i class="fas fa-print"></i> Class Report (A3)</button>
-            <button class="btn btn-info" onclick="printPanel('deptCon')"><i class="fas fa-print"></i> Dept Report (A3)</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title"><i class="fas fa-share-alt"></i> Share</div>
-          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Copy this page link to share with colleagues. They will need the password to access the register.</p>
-          <button class="btn btn-warning" onclick="shareSheet()"><i class="fas fa-copy"></i> Copy Page Link</button>
-        </div>
-        <div class="card">
-          <div class="card-title"><i class="fas fa-database"></i> Data Management</div>
-          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:16px;">Reset all entries to the original verified stock data from the official Excel register (April 2026).</p>
-          <button class="btn btn-outline" onclick="resetToDefaults()"><i class="fas fa-undo"></i> Reset to Default Data</button>
+
+  <!-- PAGE HEADER -->
+  <div class="ph no-print">
+    <div class="wrap">
+      <div class="ph-inner">
+        <div class="ph-icon"><i class="fas fa-couch"></i></div>
+        <div>
+          <h1 class="ph">Furniture &amp; Fixtures Stock Register</h1>
+          <p class="ph">PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Maths &nbsp;|&nbsp; Session 2025â€“26</p>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="wrap content-area">
+
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         SECTION 1 â€” DATA ENTRY
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <div class="entry-sec no-print">
+      <div class="sec-hdr">
+        <span class="sec-badge"><i class="fas fa-edit"></i> &nbsp;Data Entry</span>
+        <div class="sec-line"></div>
+        <span style="color:var(--txm);font-size:.8rem;white-space:nowrap">Class Teachers &amp; Department In-charges</span>
+      </div>
+
+      <!-- TWO-WAY ENTRY TOGGLE -->
+      <div class="entry-tabs">
+        <button class="etab active" id="etab-cls" onclick="switchETab('cls')">
+          <i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry &nbsp;<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;font-size:.75rem;">Class / Section Wise</span>
+        </button>
+        <button class="etab" id="etab-dpt" onclick="switchETab('dpt')">
+          <i class="fas fa-door-open"></i> Department In-charge Entry &nbsp;<span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;font-size:.75rem;">Room / Lab Wise</span>
+        </button>
+      </div>
+
+      <!-- â”€â”€ CLASS ENTRY PANEL â”€â”€ -->
+      <div id="epanel-cls" class="epanel active">
+        <div class="card">
+          <div class="ctitle"><i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry â€” Select Your Class &amp; Section</div>
+          <div id="cls-alert"></div>
+          <div class="sel-row">
+            <div class="fg">
+              <label><i class="fas fa-layer-group"></i> &nbsp;Class</label>
+              <select id="selCls" class="fsel" onchange="onClsChange()">
+                <option value="">â€” Select Class â€”</option>
+                <option>Balvatika</option>
+                <option>I</option><option>II</option><option>III</option>
+                <option>IV</option><option>V</option><option>VI</option>
+                <option>VII</option><option>VIII</option><option>IX</option>
+                <option>X</option><option>XI</option><option>XII</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label><i class="fas fa-door-closed"></i> &nbsp;Section</label>
+              <select id="selSec" class="fsel" onchange="loadClsForm()">
+                <option value="">â€” Select Section â€”</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="cls-form" style="display:none">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+              <div style="font-size:.85rem;color:var(--txm);">Enter quantity of each item present in your classroom:</div>
+              <div id="cls-summary" style="font-size:.82rem;color:var(--prl);font-weight:600;"></div>
+            </div>
+            <div class="etw">
+              <table class="et">
+                <thead><tr><th class="sno">#</th><th>Furniture / Fixture Item</th><th style="width:110px;text-align:center">Qty</th></tr></thead>
+                <tbody id="cls-tbody"></tbody>
+              </table>
+            </div>
+            <div class="abar">
+              <button class="btn btn-pr" onclick="saveClsEntry()"><i class="fas fa-save"></i> Save Entry</button>
+              <button class="btn btn-out" onclick="loadClsForm()"><i class="fas fa-undo"></i> Discard Changes</button>
+              <button class="btn btn-out btn-sm" onclick="clearClsForm()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
+            </div>
+          </div>
+
+          <div id="cls-ph" class="ph-msg">
+            <i class="fas fa-hand-point-up"></i>
+            <p>Select a <strong>Class</strong> and <strong>Section</strong> above to begin entry.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- â”€â”€ DEPARTMENT ENTRY PANEL â”€â”€ -->
+      <div id="epanel-dpt" class="epanel">
+        <div class="card">
+          <div class="ctitle"><i class="fas fa-building"></i> Department In-charge Entry â€” Select Your Department / Room / Lab</div>
+          <div id="dpt-alert"></div>
+          <div class="sel-row one">
+            <div class="fg">
+              <label><i class="fas fa-map-marker-alt"></i> &nbsp;Department / Room / Lab</label>
+              <select id="selDpt" class="fsel" onchange="loadDptForm()">
+                <option value="">â€” Select Department / Room / Lab â€”</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="dpt-form" style="display:none">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+              <div style="font-size:.85rem;color:var(--txm);">Enter quantity of each item present in this department/room:</div>
+              <div id="dpt-summary" style="font-size:.82rem;color:var(--prl);font-weight:600;"></div>
+            </div>
+            <div class="etw">
+              <table class="et">
+                <thead><tr><th class="sno">#</th><th>Furniture / Fixture Item</th><th style="width:110px;text-align:center">Qty</th></tr></thead>
+                <tbody id="dpt-tbody"></tbody>
+              </table>
+            </div>
+            <div class="abar">
+              <button class="btn btn-pr" onclick="saveDptEntry()"><i class="fas fa-save"></i> Save Entry</button>
+              <button class="btn btn-out" onclick="loadDptForm()"><i class="fas fa-undo"></i> Discard Changes</button>
+              <button class="btn btn-out btn-sm" onclick="clearDptForm()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
+            </div>
+          </div>
+
+          <div id="dpt-ph" class="ph-msg">
+            <i class="fas fa-hand-point-up"></i>
+            <p>Select a <strong>Department / Room / Lab</strong> above to begin entry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /entry-sec -->
+
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         SECTION 2 â€” CONSOLIDATED RECORDS
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <div>
+      <div class="sec-hdr no-print">
+        <span class="sec-badge"><i class="fas fa-table"></i> &nbsp;Consolidated Records</span>
+        <div class="sec-line"></div>
+        <span style="color:var(--txm);font-size:.8rem;white-space:nowrap">Printable Â· Downloadable Â· Shareable</span>
+      </div>
+
+      <!-- REPORT TAB NAV -->
+      <div class="rtab-nav no-print">
+        <button class="rtab active" id="rtab-cc" onclick="switchRTab('cc')"><i class="fas fa-table"></i> Class-wise Consolidated</button>
+        <button class="rtab" id="rtab-dc" onclick="switchRTab('dc')"><i class="fas fa-building"></i> Department-wise Consolidated</button>
+        <button class="rtab" id="rtab-ex" onclick="switchRTab('ex');renderStats()"><i class="fas fa-download"></i> Export &amp; Tools</button>
+      </div>
+
+      <!-- CLASS CONSOLIDATED -->
+      <div id="rpanel-cc" class="rpanel active">
+        <div class="print-hdr">
+          <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+          <p>CONSOLIDATED FURNITURE &amp; FIXTURES â€” CLASS / SECTION WISE â€” AS ON APRIL 2026</p>
+        </div>
+        <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+          <div style="font-size:.88rem;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-table" style="color:var(--prl)"></i> Class / Section Wise â€” 35 sections Ã— 24 items
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print A3</button>
+            <button class="btn btn-bl btn-sm" onclick="exportClsXL()"><i class="fas fa-file-excel"></i> Download Excel</button>
+            <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
+          </div>
+        </div>
+        <div class="conwrap" style="max-height:520px;">
+          <table class="con-t"><thead id="cc-head"></thead><tbody id="cc-body"></tbody></table>
+        </div>
+      </div>
+
+      <!-- DEPT CONSOLIDATED -->
+      <div id="rpanel-dc" class="rpanel">
+        <div class="print-hdr">
+          <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+          <p>CONSOLIDATED FURNITURE &amp; FIXTURES â€” DEPARTMENT / ROOM / LAB WISE â€” AS ON APRIL 2026</p>
+        </div>
+        <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+          <div style="font-size:.88rem;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-building" style="color:var(--prl)"></i> Department / Room / Lab Wise â€” 31 rooms Ã— 50 items
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-gr btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print A3</button>
+            <button class="btn btn-bl btn-sm" onclick="exportDptXL()"><i class="fas fa-file-excel"></i> Download Excel</button>
+            <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
+          </div>
+        </div>
+        <div class="conwrap" style="max-height:520px;">
+          <table class="con-t"><thead id="dc-head"></thead><tbody id="dc-body"></tbody></table>
+        </div>
+      </div>
+
+      <!-- EXPORT & TOOLS -->
+      <div id="rpanel-ex" class="rpanel">
+        <div id="statsArea" class="stats"></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
+          <div class="card">
+            <div class="ctitle"><i class="fas fa-file-excel"></i> Download Full Workbook</div>
+            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Exports both class-wise and department-wise sheets in one Excel file matching the original register format.</p>
+            <button class="btn btn-gr" onclick="exportBothXL()"><i class="fas fa-file-excel"></i> Download (.xlsx)</button>
+          </div>
+          <div class="card">
+            <div class="ctitle"><i class="fas fa-print"></i> Print Reports</div>
+            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Opens print dialog set to A3 Landscape. Select A3 paper size in your printer/browser settings.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Class Report (A3)</button>
+              <button class="btn btn-bl btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Dept Report (A3)</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ctitle"><i class="fas fa-share-alt"></i> Share Link</div>
+            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Copy the page URL to share with colleagues. They will need the password to access this portal.</p>
+            <button class="btn btn-or" onclick="doShare()"><i class="fas fa-copy"></i> Copy Page Link</button>
+          </div>
+          <div class="card">
+            <div class="ctitle"><i class="fas fa-database"></i> Data Management</div>
+            <p style="color:var(--txm);font-size:.86rem;margin-bottom:16px;">Reset all entries to the April 2026 verified stock data extracted from the official Excel register.</p>
+            <button class="btn btn-out" onclick="doReset()"><i class="fas fa-undo"></i> Reset to Default Data</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /consolidated -->
+  </div><!-- /wrap content-area -->
+</div><!-- /mc -->
+
 <script>
-const CLASS_ITEMS=['Small Chair - Wood','Small Chair - Plastic','Big Chair - Wood','Big Chair - Plastic','Teacher Chair - Iron/Wood','Teacher Chair - Cushion','Revolving Chair','Chair with Writing Pad','Dual Desk - Wood','Dual Desk - Iron','Student Table - Flat','Student Table - Box','Big Table - Wood','Hexagonal Table','Teacher Table','Computer Podium','Computer Table','Almirah - Wood','Almirah - Steel','Almirah - Wood/Glass','Tin Box','Green Board','Display Board','White Board'];
-const CLASS_LIST=['Balvatika A','I A','I B','I C','II A','II B','III A','III B','III C','IV A','IV B','IV C','V A','V B','V C','VI A','VI B','VI C','VII A','VII B','VII C','VIII A','VIII B','VIII C','IX A','IX B','IX C','X A','X B','X C','XI A','XI B','XI C','XII B','XII C'];
-const CLASS_SECTIONS={'Balvatika':['A'],'I':['A','B','C'],'II':['A','B'],'III':['A','B','C'],'IV':['A','B','C'],'V':['A','B','C'],'VI':['A','B','C'],'VII':['A','B','C'],'VIII':['A','B','C'],'IX':['A','B','C'],'X':['A','B','C'],'XI':['A','B','C'],'XII':['B','C']};
-const DEFAULT_CLASS_DATA={'Balvatika A':[0,25,0,0,1,2,0,0,0,0,0,0,0,7,2,0,0,0,1,0,0,1,0,0],'I A':[38,0,0,0,0,0,0,0,0,0,0,0,0,10,1,0,0,0,1,0,1,1,1,0],'I B':[32,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,0,1,0,0,1,0,0],'I C':[35,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,2,1,0,0,1,0,0],'II A':[2,0,0,0,1,0,0,0,0,20,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'II B':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'III A':[0,0,0,0,1,0,0,0,20,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'III B':[0,0,0,0,0,1,0,0,6,15,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'III C':[0,0,0,0,1,0,0,0,20,2,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'IV A':[0,0,0,0,1,1,0,0,19,2,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'IV B':[0,0,0,0,0,1,0,0,20,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'IV C':[0,0,0,0,1,0,0,0,5,18,0,0,0,0,1,0,0,0,0,0,0,1,0,0],'V A':[0,0,0,0,1,0,0,0,20,0,0,0,0,0,1,1,0,1,1,0,0,1,1,0],'V B':[0,0,0,0,0,0,0,0,22,0,0,0,0,0,1,0,0,0,2,0,0,1,1,0],'V C':[0,0,0,0,1,0,0,0,24,0,0,0,0,0,1,0,0,0,2,0,0,1,1,0],'VI A':[0,0,0,0,0,0,0,0,23,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0],'VI B':[0,0,0,0,0,0,0,0,20,0,4,0,0,0,0,0,0,0,0,0,0,1,0,0],'VI C':[0,0,0,0,1,0,0,0,20,0,4,1,0,0,1,0,0,0,0,0,0,1,0,0],'VII A':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],'VII B':[0,0,0,0,1,0,0,0,0,0,41,7,0,0,1,0,0,0,0,0,0,1,0,0],'VII C':[0,0,0,0,1,0,0,0,0,0,25,17,0,0,0,0,0,0,0,0,0,1,0,0],'VIII A':[0,0,0,0,1,0,0,0,0,0,25,19,0,0,1,0,0,0,0,0,0,1,0,0],'VIII B':[0,0,0,0,1,0,0,0,0,0,27,14,0,0,1,0,0,0,0,0,0,1,0,0],'VIII C':[0,0,0,0,1,0,0,0,0,0,21,26,0,0,0,0,0,0,0,0,0,1,0,0],'IX A':[0,0,0,0,0,0,0,0,0,21,2,1,0,0,1,0,0,0,0,0,0,1,0,0],'IX B':[0,0,0,0,1,0,0,0,1,0,26,14,0,0,1,0,0,0,0,0,0,1,0,0],'IX C':[0,0,0,0,1,0,0,0,1,1,22,18,0,0,1,0,0,0,0,0,0,1,0,0],'X A':[0,0,0,0,0,0,0,0,0,0,31,0,0,0,1,0,0,0,0,0,0,1,0,0],'X B':[0,0,0,0,2,0,0,0,0,0,40,0,0,0,1,0,0,1,0,0,0,1,0,0],'X C':[0,0,0,0,1,0,0,0,0,0,36,0,0,0,1,0,0,0,0,0,0,1,0,0],'XI A':[0,0,0,0,1,0,0,0,0,0,33,0,0,0,1,0,0,0,0,0,0,1,0,0],'XI B':[0,0,0,0,1,0,0,0,0,0,50,0,0,0,1,0,0,0,0,0,0,1,0,0],'XI C':[0,0,0,0,1,0,0,0,0,0,34,0,0,0,1,1,0,0,0,0,0,1,0,0],'XII B':[0,0,0,0,1,0,0,0,0,0,39,2,0,0,1,0,0,0,0,0,0,1,0,0],'XII C':[0,0,0,0,1,0,0,0,0,0,44,0,0,0,2,0,0,0,0,0,0,1,0,0]};
-const DEPT_ITEMS=['Chair (Wood) Big','Chair (Plastic) Big','Chair (Iron) with Cushion','Revolving Chair','Chair with Writing Pad (Iron)','Stool/Chair with Cushion Iron','Teacher Chair','Stool Practical (Wood)','Stool Round Small','Stool Flat Small','Table Wood Flat (Small)','Table Wood Box (Small)','Table Wood (Big)','Dual Desk','Teacher Table','Practical Table','Almirah with Glass (Wood)','Almirah Wood','Almirah Steel with Glass','Almirah Steel','Green Board','Display Board','White Board','Podium','Rack Wood','Rack Steel','Computer Table','Office Table','Computer Tables Big','Library Table Big','Register Rack','Show Case','News Paper Stand','Pigeon Hole Almirah','Takhat/Bed (MI Room)','Language Lab Set with Chair','Tijori (Iron Safe)','Box Tin','Baby Chair (Plastic)','Bench Wood','Bench Steel','Sofa Set','Center Table','Box (Wood)','New Stool (PM SHRI)','Bookshelf (PM SHRI)','Computer Table (PM SHRI)','Chair Library (PM SHRI)','Magazine Stand (PM SHRI)','New Chairs for Staff (PM SHRI)'];
-const DEPT_LIST=['CHEMISTRY LAB','PHYSICS LAB','BIOLOGY LAB','MATHS LAB','CCA ROOM','MUSIC ROOM','ART ROOM','LANGUAGE LAB','COMPUTER LAB','JUNIOR COMPUTER LAB','PRIMARY COMPUTER LAB','LIBRARY','PRINCIPAL ROOM','VICE PRINCIPAL ROOM','OFFICE','MEDICAL ROOM','WE ROOM','EXAMINATION','PRIMARY STAFF ROOM','HM ROOM','STAFF ROOM','JUNIOR SC LAB','SPORTS ROOM','CHEMISTRY LAB STORE','PHYSICS LAB STORE','CMP ROOM NEAR BALVATIKA','STORE TIN SHADE/NEW STORE','SPORTS STORE','VE LAB','SECONDARY CORRIDOR','PRIMARY CORRIDOR'];
-const DEFAULT_DEPT_DATA={'CHEMISTRY LAB':[0,0,0,0,0,0,2,4,0,0,0,0,0,0,1,1,0,0,0,2,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0],'PHYSICS LAB':[1,0,1,0,0,0,2,27,0,0,0,0,0,0,1,6,0,1,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'BIOLOGY LAB':[0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,8,2,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'MATHS LAB':[0,0,9,0,0,0,2,0,0,0,0,0,0,0,6,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'CCA ROOM':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'MUSIC ROOM':[2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,3,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'ART ROOM':[0,2,1,0,0,0,0,0,1,0,0,0,2,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'LANGUAGE LAB':[2,12,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'COMPUTER LAB':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'JUNIOR COMPUTER LAB':[0,0,1,1,29,25,0,0,0,0,2,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PRIMARY COMPUTER LAB':[0,12,0,0,0,0,1,0,0,6,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'LIBRARY':[3,1,1,0,0,0,1,0,1,0,0,0,0,0,1,0,17,0,11,1,0,0,0,0,0,0,7,0,0,3,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0],'PRINCIPAL ROOM':[0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,2,0,3,0,0,2,1,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],'VICE PRINCIPAL ROOM':[0,0,3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],'OFFICE':[0,0,3,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'MEDICAL ROOM':[3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'WE ROOM':[0,0,0,0,0,0,1,0,0,1,1,0,1,0,1,0,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0],'EXAMINATION':[1,0,1,0,0,0,3,0,0,0,0,1,3,0,2,1,0,3,0,10,0,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PRIMARY STAFF ROOM':[0,0,9,0,0,1,0,0,0,1,9,0,3,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0],'HM ROOM':[0,0,3,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'STAFF ROOM':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'JUNIOR SC LAB':[0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],'SPORTS ROOM':[0,2,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],'CHEMISTRY LAB STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PHYSICS LAB STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'CMP ROOM NEAR BALVATIKA':[0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'STORE TIN SHADE/NEW STORE':[250,120,0,0,0,0,0,0,0,0,130,50,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'SPORTS STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],'VE LAB':[0,0,1,0,0,0,1,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'SECONDARY CORRIDOR':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'PRIMARY CORRIDOR':[0,3,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
-const LS_CLASS='kbj_furn_class_v2';
-const LS_DEPT='kbj_furn_dept_v2';
-function loadFromStorage(key,defaults){try{const s=localStorage.getItem(key);if(s){const d=JSON.parse(s);return Object.assign({},defaults,d);}}catch(e){}return JSON.parse(JSON.stringify(defaults));}
-function saveToStorage(key,data){localStorage.setItem(key,JSON.stringify(data));}
-let classData=loadFromStorage(LS_CLASS,DEFAULT_CLASS_DATA);
-let deptData=loadFromStorage(LS_DEPT,DEFAULT_DEPT_DATA);
-function doAuth(){const v=document.getElementById('authPwd').value;if(v==='kbjkv@2008'){sessionStorage.setItem('furn_auth','1');document.getElementById('authGate').style.display='none';document.getElementById('mainContent').style.display='block';initAll();}else{document.getElementById('authError').style.display='block';document.getElementById('authPwd').value='';document.getElementById('authPwd').focus();}}
-window.addEventListener('load',()=>{if(sessionStorage.getItem('furn_auth')==='1'){document.getElementById('authGate').style.display='none';document.getElementById('mainContent').style.display='block';initAll();}else{document.getElementById('authPwd').focus();}});
-function switchTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');if(id==='classCon')renderClassConsolidated();if(id==='deptCon')renderDeptConsolidated();if(id==='exportTab')renderStats();}
-function updateSections(){const cls=document.getElementById('selClass').value;const sel=document.getElementById('selSection');sel.innerHTML='<option value="">-- Select Section --</option>';if(cls&&CLASS_SECTIONS[cls]){CLASS_SECTIONS[cls].forEach(s=>{sel.innerHTML+=`<option>${s}</option>`;});}document.getElementById('classEntryTable').style.display='none';document.getElementById('classEntryPlaceholder').style.display='block';}
-function loadClassEntry(){const cls=document.getElementById('selClass').value;const sec=document.getElementById('selSection').value;if(!cls||!sec)return;const key=cls==='Balvatika'?'Balvatika A':`${cls} ${sec}`;const vals=classData[key]||Array(CLASS_ITEMS.length).fill(0);const tbody=document.getElementById('classItemBody');tbody.innerHTML=CLASS_ITEMS.map((item,i)=>`<tr><td class="item-no">${i+1}</td><td>${item}</td><td><input type="number" class="qty-input" id="ci_${i}" value="${vals[i]||0}" min="0"></td></tr>`).join('');document.getElementById('classEntryTable').style.display='block';document.getElementById('classEntryPlaceholder').style.display='none';}
-function getClassKey(){const cls=document.getElementById('selClass').value;const sec=document.getElementById('selSection').value;return cls==='Balvatika'?'Balvatika A':`${cls} ${sec}`;}
-function saveClassEntry(){const key=getClassKey();if(!key||key.trim()==='')return;const vals=CLASS_ITEMS.map((_,i)=>parseInt(document.getElementById(`ci_${i}`).value)||0);classData[key]=vals;saveToStorage(LS_CLASS,classData);showAlert('classAlertBox',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${key}</strong>`,'success');}
-function populateDeptSelect(){const sel=document.getElementById('selDept');DEPT_LIST.forEach(d=>{sel.innerHTML+=`<option>${d}</option>`;});}
-function loadDeptEntry(){const dept=document.getElementById('selDept').value;if(!dept)return;const vals=deptData[dept]||Array(DEPT_ITEMS.length).fill(0);const tbody=document.getElementById('deptItemBody');tbody.innerHTML=DEPT_ITEMS.map((item,i)=>`<tr><td class="item-no">${i+1}</td><td>${item}</td><td><input type="number" class="qty-input" id="di_${i}" value="${vals[i]||0}" min="0"></td></tr>`).join('');document.getElementById('deptEntryTable').style.display='block';document.getElementById('deptEntryPlaceholder').style.display='none';}
-function saveDeptEntry(){const dept=document.getElementById('selDept').value;if(!dept)return;const vals=DEPT_ITEMS.map((_,i)=>parseInt(document.getElementById(`di_${i}`).value)||0);deptData[dept]=vals;saveToStorage(LS_DEPT,deptData);showAlert('deptAlertBox',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${dept}</strong>`,'success');}
-function renderClassConsolidated(){const thead=document.getElementById('classConHead');const tbody=document.getElementById('classConBody');thead.innerHTML=`<tr><th>Class / Section</th>${CLASS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.4)">TOTAL</th></tr>`;const gt=Array(CLASS_ITEMS.length).fill(0);tbody.innerHTML=CLASS_LIST.map(cls=>{const vals=(classData[cls]||Array(CLASS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>{gt[i]+=v;});return`<tr><td>${cls}</td>${vals.map(v=>`<td class="${v>0?'nonzero':'zero'}">${v}</td>`).join('')}<td class="nonzero">${total}</td></tr>`;}).join('');const gtTotal=gt.reduce((a,b)=>a+b,0);tbody.innerHTML+=`<tr class="total-row"><td>GRAND TOTAL</td>${gt.map(v=>`<td>${v}</td>`).join('')}<td>${gtTotal}</td></tr>`;}
-function renderDeptConsolidated(){const thead=document.getElementById('deptConHead');const tbody=document.getElementById('deptConBody');thead.innerHTML=`<tr><th>Department / Room / Lab</th>${DEPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.4)">TOTAL</th></tr>`;const gt=Array(DEPT_ITEMS.length).fill(0);tbody.innerHTML=DEPT_LIST.map(dept=>{const vals=(deptData[dept]||Array(DEPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>{gt[i]+=v;});return`<tr><td>${dept}</td>${vals.map(v=>`<td class="${v>0?'nonzero':'zero'}">${v}</td>`).join('')}<td class="nonzero">${total}</td></tr>`;}).join('');const gtTotal=gt.reduce((a,b)=>a+b,0);tbody.innerHTML+=`<tr class="total-row"><td>GRAND TOTAL</td>${gt.map(v=>`<td>${v}</td>`).join('')}<td>${gtTotal}</td></tr>`;}
-function renderStats(){let totalItems=0;CLASS_LIST.forEach(c=>{const v=classData[c]||[];totalItems+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});let deptTotal=0;DEPT_LIST.forEach(d=>{const v=deptData[d]||[];deptTotal+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});document.getElementById('statsGrid').innerHTML=`<div class="stat-card"><div class="stat-val">${CLASS_LIST.length}</div><div class="stat-label">Classes / Sections</div></div><div class="stat-card"><div class="stat-val">${totalItems}</div><div class="stat-label">Total Items (Class-wise)</div></div><div class="stat-card"><div class="stat-val">${DEPT_LIST.length}</div><div class="stat-label">Departments / Rooms</div></div><div class="stat-card"><div class="stat-val">${deptTotal}</div><div class="stat-label">Total Items (Dept-wise)</div></div>`;}
-function buildClassSheet(){const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026'],['CLASS / SECTION',...CLASS_ITEMS,'TOTAL']];const gt=Array(CLASS_ITEMS.length).fill(0);CLASS_LIST.forEach(cls=>{const vals=(classData[cls]||Array(CLASS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>gt[i]+=v);aoa.push([cls,...vals,total]);});aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);return aoa;}
-function buildDeptSheet(){const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026'],['DEPARTMENT / ROOM / LAB',...DEPT_ITEMS,'TOTAL']];const gt=Array(DEPT_ITEMS.length).fill(0);DEPT_LIST.forEach(dept=>{const vals=(deptData[dept]||Array(DEPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);const total=vals.reduce((a,b)=>a+b,0);vals.forEach((v,i)=>gt[i]+=v);aoa.push([dept,...vals,total]);});aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);return aoa;}
-function applySheetStyle(ws,nCols,nRows){if(!ws['!ref'])return;const hStyle={font:{bold:true,color:{rgb:'FFFFFF'}},fill:{fgColor:{rgb:'7C3AED'}},alignment:{horizontal:'center',wrapText:true}};const totStyle={font:{bold:true},fill:{fgColor:{rgb:'E9D5FF'}}};for(let c=0;c<nCols;c++){const cell=XLSX.utils.encode_cell({r:2,c});if(ws[cell])ws[cell].s=hStyle;}for(let c=0;c<nCols;c++){const cell=XLSX.utils.encode_cell({r:nRows-1,c});if(ws[cell])ws[cell].s=totStyle;}ws['!cols']=[{wch:24},...Array(nCols-1).fill({wch:11})];}
-function exportClassExcel(){if(typeof XLSX==='undefined'){alert('SheetJS library not loaded. Please check your internet connection.');return;}const wb=XLSX.utils.book_new();const aoa=buildClassSheet();const ws=XLSX.utils.aoa_to_sheet(aoa);applySheetStyle(ws,aoa[2].length,aoa.length);ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws,'CLASS CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Class_Furniture.xlsx');}
-function exportDeptExcel(){if(typeof XLSX==='undefined'){alert('SheetJS library not loaded. Please check your internet connection.');return;}const wb=XLSX.utils.book_new();const aoa=buildDeptSheet();const ws=XLSX.utils.aoa_to_sheet(aoa);applySheetStyle(ws,aoa[2].length,aoa.length);ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws,'DEPARTMENT CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Dept_Furniture.xlsx');}
-function exportBothExcel(){if(typeof XLSX==='undefined'){alert('SheetJS library not loaded. Please check your internet connection.');return;}const wb=XLSX.utils.book_new();const aoa1=buildClassSheet();const ws1=XLSX.utils.aoa_to_sheet(aoa1);applySheetStyle(ws1,aoa1[2].length,aoa1.length);ws1['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa1[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa1[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws1,'CLASS CONSOLIDATED');const aoa2=buildDeptSheet();const ws2=XLSX.utils.aoa_to_sheet(aoa2);applySheetStyle(ws2,aoa2[2].length,aoa2.length);ws2['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa2[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa2[2].length-1}}];XLSX.utils.book_append_sheet(wb,ws2,'DEPARTMENT CONSOLIDATED');XLSX.writeFile(wb,'PM_SHRI_KV_Ranikhet_Furniture_Register.xlsx');}
-function printPanel(panelId){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.getElementById(panelId).classList.add('active');if(panelId==='classCon')renderClassConsolidated();if(panelId==='deptCon')renderDeptConsolidated();setTimeout(()=>window.print(),300);}
-function shareSheet(){const url=window.location.href.split('?')[0];if(navigator.share){navigator.share({title:'KV Ranikhet Furniture Register',url});}else{navigator.clipboard.writeText(url).then(()=>{showToast('Page link copied to clipboard!');}).catch(()=>{prompt('Copy this link:',url);});}}
-function resetToDefaults(){if(!confirm('Reset ALL entries to original April 2026 verified stock data?\n\nAll manual edits will be permanently lost.'))return;classData=JSON.parse(JSON.stringify(DEFAULT_CLASS_DATA));deptData=JSON.parse(JSON.stringify(DEFAULT_DEPT_DATA));saveToStorage(LS_CLASS,classData);saveToStorage(LS_DEPT,deptData);showToast('Data reset to April 2026 verified stock.');}
-function showAlert(boxId,msg,type){const el=document.getElementById(boxId);el.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;setTimeout(()=>el.innerHTML='',3500);}
-function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:30px;right:30px;background:rgba(124,58,237,.9);color:#fff;padding:14px 20px;border-radius:12px;font-size:.9rem;z-index:9999;backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0,0,0,.4);';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
-function initAll(){populateDeptSelect();renderClassConsolidated();}
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CONSTANTS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const CLS_ITEMS=[
+  'Small Chair - Wood','Small Chair - Plastic','Big Chair - Wood','Big Chair - Plastic',
+  'Teacher Chair - Iron/Wood','Teacher Chair - Cushion','Revolving Chair','Chair with Writing Pad',
+  'Dual Desk - Wood','Dual Desk - Iron','Student Table - Flat','Student Table - Box',
+  'Big Table - Wood','Hexagonal Table','Teacher Table','Computer Podium',
+  'Computer Table','Almirah - Wood','Almirah - Steel','Almirah - Wood/Glass',
+  'Tin Box','Green Board','Display Board','White Board'
+];
+
+const CLS_LIST=[
+  'Balvatika A','I A','I B','I C','II A','II B','III A','III B','III C',
+  'IV A','IV B','IV C','V A','V B','V C','VI A','VI B','VI C',
+  'VII A','VII B','VII C','VIII A','VIII B','VIII C',
+  'IX A','IX B','IX C','X A','X B','X C','XI A','XI B','XI C','XII B','XII C'
+];
+
+const CLS_SEC={
+  'Balvatika':['A'],'I':['A','B','C'],'II':['A','B'],'III':['A','B','C'],
+  'IV':['A','B','C'],'V':['A','B','C'],'VI':['A','B','C'],
+  'VII':['A','B','C'],'VIII':['A','B','C'],'IX':['A','B','C'],
+  'X':['A','B','C'],'XI':['A','B','C'],'XII':['B','C']
+};
+
+const DPT_ITEMS=[
+  'Chair (Wood) Big','Chair (Plastic) Big','Chair (Iron) with Cushion','Revolving Chair',
+  'Chair with Writing Pad (Iron)','Stool/Chair with Cushion Iron','Teacher Chair','Stool Practical (Wood)',
+  'Stool Round Small','Stool Flat Small','Table Wood Flat (Small)','Table Wood Box (Small)',
+  'Table Wood (Big)','Dual Desk','Teacher Table','Practical Table',
+  'Almirah with Glass (Wood)','Almirah Wood','Almirah Steel with Glass','Almirah Steel',
+  'Green Board','Display Board','White Board','Podium',
+  'Rack Wood','Rack Steel','Computer Table','Office Table',
+  'Computer Tables Big','Library Table Big','Register Rack','Show Case',
+  'News Paper Stand','Pigeon Hole Almirah','Takhat/Bed (MI Room)','Language Lab Set with Chair',
+  'Tijori (Iron Safe)','Box Tin','Baby Chair (Plastic)','Bench Wood',
+  'Bench Steel','Sofa Set','Center Table','Box (Wood)',
+  'New Stool (PM SHRI)','Bookshelf (PM SHRI)','Computer Table (PM SHRI)','Chair Library (PM SHRI)',
+  'Magazine Stand (PM SHRI)','New Chairs for Staff (PM SHRI)'
+];
+
+const DPT_LIST=[
+  'CHEMISTRY LAB','PHYSICS LAB','BIOLOGY LAB','MATHS LAB','CCA ROOM',
+  'MUSIC ROOM','ART ROOM','LANGUAGE LAB','COMPUTER LAB','JUNIOR COMPUTER LAB',
+  'PRIMARY COMPUTER LAB','LIBRARY','PRINCIPAL ROOM','VICE PRINCIPAL ROOM','OFFICE',
+  'MEDICAL ROOM','WE ROOM','EXAMINATION','PRIMARY STAFF ROOM','HM ROOM',
+  'STAFF ROOM','JUNIOR SC LAB','SPORTS ROOM','CHEMISTRY LAB STORE','PHYSICS LAB STORE',
+  'CMP ROOM NEAR BALVATIKA','STORE TIN SHADE/NEW STORE','SPORTS STORE','VE LAB',
+  'SECONDARY CORRIDOR','PRIMARY CORRIDOR'
+];
+
+const DEF_CLS={
+  'Balvatika A':[0,25,0,0,1,2,0,0,0,0,0,0,0,7,2,0,0,0,1,0,0,1,0,0],
+  'I A':[38,0,0,0,0,0,0,0,0,0,0,0,0,10,1,0,0,0,1,0,1,1,1,0],
+  'I B':[32,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,0,1,0,0,1,0,0],
+  'I C':[35,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,2,1,0,0,1,0,0],
+  'II A':[2,0,0,0,1,0,0,0,0,20,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
+  'II B':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
+  'III A':[0,0,0,0,1,0,0,0,20,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'III B':[0,0,0,0,0,1,0,0,6,15,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'III C':[0,0,0,0,1,0,0,0,20,2,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
+  'IV A':[0,0,0,0,1,1,0,0,19,2,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'IV B':[0,0,0,0,0,1,0,0,20,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
+  'IV C':[0,0,0,0,1,0,0,0,5,18,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'V A':[0,0,0,0,1,0,0,0,20,0,0,0,0,0,1,1,0,1,1,0,0,1,1,0],
+  'V B':[0,0,0,0,0,0,0,0,22,0,0,0,0,0,1,0,0,0,2,0,0,1,1,0],
+  'V C':[0,0,0,0,1,0,0,0,24,0,0,0,0,0,1,0,0,0,2,0,0,1,1,0],
+  'VI A':[0,0,0,0,0,0,0,0,23,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'VI B':[0,0,0,0,0,0,0,0,20,0,4,0,0,0,0,0,0,0,0,0,0,1,0,0],
+  'VI C':[0,0,0,0,1,0,0,0,20,0,4,1,0,0,1,0,0,0,0,0,0,1,0,0],
+  'VII A':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
+  'VII B':[0,0,0,0,1,0,0,0,0,0,41,7,0,0,1,0,0,0,0,0,0,1,0,0],
+  'VII C':[0,0,0,0,1,0,0,0,0,0,25,17,0,0,0,0,0,0,0,0,0,1,0,0],
+  'VIII A':[0,0,0,0,1,0,0,0,0,0,25,19,0,0,1,0,0,0,0,0,0,1,0,0],
+  'VIII B':[0,0,0,0,1,0,0,0,0,0,27,14,0,0,1,0,0,0,0,0,0,1,0,0],
+  'VIII C':[0,0,0,0,1,0,0,0,0,0,21,26,0,0,0,0,0,0,0,0,0,1,0,0],
+  'IX A':[0,0,0,0,0,0,0,0,0,21,2,1,0,0,1,0,0,0,0,0,0,1,0,0],
+  'IX B':[0,0,0,0,1,0,0,0,1,0,26,14,0,0,1,0,0,0,0,0,0,1,0,0],
+  'IX C':[0,0,0,0,1,0,0,0,1,1,22,18,0,0,1,0,0,0,0,0,0,1,0,0],
+  'X A':[0,0,0,0,0,0,0,0,0,0,31,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'X B':[0,0,0,0,2,0,0,0,0,0,40,0,0,0,1,0,0,1,0,0,0,1,0,0],
+  'X C':[0,0,0,0,1,0,0,0,0,0,36,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'XI A':[0,0,0,0,1,0,0,0,0,0,33,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'XI B':[0,0,0,0,1,0,0,0,0,0,50,0,0,0,1,0,0,0,0,0,0,1,0,0],
+  'XI C':[0,0,0,0,1,0,0,0,0,0,34,0,0,0,1,1,0,0,0,0,0,1,0,0],
+  'XII B':[0,0,0,0,1,0,0,0,0,0,39,2,0,0,1,0,0,0,0,0,0,1,0,0],
+  'XII C':[0,0,0,0,1,0,0,0,0,0,44,0,0,0,2,0,0,0,0,0,0,1,0,0]
+};
+
+const DEF_DPT={
+  'CHEMISTRY LAB':[0,0,0,0,0,0,2,4,0,0,0,0,0,0,1,1,0,0,0,2,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0],
+  'PHYSICS LAB':[1,0,1,0,0,0,2,27,0,0,0,0,0,0,1,6,0,1,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'BIOLOGY LAB':[0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,8,2,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'MATHS LAB':[0,0,9,0,0,0,2,0,0,0,0,0,0,0,6,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'CCA ROOM':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'MUSIC ROOM':[2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,3,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'ART ROOM':[0,2,1,0,0,0,0,0,1,0,0,0,2,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'LANGUAGE LAB':[2,12,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'COMPUTER LAB':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'JUNIOR COMPUTER LAB':[0,0,1,1,29,25,0,0,0,0,2,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,16,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'PRIMARY COMPUTER LAB':[0,12,0,0,0,0,1,0,0,6,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'LIBRARY':[3,1,1,0,0,0,1,0,1,0,0,0,0,0,1,0,17,0,11,1,0,0,0,0,0,0,7,0,0,3,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0],
+  'PRINCIPAL ROOM':[0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,2,0,3,0,0,2,1,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0],
+  'VICE PRINCIPAL ROOM':[0,0,3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  'OFFICE':[0,0,3,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'MEDICAL ROOM':[3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'WE ROOM':[0,0,0,0,0,0,1,0,0,1,1,0,1,0,1,0,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0],
+  'EXAMINATION':[1,0,1,0,0,0,3,0,0,0,0,1,3,0,2,1,0,3,0,10,0,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'PRIMARY STAFF ROOM':[0,0,9,0,0,1,0,0,0,1,9,0,3,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0],
+  'HM ROOM':[0,0,3,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'STAFF ROOM':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'JUNIOR SC LAB':[0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  'SPORTS ROOM':[0,2,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],
+  'CHEMISTRY LAB STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'PHYSICS LAB STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'CMP ROOM NEAR BALVATIKA':[0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'STORE TIN SHADE/NEW STORE':[250,120,0,0,0,0,0,0,0,0,130,50,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'SPORTS STORE':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0],
+  'VE LAB':[0,0,1,0,0,0,1,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'SECONDARY CORRIDOR':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  'PRIMARY CORRIDOR':[0,3,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+};
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  STORAGE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const LS_CLS='kbj_furn_cls_v3', LS_DPT='kbj_furn_dpt_v3';
+function lsLoad(k,def){try{const s=localStorage.getItem(k);if(s)return Object.assign({},def,JSON.parse(s));}catch(e){}return JSON.parse(JSON.stringify(def));}
+function lsSave(k,d){localStorage.setItem(k,JSON.stringify(d));}
+
+let clsData=lsLoad(LS_CLS,DEF_CLS);
+let dptData=lsLoad(LS_DPT,DEF_DPT);
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  AUTH
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function doAuth(){
+  const v=document.getElementById('authPwd').value;
+  if(v==='kbjkv@2008'){
+    sessionStorage.setItem('furn3','1');
+    document.getElementById('authGate').style.display='none';
+    document.getElementById('mc').style.display='block';
+    initAll();
+  } else {
+    document.getElementById('authErr').style.display='block';
+    document.getElementById('authPwd').value='';
+    document.getElementById('authPwd').focus();
+  }
+}
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem('furn3')==='1'){
+    document.getElementById('authGate').style.display='none';
+    document.getElementById('mc').style.display='block';
+    initAll();
+  } else {
+    document.getElementById('authPwd').focus();
+  }
+});
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  ENTRY TAB SWITCHING
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function switchETab(id){
+  ['cls','dpt'].forEach(t=>{
+    document.getElementById('etab-'+t).classList.toggle('active',t===id);
+    document.getElementById('epanel-'+t).classList.toggle('active',t===id);
+  });
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CLASS ENTRY
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function onClsChange(){
+  const cls=document.getElementById('selCls').value;
+  const sel=document.getElementById('selSec');
+  sel.innerHTML='<option value="">â€” Select Section â€”</option>';
+  if(cls&&CLS_SEC[cls]) CLS_SEC[cls].forEach(s=>sel.innerHTML+=`<option>${s}</option>`);
+  document.getElementById('cls-form').style.display='none';
+  document.getElementById('cls-ph').style.display='block';
+}
+
+function getClsKey(){
+  const c=document.getElementById('selCls').value, s=document.getElementById('selSec').value;
+  return c==='Balvatika'?'Balvatika A':`${c} ${s}`;
+}
+
+function loadClsForm(){
+  const c=document.getElementById('selCls').value, s=document.getElementById('selSec').value;
+  if(!c||!s) return;
+  const key=getClsKey();
+  const vals=(clsData[key]||Array(CLS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);
+  const tb=document.getElementById('cls-tbody');
+  tb.innerHTML=CLS_ITEMS.map((item,i)=>
+    `<tr><td class="sno">${i+1}</td><td>${item}</td><td style="text-align:center"><input type="number" class="qi" id="ci_${i}" value="${vals[i]}" min="0" oninput="updateClsSummary()"></td></tr>`
+  ).join('');
+  document.getElementById('cls-form').style.display='block';
+  document.getElementById('cls-ph').style.display='none';
+  updateClsSummary();
+}
+
+function updateClsSummary(){
+  const total=CLS_ITEMS.reduce((s,_,i)=>s+(parseInt(document.getElementById('ci_'+i)?.value)||0),0);
+  const el=document.getElementById('cls-summary');
+  if(el) el.textContent=`Total items entered: ${total}`;
+}
+
+function clearClsForm(){
+  CLS_ITEMS.forEach((_,i)=>{const el=document.getElementById('ci_'+i);if(el)el.value=0;});
+  updateClsSummary();
+}
+
+function saveClsEntry(){
+  const key=getClsKey();
+  if(!key||key.trim()==='') return;
+  const vals=CLS_ITEMS.map((_,i)=>parseInt(document.getElementById('ci_'+i).value)||0);
+  clsData[key]=vals;
+  lsSave(LS_CLS,clsData);
+  showAlert('cls-alert',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${key}</strong> â€” ${vals.reduce((a,b)=>a+b,0)} total items`,'ok');
+  // refresh consolidated if visible
+  if(document.getElementById('rpanel-cc').classList.contains('active')) renderCC();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DEPT ENTRY
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function loadDptForm(){
+  const dept=document.getElementById('selDpt').value;
+  if(!dept) return;
+  const vals=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);
+  const tb=document.getElementById('dpt-tbody');
+  tb.innerHTML=DPT_ITEMS.map((item,i)=>
+    `<tr><td class="sno">${i+1}</td><td>${item}</td><td style="text-align:center"><input type="number" class="qi" id="di_${i}" value="${vals[i]}" min="0" oninput="updateDptSummary()"></td></tr>`
+  ).join('');
+  document.getElementById('dpt-form').style.display='block';
+  document.getElementById('dpt-ph').style.display='none';
+  updateDptSummary();
+}
+
+function updateDptSummary(){
+  const total=DPT_ITEMS.reduce((s,_,i)=>s+(parseInt(document.getElementById('di_'+i)?.value)||0),0);
+  const el=document.getElementById('dpt-summary');
+  if(el) el.textContent=`Total items entered: ${total}`;
+}
+
+function clearDptForm(){
+  DPT_ITEMS.forEach((_,i)=>{const el=document.getElementById('di_'+i);if(el)el.value=0;});
+  updateDptSummary();
+}
+
+function saveDptEntry(){
+  const dept=document.getElementById('selDpt').value;
+  if(!dept) return;
+  const vals=DPT_ITEMS.map((_,i)=>parseInt(document.getElementById('di_'+i).value)||0);
+  dptData[dept]=vals;
+  lsSave(LS_DPT,dptData);
+  showAlert('dpt-alert',`<i class="fas fa-check-circle"></i> Entry saved for <strong>${dept}</strong> â€” ${vals.reduce((a,b)=>a+b,0)} total items`,'ok');
+  if(document.getElementById('rpanel-dc').classList.contains('active')) renderDC();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  REPORT TAB SWITCHING
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function switchRTab(id){
+  ['cc','dc','ex'].forEach(t=>{
+    document.getElementById('rtab-'+t).classList.toggle('active',t===id);
+    document.getElementById('rpanel-'+t).classList.toggle('active',t===id);
+  });
+  if(id==='cc') renderCC();
+  if(id==='dc') renderDC();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CLASS CONSOLIDATED RENDER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderCC(){
+  const head=document.getElementById('cc-head');
+  const body=document.getElementById('cc-body');
+  head.innerHTML=`<tr><th>Class / Section</th>${CLS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.45)">TOTAL</th></tr>`;
+  const gt=Array(CLS_ITEMS.length).fill(0);
+  body.innerHTML=CLS_LIST.map(cls=>{
+    const v=(clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
+    const tot=v.reduce((a,b)=>a+b,0);
+    v.forEach((x,i)=>gt[i]+=x);
+    return `<tr><td>${cls}</td>${v.map(x=>`<td class="${x>0?'nz':'zr'}">${x}</td>`).join('')}<td class="nz">${tot}</td></tr>`;
+  }).join('');
+  const gtTot=gt.reduce((a,b)=>a+b,0);
+  body.innerHTML+=`<tr class="gr-row"><td>GRAND TOTAL</td>${gt.map(x=>`<td>${x}</td>`).join('')}<td>${gtTot}</td></tr>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DEPT CONSOLIDATED RENDER
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderDC(){
+  const head=document.getElementById('dc-head');
+  const body=document.getElementById('dc-body');
+  head.innerHTML=`<tr><th>Department / Room / Lab</th>${DPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:rgba(124,58,237,.45)">TOTAL</th></tr>`;
+  const gt=Array(DPT_ITEMS.length).fill(0);
+  body.innerHTML=DPT_LIST.map(dept=>{
+    const v=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
+    const tot=v.reduce((a,b)=>a+b,0);
+    v.forEach((x,i)=>gt[i]+=x);
+    return `<tr><td>${dept}</td>${v.map(x=>`<td class="${x>0?'nz':'zr'}">${x}</td>`).join('')}<td class="nz">${tot}</td></tr>`;
+  }).join('');
+  const gtTot=gt.reduce((a,b)=>a+b,0);
+  body.innerHTML+=`<tr class="gr-row"><td>GRAND TOTAL</td>${gt.map(x=>`<td>${x}</td>`).join('')}<td>${gtTot}</td></tr>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  STATS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function renderStats(){
+  let ci=0; CLS_LIST.forEach(c=>{const v=clsData[c]||[];ci+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});
+  let di=0; DPT_LIST.forEach(d=>{const v=dptData[d]||[];di+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});
+  document.getElementById('statsArea').innerHTML=`
+    <div class="sc"><div class="sv">${CLS_LIST.length}</div><div class="sl">Class Sections</div></div>
+    <div class="sc"><div class="sv">${ci}</div><div class="sl">Total Items (Class-wise)</div></div>
+    <div class="sc"><div class="sv">${DPT_LIST.length}</div><div class="sl">Departments / Rooms</div></div>
+    <div class="sc"><div class="sv">${di}</div><div class="sl">Total Items (Dept-wise)</div></div>`;
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  EXCEL EXPORT
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function buildClsAOA(){
+  const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026'],['CLASS / SECTION',...CLS_ITEMS,'TOTAL']];
+  const gt=Array(CLS_ITEMS.length).fill(0);
+  CLS_LIST.forEach(cls=>{const v=(clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);const t=v.reduce((a,b)=>a+b,0);v.forEach((x,i)=>gt[i]+=x);aoa.push([cls,...v,t]);});
+  aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);
+  return aoa;
+}
+function buildDptAOA(){
+  const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026'],['DEPARTMENT / ROOM / LAB',...DPT_ITEMS,'TOTAL']];
+  const gt=Array(DPT_ITEMS.length).fill(0);
+  DPT_LIST.forEach(d=>{const v=(dptData[d]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);const t=v.reduce((a,b)=>a+b,0);v.forEach((x,i)=>gt[i]+=x);aoa.push([d,...v,t]);});
+  aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);
+  return aoa;
+}
+function mkSheet(aoa){
+  const ws=XLSX.utils.aoa_to_sheet(aoa);
+  ws['!cols']=[{wch:26},...Array(aoa[2].length-1).fill({wch:11})];
+  ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa[2].length-1}}];
+  return ws;
+}
+function xlCheck(){if(typeof XLSX==='undefined'){alert('Excel library not loaded. Please check your internet connection.');return false;}return true;}
+function exportClsXL(){if(!xlCheck())return;const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,mkSheet(buildClsAOA()),'CLASS CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Class_Furniture.xlsx');}
+function exportDptXL(){if(!xlCheck())return;const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,mkSheet(buildDptAOA()),'DEPARTMENT CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Dept_Furniture.xlsx');}
+function exportBothXL(){
+  if(!xlCheck())return;
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,mkSheet(buildClsAOA()),'CLASS CONSOLIDATED');
+  XLSX.utils.book_append_sheet(wb,mkSheet(buildDptAOA()),'DEPARTMENT CONSOLIDATED');
+  XLSX.writeFile(wb,'PM_SHRI_KV_Ranikhet_Furniture_Register.xlsx');
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  PRINT
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function doPrint(rid){
+  // activate the right panel
+  ['cc','dc','ex'].forEach(t=>{
+    document.getElementById('rtab-'+t).classList.toggle('active',t===rid);
+    document.getElementById('rpanel-'+t).classList.toggle('active',t===rid);
+  });
+  if(rid==='cc') renderCC();
+  if(rid==='dc') renderDC();
+  setTimeout(()=>window.print(),350);
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  SHARE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function doShare(){
+  const url=window.location.href.split('?')[0];
+  if(navigator.share){navigator.share({title:'KV Ranikhet Furniture Register',url});}
+  else{navigator.clipboard.writeText(url).then(()=>toast('Link copied to clipboard!')).catch(()=>prompt('Copy this link:',url));}
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  RESET
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function doReset(){
+  if(!confirm('Reset ALL data to original April 2026 verified stock?\n\nAll entries will be replaced.'))return;
+  clsData=JSON.parse(JSON.stringify(DEF_CLS));
+  dptData=JSON.parse(JSON.stringify(DEF_DPT));
+  lsSave(LS_CLS,clsData);
+  lsSave(LS_DPT,dptData);
+  toast('All data reset to April 2026 verified stock.');
+  if(document.getElementById('rpanel-cc').classList.contains('active')) renderCC();
+  if(document.getElementById('rpanel-dc').classList.contains('active')) renderDC();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  HELPERS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function showAlert(id,msg,type){const el=document.getElementById(id);if(!el)return;el.innerHTML=`<div class="alrt alrt-${type}">${msg}</div>`;setTimeout(()=>el.innerHTML='',4000);}
+function toast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:28px;right:28px;background:rgba(124,58,237,.92);color:#fff;padding:13px 20px;border-radius:12px;font-size:.88rem;z-index:9999;backdrop-filter:blur(10px);box-shadow:0 8px 28px rgba(0,0,0,.45);font-family:Poppins,sans-serif;';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  INIT
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function initAll(){
+  // populate dept dropdown
+  const sel=document.getElementById('selDpt');
+  DPT_LIST.forEach(d=>sel.innerHTML+=`<option>${d}</option>`);
+  // render class consolidated on load
+  renderCC();
+}
 </script>
 </body>
 </html>
