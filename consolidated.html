@@ -723,13 +723,55 @@ const fallbackMarks = {
                             "ARPITA": 9,
                             "MAANSHA": 10,
                             "PARTH BISHT": 8
+                  },
+                  "ch6": {
+                            "ABHAY": 5,
+                            "ABHINAY": 0,
+                            "ANAIKA": 10,
+                            "ARYAN": 3,
+                            "BHAVIKA": 8,
+                            "CHANDNI": "ab",
+                            "DEEPIKA": 4,
+                            "DISHA": 7,
+                            "GEETA": 5,
+                            "GUNJAN": 5,
+                            "HARSHUL": 3,
+                            "HIMANSHI": 3,
+                            "KAMAL": 2,
+                            "KARISHMA": 6,
+                            "KARTIK": 3.5,
+                            "KRITIKA GODIYAL": 5.5,
+                            "KRITIKA RAWAT": 6,
+                            "LAKSHIT RAWAT": 4,
+                            "LAKSHIT SINGH": 9,
+                            "MALVIKA": 5,
+                            "NAMAN TAMTA": 7,
+                            "MAULIK": 9,
+                            "MOITRIKA": 7,
+                            "MRITYUNJAY": 10,
+                            "MUNKASHIF": 4,
+                            "NAITIK": 6,
+                            "NAMAN SATI": 8,
+                            "NISHTHI": 4,
+                            "PARIDHI": 5,
+                            "PARTH": 8,
+                            "PRACHI": 4,
+                            "PRASUN DEV": 5,
+                            "RUDRA": 7.5,
+                            "SHRAVANI": 6,
+                            "TANISHA": 3,
+                            "YAMAN": 5,
+                            "YASHPAL": "ab",
+                            "ARPITA": 8,
+                            "MAANSHA": 6,
+                            "PARTH BISHT": 5
                   }
         }
       };
 const fallbackDates = {
   "12":  {ch1:"2026-04-13",ch2:"2026-04-20",ch3:"2026-04-02",ch4:"2026-04-08",ch5:"2026-06-09",ch6:"2026-06-22",ch7:"2026-07-28",ch8:"2026-08-04",pt1:"2026-07-03"},
   "11B": {ch1:"2026-05-08",ch2:"2026-06-09",ch3:"2026-06-26",ch4:"2026-07-15",ch5:"2026-07-17",ch6:"2026-08-07",pt1:"2026-07-02"},
-  "7C":  {crm:"2026-04-02",ch1:"2026-04-24",ch2:"2026-05-08",ch3:"2026-06-12",ch4:"2026-07-24",ch5:"2026-08-04",pt1:"2026-07-06"}
+  "7C":  {crm:"2026-04-02",ch1:"2026-04-24",ch2:"2026-05-08",ch3:"2026-06-12",ch4:"2026-07-24",ch5:"2026-08-04",ch6:"2026-08-21",pt1:"2026-07-06"}
 };
 
 // Available conducted tests per class configuration
@@ -741,6 +783,7 @@ const classTests = {
     { id: "ch3", label: "Ch 3", maxMarks: 10 },
     { id: "ch4", label: "Ch 4", maxMarks: 10 },
     { id: "ch5", label: "Ch 5", maxMarks: 10 },
+    { id: "ch6", label: "Ch 6", maxMarks: 10 },
     ...Array.from({length: 10}, (_, i) => ({ id: `ch${i+6}`, label: `Ch ${i+6}`, maxMarks: 20 })),
     { id: "pt1", label: "PT1", maxMarks: 40 },
     { id: "pt2", label: "PT2", maxMarks: 40 },
