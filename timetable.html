@@ -861,15 +861,16 @@
       border-color: var(--primary-light);
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
       color: #fff;
-    }    /* Print Stylesheet - Enforcing High-Legibility Light Background & Dark Text for All Content */
+    /* Print Stylesheet - Enforcing High-Legibility Light Background & Dark Text on Exactly 1 Page Landscape */
     @media print {
       @page {
         size: A4 landscape;
-        margin: 4mm;
+        margin: 3.5mm 5mm;
       }
       html, body {
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
         background: #ffffff !important;
         color: #000000 !important;
         font-family: 'Inter', 'Poppins', system-ui, sans-serif !important;
@@ -879,7 +880,7 @@
         print-color-adjust: exact !important;
         overflow: visible !important;
       }
-      .bg-blobs, .site-header, .nav-bar, .timetable-tabs, .tt-controls-bar, .site-footer, #backToTop, #passwordModal, #pageGate, .share-modal-overlay, .lang-toggle-box {
+      .bg-blobs, .site-header, .nav-bar, .page-hero, .timetable-tabs, .tt-controls-bar, .site-footer, #backToTop, #passwordModal, #pageGate, #ttAuthModal, .share-modal-overlay, .lang-toggle-box, .divider {
         display: none !important;
       }
       .tab-content:not(.active) {
@@ -892,6 +893,10 @@
         color: #000000 !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .page-content, .tt-container {
         padding: 0 !important;
@@ -904,24 +909,28 @@
         color: #000000 !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 2px !important;
+        padding: 0 !important;
         margin: 0 !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
       }
       /* Compact, Centered, Highly-Legible Header */
       .sheet-header {
-        max-width: 680px !important;
-        margin: 0 auto 6px auto !important;
-        padding: 4px 8px !important;
-        border: 2px solid #0f172a !important;
-        border-radius: 6px !important;
+        max-width: 580px !important;
+        margin: 0 auto 3px auto !important;
+        padding: 2px 6px !important;
+        border: 1.5px solid #0f172a !important;
+        border-radius: 4px !important;
         background: #f8fafc !important;
         text-align: center !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
       .sheet-header .school-name {
         color: #064e3b !important;
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
         font-weight: 900 !important;
         letter-spacing: 0.5px !important;
         margin: 0 !important;
@@ -931,16 +940,16 @@
         color: #000000 !important;
         -webkit-text-fill-color: initial !important;
         background: none !important;
-        font-size: 1.15rem !important;
-        margin: 2px 0 !important;
+        font-size: 1.05rem !important;
+        margin: 1px 0 !important;
         font-weight: 900 !important;
         line-height: 1.1 !important;
         border-bottom: 1.5px solid #0f172a !important;
-        padding-bottom: 2px !important;
+        padding-bottom: 1px !important;
       }
       .sheet-header .sheet-sub {
         color: #1e293b !important;
-        font-size: 0.74rem !important;
+        font-size: 0.7rem !important;
         font-weight: 700 !important;
         margin: 1px 0 0 0 !important;
         line-height: 1.1 !important;
@@ -949,69 +958,82 @@
         width: 100% !important;
         border-collapse: collapse !important;
         border-spacing: 0 !important;
-        border: 2px solid #0f172a !important;
-        margin-bottom: 4px !important;
+        border: 1.5px solid #0f172a !important;
+        margin-bottom: 0 !important;
         background: #ffffff !important;
         page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
       }
       .tt-grid-table th {
         background: #e2e8f0 !important;
         color: #0f172a !important;
         border: 1px solid #334155 !important;
-        padding: 4px 3px !important;
-        font-size: 0.74rem !important;
+        padding: 3px 2px !important;
+        font-size: 0.7rem !important;
         font-weight: 900 !important;
+        line-height: 1.1 !important;
       }
       .tt-grid-table th small {
         color: #1e293b !important;
-        font-size: 0.64rem !important;
+        font-size: 0.6rem !important;
         font-weight: 700 !important;
+        display: block !important;
       }
       .tt-grid-table td {
         background: #ffffff !important;
         color: #000000 !important;
         border: 1px solid #475569 !important;
-        padding: 3px 3px !important;
-        font-size: 0.74rem !important;
+        padding: 2px 2px !important;
+        font-size: 0.7rem !important;
+        vertical-align: middle !important;
       }
       .tt-grid-table td.day-col {
         background: #cbd5e1 !important;
         color: #000000 !important;
         font-weight: 900 !important;
-        font-size: 0.82rem !important;
+        font-size: 0.78rem !important;
+        white-space: nowrap !important;
       }
       .period-cell {
         min-height: auto !important;
         gap: 1px !important;
         background: #ffffff !important;
+        padding: 1px 2px !important;
       }
       .period-cell .class-code {
         color: #000000 !important;
         font-weight: 900 !important;
-        font-size: 0.88rem !important;
+        font-size: 0.82rem !important;
+        line-height: 1.1 !important;
       }
       .period-cell .subject-name {
         color: #075985 !important;
         background: #e0f2fe !important;
         border: 1px solid #7dd3fc !important;
         font-weight: 800 !important;
-        font-size: 0.66rem !important;
-        padding: 1px 4px !important;
-        border-radius: 3px !important;
+        font-size: 0.62rem !important;
+        padding: 0.5px 3px !important;
+        border-radius: 2px !important;
+        line-height: 1.1 !important;
       }
       .period-cell .teacher-name {
         color: #065f46 !important;
-        font-size: 0.66rem !important;
+        font-size: 0.62rem !important;
         font-weight: 800 !important;
+        line-height: 1.1 !important;
       }
       .period-cell.break-cell {
         background: #fef3c7 !important;
         color: #78350f !important;
         font-weight: 900 !important;
+        font-size: 0.75rem !important;
       }
       .period-cell.block-practical {
         background: #f3e8ff !important;
         border: 1.5px dashed #7e22ce !important;
+        padding: 1px 2px !important;
       }
       .period-cell.block-practical .class-code {
         color: #581c87 !important;
@@ -1031,39 +1053,40 @@
         border: 2px solid #0f172a !important;
         background: #ffffff !important;
       }
-      .master-table th { background: #cbd5e1 !important; color: #0f172a !important; border: 1px solid #334155 !important; padding: 3px 2px !important; font-size: 0.68rem !important; font-weight: 900 !important; line-height: 1 !important; }
-      .master-table td { background: #ffffff !important; border: 1px solid #475569 !important; color: #000000 !important; padding: 2px 2px !important; font-size: 0.62rem !important; line-height: 1 !important; }
-      .master-table td.teacher-info { padding: 2px 4px !important; background: #f8fafc !important; }
-      .master-table td.teacher-info .t-name { color: #000000 !important; font-weight: 900 !important; font-size: 0.68rem !important; }
-      .master-table td.teacher-info .t-desig { color: #1e293b !important; font-weight: 700 !important; font-size: 0.56rem !important; }
-      .master-class-badge { background: #ccfbf1 !important; color: #065f46 !important; border: 1px solid #5eead4 !important; font-weight: 900 !important; font-size: 0.6rem !important; padding: 1px 3px !important; border-radius: 2px !important; display: inline-block !important; }
+      .master-table th { background: #cbd5e1 !important; color: #0f172a !important; border: 1px solid #334155 !important; padding: 2px 2px !important; font-size: 0.66rem !important; font-weight: 900 !important; line-height: 1 !important; }
+      .master-table td { background: #ffffff !important; border: 1px solid #475569 !important; color: #000000 !important; padding: 1.5px 2px !important; font-size: 0.6rem !important; line-height: 1 !important; }
+      .master-table td.teacher-info { padding: 1px 3px !important; background: #f8fafc !important; }
+      .master-table td.teacher-info .t-name { color: #000000 !important; font-weight: 900 !important; font-size: 0.66rem !important; }
+      .master-table td.teacher-info .t-desig { color: #1e293b !important; font-weight: 700 !important; font-size: 0.54rem !important; }
+      .master-class-badge { background: #ccfbf1 !important; color: #065f46 !important; border: 1px solid #5eead4 !important; font-weight: 900 !important; font-size: 0.58rem !important; padding: 0.5px 2px !important; border-radius: 2px !important; display: inline-block !important; }
 
       /* Pocket card print */
       .pocket-card {
         background: #ffffff !important;
         color: #000000 !important;
         border: 2px solid #0f172a !important;
-        padding: 12px !important;
-        max-width: 440px !important;
+        padding: 10px !important;
+        max-width: 420px !important;
         margin: 0 auto !important;
         page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
       .pocket-header {
         border-bottom: 2px solid #0f172a !important;
-        padding-bottom: 4px !important;
-        margin-bottom: 6px !important;
+        padding-bottom: 3px !important;
+        margin-bottom: 5px !important;
       }
-      .pocket-header h3 { color: #000000 !important; margin: 1px 0 !important; font-size: 1.15rem !important; font-weight: 900 !important; }
-      .pocket-header .school { color: #064e3b !important; font-size: 0.8rem !important; font-weight: 900 !important; }
-      .pocket-header .sub-info { color: #1e293b !important; font-size: 0.72rem !important; font-weight: 700 !important; }
-      .pocket-stats { background: #f1f5f9 !important; border: 1px solid #94a3b8 !important; padding: 4px 6px !important; margin: 4px 0 !important; }
-      .pocket-stat-num { color: #0f766e !important; font-size: 0.95rem !important; font-weight: 900 !important; }
-      .pocket-stat-lbl { color: #1e293b !important; font-size: 0.62rem !important; font-weight: 700 !important; }
-      .pocket-period-row { background: #ffffff !important; border: 1px solid #64748b !important; padding: 3px 6px !important; margin-bottom: 3px !important; }
+      .pocket-header h3 { color: #000000 !important; margin: 1px 0 !important; font-size: 1.1rem !important; font-weight: 900 !important; }
+      .pocket-header .school { color: #064e3b !important; font-size: 0.78rem !important; font-weight: 900 !important; }
+      .pocket-header .sub-info { color: #1e293b !important; font-size: 0.7rem !important; font-weight: 700 !important; }
+      .pocket-stats { background: #f1f5f9 !important; border: 1px solid #94a3b8 !important; padding: 3px 5px !important; margin: 3px 0 !important; }
+      .pocket-stat-num { color: #0f766e !important; font-size: 0.9rem !important; font-weight: 900 !important; }
+      .pocket-stat-lbl { color: #1e293b !important; font-size: 0.6rem !important; font-weight: 700 !important; }
+      .pocket-period-row { background: #ffffff !important; border: 1px solid #64748b !important; padding: 2.5px 5px !important; margin-bottom: 2px !important; }
       .pocket-period-row.has-class { background: #f8fafc !important; }
-      .pocket-period-row .p-num { color: #000000 !important; font-size: 0.75rem !important; font-weight: 900 !important; }
-      .pocket-period-row .p-time { color: #334155 !important; font-size: 0.65rem !important; font-weight: 700 !important; }
-      .pocket-period-row .p-class { color: #000000 !important; font-size: 0.82rem !important; font-weight: 900 !important; }
+      .pocket-period-row .p-num { color: #000000 !important; font-size: 0.72rem !important; font-weight: 900 !important; }
+      .pocket-period-row .p-time { color: #334155 !important; font-size: 0.62rem !important; font-weight: 700 !important; }
+      .pocket-period-row .p-class { color: #000000 !important; font-size: 0.8rem !important; font-weight: 900 !important; }
     }
 
     /* PDF CLEAN HIGH-CONTRAST SINGLE-PAGE A4 EXPORT TEMPLATE CSS */
