@@ -1146,30 +1146,29 @@
       .pocket-period-row .p-time { color: #334155 !important; font-size: 0.62rem !important; font-weight: 700 !important; }
       .pocket-period-row .p-class { color: #000000 !important; font-size: 0.8rem !important; font-weight: 900 !important; }
     }
-
     /* PDF CLEAN HIGH-CONTRAST SINGLE-PAGE A4 EXPORT TEMPLATE CSS */
     .pdf-clean-template {
       background: #ffffff !important;
       color: #0f172a !important;
-      padding: 6px 10px !important;
-      font-family: 'Inter', 'Poppins', system-ui, sans-serif !important;
+      padding: 8px 12px !important;
+      font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       box-sizing: border-box !important;
-      width: 1060px !important;
+      width: 1080px !important;
       page-break-inside: avoid !important;
       break-inside: avoid !important;
       page-break-after: avoid !important;
-      page-break-before: avoid !important;
+      break-after: avoid !important;
     }
     .pdf-clean-template.portrait-mode {
-      width: 650px !important;
+      width: 680px !important;
       padding: 8px !important;
     }
     .pdf-clean-template .sheet-header {
-      max-width: 650px !important;
-      margin: 0 auto 6px auto !important;
-      padding: 4px 8px !important;
-      border: 2px solid #0f172a !important;
-      border-radius: 6px !important;
+      max-width: 620px !important;
+      margin: 0 auto 5px auto !important;
+      padding: 3px 8px !important;
+      border: 1.5px solid #0f172a !important;
+      border-radius: 4px !important;
       background: #f8fafc !important;
       text-align: center !important;
     }
@@ -1179,42 +1178,48 @@
       font-weight: 900 !important;
       letter-spacing: 0.5px !important;
       margin: 0 !important;
+      line-height: 1.1 !important;
     }
     .pdf-clean-template .sheet-header h2 {
       color: #000000 !important;
-      font-size: 1.15rem !important;
+      font-size: 1.1rem !important;
       font-weight: 900 !important;
       -webkit-text-fill-color: initial !important;
       background: none !important;
-      margin: 2px 0 !important;
+      margin: 1px 0 !important;
       border-bottom: 1.5px solid #0f172a !important;
-      padding-bottom: 2px !important;
+      padding-bottom: 1px !important;
+      line-height: 1.1 !important;
     }
     .pdf-clean-template .sheet-header .sheet-sub {
-      color: #1e293b !important;
+      color: #0f172a !important;
       font-size: 0.72rem !important;
       font-weight: 700 !important;
       margin: 1px 0 0 0 !important;
+      line-height: 1.1 !important;
     }
     .pdf-clean-template table.tt-grid-table {
+      table-layout: fixed !important;
       border-collapse: collapse !important;
       width: 100% !important;
-      border: 2px solid #0f172a !important;
-      margin-bottom: 4px !important;
+      border: 1.5px solid #0f172a !important;
+      margin-bottom: 0 !important;
     }
     .pdf-clean-template table.tt-grid-table th {
-      background: #e2e8f0 !important;
+      background: #f1f5f9 !important;
       color: #0f172a !important;
       border: 1px solid #334155 !important;
       padding: 3px 2px !important;
       font-size: 0.72rem !important;
       font-weight: 900 !important;
       text-align: center !important;
+      line-height: 1.1 !important;
     }
     .pdf-clean-template table.tt-grid-table th small {
-      color: #1e293b !important;
+      color: #334155 !important;
       font-weight: 700 !important;
-      font-size: 0.62rem !important;
+      font-size: 0.6rem !important;
+      display: block !important;
     }
     .pdf-clean-template table.tt-grid-table td {
       background: #ffffff !important;
@@ -1222,49 +1227,97 @@
       border: 1px solid #475569 !important;
       padding: 2px 2px !important;
       text-align: center !important;
-      font-size: 0.72rem !important;
+      vertical-align: middle !important;
+      font-size: 0.7rem !important;
     }
     .pdf-clean-template table.tt-grid-table td.day-col {
-      background: #cbd5e1 !important;
+      background: #e2e8f0 !important;
       color: #000000 !important;
       font-weight: 900 !important;
-      font-size: 0.8rem !important;
+      font-size: 0.78rem !important;
+      width: 60px !important;
+    }
+    .pdf-clean-template .period-cell {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 1px !important;
+      padding: 1px 2px !important;
+      min-height: auto !important;
+      background: transparent !important;
     }
     .pdf-clean-template .period-cell .class-code {
       color: #000000 !important;
       font-weight: 900 !important;
-      font-size: 0.85rem !important;
+      font-size: 0.84rem !important;
+      line-height: 1.1 !important;
     }
     .pdf-clean-template .period-cell .subject-name {
-      background: #e0f2fe !important;
-      color: #075985 !important;
-      border: 1px solid #7dd3fc !important;
+      color: #000000 !important;
       font-weight: 800 !important;
-      font-size: 0.65rem !important;
-      padding: 1px 3px !important;
-      border-radius: 3px !important;
+      font-size: 0.66rem !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      line-height: 1.15 !important;
+    }
+    .pdf-clean-template .period-cell .subject-name small {
+      color: #334155 !important;
+      font-weight: 600 !important;
     }
     .pdf-clean-template .period-cell .teacher-name {
-      color: #065f46 !important;
-      font-weight: 800 !important;
-      font-size: 0.65rem !important;
+      color: #0f172a !important;
+      font-size: 0.64rem !important;
+      font-weight: 700 !important;
+      line-height: 1.1 !important;
     }
-    .pdf-clean-template .period-cell.free-period {
-      color: #64748b !important;
-      font-style: italic !important;
-      font-size: 0.68rem !important;
+    .pdf-clean-template .period-cell .teacher-name i {
+      display: none !important;
+    }
+    .pdf-clean-template .period-cell .cell-divider {
+      width: 100% !important;
+      border-top: 1px dashed #64748b !important;
+      margin: 2px 0 !important;
     }
     .pdf-clean-template .period-cell.break-cell {
       background: #fef3c7 !important;
       color: #78350f !important;
       font-weight: 900 !important;
-      font-size: 0.68rem !important;
+      font-size: 0.72rem !important;
+      width: 30px !important;
     }
     .pdf-clean-template .period-cell.block-practical {
-      background: #f3e8ff !important;
-      border: 1.5px dashed #7e22ce !important;
+      background: #f8fafc !important;
+      border: 1px dashed #475569 !important;
+      padding: 1px 2px !important;
     }
-
+    .pdf-clean-template .period-cell.block-practical .class-code {
+      color: #000000 !important;
+    }
+    .pdf-clean-template .period-cell.block-practical .subject-name {
+      color: #000000 !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    .pdf-clean-template .period-cell.free-period {
+      color: #64748b !important;
+      font-weight: 600 !important;
+      font-size: 0.68rem !important;
+      background: transparent !important;
+    }
+    .pdf-clean-template .sheet-footer {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-top: 6px !important;
+      padding-top: 4px !important;
+      border-top: 1.5px solid #0f172a !important;
+      font-size: 0.72rem !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+    }
     /* Master Table PDF styling - Ultra Compact & Highly Legible */
     .pdf-clean-template .master-table {
       border: 2px solid #0f172a !important;
@@ -3458,15 +3511,17 @@
         clone.classList.add('portrait-mode');
       }
 
-      // Append signature footer to clone for official look
-      const sigFooter = document.createElement('div');
-      sigFooter.className = 'pdf-signature-footer';
-      sigFooter.innerHTML = `
-        <div>Teacher Signature: __________________</div>
-        <div>Timetable Incharge: __________________</div>
-        <div>Principal Signature: __________________</div>
-      `;
-      clone.appendChild(sigFooter);
+      // If footer is not present in cloned element (e.g. Master Schedule), append official signature footer
+      if (!clone.querySelector('.sheet-footer') && !clone.querySelector('.pdf-signature-footer')) {
+        const sigFooter = document.createElement('div');
+        sigFooter.className = 'sheet-footer';
+        sigFooter.innerHTML = `
+          <span>Prepared by: Timetable Committee</span>
+          <span>Timetable Incharge: __________________</span>
+          <span>Principal Signature: __________________</span>
+        `;
+        clone.appendChild(sigFooter);
+      }
 
       // Create off-screen container for rendering
       const offscreenWrapper = document.createElement('div');
@@ -3474,6 +3529,7 @@
       offscreenWrapper.style.left = '-9999px';
       offscreenWrapper.style.top = '0';
       offscreenWrapper.style.zIndex = '-9999';
+      offscreenWrapper.style.width = isPortrait ? '680px' : '1080px';
       offscreenWrapper.appendChild(clone);
       document.body.appendChild(offscreenWrapper);
 
@@ -3486,10 +3542,10 @@
       if (!pdfObj) return;
 
       const opt = {
-        margin:       isPortrait ? [2, 2, 2, 2] : [1.5, 1.5, 1.5, 1.5],
+        margin:       isPortrait ? [3, 3, 3, 3] : [3, 3, 3, 3],
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 },
+        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0, windowWidth: isPortrait ? 680 : 1080 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape', compress: true },
         pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
@@ -3511,10 +3567,10 @@
       if (!pdfObj) return null;
 
       const opt = {
-        margin:       isPortrait ? [2, 2, 2, 2] : [1.5, 1.5, 1.5, 1.5],
+        margin:       isPortrait ? [3, 3, 3, 3] : [3, 3, 3, 3],
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 },
+        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0, windowWidth: isPortrait ? 680 : 1080 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: isPortrait ? 'portrait' : 'landscape', compress: true },
         pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
