@@ -22,8 +22,24 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.5;}
 
-/* Text styling specifically for any white background portions */
-.bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"], [style*="background:#ffffff"], [style*="background: #ffffff"], [style*="background:white"], [style*="background: white"] {
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   EXPLICIT DARK RED TEXT FOR ANY WHITE / LIGHT BACKGROUND PORTION
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.bg-white, .white-bg, 
+[style*="background:#fff"], [style*="background: #fff"], [style*="background:#ffffff"], [style*="background: #ffffff"], 
+[style*="background:white"], [style*="background: white"], [style*="background-color: #fff"], [style*="background-color:#fff"],
+[style*="background-color: white"], [style*="background-color:white"], [style*="background:#faf5eb"], [style*="background-color:#faf5eb"],
+[style*="background:#f8fafc"], [style*="background-color:#f8fafc"], [style*="background:#f1f5f9"], [style*="background-color:#f1f5f9"],
+[style*="background: #faf5eb"], .dropdown-menu, .print-hdr, .print-footer {
+  color: #800000 !important;
+}
+
+.dropdown-menu a, .dropdown-menu a span, .dropdown-menu a i {
+  color: #800000 !important;
+  font-weight: 700 !important;
+}
+.dropdown-menu a:hover {
+  background: #fee2e2 !important;
   color: #800000 !important;
 }
 
