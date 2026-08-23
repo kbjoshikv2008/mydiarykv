@@ -17,9 +17,15 @@
   --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.2);
   --amb:#f59e0b;--amb-dark:#d97706;--amb-bg:rgba(245,158,11,0.2);
   --red:#ef4444;--blu:#3b82f6;--blu-dark:#1d4ed8;--cyn:#06b6d4;--gld:#fde047;
+  --dark-red:#800000;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.5;}
+
+/* Text styling specifically for any white background portions */
+.bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"], [style*="background:#ffffff"], [style*="background: #ffffff"], [style*="background:white"], [style*="background: white"] {
+  color: #800000 !important;
+}
 
 /* AUTH GATE */
 #authGate{position:fixed;inset:0;background:rgba(6,4,17,0.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(14px);}
@@ -148,12 +154,12 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 .et th{padding:14px 16px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-size:.84rem;font-weight:800;text-align:left;position:sticky;top:0;z-index:10;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid rgba(255,255,255,0.2);}
 .et td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:.94rem;vertical-align:middle;transition:all .2s;}
 .et tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
-.et tr:hover td{background:rgba(124,58,237,0.2);}
+.et tr:hover td{background:rgba(124,58,237,0.2);color:#ffffff;}
 .et tr.filled td{background:rgba(16,185,129,0.12);border-left:4px solid #10b981;}
 .et .sno{color:#fbbf24;font-weight:800;font-size:.88rem;width:48px;text-align:center;}
 .et .iname{color:#ffffff;font-weight:700;letter-spacing:.01em;}
 
-/* STEPPER CONTROLS & DARK HIGH-CONTRAST INPUTS (NO WHITE BACKGROUND) */
+/* STEPPER CONTROLS & DARK HIGH-CONTRAST INPUTS */
 .stepper{display:inline-flex;align-items:center;gap:4px;background:#181142;border:2px solid rgba(167,139,250,0.45);border-radius:12px;padding:3px 4px;}
 .step-btn{width:36px;height:36px;border:none;border-radius:8px;background:#312e81;color:#ffffff;font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
 .step-btn:hover{background:#4f46e5;transform:scale(1.08);}
@@ -432,14 +438,18 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 #toastBox{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;padding:16px 24px;border-radius:14px;font-size:.95rem;font-weight:700;z-index:9999;box-shadow:0 10px 32px rgba(0,0,0,0.5);display:none;align-items:center;gap:10px;}
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   A3 PRINT STYLING (SEPARATE & COMPLETE)
+   A3 PRINT STYLING (WHITE BACKGROUND WITH DARK RED TEXT)
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .print-hdr{display:none;}
 .print-footer{display:none;}
 
 @media print{
   @page{size:A3 landscape;margin:8mm 6mm 8mm 6mm;}
-  html,body{background:#ffffff!important;color:#000000!important;font-family:'Poppins',Arial,sans-serif!important;}
+  html,body{
+    background:#ffffff!important;
+    color:#800000!important;
+    font-family:'Poppins',Arial,sans-serif!important;
+  }
   
   /* Hide all interactive UI elements */
   #authGate, .nav-bar, .ph, .entry-sec, .sec-hdr, .abar, .rtab-nav, .rpt-ctrl, .no-print, .exec-summary-box, .tab-kpi-bar, #toastBox {
@@ -453,29 +463,30 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
   body.print-cc #rpanel-cc{display:block!important;}
   body.print-dc #rpanel-dc{display:block!important;}
   
-  /* Print Header */
+  /* Print Header with Dark Red Text on White Background */
   .print-hdr{
     display:block!important;
     text-align:center!important;
     margin-bottom:8px!important;
-    border-bottom:2px solid #000!important;
+    border-bottom:2.5px solid #800000!important;
     padding-bottom:6px!important;
+    background:#ffffff!important;
   }
   .print-hdr h2{
-    font-size:1.15rem!important;
+    font-size:1.2rem!important;
     font-weight:900!important;
-    color:#000000!important;
+    color:#800000!important;
     letter-spacing:0.04em!important;
     text-transform:uppercase!important;
     margin-bottom:2px!important;
   }
   .print-hdr p{
-    font-size:0.82rem!important;
-    font-weight:700!important;
-    color:#222222!important;
+    font-size:0.85rem!important;
+    font-weight:800!important;
+    color:#800000!important;
   }
   
-  /* Crisp Table Formatting for A3 */
+  /* Crisp Table Formatting for A3 with Dark Red Text on White Background */
   .con-card{
     background: transparent!important;
     border: none!important;
@@ -493,65 +504,75 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
   .con-t{
     width:100%!important;
     border-collapse:collapse!important;
-    font-size:0.50rem!important;
+    font-size:0.52rem!important;
+    background:#ffffff!important;
   }
   .con-t th, .con-t td{
-    border:1px solid #333333!important;
+    border:1px solid #800000!important;
     padding:3.5px 2.5px!important;
-    color:#000000!important;
+    color:#800000!important;
     text-align:center!important;
     background: transparent!important;
     box-shadow: none!important;
   }
   .con-t th{
-    background:#e2e8f0!important;
-    font-weight:800!important;
-    color:#000000!important;
+    background:#fee2e2!important;
+    font-weight:900!important;
+    color:#800000!important;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
   }
   .con-t th.th-sticky-col{
-    background:#cbd5e1!important;
-    color:#000000!important;
+    background:#fecaca!important;
+    color:#800000!important;
     text-align:left!important;
     position: static!important;
   }
   .con-t td.sticky-col{
-    background:#f8fafc!important;
-    font-weight:800!important;
+    background:#ffffff!important;
+    font-weight:900!important;
     text-align:left!important;
-    color:#000000!important;
+    color:#800000!important;
     position: static!important;
+  }
+  .row-name-pill{
+    color:#800000!important;
+    font-weight:900!important;
   }
   .badge-num{
     background: transparent!important;
     border: none!important;
-    color:#000000!important;
+    color:#800000!important;
     padding: 0!important;
-    font-weight: 800!important;
+    font-weight: 900!important;
     box-shadow: none!important;
   }
   .dim-zero{
-    color: #888888!important;
+    color: #991b1b!important;
+    font-weight:600!important;
   }
   .tot-badge{
     background: transparent!important;
     border: none!important;
-    color:#000000!important;
+    color:#800000!important;
     padding: 0!important;
     font-weight: 900!important;
     box-shadow: none!important;
   }
   .con-t .gr-row td{
-    background:#e9d5ff!important;
+    background:#fee2e2!important;
     font-weight:900!important;
-    color:#000000!important;
-    border-top:2px solid #000000!important;
+    color:#800000!important;
+    border-top:2.5px solid #800000!important;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
   }
+  .con-t .gr-row td.sticky-col{
+    background:#fecaca!important;
+    color:#800000!important;
+  }
   
-  /* Print Footer / Signature block */
+  /* Print Footer / Signature block with Dark Red on White */
   .print-footer{
     display:flex!important;
     justify-content:space-between!important;
@@ -559,20 +580,21 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
     margin-top:20px!important;
     padding-top:12px!important;
     page-break-inside:avoid!important;
+    background:#ffffff!important;
   }
   .sig-box{
     text-align:center!important;
     width:28%!important;
-    border-top:1.5px solid #000000!important;
+    border-top:2px solid #800000!important;
     padding-top:6px!important;
-    font-size:0.75rem!important;
-    font-weight:700!important;
-    color:#000000!important;
+    font-size:0.78rem!important;
+    font-weight:800!important;
+    color:#800000!important;
   }
   .sig-sub{
-    font-size:0.68rem!important;
-    font-weight:500!important;
-    color:#444444!important;
+    font-size:0.70rem!important;
+    font-weight:600!important;
+    color:#991b1b!important;
   }
   
   .wrap,.content-area{padding:0!important;max-width:100%!important;}
@@ -909,7 +931,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
       <!-- â”€â”€ CLASS CONSOLIDATED â”€â”€ -->
       <div id="rpanel-cc" class="rpanel active">
         
-        <!-- PRINT HEADER (ONLY FOR PRINT) -->
+        <!-- PRINT HEADER (ONLY FOR PRINT ON WHITE BACKGROUND - DARK RED TEXT) -->
         <div class="print-hdr">
           <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
           <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” CLASS / SECTION WISE â€” SESSION 2025â€“26</p>
@@ -966,7 +988,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
           </div>
         </div>
 
-        <!-- PRINT SIGNATURE FOOTER -->
+        <!-- PRINT SIGNATURE FOOTER (DARK RED ON WHITE) -->
         <div class="print-footer">
           <div class="sig-box">
             Class Teacher / Verifier<br>
@@ -986,7 +1008,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
       <!-- â”€â”€ DEPT CONSOLIDATED â”€â”€ -->
       <div id="rpanel-dc" class="rpanel">
         
-        <!-- PRINT HEADER (ONLY FOR PRINT) -->
+        <!-- PRINT HEADER (ONLY FOR PRINT ON WHITE BACKGROUND - DARK RED TEXT) -->
         <div class="print-hdr">
           <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
           <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” DEPARTMENT / LAB / ROOM WISE â€” SESSION 2025â€“26</p>
@@ -1043,7 +1065,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
           </div>
         </div>
 
-        <!-- PRINT SIGNATURE FOOTER -->
+        <!-- PRINT SIGNATURE FOOTER (DARK RED ON WHITE) -->
         <div class="print-footer">
           <div class="sig-box">
             Department In-Charge<br>
@@ -1679,7 +1701,7 @@ function exportBothXL(){
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  PRINT (ISOLATED CLEAN A3 PER SHEET)
+//  PRINT (ISOLATED CLEAN A3 WITH DARK RED TEXT ON WHITE BACKGROUND)
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function doPrint(rid){
   document.body.classList.remove('print-cc','print-dc');
