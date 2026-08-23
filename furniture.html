@@ -3,323 +3,1024 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Furniture & Fixtures | PM SHRI KV Ranikhet</title>
-<link rel="stylesheet" href="premium.css">
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Furniture &amp; Fixtures Portal | PM SHRI KV Ranikhet</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 <style>
-:root{
-  --pr:#7c3aed;--pr-dark:#4c1d95;--pr-light:#a78bfa;
-  --bg:#060411;--cbg:#100b26;--cbg-card:#161038;--bdr:rgba(167,139,250,0.35);
-  --tx:#ffffff;--tx-sub:#cbd5e1;--tx-muted:#94a3b8;
-  --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.2);
-  --amb:#f59e0b;--amb-dark:#d97706;--amb-bg:rgba(245,158,11,0.2);
-  --red:#ef4444;--blu:#3b82f6;--blu-dark:#1d4ed8;--cyn:#06b6d4;--gld:#fde047;
-  --dark-red:#800000;
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   1. CORE VARIABLES & SELF-CONTAINED RESET
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+:root {
+  --bg-core: #070412;
+  --bg-surface: #100a26;
+  --bg-card: #150e33;
+  --bg-card-hover: #1c1344;
+  --bg-input: #090518;
+  
+  --primary: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-dark: #4c1d95;
+  --primary-glow: rgba(124, 58, 237, 0.4);
+  
+  --accent-gold: #fde047;
+  --accent-emerald: #10b981;
+  --accent-emerald-light: #34d399;
+  --accent-emerald-bg: rgba(16, 185, 129, 0.18);
+  --accent-cyan: #38bdf8;
+  --accent-rose: #f43f5e;
+  
+  --border-subtle: rgba(167, 139, 250, 0.25);
+  --border-prominent: #7c3aed;
+  --border-active: #fde047;
+  
+  --text-main: #ffffff;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  --radius-xl: 20px;
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.5;}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-core) !important;
+  color: var(--text-main) !important;
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   EXPLICIT DARK RED TEXT FOR ANY WHITE / LIGHT BACKGROUND PORTION
+   2. AUTHENTICATION GATEWAY
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.bg-white, .white-bg, 
-[style*="background:#fff"], [style*="background: #fff"], [style*="background:#ffffff"], [style*="background: #ffffff"], 
-[style*="background:white"], [style*="background: white"], [style*="background-color: #fff"], [style*="background-color:#fff"],
-[style*="background-color: white"], [style*="background-color:white"], [style*="background:#faf5eb"], [style*="background-color:#faf5eb"],
-[style*="background:#f8fafc"], [style*="background-color:#f8fafc"], [style*="background:#f1f5f9"], [style*="background-color:#f1f5f9"],
-[style*="background: #faf5eb"], .dropdown-menu, .print-hdr, .print-footer {
-  color: #800000 !important;
+#authGate {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, #1c0d45 0%, #070412 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
 }
 
-.dropdown-menu a, .dropdown-menu a span, .dropdown-menu a i {
-  color: #800000 !important;
-  font-weight: 700 !important;
+.auth-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--primary-light);
+  border-radius: 24px;
+  padding: 44px 36px;
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 50px var(--primary-glow);
 }
-.dropdown-menu a:hover {
-  background: #fee2e2 !important;
-  color: #800000 !important;
+
+.auth-icon-wrap {
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border-radius: 22px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: #ffffff;
+  box-shadow: 0 10px 30px var(--primary-glow);
 }
 
-/* AUTH GATE */
-#authGate{position:fixed;inset:0;background:rgba(6,4,17,0.98);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(14px);}
-.auth-box{background:#161038;border:2px solid var(--pr-light);border-radius:24px;padding:48px 38px;text-align:center;max-width:440px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,0.75),0 0 40px rgba(124,58,237,0.3);}
-.auth-icon{font-size:3.5rem;color:var(--pr-light);margin-bottom:16px;filter:drop-shadow(0 4px 12px rgba(124,58,237,0.5));}
-.auth-box h2{font-size:1.6rem;margin-bottom:8px;font-weight:800;color:#ffffff;}
-.auth-box p{color:var(--tx-sub);font-size:.9rem;margin-bottom:24px;line-height:1.6;}
-.auth-in{width:100%;padding:14px 16px;background:#09061a!important;border:2px solid rgba(167,139,250,0.5)!important;border-radius:12px;color:#ffffff!important;font-size:1.05rem;font-weight:700;font-family:inherit;margin-bottom:16px;outline:none;transition:all .3s;}
-.auth-in:focus{border-color:var(--gld)!important;box-shadow:0 0 0 4px rgba(253,224,71,0.3)!important;background:#110b2b!important;}
-.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#9333ea);border:none;border-radius:12px;color:#ffffff;font-size:1.05rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;box-shadow:0 6px 20px rgba(124,58,237,0.4);}
-.auth-btn:hover{opacity:.92;transform:translateY(-2px);}
-#authErr{color:#f87171;font-size:.88rem;margin-top:12px;display:none;font-weight:600;}
+.auth-card h2 {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
 
-/* MAIN LAYOUT */
-#mc{display:none;}
-.wrap{max-width:1460px;margin:0 auto;padding:0 24px;}
+.auth-card p {
+  color: var(--text-sub);
+  font-size: 0.90rem;
+  margin-bottom: 26px;
+}
 
-/* NAV */
-.nav-bar{background:#0a071f;border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:500;box-shadow:0 4px 20px rgba(0,0,0,0.6);}
-.nav{display:flex;align-items:center;justify-content:space-between;height:62px;}
-.nav-brand{font-size:1.15rem;font-weight:800;background:linear-gradient(135deg,#c4b5fd,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;display:flex;align-items:center;gap:8px;}
-.nav-links{display:flex;gap:6px;align-items:center;}
-.nav-item{position:relative;}
-.nav-lnk,.dd-trig{padding:8px 14px;color:var(--tx-sub);text-decoration:none;font-size:.88rem;font-weight:600;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .25s;border:none;background:none;font-family:inherit;}
-.nav-lnk:hover,.dd-trig:hover,.nav-lnk.act{color:#ffffff;background:rgba(124,58,237,0.25);}
-.dd-menu{position:absolute;top:100%;left:0;background:#140e34;border:1px solid var(--bdr);border-radius:12px;padding:8px;min-width:220px;display:none;z-index:600;box-shadow:0 12px 36px rgba(0,0,0,0.7);}
-.nav-item:hover .dd-menu{display:block;}
-.dd-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;color:var(--tx-sub);text-decoration:none;font-size:.86rem;font-weight:500;border-radius:8px;transition:all .2s;}
-.dd-menu a:hover,.dd-menu a.act{background:rgba(124,58,237,0.3);color:#ffffff;}
+.auth-input {
+  width: 100%;
+  padding: 15px 18px;
+  background: var(--bg-input) !important;
+  border: 2px solid rgba(167, 139, 250, 0.45) !important;
+  border-radius: 12px;
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 18px;
+  outline: none;
+  transition: all 0.3s;
+}
 
-/* PAGE HEADER */
-.ph{background:linear-gradient(135deg,#1b114d,#2c1766);border-bottom:2px solid rgba(167,139,250,0.35);padding:22px 0;}
-.ph-inner{display:flex;align-items:center;gap:18px;}
-.ph-icon{width:58px;height:58px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;box-shadow:0 8px 24px rgba(124,58,237,0.4);color:#ffffff;}
-.ph h1{font-size:1.55rem;font-weight:800;color:#ffffff;}
-.ph p{color:#cbd5e1;font-size:.86rem;margin-top:3px;font-weight:500;}
+.auth-input:focus {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 4px rgba(253, 224, 71, 0.3) !important;
+}
 
-/* SECTION HEADERS */
-.sec-hdr{display:flex;align-items:center;gap:14px;padding:26px 0 14px;}
-.sec-badge{background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#ffffff;padding:7px 18px;border-radius:30px;font-size:.88rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(109,40,217,0.4);}
-.sec-line{flex:1;height:2px;background:linear-gradient(90deg,rgba(167,139,250,0.4),transparent);}
-.sec-sub{color:var(--tx-sub);font-size:.86rem;font-weight:600;}
+.auth-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 24px var(--primary-glow);
+}
 
-/* ENTRY GROUP TABS */
-.entry-tabs{display:flex;gap:10px;margin-bottom:22px;background:#0a071f;border:2px solid var(--bdr);border-radius:16px;padding:8px;}
-.etab{flex:1;padding:14px 20px;border:none;background:none;color:var(--tx-sub);font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;border-radius:12px;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
-.etab:hover{color:#ffffff;background:rgba(255,255,255,0.06);}
-.etab.active{background:linear-gradient(135deg,#7c3aed,#9333ea);color:#ffffff;box-shadow:0 6px 20px rgba(124,58,237,0.45);}
-.etab-tag{background:rgba(0,0,0,0.3);padding:3px 10px;border-radius:20px;font-size:.76rem;font-weight:600;letter-spacing:.02em;}
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px var(--primary-glow);
+}
 
-/* ENTRY PANEL */
-.epanel{display:none;}
-.epanel.active{display:block;}
+#authErr {
+  color: var(--accent-rose);
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-top: 14px;
+  display: none;
+}
 
-/* CARD STYLES */
-.entry-card{background:var(--cbg);border:2px solid var(--bdr);border-radius:20px;padding:26px;box-shadow:0 14px 40px rgba(0,0,0,0.5);}
-.ctitle{font-size:1.15rem;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:#ffffff;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:12px;}
-.ctitle i{color:var(--pr-light);font-size:1.3rem;}
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   3. APPLICATION WRAPPER & TOP NAVIGATION
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+#appContainer {
+  display: none;
+  min-height: 100vh;
+}
 
-/* SELECTION BOX */
-.selection-box{background:#181142;border:2px solid #7c3aed;border-radius:18px;padding:22px 24px;margin-bottom:24px;box-shadow:0 8px 24px rgba(0,0,0,0.45);}
-.sel-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
-.sel-row.one{grid-template-columns:1fr;}
-.fg{display:flex;flex-direction:column;gap:10px;}
+.app-nav {
+  background: #0b071e;
+  border-bottom: 1.5px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+}
 
-/* CLEAN, LARGE, BOLD LABELS (NO SYMBOLS) */
-.entry-label{
-  font-size: 1.18rem !important;
-  font-weight: 900 !important;
-  color: #fde047 !important;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.nav-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-link {
+  font-size: 1.2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ddd6fe, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link, .nav-dropdown-btn {
+  padding: 9px 15px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 9px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.25s;
+  font-family: inherit;
+}
+
+.nav-link:hover, .nav-dropdown-btn:hover, .nav-link.active {
+  color: #ffffff;
+  background: rgba(124, 58, 237, 0.28);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #140d33;
+  border: 1.5px solid var(--border-prominent);
+  border-radius: 14px;
+  padding: 8px;
+  min-width: 230px;
+  display: none;
+  z-index: 600;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
+}
+
+.nav-item:hover .nav-dropdown {
   display: block;
 }
 
-.fsel{
-  padding: 15px 18px !important;
-  background: #09061a !important;
+.nav-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 9px;
+  transition: all 0.2s;
+}
+
+.nav-dropdown a:hover, .nav-dropdown a.active {
+  background: rgba(124, 58, 237, 0.35);
+  color: #ffffff;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   4. HERO / HEADER BANNER
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.hero-banner {
+  background: linear-gradient(135deg, #180d44 0%, #281060 100%);
+  border-bottom: 2px solid rgba(167, 139, 250, 0.3);
+  padding: 24px 0;
+}
+
+.hero-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.hero-title-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.hero-badge-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #ffffff;
+  box-shadow: 0 8px 25px var(--primary-glow);
+  flex-shrink: 0;
+}
+
+.hero-title-box h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.hero-title-box p {
+  color: var(--text-sub);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.hero-meta-pill {
+  background: rgba(253, 224, 71, 0.15);
+  border: 1.5px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   5. MAIN 5-TAB SECTOR NAVIGATION
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.main-wrapper {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 26px 24px 60px;
+}
+
+.tab-nav-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 28px;
+  background: #0c0722;
+  border: 2px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 8px;
+}
+
+.tab-btn {
+  padding: 14px 16px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  color: var(--text-sub);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s;
+}
+
+.tab-btn i {
+  font-size: 1.15rem;
+}
+
+.tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  color: #ffffff;
+  border-color: #c4b5fd;
+  box-shadow: 0 8px 24px var(--primary-glow);
+}
+
+/* Tab Panels */
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   6. CARDS & CONTAINER STYLING
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.portal-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-prominent);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 35px rgba(124, 58, 237, 0.15);
+  margin-bottom: 28px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+}
+
+.card-title i {
+  color: var(--primary-light);
+  font-size: 1.35rem;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   7. FORM CONTROLS & SELECTORS (CLEAN & BOLD)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.selection-box {
+  background: #190f3d;
+  border: 2.5px solid #8b5cf6;
+  border-radius: 18px;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.sel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.sel-grid.single {
+  grid-template-columns: 1fr;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 1.15rem !important;
+  font-weight: 900 !important;
+  color: var(--accent-gold) !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.custom-select {
+  width: 100% !important;
+  padding: 14px 18px !important;
+  background: var(--bg-input) !important;
   border: 2.5px solid #8b5cf6 !important;
-  border-radius: 14px !important;
+  border-radius: 12px !important;
   color: #ffffff !important;
+  font-family: inherit !important;
   font-size: 1.12rem !important;
   font-weight: 800 !important;
-  font-family: inherit !important;
-  outline: none !important;
-  transition: all .25s !important;
-  width: 100% !important;
   cursor: pointer !important;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+  outline: none !important;
+  transition: all 0.25s !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
 }
-.fsel:focus{
-  border-color: #fde047 !important;
-  box-shadow: 0 0 0 4px rgba(253,224,71,0.35) !important;
-  background: #110b2b !important;
+
+.custom-select:focus {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 4px rgba(253, 224, 71, 0.35) !important;
+  background: #120b2e !important;
 }
-.fsel option{
-  background: #161038 !important;
+
+.custom-select option {
+  background: #170e3b !important;
   color: #ffffff !important;
   font-size: 1.05rem !important;
   font-weight: 700 !important;
   padding: 10px !important;
 }
 
-/* ACTIVE BANNER */
-.active-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:linear-gradient(135deg,#1b114d,#2b0e60);border:2px solid #7c3aed;border-radius:14px;padding:14px 18px;margin-bottom:18px;}
-.ab-title{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:800;color:#ffffff;}
-.ab-title i{color:#34d399;font-size:1.2rem;}
-.ab-stats{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
-.ab-stat-badge{background:rgba(255,255,255,0.12);padding:6px 14px;border-radius:20px;font-size:.84rem;font-weight:700;color:#e2e8f0;}
-.ab-stat-badge strong{color:#34d399;font-size:.95rem;}
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   8. ACTIVE EDITING DASHBOARD & FILTER BARS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.live-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: linear-gradient(135deg, #1f1154, #2c126b);
+  border: 2px solid var(--primary-light);
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+}
 
-/* SEARCH / FILTER BAR */
-.filter-bar{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
-.search-in-wrap{position:relative;flex:1;min-width:240px;}
-.search-in-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#a78bfa;font-size:.95rem;}
-.search-in{width:100%;padding:12px 16px 12px 40px;background:#09061a!important;border:2px solid rgba(167,139,250,0.45)!important;border-radius:12px;color:#ffffff!important;font-size:.95rem;font-weight:700;font-family:inherit;outline:none;transition:all .25s;}
-.search-in:focus{border-color:#fde047!important;box-shadow:0 0 0 3px rgba(253,224,71,0.3)!important;background:#110b2b!important;}
-.search-in::placeholder{color:#94a3b8!important;font-weight:600;}
-.quick-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.qp{padding:6px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:20px;color:var(--tx-sub);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;}
-.qp:hover,.qp.active{background:#7c3aed;color:#ffffff;border-color:#7c3aed;}
+.status-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-/* ENTRY TABLE */
-.etw{overflow-x:auto;border-radius:14px;border:2px solid rgba(167,139,250,0.35);max-height:480px;overflow-y:auto;background:#09061a;box-shadow:inset 0 2px 10px rgba(0,0,0,0.5);}
-.et{width:100%;border-collapse:collapse;}
-.et th{padding:14px 16px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-size:.84rem;font-weight:800;text-align:left;position:sticky;top:0;z-index:10;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid rgba(255,255,255,0.2);}
-.et td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:.94rem;vertical-align:middle;transition:all .2s;}
-.et tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
-.et tr:hover td{background:rgba(124,58,237,0.2);color:#ffffff;}
-.et tr.filled td{background:rgba(16,185,129,0.12);border-left:4px solid #10b981;}
-.et .sno{color:#fbbf24;font-weight:800;font-size:.88rem;width:48px;text-align:center;}
-.et .iname{color:#ffffff;font-weight:700;letter-spacing:.01em;}
+.status-title i {
+  color: var(--accent-emerald-light);
+  font-size: 1.25rem;
+}
 
-/* STEPPER CONTROLS & DARK HIGH-CONTRAST INPUTS */
-.stepper{display:inline-flex;align-items:center;gap:4px;background:#181142;border:2px solid rgba(167,139,250,0.45);border-radius:12px;padding:3px 4px;}
-.step-btn{width:36px;height:36px;border:none;border-radius:8px;background:#312e81;color:#ffffff;font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
-.step-btn:hover{background:#4f46e5;transform:scale(1.08);}
-.step-btn:active{transform:scale(0.95);}
+.status-badges {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-.qi{
+.status-pill {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.status-pill strong {
+  color: var(--accent-emerald-light);
+  font-size: 0.96rem;
+}
+
+/* Filter Controls */
+.filter-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.search-wrap i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-light);
+  font-size: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  background: var(--bg-input) !important;
+  border: 2px solid rgba(167, 139, 250, 0.45) !important;
+  border-radius: 12px;
+  color: #ffffff !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.25s;
+}
+
+.search-input:focus {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 3px rgba(253, 224, 71, 0.3) !important;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.category-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip-btn {
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  color: var(--text-sub);
+  font-size: 0.80rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chip-btn:hover, .chip-btn.active {
+  background: var(--primary);
+  border-color: var(--primary-light);
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   9. ENTRY TABLE & NUMERICAL STEPPERS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.table-scroll-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 2px solid rgba(167, 139, 250, 0.35);
+  max-height: 480px;
+  overflow-y: auto;
+  background: var(--bg-input);
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #4c1d95, #6d28d9);
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.94rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+}
+
+.data-table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.data-table tr:hover td {
+  background: rgba(124, 58, 237, 0.2);
+}
+
+.data-table tr.row-filled td {
+  background: rgba(16, 185, 129, 0.12);
+  border-left: 4px solid var(--accent-emerald);
+}
+
+.sno-cell {
+  color: var(--accent-gold);
+  font-weight: 800;
+  width: 50px;
+  text-align: center;
+}
+
+.item-name-text {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.96rem;
+}
+
+/* Steppers */
+.stepper-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #181040;
+  border: 2px solid rgba(167, 139, 250, 0.45);
+  border-radius: 12px;
+  padding: 3px 5px;
+}
+
+.step-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: #312e81;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.step-btn:hover {
+  background: #4f46e5;
+  transform: scale(1.08);
+}
+
+.qty-input {
   width: 80px !important;
   height: 36px !important;
   padding: 0 6px !important;
-  background: #09061a !important;
+  background: var(--bg-input) !important;
   border: 2px solid #818cf8 !important;
   border-radius: 8px !important;
   color: #ffffff !important;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: inherit !important;
   font-size: 1.15rem !important;
   font-weight: 900 !important;
   text-align: center !important;
   outline: none !important;
-  transition: all .2s !important;
+  transition: all 0.2s !important;
 }
-.qi:focus{
-  border-color: #fde047 !important;
-  box-shadow: 0 0 0 3px rgba(253,224,71,0.35) !important;
-  background: #110b2b !important;
+
+.qty-input:focus {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 3px rgba(253, 224, 71, 0.35) !important;
+  background: #130a30 !important;
 }
-.qi.has-val{
-  border-color: #10b981 !important;
+
+.qty-input.has-value {
+  border-color: var(--accent-emerald) !important;
   background: #052e16 !important;
-  color: #4ade80 !important;
-  box-shadow: 0 0 0 2px rgba(16,185,129,0.3) !important;
+  color: var(--accent-emerald-light) !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3) !important;
 }
 
-/* ACTION BAR */
-.abar{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:2px solid rgba(255,255,255,0.08);align-items:center;}
+/* Action Toolbar */
+.form-action-bar {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.08);
+  align-items: center;
+}
 
-/* BUTTONS */
-.btn{padding:12px 24px;border:none;border-radius:12px;font-family:inherit;font-size:.92rem;font-weight:800;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
-.btn-save{background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;box-shadow:0 6px 20px rgba(16,185,129,0.45);}
-.btn-save:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,0.55);}
-.btn-gr{background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;}
-.btn-gr:hover{opacity:.92;}
-.btn-bl{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#ffffff;}
-.btn-bl:hover{opacity:.92;}
-.btn-or{background:linear-gradient(135deg,#d97706,#f59e0b);color:#ffffff;}
-.btn-or:hover{opacity:.92;}
-.btn-out{background:#161038;border:2px solid rgba(167,139,250,0.35);color:#cbd5e1;}
-.btn-out:hover{border-color:#a78bfa;color:#ffffff;background:#1e154d;}
-.btn-sm{padding:9px 18px;font-size:.84rem;}
+/* Buttons */
+.action-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   EXECUTIVE SUMMARY DASHBOARD (CONSOLIDATED)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.exec-summary-box{
+.btn-save {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+}
+
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(16, 185, 129, 0.6);
+}
+
+.btn-emerald {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ffffff;
+}
+
+.btn-blue {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+}
+
+.btn-amber {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+  color: #ffffff;
+}
+
+.btn-ghost {
+  background: #190f3d;
+  border: 2px solid rgba(167, 139, 250, 0.35);
+  color: var(--text-sub);
+}
+
+.btn-ghost:hover {
+  border-color: var(--primary-light);
+  color: #ffffff;
+  background: #231554;
+}
+
+.btn-compact {
+  padding: 9px 18px;
+  font-size: 0.84rem;
+}
+
+/* Empty Placeholder */
+.empty-placeholder {
+  text-align: center;
+  padding: 55px 20px;
+  color: var(--text-sub);
+  background: #140e36;
+  border: 2px dashed rgba(167, 139, 250, 0.35);
+  border-radius: 16px;
+}
+
+.empty-placeholder i {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+  color: var(--primary-light);
+  opacity: 0.8;
+}
+
+.empty-placeholder p {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   10. CONSOLIDATED TABLES & KPI METRIC CARDS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.kpi-box {
+  background: #130a30;
+  border: 1.5px solid rgba(167, 139, 250, 0.3);
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.kpi-num {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+}
+
+.kpi-lbl {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Executive Big Dashboard */
+.exec-dash-box {
   background: linear-gradient(135deg, #11092e 0%, #1e1147 100%);
-  border: 2px solid #7c3aed;
+  border: 2px solid var(--border-prominent);
   border-radius: 22px;
   padding: 26px;
   margin-bottom: 26px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 30px rgba(124,58,237,0.2);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
 }
-.exec-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,0.12);padding-bottom:16px;}
-.exec-header-title{font-size:1.25rem;font-weight:900;color:#ffffff;display:flex;align-items:center;gap:12px;letter-spacing:0.02em;}
-.exec-header-title i{color:#fde047;font-size:1.4rem;}
-.exec-badge-live{background:rgba(16,185,129,0.22);border:1.5px solid #10b981;color:#6ee7b7;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:800;display:flex;align-items:center;gap:8px;}
 
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
-.kpi-card{
+.exec-dash-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 14px;
+}
+
+.exec-dash-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.exec-dash-title i {
+  color: var(--accent-gold);
+  font-size: 1.45rem;
+}
+
+.live-pulse-badge {
+  background: rgba(16, 185, 129, 0.22);
+  border: 1.5px solid var(--accent-emerald);
+  color: #6ee7b7;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.big-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.big-kpi-card {
   background: #170e3b;
-  border: 2px solid rgba(167,139,250,0.35);
+  border: 2px solid rgba(167, 139, 250, 0.35);
   border-radius: 18px;
   padding: 20px 22px;
   position: relative;
   overflow: hidden;
-  transition: all .3s;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-}
-.kpi-card:hover{transform:translateY(-3px);border-color:#c4b5fd;box-shadow:0 12px 32px rgba(124,58,237,0.4);}
-.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
-.kpi-card.purple::after{background:linear-gradient(90deg,#7c3aed,#c084fc);}
-.kpi-card.emerald::after{background:linear-gradient(90deg,#059669,#34d399);}
-.kpi-card.blue::after{background:linear-gradient(90deg,#1d4ed8,#60a5fa);}
-.kpi-card.gold::after{background:linear-gradient(90deg,#d97706,#fde047);}
-
-.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.kpi-label{font-size:.86rem;font-weight:800;color:#cbd5e1;text-transform:uppercase;letter-spacing:.05em;}
-.kpi-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;}
-.kpi-card.purple .kpi-icon{background:rgba(124,58,237,0.3);color:#c4b5fd;}
-.kpi-card.emerald .kpi-icon{background:rgba(16,185,129,0.3);color:#6ee7b7;}
-.kpi-card.blue .kpi-icon{background:rgba(59,130,246,0.3);color:#93c5fd;}
-.kpi-card.gold .kpi-icon{background:rgba(245,158,11,0.3);color:#fde047;}
-
-.kpi-val{font-size:2.3rem;font-weight:900;color:#ffffff;line-height:1.1;letter-spacing:-0.02em;}
-.kpi-sub{font-size:.82rem;color:#94a3b8;margin-top:6px;font-weight:700;}
-
-/* TAB MINI STATS BAR */
-.tab-kpi-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
-.tab-kpi-item{
-  background: #140d34;
-  border: 1.5px solid rgba(167,139,250,0.3);
-  border-radius: 14px;
-  padding: 14px 16px;
-  text-align: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-}
-.tab-kpi-num{font-size:1.45rem;font-weight:900;color:#fde047;}
-.tab-kpi-lbl{font-size:.80rem;font-weight:700;color:#cbd5e1;margin-top:3px;text-transform:uppercase;letter-spacing:0.03em;}
-
-/* REPORT TABS */
-.rtab-nav{display:flex;gap:8px;border-bottom:2px solid rgba(167,139,250,0.35);margin-bottom:24px;overflow-x:auto;}
-.rtab{padding:15px 26px;background:none;border:none;color:var(--tx-sub);font-family:inherit;font-size:1rem;font-weight:800;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .25s;display:flex;align-items:center;gap:10px;}
-.rtab:hover{color:#ffffff;}
-.rtab.active{color:#c4b5fd;border-bottom-color:#7c3aed;}
-.rpanel{display:none;}
-.rpanel.active{display:block;}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   VISUALLY ENHANCED CONSOLIDATED TABLE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.con-card{
-  background: #0d0822;
-  border: 2px solid #7c3aed;
-  border-radius: 20px;
-  padding: 22px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 35px rgba(124,58,237,0.18);
-  margin-bottom: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s;
 }
 
-.conwrap{
+.big-kpi-card:hover {
+  transform: translateY(-3px);
+  border-color: #c4b5fd;
+  box-shadow: 0 12px 32px var(--primary-glow);
+}
+
+.big-kpi-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.big-kpi-card.c-purple::after { background: linear-gradient(90deg, #7c3aed, #c084fc); }
+.big-kpi-card.c-emerald::after { background: linear-gradient(90deg, #059669, #34d399); }
+.big-kpi-card.c-blue::after { background: linear-gradient(90deg, #1d4ed8, #60a5fa); }
+.big-kpi-card.c-gold::after { background: linear-gradient(90deg, #d97706, #fde047); }
+
+.big-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.big-kpi-label {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--text-sub);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.big-kpi-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.big-kpi-card.c-purple .big-kpi-icon { background: rgba(124, 58, 237, 0.3); color: #c4b5fd; }
+.big-kpi-card.c-emerald .big-kpi-icon { background: rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+.big-kpi-card.c-blue .big-kpi-icon { background: rgba(59, 130, 246, 0.3); color: #93c5fd; }
+.big-kpi-card.c-gold .big-kpi-icon { background: rgba(245, 158, 11, 0.3); color: #fde047; }
+
+.big-kpi-val {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.big-kpi-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 700;
+}
+
+/* Consolidated Matrix Table */
+.matrix-scroll-wrap {
   overflow: auto;
   border-radius: 14px;
-  border: 2px solid rgba(167,139,250,0.4);
+  border: 2px solid rgba(167, 139, 250, 0.4);
   background: #070414;
-  box-shadow: inset 0 2px 14px rgba(0,0,0,0.7);
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.7);
+  max-height: 580px;
 }
 
-.con-t{
+.matrix-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'Poppins', sans-serif;
   font-size: 0.90rem;
-  letter-spacing: 0.01em;
 }
 
-.con-t th{
+.matrix-table th {
   padding: 13px 12px;
   background: linear-gradient(180deg, #371175 0%, #20074d 100%);
   color: #ffffff;
@@ -327,820 +1028,833 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
   font-size: 0.82rem;
   text-align: center;
   white-space: nowrap;
-  border: 1px solid rgba(167,139,250,0.3);
+  border: 1px solid rgba(167, 139, 250, 0.3);
   position: sticky;
   top: 0;
   z-index: 10;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
-.con-t th.th-sticky-col{
+.matrix-table th.sticky-name-col {
   text-align: left;
   position: sticky;
   left: 0;
   z-index: 15;
   background: #250954;
   min-width: 190px;
-  color: #fde047;
+  color: var(--accent-gold);
   font-size: 0.88rem;
   border-right: 3px solid #8b5cf6;
-  box-shadow: 4px 0 12px rgba(0,0,0,0.6);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.6);
 }
 
-.con-t td{
+.matrix-table td {
   padding: 9px 11px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
 }
 
-.con-t td.sticky-col{
+.matrix-table td.sticky-name-col {
   text-align: left;
   position: sticky;
   left: 0;
   background: #110829;
   z-index: 5;
-  border-right: 3px solid #7c3aed;
-  box-shadow: 4px 0 12px rgba(0,0,0,0.45);
+  border-right: 3px solid var(--border-prominent);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.45);
 }
 
-.row-name-pill{
+.name-cell-text {
   color: #ffffff;
   font-weight: 800;
   font-size: 0.92rem;
-  letter-spacing: 0.02em;
   display: inline-block;
   padding: 2px 4px;
 }
 
-.badge-num{
-  background: rgba(16,185,129,0.22);
-  color: #34d399;
-  border: 1px solid rgba(52,211,153,0.45);
+.stock-badge-active {
+  background: var(--accent-emerald-bg);
+  color: var(--accent-emerald-light);
+  border: 1px solid rgba(52, 211, 153, 0.45);
   border-radius: 7px;
   padding: 3px 9px;
   font-weight: 900;
   font-size: 0.92rem;
   display: inline-block;
   min-width: 32px;
-  box-shadow: 0 2px 8px rgba(16,185,129,0.2);
 }
 
-.dim-zero{
-  color: rgba(148,163,184,0.3);
+.stock-zero {
+  color: rgba(148, 163, 184, 0.3);
   font-weight: 600;
   font-size: 0.82rem;
 }
 
-.tot-cell{
-  background: rgba(59,7,100,0.5);
+.total-col-cell {
+  background: rgba(59, 7, 100, 0.5);
   border-left: 2px solid #8b5cf6 !important;
 }
 
-.tot-badge{
+.total-pill-badge {
   background: linear-gradient(135deg, #7c3aed, #9333ea);
-  color: #fde047;
+  color: var(--accent-gold);
   font-weight: 900;
   font-size: 0.98rem;
   padding: 4px 12px;
   border-radius: 8px;
   display: inline-block;
   min-width: 42px;
-  box-shadow: 0 2px 10px rgba(124,58,237,0.4);
-  border: 1px solid rgba(253,224,71,0.4);
+  border: 1px solid rgba(253, 224, 71, 0.4);
 }
 
-.con-t tr:nth-child(even) td{
-  background: rgba(255,255,255,0.02);
+.matrix-table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.con-t tr:hover td{
-  background: rgba(124,58,237,0.25);
+.matrix-table tr:hover td {
+  background: rgba(124, 58, 237, 0.25);
 }
 
-.con-t tr:hover td.sticky-col{
+.matrix-table tr:hover td.sticky-name-col {
   background: #1c0d45;
 }
 
-.con-t .gr-row td{
+.matrix-table .grand-total-row td {
   background: linear-gradient(180deg, #4c1d95 0%, #300a6e 100%) !important;
   font-weight: 900 !important;
-  color: #fde047 !important;
+  color: var(--accent-gold) !important;
   border-top: 3px solid #c084fc !important;
   font-size: 0.96rem !important;
   padding: 12px 10px !important;
 }
 
-.con-t .gr-row td.sticky-col{
+.matrix-table .grand-total-row td.sticky-name-col {
   background: #3b0764 !important;
-  color: #fde047 !important;
+  color: var(--accent-gold) !important;
   font-size: 1rem !important;
-  letter-spacing: 0.05em;
 }
 
-/* ALERT */
-.alrt{padding:14px 18px;border-radius:12px;font-size:.9rem;margin-bottom:16px;font-weight:700;display:flex;align-items:center;gap:10px;}
-.alrt-ok{background:rgba(16,185,129,0.16);border:2px solid #10b981;color:#6ee7b7;}
-
-/* PLACEHOLDER */
-.ph-msg{text-align:center;padding:50px 20px;color:var(--tx-sub);background:#130e33;border:2px dashed rgba(167,139,250,0.3);border-radius:14px;}
-.ph-msg i{font-size:2.8rem;margin-bottom:14px;display:block;color:var(--pr-light);opacity:.7;}
-.ph-msg p{font-size:.95rem;font-weight:600;}
-
-/* TOAST */
-#toastBox{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;padding:16px 24px;border-radius:14px;font-size:.95rem;font-weight:700;z-index:9999;box-shadow:0 10px 32px rgba(0,0,0,0.5);display:none;align-items:center;gap:10px;}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   A3 PRINT STYLING (WHITE BACKGROUND WITH DARK RED TEXT)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.print-hdr{display:none;}
-.print-footer{display:none;}
-
-@media print{
-  @page{size:A3 landscape;margin:8mm 6mm 8mm 6mm;}
-  html,body{
-    background:#ffffff!important;
-    color:#800000!important;
-    font-family:'Poppins',Arial,sans-serif!important;
-  }
-  
-  /* Hide all interactive UI elements */
-  #authGate, .nav-bar, .ph, .entry-sec, .sec-hdr, .abar, .rtab-nav, .rpt-ctrl, .no-print, .exec-summary-box, .tab-kpi-bar, #toastBox {
-    display:none!important;
-  }
-  
-  /* Hide all panels by default in print */
-  .rpanel{display:none!important;}
-  
-  /* Strictly show ONLY the selected printing panel */
-  body.print-cc #rpanel-cc{display:block!important;}
-  body.print-dc #rpanel-dc{display:block!important;}
-  
-  /* Print Header with Dark Red Text on White Background */
-  .print-hdr{
-    display:block!important;
-    text-align:center!important;
-    margin-bottom:8px!important;
-    border-bottom:2.5px solid #800000!important;
-    padding-bottom:6px!important;
-    background:#ffffff!important;
-  }
-  .print-hdr h2{
-    font-size:1.2rem!important;
-    font-weight:900!important;
-    color:#800000!important;
-    letter-spacing:0.04em!important;
-    text-transform:uppercase!important;
-    margin-bottom:2px!important;
-  }
-  .print-hdr p{
-    font-size:0.85rem!important;
-    font-weight:800!important;
-    color:#800000!important;
-  }
-  
-  /* Crisp Table Formatting for A3 with Dark Red Text on White Background */
-  .con-card{
-    background: transparent!important;
-    border: none!important;
-    box-shadow: none!important;
-    padding: 0!important;
-    margin: 0!important;
-  }
-  .conwrap{
-    border:none!important;
-    overflow:visible!important;
-    max-height:none!important;
-    box-shadow:none!important;
-    background:#ffffff!important;
-  }
-  .con-t{
-    width:100%!important;
-    border-collapse:collapse!important;
-    font-size:0.52rem!important;
-    background:#ffffff!important;
-  }
-  .con-t th, .con-t td{
-    border:1px solid #800000!important;
-    padding:3.5px 2.5px!important;
-    color:#800000!important;
-    text-align:center!important;
-    background: transparent!important;
-    box-shadow: none!important;
-  }
-  .con-t th{
-    background:#fee2e2!important;
-    font-weight:900!important;
-    color:#800000!important;
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
-  }
-  .con-t th.th-sticky-col{
-    background:#fecaca!important;
-    color:#800000!important;
-    text-align:left!important;
-    position: static!important;
-  }
-  .con-t td.sticky-col{
-    background:#ffffff!important;
-    font-weight:900!important;
-    text-align:left!important;
-    color:#800000!important;
-    position: static!important;
-  }
-  .row-name-pill{
-    color:#800000!important;
-    font-weight:900!important;
-  }
-  .badge-num{
-    background: transparent!important;
-    border: none!important;
-    color:#800000!important;
-    padding: 0!important;
-    font-weight: 900!important;
-    box-shadow: none!important;
-  }
-  .dim-zero{
-    color: #991b1b!important;
-    font-weight:600!important;
-  }
-  .tot-badge{
-    background: transparent!important;
-    border: none!important;
-    color:#800000!important;
-    padding: 0!important;
-    font-weight: 900!important;
-    box-shadow: none!important;
-  }
-  .con-t .gr-row td{
-    background:#fee2e2!important;
-    font-weight:900!important;
-    color:#800000!important;
-    border-top:2.5px solid #800000!important;
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
-  }
-  .con-t .gr-row td.sticky-col{
-    background:#fecaca!important;
-    color:#800000!important;
-  }
-  
-  /* Print Footer / Signature block with Dark Red on White */
-  .print-footer{
-    display:flex!important;
-    justify-content:space-between!important;
-    align-items:flex-end!important;
-    margin-top:20px!important;
-    padding-top:12px!important;
-    page-break-inside:avoid!important;
-    background:#ffffff!important;
-  }
-  .sig-box{
-    text-align:center!important;
-    width:28%!important;
-    border-top:2px solid #800000!important;
-    padding-top:6px!important;
-    font-size:0.78rem!important;
-    font-weight:800!important;
-    color:#800000!important;
-  }
-  .sig-sub{
-    font-size:0.70rem!important;
-    font-weight:600!important;
-    color:#991b1b!important;
-  }
-  
-  .wrap,.content-area{padding:0!important;max-width:100%!important;}
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   11. TOAST & ALERTS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.toast-notice {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  z-index: 99999;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  gap: 12px;
 }
 
-.content-area{padding:24px 0 40px;}
-@media(max-width:700px){.sel-row{grid-template-columns:1fr;}.abar{flex-direction:column;}.entry-tabs{flex-direction:column;}}
+.portal-alert {
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  margin-bottom: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.portal-alert-success {
+  background: rgba(16, 185, 129, 0.18);
+  border: 2px solid #10b981;
+  color: #6ee7b7;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   12. A3 ISOLATED PRINT STYLESHEET (PROFESSIONAL & CLEAN)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.print-only-header { display: none; }
+.print-only-footer { display: none; }
+
+@media print {
+  @page {
+    size: A3 landscape;
+    margin: 8mm 6mm 8mm 6mm;
+  }
+  
+  html, body {
+    background: #ffffff !important;
+    color: #800000 !important; /* Professional Dark Red on White Paper */
+    font-family: 'Poppins', Arial, sans-serif !important;
+  }
+  
+  /* Hide all interactive UI and non-printing tabs */
+  #authGate, .app-nav, .hero-banner, .tab-nav-bar, .selection-box, .live-status-bar, 
+  .filter-container, .form-action-bar, .no-print, .toast-notice, .kpi-row, .exec-dash-box {
+    display: none !important;
+  }
+  
+  .tab-panel {
+    display: none !important;
+  }
+  
+  /* Strictly display only the active printing panel */
+  body.printing-class #tab-cls-con { display: block !important; }
+  body.printing-dept #tab-dpt-con { display: block !important; }
+  
+  .portal-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .print-only-header {
+    display: block !important;
+    text-align: center !important;
+    margin-bottom: 8px !important;
+    border-bottom: 2.5px solid #800000 !important;
+    padding-bottom: 6px !important;
+    background: #ffffff !important;
+  }
+  
+  .print-only-header h2 {
+    font-size: 1.25rem !important;
+    font-weight: 900 !important;
+    color: #800000 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 2px !important;
+  }
+  
+  .print-only-header p {
+    font-size: 0.85rem !important;
+    font-weight: 800 !important;
+    color: #800000 !important;
+  }
+  
+  .matrix-scroll-wrap {
+    border: none !important;
+    overflow: visible !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+  
+  .matrix-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 0.52rem !important;
+    background: #ffffff !important;
+  }
+  
+  .matrix-table th, .matrix-table td {
+    border: 1px solid #800000 !important;
+    padding: 3.5px 2.5px !important;
+    color: #800000 !important;
+    text-align: center !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  
+  .matrix-table th {
+    background: #fee2e2 !important;
+    font-weight: 900 !important;
+    color: #800000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .matrix-table th.sticky-name-col {
+    background: #fecaca !important;
+    color: #800000 !important;
+    text-align: left !important;
+    position: static !important;
+  }
+  
+  .matrix-table td.sticky-name-col {
+    background: #ffffff !important;
+    font-weight: 900 !important;
+    text-align: left !important;
+    color: #800000 !important;
+    position: static !important;
+  }
+  
+  .name-cell-text {
+    color: #800000 !important;
+    font-weight: 900 !important;
+  }
+  
+  .stock-badge-active {
+    background: transparent !important;
+    border: none !important;
+    color: #800000 !important;
+    padding: 0 !important;
+    font-weight: 900 !important;
+  }
+  
+  .stock-zero {
+    color: #991b1b !important;
+    font-weight: 600 !important;
+  }
+  
+  .total-pill-badge {
+    background: transparent !important;
+    border: none !important;
+    color: #800000 !important;
+    padding: 0 !important;
+    font-weight: 900 !important;
+  }
+  
+  .matrix-table .grand-total-row td {
+    background: #fee2e2 !important;
+    font-weight: 900 !important;
+    color: #800000 !important;
+    border-top: 2.5px solid #800000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .matrix-table .grand-total-row td.sticky-name-col {
+    background: #fecaca !important;
+    color: #800000 !important;
+  }
+  
+  .print-only-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+    margin-top: 22px !important;
+    padding-top: 14px !important;
+    page-break-inside: avoid !important;
+    background: #ffffff !important;
+  }
+  
+  .sig-block {
+    text-align: center !important;
+    width: 28% !important;
+    border-top: 2px solid #800000 !important;
+    padding-top: 6px !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    color: #800000 !important;
+  }
+  
+  .sig-sub-text {
+    font-size: 0.70rem !important;
+    font-weight: 600 !important;
+    color: #991b1b !important;
+  }
+  
+  .main-wrapper {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+@media(max-width: 768px) {
+  .sel-grid { grid-template-columns: 1fr; }
+  .tab-nav-bar { grid-template-columns: 1fr; }
+  .form-action-bar { flex-direction: column; }
+}
 </style>
 </head>
 <body>
 
 <!-- AUTH GATE -->
 <div id="authGate">
-  <div class="auth-box">
-    <div class="auth-icon"><i class="fas fa-couch"></i></div>
+  <div class="auth-card">
+    <div class="auth-icon-wrap"><i class="fas fa-couch"></i></div>
     <h2>Furniture &amp; Fixtures</h2>
-    <p>PM SHRI Kendriya Vidyalaya Ranikhet<br>Enter password to access the stock register</p>
-    <input type="password" id="authPwd" class="auth-in" placeholder="Enter Password" onkeydown="if(event.key==='Enter')doAuth()">
+    <p>PM SHRI Kendriya Vidyalaya Ranikhet<br>Enter password to access the stock portal</p>
+    <input type="password" id="authPwd" class="auth-input" placeholder="Enter Password" onkeydown="if(event.key==='Enter')doAuth()">
     <button class="auth-btn" onclick="doAuth()"><i class="fas fa-unlock-alt"></i> &nbsp;Unlock Portal</button>
     <div id="authErr">&#10007; Incorrect password. Please try again.</div>
   </div>
 </div>
 
-<!-- MAIN -->
-<div id="mc">
+<!-- MAIN APP -->
+<div id="appContainer">
 
-  <!-- NAV -->
-  <nav class="nav-bar no-print">
-    <div class="wrap">
-      <div class="nav">
-        <a href="index.html" class="nav-brand"><i class="fas fa-book-open"></i> KBJ Digital Diary</a>
-        <div class="nav-links">
-          <div class="nav-item"><a href="index.html" class="nav-lnk"><i class="fas fa-home"></i> Home</a></div>
-          <div class="nav-item">
-            <button class="dd-trig"><i class="fas fa-graduation-cap"></i> Academics <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
-            <div class="dd-menu">
-              <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
-              <a href="lessonplan.html"><i class="fas fa-book"></i> Lesson Plans</a>
-              <a href="syllabus.html"><i class="fas fa-list"></i> Syllabus</a>
-              <a href="examination.html"><i class="fas fa-file-alt"></i> Examination</a>
-            </div>
+  <!-- TOP NAV -->
+  <nav class="app-nav no-print">
+    <div class="nav-inner">
+      <a href="index.html" class="brand-link"><i class="fas fa-book-open"></i> KBJ Digital Diary</a>
+      <div class="nav-menu">
+        <div class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></div>
+        <div class="nav-item">
+          <button class="nav-dropdown-btn"><i class="fas fa-graduation-cap"></i> Academics <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
+          <div class="nav-dropdown">
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
+            <a href="lessonplan.html"><i class="fas fa-book"></i> Lesson Plans</a>
+            <a href="syllabus.html"><i class="fas fa-list"></i> Syllabus</a>
+            <a href="examination.html"><i class="fas fa-file-alt"></i> Examination</a>
           </div>
-          <div class="nav-item">
-            <button class="dd-trig"><i class="fas fa-chalkboard-teacher"></i> Teacher Desk <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
-            <div class="dd-menu">
-              <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
-              <a href="furniture.html" class="act"><i class="fas fa-couch"></i> Furniture &amp; Fixtures</a>
-              <a href="recess_duty.html"><i class="fas fa-clock"></i> Recess Duty</a>
-              <a href="ptm.html"><i class="fas fa-users"></i> PTM Record</a>
-            </div>
-          </div>
-          <div class="nav-item">
-            <button class="dd-trig"><i class="fas fa-user-graduate"></i> Students <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
-            <div class="dd-menu">
-              <a href="homework.html"><i class="fas fa-pencil-alt"></i> Homework</a>
-              <a href="analysis.html"><i class="fas fa-chart-bar"></i> Analysis</a>
-            </div>
-          </div>
-          <div class="nav-item"><a href="profile.html" class="nav-lnk"><i class="fas fa-user"></i> Profile</a></div>
         </div>
+        <div class="nav-item">
+          <button class="nav-dropdown-btn"><i class="fas fa-chalkboard-teacher"></i> Teacher Desk <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
+          <div class="nav-dropdown">
+            <a href="timetable.html"><i class="fas fa-calendar-alt"></i> Time Table</a>
+            <a href="furniture.html" class="active"><i class="fas fa-couch"></i> Furniture &amp; Fixtures</a>
+            <a href="recess_duty.html"><i class="fas fa-clock"></i> Recess Duty</a>
+            <a href="ptm.html"><i class="fas fa-users"></i> PTM Record</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <button class="nav-dropdown-btn"><i class="fas fa-user-graduate"></i> Students <i class="fas fa-chevron-down" style="font-size:.65rem"></i></button>
+          <div class="nav-dropdown">
+            <a href="homework.html"><i class="fas fa-pencil-alt"></i> Homework</a>
+            <a href="analysis.html"><i class="fas fa-chart-bar"></i> Analysis</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a></div>
       </div>
     </div>
   </nav>
 
-  <!-- PAGE HEADER -->
-  <div class="ph no-print">
-    <div class="wrap">
-      <div class="ph-inner">
-        <div class="ph-icon"><i class="fas fa-couch"></i></div>
+  <!-- HERO BANNER -->
+  <header class="hero-banner no-print">
+    <div class="hero-inner">
+      <div class="hero-title-box">
+        <div class="hero-badge-icon"><i class="fas fa-couch"></i></div>
         <div>
-          <h1>Furniture &amp; Fixtures Stock Register</h1>
-          <p>PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Maths &nbsp;|&nbsp; Session 2025â€“26</p>
+          <h1>Furniture &amp; Fixtures Stock Portal</h1>
+          <p>PM SHRI Kendriya Vidyalaya Ranikhet &nbsp;|&nbsp; In-Charge: K B Joshi, PGT Maths</p>
         </div>
+      </div>
+      <div class="hero-meta-pill">
+        <i class="fas fa-shield-alt"></i> Official Stock Register Session 2025â€“26
       </div>
     </div>
-  </div>
+  </header>
 
-  <div class="wrap content-area">
+  <!-- MAIN WRAPPER -->
+  <main class="main-wrapper">
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         SECTION 1 â€” DATA ENTRY (TOP)
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <div class="entry-sec no-print">
-      <div class="sec-hdr">
-        <span class="sec-badge"><i class="fas fa-edit"></i> &nbsp;Data Entry</span>
-        <div class="sec-line"></div>
-        <span class="sec-sub">Class Teachers &amp; Department In-charges</span>
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         5 UNIFIED MAIN SECTOR TABS
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <nav class="tab-nav-bar no-print">
+      <button class="tab-btn active" id="btn-tab-cls-entry" onclick="switchMainTab('cls-entry')">
+        <i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry
+      </button>
+      <button class="tab-btn" id="btn-tab-dpt-entry" onclick="switchMainTab('dpt-entry')">
+        <i class="fas fa-building"></i> Dept In-Charge Entry
+      </button>
+      <button class="tab-btn" id="btn-tab-cls-con" onclick="switchMainTab('cls-con')">
+        <i class="fas fa-table"></i> Class Consolidated
+      </button>
+      <button class="tab-btn" id="btn-tab-dpt-con" onclick="switchMainTab('dpt-con')">
+        <i class="fas fa-layer-group"></i> Dept Consolidated
+      </button>
+      <button class="tab-btn" id="btn-tab-exec-export" onclick="switchMainTab('exec-export')">
+        <i class="fas fa-chart-pie"></i> Overview &amp; Exports
+      </button>
+    </nav>
+
+    <!-- â”€â”€ TAB 1: CLASS TEACHER ENTRY â”€â”€ -->
+    <section id="tab-cls-entry" class="tab-panel active">
+      <div class="portal-card">
+        <div class="card-title"><i class="fas fa-chalkboard-teacher"></i> Class &amp; Section Furniture Entry</div>
+        <div id="cls-alert-area"></div>
+        
+        <!-- Selection Box with Clean Bold Labels -->
+        <div class="selection-box">
+          <div class="sel-grid">
+            <div class="field-group">
+              <label class="field-label">Select Class</label>
+              <select id="selClass" class="custom-select" onchange="onClassSelectChange()">
+                <option value="">Select Class</option>
+                <option>Balvatika</option>
+                <option>I</option><option>II</option><option>III</option>
+                <option>IV</option><option>V</option><option>VI</option>
+                <option>VII</option><option>VIII</option><option>IX</option>
+                <option>X</option><option>XI</option><option>XII</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Select Section</label>
+              <select id="selSection" class="custom-select" onchange="loadClassEntryForm()">
+                <option value="">Select Section</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Area -->
+        <div id="cls-form-area" style="display:none">
+          <div class="live-status-bar">
+            <div class="status-title">
+              <i class="fas fa-check-circle"></i>
+              <span id="cls-banner-text">Editing: Class</span>
+            </div>
+            <div class="status-badges">
+              <span class="status-pill">Articles Filled: <strong id="cls-count-filled">0 / 24</strong></span>
+              <span class="status-pill">Total Quantity: <strong id="cls-count-total">0 items</strong></span>
+            </div>
+          </div>
+
+          <div class="filter-container">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i>
+              <input type="text" id="clsSearchIn" class="search-input" placeholder="Quick search item name... (e.g. Desk, Chair, Table, Board)" oninput="filterClassRows()">
+            </div>
+          </div>
+
+          <div class="table-scroll-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="sno-cell">#</th>
+                  <th>Furniture / Fixture Item Name</th>
+                  <th style="width:190px;text-align:center">Quantity (Use + / - or Type)</th>
+                </tr>
+              </thead>
+              <tbody id="cls-entry-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="form-action-bar">
+            <button class="action-btn btn-save" onclick="saveClassData()"><i class="fas fa-save"></i> Save Entry</button>
+            <button class="action-btn btn-ghost" onclick="loadClassEntryForm()"><i class="fas fa-undo"></i> Discard Changes</button>
+            <button class="action-btn btn-ghost btn-compact" onclick="clearClassData()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
+          </div>
+        </div>
+
+        <div id="cls-placeholder" class="empty-placeholder">
+          <i class="fas fa-hand-point-up"></i>
+          <p>Please select a <strong>Class</strong> and <strong>Section</strong> in the purple box above to begin entry.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- â”€â”€ TAB 2: DEPT IN-CHARGE ENTRY â”€â”€ -->
+    <section id="tab-dpt-entry" class="tab-panel">
+      <div class="portal-card">
+        <div class="card-title"><i class="fas fa-building"></i> Department / Room / Lab Furniture Entry</div>
+        <div id="dpt-alert-area"></div>
+        
+        <!-- Selection Box with Clean Bold Labels -->
+        <div class="selection-box">
+          <div class="sel-grid single">
+            <div class="field-group">
+              <label class="field-label">Select Department</label>
+              <select id="selDept" class="custom-select" onchange="loadDeptEntryForm()">
+                <option value="">Select Department</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Area -->
+        <div id="dpt-form-area" style="display:none">
+          <div class="live-status-bar">
+            <div class="status-title">
+              <i class="fas fa-check-circle"></i>
+              <span id="dpt-banner-text">Editing: Department</span>
+            </div>
+            <div class="status-badges">
+              <span class="status-pill">Articles Filled: <strong id="dpt-count-filled">0 / 50</strong></span>
+              <span class="status-pill">Total Quantity: <strong id="dpt-count-total">0 items</strong></span>
+            </div>
+          </div>
+
+          <div class="filter-container">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i>
+              <input type="text" id="dptSearchIn" class="search-input" placeholder="Filter 50 department items... (e.g. Almirah, PM SHRI, Table)" oninput="filterDeptRows()">
+            </div>
+            <div class="category-chips">
+              <button class="chip-btn active" onclick="setDeptCategory('', this)">All (50)</button>
+              <button class="chip-btn" onclick="setDeptCategory('Chair', this)">Chairs</button>
+              <button class="chip-btn" onclick="setDeptCategory('Table', this)">Tables</button>
+              <button class="chip-btn" onclick="setDeptCategory('Almirah', this)">Almirahs</button>
+              <button class="chip-btn" onclick="setDeptCategory('PM SHRI', this)">PM SHRI</button>
+            </div>
+          </div>
+
+          <div class="table-scroll-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="sno-cell">#</th>
+                  <th>Furniture / Fixture Item Name</th>
+                  <th style="width:190px;text-align:center">Quantity (Use + / - or Type)</th>
+                </tr>
+              </thead>
+              <tbody id="dpt-entry-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="form-action-bar">
+            <button class="action-btn btn-save" onclick="saveDeptData()"><i class="fas fa-save"></i> Save Entry</button>
+            <button class="action-btn btn-ghost" onclick="loadDeptEntryForm()"><i class="fas fa-undo"></i> Discard Changes</button>
+            <button class="action-btn btn-ghost btn-compact" onclick="clearDeptData()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
+          </div>
+        </div>
+
+        <div id="dpt-placeholder" class="empty-placeholder">
+          <i class="fas fa-hand-point-up"></i>
+          <p>Please select a <strong>Department / Room / Lab</strong> in the purple box above to begin entry.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- â”€â”€ TAB 3: CLASS CONSOLIDATED â”€â”€ -->
+    <section id="tab-cls-con" class="tab-panel">
+      <!-- Print Only Header -->
+      <div class="print-only-header">
+        <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+        <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” CLASS / SECTION WISE â€” SESSION 2025â€“26</p>
       </div>
 
-      <!-- ENTRY TOGGLE TABS -->
-      <div class="entry-tabs">
-        <button class="etab active" id="etab-cls" onclick="switchETab('cls')">
-          <i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry &nbsp;<span class="etab-tag">Class &amp; Section Wise</span>
-        </button>
-        <button class="etab" id="etab-dpt" onclick="switchETab('dpt')">
-          <i class="fas fa-door-open"></i> Department In-charge Entry &nbsp;<span class="etab-tag">Room &amp; Lab Wise</span>
-        </button>
-      </div>
-
-      <!-- â”€â”€ CLASS TEACHER ENTRY PANEL â”€â”€ -->
-      <div id="epanel-cls" class="epanel active">
-        <div class="entry-card">
-          <div class="ctitle"><i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry Form</div>
-          <div id="cls-alert"></div>
-          
-          <!-- Dropdown Selector Card with Clean Large Bold Labels (No Symbols) -->
-          <div class="selection-box">
-            <div class="sel-row">
-              <div class="fg">
-                <label class="entry-label">Select Class</label>
-                <select id="selCls" class="fsel" onchange="onClsChange()">
-                  <option value="">Select Class</option>
-                  <option>Balvatika</option>
-                  <option>I</option><option>II</option><option>III</option>
-                  <option>IV</option><option>V</option><option>VI</option>
-                  <option>VII</option><option>VIII</option><option>IX</option>
-                  <option>X</option><option>XI</option><option>XII</option>
-                </select>
-              </div>
-              <div class="fg">
-                <label class="entry-label">Select Section</label>
-                <select id="selSec" class="fsel" onchange="loadClsForm()">
-                  <option value="">Select Section</option>
-                </select>
-              </div>
-            </div>
+      <div class="portal-card">
+        <!-- Mini KPI Row -->
+        <div class="kpi-row no-print">
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-cc-cls">35</div>
+            <div class="kpi-lbl">Class Sections</div>
           </div>
-
-          <!-- Form Area -->
-          <div id="cls-form" style="display:none">
-            
-            <!-- Live Active Banner -->
-            <div class="active-banner">
-              <div class="ab-title">
-                <i class="fas fa-check-circle"></i>
-                <span id="cls-banner-title">Editing: Class</span>
-              </div>
-              <div class="ab-stats">
-                <span class="ab-stat-badge">Articles Filled: <strong id="cls-articles-count">0 / 24</strong></span>
-                <span class="ab-stat-badge">Total Quantity: <strong id="cls-total-count">0 items</strong></span>
-              </div>
-            </div>
-
-            <!-- Quick Filter Bar -->
-            <div class="filter-bar">
-              <div class="search-in-wrap">
-                <i class="fas fa-search"></i>
-                <input type="text" id="clsSearch" class="search-in" placeholder="Quick search item name... (e.g. Desk, Chair, Table, Board)" oninput="filterClsTable()">
-              </div>
-            </div>
-
-            <!-- Table -->
-            <div class="etw">
-              <table class="et">
-                <thead>
-                  <tr>
-                    <th class="sno">#</th>
-                    <th>Furniture / Fixture Item Name</th>
-                    <th style="width:190px;text-align:center">Quantity (Use + / - or Type)</th>
-                  </tr>
-                </thead>
-                <tbody id="cls-tbody"></tbody>
-              </table>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="abar">
-              <button class="btn btn-save" onclick="saveClsEntry()"><i class="fas fa-save"></i> Save Entry</button>
-              <button class="btn btn-out" onclick="loadClsForm()"><i class="fas fa-undo"></i> Discard Changes</button>
-              <button class="btn btn-out btn-sm" onclick="clearClsForm()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
-            </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-cc-desks">0</div>
+            <div class="kpi-lbl">Dual Desks &amp; Tables</div>
           </div>
-
-          <!-- Empty state placeholder -->
-          <div id="cls-ph" class="ph-msg">
-            <i class="fas fa-hand-point-up"></i>
-            <p>Please select a <strong>Class</strong> and <strong>Section</strong> in the purple box above to start entering quantities.</p>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-cc-chairs">0</div>
+            <div class="kpi-lbl">Student Chairs</div>
           </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-cc-teacher">0</div>
+            <div class="kpi-lbl">Teacher Furniture</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-cc-boards">0</div>
+            <div class="kpi-lbl">Boards &amp; Displays</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-cc-storage">0</div>
+            <div class="kpi-lbl">Almirahs &amp; Storage</div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="filter-container no-print">
+          <div class="search-wrap" style="max-width:360px;">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchClassMatrix" class="search-input" placeholder="Filter class row (e.g. VII, X-B)..." oninput="filterClassMatrix()">
+          </div>
+          <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="action-btn btn-emerald btn-compact" onclick="triggerA3Print('class')"><i class="fas fa-print"></i> Print A3 Sheet</button>
+            <button class="action-btn btn-blue btn-compact" onclick="downloadClassExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
+            <button class="action-btn btn-amber btn-compact" onclick="sharePortalLink()"><i class="fas fa-share-alt"></i> Share</button>
+          </div>
+        </div>
+
+        <!-- Matrix Table -->
+        <div class="matrix-scroll-wrap">
+          <table class="matrix-table">
+            <thead id="class-matrix-head"></thead>
+            <tbody id="class-matrix-body"></tbody>
+          </table>
         </div>
       </div>
 
-      <!-- â”€â”€ DEPARTMENT IN-CHARGE ENTRY PANEL â”€â”€ -->
-      <div id="epanel-dpt" class="epanel">
-        <div class="entry-card">
-          <div class="ctitle"><i class="fas fa-building"></i> Department / Room / Lab Entry Form</div>
-          <div id="dpt-alert"></div>
-          
-          <!-- Dropdown Selector Card with Clean Large Bold Labels (No Symbols) -->
-          <div class="selection-box">
-            <div class="sel-row one">
-              <div class="fg">
-                <label class="entry-label">Select Department</label>
-                <select id="selDpt" class="fsel" onchange="loadDptForm()">
-                  <option value="">Select Department</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Form Area -->
-          <div id="dpt-form" style="display:none">
-            
-            <!-- Live Active Banner -->
-            <div class="active-banner">
-              <div class="ab-title">
-                <i class="fas fa-check-circle"></i>
-                <span id="dpt-banner-title">Editing: Department</span>
-              </div>
-              <div class="ab-stats">
-                <span class="ab-stat-badge">Articles Filled: <strong id="dpt-articles-count">0 / 50</strong></span>
-                <span class="ab-stat-badge">Total Quantity: <strong id="dpt-total-count">0 items</strong></span>
-              </div>
-            </div>
-
-            <!-- Quick Filter Bar -->
-            <div class="filter-bar">
-              <div class="search-in-wrap">
-                <i class="fas fa-search"></i>
-                <input type="text" id="dptSearch" class="search-in" placeholder="Filter 50 department items... (e.g. Almirah, PM SHRI, Stool, Table)" oninput="filterDptTable()">
-              </div>
-              <div class="quick-pills">
-                <span class="qp active" onclick="setDptCatFilter('',this)">All (50)</span>
-                <span class="qp" onclick="setDptCatFilter('Chair',this)">Chairs</span>
-                <span class="qp" onclick="setDptCatFilter('Table',this)">Tables</span>
-                <span class="qp" onclick="setDptCatFilter('Almirah',this)">Almirahs</span>
-                <span class="qp" onclick="setDptCatFilter('PM SHRI',this)">PM SHRI</span>
-              </div>
-            </div>
-
-            <!-- Table -->
-            <div class="etw">
-              <table class="et">
-                <thead>
-                  <tr>
-                    <th class="sno">#</th>
-                    <th>Furniture / Fixture Item Name</th>
-                    <th style="width:190px;text-align:center">Quantity (Use + / - or Type)</th>
-                  </tr>
-                </thead>
-                <tbody id="dpt-tbody"></tbody>
-              </table>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="abar">
-              <button class="btn btn-save" onclick="saveDptEntry()"><i class="fas fa-save"></i> Save Entry</button>
-              <button class="btn btn-out" onclick="loadDptForm()"><i class="fas fa-undo"></i> Discard Changes</button>
-              <button class="btn btn-out btn-sm" onclick="clearDptForm()"><i class="fas fa-eraser"></i> Clear All to Zero</button>
-            </div>
-          </div>
-
-          <!-- Empty state placeholder -->
-          <div id="dpt-ph" class="ph-msg">
-            <i class="fas fa-hand-point-up"></i>
-            <p>Please select a <strong>Department / Room / Lab</strong> in the purple box above to start entering quantities.</p>
-          </div>
+      <!-- Print Only Footer -->
+      <div class="print-only-footer">
+        <div class="sig-block">
+          Class Teacher / Verifier<br>
+          <span class="sig-sub-text">Sign with Date</span>
+        </div>
+        <div class="sig-block">
+          K. B. Joshi (PGT Maths)<br>
+          <span class="sig-sub-text">Furniture &amp; Fixtures In-Charge</span>
+        </div>
+        <div class="sig-block">
+          Principal<br>
+          <span class="sig-sub-text">PM SHRI KV Ranikhet</span>
         </div>
       </div>
-    </div>
-    <!-- /entry-sec -->
+    </section>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         SECTION 2 â€” CONSOLIDATED RECORDS (BELOW)
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <div>
-      <div class="sec-hdr no-print">
-        <span class="sec-badge"><i class="fas fa-table"></i> &nbsp;Consolidated Stock Records</span>
-        <div class="sec-line"></div>
-        <span class="sec-sub">Executive Summaries Â· A3 Printable Sheets Â· Excel Workbook</span>
+    <!-- â”€â”€ TAB 4: DEPT CONSOLIDATED â”€â”€ -->
+    <section id="tab-dpt-con" class="tab-panel">
+      <!-- Print Only Header -->
+      <div class="print-only-header">
+        <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+        <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” DEPARTMENT / LAB / ROOM WISE â€” SESSION 2025â€“26</p>
       </div>
 
-      <!-- â”€â”€ EXECUTIVE OVERALL DASHBOARD SUMMARY â”€â”€ -->
-      <div class="exec-summary-box no-print">
-        <div class="exec-header">
-          <div class="exec-header-title">
+      <div class="portal-card">
+        <!-- Mini KPI Row -->
+        <div class="kpi-row no-print">
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-dc-dpts">31</div>
+            <div class="kpi-lbl">Departments / Rooms</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-dc-labs">0</div>
+            <div class="kpi-lbl">Lab Articles</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-dc-pmshri">0</div>
+            <div class="kpi-lbl">PM SHRI Assets</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-dc-office">0</div>
+            <div class="kpi-lbl">Staff &amp; Office</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-dc-lib">0</div>
+            <div class="kpi-lbl">Library Assets</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num" id="kpi-dc-storage">0</div>
+            <div class="kpi-lbl">Store &amp; Corridors</div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="filter-container no-print">
+          <div class="search-wrap" style="max-width:360px;">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchDeptMatrix" class="search-input" placeholder="Filter department (e.g. Physics, Library)..." oninput="filterDeptMatrix()">
+          </div>
+          <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="action-btn btn-emerald btn-compact" onclick="triggerA3Print('dept')"><i class="fas fa-print"></i> Print A3 Sheet</button>
+            <button class="action-btn btn-blue btn-compact" onclick="downloadDeptExcel()"><i class="fas fa-file-excel"></i> Download Excel</button>
+            <button class="action-btn btn-amber btn-compact" onclick="sharePortalLink()"><i class="fas fa-share-alt"></i> Share</button>
+          </div>
+        </div>
+
+        <!-- Matrix Table -->
+        <div class="matrix-scroll-wrap">
+          <table class="matrix-table">
+            <thead id="dept-matrix-head"></thead>
+            <tbody id="dept-matrix-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Print Only Footer -->
+      <div class="print-only-footer">
+        <div class="sig-block">
+          Department In-Charge<br>
+          <span class="sig-sub-text">Sign with Date</span>
+        </div>
+        <div class="sig-block">
+          K. B. Joshi (PGT Maths)<br>
+          <span class="sig-sub-text">Furniture &amp; Fixtures In-Charge</span>
+        </div>
+        <div class="sig-block">
+          Principal<br>
+          <span class="sig-sub-text">PM SHRI KV Ranikhet</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- â”€â”€ TAB 5: OVERVIEW & EXPORTS â”€â”€ -->
+    <section id="tab-exec-export" class="tab-panel">
+      <!-- Big Dashboard -->
+      <div class="exec-dash-box">
+        <div class="exec-dash-hdr">
+          <div class="exec-dash-title">
             <i class="fas fa-chart-pie"></i>
-            <span>Vidyalaya Stock Overview &amp; Key Performance Indicators</span>
+            <span>Vidyalaya Stock Overview &amp; Key Metrics</span>
           </div>
-          <div class="exec-badge-live">
-            <i class="fas fa-sync-alt fa-spin"></i> Live Synchronized Stock
+          <div class="live-pulse-badge">
+            <i class="fas fa-sync-alt fa-spin"></i> Real-time Stock Synchronized
           </div>
         </div>
 
-        <div class="kpi-grid">
-          <!-- Card 1: Registered Units -->
-          <div class="kpi-card purple">
-            <div class="kpi-top">
-              <span class="kpi-label">Registered Locations</span>
-              <div class="kpi-icon"><i class="fas fa-school"></i></div>
+        <div class="big-kpi-grid">
+          <div class="big-kpi-card c-purple">
+            <div class="big-kpi-top">
+              <span class="big-kpi-label">Registered Locations</span>
+              <div class="big-kpi-icon"><i class="fas fa-school"></i></div>
             </div>
-            <div class="kpi-val" id="kpi-locs">66</div>
-            <div class="kpi-sub">35 Class Sections + 31 Depts &amp; Labs</div>
+            <div class="big-kpi-val">66</div>
+            <div class="big-kpi-sub">35 Class Sections + 31 Depts &amp; Labs</div>
           </div>
 
-          <!-- Card 2: Classroom Stock -->
-          <div class="kpi-card emerald">
-            <div class="kpi-top">
-              <span class="kpi-label">Classroom Articles</span>
-              <div class="kpi-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div class="big-kpi-card c-emerald">
+            <div class="big-kpi-top">
+              <span class="big-kpi-label">Classroom Articles</span>
+              <div class="big-kpi-icon"><i class="fas fa-chalkboard-teacher"></i></div>
             </div>
-            <div class="kpi-val" id="kpi-cls-tot">0</div>
-            <div class="kpi-sub" id="kpi-cls-sub">Across 35 Classrooms</div>
+            <div class="big-kpi-val" id="dash-cls-tot">0</div>
+            <div class="big-kpi-sub">Across 35 Classrooms</div>
           </div>
 
-          <!-- Card 3: Department Assets -->
-          <div class="kpi-card blue">
-            <div class="kpi-top">
-              <span class="kpi-label">Department Assets</span>
-              <div class="kpi-icon"><i class="fas fa-microscope"></i></div>
+          <div class="big-kpi-card c-blue">
+            <div class="big-kpi-top">
+              <span class="big-kpi-label">Department Assets</span>
+              <div class="big-kpi-icon"><i class="fas fa-microscope"></i></div>
             </div>
-            <div class="kpi-val" id="kpi-dpt-tot">0</div>
-            <div class="kpi-sub" id="kpi-dpt-sub">Across 31 Labs &amp; Offices</div>
+            <div class="big-kpi-val" id="dash-dpt-tot">0</div>
+            <div class="big-kpi-sub">Across 31 Labs &amp; Offices</div>
           </div>
 
-          <!-- Card 4: Grand Total -->
-          <div class="kpi-card gold">
-            <div class="kpi-top">
-              <span class="kpi-label">Total School Furniture</span>
-              <div class="kpi-icon"><i class="fas fa-boxes-stacked"></i></div>
+          <div class="big-kpi-card c-gold">
+            <div class="big-kpi-top">
+              <span class="big-kpi-label">Total School Furniture</span>
+              <div class="big-kpi-icon"><i class="fas fa-boxes-stacked"></i></div>
             </div>
-            <div class="kpi-val" id="kpi-grand-tot">0</div>
-            <div class="kpi-sub">Total Verified Stock in School</div>
+            <div class="big-kpi-val" id="dash-grand-tot">0</div>
+            <div class="big-kpi-sub">Total Verified Stock in School</div>
           </div>
         </div>
       </div>
 
-      <!-- REPORT TAB NAV -->
-      <div class="rtab-nav no-print">
-        <button class="rtab active" id="rtab-cc" onclick="switchRTab('cc')"><i class="fas fa-table"></i> Class-wise Consolidated</button>
-        <button class="rtab" id="rtab-dc" onclick="switchRTab('dc')"><i class="fas fa-building"></i> Department-wise Consolidated</button>
-        <button class="rtab" id="rtab-ex" onclick="switchRTab('ex');renderStats()"><i class="fas fa-download"></i> Export &amp; Tools</button>
-      </div>
-
-      <!-- â”€â”€ CLASS CONSOLIDATED â”€â”€ -->
-      <div id="rpanel-cc" class="rpanel active">
-        
-        <!-- PRINT HEADER (ONLY FOR PRINT ON WHITE BACKGROUND - DARK RED TEXT) -->
-        <div class="print-hdr">
-          <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-          <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” CLASS / SECTION WISE â€” SESSION 2025â€“26</p>
+      <!-- Action Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+        <div class="portal-card">
+          <div class="card-title"><i class="fas fa-file-excel"></i> Download Full Workbook</div>
+          <p style="color:var(--text-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Exports both class-wise and department-wise stock in one consolidated Excel workbook (.xlsx) matching the official Vidyalaya register.</p>
+          <button class="action-btn btn-emerald" onclick="downloadCombinedExcel()"><i class="fas fa-file-excel"></i> Download Complete Register (.xlsx)</button>
         </div>
 
-        <div class="con-card">
-          <!-- TAB SUMMARY KPI BAR -->
-          <div class="tab-kpi-bar no-print">
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="cc-kpi-classes">35</div>
-              <div class="tab-kpi-lbl">Class Sections</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="cc-kpi-desks">0</div>
-              <div class="tab-kpi-lbl">Dual Desks &amp; Tables</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="cc-kpi-chairs">0</div>
-              <div class="tab-kpi-lbl">Student Chairs</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="cc-kpi-teacher">0</div>
-              <div class="tab-kpi-lbl">Teacher Tables/Chairs</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="cc-kpi-boards">0</div>
-              <div class="tab-kpi-lbl">Display &amp; Boards</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="cc-kpi-storage">0</div>
-              <div class="tab-kpi-lbl">Almirahs &amp; Storage</div>
-            </div>
-          </div>
-
-          <!-- CONTROL BAR -->
-          <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:18px;">
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1;">
-              <div class="search-in-wrap" style="max-width:340px;">
-                <i class="fas fa-search"></i>
-                <input type="text" id="ccSearch" class="search-in" placeholder="Filter class row (e.g. VII, X-B)..." oninput="filterCCRows()">
-              </div>
-              <span style="font-size:.88rem;color:#fde047;font-weight:700;"><i class="fas fa-layer-group"></i> 35 Sections Ã— 24 Items</span>
-            </div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print A3 Sheet</button>
-              <button class="btn btn-bl btn-sm" onclick="exportClsXL()"><i class="fas fa-file-excel"></i> Download Excel</button>
-              <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="conwrap" style="max-height:580px;">
-            <table class="con-t"><thead id="cc-head"></thead><tbody id="cc-body"></tbody></table>
+        <div class="portal-card">
+          <div class="card-title"><i class="fas fa-print"></i> Print A3 Clean Sheets</div>
+          <p style="color:var(--text-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Prints full-width A3 landscape sheets without any web buttons or extra UI, complete with verification signature lines.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="action-btn btn-emerald btn-compact" onclick="triggerA3Print('class')"><i class="fas fa-print"></i> Class Sheet (A3)</button>
+            <button class="action-btn btn-blue btn-compact" onclick="triggerA3Print('dept')"><i class="fas fa-print"></i> Dept Sheet (A3)</button>
           </div>
         </div>
 
-        <!-- PRINT SIGNATURE FOOTER (DARK RED ON WHITE) -->
-        <div class="print-footer">
-          <div class="sig-box">
-            Class Teacher / Verifier<br>
-            <span class="sig-sub">Sign with Date</span>
-          </div>
-          <div class="sig-box">
-            K. B. Joshi (PGT Maths)<br>
-            <span class="sig-sub">Furniture &amp; Fixtures In-Charge</span>
-          </div>
-          <div class="sig-box">
-            Principal<br>
-            <span class="sig-sub">PM SHRI KV Ranikhet</span>
-          </div>
+        <div class="portal-card">
+          <div class="card-title"><i class="fas fa-share-alt"></i> Share Portal Link</div>
+          <p style="color:var(--text-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Copy link to share directly with teachers and room in-charges. Password protection guarantees authenticated access.</p>
+          <button class="action-btn btn-amber" onclick="sharePortalLink()"><i class="fas fa-copy"></i> Copy Page Link</button>
+        </div>
+
+        <div class="portal-card">
+          <div class="card-title"><i class="fas fa-database"></i> Reset Baseline Data</div>
+          <p style="color:var(--text-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Restores verified stock counts to the official April 2026 baseline extracted from the departmental record Excel register.</p>
+          <button class="action-btn btn-ghost" onclick="restoreBaselineData()"><i class="fas fa-undo"></i> Reset to April 2026 Baseline</button>
         </div>
       </div>
+    </section>
 
-      <!-- â”€â”€ DEPT CONSOLIDATED â”€â”€ -->
-      <div id="rpanel-dc" class="rpanel">
-        
-        <!-- PRINT HEADER (ONLY FOR PRINT ON WHITE BACKGROUND - DARK RED TEXT) -->
-        <div class="print-hdr">
-          <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-          <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” DEPARTMENT / LAB / ROOM WISE â€” SESSION 2025â€“26</p>
-        </div>
-
-        <div class="con-card">
-          <!-- TAB SUMMARY KPI BAR -->
-          <div class="tab-kpi-bar no-print">
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="dc-kpi-depts">31</div>
-              <div class="tab-kpi-lbl">Departments/Rooms</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="dc-kpi-labs">0</div>
-              <div class="tab-kpi-lbl">Lab Articles</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="dc-kpi-pmshri">0</div>
-              <div class="tab-kpi-lbl">PM SHRI Assets</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="dc-kpi-office">0</div>
-              <div class="tab-kpi-lbl">Office/Staff Furniture</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="dc-kpi-lib">0</div>
-              <div class="tab-kpi-lbl">Library Assets</div>
-            </div>
-            <div class="tab-kpi-item">
-              <div class="tab-kpi-num" id="dc-kpi-storage">0</div>
-              <div class="tab-kpi-lbl">Store &amp; Corridors</div>
-            </div>
-          </div>
-
-          <!-- CONTROL BAR -->
-          <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:18px;">
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1;">
-              <div class="search-in-wrap" style="max-width:340px;">
-                <i class="fas fa-search"></i>
-                <input type="text" id="dcSearch" class="search-in" placeholder="Filter department (e.g. Physics, Library)..." oninput="filterDCRows()">
-              </div>
-              <span style="font-size:.88rem;color:#fde047;font-weight:700;"><i class="fas fa-building"></i> 31 Rooms Ã— 50 Items</span>
-            </div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-gr btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print A3 Sheet</button>
-              <button class="btn btn-bl btn-sm" onclick="exportDptXL()"><i class="fas fa-file-excel"></i> Download Excel</button>
-              <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="conwrap" style="max-height:580px;">
-            <table class="con-t"><thead id="dc-head"></thead><tbody id="dc-body"></tbody></table>
-          </div>
-        </div>
-
-        <!-- PRINT SIGNATURE FOOTER (DARK RED ON WHITE) -->
-        <div class="print-footer">
-          <div class="sig-box">
-            Department In-Charge<br>
-            <span class="sig-sub">Sign with Date</span>
-          </div>
-          <div class="sig-box">
-            K. B. Joshi (PGT Maths)<br>
-            <span class="sig-sub">Furniture &amp; Fixtures In-Charge</span>
-          </div>
-          <div class="sig-box">
-            Principal<br>
-            <span class="sig-sub">PM SHRI KV Ranikhet</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- â”€â”€ EXPORT & TOOLS â”€â”€ -->
-      <div id="rpanel-ex" class="rpanel">
-        <div id="statsArea" class="stats"></div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-          <div class="entry-card">
-            <div class="ctitle"><i class="fas fa-file-excel"></i> Download Full Workbook</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Exports both class-wise and department-wise sheets in one consolidated Excel workbook (.xlsx) matching the official Vidyalaya register.</p>
-            <button class="btn btn-gr" onclick="exportBothXL()"><i class="fas fa-file-excel"></i> Download Full Register (.xlsx)</button>
-          </div>
-          <div class="entry-card">
-            <div class="ctitle"><i class="fas fa-print"></i> Print A3 Clean Sheets</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Prints full-width A3 landscape sheets without any web buttons or extra UI, complete with verification signature lines.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print Class Sheet (A3)</button>
-              <button class="btn btn-bl btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print Dept Sheet (A3)</button>
-            </div>
-          </div>
-          <div class="entry-card">
-            <div class="ctitle"><i class="fas fa-share-alt"></i> Share Portal</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Copy link to share directly with teachers and room in-charges. Password protection guarantees authenticated access.</p>
-            <button class="btn btn-or" onclick="doShare()"><i class="fas fa-copy"></i> Copy Page Link</button>
-          </div>
-          <div class="entry-card">
-            <div class="ctitle"><i class="fas fa-database"></i> Reset Baseline Data</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Restores verified stock counts to the official April 2026 baseline extracted from the departmental record Excel register.</p>
-            <button class="btn btn-out" onclick="doReset()"><i class="fas fa-undo"></i> Reset to April 2026 Baseline</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <!-- /consolidated -->
-  </div><!-- /wrap content-area -->
-</div><!-- /mc -->
+  </main>
+</div>
 
 <!-- TOAST -->
-<div id="toastBox"><i class="fas fa-check-circle" style="font-size:1.3rem"></i> <span id="toastMsg">Saved!</span></div>
+<div id="toastBox" class="toast-notice">
+  <i class="fas fa-check-circle" style="font-size:1.3rem"></i>
+  <span id="toastMsg">Changes Saved Successfully!</span>
+</div>
 
 <script>
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  CONSTANTS
+//  STOCK DATA DEFINITIONS
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-const CLS_ITEMS=[
+const CLASS_ITEMS = [
   'Small Chair - Wood','Small Chair - Plastic','Big Chair - Wood','Big Chair - Plastic',
   'Teacher Chair - Iron/Wood','Teacher Chair - Cushion','Revolving Chair','Chair with Writing Pad',
   'Dual Desk - Wood','Dual Desk - Iron','Student Table - Flat','Student Table - Box',
@@ -1149,21 +1863,21 @@ const CLS_ITEMS=[
   'Tin Box','Green Board','Display Board','White Board'
 ];
 
-const CLS_LIST=[
+const CLASS_LIST = [
   'Balvatika A','I A','I B','I C','II A','II B','III A','III B','III C',
   'IV A','IV B','IV C','V A','V B','V C','VI A','VI B','VI C',
   'VII A','VII B','VII C','VIII A','VIII B','VIII C',
   'IX A','IX B','IX C','X A','X B','X C','XI A','XI B','XI C','XII B','XII C'
 ];
 
-const CLS_SEC={
-  'Balvatika':['A'],'I':['A','B','C'],'II':['A','B'],'III':['A','B','C'],
-  'IV':['A','B','C'],'V':['A','B','C'],'VI':['A','B','C'],
-  'VII':['A','B','C'],'VIII':['A','B','C'],'IX':['A','B','C'],
-  'X':['A','B','C'],'XI':['A','B','C'],'XII':['B','C']
+const CLASS_SECTIONS_MAP = {
+  'Balvatika': ['A'], 'I': ['A','B','C'], 'II': ['A','B'], 'III': ['A','B','C'],
+  'IV': ['A','B','C'], 'V': ['A','B','C'], 'VI': ['A','B','C'],
+  'VII': ['A','B','C'], 'VIII': ['A','B','C'], 'IX': ['A','B','C'],
+  'X': ['A','B','C'], 'XI': ['A','B','C'], 'XII': ['B','C']
 };
 
-const DPT_ITEMS=[
+const DEPT_ITEMS = [
   'Chair (Wood) Big','Chair (Plastic) Big','Chair (Iron) with Cushion','Revolving Chair',
   'Chair with Writing Pad (Iron)','Stool/Chair with Cushion Iron','Teacher Chair','Stool Practical (Wood)',
   'Stool Round Small','Stool Flat Small','Table Wood Flat (Small)','Table Wood Box (Small)',
@@ -1179,7 +1893,7 @@ const DPT_ITEMS=[
   'Magazine Stand (PM SHRI)','New Chairs for Staff (PM SHRI)'
 ];
 
-const DPT_LIST=[
+const DEPT_LIST = [
   'CHEMISTRY LAB','PHYSICS LAB','BIOLOGY LAB','MATHS LAB','CCA ROOM',
   'MUSIC ROOM','ART ROOM','LANGUAGE LAB','COMPUTER LAB','JUNIOR COMPUTER LAB',
   'PRIMARY COMPUTER LAB','LIBRARY','PRINCIPAL ROOM','VICE PRINCIPAL ROOM','OFFICE',
@@ -1189,7 +1903,7 @@ const DPT_LIST=[
   'SECONDARY CORRIDOR','PRIMARY CORRIDOR'
 ];
 
-const DEF_CLS={
+const DEFAULT_CLASS_DATA = {
   'Balvatika A':[0,25,0,0,1,2,0,0,0,0,0,0,0,7,2,0,0,0,1,0,0,1,0,0],
   'I A':[38,0,0,0,0,0,0,0,0,0,0,0,0,10,1,0,0,0,1,0,1,1,1,0],
   'I B':[32,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,0,1,0,0,1,0,0],
@@ -1227,7 +1941,7 @@ const DEF_CLS={
   'XII C':[0,0,0,0,1,0,0,0,0,0,44,0,0,0,2,0,0,0,0,0,0,1,0,0]
 };
 
-const DEF_DPT={
+const DEFAULT_DEPT_DATA = {
   'CHEMISTRY LAB':[0,0,0,0,0,0,2,4,0,0,0,0,0,0,1,1,0,0,0,2,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0],
   'PHYSICS LAB':[1,0,1,0,0,0,2,27,0,0,0,0,0,0,1,6,0,1,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   'BIOLOGY LAB':[0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,8,2,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -1262,530 +1976,577 @@ const DEF_DPT={
 };
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  STORAGE
+//  PERSISTENCE STORAGE
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-const LS_CLS='kbj_furn_cls_v3', LS_DPT='kbj_furn_dpt_v3';
-function lsLoad(k,def){try{const s=localStorage.getItem(k);if(s)return Object.assign({},def,JSON.parse(s));}catch(e){}return JSON.parse(JSON.stringify(def));}
-function lsSave(k,d){localStorage.setItem(k,JSON.stringify(d));}
+const STORAGE_KEY_CLASS = 'kbj_furn_cls_v4';
+const STORAGE_KEY_DEPT = 'kbj_furn_dpt_v4';
 
-let clsData=lsLoad(LS_CLS,DEF_CLS);
-let dptData=lsLoad(LS_DPT,DEF_DPT);
+function loadStoredData(key, fallback){
+  try {
+    const raw = localStorage.getItem(key);
+    if(raw) return Object.assign({}, fallback, JSON.parse(raw));
+  } catch(e){}
+  return JSON.parse(JSON.stringify(fallback));
+}
+
+function saveStoredData(key, data){
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+let activeClassData = loadStoredData(STORAGE_KEY_CLASS, DEFAULT_CLASS_DATA);
+let activeDeptData = loadStoredData(STORAGE_KEY_DEPT, DEFAULT_DEPT_DATA);
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  AUTH
+//  AUTH MANAGEMENT
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function doAuth(){
-  const v=document.getElementById('authPwd').value;
-  if(v==='kbjkv@2008'){
-    sessionStorage.setItem('furn3','1');
-    document.getElementById('authGate').style.display='none';
-    document.getElementById('mc').style.display='block';
-    initAll();
+  const pwd = document.getElementById('authPwd').value;
+  if(pwd === 'kbjkv@2008'){
+    sessionStorage.setItem('furn_auth_v4', '1');
+    document.getElementById('authGate').style.display = 'none';
+    document.getElementById('appContainer').style.display = 'block';
+    bootstrapPortal();
   } else {
-    document.getElementById('authErr').style.display='block';
-    document.getElementById('authPwd').value='';
+    document.getElementById('authErr').style.display = 'block';
+    document.getElementById('authPwd').value = '';
     document.getElementById('authPwd').focus();
   }
 }
-window.addEventListener('load',()=>{
-  if(sessionStorage.getItem('furn3')==='1'){
-    document.getElementById('authGate').style.display='none';
-    document.getElementById('mc').style.display='block';
-    initAll();
+
+window.addEventListener('load', () => {
+  if(sessionStorage.getItem('furn_auth_v4') === '1'){
+    document.getElementById('authGate').style.display = 'none';
+    document.getElementById('appContainer').style.display = 'block';
+    bootstrapPortal();
   } else {
     document.getElementById('authPwd').focus();
   }
 });
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  ENTRY TAB SWITCHING
+//  MAIN 5-TAB CONTROLLER
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function switchETab(id){
-  ['cls','dpt'].forEach(t=>{
-    document.getElementById('etab-'+t).classList.toggle('active',t===id);
-    document.getElementById('epanel-'+t).classList.toggle('active',t===id);
+function switchMainTab(tabId){
+  const allTabs = ['cls-entry', 'dpt-entry', 'cls-con', 'dpt-con', 'exec-export'];
+  allTabs.forEach(id => {
+    const btn = document.getElementById(`btn-tab-${id}`);
+    const pnl = document.getElementById(`tab-${id}`);
+    if(btn) btn.classList.toggle('active', id === tabId);
+    if(pnl) pnl.classList.toggle('active', id === tabId);
   });
+
+  if(tabId === 'cls-con') renderClassMatrix();
+  if(tabId === 'dpt-con') renderDeptMatrix();
+  if(tabId === 'exec-export') updateGlobalMetrics();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  CLASS ENTRY
+//  CLASS ENTRY FORM
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function onClsChange(){
-  const cls=document.getElementById('selCls').value;
-  const sel=document.getElementById('selSec');
-  sel.innerHTML='<option value="">Select Section</option>';
-  if(cls&&CLS_SEC[cls]) CLS_SEC[cls].forEach(s=>sel.innerHTML+=`<option value="${s}">Section ${s}</option>`);
-  document.getElementById('cls-form').style.display='none';
-  document.getElementById('cls-ph').style.display='block';
-}
-
-function getClsKey(){
-  const c=document.getElementById('selCls').value, s=document.getElementById('selSec').value;
-  return c==='Balvatika'?'Balvatika A':`${c} ${s}`;
-}
-
-function loadClsForm(){
-  const c=document.getElementById('selCls').value, s=document.getElementById('selSec').value;
-  if(!c||!s) return;
-  const key=getClsKey();
-  document.getElementById('cls-banner-title').textContent = `Editing: Class ${key}`;
+function onClassSelectChange(){
+  const cls = document.getElementById('selClass').value;
+  const selSec = document.getElementById('selSection');
+  selSec.innerHTML = '<option value="">Select Section</option>';
   
-  const vals=(clsData[key]||Array(CLS_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);
-  const tb=document.getElementById('cls-tbody');
-  tb.innerHTML=CLS_ITEMS.map((item,i)=>{
-    const v=vals[i]||0;
+  if(cls && CLASS_SECTIONS_MAP[cls]){
+    CLASS_SECTIONS_MAP[cls].forEach(sec => {
+      selSec.innerHTML += `<option value="${sec}">Section ${sec}</option>`;
+    });
+  }
+  document.getElementById('cls-form-area').style.display = 'none';
+  document.getElementById('cls-placeholder').style.display = 'block';
+}
+
+function getClassCompositeKey(){
+  const c = document.getElementById('selClass').value;
+  const s = document.getElementById('selSection').value;
+  return c === 'Balvatika' ? 'Balvatika A' : `${c} ${s}`;
+}
+
+function loadClassEntryForm(){
+  const c = document.getElementById('selClass').value;
+  const s = document.getElementById('selSection').value;
+  if(!c || !s) return;
+
+  const key = getClassCompositeKey();
+  document.getElementById('cls-banner-text').textContent = `Editing: Class ${key}`;
+
+  const currentVals = (activeClassData[key] || Array(CLASS_ITEMS.length).fill(0)).map(v => parseInt(v) || 0);
+  const tbody = document.getElementById('cls-entry-tbody');
+  
+  tbody.innerHTML = CLASS_ITEMS.map((itemName, idx) => {
+    const qty = currentVals[idx] || 0;
     return `
-    <tr id="cls-tr-${i}" class="${v>0?'filled':''}">
-      <td class="sno">${i+1}</td>
-      <td>
-        <div class="iname">${item}</div>
-      </td>
+    <tr id="cls-item-row-${idx}" class="${qty > 0 ? 'row-filled' : ''}">
+      <td class="sno-cell">${idx + 1}</td>
+      <td><div class="item-name-text">${itemName}</div></td>
       <td style="text-align:center">
-        <div class="stepper">
-          <button type="button" class="step-btn" onclick="stepVal('ci_${i}', -1, 'cls-tr-${i}')"><i class="fas fa-minus" style="font-size:.75rem"></i></button>
-          <input type="number" class="qi ${v>0?'has-val':''}" id="ci_${i}" value="${v}" min="0" oninput="onQtyInput('ci_${i}', 'cls-tr-${i}', updateClsSummary)">
-          <button type="button" class="step-btn" onclick="stepVal('ci_${i}', 1, 'cls-tr-${i}')"><i class="fas fa-plus" style="font-size:.75rem"></i></button>
+        <div class="stepper-box">
+          <button type="button" class="step-btn" onclick="stepNumber('cls_in_${idx}', -1, 'cls-item-row-${idx}', updateClassCounts)"><i class="fas fa-minus" style="font-size:.75rem"></i></button>
+          <input type="number" class="qty-input ${qty > 0 ? 'has-value' : ''}" id="cls_in_${idx}" value="${qty}" min="0" oninput="handleQtyDirectInput('cls_in_${idx}', 'cls-item-row-${idx}', updateClassCounts)">
+          <button type="button" class="step-btn" onclick="stepNumber('cls_in_${idx}', 1, 'cls-item-row-${idx}', updateClassCounts)"><i class="fas fa-plus" style="font-size:.75rem"></i></button>
         </div>
       </td>
     </tr>`;
   }).join('');
-  
-  document.getElementById('clsSearch').value = '';
-  document.getElementById('cls-form').style.display='block';
-  document.getElementById('cls-ph').style.display='none';
-  updateClsSummary();
+
+  document.getElementById('clsSearchIn').value = '';
+  document.getElementById('cls-form-area').style.display = 'block';
+  document.getElementById('cls-placeholder').style.display = 'none';
+  updateClassCounts();
 }
 
-function stepVal(inputId, delta, trId){
+function updateClassCounts(){
+  let filled = 0;
+  let total = 0;
+  CLASS_ITEMS.forEach((_, idx) => {
+    const val = parseInt(document.getElementById(`cls_in_${idx}`)?.value) || 0;
+    if(val > 0) filled++;
+    total += val;
+  });
+  document.getElementById('cls-count-filled').textContent = `${filled} / ${CLASS_ITEMS.length}`;
+  document.getElementById('cls-count-total').textContent = `${total} items`;
+}
+
+function filterClassRows(){
+  const query = document.getElementById('clsSearchIn').value.toLowerCase().trim();
+  CLASS_ITEMS.forEach((name, idx) => {
+    const row = document.getElementById(`cls-item-row-${idx}`);
+    if(!row) return;
+    row.style.display = (!query || name.toLowerCase().includes(query)) ? '' : 'none';
+  });
+}
+
+function clearClassData(){
+  if(!confirm('Reset all items for this class to 0?')) return;
+  CLASS_ITEMS.forEach((_, idx) => {
+    const input = document.getElementById(`cls_in_${idx}`);
+    if(input){
+      input.value = 0;
+      input.classList.remove('has-value');
+    }
+    const row = document.getElementById(`cls-item-row-${idx}`);
+    if(row) row.classList.remove('row-filled');
+  });
+  updateClassCounts();
+}
+
+function saveClassData(){
+  const key = getClassCompositeKey();
+  if(!key || key.trim() === '') return;
+  const values = CLASS_ITEMS.map((_, idx) => parseInt(document.getElementById(`cls_in_${idx}`).value) || 0);
+  activeClassData[key] = values;
+  saveStoredData(STORAGE_KEY_CLASS, activeClassData);
+
+  const totalSum = values.reduce((a, b) => a + b, 0);
+  displayAlert('cls-alert-area', `Successfully saved entry for <strong>${key}</strong> (${totalSum} total items).`, 'success');
+  triggerToast(`Saved ${key}: ${totalSum} items`);
+  renderClassMatrix();
+  updateGlobalMetrics();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  DEPT ENTRY FORM
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+let activeDeptCatFilter = '';
+
+function loadDeptEntryForm(){
+  const dept = document.getElementById('selDept').value;
+  if(!dept) return;
+
+  document.getElementById('dpt-banner-text').textContent = `Editing: ${dept}`;
+  const currentVals = (activeDeptData[dept] || Array(DEPT_ITEMS.length).fill(0)).map(v => parseInt(v) || 0);
+  const tbody = document.getElementById('dpt-entry-tbody');
+
+  tbody.innerHTML = DEPT_ITEMS.map((itemName, idx) => {
+    const qty = currentVals[idx] || 0;
+    return `
+    <tr id="dpt-item-row-${idx}" class="${qty > 0 ? 'row-filled' : ''}">
+      <td class="sno-cell">${idx + 1}</td>
+      <td><div class="item-name-text">${itemName}</div></td>
+      <td style="text-align:center">
+        <div class="stepper-box">
+          <button type="button" class="step-btn" onclick="stepNumber('dpt_in_${idx}', -1, 'dpt-item-row-${idx}', updateDeptCounts)"><i class="fas fa-minus" style="font-size:.75rem"></i></button>
+          <input type="number" class="qty-input ${qty > 0 ? 'has-value' : ''}" id="dpt_in_${idx}" value="${qty}" min="0" oninput="handleQtyDirectInput('dpt_in_${idx}', 'dpt-item-row-${idx}', updateDeptCounts)">
+          <button type="button" class="step-btn" onclick="stepNumber('dpt_in_${idx}', 1, 'dpt-item-row-${idx}', updateDeptCounts)"><i class="fas fa-plus" style="font-size:.75rem"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('dptSearchIn').value = '';
+  activeDeptCatFilter = '';
+  document.querySelectorAll('.category-chips .chip-btn').forEach((btn, idx) => btn.classList.toggle('active', idx === 0));
+
+  document.getElementById('dpt-form-area').style.display = 'block';
+  document.getElementById('dpt-placeholder').style.display = 'none';
+  updateDeptCounts();
+}
+
+function updateDeptCounts(){
+  let filled = 0;
+  let total = 0;
+  DEPT_ITEMS.forEach((_, idx) => {
+    const val = parseInt(document.getElementById(`dpt_in_${idx}`)?.value) || 0;
+    if(val > 0) filled++;
+    total += val;
+  });
+  document.getElementById('dpt-count-filled').textContent = `${filled} / ${DEPT_ITEMS.length}`;
+  document.getElementById('dpt-count-total').textContent = `${total} items`;
+}
+
+function setDeptCategory(keyword, btnElement){
+  activeDeptCatFilter = keyword.toLowerCase();
+  document.querySelectorAll('.category-chips .chip-btn').forEach(btn => btn.classList.remove('active'));
+  if(btnElement) btnElement.classList.add('active');
+  filterDeptRows();
+}
+
+function filterDeptRows(){
+  const searchQ = document.getElementById('dptSearchIn').value.toLowerCase().trim();
+  DEPT_ITEMS.forEach((name, idx) => {
+    const row = document.getElementById(`dpt-item-row-${idx}`);
+    if(!row) return;
+    const lowerName = name.toLowerCase();
+    const matchesSearch = !searchQ || lowerName.includes(searchQ);
+    const matchesCategory = !activeDeptCatFilter || lowerName.includes(activeDeptCatFilter);
+    row.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
+  });
+}
+
+function clearDeptData(){
+  if(!confirm('Reset all items for this department to 0?')) return;
+  DEPT_ITEMS.forEach((_, idx) => {
+    const input = document.getElementById(`dpt_in_${idx}`);
+    if(input){
+      input.value = 0;
+      input.classList.remove('has-value');
+    }
+    const row = document.getElementById(`dpt-item-row-${idx}`);
+    if(row) row.classList.remove('row-filled');
+  });
+  updateDeptCounts();
+}
+
+function saveDeptData(){
+  const dept = document.getElementById('selDept').value;
+  if(!dept) return;
+  const values = DEPT_ITEMS.map((_, idx) => parseInt(document.getElementById(`dpt_in_${idx}`).value) || 0);
+  activeDeptData[dept] = values;
+  saveStoredData(STORAGE_KEY_DEPT, activeDeptData);
+
+  const totalSum = values.reduce((a, b) => a + b, 0);
+  displayAlert('dpt-alert-area', `Successfully saved entry for <strong>${dept}</strong> (${totalSum} total items).`, 'success');
+  triggerToast(`Saved ${dept}: ${totalSum} items`);
+  renderDeptMatrix();
+  updateGlobalMetrics();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  STEPPER HELPERS
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function stepNumber(inputId, delta, rowId, callback){
   const el = document.getElementById(inputId);
   if(!el) return;
   let cur = parseInt(el.value) || 0;
   cur = Math.max(0, cur + delta);
   el.value = cur;
-  onQtyInput(inputId, trId, inputId.startsWith('ci_') ? updateClsSummary : updateDptSummary);
+  handleQtyDirectInput(inputId, rowId, callback);
 }
 
-function onQtyInput(inputId, trId, updateFn){
+function handleQtyDirectInput(inputId, rowId, callback){
   const el = document.getElementById(inputId);
-  const tr = document.getElementById(trId);
+  const row = document.getElementById(rowId);
   const v = parseInt(el.value) || 0;
   if(v > 0){
-    el.classList.add('has-val');
-    if(tr) tr.classList.add('filled');
+    el.classList.add('has-value');
+    if(row) row.classList.add('row-filled');
   } else {
-    el.classList.remove('has-val');
-    if(tr) tr.classList.remove('filled');
+    el.classList.remove('has-value');
+    if(row) row.classList.remove('row-filled');
   }
-  if(updateFn) updateFn();
-}
-
-function updateClsSummary(){
-  let filledCount = 0;
-  let totalQty = 0;
-  CLS_ITEMS.forEach((_,i)=>{
-    const v = parseInt(document.getElementById('ci_'+i)?.value) || 0;
-    if(v > 0) filledCount++;
-    totalQty += v;
-  });
-  document.getElementById('cls-articles-count').textContent = `${filledCount} / ${CLS_ITEMS.length}`;
-  document.getElementById('cls-total-count').textContent = `${totalQty} items`;
-}
-
-function filterClsTable(){
-  const q = document.getElementById('clsSearch').value.toLowerCase().trim();
-  CLS_ITEMS.forEach((item,i)=>{
-    const tr = document.getElementById(`cls-tr-${i}`);
-    if(!tr) return;
-    const match = item.toLowerCase().includes(q);
-    tr.style.display = match ? '' : 'none';
-  });
-}
-
-function clearClsForm(){
-  if(!confirm('Reset all items for this class to 0?')) return;
-  CLS_ITEMS.forEach((_,i)=>{
-    const el=document.getElementById('ci_'+i);
-    if(el){
-      el.value=0;
-      el.classList.remove('has-val');
-    }
-    const tr=document.getElementById(`cls-tr-${i}`);
-    if(tr) tr.classList.remove('filled');
-  });
-  updateClsSummary();
-}
-
-function saveClsEntry(){
-  const key=getClsKey();
-  if(!key||key.trim()==='') return;
-  const vals=CLS_ITEMS.map((_,i)=>parseInt(document.getElementById('ci_'+i).value)||0);
-  clsData[key]=vals;
-  lsSave(LS_CLS,clsData);
-  const tot = vals.reduce((a,b)=>a+b,0);
-  showAlert('cls-alert',`<i class="fas fa-check-circle" style="color:#10b981"></i> &nbsp;Successfully saved entry for <strong>${key}</strong> &nbsp;(${tot} total items).`,'ok');
-  showToast(`Saved ${key}: ${tot} items`);
-  renderCC();
-  updateGlobalKPIs();
+  if(callback) callback();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  DEPT ENTRY
+//  GLOBAL METRICS CALCULATOR
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-let currentDptFilter = '';
-
-function loadDptForm(){
-  const dept=document.getElementById('selDpt').value;
-  if(!dept) return;
-  document.getElementById('dpt-banner-title').textContent = `Editing: ${dept}`;
-  
-  const vals=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(v=>parseInt(v)||0);
-  const tb=document.getElementById('dpt-tbody');
-  tb.innerHTML=DPT_ITEMS.map((item,i)=>{
-    const v=vals[i]||0;
-    return `
-    <tr id="dpt-tr-${i}" class="${v>0?'filled':''}">
-      <td class="sno">${i+1}</td>
-      <td>
-        <div class="iname">${item}</div>
-      </td>
-      <td style="text-align:center">
-        <div class="stepper">
-          <button type="button" class="step-btn" onclick="stepVal('di_${i}', -1, 'dpt-tr-${i}')"><i class="fas fa-minus" style="font-size:.75rem"></i></button>
-          <input type="number" class="qi ${v>0?'has-val':''}" id="di_${i}" value="${v}" min="0" oninput="onQtyInput('di_${i}', 'dpt-tr-${i}', updateDptSummary)">
-          <button type="button" class="step-btn" onclick="stepVal('di_${i}', 1, 'dpt-tr-${i}')"><i class="fas fa-plus" style="font-size:.75rem"></i></button>
-        </div>
-      </td>
-    </tr>`;
-  }).join('');
-  
-  document.getElementById('dptSearch').value = '';
-  currentDptFilter = '';
-  document.querySelectorAll('.quick-pills .qp').forEach((p,idx)=>p.classList.toggle('active',idx===0));
-  
-  document.getElementById('dpt-form').style.display='block';
-  document.getElementById('dpt-ph').style.display='none';
-  updateDptSummary();
-}
-
-function updateDptSummary(){
-  let filledCount = 0;
-  let totalQty = 0;
-  DPT_ITEMS.forEach((_,i)=>{
-    const v = parseInt(document.getElementById('di_'+i)?.value) || 0;
-    if(v > 0) filledCount++;
-    totalQty += v;
-  });
-  document.getElementById('dpt-articles-count').textContent = `${filledCount} / ${DPT_ITEMS.length}`;
-  document.getElementById('dpt-total-count').textContent = `${totalQty} items`;
-}
-
-function setDptCatFilter(keyword, pillEl){
-  currentDptFilter = keyword.toLowerCase();
-  document.querySelectorAll('.quick-pills .qp').forEach(p=>p.classList.remove('active'));
-  if(pillEl) pillEl.classList.add('active');
-  filterDptTable();
-}
-
-function filterDptTable(){
-  const searchQ = document.getElementById('dptSearch').value.toLowerCase().trim();
-  DPT_ITEMS.forEach((item,i)=>{
-    const tr = document.getElementById(`dpt-tr-${i}`);
-    if(!tr) return;
-    const name = item.toLowerCase();
-    const matchesSearch = !searchQ || name.includes(searchQ);
-    const matchesCat = !currentDptFilter || name.includes(currentDptFilter);
-    tr.style.display = (matchesSearch && matchesCat) ? '' : 'none';
-  });
-}
-
-function clearDptForm(){
-  if(!confirm('Reset all items for this department to 0?')) return;
-  DPT_ITEMS.forEach((_,i)=>{
-    const el=document.getElementById('di_'+i);
-    if(el){
-      el.value=0;
-      el.classList.remove('has-val');
-    }
-    const tr=document.getElementById(`dpt-tr-${i}`);
-    if(tr) tr.classList.remove('filled');
-  });
-  updateDptSummary();
-}
-
-function saveDptEntry(){
-  const dept=document.getElementById('selDpt').value;
-  if(!dept) return;
-  const vals=DPT_ITEMS.map((_,i)=>parseInt(document.getElementById('di_'+i).value)||0);
-  dptData[dept]=vals;
-  lsSave(LS_DPT,dptData);
-  const tot = vals.reduce((a,b)=>a+b,0);
-  showAlert('dpt-alert',`<i class="fas fa-check-circle" style="color:#10b981"></i> &nbsp;Successfully saved entry for <strong>${dept}</strong> &nbsp;(${tot} total items).`,'ok');
-  showToast(`Saved ${dept}: ${tot} items`);
-  renderDC();
-  updateGlobalKPIs();
-}
-
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  REPORT TAB SWITCHING
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function switchRTab(id){
-  ['cc','dc','ex'].forEach(t=>{
-    document.getElementById('rtab-'+t).classList.toggle('active',t===id);
-    document.getElementById('rpanel-'+t).classList.toggle('active',t===id);
-  });
-  if(id==='cc') renderCC();
-  if(id==='dc') renderDC();
-}
-
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  GLOBAL KPIS & SUMMARY CALCULATOR
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function updateGlobalKPIs(){
-  let clsSum = 0;
+function updateGlobalMetrics(){
+  let classSum = 0;
   let desksTot = 0, chairsTot = 0, teacherTot = 0, boardsTot = 0, storageTot = 0;
-  
-  CLS_LIST.forEach(cls=>{
-    const v = (clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
-    clsSum += v.reduce((a,b)=>a+b,0);
-    
-    // Chairs & Stools
+
+  CLASS_LIST.forEach(clsName => {
+    const v = (activeClassData[clsName] || Array(CLASS_ITEMS.length).fill(0)).map(x => parseInt(x) || 0);
+    classSum += v.reduce((a, b) => a + b, 0);
+
     chairsTot += (v[0]||0)+(v[1]||0)+(v[2]||0)+(v[3]||0)+(v[7]||0);
-    // Dual Desks & Student Tables
     desksTot += (v[8]||0)+(v[9]||0)+(v[10]||0)+(v[11]||0)+(v[12]||0)+(v[13]||0);
-    // Teacher Table/Chairs/Podium
     teacherTot += (v[4]||0)+(v[5]||0)+(v[6]||0)+(v[14]||0)+(v[15]||0)+(v[16]||0);
-    // Storage
     storageTot += (v[17]||0)+(v[18]||0)+(v[19]||0)+(v[20]||0);
-    // Boards
     boardsTot += (v[21]||0)+(v[22]||0)+(v[23]||0);
   });
 
-  let dptSum = 0;
+  let deptSum = 0;
   let labsTot = 0, pmshriTot = 0, officeTot = 0, libTot = 0, storeTot = 0;
-  
-  DPT_LIST.forEach(dept=>{
-    const v = (dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
-    const dSum = v.reduce((a,b)=>a+b,0);
-    dptSum += dSum;
-    
-    if(dept.includes('LAB')) labsTot += dSum;
-    if(dept.includes('LIBRARY')) libTot += dSum;
-    if(dept.includes('OFFICE') || dept.includes('PRINCIPAL') || dept.includes('STAFF')) officeTot += dSum;
-    if(dept.includes('STORE') || dept.includes('CORRIDOR')) storeTot += dSum;
-    
-    // PM SHRI indices (44 to 49)
+
+  DEPT_LIST.forEach(deptName => {
+    const v = (activeDeptData[deptName] || Array(DEPT_ITEMS.length).fill(0)).map(x => parseInt(x) || 0);
+    const dSum = v.reduce((a, b) => a + b, 0);
+    deptSum += dSum;
+
+    if(deptName.includes('LAB')) labsTot += dSum;
+    if(deptName.includes('LIBRARY')) libTot += dSum;
+    if(deptName.includes('OFFICE') || deptName.includes('PRINCIPAL') || deptName.includes('STAFF')) officeTot += dSum;
+    if(deptName.includes('STORE') || deptName.includes('CORRIDOR')) storeTot += dSum;
+
     pmshriTot += (v[44]||0)+(v[45]||0)+(v[46]||0)+(v[47]||0)+(v[48]||0)+(v[49]||0);
   });
 
-  // Top Executive Summary
-  document.getElementById('kpi-cls-tot').textContent = clsSum.toLocaleString();
-  document.getElementById('kpi-dpt-tot').textContent = dptSum.toLocaleString();
-  document.getElementById('kpi-grand-tot').textContent = (clsSum + dptSum).toLocaleString();
-  
+  // Overview Tab Cards
+  document.getElementById('dash-cls-tot').textContent = classSum.toLocaleString();
+  document.getElementById('dash-dpt-tot').textContent = deptSum.toLocaleString();
+  document.getElementById('dash-grand-tot').textContent = (classSum + deptSum).toLocaleString();
+
   // Class Tab Mini KPIs
-  if(document.getElementById('cc-kpi-desks')) document.getElementById('cc-kpi-desks').textContent = desksTot.toLocaleString();
-  if(document.getElementById('cc-kpi-chairs')) document.getElementById('cc-kpi-chairs').textContent = chairsTot.toLocaleString();
-  if(document.getElementById('cc-kpi-teacher')) document.getElementById('cc-kpi-teacher').textContent = teacherTot.toLocaleString();
-  if(document.getElementById('cc-kpi-boards')) document.getElementById('cc-kpi-boards').textContent = boardsTot.toLocaleString();
-  if(document.getElementById('cc-kpi-storage')) document.getElementById('cc-kpi-storage').textContent = storageTot.toLocaleString();
+  if(document.getElementById('kpi-cc-desks')) document.getElementById('kpi-cc-desks').textContent = desksTot.toLocaleString();
+  if(document.getElementById('kpi-cc-chairs')) document.getElementById('kpi-cc-chairs').textContent = chairsTot.toLocaleString();
+  if(document.getElementById('kpi-cc-teacher')) document.getElementById('kpi-cc-teacher').textContent = teacherTot.toLocaleString();
+  if(document.getElementById('kpi-cc-boards')) document.getElementById('kpi-cc-boards').textContent = boardsTot.toLocaleString();
+  if(document.getElementById('kpi-cc-storage')) document.getElementById('kpi-cc-storage').textContent = storageTot.toLocaleString();
 
   // Dept Tab Mini KPIs
-  if(document.getElementById('dc-kpi-labs')) document.getElementById('dc-kpi-labs').textContent = labsTot.toLocaleString();
-  if(document.getElementById('dc-kpi-pmshri')) document.getElementById('dc-kpi-pmshri').textContent = pmshriTot.toLocaleString();
-  if(document.getElementById('dc-kpi-office')) document.getElementById('dc-kpi-office').textContent = officeTot.toLocaleString();
-  if(document.getElementById('dc-kpi-lib')) document.getElementById('dc-kpi-lib').textContent = libTot.toLocaleString();
-  if(document.getElementById('dc-kpi-storage')) document.getElementById('dc-kpi-storage').textContent = storeTot.toLocaleString();
+  if(document.getElementById('kpi-dc-labs')) document.getElementById('kpi-dc-labs').textContent = labsTot.toLocaleString();
+  if(document.getElementById('kpi-dc-pmshri')) document.getElementById('kpi-dc-pmshri').textContent = pmshriTot.toLocaleString();
+  if(document.getElementById('kpi-dc-office')) document.getElementById('kpi-dc-office').textContent = officeTot.toLocaleString();
+  if(document.getElementById('kpi-dc-lib')) document.getElementById('kpi-dc-lib').textContent = libTot.toLocaleString();
+  if(document.getElementById('kpi-dc-storage')) document.getElementById('kpi-dc-storage').textContent = storeTot.toLocaleString();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  CLASS CONSOLIDATED RENDER
+//  CLASS MATRIX RENDERER
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function renderCC(){
-  const head=document.getElementById('cc-head');
-  const body=document.getElementById('cc-body');
-  head.innerHTML=`<tr><th class="th-sticky-col">Class / Section</th>${CLS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047;border-left:3px solid #8b5cf6;">TOTAL</th></tr>`;
-  const gt=Array(CLS_ITEMS.length).fill(0);
-  body.innerHTML=CLS_LIST.map((cls,idx)=>{
-    const v=(clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
-    const tot=v.reduce((a,b)=>a+b,0);
-    v.forEach((x,i)=>gt[i]+=x);
-    return `<tr id="cc-row-${idx}">
-      <td class="sticky-col"><span class="row-name-pill">${cls}</span></td>
-      ${v.map(x=>`<td>${x>0 ? `<span class="badge-num">${x}</span>` : `<span class="dim-zero">0</span>`}</td>`).join('')}
-      <td class="tot-cell"><span class="tot-badge">${tot}</span></td>
+function renderClassMatrix(){
+  const head = document.getElementById('class-matrix-head');
+  const body = document.getElementById('class-matrix-body');
+  
+  head.innerHTML = `<tr><th class="sticky-name-col">Class / Section</th>${CLASS_ITEMS.map(h => `<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047;border-left:3px solid #8b5cf6;">TOTAL</th></tr>`;
+  
+  const grandTotals = Array(CLASS_ITEMS.length).fill(0);
+  
+  body.innerHTML = CLASS_LIST.map((clsName, idx) => {
+    const rowVals = (activeClassData[clsName] || Array(CLASS_ITEMS.length).fill(0)).map(x => parseInt(x) || 0);
+    const rowSum = rowVals.reduce((a, b) => a + b, 0);
+    rowVals.forEach((qty, i) => grandTotals[i] += qty);
+
+    return `<tr id="class-matrix-row-${idx}">
+      <td class="sticky-name-col"><span class="name-cell-text">${clsName}</span></td>
+      ${rowVals.map(qty => `<td>${qty > 0 ? `<span class="stock-badge-active">${qty}</span>` : `<span class="stock-zero">0</span>`}</td>`).join('')}
+      <td class="total-col-cell"><span class="total-pill-badge">${rowSum}</span></td>
     </tr>`;
   }).join('');
-  const gtTot=gt.reduce((a,b)=>a+b,0);
-  body.innerHTML+=`<tr class="gr-row">
-    <td class="sticky-col">GRAND TOTAL</td>
-    ${gt.map(x=>`<td>${x}</td>`).join('')}
-    <td style="border-left:3px solid #fde047;color:#fde047;font-size:1.05rem;">${gtTot}</td>
+
+  const totalSumAll = grandTotals.reduce((a, b) => a + b, 0);
+  body.innerHTML += `<tr class="grand-total-row">
+    <td class="sticky-name-col">GRAND TOTAL</td>
+    ${grandTotals.map(t => `<td>${t}</td>`).join('')}
+    <td style="border-left:3px solid #fde047;color:#fde047;font-size:1.05rem;">${totalSumAll}</td>
   </tr>`;
-  updateGlobalKPIs();
+
+  updateGlobalMetrics();
 }
 
-function filterCCRows(){
-  const q = document.getElementById('ccSearch').value.toLowerCase().trim();
-  CLS_LIST.forEach((cls,idx)=>{
-    const tr = document.getElementById(`cc-row-${idx}`);
-    if(!tr) return;
-    tr.style.display = (!q || cls.toLowerCase().includes(q)) ? '' : 'none';
+function filterClassMatrix(){
+  const query = document.getElementById('searchClassMatrix').value.toLowerCase().trim();
+  CLASS_LIST.forEach((clsName, idx) => {
+    const row = document.getElementById(`class-matrix-row-${idx}`);
+    if(!row) return;
+    row.style.display = (!query || clsName.toLowerCase().includes(query)) ? '' : 'none';
   });
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  DEPT CONSOLIDATED RENDER
+//  DEPT MATRIX RENDERER
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function renderDC(){
-  const head=document.getElementById('dc-head');
-  const body=document.getElementById('dc-body');
-  head.innerHTML=`<tr><th class="th-sticky-col">Department / Room / Lab</th>${DPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047;border-left:3px solid #8b5cf6;">TOTAL</th></tr>`;
-  const gt=Array(DPT_ITEMS.length).fill(0);
-  body.innerHTML=DPT_LIST.map((dept,idx)=>{
-    const v=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
-    const tot=v.reduce((a,b)=>a+b,0);
-    v.forEach((x,i)=>gt[i]+=x);
-    return `<tr id="dc-row-${idx}">
-      <td class="sticky-col"><span class="row-name-pill">${dept}</span></td>
-      ${v.map(x=>`<td>${x>0 ? `<span class="badge-num">${x}</span>` : `<span class="dim-zero">0</span>`}</td>`).join('')}
-      <td class="tot-cell"><span class="tot-badge">${tot}</span></td>
+function renderDeptMatrix(){
+  const head = document.getElementById('dept-matrix-head');
+  const body = document.getElementById('dept-matrix-body');
+  
+  head.innerHTML = `<tr><th class="sticky-name-col">Department / Room / Lab</th>${DEPT_ITEMS.map(h => `<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047;border-left:3px solid #8b5cf6;">TOTAL</th></tr>`;
+  
+  const grandTotals = Array(DEPT_ITEMS.length).fill(0);
+  
+  body.innerHTML = DEPT_LIST.map((deptName, idx) => {
+    const rowVals = (activeDeptData[deptName] || Array(DEPT_ITEMS.length).fill(0)).map(x => parseInt(x) || 0);
+    const rowSum = rowVals.reduce((a, b) => a + b, 0);
+    rowVals.forEach((qty, i) => grandTotals[i] += qty);
+
+    return `<tr id="dept-matrix-row-${idx}">
+      <td class="sticky-name-col"><span class="name-cell-text">${deptName}</span></td>
+      ${rowVals.map(qty => `<td>${qty > 0 ? `<span class="stock-badge-active">${qty}</span>` : `<span class="stock-zero">0</span>`}</td>`).join('')}
+      <td class="total-col-cell"><span class="total-pill-badge">${rowSum}</span></td>
     </tr>`;
   }).join('');
-  const gtTot=gt.reduce((a,b)=>a+b,0);
-  body.innerHTML+=`<tr class="gr-row">
-    <td class="sticky-col">GRAND TOTAL</td>
-    ${gt.map(x=>`<td>${x}</td>`).join('')}
-    <td style="border-left:3px solid #fde047;color:#fde047;font-size:1.05rem;">${gtTot}</td>
+
+  const totalSumAll = grandTotals.reduce((a, b) => a + b, 0);
+  body.innerHTML += `<tr class="grand-total-row">
+    <td class="sticky-name-col">GRAND TOTAL</td>
+    ${grandTotals.map(t => `<td>${t}</td>`).join('')}
+    <td style="border-left:3px solid #fde047;color:#fde047;font-size:1.05rem;">${totalSumAll}</td>
   </tr>`;
-  updateGlobalKPIs();
+
+  updateGlobalMetrics();
 }
 
-function filterDCRows(){
-  const q = document.getElementById('dcSearch').value.toLowerCase().trim();
-  DPT_LIST.forEach((dept,idx)=>{
-    const tr = document.getElementById(`dc-row-${idx}`);
-    if(!tr) return;
-    tr.style.display = (!q || dept.toLowerCase().includes(q)) ? '' : 'none';
+function filterDeptMatrix(){
+  const query = document.getElementById('searchDeptMatrix').value.toLowerCase().trim();
+  DEPT_LIST.forEach((deptName, idx) => {
+    const row = document.getElementById(`dept-matrix-row-${idx}`);
+    if(!row) return;
+    row.style.display = (!query || deptName.toLowerCase().includes(query)) ? '' : 'none';
   });
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  STATS
+//  EXCEL WORKBOOK EXPORTER
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function renderStats(){
-  let ci=0; CLS_LIST.forEach(c=>{const v=clsData[c]||[];ci+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});
-  let di=0; DPT_LIST.forEach(d=>{const v=dptData[d]||[];di+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});
-  document.getElementById('statsArea').innerHTML=`
-    <div class="sc"><div class="sv">${CLS_LIST.length}</div><div class="sl">Class Sections</div></div>
-    <div class="sc"><div class="sv">${ci}</div><div class="sl">Total Classroom Items</div></div>
-    <div class="sc"><div class="sv">${DPT_LIST.length}</div><div class="sl">Departments / Rooms</div></div>
-    <div class="sc"><div class="sv">${di}</div><div class="sl">Total Department Assets</div></div>`;
+function generateClassAOA(){
+  const aoa = [
+    ['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],
+    ['CONSOLIDATED FURNITURE & FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026'],
+    ['CLASS / SECTION', ...CLASS_ITEMS, 'TOTAL']
+  ];
+  const grandTotals = Array(CLASS_ITEMS.length).fill(0);
+  CLASS_LIST.forEach(clsName => {
+    const v = (activeClassData[clsName] || Array(CLASS_ITEMS.length).fill(0)).map(x => parseInt(x) || 0);
+    const sum = v.reduce((a, b) => a + b, 0);
+    v.forEach((x, i) => grandTotals[i] += x);
+    aoa.push([clsName, ...v, sum]);
+  });
+  aoa.push(['GRAND TOTAL', ...grandTotals, grandTotals.reduce((a, b) => a + b, 0)]);
+  return aoa;
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  EXCEL EXPORT
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function buildClsAOA(){
-  const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - CLASS / SECTION WISE - AS ON APRIL 2026'],['CLASS / SECTION',...CLS_ITEMS,'TOTAL']];
-  const gt=Array(CLS_ITEMS.length).fill(0);
-  CLS_LIST.forEach(cls=>{const v=(clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);const t=v.reduce((a,b)=>a+b,0);v.forEach((x,i)=>gt[i]+=x);aoa.push([cls,...v,t]);});
-  aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);
+function generateDeptAOA(){
+  const aoa = [
+    ['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],
+    ['CONSOLIDATED FURNITURE & FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026'],
+    ['DEPARTMENT / ROOM / LAB', ...DEPT_ITEMS, 'TOTAL']
+  ];
+  const grandTotals = Array(DEPT_ITEMS.length).fill(0);
+  DEPT_LIST.forEach(deptName => {
+    const v = (activeDeptData[deptName] || Array(DEPT_ITEMS.length).fill(0)).map(x => parseInt(x) || 0);
+    const sum = v.reduce((a, b) => a + b, 0);
+    v.forEach((x, i) => grandTotals[i] += x);
+    aoa.push([deptName, ...v, sum]);
+  });
+  aoa.push(['GRAND TOTAL', ...grandTotals, grandTotals.reduce((a, b) => a + b, 0)]);
   return aoa;
 }
-function buildDptAOA(){
-  const aoa=[['PM SHRI KENDRIYA VIDYALAYA RANIKHET'],['CONSOLIDATED FURNITURE & FIXTURES - DEPARTMENT / ROOM / LAB WISE - AS ON APRIL 2026'],['DEPARTMENT / ROOM / LAB',...DPT_ITEMS,'TOTAL']];
-  const gt=Array(DPT_ITEMS.length).fill(0);
-  DPT_LIST.forEach(d=>{const v=(dptData[d]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);const t=v.reduce((a,b)=>a+b,0);v.forEach((x,i)=>gt[i]+=x);aoa.push([d,...v,t]);});
-  aoa.push(['GRAND TOTAL',...gt,gt.reduce((a,b)=>a+b,0)]);
-  return aoa;
-}
-function mkSheet(aoa){
-  const ws=XLSX.utils.aoa_to_sheet(aoa);
-  ws['!cols']=[{wch:26},...Array(aoa[2].length-1).fill({wch:11})];
-  ws['!merges']=[{s:{r:0,c:0},e:{r:0,c:aoa[2].length-1}},{s:{r:1,c:0},e:{r:1,c:aoa[2].length-1}}];
+
+function buildWorksheet(aoa){
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  ws['!cols'] = [{wch: 26}, ...Array(aoa[2].length - 1).fill({wch: 11})];
+  ws['!merges'] = [
+    {s: {r:0, c:0}, e: {r:0, c: aoa[2].length - 1}},
+    {s: {r:1, c:0}, e: {r:1, c: aoa[2].length - 1}}
+  ];
   return ws;
 }
-function xlCheck(){if(typeof XLSX==='undefined'){alert('Excel library not loaded. Please check your internet connection.');return false;}return true;}
-function exportClsXL(){if(!xlCheck())return;const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,mkSheet(buildClsAOA()),'CLASS CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Class_Furniture.xlsx');}
-function exportDptXL(){if(!xlCheck())return;const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,mkSheet(buildDptAOA()),'DEPARTMENT CONSOLIDATED');XLSX.writeFile(wb,'KV_Ranikhet_Dept_Furniture.xlsx');}
-function exportBothXL(){
-  if(!xlCheck())return;
-  const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,mkSheet(buildClsAOA()),'CLASS CONSOLIDATED');
-  XLSX.utils.book_append_sheet(wb,mkSheet(buildDptAOA()),'DEPARTMENT CONSOLIDATED');
-  XLSX.writeFile(wb,'PM_SHRI_KV_Ranikhet_Furniture_Register.xlsx');
+
+function downloadClassExcel(){
+  if(typeof XLSX === 'undefined'){ alert('Excel library not loaded.'); return; }
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, buildWorksheet(generateClassAOA()), 'CLASS CONSOLIDATED');
+  XLSX.writeFile(wb, 'KV_Ranikhet_Class_Furniture.xlsx');
+}
+
+function downloadDeptExcel(){
+  if(typeof XLSX === 'undefined'){ alert('Excel library not loaded.'); return; }
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, buildWorksheet(generateDeptAOA()), 'DEPARTMENT CONSOLIDATED');
+  XLSX.writeFile(wb, 'KV_Ranikhet_Dept_Furniture.xlsx');
+}
+
+function downloadCombinedExcel(){
+  if(typeof XLSX === 'undefined'){ alert('Excel library not loaded.'); return; }
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, buildWorksheet(generateClassAOA()), 'CLASS CONSOLIDATED');
+  XLSX.utils.book_append_sheet(wb, buildWorksheet(generateDeptAOA()), 'DEPARTMENT CONSOLIDATED');
+  XLSX.writeFile(wb, 'PM_SHRI_KV_Ranikhet_Furniture_Register.xlsx');
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  PRINT (ISOLATED CLEAN A3 WITH DARK RED TEXT ON WHITE BACKGROUND)
+//  ISOLATED A3 PRINT ENGINE
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function doPrint(rid){
-  document.body.classList.remove('print-cc','print-dc');
-  document.body.classList.add(rid==='cc' ? 'print-cc' : 'print-dc');
+function triggerA3Print(type){
+  document.body.classList.remove('printing-class', 'printing-dept');
+  document.body.classList.add(type === 'class' ? 'printing-class' : 'printing-dept');
 
-  ['cc','dc','ex'].forEach(t=>{
-    document.getElementById('rtab-'+t).classList.toggle('active',t===rid);
-    document.getElementById('rpanel-'+t).classList.toggle('active',t===rid);
-  });
-  
-  if(rid==='cc') renderCC();
-  if(rid==='dc') renderDC();
-  
-  setTimeout(()=>{
+  switchMainTab(type === 'class' ? 'cls-con' : 'dpt-con');
+
+  setTimeout(() => {
     window.print();
-    setTimeout(()=>{
-      document.body.classList.remove('print-cc','print-dc');
-    },1000);
-  },300);
+    setTimeout(() => {
+      document.body.classList.remove('printing-class', 'printing-dept');
+    }, 1000);
+  }, 350);
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  SHARE
+//  GENERAL UTILITIES
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function doShare(){
-  const url=window.location.href.split('?')[0];
-  if(navigator.share){navigator.share({title:'KV Ranikhet Furniture Register',url});}
-  else{navigator.clipboard.writeText(url).then(()=>showToast('Link copied to clipboard!')).catch(()=>prompt('Copy this link:',url));}
+function sharePortalLink(){
+  const url = window.location.href.split('?')[0];
+  if(navigator.share){
+    navigator.share({ title: 'KV Ranikhet Furniture Portal', url });
+  } else {
+    navigator.clipboard.writeText(url)
+      .then(() => triggerToast('Link copied to clipboard!'))
+      .catch(() => prompt('Copy this link:', url));
+  }
+}
+
+function restoreBaselineData(){
+  if(!confirm('Reset ALL furniture data to official April 2026 baseline stock?\n\nAll custom modifications will be replaced.')) return;
+  activeClassData = JSON.parse(JSON.stringify(DEFAULT_CLASS_DATA));
+  activeDeptData = JSON.parse(JSON.stringify(DEFAULT_DEPT_DATA));
+  saveStoredData(STORAGE_KEY_CLASS, activeClassData);
+  saveStoredData(STORAGE_KEY_DEPT, activeDeptData);
+  triggerToast('All data reset to official April 2026 baseline.');
+  renderClassMatrix();
+  renderDeptMatrix();
+  updateGlobalMetrics();
+}
+
+function displayAlert(containerId, message, type){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = `<div class="portal-alert portal-alert-${type}"><i class="fas fa-check-circle"></i> ${message}</div>`;
+  setTimeout(() => { el.innerHTML = ''; }, 4500);
+}
+
+function triggerToast(msg){
+  const toast = document.getElementById('toastBox');
+  const txt = document.getElementById('toastMsg');
+  if(!toast || !txt) return;
+  txt.textContent = msg;
+  toast.style.display = 'flex';
+  setTimeout(() => { toast.style.display = 'none'; }, 3000);
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  RESET
+//  BOOTSTRAP
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function doReset(){
-  if(!confirm('Reset ALL data to original April 2026 verified stock?\n\nAll entries will be replaced.'))return;
-  clsData=JSON.parse(JSON.stringify(DEF_CLS));
-  dptData=JSON.parse(JSON.stringify(DEF_DPT));
-  lsSave(LS_CLS,clsData);
-  lsSave(LS_DPT,dptData);
-  showToast('All data reset to April 2026 baseline.');
-  renderCC();
-  renderDC();
-  updateGlobalKPIs();
-}
+function bootstrapPortal(){
+  const deptSelect = document.getElementById('selDept');
+  deptSelect.innerHTML = '<option value="">Select Department</option>';
+  DEPT_LIST.forEach(deptName => {
+    deptSelect.innerHTML += `<option value="${deptName}">${deptName}</option>`;
+  });
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  HELPERS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function showAlert(id,msg,type){const el=document.getElementById(id);if(!el)return;el.innerHTML=`<div class="alrt alrt-${type}">${msg}</div>`;setTimeout(()=>el.innerHTML='',4500);}
-function showToast(msg){
-  const b=document.getElementById('toastBox');
-  const m=document.getElementById('toastMsg');
-  if(!b||!m)return;
-  m.textContent=msg;
-  b.style.display='flex';
-  setTimeout(()=>b.style.display='none',3000);
-}
-
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  INIT
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function initAll(){
-  const sel=document.getElementById('selDpt');
-  sel.innerHTML='<option value="">Select Department</option>';
-  DPT_LIST.forEach(d=>sel.innerHTML+=`<option value="${d}">${d}</option>`);
-  renderCC();
-  renderDC();
-  updateGlobalKPIs();
+  renderClassMatrix();
+  renderDeptMatrix();
+  updateGlobalMetrics();
 }
 </script>
 </body>

@@ -19,48 +19,211 @@
       padding-top: 30px;
     }
     
-    /* Tabs Layout */
+    /* Modernized Tabs Layout */
+    .timetable-tabs-wrapper {
+      position: relative;
+      max-width: 1240px;
+      margin: 0 auto 16px;
+      padding: 6px;
+      background: rgba(18, 15, 38, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
     .timetable-tabs {
       display: flex;
-      gap: 10px;
-      margin: 0 auto 30px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      max-width: 1240px;
+      gap: 6px;
+      margin: 0;
+      padding: 2px;
       overflow-x: auto;
       scrollbar-width: none;
-      justify-content: center;
+      justify-content: flex-start;
+      align-items: center;
     }
     .timetable-tabs::-webkit-scrollbar {
       display: none;
     }
     .tab-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: transparent;
+      border: 1px solid transparent;
       color: var(--text-secondary);
-      padding: 11px 22px;
-      border-radius: 50px;
-      font-size: 0.9rem;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-flex;
       align-items: center;
       gap: 8px;
       white-space: nowrap;
+      position: relative;
+    }
+    .tab-btn i {
+      font-size: 0.95rem;
+      transition: transform 0.25s ease;
     }
     .tab-btn:hover {
-      background: rgba(124, 58, 237, 0.15);
+      background: rgba(124, 58, 237, 0.12);
       color: #c4b5fd;
-      border-color: rgba(124, 58, 237, 0.35);
-      transform: translateY(-2px);
+      border-color: rgba(124, 58, 237, 0.25);
+      transform: translateY(-1px);
+    }
+    .tab-btn:hover i {
+      transform: scale(1.15);
     }
     .tab-btn.active {
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(13, 148, 136, 0.6));
-      color: #fff;
-      border-color: rgba(124, 58, 237, 0.6);
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.35);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(13, 148, 136, 0.8));
+      color: #ffffff;
+      font-weight: 700;
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
     }
+    .tab-btn.active i {
+      color: #ffffff;
+    }
+    .tab-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.3px;
+    }
+    .tab-btn.active .tab-badge {
+      background: rgba(0, 0, 0, 0.25);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .tab-badge.duty-badge {
+      background: rgba(244, 63, 94, 0.25);
+      color: #fda4af;
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+    .tab-badge.offline-badge {
+      background: rgba(13, 148, 136, 0.25);
+      color: #5eead4;
+      border-color: rgba(13, 148, 136, 0.4);
+    }
+
+    /* Live Status Bar */
+    .live-status-bar {
+      max-width: 1240px;
+      margin: 0 auto 16px;
+      padding: 10px 18px;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.84rem;
+    }
+    .live-status-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .live-dot-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseGreen 2s infinite;
+      display: inline-block;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .live-time-chip {
+      background: rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+      color: #c4b5fd;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .live-period-chip {
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.25), rgba(6, 182, 212, 0.25));
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      color: #2dd4bf;
+      padding: 3px 12px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    /* Quick Class & Stream Filter Chips */
+    .quick-chips-wrapper {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 12px 16px;
+    }
+    .quick-chips-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quick-chips-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .stream-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-right: 4px;
+      letter-spacing: 0.5px;
+    }
+    .stream-tag.senior { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
+    .stream-tag.secondary { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); }
+    .stream-tag.middle { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chip-btn:hover {
+      background: rgba(124, 58, 237, 0.2);
+      color: #ffffff;
+      border-color: rgba(167, 139, 250, 0.4);
+      transform: translateY(-1px);
+    }
+    .chip-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: #ffffff;
+      border-color: #a78bfa;
+      box-shadow: 0 2px 10px rgba(124, 58, 237, 0.4);
+    }
+
     .tab-content {
       display: none;
       animation: tabFadeIn 0.4s ease forwards;
@@ -80,12 +243,12 @@
 
     /* Timetable Controls Header Bar */
     .tt-controls-bar {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.035);
       backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 18px;
-      padding: 20px 24px;
-      margin-bottom: 25px;
+      padding: 18px 22px;
+      margin-bottom: 20px;
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
@@ -191,13 +354,15 @@
 
     /* Timetable Card & Grid Styling */
     .tt-sheet-card {
-      background: rgba(18, 15, 38, 0.7);
+      background: rgba(18, 15, 38, 0.75);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 20px;
-      padding: 30px;
+      padding: 26px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
       margin-bottom: 30px;
+      overflow-x: auto;
+    }
       overflow-x: auto;
     }
 
@@ -1498,24 +1663,51 @@
     <p class="hero-subtitle">Session 2026-27 Onwards · Teachers, Class Schedules, Compact Daily Pocket Slips &amp; Direct PDF File Sharing</p>
   </section>
 
-  <!-- Tabs Navigation & Language Switcher -->
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:15px;">
-    <div class="timetable-tabs fade-in" style="margin-bottom:0;">
-      <button class="tab-btn active" data-tab="tab-teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers Weekly</button>
-      <button class="tab-btn" data-tab="tab-pocket"><i class="fas fa-id-card"></i> Pocket View</button>
-      <button class="tab-btn" data-tab="tab-classes"><i class="fas fa-users-class"></i> Class Time Table</button>
-      <button class="tab-btn" data-tab="tab-daily-master"><i class="fas fa-calendar-week"></i> Daily Master Schedule</button>
-      <button class="tab-btn" data-tab="tab-circulars"><i class="fas fa-file-pdf"></i> Circulars &amp; Files</button>
-      <button class="tab-btn" data-tab="tab-software"><i class="fas fa-laptop-code"></i> Software Directory</button>
-      <button class="tab-btn" data-tab="tab-recess"><i class="fas fa-mug-hot"></i> Recess Duty Chart</button>
-      <button class="tab-btn" data-tab="tab-class-teachers"><i class="fas fa-id-badge"></i> Class &amp; Co-CT List</button>
+  <!-- Live School Status Strip -->
+  <div class="live-status-bar fade-in">
+    <div class="live-status-left">
+      <span class="live-dot-pulse"></span>
+      <span style="font-weight:700; color:#fff;"><i class="fas fa-school" style="color:#2dd4bf;"></i> PM SHRI KV RANIKHET</span>
+      <span class="live-time-chip" id="liveDateChip"><i class="far fa-calendar-alt"></i> Today</span>
+      <span class="live-period-chip" id="livePeriodChip"><i class="fas fa-clock"></i> Checking Schedule...</span>
     </div>
-    
-    <!-- Language Toggle Box -->
-    <div class="lang-toggle-box" style="display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid var(--glass-border);border-radius:20px;padding:3px 6px;gap:4px;backdrop-filter:blur(6px);">
-      <span style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);padding-left:6px;"><i class="fas fa-language"></i> भाषा:</span>
-      <button id="langToggleBtn" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;border-radius:14px;padding:4px 12px;font-size:0.75rem;font-weight:800;cursor:pointer;transition:all 0.2s;" title="Switch language mode">
-        🇮🇳 हिंदी / ENG
+    <div style="display:flex; align-items:center; gap:8px;">
+      <!-- Language Toggle Box -->
+      <div class="lang-toggle-box" style="display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid var(--glass-border);border-radius:20px;padding:3px 6px;gap:4px;backdrop-filter:blur(6px);">
+        <span style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);padding-left:6px;"><i class="fas fa-language"></i> भाषा:</span>
+        <button id="langToggleBtn" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;border-radius:14px;padding:4px 12px;font-size:0.75rem;font-weight:800;cursor:pointer;transition:all 0.2s;" title="Switch language mode">
+          🇮🇳 हिंदी / ENG
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern Floating Segmented Tabs Navigation -->
+  <div class="timetable-tabs-wrapper fade-in">
+    <div class="timetable-tabs">
+      <button class="tab-btn active" data-tab="tab-teachers">
+        <i class="fas fa-chalkboard-teacher"></i> Teachers Weekly <span class="tab-badge">35+ Faculty</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-pocket">
+        <i class="fas fa-id-card"></i> Pocket View <span class="tab-badge offline-badge"><i class="fas fa-bolt"></i> Offline</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-classes">
+        <i class="fas fa-users-class"></i> Class Timetable <span class="tab-badge">Classes 6-12</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-daily-master">
+        <i class="fas fa-calendar-week"></i> Daily Master <span class="tab-badge">Full Matrix</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-recess">
+        <i class="fas fa-mug-hot"></i> Recess Duty <span class="tab-badge duty-badge">2026-27</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-class-teachers">
+        <i class="fas fa-id-badge"></i> Class Teachers <span class="tab-badge">CT &amp; Co-CT</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-circulars">
+        <i class="fas fa-file-pdf"></i> Circulars &amp; Files <span class="tab-badge">Docs</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-software">
+        <i class="fas fa-laptop-code"></i> Software <span class="tab-badge">aSc / FET</span>
       </button>
     </div>
   </div>
@@ -1524,6 +1716,20 @@
     
     <!-- TAB 1: TEACHERS TIME TABLE -->
     <div class="tab-content active" id="tab-teachers">
+      <!-- Quick Department Chips -->
+      <div class="quick-chips-wrapper">
+        <div class="quick-chips-label"><i class="fas fa-filter" style="color:#a78bfa;"></i> Quick Faculty Department Filter / विभाग चुनें:</div>
+        <div class="quick-chips-bar" id="teacherDeptChips">
+          <button class="chip-btn active" data-dept="ALL">All Teachers (सभी)</button>
+          <button class="chip-btn" data-dept="PGT"><span class="stream-tag senior">PGT</span> Class 11 &amp; 12</button>
+          <button class="chip-btn" data-dept="TGT"><span class="stream-tag secondary">TGT</span> Class 6 to 10</button>
+          <button class="chip-btn" data-dept="SCI_MATH">Maths &amp; Science</button>
+          <button class="chip-btn" data-dept="LANG">Languages (Hindi/Eng/Skt)</button>
+          <button class="chip-btn" data-dept="CS_AI">Computer &amp; AI</button>
+          <button class="chip-btn" data-dept="ACTIVITY">PET / Art / WE / Lib</button>
+        </div>
+      </div>
+
       <div class="tt-controls-bar">
         <div class="tt-select-group">
           <label class="tt-select-label" for="teacherSelect" id="lblTeacherSelect"><i class="fas fa-user-tie"></i> Select Teacher / शिक्षक चुनें:</label>
@@ -1576,6 +1782,42 @@
 
     <!-- TAB 3: CLASS TIME TABLE -->
     <div class="tab-content" id="tab-classes">
+      <!-- Quick Stream / Class Chips -->
+      <div class="quick-chips-wrapper">
+        <div class="quick-chips-label"><i class="fas fa-bolt" style="color:#fbbf24;"></i> Quick 1-Click Class Select / कक्षा चुनें:</div>
+        
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <!-- Senior Secondary -->
+          <div class="quick-chips-bar" id="classSeniorChips">
+            <span class="stream-tag senior">Senior Sec (11-12)</span>
+            <button class="chip-btn" data-class="12A">12A (Hum)</button>
+            <button class="chip-btn" data-class="12B">12B (Sci)</button>
+            <button class="chip-btn active" data-class="12C">12C (Com)</button>
+            <button class="chip-btn" data-class="11A">11A (Hum)</button>
+            <button class="chip-btn" data-class="11B">11B (Sci)</button>
+            <button class="chip-btn" data-class="11C">11C (Com)</button>
+          </div>
+          <!-- Secondary & Middle -->
+          <div class="quick-chips-bar" id="classSecChips">
+            <span class="stream-tag secondary">Secondary (9-10)</span>
+            <button class="chip-btn" data-class="10A">10A</button>
+            <button class="chip-btn" data-class="10B">10B</button>
+            <button class="chip-btn" data-class="10C">10C</button>
+            <button class="chip-btn" data-class="9A">9A</button>
+            <button class="chip-btn" data-class="9B">9B</button>
+            <button class="chip-btn" data-class="9C">9C</button>
+            <span class="stream-tag middle" style="margin-left:8px;">Middle (6-8)</span>
+            <button class="chip-btn" data-class="8A">8A</button>
+            <button class="chip-btn" data-class="8B">8B</button>
+            <button class="chip-btn" data-class="7A">7A</button>
+            <button class="chip-btn" data-class="7B">7B</button>
+            <button class="chip-btn" data-class="7C">7C</button>
+            <button class="chip-btn" data-class="6A">6A</button>
+            <button class="chip-btn" data-class="6B">6B</button>
+          </div>
+        </div>
+      </div>
+
       <div class="tt-controls-bar">
         <div class="tt-select-group">
           <label class="tt-select-label" for="classSelect" id="lblClassSelect"><i class="fas fa-chalkboard"></i> Select Class &amp; Section / कक्षा चुनें:</label>
@@ -2634,6 +2876,107 @@
       pocketDaySelect.value = savedPocketDay;
     }
 
+    // Live school status updater
+    function updateLiveStatus() {
+      const now = new Date();
+      const dayName = now.toLocaleDateString('en-US', { weekday: 'long' });
+      const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+      const liveDateEl = document.getElementById('liveDateChip');
+      const livePeriodEl = document.getElementById('livePeriodChip');
+
+      if (liveDateEl) {
+        liveDateEl.innerHTML = `<i class="far fa-calendar-alt"></i> ${dayName}, ${dateStr} · ${timeStr}`;
+      }
+
+      if (livePeriodEl) {
+        const hours = now.getHours();
+        const mins = now.getMinutes();
+        const curMinutes = hours * 60 + mins;
+
+        let statusText = '';
+        if (curMinutes < 500) {
+          statusText = '<i class="fas fa-sun" style="color:#fbbf24;"></i> Morning Assembly / Prep';
+        } else if (curMinutes >= 500 && curMinutes < 540) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 1 (08:20 - 09:00)';
+        } else if (curMinutes >= 540 && curMinutes < 580) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 2 (09:00 - 09:40)';
+        } else if (curMinutes >= 580 && curMinutes < 590) {
+          statusText = '<i class="fas fa-coffee" style="color:#fbbf24;"></i> ☕ Snack Break (09:40 - 09:50)';
+        } else if (curMinutes >= 590 && curMinutes < 630) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 3 (09:50 - 10:30)';
+        } else if (curMinutes >= 630 && curMinutes < 670) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 4 (10:30 - 11:10)';
+        } else if (curMinutes >= 670 && curMinutes < 690) {
+          statusText = '<i class="fas fa-utensils" style="color:#f97316;"></i> 🍱 Lunch Recess (11:10 - 11:30)';
+        } else if (curMinutes >= 690 && curMinutes < 730) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 5 (11:30 - 12:10)';
+        } else if (curMinutes >= 730 && curMinutes < 770) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 6 (12:10 - 12:50)';
+        } else if (curMinutes >= 770 && curMinutes < 810) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 7 (12:50 - 01:30)';
+        } else if (curMinutes >= 810 && curMinutes < 850) {
+          statusText = '<i class="fas fa-bolt" style="color:#34d399;"></i> Active: Period 8 (01:30 - 02:10)';
+        } else {
+          statusText = '<i class="fas fa-school" style="color:#94a3b8;"></i> Classes Dispersed / Post-School';
+        }
+        livePeriodEl.innerHTML = statusText;
+      }
+    }
+
+    updateLiveStatus();
+    setInterval(updateLiveStatus, 30000);
+
+    // Quick Class Chips Handlers
+    const classChips = document.querySelectorAll('#tab-classes .chip-btn[data-class]');
+    classChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const cls = chip.getAttribute('data-class');
+        classSelect.value = cls;
+        classChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        renderClassTimetable(cls);
+      });
+    });
+
+    // Quick Faculty Department Chips Handler
+    const deptChips = document.querySelectorAll('#teacherDeptChips .chip-btn[data-dept]');
+    deptChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const dept = chip.getAttribute('data-dept');
+        deptChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        teacherSelect.innerHTML = '';
+        TEACHERS_DATA.forEach(t => {
+          let matches = false;
+          const desig = (t.desig || '').toUpperCase();
+          const subj = (t.subject || '').toUpperCase();
+
+          if (dept === 'ALL') matches = true;
+          else if (dept === 'PGT' && desig.includes('PGT')) matches = true;
+          else if (dept === 'TGT' && desig.includes('TGT')) matches = true;
+          else if (dept === 'SCI_MATH' && (subj.includes('MATH') || subj.includes('PHYS') || subj.includes('CHEM') || subj.includes('BIO') || subj.includes('SCI'))) matches = true;
+          else if (dept === 'LANG' && (subj.includes('HIN') || subj.includes('ENG') || subj.includes('SKT') || subj.includes('SAN'))) matches = true;
+          else if (dept === 'CS_AI' && (subj.includes('COMP') || subj.includes('CS') || subj.includes('AI') || desig.includes('CS'))) matches = true;
+          else if (dept === 'ACTIVITY' && (desig.includes('PET') || desig.includes('ART') || desig.includes('WE') || desig.includes('LIB') || desig.includes('YOGA') || desig.includes('SUBSTAFF'))) matches = true;
+
+          if (matches) {
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = `${t.name} (${t.desig})`;
+            teacherSelect.appendChild(opt);
+          }
+        });
+
+        if (teacherSelect.options.length > 0) {
+          teacherSelect.selectedIndex = 0;
+          renderTeacherTimetable(teacherSelect.value);
+        }
+      });
+    });
+
     // Render initial views
     renderTeacherTimetable(teacherSelect.value);
     renderClassTimetable(classSelect.value);
@@ -2642,7 +2985,14 @@
 
     // Event Listeners for Select Changes
     teacherSelect.addEventListener('change', (e) => renderTeacherTimetable(e.target.value));
-    classSelect.addEventListener('change', (e) => renderClassTimetable(e.target.value));
+    classSelect.addEventListener('change', (e) => {
+      const cls = e.target.value;
+      classChips.forEach(c => {
+        if (c.getAttribute('data-class') === cls) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+      renderClassTimetable(cls);
+    });
     masterDaySelect.addEventListener('change', (e) => renderMasterTimetable(e.target.value));
     
     pocketTeacherSelect.addEventListener('change', (e) => {
