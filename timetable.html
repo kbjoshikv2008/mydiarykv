@@ -229,6 +229,24 @@
       margin-top: 4px;
     }
 
+    .sheet-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .cell-divider {
+      width: 100%;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      margin: 3px 0;
+    }
+
     .tt-grid-table {
       width: 100%;
       border-collapse: separate;
@@ -865,7 +883,7 @@
     @media print {
       @page {
         size: A4 landscape;
-        margin: 3.5mm 5mm;
+        margin: 4mm 5mm;
       }
       html, body {
         width: 100% !important;
@@ -873,7 +891,7 @@
         min-height: auto !important;
         background: #ffffff !important;
         color: #000000 !important;
-        font-family: 'Inter', 'Poppins', system-ui, sans-serif !important;
+        font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
         margin: 0 !important;
         padding: 0 !important;
         -webkit-print-color-adjust: exact !important;
@@ -918,9 +936,9 @@
       }
       /* Compact, Centered, Highly-Legible Header */
       .sheet-header {
-        max-width: 580px !important;
+        max-width: 620px !important;
         margin: 0 auto 3px auto !important;
-        padding: 2px 6px !important;
+        padding: 2px 8px !important;
         border: 1.5px solid #0f172a !important;
         border-radius: 4px !important;
         background: #f8fafc !important;
@@ -930,7 +948,7 @@
       }
       .sheet-header .school-name {
         color: #064e3b !important;
-        font-size: 0.8rem !important;
+        font-size: 0.82rem !important;
         font-weight: 900 !important;
         letter-spacing: 0.5px !important;
         margin: 0 !important;
@@ -948,7 +966,7 @@
         padding-bottom: 1px !important;
       }
       .sheet-header .sheet-sub {
-        color: #1e293b !important;
+        color: #0f172a !important;
         font-size: 0.7rem !important;
         font-weight: 700 !important;
         margin: 1px 0 0 0 !important;
@@ -956,6 +974,7 @@
       }
       .tt-grid-table {
         width: 100% !important;
+        table-layout: fixed !important;
         border-collapse: collapse !important;
         border-spacing: 0 !important;
         border: 1.5px solid #0f172a !important;
@@ -967,17 +986,18 @@
         break-after: avoid !important;
       }
       .tt-grid-table th {
-        background: #e2e8f0 !important;
+        background: #f1f5f9 !important;
         color: #0f172a !important;
         border: 1px solid #334155 !important;
         padding: 3px 2px !important;
         font-size: 0.7rem !important;
         font-weight: 900 !important;
         line-height: 1.1 !important;
+        text-align: center !important;
       }
       .tt-grid-table th small {
-        color: #1e293b !important;
-        font-size: 0.6rem !important;
+        color: #334155 !important;
+        font-size: 0.58rem !important;
         font-weight: 700 !important;
         display: block !important;
       }
@@ -986,21 +1006,27 @@
         color: #000000 !important;
         border: 1px solid #475569 !important;
         padding: 2px 2px !important;
-        font-size: 0.7rem !important;
+        font-size: 0.68rem !important;
         vertical-align: middle !important;
+        text-align: center !important;
       }
       .tt-grid-table td.day-col {
-        background: #cbd5e1 !important;
+        background: #e2e8f0 !important;
         color: #000000 !important;
         font-weight: 900 !important;
-        font-size: 0.78rem !important;
+        font-size: 0.76rem !important;
         white-space: nowrap !important;
+        width: 58px !important;
       }
       .period-cell {
         min-height: auto !important;
         gap: 1px !important;
         background: #ffffff !important;
         padding: 1px 2px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
       .period-cell .class-code {
         color: #000000 !important;
@@ -1009,39 +1035,71 @@
         line-height: 1.1 !important;
       }
       .period-cell .subject-name {
-        color: #075985 !important;
-        background: #e0f2fe !important;
-        border: 1px solid #7dd3fc !important;
+        color: #000000 !important;
         font-weight: 800 !important;
-        font-size: 0.62rem !important;
-        padding: 0.5px 3px !important;
-        border-radius: 2px !important;
+        font-size: 0.64rem !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
         line-height: 1.1 !important;
       }
+      .period-cell .subject-name small {
+        color: #334155 !important;
+        font-weight: 600 !important;
+      }
       .period-cell .teacher-name {
-        color: #065f46 !important;
+        color: #0f172a !important;
         font-size: 0.62rem !important;
-        font-weight: 800 !important;
+        font-weight: 700 !important;
         line-height: 1.1 !important;
+      }
+      .period-cell .teacher-name i {
+        display: none !important;
+      }
+      .period-cell .cell-divider {
+        width: 100% !important;
+        border-top: 1px dashed #64748b !important;
+        margin: 2px 0 !important;
       }
       .period-cell.break-cell {
         background: #fef3c7 !important;
         color: #78350f !important;
         font-weight: 900 !important;
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
+        width: 28px !important;
       }
       .period-cell.block-practical {
-        background: #f3e8ff !important;
-        border: 1.5px dashed #7e22ce !important;
+        background: #f8fafc !important;
+        border: 1px dashed #475569 !important;
         padding: 1px 2px !important;
       }
       .period-cell.block-practical .class-code {
-        color: #581c87 !important;
+        color: #000000 !important;
       }
       .period-cell.block-practical .subject-name {
-        color: #581c87 !important;
-        background: #e9d5ff !important;
-        border-color: #c084fc !important;
+        color: #000000 !important;
+        background: transparent !important;
+        border: none !important;
+      }
+      .period-cell.free-period {
+        color: #64748b !important;
+        font-weight: 600 !important;
+        font-size: 0.66rem !important;
+        background: transparent !important;
+      }
+      .sheet-footer {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-top: 4px !important;
+        padding-top: 3px !important;
+        border-top: 1.5px solid #0f172a !important;
+        font-size: 0.68rem !important;
+        font-weight: 800 !important;
+        color: #0f172a !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
       .master-table-wrapper {
         overflow: visible !important;
@@ -2972,15 +3030,15 @@
         <div class="sheet-header">
           <div class="school-name"><i class="fas fa-school"></i> PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
           <h2>${t.name}</h2>
-          <div class="sheet-sub"><strong>Designation:</strong> ${t.desig} &nbsp;|&nbsp; <strong>Subject:</strong> ${t.subject}</div>
+          <div class="sheet-sub"><strong>Designation:</strong> ${t.desig} &nbsp;|&nbsp; <strong>Subject:</strong> ${t.subject} &nbsp;|&nbsp; <strong>Session:</strong> 2026-27</div>
         </div>
 
         <table class="tt-grid-table">
           <thead>
             <tr>
-              <th style="width:70px;">Day</th>
+              <th style="width:65px;">Day</th>
               ${PERIOD_TIMES.map(p => `
-                <th>${p.label}<small>${p.time}</small></th>
+                <th class="${p.num === 'snack' || p.num === 'lunch' ? 'col-break' : ''}">${p.label}<small>${p.time}</small></th>
               `).join('')}
             </tr>
           </thead>
@@ -3023,7 +3081,7 @@
               html += `
                 <td colspan="2">
                   <div class="period-cell block-practical merged-block" style="background:${isCla ? 'rgba(236,72,153,0.18)' : 'rgba(168,85,247,0.18)'} !important; border:1.5px dashed ${isCla ? '#f472b6' : '#a855f7'};">
-                    <span class="class-code" style="font-size:1.1rem; color:${isCla ? '#f472b6' : '#fff'}; font-weight:800;">${val1 || 'CLA'} <small style="font-size:0.75rem; color:${isCla ? '#fbcfe8' : '#e9d5ff'}; font-weight:600;">${isPrac ? '[Practical 2P Block]' : '[2P Block]'}</small></span>
+                    <span class="class-code" style="font-size:1.05rem; color:${isCla ? '#f472b6' : '#fff'}; font-weight:800;">${val1 || 'CLA'} <small style="font-size:0.75rem; color:${isCla ? '#fbcfe8' : '#e9d5ff'}; font-weight:600;">${isPrac ? '[Practical 2P Block]' : '[2P Block]'}</small></span>
                     <span class="subject-name" style="color:${isCla ? '#f472b6' : '#c084fc'}; font-weight:800;">${subjLbl}</span>
                   </div>
                 </td>
@@ -3056,6 +3114,12 @@
       html += `
           </tbody>
         </table>
+
+        <div class="sheet-footer">
+          <span>Teacher's Signature: __________________</span>
+          <span>Timetable Incharge: __________________</span>
+          <span>Principal's Signature: __________________</span>
+        </div>
       `;
 
       container.innerHTML = html;
@@ -3172,15 +3236,15 @@
         <div class="sheet-header">
           <div class="school-name"><i class="fas fa-school"></i> PM SHRI KENDRIYA VIDYALAYA RANIKHET</div>
           <h2>CLASS ${classCode} TIMETABLE</h2>
-          <div class="sheet-sub">Academic Schedule · Periods 1 to 8 (Monday to Saturday)</div>
+          <div class="sheet-sub">Academic Schedule · Periods 1 to 8 (Monday to Saturday) · Session 2026-27</div>
         </div>
 
         <table class="tt-grid-table">
           <thead>
             <tr>
-              <th style="width:70px;">Day</th>
+              <th style="width:65px;">Day</th>
               ${PERIOD_TIMES.map(p => `
-                <th>${p.label}<small>${p.time}</small></th>
+                <th class="${p.num === 'snack' || p.num === 'lunch' ? 'col-break' : ''}">${p.label}<small>${p.time}</small></th>
               `).join('')}
             </tr>
           </thead>
@@ -3212,8 +3276,8 @@
             if (day === "Saturday" && periodSlot === 6) {
               html += `
                 <td colspan="2">
-                  <div class="period-cell block-practical merged-block" style="background:rgba(236,72,153,0.2) !important; border:1.5px dashed rgba(244,114,182,0.6); padding:6px;">
-                    <span class="class-code" style="color:#f472b6; font-size:1.15rem; font-weight:800;">CLA</span>
+                  <div class="period-cell block-practical merged-block" style="background:rgba(236,72,153,0.2) !important; border:1.5px dashed rgba(244,114,182,0.6); padding:4px;">
+                    <span class="class-code" style="color:#f472b6; font-size:1.05rem; font-weight:800;">CLA</span>
                     <span class="subject-name" style="color:#f472b6; font-weight:800;">Co-Curricular Activity (P7–P8 Merged Block)</span>
                   </div>
                 </td>
@@ -3231,14 +3295,14 @@
             );
 
             if (isMergedBlock) {
-              html += `<td colspan="2"><div class="period-cell block-practical merged-block" style="background:rgba(168,85,247,0.2) !important; border:1.5px dashed #a855f7; padding:6px;">`;
+              html += `<td colspan="2"><div class="period-cell block-practical merged-block" style="background:rgba(168,85,247,0.2) !important; border:1.5px dashed #a855f7; padding:4px;">`;
               entries1.forEach((item, idx) => {
                 const subTitle = getSubjectLabel(item.text, item.teacher);
                 const isPrac = isPracticalPeriod(item.text, item.teacher);
                 html += `
-                  ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
-                  <span class="subject-name" style="color:#c084fc; font-weight:800; font-size:0.95rem;">${item.text} <small style="font-weight:400; opacity:0.9; color:#e9d5ff;">(${subTitle}) ${isPrac ? '[Practical 2P Block]' : '[2P Block]'}</small></span>
-                  <span class="teacher-name" style="color:#2dd4bf; font-size:0.85rem;"><i class="far fa-user"></i> ${item.teacher.name}</span>
+                  ${idx > 0 ? '<div class="cell-divider"></div>' : ''}
+                  <span class="subject-name" style="color:#c084fc; font-weight:800; font-size:0.92rem;">${subTitle} <small style="font-weight:600; opacity:0.9; color:#e9d5ff;">${isPrac ? '[Practical 2P Block]' : '[2P Block]'}</small></span>
+                  <span class="teacher-name" style="color:#2dd4bf; font-size:0.82rem;"><i class="far fa-user"></i> ${item.teacher.name}</span>
                 `;
               });
               html += `</div></td>`;
@@ -3251,8 +3315,8 @@
                   const isPrac = isPracticalPeriod(item.text, item.teacher);
                   const isCla = item.text.toUpperCase().includes('CLA');
                   html += `
-                    ${idx > 0 ? '<div style="margin-top:4px; padding-top:4px; border-top:1px dashed rgba(255,255,255,0.15);"></div>' : ''}
-                    <span class="subject-name" style="${isPrac ? 'color:#c084fc; font-weight:700;' : isCla ? 'color:#f472b6; font-weight:800;' : ''}">${item.text} <small style="font-weight:400; opacity:0.85;">(${subTitle})</small></span>
+                    ${idx > 0 ? '<div class="cell-divider"></div>' : ''}
+                    <span class="subject-name" style="${isPrac ? 'color:#c084fc; font-weight:800;' : isCla ? 'color:#f472b6; font-weight:800;' : ''}">${subTitle}</span>
                     <span class="teacher-name"><i class="far fa-user"></i> ${item.teacher.name}</span>
                   `;
                 });
@@ -3273,6 +3337,12 @@
       html += `
           </tbody>
         </table>
+
+        <div class="sheet-footer">
+          <span>Class Teacher's Signature: __________________</span>
+          <span>Timetable Incharge: __________________</span>
+          <span>Principal's Signature: __________________</span>
+        </div>
       `;
 
       container.innerHTML = html;
