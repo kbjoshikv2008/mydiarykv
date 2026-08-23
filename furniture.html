@@ -6,17 +6,17 @@
 <title>Furniture & Fixtures | PM SHRI KV Ranikhet</title>
 <link rel="stylesheet" href="premium.css">
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
   --pr:#7c3aed;--pr-dark:#5b21b6;--pr-light:#a78bfa;
-  --bg:#070712;--cbg:#120f29;--bdr:rgba(167,139,250,0.22);
+  --bg:#070712;--cbg:#120f29;--cbg-card:#181438;--bdr:rgba(167,139,250,0.25);
   --tx:#ffffff;--tx-sub:#cbd5e1;--tx-muted:#94a3b8;
-  --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.12);
-  --amb:#f59e0b;--amb-bg:rgba(245,158,11,0.14);
-  --red:#ef4444;--blu:#3b82f6;--blu-dark:#1d4ed8;
+  --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.14);
+  --amb:#f59e0b;--amb-dark:#d97706;--amb-bg:rgba(245,158,11,0.14);
+  --red:#ef4444;--blu:#3b82f6;--blu-dark:#1d4ed8;--cyn:#06b6d4;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.5;}
@@ -35,7 +35,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 
 /* MAIN LAYOUT */
 #mc{display:none;}
-.wrap{max-width:1420px;margin:0 auto;padding:0 24px;}
+.wrap{max-width:1440px;margin:0 auto;padding:0 24px;}
 
 /* NAV */
 .nav-bar{background:#0d0a24;border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:500;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
@@ -58,10 +58,10 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 .ph p{color:#cbd5e1;font-size:.86rem;margin-top:3px;font-weight:500;}
 
 /* SECTION HEADERS */
-.sec-hdr{display:flex;align-items:center;gap:14px;padding:24px 0 12px;}
-.sec-badge{background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#ffffff;padding:6px 16px;border-radius:30px;font-size:.84rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(109,40,217,0.4);}
+.sec-hdr{display:flex;align-items:center;gap:14px;padding:24px 0 14px;}
+.sec-badge{background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#ffffff;padding:7px 18px;border-radius:30px;font-size:.86rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(109,40,217,0.4);}
 .sec-line{flex:1;height:2px;background:linear-gradient(90deg,rgba(167,139,250,0.4),transparent);}
-.sec-sub{color:var(--tx-sub);font-size:.84rem;font-weight:600;}
+.sec-sub{color:var(--tx-sub);font-size:.86rem;font-weight:600;}
 
 /* ENTRY GROUP TABS */
 .entry-tabs{display:flex;gap:10px;margin-bottom:22px;background:#0d0a24;border:2px solid var(--bdr);border-radius:16px;padding:8px;}
@@ -118,7 +118,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 .et tr.filled td{background:rgba(16,185,129,0.1);border-left:4px solid #10b981;}
 .et .sno{color:#fbbf24;font-weight:800;font-size:.86rem;width:48px;text-align:center;}
 .et .iname{color:#ffffff;font-weight:600;letter-spacing:.01em;}
-.et .icat{color:#94a3b8;font-size:.75rem;margin-top:2px;}
 
 /* STEPPER CONTROLS */
 .stepper{display:inline-flex;align-items:center;gap:4px;background:#18133f;border:2px solid rgba(167,139,250,0.4);border-radius:12px;padding:3px 4px;}
@@ -146,31 +145,61 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 .btn-out:hover{border-color:#a78bfa;color:#ffffff;background:#1e184d;}
 .btn-sm{padding:9px 18px;font-size:.84rem;}
 
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   EXECUTIVE SUMMARY DASHBOARD (CONSOLIDATED)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.exec-summary-box{background:linear-gradient(135deg,#130e33,#1f1647);border:2px solid rgba(167,139,250,0.35);border-radius:20px;padding:24px;margin-bottom:24px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.exec-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:14px;}
+.exec-header-title{font-size:1.15rem;font-weight:800;color:#ffffff;display:flex;align-items:center;gap:10px;}
+.exec-header-title i{color:#fde047;}
+.exec-badge-live{background:rgba(16,185,129,0.2);border:1px solid #10b981;color:#6ee7b7;padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;display:flex;align-items:center;gap:6px;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+.kpi-card{background:#191340;border:2px solid rgba(167,139,250,0.25);border-radius:16px;padding:18px 20px;position:relative;overflow:hidden;transition:all .3s;}
+.kpi-card:hover{transform:translateY(-3px);border-color:#a78bfa;box-shadow:0 8px 24px rgba(124,58,237,0.3);}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.kpi-card.purple::after{background:linear-gradient(90deg,#7c3aed,#c084fc);}
+.kpi-card.emerald::after{background:linear-gradient(90deg,#059669,#34d399);}
+.kpi-card.blue::after{background:linear-gradient(90deg,#1d4ed8,#60a5fa);}
+.kpi-card.gold::after{background:linear-gradient(90deg,#d97706,#fde047);}
+
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.kpi-label{font-size:.82rem;font-weight:700;color:var(--tx-sub);text-transform:uppercase;letter-spacing:.04em;}
+.kpi-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;}
+.kpi-card.purple .kpi-icon{background:rgba(124,58,237,0.25);color:#c4b5fd;}
+.kpi-card.emerald .kpi-icon{background:rgba(16,185,129,0.25);color:#6ee7b7;}
+.kpi-card.blue .kpi-icon{background:rgba(59,130,246,0.25);color:#93c5fd;}
+.kpi-card.gold .kpi-icon{background:rgba(245,158,11,0.25);color:#fde047;}
+
+.kpi-val{font-size:2.1rem;font-weight:900;color:#ffffff;line-height:1.1;}
+.kpi-sub{font-size:.8rem;color:#94a3b8;margin-top:6px;font-weight:600;}
+
+/* TAB MINI STATS BAR */
+.tab-kpi-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
+.tab-kpi-item{background:#161138;border:1px solid rgba(167,139,250,0.2);border-radius:12px;padding:12px 14px;text-align:center;}
+.tab-kpi-num{font-size:1.35rem;font-weight:800;color:#fde047;}
+.tab-kpi-lbl{font-size:.76rem;font-weight:600;color:var(--tx-sub);margin-top:2px;}
+
 /* REPORT TABS */
-.rtab-nav{display:flex;gap:6px;border-bottom:2px solid rgba(167,139,250,0.25);margin-bottom:22px;overflow-x:auto;}
-.rtab{padding:14px 22px;background:none;border:none;color:var(--tx-sub);font-family:inherit;font-size:.92rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .25s;display:flex;align-items:center;gap:8px;}
+.rtab-nav{display:flex;gap:8px;border-bottom:2px solid rgba(167,139,250,0.3);margin-bottom:22px;overflow-x:auto;}
+.rtab{padding:14px 24px;background:none;border:none;color:var(--tx-sub);font-family:inherit;font-size:.95rem;font-weight:800;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .25s;display:flex;align-items:center;gap:10px;}
 .rtab:hover{color:#ffffff;}
 .rtab.active{color:#c4b5fd;border-bottom-color:#7c3aed;}
 .rpanel{display:none;}
 .rpanel.active{display:block;}
 
 /* CONSOLIDATED TABLE */
-.conwrap{overflow:auto;border-radius:14px;border:2px solid rgba(167,139,250,0.3);background:#0d0a26;}
+.conwrap{overflow:auto;border-radius:16px;border:2px solid rgba(167,139,250,0.35);background:#0d0a26;box-shadow:0 8px 28px rgba(0,0,0,0.5);}
 .con-t{width:100%;border-collapse:collapse;font-size:.78rem;}
-.con-t th{padding:10px 12px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-weight:800;text-align:center;white-space:nowrap;border:1px solid rgba(167,139,250,0.25);position:sticky;top:0;z-index:3;}
-.con-t th:first-child{text-align:left;position:sticky;left:0;z-index:5;background:#3b147a;min-width:160px;color:#fde047;}
+.con-t th{padding:11px 12px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-weight:800;text-align:center;white-space:nowrap;border:1px solid rgba(167,139,250,0.25);position:sticky;top:0;z-index:3;}
+.con-t th:first-child{text-align:left;position:sticky;left:0;z-index:5;background:#3b147a;min-width:170px;color:#fde047;border-right:2px solid #8b5cf6;}
 .con-t td{padding:8px 10px;border:1px solid rgba(255,255,255,0.07);text-align:center;white-space:nowrap;}
-.con-t td:first-child{text-align:left;position:sticky;left:0;background:#15103a;font-weight:700;font-size:.82rem;color:#ffffff;z-index:2;}
-.con-t .gr-row td{background:linear-gradient(135deg,#581c87,#4c1d95);font-weight:800;color:#fde047;border-top:2px solid #a855f7;}
-.con-t tr:hover td{background:rgba(124,58,237,0.18);}
-.nz{color:#34d399;font-weight:800;font-size:.84rem;}
+.con-t td:first-child{text-align:left;position:sticky;left:0;background:#15103a;font-weight:700;font-size:.84rem;color:#ffffff;z-index:2;border-right:2px solid #6d28d9;}
+.con-t .gr-row td{background:linear-gradient(135deg,#581c87,#4c1d95);font-weight:900;color:#fde047;border-top:2px solid #a855f7;font-size:.84rem;}
+.con-t .gr-row td:first-child{background:#4c1d95;color:#fde047;}
+.con-t tr:hover td{background:rgba(124,58,237,0.2);}
+.nz{color:#34d399;font-weight:800;font-size:.86rem;}
 .zr{color:rgba(148,163,184,0.35);}
-
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
-.sc{background:var(--cbg);border:2px solid var(--bdr);border-radius:16px;padding:20px;text-align:center;}
-.sv{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#c4b5fd,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.sl{color:var(--tx-sub);font-size:.84rem;font-weight:600;margin-top:4px;}
 
 /* ALERT */
 .alrt{padding:14px 18px;border-radius:12px;font-size:.9rem;margin-bottom:16px;font-weight:700;display:flex;align-items:center;gap:10px;}
@@ -184,24 +213,129 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 /* TOAST */
 #toastBox{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#059669,#10b981);color:#ffffff;padding:16px 24px;border-radius:14px;font-size:.95rem;font-weight:700;z-index:9999;box-shadow:0 10px 32px rgba(0,0,0,0.5);display:none;align-items:center;gap:10px;}
 
-/* PRINT */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   A3 PRINT STYLING (SEPARATE & COMPLETE)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+.print-hdr{display:none;}
+.print-footer{display:none;}
+
 @media print{
-  @page{size:A3 landscape;margin:7mm;}
-  body{background:#fff!important;color:#000!important;}
-  #authGate,.nav-bar,.ph,.entry-sec,.sec-hdr,.abar,.rtab-nav,.rpt-ctrl,.no-print{display:none!important;}
-  .rpanel{display:block!important;}
-  .con-t{font-size:.58rem;}
-  .con-t th{background:#7c3aed!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  .con-t td:first-child{background:#f1f0ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000!important;}
-  .con-t .gr-row td{background:#e9d5ff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000!important;}
-  .con-t .nz{color:#065f46!important;}
-  .print-hdr{display:block!important;color:#000!important;}
-  .conwrap{border:none;overflow:visible;}
-  .wrap,.content-area{padding:0;}
+  @page{size:A3 landscape;margin:8mm 6mm 8mm 6mm;}
+  html,body{background:#ffffff!important;color:#000000!important;font-family:'Poppins',Arial,sans-serif!important;}
+  
+  /* Hide all interactive UI elements */
+  #authGate, .nav-bar, .ph, .entry-sec, .sec-hdr, .abar, .rtab-nav, .rpt-ctrl, .no-print, .exec-summary-box, .tab-kpi-bar, #toastBox {
+    display:none!important;
+  }
+  
+  /* Hide all panels by default in print */
+  .rpanel{display:none!important;}
+  
+  /* Strictly show ONLY the selected printing panel */
+  body.print-cc #rpanel-cc{display:block!important;}
+  body.print-dc #rpanel-dc{display:block!important;}
+  
+  /* Print Header */
+  .print-hdr{
+    display:block!important;
+    text-align:center!important;
+    margin-bottom:8px!important;
+    border-bottom:2px solid #000!important;
+    padding-bottom:6px!important;
+  }
+  .print-hdr h2{
+    font-size:1.15rem!important;
+    font-weight:900!important;
+    color:#000000!important;
+    letter-spacing:0.04em!important;
+    text-transform:uppercase!important;
+    margin-bottom:2px!important;
+  }
+  .print-hdr p{
+    font-size:0.82rem!important;
+    font-weight:700!important;
+    color:#222222!important;
+  }
+  
+  /* Crisp Table Formatting for A3 */
+  .conwrap{
+    border:none!important;
+    overflow:visible!important;
+    max-height:none!important;
+    box-shadow:none!important;
+    background:#ffffff!important;
+  }
+  .con-t{
+    width:100%!important;
+    border-collapse:collapse!important;
+    font-size:0.50rem!important;
+  }
+  .con-t th, .con-t td{
+    border:1px solid #333333!important;
+    padding:3.5px 2.5px!important;
+    color:#000000!important;
+    text-align:center!important;
+  }
+  .con-t th{
+    background:#e2e8f0!important;
+    font-weight:800!important;
+    color:#000000!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .con-t th:first-child{
+    background:#cbd5e1!important;
+    color:#000000!important;
+    text-align:left!important;
+  }
+  .con-t td:first-child{
+    background:#f8fafc!important;
+    font-weight:800!important;
+    text-align:left!important;
+    color:#000000!important;
+  }
+  .con-t .gr-row td{
+    background:#e9d5ff!important;
+    font-weight:900!important;
+    color:#000000!important;
+    border-top:2px solid #000000!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .con-t .nz{
+    color:#000000!important;
+    font-weight:800!important;
+  }
+  .con-t .zr{
+    color:#888888!important;
+  }
+  
+  /* Print Footer / Signature block */
+  .print-footer{
+    display:flex!important;
+    justify-content:space-between!important;
+    align-items:flex-end!important;
+    margin-top:20px!important;
+    padding-top:12px!important;
+    page-break-inside:avoid!important;
+  }
+  .sig-box{
+    text-align:center!important;
+    width:28%!important;
+    border-top:1.5px solid #000000!important;
+    padding-top:6px!important;
+    font-size:0.75rem!important;
+    font-weight:700!important;
+    color:#000000!important;
+  }
+  .sig-sub{
+    font-size:0.68rem!important;
+    font-weight:500!important;
+    color:#444444!important;
+  }
+  
+  .wrap,.content-area{padding:0!important;max-width:100%!important;}
 }
-.print-hdr{display:none;text-align:center;margin-bottom:10px;}
-.print-hdr h2{font-size:1.05rem;font-weight:800;}
-.print-hdr p{font-size:.82rem;color:#333;}
 
 .content-area{padding:24px 0 40px;}
 @media(max-width:700px){.sel-row{grid-template-columns:1fr;}.abar{flex-direction:column;}.entry-tabs{flex-direction:column;}}
@@ -460,13 +594,68 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
     <!-- /entry-sec -->
 
     <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         SECTION 2 â€” CONSOLIDATED RECORDS
+         SECTION 2 â€” CONSOLIDATED RECORDS (BELOW)
     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <div>
       <div class="sec-hdr no-print">
-        <span class="sec-badge"><i class="fas fa-table"></i> &nbsp;Consolidated Records</span>
+        <span class="sec-badge"><i class="fas fa-table"></i> &nbsp;Consolidated Stock Records</span>
         <div class="sec-line"></div>
-        <span class="sec-sub">Printable A3 Â· Excel Download Â· Shareable</span>
+        <span class="sec-sub">Executive Summaries Â· A3 Printable Sheets Â· Excel Workbook</span>
+      </div>
+
+      <!-- â”€â”€ EXECUTIVE OVERALL DASHBOARD SUMMARY â”€â”€ -->
+      <div class="exec-summary-box no-print">
+        <div class="exec-header">
+          <div class="exec-header-title">
+            <i class="fas fa-chart-pie"></i>
+            <span>Vidyalaya Stock Overview &amp; Key Performance Indicators</span>
+          </div>
+          <div class="exec-badge-live">
+            <i class="fas fa-sync-alt fa-spin"></i> Live Synchronized Stock
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <!-- Card 1: Registered Units -->
+          <div class="kpi-card purple">
+            <div class="kpi-top">
+              <span class="kpi-label">Registered Locations</span>
+              <div class="kpi-icon"><i class="fas fa-school"></i></div>
+            </div>
+            <div class="kpi-val" id="kpi-locs">66</div>
+            <div class="kpi-sub">35 Class Sections + 31 Depts &amp; Labs</div>
+          </div>
+
+          <!-- Card 2: Classroom Stock -->
+          <div class="kpi-card emerald">
+            <div class="kpi-top">
+              <span class="kpi-label">Classroom Articles</span>
+              <div class="kpi-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            </div>
+            <div class="kpi-val" id="kpi-cls-tot">0</div>
+            <div class="kpi-sub" id="kpi-cls-sub">Across 35 Classrooms</div>
+          </div>
+
+          <!-- Card 3: Department Assets -->
+          <div class="kpi-card blue">
+            <div class="kpi-top">
+              <span class="kpi-label">Department Assets</span>
+              <div class="kpi-icon"><i class="fas fa-microscope"></i></div>
+            </div>
+            <div class="kpi-val" id="kpi-dpt-tot">0</div>
+            <div class="kpi-sub" id="kpi-dpt-sub">Across 31 Labs &amp; Offices</div>
+          </div>
+
+          <!-- Card 4: Grand Total -->
+          <div class="kpi-card gold">
+            <div class="kpi-top">
+              <span class="kpi-label">Total School Furniture</span>
+              <div class="kpi-icon"><i class="fas fa-boxes-stacked"></i></div>
+            </div>
+            <div class="kpi-val" id="kpi-grand-tot">0</div>
+            <div class="kpi-sub">Total Verified Stock in School</div>
+          </div>
+        </div>
       </div>
 
       <!-- REPORT TAB NAV -->
@@ -476,73 +665,181 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
         <button class="rtab" id="rtab-ex" onclick="switchRTab('ex');renderStats()"><i class="fas fa-download"></i> Export &amp; Tools</button>
       </div>
 
-      <!-- CLASS CONSOLIDATED -->
+      <!-- â”€â”€ CLASS CONSOLIDATED â”€â”€ -->
       <div id="rpanel-cc" class="rpanel active">
+        
+        <!-- PRINT HEADER (ONLY FOR PRINT) -->
         <div class="print-hdr">
           <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-          <p>CONSOLIDATED FURNITURE &amp; FIXTURES â€” CLASS / SECTION WISE â€” AS ON APRIL 2026</p>
+          <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” CLASS / SECTION WISE â€” SESSION 2025â€“26</p>
         </div>
-        <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <div style="font-size:.9rem;font-weight:700;color:#ffffff;display:flex;align-items:center;gap:8px;">
-            <i class="fas fa-table" style="color:var(--pr-light)"></i> Class / Section Wise Register â€” 35 sections Ã— 24 items
+
+        <!-- TAB SUMMARY KPI BAR -->
+        <div class="tab-kpi-bar no-print">
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="cc-kpi-classes">35</div>
+            <div class="tab-kpi-lbl">Class Sections</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="cc-kpi-desks">0</div>
+            <div class="tab-kpi-lbl">Dual Desks &amp; Tables</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="cc-kpi-chairs">0</div>
+            <div class="tab-kpi-lbl">Student Chairs</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="cc-kpi-teacher">0</div>
+            <div class="tab-kpi-lbl">Teacher Tables/Chairs</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="cc-kpi-boards">0</div>
+            <div class="tab-kpi-lbl">Display &amp; Boards</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="cc-kpi-storage">0</div>
+            <div class="tab-kpi-lbl">Almirahs &amp; Storage</div>
+          </div>
+        </div>
+
+        <!-- CONTROL BAR -->
+        <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1;">
+            <div class="search-in-wrap" style="max-width:320px;">
+              <i class="fas fa-search"></i>
+              <input type="text" id="ccSearch" class="search-in" placeholder="Filter class row (e.g. VII, X-B)..." oninput="filterCCRows()">
+            </div>
+            <span style="font-size:.84rem;color:var(--tx-sub);font-weight:600;"><i class="fas fa-info-circle" style="color:var(--pr-light)"></i> 35 Sections Ã— 24 Items</span>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print A3</button>
+            <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print A3 Sheet</button>
             <button class="btn btn-bl btn-sm" onclick="exportClsXL()"><i class="fas fa-file-excel"></i> Download Excel</button>
             <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
           </div>
         </div>
-        <div class="conwrap" style="max-height:540px;">
+
+        <!-- TABLE -->
+        <div class="conwrap" style="max-height:560px;">
           <table class="con-t"><thead id="cc-head"></thead><tbody id="cc-body"></tbody></table>
+        </div>
+
+        <!-- PRINT SIGNATURE FOOTER -->
+        <div class="print-footer">
+          <div class="sig-box">
+            Class Teacher / Verifier<br>
+            <span class="sig-sub">Sign with Date</span>
+          </div>
+          <div class="sig-box">
+            K. B. Joshi (PGT Maths)<br>
+            <span class="sig-sub">Furniture &amp; Fixtures In-Charge</span>
+          </div>
+          <div class="sig-box">
+            Principal<br>
+            <span class="sig-sub">PM SHRI KV Ranikhet</span>
+          </div>
         </div>
       </div>
 
-      <!-- DEPT CONSOLIDATED -->
+      <!-- â”€â”€ DEPT CONSOLIDATED â”€â”€ -->
       <div id="rpanel-dc" class="rpanel">
+        
+        <!-- PRINT HEADER (ONLY FOR PRINT) -->
         <div class="print-hdr">
           <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-          <p>CONSOLIDATED FURNITURE &amp; FIXTURES â€” DEPARTMENT / ROOM / LAB WISE â€” AS ON APRIL 2026</p>
+          <p>CONSOLIDATED FURNITURE &amp; FIXTURES REGISTER â€” DEPARTMENT / LAB / ROOM WISE â€” SESSION 2025â€“26</p>
         </div>
-        <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
-          <div style="font-size:.9rem;font-weight:700;color:#ffffff;display:flex;align-items:center;gap:8px;">
-            <i class="fas fa-building" style="color:var(--pr-light)"></i> Department / Room / Lab Wise Register â€” 31 rooms Ã— 50 items
+
+        <!-- TAB SUMMARY KPI BAR -->
+        <div class="tab-kpi-bar no-print">
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="dc-kpi-depts">31</div>
+            <div class="tab-kpi-lbl">Departments/Rooms</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="dc-kpi-labs">0</div>
+            <div class="tab-kpi-lbl">Lab Articles</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="dc-kpi-pmshri">0</div>
+            <div class="tab-kpi-lbl">PM SHRI Assets</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="dc-kpi-office">0</div>
+            <div class="tab-kpi-lbl">Office/Staff Furniture</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="dc-kpi-lib">0</div>
+            <div class="tab-kpi-lbl">Library Assets</div>
+          </div>
+          <div class="tab-kpi-item">
+            <div class="tab-kpi-num" id="dc-kpi-storage">0</div>
+            <div class="tab-kpi-lbl">Store &amp; Corridors</div>
+          </div>
+        </div>
+
+        <!-- CONTROL BAR -->
+        <div class="rpt-ctrl no-print" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1;">
+            <div class="search-in-wrap" style="max-width:320px;">
+              <i class="fas fa-search"></i>
+              <input type="text" id="dcSearch" class="search-in" placeholder="Filter department (e.g. Physics, Library)..." oninput="filterDCRows()">
+            </div>
+            <span style="font-size:.84rem;color:var(--tx-sub);font-weight:600;"><i class="fas fa-info-circle" style="color:var(--pr-light)"></i> 31 Rooms Ã— 50 Items</span>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-gr btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print A3</button>
+            <button class="btn btn-gr btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print A3 Sheet</button>
             <button class="btn btn-bl btn-sm" onclick="exportDptXL()"><i class="fas fa-file-excel"></i> Download Excel</button>
             <button class="btn btn-or btn-sm" onclick="doShare()"><i class="fas fa-share-alt"></i> Share</button>
           </div>
         </div>
-        <div class="conwrap" style="max-height:540px;">
+
+        <!-- TABLE -->
+        <div class="conwrap" style="max-height:560px;">
           <table class="con-t"><thead id="dc-head"></thead><tbody id="dc-body"></tbody></table>
+        </div>
+
+        <!-- PRINT SIGNATURE FOOTER -->
+        <div class="print-footer">
+          <div class="sig-box">
+            Department In-Charge<br>
+            <span class="sig-sub">Sign with Date</span>
+          </div>
+          <div class="sig-box">
+            K. B. Joshi (PGT Maths)<br>
+            <span class="sig-sub">Furniture &amp; Fixtures In-Charge</span>
+          </div>
+          <div class="sig-box">
+            Principal<br>
+            <span class="sig-sub">PM SHRI KV Ranikhet</span>
+          </div>
         </div>
       </div>
 
-      <!-- EXPORT & TOOLS -->
+      <!-- â”€â”€ EXPORT & TOOLS â”€â”€ -->
       <div id="rpanel-ex" class="rpanel">
         <div id="statsArea" class="stats"></div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
           <div class="entry-card">
             <div class="ctitle"><i class="fas fa-file-excel"></i> Download Full Workbook</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Exports both class-wise and department-wise sheets in one Excel file (.xlsx) formatted with headers matching the official school register.</p>
-            <button class="btn btn-gr" onclick="exportBothXL()"><i class="fas fa-file-excel"></i> Download (.xlsx)</button>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Exports both class-wise and department-wise sheets in one consolidated Excel workbook (.xlsx) matching the official Vidyalaya register.</p>
+            <button class="btn btn-gr" onclick="exportBothXL()"><i class="fas fa-file-excel"></i> Download Full Register (.xlsx)</button>
           </div>
           <div class="entry-card">
-            <div class="ctitle"><i class="fas fa-print"></i> Print A3 Reports</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Opens print dialog set to A3 Landscape. Use your printer settings to output crisp, full-width physical register sheets.</p>
+            <div class="ctitle"><i class="fas fa-print"></i> Print A3 Clean Sheets</div>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Prints full-width A3 landscape sheets without any web buttons or extra UI, complete with verification signature lines.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Class Report (A3)</button>
-              <button class="btn btn-bl btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Dept Report (A3)</button>
+              <button class="btn btn-gr btn-sm" onclick="doPrint('cc')"><i class="fas fa-print"></i> Print Class Sheet (A3)</button>
+              <button class="btn btn-bl btn-sm" onclick="doPrint('dc')"><i class="fas fa-print"></i> Print Dept Sheet (A3)</button>
             </div>
           </div>
           <div class="entry-card">
             <div class="ctitle"><i class="fas fa-share-alt"></i> Share Portal</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Copy the link to share with teachers and in-charges. Password protection will ensure safe, authenticated access.</p>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Copy link to share directly with teachers and room in-charges. Password protection guarantees authenticated access.</p>
             <button class="btn btn-or" onclick="doShare()"><i class="fas fa-copy"></i> Copy Page Link</button>
           </div>
           <div class="entry-card">
             <div class="ctitle"><i class="fas fa-database"></i> Reset Baseline Data</div>
-            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Restores verified stock counts to the official April 2026 data extracted from the departmental record Excel register.</p>
+            <p style="color:var(--tx-sub);font-size:.88rem;margin-bottom:18px;line-height:1.6;">Restores verified stock counts to the official April 2026 baseline extracted from the departmental record Excel register.</p>
             <button class="btn btn-out" onclick="doReset()"><i class="fas fa-undo"></i> Reset to April 2026 Baseline</button>
           </div>
         </div>
@@ -844,7 +1141,8 @@ function saveClsEntry(){
   const tot = vals.reduce((a,b)=>a+b,0);
   showAlert('cls-alert',`<i class="fas fa-check-circle" style="color:#10b981"></i> &nbsp;Successfully saved entry for <strong>${key}</strong> &nbsp;(${tot} total items).`,'ok');
   showToast(`Saved ${key}: ${tot} items`);
-  if(document.getElementById('rpanel-cc').classList.contains('active')) renderCC();
+  renderCC();
+  updateGlobalKPIs();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -940,7 +1238,8 @@ function saveDptEntry(){
   const tot = vals.reduce((a,b)=>a+b,0);
   showAlert('dpt-alert',`<i class="fas fa-check-circle" style="color:#10b981"></i> &nbsp;Successfully saved entry for <strong>${dept}</strong> &nbsp;(${tot} total items).`,'ok');
   showToast(`Saved ${dept}: ${tot} items`);
-  if(document.getElementById('rpanel-dc').classList.contains('active')) renderDC();
+  renderDC();
+  updateGlobalKPIs();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -956,21 +1255,91 @@ function switchRTab(id){
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  GLOBAL KPIS & SUMMARY CALCULATOR
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function updateGlobalKPIs(){
+  let clsSum = 0;
+  let desksTot = 0, chairsTot = 0, teacherTot = 0, boardsTot = 0, storageTot = 0;
+  
+  CLS_LIST.forEach(cls=>{
+    const v = (clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
+    clsSum += v.reduce((a,b)=>a+b,0);
+    
+    // Chairs & Stools (Small Chair Wood/Plastic, Big Chair Wood/Plastic, Writing pad chair)
+    chairsTot += (v[0]||0)+(v[1]||0)+(v[2]||0)+(v[3]||0)+(v[7]||0);
+    // Dual Desks & Student Tables (Dual desk Wood/Iron, Student Table Flat/Box, Hexagonal Table)
+    desksTot += (v[8]||0)+(v[9]||0)+(v[10]||0)+(v[11]||0)+(v[12]||0)+(v[13]||0);
+    // Teacher Table/Chairs/Podium
+    teacherTot += (v[4]||0)+(v[5]||0)+(v[6]||0)+(v[14]||0)+(v[15]||0)+(v[16]||0);
+    // Storage
+    storageTot += (v[17]||0)+(v[18]||0)+(v[19]||0)+(v[20]||0);
+    // Boards
+    boardsTot += (v[21]||0)+(v[22]||0)+(v[23]||0);
+  });
+
+  let dptSum = 0;
+  let labsTot = 0, pmshriTot = 0, officeTot = 0, libTot = 0, storeTot = 0;
+  
+  DPT_LIST.forEach(dept=>{
+    const v = (dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
+    const dSum = v.reduce((a,b)=>a+b,0);
+    dptSum += dSum;
+    
+    if(dept.includes('LAB')) labsTot += dSum;
+    if(dept.includes('LIBRARY')) libTot += dSum;
+    if(dept.includes('OFFICE') || dept.includes('PRINCIPAL') || dept.includes('STAFF')) officeTot += dSum;
+    if(dept.includes('STORE') || dept.includes('CORRIDOR')) storeTot += dSum;
+    
+    // PM SHRI indices (44 to 49)
+    pmshriTot += (v[44]||0)+(v[45]||0)+(v[46]||0)+(v[47]||0)+(v[48]||0)+(v[49]||0);
+  });
+
+  // Top Executive Summary
+  document.getElementById('kpi-cls-tot').textContent = clsSum.toLocaleString();
+  document.getElementById('kpi-dpt-tot').textContent = dptSum.toLocaleString();
+  document.getElementById('kpi-grand-tot').textContent = (clsSum + dptSum).toLocaleString();
+  
+  // Class Tab Mini KPIs
+  if(document.getElementById('cc-kpi-desks')) document.getElementById('cc-kpi-desks').textContent = desksTot.toLocaleString();
+  if(document.getElementById('cc-kpi-chairs')) document.getElementById('cc-kpi-chairs').textContent = chairsTot.toLocaleString();
+  if(document.getElementById('cc-kpi-teacher')) document.getElementById('cc-kpi-teacher').textContent = teacherTot.toLocaleString();
+  if(document.getElementById('cc-kpi-boards')) document.getElementById('cc-kpi-boards').textContent = boardsTot.toLocaleString();
+  if(document.getElementById('cc-kpi-storage')) document.getElementById('cc-kpi-storage').textContent = storageTot.toLocaleString();
+
+  // Dept Tab Mini KPIs
+  if(document.getElementById('dc-kpi-labs')) document.getElementById('dc-kpi-labs').textContent = labsTot.toLocaleString();
+  if(document.getElementById('dc-kpi-pmshri')) document.getElementById('dc-kpi-pmshri').textContent = pmshriTot.toLocaleString();
+  if(document.getElementById('dc-kpi-office')) document.getElementById('dc-kpi-office').textContent = officeTot.toLocaleString();
+  if(document.getElementById('dc-kpi-lib')) document.getElementById('dc-kpi-lib').textContent = libTot.toLocaleString();
+  if(document.getElementById('dc-kpi-storage')) document.getElementById('dc-kpi-storage').textContent = storeTot.toLocaleString();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  CLASS CONSOLIDATED RENDER
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderCC(){
   const head=document.getElementById('cc-head');
   const body=document.getElementById('cc-body');
-  head.innerHTML=`<tr><th>Class / Section</th>${CLS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047">TOTAL</th></tr>`;
+  head.innerHTML=`<tr><th>Class / Section</th>${CLS_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047;border-left:2px solid #a855f7;">TOTAL</th></tr>`;
   const gt=Array(CLS_ITEMS.length).fill(0);
-  body.innerHTML=CLS_LIST.map(cls=>{
+  body.innerHTML=CLS_LIST.map((cls,idx)=>{
     const v=(clsData[cls]||Array(CLS_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
     const tot=v.reduce((a,b)=>a+b,0);
     v.forEach((x,i)=>gt[i]+=x);
-    return `<tr><td>${cls}</td>${v.map(x=>`<td class="${x>0?'nz':'zr'}">${x}</td>`).join('')}<td class="nz">${tot}</td></tr>`;
+    return `<tr id="cc-row-${idx}"><td>${cls}</td>${v.map(x=>`<td class="${x>0?'nz':'zr'}">${x}</td>`).join('')}<td class="nz" style="background:rgba(124,58,237,0.18);font-weight:900;border-left:2px solid rgba(167,139,250,0.3);">${tot}</td></tr>`;
   }).join('');
   const gtTot=gt.reduce((a,b)=>a+b,0);
   body.innerHTML+=`<tr class="gr-row"><td>GRAND TOTAL</td>${gt.map(x=>`<td>${x}</td>`).join('')}<td>${gtTot}</td></tr>`;
+  updateGlobalKPIs();
+}
+
+function filterCCRows(){
+  const q = document.getElementById('ccSearch').value.toLowerCase().trim();
+  CLS_LIST.forEach((cls,idx)=>{
+    const tr = document.getElementById(`cc-row-${idx}`);
+    if(!tr) return;
+    tr.style.display = (!q || cls.toLowerCase().includes(q)) ? '' : 'none';
+  });
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -979,16 +1348,26 @@ function renderCC(){
 function renderDC(){
   const head=document.getElementById('dc-head');
   const body=document.getElementById('dc-body');
-  head.innerHTML=`<tr><th>Department / Room / Lab</th>${DPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047">TOTAL</th></tr>`;
+  head.innerHTML=`<tr><th>Department / Room / Lab</th>${DPT_ITEMS.map(h=>`<th title="${h}">${h}</th>`).join('')}<th style="background:#581c87;color:#fde047;border-left:2px solid #a855f7;">TOTAL</th></tr>`;
   const gt=Array(DPT_ITEMS.length).fill(0);
-  body.innerHTML=DPT_LIST.map(dept=>{
+  body.innerHTML=DPT_LIST.map((dept,idx)=>{
     const v=(dptData[dept]||Array(DPT_ITEMS.length).fill(0)).map(x=>parseInt(x)||0);
     const tot=v.reduce((a,b)=>a+b,0);
     v.forEach((x,i)=>gt[i]+=x);
-    return `<tr><td>${dept}</td>${v.map(x=>`<td class="${x>0?'nz':'zr'}">${x}</td>`).join('')}<td class="nz">${tot}</td></tr>`;
+    return `<tr id="dc-row-${idx}"><td>${dept}</td>${v.map(x=>`<td class="${x>0?'nz':'zr'}">${x}</td>`).join('')}<td class="nz" style="background:rgba(124,58,237,0.18);font-weight:900;border-left:2px solid rgba(167,139,250,0.3);">${tot}</td></tr>`;
   }).join('');
   const gtTot=gt.reduce((a,b)=>a+b,0);
   body.innerHTML+=`<tr class="gr-row"><td>GRAND TOTAL</td>${gt.map(x=>`<td>${x}</td>`).join('')}<td>${gtTot}</td></tr>`;
+  updateGlobalKPIs();
+}
+
+function filterDCRows(){
+  const q = document.getElementById('dcSearch').value.toLowerCase().trim();
+  DPT_LIST.forEach((dept,idx)=>{
+    const tr = document.getElementById(`dc-row-${idx}`);
+    if(!tr) return;
+    tr.style.display = (!q || dept.toLowerCase().includes(q)) ? '' : 'none';
+  });
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -999,9 +1378,9 @@ function renderStats(){
   let di=0; DPT_LIST.forEach(d=>{const v=dptData[d]||[];di+=v.reduce((a,b)=>a+(parseInt(b)||0),0);});
   document.getElementById('statsArea').innerHTML=`
     <div class="sc"><div class="sv">${CLS_LIST.length}</div><div class="sl">Class Sections</div></div>
-    <div class="sc"><div class="sv">${ci}</div><div class="sl">Total Items (Class-wise)</div></div>
+    <div class="sc"><div class="sv">${ci}</div><div class="sl">Total Classroom Items</div></div>
     <div class="sc"><div class="sv">${DPT_LIST.length}</div><div class="sl">Departments / Rooms</div></div>
-    <div class="sc"><div class="sv">${di}</div><div class="sl">Total Items (Dept-wise)</div></div>`;
+    <div class="sc"><div class="sv">${di}</div><div class="sl">Total Department Assets</div></div>`;
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1039,16 +1418,29 @@ function exportBothXL(){
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-//  PRINT
+//  PRINT (ISOLATED CLEAN A3 PER SHEET)
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function doPrint(rid){
+  // Set explicit print mode class on body
+  document.body.classList.remove('print-cc','print-dc');
+  document.body.classList.add(rid==='cc' ? 'print-cc' : 'print-dc');
+
+  // Activate the correct panel in DOM as well
   ['cc','dc','ex'].forEach(t=>{
     document.getElementById('rtab-'+t).classList.toggle('active',t===rid);
     document.getElementById('rpanel-'+t).classList.toggle('active',t===rid);
   });
+  
   if(rid==='cc') renderCC();
   if(rid==='dc') renderDC();
-  setTimeout(()=>window.print(),350);
+  
+  setTimeout(()=>{
+    window.print();
+    // Cleanup body print class after dialog opens
+    setTimeout(()=>{
+      document.body.classList.remove('print-cc','print-dc');
+    },1000);
+  },300);
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1070,8 +1462,9 @@ function doReset(){
   lsSave(LS_CLS,clsData);
   lsSave(LS_DPT,dptData);
   showToast('All data reset to April 2026 baseline.');
-  if(document.getElementById('rpanel-cc').classList.contains('active')) renderCC();
-  if(document.getElementById('rpanel-dc').classList.contains('active')) renderDC();
+  renderCC();
+  renderDC();
+  updateGlobalKPIs();
 }
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1095,6 +1488,8 @@ function initAll(){
   sel.innerHTML='<option value="">â€” Choose Department / Room / Lab â€”</option>';
   DPT_LIST.forEach(d=>sel.innerHTML+=`<option value="${d}">${d}</option>`);
   renderCC();
+  renderDC();
+  updateGlobalKPIs();
 }
 </script>
 </body>

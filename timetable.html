@@ -2754,98 +2754,173 @@
 
     // --- RENDER FUNCTIONS ---
 
-    // Helper: Checks if a cell value represents a practical period or practical block
-    // Helper: Checks if a cell value represents a practical period (ONLY for Physics, Chemistry, Biology, Computer)
+    // Helper: Checks if a cell value represents an actual practical/lab block
     function isPracticalPeriod(cellValue, teacher) {
       if (!cellValue) return false;
       const clean = cellValue.toUpperCase();
       
-      // Exclude non-science/non-computer activities
-      if (clean.includes('(PA)') || clean.includes('CLA') || clean.includes('(VE)') || clean.includes('(CT)') || clean.includes('(Y)')) {
+      // Exclude non-lab activities
+      if (clean.includes('(PA)') || clean.includes('CLA') || clean.includes('(VE)') || clean.includes('(CT)') || clean.includes('(Y)') || clean.includes('(IDA)')) {
         return false;
       }
 
-      // If teacher is known, ensure teacher belongs to Physics, Chemistry, Biology, or Computer
-      if (teacher && teacher.subject) {
-        const subj = teacher.subject.toUpperCase();
-        const isScienceOrComputerTeacher = subj.includes('CHEM') || subj.includes('PHY') || subj.includes('BIO') || subj.includes('CS') || subj.includes('COMPUTER');
-        if (!isScienceOrComputerTeacher) return false;
-      }
-
-      return clean.includes('P/C') || clean.includes('PCS') || clean.includes('B/M') || clean.includes('M/B') || clean.includes('(CL)') || clean.includes('(AI)') || clean.includes('(DL)');
+      return clean.includes('(P/C)') || clean.includes('P/C') || 
+             clean.includes('(PCS)') || clean.includes('PCS') || 
+             clean.includes('(B/M)') || clean.includes('B/M') || 
+             clean.includes('(M/B)') || clean.includes('M/B') || 
+             clean.includes('(CL)')  || clean.includes('(AI)') || 
+             clean.includes('(DL)');
     }
 
-    // Helper: Resolves exact subject title (SCI for Classes 6-10 vs PHY/CHE/BIO/MAT/CS for Classes 11 & 12; Practical is ONLY for Physics, Chemistry, Biology, Computer; SST means Social Science)
+    // Helper: Resolves exact subject title according to class level (Classes 6-10 vs Senior Secondary Streams: 11A/12A Humanities, 11B/12B Science, 11C/12C Commerce)
     function getSubjectLabel(cellValue, teacher) {
       if (!cellValue || cellValue.trim() === "") return "";
       const clean = cellValue.trim().toUpperCase();
 
+      // 1. Explicit tags in cell value
       if (clean.includes('CLA')) return 'Co-Curricular Activity (P7-P8 Block)';
-      if (clean.includes('(SST)') || clean.includes('SST')) return 'Social Science (SST)';
-      if (clean.includes('(SCI)') || clean.includes('SCI')) return 'Science (SCI)';
-      
-      // Integrated Practical Blocks (Physics, Chemistry, Biology, Computer Science)
-      if (clean.includes('(P/C)') || clean.includes('P/C')) {
-        if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical (P/C Block)';
-        if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical (P/C Block)';
-        return 'Physics & Chemistry Practical Block (P/C)';
-      }
-      if (clean.includes('(PCS)') || clean.includes('PCS')) {
-        if (teacher && (teacher.subject.includes('CS') || teacher.subject.includes('COMPUTER'))) return 'Computer Science Practical (PCS Block)';
-        if (teacher && teacher.subject.includes('CHEM')) return 'Chemistry Practical (PCS Block)';
-        if (teacher && teacher.subject.includes('PHY')) return 'Physics Practical (PCS Block)';
-        return 'Physics, Chemistry & CS Practical Block (PCS)';
-      }
-      if (clean.includes('(B/M)') || clean.includes('B/M') || clean.includes('(M/B)') || clean.includes('M/B')) {
-        if (teacher && teacher.subject.includes('BIO')) return 'Biology Practical (B/M Block)';
-        if (teacher && teacher.subject.includes('MATH')) return 'Mathematics Block (B/M)';
-        return 'Biology Practical / Mathematics Block';
-      }
-      if (clean.includes('(M/H)')) return 'Mathematics / Hindi Block';
-      if (clean.includes('(BIO)')) return 'Biology Practical';
+      if (clean.includes('(SST)')) return 'Social Science (SST)';
+      if (clean.includes('(SCI)')) return 'Science (SCI)';
       if (clean.includes('(ACC)')) return 'Accountancy (ACC)';
       if (clean.includes('(BST)')) return 'Business Studies (BST)';
-      if (clean.includes('(AI)')) return 'Artificial Intelligence Practical (AI)';
-      if (clean.includes('(DL)')) return 'Digital Literacy Practical (DL)';
-      if (clean.includes('(CL)') || clean.endsWith('(CL)')) return 'Computer Lab Practical (CL)';
-      if (clean.includes('(VE)')) return 'Value Education';
-      if (clean.includes('(Y)') || clean.includes('YOGA')) return 'Yoga';
-      if (clean.includes('(PA)')) return 'Physical Activity (PA)';
+      if (clean.includes('(BIO)')) return 'Biology (BIO)';
+      if (clean.includes('(CS)')) return 'Computer Science (CS)';
+      if (clean.includes('(AI)')) return 'Artificial Intelligence (AI)';
+      if (clean.includes('(DL)')) return 'Digital Literacy (DL)';
+      if (clean.includes('(CL)') || clean.endsWith('(CL)')) return 'Computer Lab (CL)';
+      if (clean.includes('(VE)')) return 'Vocational / Value Education (VE)';
+      if (clean.includes('(Y)') || clean.includes('YOGA') || clean.includes('(NON MATH Y)')) return 'Yoga Education';
+      if (clean.includes('(PA)')) return 'Physical Activity / Performing Arts (PA)';
+      if (clean.includes('(IDA)')) return 'Inter-Disciplinary Area (IDA)';
       if (clean.includes('(CT)')) return 'Class Teacher Period';
+      if (clean.includes('(LIB)')) return 'Library / Reading (LIB)';
+      if (clean.includes('(NON MATH)') || clean.includes('(NON CS)')) return 'Physical Education / Non-Math';
 
-      const match = clean.match(/\b(1[0-2]|[6-9])[A-C]\b/);
-      if (match) {
-        const clsNum = parseInt(match[1], 10);
-        if (clsNum <= 10) {
-          // Classes 6 to 10: Social Science (SST) check must come BEFORE Science check
-          if (teacher && teacher.subject) {
-            const ts = teacher.subject.toUpperCase();
-            if (ts.includes('SST') || ts.includes('SOCIAL') || ts.includes('HISTORY') || ts.includes('GEO')) {
-              return 'Social Science (SST)';
-            }
-            if (ts.includes('CHEM') || ts.includes('PHY') || ts.includes('BIO') || ts.includes('SCIENCE')) {
-              return 'Science (SCI)';
-            }
-          }
-          return 'Social Science (SST)';
-        } else {
-          // Senior Secondary 11 & 12
-          if (teacher && teacher.subject) {
-            const ts = teacher.subject.toUpperCase();
-            if (ts.includes('CHEM')) return 'Chemistry Practical';
-            if (ts.includes('PHY')) return 'Physics Practical';
-            if (ts.includes('BIO')) return 'Biology Practical';
-            if (ts.includes('MATH')) return 'Mathematics (MAT)';
-            if (ts.includes('CS') || ts.includes('COMPUTER')) return 'Computer Science Practical';
-            if (ts.includes('ECO')) return 'Economics (ECO)';
-            if (ts.includes('COMM') || ts.includes('ACCOUNTANCY')) return 'Commerce (ACC/BST)';
-            if (ts.includes('HISTORY') || ts.includes('SST') || ts.includes('SOCIAL')) return 'History (HIS)';
-            if (ts.includes('GEO')) return 'Geography (GEO)';
-          }
-        }
+      // Lab practical blocks
+      if (clean.includes('(P/C)') || clean.includes('P/C')) {
+        if (teacher && teacher.desig && teacher.desig.includes('CHEM')) return 'Chemistry Practical (P/C Block)';
+        if (teacher && teacher.desig && teacher.desig.includes('PHY')) return 'Physics Practical (P/C Block)';
+        return 'Physics & Chemistry Practical (P/C Block)';
+      }
+      if (clean.includes('(PCS)') || clean.includes('PCS')) {
+        if (teacher && teacher.desig && teacher.desig.includes('CS')) return 'Computer Science Practical (PCS Block)';
+        if (teacher && teacher.desig && teacher.desig.includes('PHY')) return 'Physics Practical (PCS Block)';
+        if (teacher && teacher.desig && teacher.desig.includes('CHEM')) return 'Chemistry Practical (PCS Block)';
+        return 'Physics / CS Practical (PCS Block)';
+      }
+      if (clean.includes('(B/M)') || clean.includes('B/M') || clean.includes('(M/B)') || clean.includes('M/B')) {
+        if (teacher && teacher.desig && teacher.desig.includes('BIO')) return 'Biology (B/M Block)';
+        if (teacher && teacher.desig && teacher.desig.includes('MATH')) return 'Mathematics (B/M Block)';
+        return 'Biology / Mathematics (B/M Block)';
       }
 
-      return teacher ? teacher.subject.split('/')[0].trim() : '';
+      // 2. Class-specific resolution based on Teacher's specific Designation & Subject
+      const match = clean.match(/\b(1[0-2]|[6-9])[A-C]\b/);
+      const clsNum = match ? parseInt(match[1], 10) : 0;
+
+      if (teacher) {
+        const desig = (teacher.desig || '').toUpperCase();
+        const subj = (teacher.subject || '').toUpperCase();
+
+        // Economics (PGT ECO)
+        if (desig.includes('ECO') || subj === 'ECONOMICS' || subj.startsWith('ECONOMICS')) {
+          return 'Economics (ECO)';
+        }
+
+        // Geography (TGT GEO)
+        if (desig.includes('GEO') || subj.includes('GEOGRAPHY')) {
+          return clsNum >= 11 ? 'Geography (GEO)' : 'Social Science (SST)';
+        }
+
+        // History (PGT HISTORY)
+        if (desig.includes('HISTORY') || subj.includes('HISTORY')) {
+          return clsNum >= 11 ? 'History (HIS)' : 'Social Science (SST)';
+        }
+
+        // Physical Education & Games (PET / Games / TGT PHE)
+        if (desig.includes('PET') || desig.includes('GAMES') || desig.includes('PHE') || subj.includes('PHYSICAL') || subj.includes('GAMES')) {
+          return 'Physical Education (PHE / Games)';
+        }
+
+        // Yoga
+        if (desig.includes('YOGA') || subj.includes('YOGA')) {
+          return 'Yoga Education';
+        }
+
+        // Commerce (Accountancy / Business Studies)
+        if (desig.includes('COMMERCE') || subj.includes('ACCOUNTANCY') || subj.includes('B.STUDIES')) {
+          return 'Commerce (ACC / BST)';
+        }
+
+        // Computer Science (PGT CS / Computer Instructor)
+        if (desig.includes('CS') || desig.includes('COMPUTER') || subj.startsWith('COMPUTER')) {
+          return clsNum >= 11 ? 'Computer Science (CS)' : 'Digital Literacy / Computer (DL)';
+        }
+
+        // Physics (PGT PHY)
+        if (desig.includes('PHY') || subj.startsWith('PHYSICS')) {
+          return clsNum >= 11 ? 'Physics (PHY)' : 'Science (SCI)';
+        }
+
+        // Chemistry (PGT CHEM)
+        if (desig.includes('CHEM') || subj.startsWith('CHEMISTRY')) {
+          return clsNum >= 11 ? 'Chemistry (CHE)' : 'Science (SCI)';
+        }
+
+        // Biology (PGT BIO)
+        if (desig.includes('BIO') || subj.startsWith('BIOLOGY')) {
+          return clsNum >= 11 ? 'Biology (BIO)' : 'Science (SCI)';
+        }
+
+        // Mathematics (PGT MATH / TGT MATH)
+        if (desig.includes('MATH') || subj.includes('MATHEMATICS')) {
+          return 'Mathematics (MAT)';
+        }
+
+        // English (PGT ENG / TGT ENG)
+        if (desig.includes('ENG') || subj.includes('ENGLISH')) {
+          return 'English (ENG)';
+        }
+
+        // Hindi (PGT HINDI / TGT HINDI)
+        if (desig.includes('HINDI') || subj.includes('HINDI')) {
+          return 'Hindi (HIN)';
+        }
+
+        // Sanskrit (TGT SKT)
+        if (desig.includes('SKT') || desig.includes('SANSKRIT') || subj.includes('SANSKRIT')) {
+          return 'Sanskrit (SKT)';
+        }
+
+        // Social Science (TGT SST)
+        if (desig.includes('SST') || subj.includes('SOCIAL SCIENCE')) {
+          return 'Social Science (SST)';
+        }
+
+        // Science (TGT SCI)
+        if (desig.includes('SCI') || subj === 'SCIENCE') {
+          return 'Science (SCI)';
+        }
+
+        // Art Education
+        if (desig.includes('ART') || subj.includes('ART')) {
+          return 'Art Education (ART)';
+        }
+
+        // Work Experience / VEI
+        if (desig.includes('WE') || desig.includes('VEI') || subj.includes('WORK') || subj.includes('VALUES')) {
+          return 'Work Education (WE)';
+        }
+
+        // Librarian
+        if (desig.includes('LIB') || subj.includes('LIBRARY')) {
+          return 'Library / Language (LIB)';
+        }
+
+        return teacher.subject.split('/')[0].trim();
+      }
+
+      return "";
     }
 
     // Helper: Find matching teachers for classCode on day at periodSlot
