@@ -12,10 +12,10 @@
 <style>
 :root{
   --pr:#7c3aed;--pr-dark:#4c1d95;--pr-light:#a78bfa;
-  --bg:#060411;--cbg:#100b26;--cbg-card:#161038;--bdr:rgba(167,139,250,0.3);
+  --bg:#060411;--cbg:#100b26;--cbg-card:#161038;--bdr:rgba(167,139,250,0.35);
   --tx:#ffffff;--tx-sub:#cbd5e1;--tx-muted:#94a3b8;
-  --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.18);
-  --amb:#f59e0b;--amb-dark:#d97706;--amb-bg:rgba(245,158,11,0.18);
+  --grn:#10b981;--grn-dark:#059669;--grn-bg:rgba(16,185,129,0.2);
+  --amb:#f59e0b;--amb-dark:#d97706;--amb-bg:rgba(245,158,11,0.2);
   --red:#ef4444;--blu:#3b82f6;--blu-dark:#1d4ed8;--cyn:#06b6d4;--gld:#fde047;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -27,8 +27,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 .auth-icon{font-size:3.5rem;color:var(--pr-light);margin-bottom:16px;filter:drop-shadow(0 4px 12px rgba(124,58,237,0.5));}
 .auth-box h2{font-size:1.6rem;margin-bottom:8px;font-weight:800;color:#ffffff;}
 .auth-box p{color:var(--tx-sub);font-size:.9rem;margin-bottom:24px;line-height:1.6;}
-.auth-in{width:100%;padding:14px 16px;background:#09061a;border:2px solid rgba(167,139,250,0.4);border-radius:12px;color:#ffffff;font-size:1.05rem;font-family:inherit;margin-bottom:16px;outline:none;transition:all .3s;}
-.auth-in:focus{border-color:var(--pr-light);box-shadow:0 0 0 4px rgba(124,58,237,0.3);background:#110b2b;}
+.auth-in{width:100%;padding:14px 16px;background:#09061a!important;border:2px solid rgba(167,139,250,0.5)!important;border-radius:12px;color:#ffffff!important;font-size:1.05rem;font-weight:700;font-family:inherit;margin-bottom:16px;outline:none;transition:all .3s;}
+.auth-in:focus{border-color:var(--gld)!important;box-shadow:0 0 0 4px rgba(253,224,71,0.3)!important;background:#110b2b!important;}
 .auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#9333ea);border:none;border-radius:12px;color:#ffffff;font-size:1.05rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .3s;box-shadow:0 6px 20px rgba(124,58,237,0.4);}
 .auth-btn:hover{opacity:.92;transform:translateY(-2px);}
 #authErr{color:#f87171;font-size:.88rem;margin-top:12px;display:none;font-weight:600;}
@@ -80,53 +80,111 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
 .ctitle i{color:var(--pr-light);font-size:1.3rem;}
 
 /* SELECTION BOX */
-.selection-box{background:#181142;border:2px solid #6d28d9;border-radius:16px;padding:18px 20px;margin-bottom:22px;box-shadow:0 4px 18px rgba(0,0,0,0.35);}
-.sel-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.selection-box{background:#181142;border:2px solid #7c3aed;border-radius:18px;padding:22px 24px;margin-bottom:24px;box-shadow:0 8px 24px rgba(0,0,0,0.45);}
+.sel-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
 .sel-row.one{grid-template-columns:1fr;}
-.fg{display:flex;flex-direction:column;gap:8px;}
-.fg label{font-size:.88rem;color:#f1f5f9;font-weight:700;display:flex;align-items:center;gap:8px;}
-.fg label i{color:var(--pr-light);}
-.fsel{padding:13px 16px;background:#09061a;border:2px solid #8b5cf6;border-radius:12px;color:#ffffff;font-size:1rem;font-weight:700;font-family:inherit;outline:none;transition:all .25s;width:100%;cursor:pointer;}
-.fsel:focus{border-color:#c4b5fd;box-shadow:0 0 0 4px rgba(139,92,246,0.35);background:#100a2a;}
-.fsel option{background:#161038;color:#ffffff;padding:8px;}
+.fg{display:flex;flex-direction:column;gap:10px;}
+
+/* CLEAN, LARGE, BOLD LABELS (NO SYMBOLS) */
+.entry-label{
+  font-size: 1.18rem !important;
+  font-weight: 900 !important;
+  color: #fde047 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.fsel{
+  padding: 15px 18px !important;
+  background: #09061a !important;
+  border: 2.5px solid #8b5cf6 !important;
+  border-radius: 14px !important;
+  color: #ffffff !important;
+  font-size: 1.12rem !important;
+  font-weight: 800 !important;
+  font-family: inherit !important;
+  outline: none !important;
+  transition: all .25s !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+}
+.fsel:focus{
+  border-color: #fde047 !important;
+  box-shadow: 0 0 0 4px rgba(253,224,71,0.35) !important;
+  background: #110b2b !important;
+}
+.fsel option{
+  background: #161038 !important;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  padding: 10px !important;
+}
 
 /* ACTIVE BANNER */
 .active-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:linear-gradient(135deg,#1b114d,#2b0e60);border:2px solid #7c3aed;border-radius:14px;padding:14px 18px;margin-bottom:18px;}
-.ab-title{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:800;color:#ffffff;}
+.ab-title{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:800;color:#ffffff;}
 .ab-title i{color:#34d399;font-size:1.2rem;}
 .ab-stats{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
-.ab-stat-badge{background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px;font-size:.82rem;font-weight:700;color:#e2e8f0;}
-.ab-stat-badge strong{color:#34d399;font-size:.92rem;}
+.ab-stat-badge{background:rgba(255,255,255,0.12);padding:6px 14px;border-radius:20px;font-size:.84rem;font-weight:700;color:#e2e8f0;}
+.ab-stat-badge strong{color:#34d399;font-size:.95rem;}
 
 /* SEARCH / FILTER BAR */
-.filter-bar{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+.filter-bar{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
 .search-in-wrap{position:relative;flex:1;min-width:240px;}
 .search-in-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#a78bfa;font-size:.95rem;}
-.search-in{width:100%;padding:11px 16px 11px 38px;background:#09061a;border:2px solid rgba(167,139,250,0.4);border-radius:10px;color:#ffffff;font-size:.92rem;font-weight:600;font-family:inherit;outline:none;transition:all .25s;}
-.search-in:focus{border-color:#a78bfa;box-shadow:0 0 0 3px rgba(124,58,237,0.3);background:#100b2b;}
+.search-in{width:100%;padding:12px 16px 12px 40px;background:#09061a!important;border:2px solid rgba(167,139,250,0.45)!important;border-radius:12px;color:#ffffff!important;font-size:.95rem;font-weight:700;font-family:inherit;outline:none;transition:all .25s;}
+.search-in:focus{border-color:#fde047!important;box-shadow:0 0 0 3px rgba(253,224,71,0.3)!important;background:#110b2b!important;}
+.search-in::placeholder{color:#94a3b8!important;font-weight:600;}
 .quick-pills{display:flex;gap:6px;flex-wrap:wrap;}
 .qp{padding:6px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:20px;color:var(--tx-sub);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;}
 .qp:hover,.qp.active{background:#7c3aed;color:#ffffff;border-color:#7c3aed;}
 
 /* ENTRY TABLE */
-.etw{overflow-x:auto;border-radius:14px;border:2px solid rgba(167,139,250,0.3);max-height:480px;overflow-y:auto;background:#09061a;box-shadow:inset 0 2px 10px rgba(0,0,0,0.5);}
+.etw{overflow-x:auto;border-radius:14px;border:2px solid rgba(167,139,250,0.35);max-height:480px;overflow-y:auto;background:#09061a;box-shadow:inset 0 2px 10px rgba(0,0,0,0.5);}
 .et{width:100%;border-collapse:collapse;}
-.et th{padding:14px 16px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-size:.82rem;font-weight:800;text-align:left;position:sticky;top:0;z-index:10;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid rgba(255,255,255,0.2);}
-.et td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.07);font-size:.92rem;vertical-align:middle;transition:all .2s;}
+.et th{padding:14px 16px;background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#ffffff;font-size:.84rem;font-weight:800;text-align:left;position:sticky;top:0;z-index:10;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid rgba(255,255,255,0.2);}
+.et td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:.94rem;vertical-align:middle;transition:all .2s;}
 .et tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
-.et tr:hover td{background:rgba(124,58,237,0.18);}
-.et tr.filled td{background:rgba(16,185,129,0.1);border-left:4px solid #10b981;}
-.et .sno{color:#fbbf24;font-weight:800;font-size:.86rem;width:48px;text-align:center;}
-.et .iname{color:#ffffff;font-weight:600;letter-spacing:.01em;}
+.et tr:hover td{background:rgba(124,58,237,0.2);}
+.et tr.filled td{background:rgba(16,185,129,0.12);border-left:4px solid #10b981;}
+.et .sno{color:#fbbf24;font-weight:800;font-size:.88rem;width:48px;text-align:center;}
+.et .iname{color:#ffffff;font-weight:700;letter-spacing:.01em;}
 
-/* STEPPER CONTROLS */
-.stepper{display:inline-flex;align-items:center;gap:4px;background:#181142;border:2px solid rgba(167,139,250,0.4);border-radius:12px;padding:3px 4px;}
-.step-btn{width:34px;height:34px;border:none;border-radius:8px;background:#312e81;color:#ffffff;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
+/* STEPPER CONTROLS & DARK HIGH-CONTRAST INPUTS (NO WHITE BACKGROUND) */
+.stepper{display:inline-flex;align-items:center;gap:4px;background:#181142;border:2px solid rgba(167,139,250,0.45);border-radius:12px;padding:3px 4px;}
+.step-btn{width:36px;height:36px;border:none;border-radius:8px;background:#312e81;color:#ffffff;font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
 .step-btn:hover{background:#4f46e5;transform:scale(1.08);}
 .step-btn:active{transform:scale(0.95);}
-.qi{width:76px;height:34px;padding:0 6px;background:#ffffff;border:2px solid #818cf8;border-radius:8px;color:#0f172a;font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:800;text-align:center;outline:none;transition:all .2s;}
-.qi:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,0.3);background:#faf5ff;}
-.qi.has-val{border-color:#059669;background:#ecfdf5;color:#065f46;}
+
+.qi{
+  width: 80px !important;
+  height: 36px !important;
+  padding: 0 6px !important;
+  background: #09061a !important;
+  border: 2px solid #818cf8 !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 900 !important;
+  text-align: center !important;
+  outline: none !important;
+  transition: all .2s !important;
+}
+.qi:focus{
+  border-color: #fde047 !important;
+  box-shadow: 0 0 0 3px rgba(253,224,71,0.35) !important;
+  background: #110b2b !important;
+}
+.qi.has-val{
+  border-color: #10b981 !important;
+  background: #052e16 !important;
+  color: #4ade80 !important;
+  box-shadow: 0 0 0 2px rgba(16,185,129,0.3) !important;
+}
 
 /* ACTION BAR */
 .abar{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:2px solid rgba(255,255,255,0.08);align-items:center;}
@@ -620,13 +678,13 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
           <div class="ctitle"><i class="fas fa-chalkboard-teacher"></i> Class Teacher Entry Form</div>
           <div id="cls-alert"></div>
           
-          <!-- Dropdown Selector Card -->
+          <!-- Dropdown Selector Card with Clean Large Bold Labels (No Symbols) -->
           <div class="selection-box">
             <div class="sel-row">
               <div class="fg">
-                <label><i class="fas fa-layer-group"></i> Select Class</label>
+                <label class="entry-label">Select Class</label>
                 <select id="selCls" class="fsel" onchange="onClsChange()">
-                  <option value="">â€” Choose Class â€”</option>
+                  <option value="">Select Class</option>
                   <option>Balvatika</option>
                   <option>I</option><option>II</option><option>III</option>
                   <option>IV</option><option>V</option><option>VI</option>
@@ -635,9 +693,9 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
                 </select>
               </div>
               <div class="fg">
-                <label><i class="fas fa-door-closed"></i> Select Section</label>
+                <label class="entry-label">Select Section</label>
                 <select id="selSec" class="fsel" onchange="loadClsForm()">
-                  <option value="">â€” Choose Section â€”</option>
+                  <option value="">Select Section</option>
                 </select>
               </div>
             </div>
@@ -702,13 +760,13 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--tx);min-h
           <div class="ctitle"><i class="fas fa-building"></i> Department / Room / Lab Entry Form</div>
           <div id="dpt-alert"></div>
           
-          <!-- Dropdown Selector Card -->
+          <!-- Dropdown Selector Card with Clean Large Bold Labels (No Symbols) -->
           <div class="selection-box">
             <div class="sel-row one">
               <div class="fg">
-                <label><i class="fas fa-map-marker-alt"></i> Select Department / Room / Lab</label>
+                <label class="entry-label">Select Department</label>
                 <select id="selDpt" class="fsel" onchange="loadDptForm()">
-                  <option value="">â€” Choose Department / Room / Lab â€”</option>
+                  <option value="">Select Department</option>
                 </select>
               </div>
             </div>
@@ -1217,7 +1275,7 @@ function switchETab(id){
 function onClsChange(){
   const cls=document.getElementById('selCls').value;
   const sel=document.getElementById('selSec');
-  sel.innerHTML='<option value="">â€” Choose Section â€”</option>';
+  sel.innerHTML='<option value="">Select Section</option>';
   if(cls&&CLS_SEC[cls]) CLS_SEC[cls].forEach(s=>sel.innerHTML+=`<option value="${s}">Section ${s}</option>`);
   document.getElementById('cls-form').style.display='none';
   document.getElementById('cls-ph').style.display='block';
@@ -1685,7 +1743,7 @@ function showToast(msg){
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initAll(){
   const sel=document.getElementById('selDpt');
-  sel.innerHTML='<option value="">â€” Choose Department / Room / Lab â€”</option>';
+  sel.innerHTML='<option value="">Select Department</option>';
   DPT_LIST.forEach(d=>sel.innerHTML+=`<option value="${d}">${d}</option>`);
   renderCC();
   renderDC();
