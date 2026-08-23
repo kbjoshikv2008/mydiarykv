@@ -1044,16 +1044,21 @@
       border-color: var(--primary-light);
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
       color: #fff;
-    /* Print Stylesheet - Enforcing High-Legibility Light Background & Dark Text on Exactly 1 Page Landscape */
+    }
+
+    /* Print Stylesheet - Ultra-Compact High-Legibility Single-Page Landscape */
     @media print {
       @page {
         size: A4 landscape;
-        margin: 4mm 5mm;
+        margin: 3.5mm 4.5mm;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box !important;
       }
       html, body {
         width: 100% !important;
         height: auto !important;
-        min-height: auto !important;
+        min-height: 0 !important;
         background: #ffffff !important;
         color: #000000 !important;
         font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
@@ -1063,7 +1068,7 @@
         print-color-adjust: exact !important;
         overflow: visible !important;
       }
-      .bg-blobs, .site-header, .nav-bar, .page-hero, .timetable-tabs, .tt-controls-bar, .site-footer, #backToTop, #passwordModal, #pageGate, #ttAuthModal, .share-modal-overlay, .lang-toggle-box, .divider {
+      .bg-blobs, .site-header, .nav-bar, .page-hero, .timetable-tabs-wrapper, .timetable-tabs, .live-status-bar, .quick-chips-wrapper, .tt-controls-bar, .site-footer, #backToTop, #passwordModal, #pageGate, #ttAuthModal, .share-modal-overlay, .lang-toggle-box, .divider {
         display: none !important;
       }
       .tab-content:not(.active) {
@@ -1078,6 +1083,8 @@
         break-inside: avoid !important;
         page-break-after: avoid !important;
         break-after: avoid !important;
+        page-break-before: avoid !important;
+        break-before: avoid !important;
         margin: 0 !important;
         padding: 0 !important;
       }
@@ -1101,10 +1108,10 @@
       }
       /* Compact, Centered, Highly-Legible Header */
       .sheet-header {
-        max-width: 620px !important;
+        max-width: 600px !important;
         margin: 0 auto 3px auto !important;
-        padding: 2px 8px !important;
-        border: 1.5px solid #0f172a !important;
+        padding: 2px 6px !important;
+        border: 1.5px solid #000000 !important;
         border-radius: 4px !important;
         background: #f8fafc !important;
         text-align: center !important;
@@ -1113,37 +1120,37 @@
       }
       .sheet-header .school-name {
         color: #064e3b !important;
-        font-size: 0.82rem !important;
+        font-size: 0.78rem !important;
         font-weight: 900 !important;
-        letter-spacing: 0.5px !important;
+        letter-spacing: 0.4px !important;
         margin: 0 !important;
-        line-height: 1.1 !important;
+        line-height: 1.05 !important;
       }
       .sheet-header h2 {
         color: #000000 !important;
         -webkit-text-fill-color: initial !important;
         background: none !important;
-        font-size: 1.05rem !important;
-        margin: 1px 0 !important;
+        font-size: 0.96rem !important;
+        margin: 0 !important;
         font-weight: 900 !important;
         line-height: 1.1 !important;
-        border-bottom: 1.5px solid #0f172a !important;
+        border-bottom: 1.5px solid #000000 !important;
         padding-bottom: 1px !important;
       }
       .sheet-header .sheet-sub {
         color: #0f172a !important;
-        font-size: 0.7rem !important;
+        font-size: 0.65rem !important;
         font-weight: 700 !important;
-        margin: 1px 0 0 0 !important;
-        line-height: 1.1 !important;
+        margin: 0 !important;
+        line-height: 1.05 !important;
       }
       .tt-grid-table {
         width: 100% !important;
         table-layout: fixed !important;
         border-collapse: collapse !important;
         border-spacing: 0 !important;
-        border: 1.5px solid #0f172a !important;
-        margin-bottom: 0 !important;
+        border: 1.5px solid #000000 !important;
+        margin: 0 !important;
         background: #ffffff !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -1152,42 +1159,44 @@
       }
       .tt-grid-table th {
         background: #f1f5f9 !important;
-        color: #0f172a !important;
+        color: #000000 !important;
         border: 1px solid #334155 !important;
-        padding: 3px 2px !important;
-        font-size: 0.7rem !important;
+        padding: 2px 1px !important;
+        font-size: 0.66rem !important;
         font-weight: 900 !important;
-        line-height: 1.1 !important;
+        line-height: 1 !important;
         text-align: center !important;
       }
       .tt-grid-table th small {
         color: #334155 !important;
-        font-size: 0.58rem !important;
+        font-size: 0.54rem !important;
         font-weight: 700 !important;
         display: block !important;
+        margin-top: 1px !important;
       }
       .tt-grid-table td {
         background: #ffffff !important;
         color: #000000 !important;
         border: 1px solid #475569 !important;
-        padding: 2px 2px !important;
-        font-size: 0.68rem !important;
+        padding: 1.5px 1px !important;
+        font-size: 0.64rem !important;
         vertical-align: middle !important;
         text-align: center !important;
+        line-height: 1.05 !important;
       }
       .tt-grid-table td.day-col {
         background: #e2e8f0 !important;
         color: #000000 !important;
         font-weight: 900 !important;
-        font-size: 0.76rem !important;
+        font-size: 0.72rem !important;
         white-space: nowrap !important;
-        width: 58px !important;
+        width: 52px !important;
       }
       .period-cell {
-        min-height: auto !important;
-        gap: 1px !important;
+        min-height: 0 !important;
+        gap: 0.5px !important;
         background: #ffffff !important;
-        padding: 1px 2px !important;
+        padding: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -1196,13 +1205,13 @@
       .period-cell .class-code {
         color: #000000 !important;
         font-weight: 900 !important;
-        font-size: 0.82rem !important;
+        font-size: 0.78rem !important;
         line-height: 1.1 !important;
       }
       .period-cell .subject-name {
         color: #000000 !important;
         font-weight: 800 !important;
-        font-size: 0.64rem !important;
+        font-size: 0.62rem !important;
         padding: 0 !important;
         background: transparent !important;
         border: none !important;
@@ -1215,7 +1224,7 @@
       }
       .period-cell .teacher-name {
         color: #0f172a !important;
-        font-size: 0.62rem !important;
+        font-size: 0.58rem !important;
         font-weight: 700 !important;
         line-height: 1.1 !important;
       }
@@ -1225,19 +1234,19 @@
       .period-cell .cell-divider {
         width: 100% !important;
         border-top: 1px dashed #64748b !important;
-        margin: 2px 0 !important;
+        margin: 1px 0 !important;
       }
       .period-cell.break-cell {
         background: #fef3c7 !important;
         color: #78350f !important;
         font-weight: 900 !important;
-        font-size: 0.7rem !important;
-        width: 28px !important;
+        font-size: 0.64rem !important;
+        width: 26px !important;
       }
       .period-cell.block-practical {
         background: #f8fafc !important;
         border: 1px dashed #475569 !important;
-        padding: 1px 2px !important;
+        padding: 0 !important;
       }
       .period-cell.block-practical .class-code {
         color: #000000 !important;
@@ -1250,19 +1259,19 @@
       .period-cell.free-period {
         color: #64748b !important;
         font-weight: 600 !important;
-        font-size: 0.66rem !important;
+        font-size: 0.62rem !important;
         background: transparent !important;
       }
       .sheet-footer {
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
-        margin-top: 4px !important;
-        padding-top: 3px !important;
-        border-top: 1.5px solid #0f172a !important;
-        font-size: 0.68rem !important;
+        margin-top: 3px !important;
+        padding-top: 2px !important;
+        border-top: 1.5px solid #000000 !important;
+        font-size: 0.65rem !important;
         font-weight: 800 !important;
-        color: #0f172a !important;
+        color: #000000 !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
       }
@@ -1273,15 +1282,15 @@
       .master-table {
         width: 100% !important;
         border-collapse: collapse !important;
-        border: 2px solid #0f172a !important;
+        border: 1.5px solid #000000 !important;
         background: #ffffff !important;
       }
-      .master-table th { background: #cbd5e1 !important; color: #0f172a !important; border: 1px solid #334155 !important; padding: 2px 2px !important; font-size: 0.66rem !important; font-weight: 900 !important; line-height: 1 !important; }
-      .master-table td { background: #ffffff !important; border: 1px solid #475569 !important; color: #000000 !important; padding: 1.5px 2px !important; font-size: 0.6rem !important; line-height: 1 !important; }
-      .master-table td.teacher-info { padding: 1px 3px !important; background: #f8fafc !important; }
-      .master-table td.teacher-info .t-name { color: #000000 !important; font-weight: 900 !important; font-size: 0.66rem !important; }
-      .master-table td.teacher-info .t-desig { color: #1e293b !important; font-weight: 700 !important; font-size: 0.54rem !important; }
-      .master-class-badge { background: #ccfbf1 !important; color: #065f46 !important; border: 1px solid #5eead4 !important; font-weight: 900 !important; font-size: 0.58rem !important; padding: 0.5px 2px !important; border-radius: 2px !important; display: inline-block !important; }
+      .master-table th { background: #cbd5e1 !important; color: #000000 !important; border: 1px solid #334155 !important; padding: 2px 1px !important; font-size: 0.64rem !important; font-weight: 900 !important; line-height: 1 !important; }
+      .master-table td { background: #ffffff !important; border: 1px solid #475569 !important; color: #000000 !important; padding: 1px 1px !important; font-size: 0.58rem !important; line-height: 1 !important; }
+      .master-table td.teacher-info { padding: 1px 2px !important; background: #f8fafc !important; }
+      .master-table td.teacher-info .t-name { color: #000000 !important; font-weight: 900 !important; font-size: 0.64rem !important; }
+      .master-table td.teacher-info .t-desig { color: #1e293b !important; font-weight: 700 !important; font-size: 0.52rem !important; }
+      .master-class-badge { background: #ccfbf1 !important; color: #065f46 !important; border: 1px solid #5eead4 !important; font-weight: 900 !important; font-size: 0.56rem !important; padding: 0.5px 2px !important; border-radius: 2px !important; display: inline-block !important; }
 
       /* Pocket card print */
       .pocket-card {
@@ -1311,11 +1320,12 @@
       .pocket-period-row .p-time { color: #334155 !important; font-size: 0.62rem !important; font-weight: 700 !important; }
       .pocket-period-row .p-class { color: #000000 !important; font-size: 0.8rem !important; font-weight: 900 !important; }
     }
+
     /* PDF CLEAN HIGH-CONTRAST SINGLE-PAGE A4 EXPORT TEMPLATE CSS */
     .pdf-clean-template {
       background: #ffffff !important;
-      color: #0f172a !important;
-      padding: 8px 12px !important;
+      color: #000000 !important;
+      padding: 6px 10px !important;
       font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       box-sizing: border-box !important;
       width: 1080px !important;
@@ -1329,104 +1339,106 @@
       padding: 8px !important;
     }
     .pdf-clean-template .sheet-header {
-      max-width: 620px !important;
-      margin: 0 auto 5px auto !important;
-      padding: 3px 8px !important;
-      border: 1.5px solid #0f172a !important;
+      max-width: 600px !important;
+      margin: 0 auto 3px auto !important;
+      padding: 2px 6px !important;
+      border: 1.5px solid #000000 !important;
       border-radius: 4px !important;
       background: #f8fafc !important;
       text-align: center !important;
     }
     .pdf-clean-template .sheet-header .school-name {
       color: #064e3b !important;
-      font-size: 0.85rem !important;
+      font-size: 0.78rem !important;
       font-weight: 900 !important;
-      letter-spacing: 0.5px !important;
+      letter-spacing: 0.4px !important;
       margin: 0 !important;
-      line-height: 1.1 !important;
+      line-height: 1.05 !important;
     }
     .pdf-clean-template .sheet-header h2 {
       color: #000000 !important;
-      font-size: 1.1rem !important;
+      font-size: 0.96rem !important;
       font-weight: 900 !important;
       -webkit-text-fill-color: initial !important;
       background: none !important;
-      margin: 1px 0 !important;
-      border-bottom: 1.5px solid #0f172a !important;
+      margin: 0 !important;
+      border-bottom: 1.5px solid #000000 !important;
       padding-bottom: 1px !important;
       line-height: 1.1 !important;
     }
     .pdf-clean-template .sheet-header .sheet-sub {
       color: #0f172a !important;
-      font-size: 0.72rem !important;
+      font-size: 0.65rem !important;
       font-weight: 700 !important;
-      margin: 1px 0 0 0 !important;
-      line-height: 1.1 !important;
+      margin: 0 !important;
+      line-height: 1.05 !important;
     }
     .pdf-clean-template table.tt-grid-table {
       table-layout: fixed !important;
       border-collapse: collapse !important;
       width: 100% !important;
-      border: 1.5px solid #0f172a !important;
-      margin-bottom: 0 !important;
+      border: 1.5px solid #000000 !important;
+      margin: 0 !important;
     }
     .pdf-clean-template table.tt-grid-table th {
       background: #f1f5f9 !important;
-      color: #0f172a !important;
+      color: #000000 !important;
       border: 1px solid #334155 !important;
-      padding: 3px 2px !important;
-      font-size: 0.72rem !important;
+      padding: 2px 1px !important;
+      font-size: 0.66rem !important;
       font-weight: 900 !important;
       text-align: center !important;
-      line-height: 1.1 !important;
+      line-height: 1 !important;
     }
     .pdf-clean-template table.tt-grid-table th small {
       color: #334155 !important;
       font-weight: 700 !important;
-      font-size: 0.6rem !important;
+      font-size: 0.54rem !important;
       display: block !important;
+      margin-top: 1px !important;
     }
     .pdf-clean-template table.tt-grid-table td {
       background: #ffffff !important;
       color: #000000 !important;
       border: 1px solid #475569 !important;
-      padding: 2px 2px !important;
+      padding: 1.5px 1px !important;
       text-align: center !important;
       vertical-align: middle !important;
-      font-size: 0.7rem !important;
+      font-size: 0.64rem !important;
+      line-height: 1.05 !important;
     }
     .pdf-clean-template table.tt-grid-table td.day-col {
       background: #e2e8f0 !important;
       color: #000000 !important;
       font-weight: 900 !important;
-      font-size: 0.78rem !important;
-      width: 60px !important;
+      font-size: 0.72rem !important;
+      width: 52px !important;
     }
     .pdf-clean-template .period-cell {
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      gap: 1px !important;
-      padding: 1px 2px !important;
-      min-height: auto !important;
+      gap: 0.5px !important;
+      padding: 0 !important;
+      min-height: 0 !important;
       background: transparent !important;
     }
     .pdf-clean-template .period-cell .class-code {
       color: #000000 !important;
       font-weight: 900 !important;
-      font-size: 0.84rem !important;
+      font-size: 0.78rem !important;
       line-height: 1.1 !important;
     }
     .pdf-clean-template .period-cell .subject-name {
       color: #000000 !important;
       font-weight: 800 !important;
-      font-size: 0.66rem !important;
+      font-size: 0.62rem !important;
       padding: 0 !important;
       background: transparent !important;
       border: none !important;
       border-radius: 0 !important;
-      line-height: 1.15 !important;
+      line-height: 1.1 !important;
     }
     .pdf-clean-template .period-cell .subject-name small {
       color: #334155 !important;
@@ -1434,7 +1446,7 @@
     }
     .pdf-clean-template .period-cell .teacher-name {
       color: #0f172a !important;
-      font-size: 0.64rem !important;
+      font-size: 0.58rem !important;
       font-weight: 700 !important;
       line-height: 1.1 !important;
     }
@@ -1444,19 +1456,19 @@
     .pdf-clean-template .period-cell .cell-divider {
       width: 100% !important;
       border-top: 1px dashed #64748b !important;
-      margin: 2px 0 !important;
+      margin: 1px 0 !important;
     }
     .pdf-clean-template .period-cell.break-cell {
       background: #fef3c7 !important;
       color: #78350f !important;
       font-weight: 900 !important;
-      font-size: 0.72rem !important;
-      width: 30px !important;
+      font-size: 0.64rem !important;
+      width: 26px !important;
     }
     .pdf-clean-template .period-cell.block-practical {
       background: #f8fafc !important;
       border: 1px dashed #475569 !important;
-      padding: 1px 2px !important;
+      padding: 0 !important;
     }
     .pdf-clean-template .period-cell.block-practical .class-code {
       color: #000000 !important;
@@ -1469,153 +1481,19 @@
     .pdf-clean-template .period-cell.free-period {
       color: #64748b !important;
       font-weight: 600 !important;
-      font-size: 0.68rem !important;
+      font-size: 0.62rem !important;
       background: transparent !important;
     }
     .pdf-clean-template .sheet-footer {
       display: flex !important;
       justify-content: space-between !important;
       align-items: center !important;
-      margin-top: 6px !important;
-      padding-top: 4px !important;
-      border-top: 1.5px solid #0f172a !important;
-      font-size: 0.72rem !important;
-      font-weight: 800 !important;
-      color: #0f172a !important;
-    }
-    /* Master Table PDF styling - Ultra Compact & Highly Legible */
-    .pdf-clean-template .master-table {
-      border: 2px solid #0f172a !important;
-      border-collapse: collapse !important;
-      width: 100% !important;
-    }
-    .pdf-clean-template .master-table th {
-      background: #cbd5e1 !important;
-      color: #0f172a !important;
-      border: 1px solid #334155 !important;
-      font-weight: 900 !important;
-      padding: 2px 1px !important;
-      font-size: 0.62rem !important;
-      line-height: 1 !important;
-    }
-    .pdf-clean-template .master-table td {
-      border: 1px solid #475569 !important;
-      color: #000000 !important;
-      background: #ffffff !important;
-      padding: 1px 1px !important;
-      font-size: 0.6rem !important;
-      line-height: 1 !important;
-    }
-    .pdf-clean-template .master-table td.teacher-info {
-      padding: 1px 3px !important;
-      background: #f8fafc !important;
-      line-height: 1 !important;
-    }
-    .pdf-clean-template .master-table td.teacher-info .t-name {
-      color: #000000 !important;
-      font-weight: 900 !important;
+      margin-top: 3px !important;
+      padding-top: 2px !important;
+      border-top: 1.5px solid #000000 !important;
       font-size: 0.65rem !important;
-    }
-    .pdf-clean-template .master-table td.teacher-info .t-desig {
-      color: #1e293b !important;
-      font-weight: 700 !important;
-      font-size: 0.54rem !important;
-    }
-    .pdf-clean-template .master-class-badge {
-      background: #ccfbf1 !important;
-      color: #065f46 !important;
-      border: 1px solid #5eead4 !important;
-      font-weight: 900 !important;
-      font-size: 0.58rem !important;
-      padding: 0px 2px !important;
-      border-radius: 2px !important;
-      display: inline-block !important;
-    }
-    .pdf-clean-template .master-free-badge {
-      color: #94a3b8 !important;
-    }
-
-    /* Pocket Card PDF styling */
-    .pdf-clean-template .pocket-card {
-      background: #ffffff !important;
-      color: #0f172a !important;
-      border: 2px solid #0f172a !important;
-      box-shadow: none !important;
-      padding: 10px 14px !important;
-    }
-    .pdf-clean-template .pocket-header {
-      border-bottom: 2px solid #0f172a !important;
-      padding-bottom: 4px !important;
-      margin-bottom: 6px !important;
-    }
-    .pdf-clean-template .pocket-badge-offline {
-      display: none !important;
-    }
-    .pdf-clean-template .pocket-header h3 {
-      color: #000000 !important;
-      font-size: 1.15rem !important;
-      font-weight: 900 !important;
-      margin: 2px 0 !important;
-    }
-    .pdf-clean-template .pocket-header .school {
-      color: #064e3b !important;
-      font-size: 0.8rem !important;
-      font-weight: 900 !important;
-    }
-    .pdf-clean-template .pocket-header .sub-info {
-      color: #1e293b !important;
-      font-size: 0.72rem !important;
-      font-weight: 700 !important;
-    }
-    .pdf-clean-template .pocket-stats {
-      background: #f1f5f9 !important;
-      border: 1px solid #94a3b8 !important;
-      padding: 4px 8px !important;
-      margin: 6px 0 !important;
-    }
-    .pdf-clean-template .pocket-stat-num {
-      color: #0f766e !important;
-      font-size: 0.95rem !important;
-      font-weight: 900 !important;
-    }
-    .pdf-clean-template .pocket-stat-lbl {
-      color: #1e293b !important;
-      font-size: 0.62rem !important;
-      font-weight: 700 !important;
-    }
-    .pdf-clean-template .pocket-period-row {
-      background: #ffffff !important;
-      border: 1px solid #64748b !important;
-      padding: 3px 6px !important;
-      margin-bottom: 4px !important;
-    }
-    .pdf-clean-template .pocket-period-row.has-class {
-      background: #f8fafc !important;
-    }
-    .pdf-clean-template .pocket-period-row .p-num {
-      color: #000000 !important;
-      font-size: 0.75rem !important;
-      font-weight: 900 !important;
-    }
-    .pdf-clean-template .pocket-period-row .p-time {
-      color: #334155 !important;
-      font-size: 0.65rem !important;
-      font-weight: 700 !important;
-    }
-    .pdf-clean-template .pocket-period-row .p-class {
-      color: #000000 !important;
-      font-size: 0.82rem !important;
-      font-weight: 900 !important;
-    }
-    .pdf-clean-template .pdf-signature-footer {
-      display: flex !important;
-      justify-content: space-between !important;
-      margin-top: 6px !important;
-      padding-top: 4px !important;
-      border-top: 1.5px solid #0f172a !important;
-      font-size: 0.72rem !important;
       font-weight: 800 !important;
-      color: #0f172a !important;
+      color: #000000 !important;
     }
   </style>
 </head>
