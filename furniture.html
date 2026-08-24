@@ -1617,7 +1617,7 @@ html, body {
         <!-- Mini KPI Row -->
         <div class="kpi-row no-print">
           <div class="kpi-box">
-            <div class="kpi-num" id="kpi-cc-cls">35</div>
+            <div class="kpi-num" id="kpi-cc-cls">36</div>
             <div class="kpi-lbl">Class Sections</div>
           </div>
           <div class="kpi-box">
@@ -1777,8 +1777,8 @@ html, body {
               <span class="big-kpi-label">Registered Locations</span>
               <div class="big-kpi-icon"><i class="fas fa-school"></i></div>
             </div>
-            <div class="big-kpi-val">66</div>
-            <div class="big-kpi-sub">35 Class Sections + 31 Depts &amp; Labs</div>
+            <div class="big-kpi-val">67</div>
+            <div class="big-kpi-sub">36 Class Sections + 31 Depts &amp; Labs</div>
           </div>
 
           <div class="big-kpi-card c-emerald">
@@ -1787,7 +1787,7 @@ html, body {
               <div class="big-kpi-icon"><i class="fas fa-chalkboard-teacher"></i></div>
             </div>
             <div class="big-kpi-val" id="dash-cls-tot">0</div>
-            <div class="big-kpi-sub">Across 35 Classrooms</div>
+            <div class="big-kpi-sub">Across 36 Classrooms</div>
           </div>
 
           <div class="big-kpi-card c-blue">
@@ -1864,14 +1864,14 @@ const CLASS_ITEMS = [
 ];
 
 const CLASS_LIST = [
-  'Balvatika A','I A','I B','I C','II A','II B','III A','III B','III C',
+  'Balvatika A','I A','I B','I C','II A','II B','II C','III A','III B','III C',
   'IV A','IV B','IV C','V A','V B','V C','VI A','VI B','VI C',
   'VII A','VII B','VII C','VIII A','VIII B','VIII C',
   'IX A','IX B','IX C','X A','X B','X C','XI A','XI B','XI C','XII B','XII C'
 ];
 
 const CLASS_SECTIONS_MAP = {
-  'Balvatika': ['A'], 'I': ['A','B','C'], 'II': ['A','B'], 'III': ['A','B','C'],
+  'Balvatika': ['A'], 'I': ['A','B','C'], 'II': ['A','B','C'], 'III': ['A','B','C'],
   'IV': ['A','B','C'], 'V': ['A','B','C'], 'VI': ['A','B','C'],
   'VII': ['A','B','C'], 'VIII': ['A','B','C'], 'IX': ['A','B','C'],
   'X': ['A','B','C'], 'XI': ['A','B','C'], 'XII': ['B','C']
@@ -1910,6 +1910,7 @@ const DEFAULT_CLASS_DATA = {
   'I C':[35,0,0,0,0,0,0,0,0,0,0,0,0,9,1,0,0,2,1,0,0,1,0,0],
   'II A':[2,0,0,0,1,0,0,0,0,20,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
   'II B':[0,0,0,0,1,0,0,0,0,21,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
+  'II C':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   'III A':[0,0,0,0,1,0,0,0,20,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
   'III B':[0,0,0,0,0,1,0,0,6,15,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
   'III C':[0,0,0,0,1,0,0,0,20,2,0,0,0,0,1,0,0,0,1,0,0,1,0,0],
@@ -1978,12 +1979,16 @@ const DEFAULT_DEPT_DATA = {
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  PERSISTENCE STORAGE
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-const STORAGE_KEY_CLASS = 'kbj_furn_cls_v4';
-const STORAGE_KEY_DEPT = 'kbj_furn_dpt_v4';
+const STORAGE_KEY_CLASS = 'kbj_furn_cls_v5';
+const STORAGE_KEY_DEPT = 'kbj_furn_dpt_v5';
 
 function loadStoredData(key, fallback){
   try {
-    const raw = localStorage.getItem(key);
+    let raw = localStorage.getItem(key);
+    if(!raw) {
+      const prevKey = key.includes('cls') ? 'kbj_furn_cls_v4' : 'kbj_furn_dpt_v4';
+      raw = localStorage.getItem(prevKey);
+    }
     if(raw) return Object.assign({}, fallback, JSON.parse(raw));
   } catch(e){}
   return JSON.parse(JSON.stringify(fallback));
@@ -2551,3 +2556,4 @@ function bootstrapPortal(){
 </script>
 </body>
 </html>
+
