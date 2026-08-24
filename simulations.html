@@ -3,397 +3,2522 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Math Simulation Tools | K B Joshi | PGT Mathematics | KV Ranikhet</title>
-  <meta name="description" content="Interactive mathematics simulation tools â€” Desmos, GeoGebra, PhET, Kahoot, WolframAlpha, Mathway, Quizizz and more by K B Joshi, PGT Mathematics.">
+  <title>Math Simulation Tools | K B Joshi | PGT Mathematics | PM SHRI KV Ranikhet</title>
+  <meta name="description" content="Interactive Mathematics Simulation Tools — Built-in dynamic math labs (Calculus, Trigonometry, Vectors, Conics, Riemann Sums, Probability) and curated CBSE digital simulation portals by K B Joshi, PGT Mathematics.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="premium.css">
   <style>
-    .cat-filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;justify-content:center}
-    .cat-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border:2px solid var(--glass-border);background:var(--glass-bg);color:var(--text-secondary);border-radius:50px;font-size:.85em;font-weight:700;cursor:pointer;transition:var(--transition);font-family:var(--font-head)}
-    .cat-btn:hover,.cat-btn.active{background:#4c1d95;color:#fff;border-color:#4c1d95;box-shadow:0 4px 16px rgba(76,29,149,.2);transform:translateY(-2px)}
-    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-bottom:60px}
-    .tool-card{background:var(--glass-bg);border:1.5px solid var(--glass-border);border-radius:var(--radius-xl);padding:0;transition:var(--transition);display:flex;flex-direction:column;overflow:hidden;position:relative}
-    .tool-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(74,62,53,.12);border-color:#8b5cf6}
-    .tool-card-top{padding:28px 24px 20px;display:flex;flex-direction:column;gap:14px;flex:1}
-    .tool-card-header{display:flex;align-items:center;gap:14px}
-    .tool-icon-wrap{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5em;flex-shrink:0;transition:var(--transition)}
-    .tool-card:hover .tool-icon-wrap{transform:scale(1.1) rotate(-5deg)}
-    .tool-name{font-family:var(--font-head);font-size:1.08rem;font-weight:800;color:var(--text-primary);line-height:1.2}
-    .tool-tag{font-size:.7em;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:50px;display:inline-block;margin-top:2px}
-    .tool-desc{font-size:.87em;color:var(--text-muted);line-height:1.6}
-    .tool-features{display:flex;flex-wrap:wrap;gap:6px}
-    .feat-chip{font-size:.7em;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(76,29,149,.07);color:#4c1d95;border:1px solid rgba(76,29,149,.12)}
-    .tool-card-footer{display:flex;gap:10px;padding:16px 24px 20px;border-top:1px solid var(--glass-border);flex-wrap:wrap}
-    .tool-launch-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:30px;font-size:.83em;font-weight:700;text-decoration:none;transition:var(--transition);font-family:var(--font-head);cursor:pointer;border:none}
-    .btn-lp{background:linear-gradient(135deg,#4c1d95,#0ea5e9);color:#fff;box-shadow:0 4px 14px rgba(76,29,149,.25)}
-    .btn-lp:hover{box-shadow:0 6px 22px rgba(76,29,149,.4);transform:translateY(-2px);color:#fff}
-    .btn-prev{background:var(--glass-bg);border:2px solid var(--glass-border)!important;color:var(--text-secondary)}
-    .btn-prev:hover{border-color:#4c1d95!important;color:#4c1d95;transform:translateY(-2px)}
-    .tool-ribbon{position:absolute;top:14px;right:-30px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:.62em;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:4px 36px;transform:rotate(35deg);box-shadow:0 2px 8px rgba(0,0,0,.15)}
-    .sim-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,10,30,.8);backdrop-filter:blur(8px);z-index:9000;align-items:center;justify-content:center;padding:20px}
-    .sim-modal-overlay.open{display:flex}
-    .sim-modal{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-xl);width:100%;max-width:1100px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.5);animation:modalIn .3s cubic-bezier(.34,1.56,.64,1)}
-    @keyframes modalIn{from{transform:scale(.85) translateY(30px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
-    .sim-modal-header{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--glass-border);flex-shrink:0}
-    .sim-modal-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3em;flex-shrink:0}
-    .sim-modal-title{font-family:var(--font-head);font-size:1.15rem;font-weight:800;color:var(--text-primary)}
-    .sim-modal-subtitle{font-size:.8em;color:var(--text-muted)}
-    .sim-modal-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-    .sim-modal-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:30px;font-size:.82em;font-weight:700;text-decoration:none;transition:var(--transition);border:2px solid transparent;cursor:pointer;font-family:var(--font-head)}
-    .sim-btn-ext{background:linear-gradient(135deg,#4c1d95,#0ea5e9);color:#fff}
-    .sim-btn-close{background:var(--glass-bg);border-color:var(--glass-border);color:var(--text-secondary)}
-    .sim-btn-close:hover{border-color:#ef4444;color:#ef4444}
-    .sim-modal-body{flex:1;overflow:hidden;position:relative;min-height:480px}
-    .sim-modal-body iframe{width:100%;height:100%;min-height:480px;border:none;display:block}
-    .sim-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--glass-bg);z-index:1}
-    .spin{width:48px;height:48px;border:3px solid var(--glass-border);border-top-color:#8b5cf6;border-radius:50%;animation:sp .8s linear infinite}
-    @keyframes sp{to{transform:rotate(360deg)}}
-    .sim-noembed{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:380px;gap:18px;padding:40px 24px;text-align:center}
-    .sim-noembed .ne-icon{font-size:3.5em;opacity:.5}
-    .sim-noembed h3{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--text-primary)}
-    .sim-noembed p{font-size:.9em;color:var(--text-muted);max-width:420px;line-height:1.6}
-    .stat-strip{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:40px}
-    .stat-box{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:18px 28px;text-align:center;min-width:130px;transition:var(--transition)}
-    .stat-box:hover{transform:translateY(-3px);border-color:#8b5cf6}
-    .stat-num{font-family:var(--font-head);font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:4px}
-    .stat-lbl{font-size:.78em;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
-    .sec-div{display:flex;align-items:center;gap:16px;margin:48px 0 28px}
-    .sec-div .sdl{flex:1;height:1px;background:var(--glass-border)}
-    .sec-div span{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-size:.75em;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a78bfa;padding:6px 16px;border:1px solid rgba(139,92,246,.2);border-radius:50px;background:rgba(139,92,246,.06);white-space:nowrap}
-    .embed-card{background:var(--glass-bg);border:1.5px solid var(--glass-border);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:36px;transition:var(--transition)}
-    .embed-card:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(74,62,53,.1)}
-    .embed-hdr{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--glass-border)}
-    .embed-hdr .tool-icon-wrap{width:48px;height:48px;font-size:1.3em}
-    .embed-title{font-family:var(--font-head);font-size:1.08rem;font-weight:800;color:var(--text-primary)}
-    .embed-sub{font-size:.8em;color:var(--text-muted);margin-top:2px}
-    .embed-body{position:relative}
-    .ico-desmos{background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(14,165,233,.2));border:1px solid rgba(99,102,241,.35);color:#818cf8}
-    .ico-gg{background:linear-gradient(135deg,rgba(16,185,129,.3),rgba(14,165,233,.2));border:1px solid rgba(16,185,129,.35);color:#34d399}
-    .ico-phet{background:linear-gradient(135deg,rgba(245,158,11,.3),rgba(239,68,68,.2));border:1px solid rgba(245,158,11,.35);color:#fbbf24}
-    .ico-kahoot{background:linear-gradient(135deg,rgba(139,92,246,.3),rgba(236,72,153,.2));border:1px solid rgba(139,92,246,.35);color:#c084fc}
-    .ico-wolf{background:linear-gradient(135deg,rgba(239,68,68,.3),rgba(245,158,11,.2));border:1px solid rgba(239,68,68,.35);color:#f87171}
-    .ico-mway{background:linear-gradient(135deg,rgba(6,182,212,.3),rgba(16,185,129,.2));border:1px solid rgba(6,182,212,.35);color:#22d3ee}
-    .ico-quiz{background:linear-gradient(135deg,rgba(236,72,153,.3),rgba(139,92,246,.2));border:1px solid rgba(236,72,153,.35);color:#f472b6}
-    .ico-scratch{background:linear-gradient(135deg,rgba(251,146,60,.3),rgba(245,158,11,.2));border:1px solid rgba(251,146,60,.35);color:#fb923c}
-    .ico-mp{background:linear-gradient(135deg,rgba(52,211,153,.3),rgba(6,182,212,.2));border:1px solid rgba(52,211,153,.35);color:#34d399}
-    .ico-nrich{background:linear-gradient(135deg,rgba(99,102,241,.3),rgba(236,72,153,.2));border:1px solid rgba(99,102,241,.35);color:#818cf8}
-    .ico-mig{background:linear-gradient(135deg,rgba(236,72,153,.3),rgba(245,158,11,.2));border:1px solid rgba(236,72,153,.35);color:#f472b6}
-    .ico-sci{background:linear-gradient(135deg,rgba(99,102,241,.35),rgba(6,182,212,.2));border:1px solid rgba(99,102,241,.4);color:#818cf8}
-    .tg{background:rgba(99,102,241,.1);color:#6366f1;border:1px solid rgba(99,102,241,.2)}
-    .tgg{background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2)}
-    .tp{background:rgba(245,158,11,.1);color:#d97706;border:1px solid rgba(245,158,11,.2)}
-    .tq{background:rgba(139,92,246,.1);color:#7c3aed;border:1px solid rgba(139,92,246,.2)}
-    .ta{background:rgba(239,68,68,.1);color:#dc2626;border:1px solid rgba(239,68,68,.2)}
-    .ts{background:rgba(6,182,212,.1);color:#0891b2;border:1px solid rgba(6,182,212,.2)}
-    .tc{background:rgba(251,146,60,.1);color:#ea580c;border:1px solid rgba(251,146,60,.2)}
-    .tac{background:rgba(52,211,153,.1);color:#059669;border:1px solid rgba(52,211,153,.2)}
-    .tpz{background:rgba(236,72,153,.1);color:#db2777;border:1px solid rgba(236,72,153,.2)}
-    .back-pill{display:inline-flex;align-items:center;gap:8px;margin:12px 0 28px;padding:9px 20px;background:var(--glass-bg);color:var(--text-primary);text-decoration:none;border-radius:50px;font-weight:700;font-size:.88em;border:1px solid var(--glass-border);transition:var(--transition)}
-    .back-pill:hover{background:#4c1d95;color:#fff;border-color:#4c1d95;transform:translateX(-3px)}
-    @media(max-width:768px){.tools-grid{grid-template-columns:1fr}.sim-modal{max-height:95vh}}
+    /* =========================================================
+       CUSTOM STYLES FOR SIMULATION TOOLS HUB
+       ========================================================= */
+    :root {
+      --card-hover-border: rgba(167, 139, 250, 0.45);
+      --card-glow: 0 16px 40px rgba(124, 58, 237, 0.22);
+    }
+
+    .sim-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 50px;
+      background: rgba(124, 58, 237, 0.16);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+      color: #c4b5fd;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    /* Stats Strip */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .stat-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+    .stat-box:hover {
+      transform: translateY(-4px);
+      border-color: rgba(167, 139, 250, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .stat-lbl {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Search & Filter Header */
+    .filter-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 22px 26px;
+      margin-bottom: 34px;
+      box-shadow: var(--glass-shadow);
+    }
+    .search-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .search-box-wrapper {
+      flex: 1 1 300px;
+      position: relative;
+    }
+    .search-box-wrapper i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 13px 20px 13px 48px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50px;
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: var(--transition-smooth);
+      box-sizing: border-box;
+    }
+    .search-input:focus {
+      border-color: #8b5cf6;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
+    }
+
+    .cat-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .cat-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-family: 'Poppins', sans-serif;
+    }
+    .cat-btn:hover {
+      background: rgba(124, 58, 237, 0.2);
+      color: #c4b5fd;
+      border-color: rgba(124, 58, 237, 0.4);
+      transform: translateY(-2px);
+    }
+    .cat-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+    }
+
+    /* Section Divider */
+    .sec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 40px 0 20px;
+    }
+    .sec-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sec-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(14,165,233,0.2));
+      border: 1px solid rgba(124,58,237,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4b5fd;
+      font-size: 1.25rem;
+    }
+    .sec-title {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+    }
+    .sec-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin: 2px 0 0;
+    }
+
+    /* =========================================================
+       NATIVE INTERACTIVE SIMULATION LAB CARDS
+       ========================================================= */
+    .sim-lab-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 30px;
+      overflow: hidden;
+      box-shadow: var(--glass-shadow);
+      transition: var(--transition-smooth);
+    }
+    .sim-lab-card:hover {
+      border-color: var(--card-hover-border);
+      box-shadow: var(--card-glow);
+    }
+    .sim-lab-hdr {
+      padding: 18px 24px;
+      background: rgba(124, 58, 237, 0.12);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .sim-lab-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sim-lab-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .sim-lab-title {
+      font-family: var(--font-head);
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 2px;
+    }
+    .sim-lab-sub {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .sim-lab-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid transparent;
+    }
+    .badge-calc { background: rgba(59, 130, 246, 0.16); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3); }
+    .badge-trig { background: rgba(236, 72, 153, 0.16); color: #f472b6; border-color: rgba(236, 72, 153, 0.3); }
+    .badge-vec  { background: rgba(16, 185, 129, 0.16); color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
+    .badge-prob { background: rgba(245, 158, 11, 0.16); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); }
+    .badge-conic{ background: rgba(168, 85, 247, 0.16); color: #c084fc; border-color: rgba(168, 85, 247, 0.3); }
+
+    .sim-lab-body {
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .sim-lab-body { grid-template-columns: 1fr; }
+    }
+
+    .canvas-box {
+      background: #090714;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 12px rgba(0,0,0,0.6);
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+    }
+    .canvas-box canvas {
+      width: 100%;
+      height: 380px;
+      display: block;
+      cursor: crosshair;
+    }
+    .canvas-overlay-data {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(12, 11, 24, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      font-family: 'Courier New', monospace;
+      color: #38bdf8;
+      pointer-events: none;
+      line-height: 1.4;
+    }
+
+    .sim-controls-panel {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .ctrl-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ctrl-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .ctrl-val {
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+    .sim-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+      transition: 0.2s;
+    }
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+    }
+    .sim-select, .sim-input {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(12, 11, 24, 0.85);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .sim-select:focus, .sim-input:focus {
+      border-color: #8b5cf6;
+    }
+    .btn-action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sim-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-family: 'Poppins', sans-serif;
+    }
+    .sim-btn:hover {
+      background: rgba(124, 58, 237, 0.25);
+      border-color: #8b5cf6;
+      color: #fff;
+    }
+    .sim-btn-primary {
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+    }
+    .sim-btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .sim-result-box {
+      background: rgba(124, 58, 237, 0.08);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .sim-result-box strong { color: #fff; }
+
+    /* =========================================================
+       GLOBAL EXTERNAL SIMULATION TOOLS GRID
+       ========================================================= */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px;
+      margin-bottom: 48px;
+    }
+    .tool-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+    .tool-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--card-glow);
+      border-color: var(--card-hover-border);
+    }
+    .tool-card-top {
+      padding: 24px 22px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tool-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      transition: var(--transition-smooth);
+    }
+    .tool-card:hover .tool-icon-wrap {
+      transform: scale(1.08) rotate(-4deg);
+    }
+    .tool-name {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+    }
+    .tool-cat-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+    .tool-desc {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .tool-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+    .feat-chip {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tool-card-footer {
+      display: flex;
+      gap: 10px;
+      padding: 14px 22px 18px;
+      border-top: 1px solid var(--glass-border);
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .tool-launch-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 14px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      font-family: var(--font-head);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-lp {
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: #fff !important;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+    .btn-lp:hover {
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.5);
+      transform: translateY(-2px);
+    }
+    .btn-guide {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border) !important;
+      color: var(--text-secondary) !important;
+    }
+    .btn-guide:hover {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: #8b5cf6 !important;
+      color: #fff !important;
+      transform: translateY(-2px);
+    }
+
+    /* Icon Theme Colors */
+    .ico-desmos { background: linear-gradient(135deg, rgba(99,102,241,0.35), rgba(14,165,233,0.25)); border: 1px solid rgba(99,102,241,0.4); color: #818cf8; }
+    .ico-gg     { background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(14,165,233,0.25)); border: 1px solid rgba(16,185,129,0.4); color: #34d399; }
+    .ico-phet   { background: linear-gradient(135deg, rgba(245,158,11,0.35), rgba(239,68,68,0.25)); border: 1px solid rgba(245,158,11,0.4); color: #fbbf24; }
+    .ico-kahoot { background: linear-gradient(135deg, rgba(139,92,246,0.35), rgba(236,72,153,0.25)); border: 1px solid rgba(139,92,246,0.4); color: #c084fc; }
+    .ico-wolf   { background: linear-gradient(135deg, rgba(239,68,68,0.35), rgba(245,158,11,0.25)); border: 1px solid rgba(239,68,68,0.4); color: #f87171; }
+    .ico-mway   { background: linear-gradient(135deg, rgba(6,182,212,0.35), rgba(16,185,129,0.25)); border: 1px solid rgba(6,182,212,0.4); color: #22d3ee; }
+    .ico-quiz   { background: linear-gradient(135deg, rgba(236,72,153,0.35), rgba(139,92,246,0.25)); border: 1px solid rgba(236,72,153,0.4); color: #f472b6; }
+    .ico-scratch{ background: linear-gradient(135deg, rgba(251,146,60,0.35), rgba(245,158,11,0.25)); border: 1px solid rgba(251,146,60,0.4); color: #fb923c; }
+    .ico-poly   { background: linear-gradient(135deg, rgba(52,211,153,0.35), rgba(6,182,212,0.25)); border: 1px solid rgba(52,211,153,0.4); color: #34d399; }
+    .ico-nrich  { background: linear-gradient(135deg, rgba(99,102,241,0.35), rgba(236,72,153,0.25)); border: 1px solid rgba(99,102,241,0.4); color: #818cf8; }
+    .ico-falstad{ background: linear-gradient(135deg, rgba(14,165,233,0.35), rgba(99,102,241,0.25)); border: 1px solid rgba(14,165,233,0.4); color: #38bdf8; }
+    .ico-robo   { background: linear-gradient(135deg, rgba(244,63,94,0.35), rgba(168,85,247,0.25)); border: 1px solid rgba(244,63,94,0.4); color: #fb7185; }
+
+    /* Modal Styling */
+    .guide-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 6, 12, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .guide-modal-overlay.open { display: flex; }
+    .guide-modal {
+      background: #0f0e22;
+      border: 1px solid rgba(124, 58, 237, 0.4);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      animation: modalFadeIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes modalFadeIn {
+      from { transform: scale(0.9) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .guide-modal-hdr {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .guide-modal-title {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .guide-modal-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .guide-modal-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+    .guide-modal-body {
+      padding: 24px;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .guide-modal-section {
+      margin-bottom: 18px;
+    }
+    .guide-modal-section h4 {
+      color: #c4b5fd;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .guide-modal-footer {
+      padding: 16px 24px 22px;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .back-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0 24px;
+      padding: 8px 18px;
+      background: var(--glass-bg);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.84rem;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition-smooth);
+    }
+    .back-pill:hover {
+      background: #4c1d95;
+      color: #fff;
+      border-color: #7c3aed;
+      transform: translateX(-3px);
+    }
+
+    /* Math Formula Highlight Box */
+    .math-callout {
+      background: rgba(124, 58, 237, 0.08);
+      border-left: 4px solid #8b5cf6;
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+    }
+    .math-callout code {
+      color: #38bdf8;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
-<div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div><div class="blob blob-4"></div></div>
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+</div>
+
 <div class="page-wrapper">
-<header class="site-header">
-  <div class="container">
-    <div class="page-chip"><i class="fa-solid fa-star"></i> PM SHRI KV Ranikhet</div>
-    <h1>K B Joshi</h1>
-    <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
-    <h3>Teacher's Digital Diary</h3>
-  </div>
-  <a href="#" id="profileLink" title="View Teacher Profile"><img src="kbjoshi.png" alt="K B Joshi" class="profile-photo"></a>
-</header>
-<nav class="nav-bar"><div class="container"><div class="nav"><a href="javascript:history.back()" class="btn-back-prev"><i class="fas fa-arrow-left"></i> BACK TO PREVIOUS PAGE</a>
-        <a href="index.html" class="btn-back-home"><i class="fas fa-home"></i> BACK TO HOME</a></div></div></nav>
-<section class="page-hero">
-  <div class="container" style="text-align:center;">
-    <span class="page-hero-icon">ðŸ§®</span>
-    <h1>Math Simulation &amp; Digital Tools</h1>
-    <p>Explore, visualise, play and learn â€” interactive graphing calculators, physics simulations, gamified quizzes, and AI-powered solvers, all in one place.</p>
-  </div>
-</section>
-<main><div class="container">
-  <a href="index.html" class="back-pill fade-in"><i class="fas fa-arrow-left"></i> Back to Home</a>
-  <div class="stat-strip fade-in">
-    <div class="stat-box"><div class="stat-num">14+</div><div class="stat-lbl">Tools Listed</div></div>
-    <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Live Embeds</div></div>
-    <div class="stat-box"><div class="stat-num">Free</div><div class="stat-lbl">All Tools Free</div></div>
-    <div class="stat-box"><div class="stat-num">VI-XII</div><div class="stat-lbl">Classes Covered</div></div>
-    <div class="stat-box"><div class="stat-num">CBSE</div><div class="stat-lbl">Curriculum Aligned</div></div>
-  </div>
-  <div class="cat-filter-bar fade-in-1">
-    <button class="cat-btn active" data-cat="all"><i class="fas fa-th"></i> All Tools</button>
-    <button class="cat-btn" data-cat="graphing"><i class="fas fa-chart-line"></i> Graphing</button>
-    <button class="cat-btn" data-cat="geometry"><i class="fas fa-shapes"></i> Geometry</button>
-    <button class="cat-btn" data-cat="algebra"><i class="fas fa-infinity"></i> Algebra &amp; Solver</button>
-    <button class="cat-btn" data-cat="quiz"><i class="fas fa-gamepad"></i> Quiz &amp; Games</button>
-    <button class="cat-btn" data-cat="activities"><i class="fas fa-puzzle-piece"></i> Activities</button>
-    <button class="cat-btn" data-cat="physics"><i class="fas fa-atom"></i> Physics / Science</button>
-  </div>
-  <div class="tools-grid fade-in-2" id="toolsGrid">
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <div class="page-chip"><i class="fa-solid fa-star"></i> PM SHRI KV Ranikhet</div>
+      <h1>K B Joshi</h1>
+      <h2>PGT Mathematics &nbsp;|&nbsp; PM SHRI Kendriya Vidyalaya Ranikhet</h2>
+      <h3>Teacher's Digital Diary</h3>
+    </div>
+    <a href="#" id="profileLink" title="View Teacher Profile"><img src="kbjoshi.png" alt="K B Joshi" class="profile-photo"></a>
+  </header>
 
-    <div class="tool-card" data-cat="graphing">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-desmos">ðŸ“ˆ</div><div><div class="tool-name">Desmos Graphing Calculator</div><span class="tool-tag tg">Graphing</span></div></div>
-        <p class="tool-desc">World's most popular graphing calculator. Plot any function, create sliders, animate graphs, and explore mathematical relationships visually. Perfect for Calculus, Trigonometry and Algebra.</p>
-        <div class="tool-features"><span class="feat-chip">Function Plotter</span><span class="feat-chip">Sliders &amp; Animation</span><span class="feat-chip">Polar Graphs</span><span class="feat-chip">Tables</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Desmos Graphing Calculator','https://www.desmos.com/calculator','ico-desmos','ðŸ“ˆ','Free graphing calculator â€” plot any function in seconds.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.desmos.com/calculator" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav">
+        <a href="index.html" class="btn-back-home"><i class="fas fa-home"></i> HOME DASHBOARD</a>
+        <a href="interactive.html" class="btn-back-prev"><i class="fas fa-gamepad"></i> INTERACTIVE LESSONS</a>
+        <a href="geogebra.html" class="btn-back-prev"><i class="fas fa-draw-polygon"></i> GEOGEBRA LAB</a>
+        <a href="robocompass.html" class="btn-back-prev"><i class="fas fa-robot"></i> ROBOCOMPASS</a>
+        <a href="3dshapes.html" class="btn-back-prev"><i class="fas fa-cube"></i> 3D SHAPES</a>
       </div>
     </div>
+  </nav>
 
-    <div class="tool-card" data-cat="algebra">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-sci">ðŸ”¢</div><div><div class="tool-name">Desmos Scientific Calculator</div><span class="tool-tag ta">Algebra &amp; Arithmetic</span></div></div>
-        <p class="tool-desc">Full-featured scientific calculator for arithmetic, trigonometry, logarithms, matrices, and more. Ideal for Class 9-12 students in board exam preparation.</p>
-        <div class="tool-features"><span class="feat-chip">Trig Functions</span><span class="feat-chip">Logarithms</span><span class="feat-chip">Matrices</span><span class="feat-chip">Statistics</span></div>
+  <!-- HERO SECTION -->
+  <section class="page-hero" style="text-align: center;">
+    <div class="container">
+      <div class="sim-hero-badge"><i class="fas fa-atom"></i> Math Labs &amp; Digital Simulations</div>
+      <h1>Mathematics Simulation Tools</h1>
+      <p>Instant browser-based interactive mathematics labs and curated digital simulation portals for CBSE Classes VI to XII — visualizing Calculus, Trigonometry, Vectors, Conics, Riemann Integrals, and Probability in real time.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTAINER -->
+  <main>
+    <div class="container">
+      <a href="index.html" class="back-pill"><i class="fas fa-arrow-left"></i> Back to Main Hub</a>
+
+      <!-- QUICK STATS -->
+      <div class="stat-strip">
+        <div class="stat-box">
+          <div class="stat-num">6</div>
+          <div class="stat-lbl">Built-in Live Labs</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">12+</div>
+          <div class="stat-lbl">Global Portals</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">VI - XII</div>
+          <div class="stat-lbl">Classes Covered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-lbl">CBSE Aligned</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">Instant</div>
+          <div class="stat-lbl">Zero Lag / No Embed Issue</div>
+        </div>
       </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Desmos Scientific Calculator','https://www.desmos.com/scientific','ico-sci','ðŸ”¢','Scientific calculator for all CBSE computations.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.desmos.com/scientific" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
+
+      <!-- FILTER & SEARCH PANEL -->
+      <div class="filter-panel">
+        <div class="search-row">
+          <div class="search-box-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="simSearchInput" class="search-input" placeholder="Search simulation labs, topics (e.g. Calculus, Sine Wave, Vectors, Conics, Riemann, Desmos)...">
+          </div>
+        </div>
+        <div class="cat-filter-bar">
+          <button class="cat-btn active" data-filter="all"><i class="fas fa-layer-group"></i> All Simulations</button>
+          <button class="cat-btn" data-filter="native"><i class="fas fa-bolt"></i> Live Built-in Labs</button>
+          <button class="cat-btn" data-filter="graphing"><i class="fas fa-chart-line"></i> Graphing &amp; CAS</button>
+          <button class="cat-btn" data-filter="calculus"><i class="fas fa-infinity"></i> Calculus &amp; Analysis</button>
+          <button class="cat-btn" data-filter="geometry"><i class="fas fa-shapes"></i> Geometry &amp; 3D</button>
+          <button class="cat-btn" data-filter="stem"><i class="fas fa-atom"></i> STEM &amp; Physics</button>
+          <button class="cat-btn" data-filter="manipulative"><i class="fas fa-puzzle-piece"></i> Manipulatives</button>
+          <button class="cat-btn" data-filter="quiz"><i class="fas fa-gamepad"></i> Quiz &amp; Games</button>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           SECTION 1: NATIVE BUILT-IN INTERACTIVE LABS
+           ========================================================= -->
+      <div class="sec-header" id="secNativeLabs">
+        <div class="sec-title-group">
+          <div class="sec-icon-circle"><i class="fas fa-microchip"></i></div>
+          <div>
+            <h2 class="sec-title">Built-in Interactive Dynamic Simulators</h2>
+            <p class="sec-subtitle">Zero-load latency, high-performance HTML5 canvas mathematics visualizers.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 1: Function Plotter & Tangent Derivative Visualizer -->
+      <div class="sim-lab-card" data-cat="native graphing calculus" data-keywords="function graphing derivative tangent slope calculus polynomial trig exponential">
+        <div class="sim-lab-hdr">
+          <div class="sim-lab-info">
+            <div class="sim-lab-icon" style="background: linear-gradient(135deg, #7c3aed, #3b82f6);"><i class="fas fa-chart-line"></i></div>
+            <div>
+              <h3 class="sim-lab-title">1. Dynamic Function &amp; Derivative Tangent Visualizer</h3>
+              <p class="sim-lab-sub">Explore curve curvature, local extrema, and instantaneous rate of change \(f'(x_0)\) with moving tangent lines.</p>
+            </div>
+          </div>
+          <div class="sim-lab-badges">
+            <span class="badge-pill badge-calc">Class XI &amp; XII Calculus</span>
+          </div>
+        </div>
+        <div class="sim-lab-body">
+          <div class="canvas-box">
+            <canvas id="cvsFunction" width="600" height="380"></canvas>
+            <div class="canvas-overlay-data" id="cvsFunctionData">f(x) = sin(x)<br>Tangent at x = 0.00: slope = 1.00</div>
+          </div>
+          <div class="sim-controls-panel">
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Select Function Preset:</span></label>
+              <select id="selFuncPreset" class="sim-select">
+                <option value="sin">f(x) = sin(a·x)</option>
+                <option value="poly2">f(x) = a·x² + b·x + c</option>
+                <option value="poly3">f(x) = a·x³ - 3·x</option>
+                <option value="exp">f(x) = exp(a·x)</option>
+                <option value="cos">f(x) = cos(a·x)</option>
+                <option value="abs">f(x) = |x - a|</option>
+              </select>
+            </div>
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Parameter <strong>a</strong>:</span>
+                <span class="ctrl-val" id="valA">1.0</span>
+              </div>
+              <input type="range" id="sliderA" class="sim-slider" min="-3" max="3" step="0.1" value="1">
+            </div>
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Tangent Point <strong>x₀</strong>:</span>
+                <span class="ctrl-val" id="valX0">0.0</span>
+              </div>
+              <input type="range" id="sliderX0" class="sim-slider" min="-5" max="5" step="0.1" value="0">
+            </div>
+            <div class="btn-action-row">
+              <button class="sim-btn" id="btnAnimTangent"><i class="fas fa-play"></i> Animate Tangent</button>
+              <button class="sim-btn" id="btnResetFunc"><i class="fas fa-redo"></i> Reset</button>
+            </div>
+            <div class="sim-result-box" id="funcAnalysis">
+              <strong>Calculus Concept:</strong> The slope of the red tangent line represents \( \frac{df}{dx} \) at \( x = x_0 \). Where slope is 0, critical points / extrema occur.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 2: Trigonometric Unit Circle & Synchronized Wave -->
+      <div class="sim-lab-card" data-cat="native geometry" data-keywords="trigonometry unit circle sine cosine wave angle radians degrees">
+        <div class="sim-lab-hdr">
+          <div class="sim-lab-info">
+            <div class="sim-lab-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);"><i class="fas fa-circle-notch"></i></div>
+            <div>
+              <h3 class="sim-lab-title">2. Trigonometric Unit Circle &amp; Wave Generator</h3>
+              <p class="sim-lab-sub">Real-time dynamic unit circle mapping angle \(\theta\) directly to sine and cosine continuous waves.</p>
+            </div>
+          </div>
+          <div class="sim-lab-badges">
+            <span class="badge-pill badge-trig">Class X &amp; XI Trigonometry</span>
+          </div>
+        </div>
+        <div class="sim-lab-body">
+          <div class="canvas-box">
+            <canvas id="cvsUnitCircle" width="600" height="380"></canvas>
+            <div class="canvas-overlay-data" id="cvsTrigData">θ = 45° (0.79 rad)<br>sin θ = 0.707 | cos θ = 0.707</div>
+          </div>
+          <div class="sim-controls-panel">
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Angle <strong>θ</strong> (Degrees):</span>
+                <span class="ctrl-val" id="valAngle">45°</span>
+              </div>
+              <input type="range" id="sliderAngle" class="sim-slider" min="0" max="360" step="1" value="45">
+            </div>
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Snap to Special CBSE Angles:</span></label>
+              <div class="btn-action-row">
+                <button class="sim-btn" onclick="setAngle(0)">0°</button>
+                <button class="sim-btn" onclick="setAngle(30)">30°</button>
+                <button class="sim-btn" onclick="setAngle(45)">45°</button>
+                <button class="sim-btn" onclick="setAngle(60)">60°</button>
+                <button class="sim-btn" onclick="setAngle(90)">90°</button>
+                <button class="sim-btn" onclick="setAngle(180)">180°</button>
+              </div>
+            </div>
+            <div class="btn-action-row">
+              <button class="sim-btn sim-btn-primary" id="btnAnimCircle"><i class="fas fa-play"></i> Rotate Continuously</button>
+            </div>
+            <div class="sim-result-box" id="trigValuesBox">
+              <strong>Exact Ratios:</strong><br>
+              • \(\sin\theta\) (Vertical Pink) = <span id="rSin">0.707</span><br>
+              • \(\cos\theta\) (Horizontal Teal) = <span id="rCos">0.707</span><br>
+              • \(\tan\theta\) = <span id="rTan">1.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 3: 2D Vector Operations & Dot/Cross Product -->
+      <div class="sim-lab-card" data-cat="native geometry calculus" data-keywords="vectors dot product cross product magnitude angle resultant addition class 12">
+        <div class="sim-lab-hdr">
+          <div class="sim-lab-info">
+            <div class="sim-lab-icon" style="background: linear-gradient(135deg, #10b981, #0ea5e9);"><i class="fas fa-location-arrow"></i></div>
+            <div>
+              <h3 class="sim-lab-title">3. Vector Operations, Dot Product &amp; Resultant Explorer</h3>
+              <p class="sim-lab-sub">Interactively manipulate vectors \(\vec{u}\) and \(\vec{v}\), computing magnitude, dot product \(\vec{u}\cdot\vec{v}\), and parallelogram area.</p>
+            </div>
+          </div>
+          <div class="sim-lab-badges">
+            <span class="badge-pill badge-vec">Class XII Vectors</span>
+          </div>
+        </div>
+        <div class="sim-lab-body">
+          <div class="canvas-box">
+            <canvas id="cvsVectors" width="600" height="380"></canvas>
+            <div class="canvas-overlay-data" id="cvsVecData">u = (4, 3) | v = (-2, 4)<br>u · v = 4 | Angle = 73.3°</div>
+          </div>
+          <div class="sim-controls-panel">
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Vector <strong>u</strong> = (x, y):</span>
+                <span class="ctrl-val" id="valU">(4, 3)</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input type="range" id="sliderUx" class="sim-slider" min="-6" max="6" step="0.5" value="4" title="Ux">
+                <input type="range" id="sliderUy" class="sim-slider" min="-6" max="6" step="0.5" value="3" title="Uy">
+              </div>
+            </div>
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Vector <strong>v</strong> = (x, y):</span>
+                <span class="ctrl-val" id="valV">(-2, 4)</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input type="range" id="sliderVx" class="sim-slider" min="-6" max="6" step="0.5" value="-2" title="Vx">
+                <input type="range" id="sliderVy" class="sim-slider" min="-6" max="6" step="0.5" value="4" title="Vy">
+              </div>
+            </div>
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Show Construction:</span></label>
+              <div style="display:flex;gap:12px;font-size:0.82rem;color:var(--text-secondary);">
+                <label><input type="checkbox" id="chkVecSum" checked> Resultant \(\vec{u}+\vec{v}\)</label>
+                <label><input type="checkbox" id="chkParallelogram" checked> Parallelogram</label>
+              </div>
+            </div>
+            <div class="sim-result-box" id="vecCalcBox">
+              <strong>Vector Algebra Results:</strong><br>
+              • \(|\vec{u}| = 5.00, \; |\vec{v}| = 4.47\)<br>
+              • Dot Product \(\vec{u}\cdot\vec{v} = 4.00\)<br>
+              • Angle \(\theta = 73.30^\circ\)<br>
+              • Determinant / Cross Product Area = \(22.00\)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 4: Calculus Definite Integrals & Riemann Sums -->
+      <div class="sim-lab-card" data-cat="native calculus" data-keywords="riemann sum integration definite integral area under curve partitions class 12">
+        <div class="sim-lab-hdr">
+          <div class="sim-lab-info">
+            <div class="sim-lab-icon" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);"><i class="fas fa-bezier-curve"></i></div>
+            <div>
+              <h3 class="sim-lab-title">4. Riemann Sums &amp; Definite Integral Explorer</h3>
+              <p class="sim-lab-sub">Approximate the area under curve using Left, Right, Midpoint, and Trapezoidal subintervals as \(n \to \infty\).</p>
+            </div>
+          </div>
+          <div class="sim-lab-badges">
+            <span class="badge-pill badge-calc">Class XII Integrals</span>
+          </div>
+        </div>
+        <div class="sim-lab-body">
+          <div class="canvas-box">
+            <canvas id="cvsRiemann" width="600" height="380"></canvas>
+            <div class="canvas-overlay-data" id="cvsRiemannData">n = 10 partitions<br>Riemann Area = 8.82 | Exact = 9.00</div>
+          </div>
+          <div class="sim-controls-panel">
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Integral Function \(f(x)\):</span></label>
+              <select id="selRiemannFunc" class="sim-select">
+                <option value="parabola">f(x) = x² on [0, 3]</option>
+                <option value="sin">f(x) = sin(x) + 1 on [0, π]</option>
+                <option value="cubic">f(x) = -x³ + 4x on [0, 2]</option>
+                <option value="exp">f(x) = e^(0.5x) on [0, 2]</option>
+              </select>
+            </div>
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Sum Method:</span></label>
+              <select id="selRiemannType" class="sim-select">
+                <option value="mid">Midpoint Rule</option>
+                <option value="left">Left Riemann Sum</option>
+                <option value="right">Right Riemann Sum</option>
+                <option value="trap">Trapezoidal Rule</option>
+              </select>
+            </div>
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Number of Partitions <strong>n</strong>:</span>
+                <span class="ctrl-val" id="valN">10</span>
+              </div>
+              <input type="range" id="sliderN" class="sim-slider" min="2" max="60" step="1" value="10">
+            </div>
+            <div class="sim-result-box" id="riemannCalcBox">
+              <strong>Fundamental Theorem of Calculus:</strong><br>
+              • Approximation \(\sum f(x_i^*)\Delta x = 8.82\)<br>
+              • Exact Analytical \(\int_a^b f(x)dx = 9.00\)<br>
+              • Absolute Error = \(0.18\) (1.9%)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 5: Conic Sections Dynamic Explorer -->
+      <div class="sim-lab-card" data-cat="native geometry" data-keywords="conic sections ellipse parabola hyperbola circle focus directrix eccentricity class 11">
+        <div class="sim-lab-hdr">
+          <div class="sim-lab-info">
+            <div class="sim-lab-icon" style="background: linear-gradient(135deg, #a855f7, #ec4899);"><i class="fas fa-shapes"></i></div>
+            <div>
+              <h3 class="sim-lab-title">5. Conic Sections &amp; Eccentricity Simulator</h3>
+              <p class="sim-lab-sub">Explore geometric morphing between Circle (\(e=0\)), Ellipse (\(0<e<1\)), Parabola (\(e=1\)), and Hyperbola (\(e>1\)).</p>
+            </div>
+          </div>
+          <div class="sim-lab-badges">
+            <span class="badge-pill badge-conic">Class XI Conic Sections</span>
+          </div>
+        </div>
+        <div class="sim-lab-body">
+          <div class="canvas-box">
+            <canvas id="cvsConic" width="600" height="380"></canvas>
+            <div class="canvas-overlay-data" id="cvsConicData">Conic: Ellipse<br>Eccentricity e = 0.65</div>
+          </div>
+          <div class="sim-controls-panel">
+            <div class="ctrl-group">
+              <div class="ctrl-label-row">
+                <span>Eccentricity <strong>e</strong>:</span>
+                <span class="ctrl-val" id="valEcc">0.65</span>
+              </div>
+              <input type="range" id="sliderEcc" class="sim-slider" min="0" max="2.5" step="0.05" value="0.65">
+            </div>
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Quick Conic Preset:</span></label>
+              <div class="btn-action-row">
+                <button class="sim-btn" onclick="setConicEcc(0)">Circle (e=0)</button>
+                <button class="sim-btn" onclick="setConicEcc(0.7)">Ellipse (e=0.7)</button>
+                <button class="sim-btn" onclick="setConicEcc(1.0)">Parabola (e=1)</button>
+                <button class="sim-btn" onclick="setConicEcc(1.8)">Hyperbola (e=1.8)</button>
+              </div>
+            </div>
+            <div class="sim-result-box" id="conicAnalysisBox">
+              <strong>Conic Definition:</strong> Locus of point \(P\) where distance to focus \(S\) equals \(e\) times distance to directrix \(M\):<br>
+              $$\frac{SP}{PM} = e$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 6: Probability & Central Limit Theorem Simulation -->
+      <div class="sim-lab-card" data-cat="native stem" data-keywords="probability statistics central limit theorem dice coin monte carlo normal distribution class 11 12">
+        <div class="sim-lab-hdr">
+          <div class="sim-lab-info">
+            <div class="sim-lab-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"><i class="fas fa-dice"></i></div>
+            <div>
+              <h3 class="sim-lab-title">6. Probability &amp; Central Limit Law Simulator</h3>
+              <p class="sim-lab-sub">Run thousands of Monte Carlo trials to observe convergence to the Gaussian Normal Bell Curve.</p>
+            </div>
+          </div>
+          <div class="sim-lab-badges">
+            <span class="badge-pill badge-prob">Class XI &amp; XII Probability</span>
+          </div>
+        </div>
+        <div class="sim-lab-body">
+          <div class="canvas-box">
+            <canvas id="cvsProb" width="600" height="380"></canvas>
+            <div class="canvas-overlay-data" id="cvsProbData">Total Rolls: 0<br>Theoretical Mean: 7.00</div>
+          </div>
+          <div class="sim-controls-panel">
+            <div class="ctrl-group">
+              <label class="ctrl-label-row"><span>Number of Dice per Roll:</span></label>
+              <select id="selDiceCount" class="sim-select">
+                <option value="1">1 Die (Uniform Distribution)</option>
+                <option value="2" selected>2 Dice (Triangular Distribution)</option>
+                <option value="3">3 Dice (Bell Curve Preview)</option>
+                <option value="5">5 Dice (Smooth Central Limit Curve)</option>
+              </select>
+            </div>
+            <div class="btn-action-row">
+              <button class="sim-btn sim-btn-primary" id="btnRoll100"><i class="fas fa-play"></i> Roll 100 Times</button>
+              <button class="sim-btn sim-btn-primary" id="btnRoll1000"><i class="fas fa-forward"></i> Roll 1,000</button>
+              <button class="sim-btn" id="btnResetProb"><i class="fas fa-undo"></i> Reset</button>
+            </div>
+            <div class="sim-result-box" id="probStatsBox">
+              <strong>Law of Large Numbers:</strong> As sample size increases, empirical mean converges to mathematical expectation \(E(X)\).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           SECTION 2: CURATED GLOBAL SIMULATION PLATFORMS DIRECTORY
+           ========================================================= -->
+      <div class="sec-header" id="secGlobalTools">
+        <div class="sec-title-group">
+          <div class="sec-icon-circle"><i class="fas fa-globe"></i></div>
+          <div>
+            <h2 class="sec-title">Curated Digital Simulation Platforms</h2>
+            <p class="sec-subtitle">World-class mathematics graphing engines, physics applets, and digital manipulative portals.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-grid" id="toolsGrid">
+
+        <!-- Tool 1: Desmos Graphing Calculator -->
+        <div class="tool-card" data-cat="graphing calculus" data-keywords="desmos graphing calculator functions calculus sliders animation board">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-desmos"><i class="fas fa-chart-area"></i></div>
+              <div>
+                <div class="tool-name">Desmos Graphing Calculator</div>
+                <span class="tool-cat-tag ico-desmos">Graphing &amp; Curves</span>
+              </div>
+            </div>
+            <p class="tool-desc">The global standard in mathematical graphing. Plot 2D functions, parametric curves, polar coordinates, animated sliders, and statistical regressions seamlessly.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Function Plotter</span>
+              <span class="feat-chip">Sliders &amp; Animation</span>
+              <span class="feat-chip">Calculus Tangents</span>
+              <span class="feat-chip">Polar Graphs</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Desmos Graphing Calculator', 'Desmos is ideal for visualizing function transformations f(x - h) + k, finding roots, investigating trigonometric periods, and animating limits in Class XI & XII Calculus.', 'https://www.desmos.com/calculator')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://www.desmos.com/calculator" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 2: GeoGebra Suite -->
+        <div class="tool-card" data-cat="graphing geometry calculus" data-keywords="geogebra suite classic 3d geometry constructions cas calculus vectors">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-gg"><i class="fas fa-draw-polygon"></i></div>
+              <div>
+                <div class="tool-name">GeoGebra Suite &amp; Classic</div>
+                <span class="tool-cat-tag ico-gg">Geometry &amp; CAS</span>
+              </div>
+            </div>
+            <p class="tool-desc">All-in-one dynamic mathematics platform combining Euclidean geometry constructions, Computer Algebra System (CAS), 3D surfaces, vectors, and spreadsheets.</p>
+            <div class="tool-features">
+              <span class="feat-chip">3D Surfaces</span>
+              <span class="feat-chip">Euclidean Constructions</span>
+              <span class="feat-chip">CAS Solver</span>
+              <span class="feat-chip">Probability Calc</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('GeoGebra Suite', 'Use GeoGebra 3D for Class XII Vectors and 3D Geometry planes, and GeoGebra Classic for Class IX/X circle theorem proofs and locus animations.', 'https://www.geogebra.org/calculator')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://www.geogebra.org/calculator" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 3: PhET Interactive Simulations -->
+        <div class="tool-card" data-cat="stem manipulative" data-keywords="phet colorado physics simulations science arithmetic fractions vectors projectile">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-phet"><i class="fas fa-atom"></i></div>
+              <div>
+                <div class="tool-name">PhET Interactive Math &amp; Science</div>
+                <span class="tool-cat-tag ico-phet">University of Colorado</span>
+              </div>
+            </div>
+            <p class="tool-desc">Research-backed interactive simulations covering number lines, fraction bars, vector addition, projectile physics, and probability distributions with intuitive game-like models.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Fractions &amp; Decimals</span>
+              <span class="feat-chip">Vector Addition</span>
+              <span class="feat-chip">Curve Fitting</span>
+              <span class="feat-chip">Graphing Lines</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('PhET Interactive Simulations', 'Excellent for middle school integer arithmetic (Number Line: Integers) and secondary vector addition labs. Highly engaging for smart classroom boards.', 'https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 4: WolframAlpha Math Engine -->
+        <div class="tool-card" data-cat="calculus graphing" data-keywords="wolfram alpha computational engine step by step integrals derivatives limits matrices">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-wolf"><i class="fas fa-brain"></i></div>
+              <div>
+                <div class="tool-name">Wolfram|Alpha Math Engine</div>
+                <span class="tool-cat-tag ico-wolf">Computational AI</span>
+              </div>
+            </div>
+            <p class="tool-desc">Computational knowledge engine computing step-by-step solutions for indefinite integrals, differential equations, matrix eigenvalues, series expansions, and complex analysis.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Step-by-Step</span>
+              <span class="feat-chip">Calculus Integrals</span>
+              <span class="feat-chip">Matrix Algebra</span>
+              <span class="feat-chip">Differential Eqn</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Wolfram|Alpha Engine', 'Use for verifying complex Class XII integration by parts, partial fractions, and matrix determinants during problem-solving sessions.', 'https://www.wolframalpha.com/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://www.wolframalpha.com/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 5: Mathigon Polypad -->
+        <div class="tool-card" data-cat="manipulative geometry" data-keywords="mathigon polypad virtual manipulatives algebra tiles fraction bars tangrams tessellations">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-poly"><i class="fas fa-shapes"></i></div>
+              <div>
+                <div class="tool-name">Mathigon Polypad</div>
+                <span class="tool-cat-tag ico-poly">Virtual Manipulatives</span>
+              </div>
+            </div>
+            <p class="tool-desc">Award-winning digital canvas featuring interactive algebra tiles, fraction bars, 3D net foldouts, coordinate grids, tangrams, and probability spinners.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Algebra Tiles</span>
+              <span class="feat-chip">Fraction Bars</span>
+              <span class="feat-chip">3D Polyhedra Nets</span>
+              <span class="feat-chip">Tessellations</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Mathigon Polypad', 'Unmatched tool for visualizing algebraic identities (a+b)², completing the square with algebra tiles, and exploring Euler formula V - E + F = 2 with 3D folding nets.', 'https://mathigon.org/polypad')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://mathigon.org/polypad" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 6: Falstad Math & Physics Applets -->
+        <div class="tool-card" data-cat="stem calculus" data-keywords="falstad math applets fourier vector fields differential equations complex mapping">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-falstad"><i class="fas fa-wave-square"></i></div>
+              <div>
+                <div class="tool-name">Falstad Math Applets</div>
+                <span class="tool-cat-tag ico-falstad">Vector Fields &amp; Waves</span>
+              </div>
+            </div>
+            <p class="tool-desc">Deep interactive visualizations of Fourier series synthesis, 2D/3D vector fields, differential equation phase planes, and complex conformal mappings.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Fourier Series</span>
+              <span class="feat-chip">Vector Flow Fields</span>
+              <span class="feat-chip">Phase Portraits</span>
+              <span class="feat-chip">Wave Simulator</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Falstad Math Applets', 'Fantastic for showing students how trigonometric harmonic waves sum up to create square and triangle waves (Fourier series) and visualizing direction fields for dy/dx = f(x,y).', 'https://www.falstad.com/mathphysics.html')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://www.falstad.com/mathphysics.html" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 7: RoboCompass 3D Geometry -->
+        <div class="tool-card" data-cat="geometry" data-keywords="robocompass geometry compass ruler 3d constructions script animated">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-robo"><i class="fas fa-compass"></i></div>
+              <div>
+                <div class="tool-name">RoboCompass Geometry</div>
+                <span class="tool-cat-tag ico-robo">3D Geometric Robot</span>
+              </div>
+            </div>
+            <p class="tool-desc">3D virtual compass, straightedge, and protractor simulator executing scripted geometric constructions with step-by-step 3D animations.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Virtual Compass</span>
+              <span class="feat-chip">Angle Bisector</span>
+              <span class="feat-chip">Triangle Incircle</span>
+              <span class="feat-chip">Animated Script</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('RoboCompass 3D', 'Perfect for showing step-by-step compass arcs for Class IX/X constructions: bisecting angles, constructing tangents to circles, and dividing line segments in a given ratio.', 'https://www.robocompass.com/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://www.robocompass.com/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 8: NRICH Cambridge Mathematics -->
+        <div class="tool-card" data-cat="manipulative calculus" data-keywords="nrich cambridge rich tasks olympiad ioqm problem solving investigations">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-nrich"><i class="fas fa-puzzle-piece"></i></div>
+              <div>
+                <div class="tool-name">NRICH Mathematics (Cambridge)</div>
+                <span class="tool-cat-tag ico-nrich">Enrichment &amp; IOQM</span>
+              </div>
+            </div>
+            <p class="tool-desc">University of Cambridge mathematics enrichment platform featuring rich mathematical investigations, proofs, and Olympiad/IOQM level challenge problems.</p>
+            <div class="tool-features">
+              <span class="feat-chip">IOQM Preparation</span>
+              <span class="feat-chip">Proof &amp; Reasoning</span>
+              <span class="feat-chip">Number Puzzles</span>
+              <span class="feat-chip">Rich Tasks</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('NRICH Cambridge', 'Use for Bright Learner enrichment sessions and IOQM training. Contains guided interactive investigations on prime patterns, modular arithmetic, and geometric invariants.', 'https://nrich.maths.org/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://nrich.maths.org/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 9: Kahoot! Live Math Quizzes -->
+        <div class="tool-card" data-cat="quiz" data-keywords="kahoot live quiz games competition leaderboard cbse revision mcq">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-kahoot"><i class="fas fa-gamepad"></i></div>
+              <div>
+                <div class="tool-name">Kahoot! Live Quizzes</div>
+                <span class="tool-cat-tag ico-kahoot">Gamified Assessment</span>
+              </div>
+            </div>
+            <p class="tool-desc">Engaging multiplayer classroom quiz game platform. Host fast-paced chapter revision quizzes with real-time feedback and podium leaderboards.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Live Multiplayer</span>
+              <span class="feat-chip">Speed MCQ</span>
+              <span class="feat-chip">Leaderboard</span>
+              <span class="feat-chip">Formative Check</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Kahoot! Math', 'Conduct 10-minute starter quizzes at the beginning of classes to recall previous formulae (e.g. trigonometric identities, derivative rules) in an exciting competitive format.', 'https://kahoot.com/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://kahoot.com/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 10: Quizizz Math Portal -->
+        <div class="tool-card" data-cat="quiz" data-keywords="quizizz homework mcq self paced chapterwise questions">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-quiz"><i class="fas fa-trophy"></i></div>
+              <div>
+                <div class="tool-name">Quizizz Math Portal</div>
+                <span class="tool-cat-tag ico-quiz">Self-Paced Practice</span>
+              </div>
+            </div>
+            <p class="tool-desc">Self-paced interactive quiz platform with detailed analytics, instantaneous explanations, and vast CBSE mathematics question banks.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Self-Paced Mode</span>
+              <span class="feat-chip">Homework Assignment</span>
+              <span class="feat-chip">Detailed Analytics</span>
+              <span class="feat-chip">Formula Support</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Quizizz Math', 'Assign as self-paced practice tests for board exam preparation. Students receive instant solution explanations and error analysis.', 'https://quizizz.com/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://quizizz.com/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 11: Scratch MIT Math Visual Programming -->
+        <div class="tool-card" data-cat="manipulative stem" data-keywords="scratch mit coding algorithms geometry fractals animations">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-scratch"><i class="fas fa-code"></i></div>
+              <div>
+                <div class="tool-name">Scratch Visual Math Projects</div>
+                <span class="tool-cat-tag ico-scratch">MIT Media Lab</span>
+              </div>
+            </div>
+            <p class="tool-desc">Visual block coding environment empowering students to build procedural geometry generators, recursive fractals, and interactive math games.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Algorithmic Math</span>
+              <span class="feat-chip">Fractal Trees</span>
+              <span class="feat-chip">Geometric Spirals</span>
+              <span class="feat-chip">Custom Logic</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Scratch Math Coding', 'Integrate NEP 2020 computational thinking into math classes by having students code algorithms for finding prime numbers, drawing regular n-gons, and generating Fibonacci spirals.', 'https://scratch.mit.edu/explore/projects/math/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://scratch.mit.edu/explore/projects/math/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+        <!-- Tool 12: Mathway Step-by-Step Solver -->
+        <div class="tool-card" data-cat="calculus graphing" data-keywords="mathway solver step by step algebra trigonometry calculus lpp">
+          <div class="tool-card-top">
+            <div class="tool-card-header">
+              <div class="tool-icon-wrap ico-mway"><i class="fas fa-calculator"></i></div>
+              <div>
+                <div class="tool-name">Mathway Step-by-Step Solver</div>
+                <span class="tool-cat-tag ico-mway">Problem Solver</span>
+              </div>
+            </div>
+            <p class="tool-desc">Instant mathematical problem solver with comprehensive coverage of arithmetic, algebra, trigonometry, calculus, and linear programming.</p>
+            <div class="tool-features">
+              <span class="feat-chip">Algebra Solver</span>
+              <span class="feat-chip">Trig Equations</span>
+              <span class="feat-chip">Linear Programming</span>
+              <span class="feat-chip">Matrix Inverse</span>
+            </div>
+          </div>
+          <div class="tool-card-footer">
+            <button class="tool-launch-btn btn-guide" onclick="openGuideModal('Mathway Solver', 'Helpful for independent self-study and cross-checking solutions for linear programming graphical feasible regions and system of linear equations.', 'https://www.mathway.com/')"><i class="fas fa-lightbulb"></i> Teaching Guide</button>
+            <a href="https://www.mathway.com/" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Launch Tool</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3><i class="fas fa-book-open"></i> Teacher's Digital Diary</h3>
+          <p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Dedicated to digital transformation and conceptual mastery in mathematics education.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Math Labs Navigation</h4>
+          <ul>
+            <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Lessons</a></li>
+            <li><a href="simulations.html"><i class="fas fa-chevron-right"></i> Simulation Tools</a></li>
+            <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra Laboratory</a></li>
+            <li><a href="robocompass.html"><i class="fas fa-chevron-right"></i> RoboCompass Geometry</a></li>
+            <li><a href="3dshapes.html"><i class="fas fa-chevron-right"></i> 3D Shapes Lab</a></li>
+            <li><a href="paper-folding.html"><i class="fas fa-chevron-right"></i> Paper Folding Models</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>External Portals</h4>
+          <ul>
+            <li><a href="https://www.desmos.com/calculator" target="_blank"><i class="fas fa-chevron-right"></i> Desmos Calculator</a></li>
+            <li><a href="https://www.geogebra.org" target="_blank"><i class="fas fa-chevron-right"></i> GeoGebra Official</a></li>
+            <li><a href="https://phet.colorado.edu" target="_blank"><i class="fas fa-chevron-right"></i> PhET Colorado</a></li>
+            <li><a href="https://mathigon.org/polypad" target="_blank"><i class="fas fa-chevron-right"></i> Mathigon Polypad</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact &amp; Connect</h4>
+          <ul>
+            <li><a href="mailto:kboshikv2008@gmail.com"><i class="fas fa-envelope"></i> kboshikv2008@gmail.com</a></li>
+            <li><a href="https://wa.me/919410121232" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Me</a></li>
+            <li><a href="http://www.youtube.com/@KBJ25" target="_blank"><i class="fab fa-youtube"></i> YouTube Channel</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 <strong>K B Joshi</strong> &mdash; PGT Mathematics, PM SHRI KV Ranikhet. All rights reserved.</p>
+        <a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><i class="fa-solid fa-arrow-up"></i> Back to Top</a>
       </div>
     </div>
-
-    <div class="tool-card" data-cat="graphing geometry">
-      <div class="tool-ribbon">Embedded Below</div>
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-gg">ðŸ“</div><div><div class="tool-name">GeoGebra Graphing</div><span class="tool-tag tg">Graphing &amp; Geometry</span></div></div>
-        <p class="tool-desc">Plot functions, investigate transformations, explore geometric relationships. Supports graphing, geometry, CAS, spreadsheet, and 3D views seamlessly.</p>
-        <div class="tool-features"><span class="feat-chip">3D Graphs</span><span class="feat-chip">Geometry</span><span class="feat-chip">CAS</span><span class="feat-chip">Probability</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('GeoGebra Graphing Calculator','https://www.geogebra.org/calculator','ico-gg','ðŸ“','Dynamic mathematics visualization and construction tool.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.geogebra.org/calculator" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="geometry">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-gg">ðŸ“</div><div><div class="tool-name">GeoGebra Geometry</div><span class="tool-tag tgg">Geometry</span></div></div>
-        <p class="tool-desc">Construct points, lines, angles, triangles, circles, and polygons. Explore Euclidean theorems interactively â€” perfect for Classes 6-10 geometry topics.</p>
-        <div class="tool-features"><span class="feat-chip">Compass &amp; Ruler</span><span class="feat-chip">Circle Theorems</span><span class="feat-chip">Locus</span><span class="feat-chip">Transformations</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('GeoGebra Geometry Tool','https://www.geogebra.org/geometry','ico-gg','ðŸ“','Euclidean geometry constructions and theorem exploration.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.geogebra.org/geometry" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="geometry graphing">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-gg">ðŸ§Š</div><div><div class="tool-name">GeoGebra 3D Calculator</div><span class="tool-tag tgg">3D Geometry</span></div></div>
-        <p class="tool-desc">Visualise 3D surfaces, vectors, planes, and solid geometry. Ideal for Class XII topics like 3D Geometry, Vectors, and visualising conic sections.</p>
-        <div class="tool-features"><span class="feat-chip">3D Surfaces</span><span class="feat-chip">Vectors</span><span class="feat-chip">Planes</span><span class="feat-chip">Solid Geometry</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('GeoGebra 3D Calculator','https://www.geogebra.org/3d','ico-gg','ðŸ§Š','3D graphing for vectors, planes and solid geometry.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.geogebra.org/3d" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="physics activities">
-      <div class="tool-ribbon">Embedded Below</div>
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-phet">âš—ï¸</div><div><div class="tool-name">PhET Interactive Simulations</div><span class="tool-tag tp">Physics &amp; Science</span></div></div>
-        <p class="tool-desc">Nobel Prize-winning simulations from University of Colorado. Explore algebra, arithmetic, fractions, vectors, probability through research-based interactive simulations.</p>
-        <div class="tool-features"><span class="feat-chip">Arithmetic</span><span class="feat-chip">Fractions</span><span class="feat-chip">Vectors</span><span class="feat-chip">Probability</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('PhET Math Simulations','https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html','ico-phet','âš—ï¸','Research-based interactive math simulations from University of Colorado.')"><i class="fas fa-play-circle"></i> Browse PhET</button>
-        <a href="https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="quiz">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-kahoot">ðŸŽ®</div><div><div class="tool-name">Kahoot!</div><span class="tool-tag tq">Quiz &amp; Game</span></div></div>
-        <p class="tool-desc">Create and play live mathematics quizzes in class. Make learning competitive and fun with real-time leaderboards. Teachers can host custom maths Kahoots for any chapter.</p>
-        <div class="tool-features"><span class="feat-chip">Live Quiz</span><span class="feat-chip">Leaderboard</span><span class="feat-chip">Team Mode</span><span class="feat-chip">Teacher Dashboard</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openNoEmbed('Kahoot!','Kahoot restricts embedding to protect student privacy. Click Open Kahoot to host or join a live quiz session.','ico-kahoot','ðŸŽ®','https://kahoot.com')"><i class="fas fa-info-circle"></i> About</button>
-        <a href="https://kahoot.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Kahoot</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="quiz">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-quiz">ðŸ†</div><div><div class="tool-name">Quizizz</div><span class="tool-tag tq">Quiz &amp; Practice</span></div></div>
-        <p class="tool-desc">Self-paced and teacher-led math quizzes. Practice chapter-wise MCQs at your own pace with over 50 million questions for all CBSE classes.</p>
-        <div class="tool-features"><span class="feat-chip">Self-Paced</span><span class="feat-chip">MCQ Practice</span><span class="feat-chip">Instant Feedback</span><span class="feat-chip">Reports</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Quizizz â€” Math Practice','https://quizizz.com/','ico-quiz','ðŸ†','Self-paced math quiz practice platform.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://quizizz.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="algebra">
-      <div class="tool-ribbon">AI Powered</div>
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-wolf">ðŸ§ </div><div><div class="tool-name">WolframAlpha</div><span class="tool-tag ta">AI Computation Engine</span></div></div>
-        <p class="tool-desc">World's leading computational knowledge engine. Solve integrals, derivatives, matrices, limits, and get step-by-step solutions instantly for Class XI and XII board preparation.</p>
-        <div class="tool-features"><span class="feat-chip">Step-by-Step</span><span class="feat-chip">Integrals</span><span class="feat-chip">Matrices</span><span class="feat-chip">Number Theory</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('WolframAlpha','https://www.wolframalpha.com/','ico-wolf','ðŸ§ ','Computational knowledge engine for all mathematics topics.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.wolframalpha.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="algebra">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-mway">ðŸ“</div><div><div class="tool-name">Mathway</div><span class="tool-tag ts">Step-by-Step Solver</span></div></div>
-        <p class="tool-desc">Type or photograph any math problem and get instant step-by-step solutions. Covers arithmetic, algebra, trigonometry, calculus, statistics, and linear programming.</p>
-        <div class="tool-features"><span class="feat-chip">Photo Solver</span><span class="feat-chip">Calculus</span><span class="feat-chip">Trigonometry</span><span class="feat-chip">Linear Programming</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Mathway â€” Math Problem Solver','https://www.mathway.com/','ico-mway','ðŸ“','Instant step-by-step math problem solver.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.mathway.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="activities algebra geometry">
-      <div class="tool-ribbon">Recommended</div>
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-mig">ðŸŒŸ</div><div><div class="tool-name">Mathigon Polypad</div><span class="tool-tag tac">Interactive Textbook</span></div></div>
-        <p class="tool-desc">Beautiful virtual manipulatives including fraction bars, algebra tiles, number lines, tangrams, and more. Ideal for class demonstrations.</p>
-        <div class="tool-features"><span class="feat-chip">Virtual Manipulatives</span><span class="feat-chip">Algebra Tiles</span><span class="feat-chip">Number Line</span><span class="feat-chip">Fraction Bars</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Mathigon Polypad','https://mathigon.org/polypad','ico-mig','ðŸŒŸ','Interactive virtual manipulatives for mathematics teaching.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://mathigon.org/polypad" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="activities">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-scratch">ðŸ±</div><div><div class="tool-name">Scratch â€” Math Projects</div><span class="tool-tag tc">Coding &amp; Math</span></div></div>
-        <p class="tool-desc">MIT visual programming language for creating mathematics animations, simulations, and games. Students can code geometric patterns, fractals, and math stories.</p>
-        <div class="tool-features"><span class="feat-chip">Visual Coding</span><span class="feat-chip">Fractals</span><span class="feat-chip">Math Animation</span><span class="feat-chip">Games</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Scratch â€” Math Projects','https://scratch.mit.edu/explore/projects/math/','ico-scratch','ðŸ±','Create math animations and games with visual coding.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://scratch.mit.edu" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Scratch</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="quiz activities">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-mp">ðŸŽ¡</div><div><div class="tool-name">Math Playground</div><span class="tool-tag tac">Games &amp; Logic</span></div></div>
-        <p class="tool-desc">Teacher-approved math games for Classes 6-10. Explore logic puzzles, fraction operations, and word problems with visual, game-based learning.</p>
-        <div class="tool-features"><span class="feat-chip">Logic Puzzles</span><span class="feat-chip">Fractions</span><span class="feat-chip">Number Games</span><span class="feat-chip">Word Problems</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('Math Playground','https://www.mathplayground.com/','ico-mp','ðŸŽ¡','Teacher-approved math games and puzzles for middle school.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://www.mathplayground.com" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-    <div class="tool-card" data-cat="activities">
-      <div class="tool-card-top">
-        <div class="tool-card-header"><div class="tool-icon-wrap ico-nrich">ðŸ”¬</div><div><div class="tool-name">NRICH Mathematics</div><span class="tool-tag tpz">Rich Problems &amp; Puzzles</span></div></div>
-        <p class="tool-desc">University of Cambridge mathematics enrichment platform. Rich problems, investigations, and interactives that develop deep problem-solving skills â€” ideal for IOQM preparation.</p>
-        <div class="tool-features"><span class="feat-chip">Olympiad Prep</span><span class="feat-chip">Investigations</span><span class="feat-chip">Interactives</span><span class="feat-chip">Problem Solving</span></div>
-      </div>
-      <div class="tool-card-footer">
-        <button class="tool-launch-btn btn-prev" onclick="openSim('NRICH Mathematics','https://nrich.maths.org/','ico-nrich','ðŸ”¬','Cambridge University math enrichment activities.')"><i class="fas fa-play-circle"></i> Preview</button>
-        <a href="https://nrich.maths.org" target="_blank" class="tool-launch-btn btn-lp"><i class="fas fa-external-link-alt"></i> Open Full</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="sec-div fade-in"><div class="sdl"></div><span><i class="fas fa-desktop"></i> Featured Live Embeds â€” Use Directly Below</span><div class="sdl"></div></div>
-
-  <div class="embed-card fade-in-1">
-    <div class="embed-hdr"><div class="tool-icon-wrap ico-desmos">ðŸ“ˆ</div><div style="flex:1;"><div class="embed-title">Desmos Graphing Calculator</div><div class="embed-sub">Plot functions, create sliders, and explore mathematical relationships interactively</div></div><a href="https://www.desmos.com/calculator" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;"><i class="fas fa-expand"></i> Full Screen</a></div>
-    <div class="embed-body"><div class="sim-loading" id="d1"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading Desmos...</div></div><iframe src="https://www.desmos.com/calculator" style="width:100%;height:580px;border:none;display:block;" title="Desmos Graphing Calculator" onload="document.getElementById('d1').style.display='none'" allowfullscreen></iframe></div>
-  </div>
-
-  <div class="embed-card fade-in-2">
-    <div class="embed-hdr"><div class="tool-icon-wrap ico-gg">ðŸ“</div><div style="flex:1;"><div class="embed-title">GeoGebra Classic â€” Full Suite</div><div class="embed-sub">Algebra, geometry, CAS â€” all integrated in one powerful tool</div></div><a href="https://www.geogebra.org/classic" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#10b981,#0ea5e9);"><i class="fas fa-expand"></i> Full Screen</a></div>
-    <div class="embed-body"><div class="sim-loading" id="d2"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading GeoGebra...</div></div><iframe src="https://www.geogebra.org/classic" style="width:100%;height:580px;border:none;display:block;" title="GeoGebra Classic" onload="document.getElementById('d2').style.display='none'" allowfullscreen></iframe></div>
-  </div>
-
-  <div class="embed-card fade-in-3">
-    <div class="embed-hdr"><div class="tool-icon-wrap ico-phet">âš—ï¸</div><div style="flex:1;"><div class="embed-title">PhET â€” Number Line: Integers Simulation</div><div class="embed-sub">Interactive simulation for understanding integers on a number line â€” Class VI-VII</div></div><a href="https://phet.colorado.edu/en/simulations/number-line-integers" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#f59e0b,#ef4444);"><i class="fas fa-expand"></i> Full Screen</a></div>
-    <div class="embed-body"><div class="sim-loading" id="d3"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading PhET Simulation...</div></div><iframe src="https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_en.html" style="width:100%;height:500px;border:none;display:block;" title="PhET Number Line Integers" onload="document.getElementById('d3').style.display='none'" allowfullscreen></iframe></div>
-  </div>
-
-  <div class="embed-card fade-in-1">
-    <div class="embed-hdr"><div class="tool-icon-wrap ico-mig">ðŸŒŸ</div><div style="flex:1;"><div class="embed-title">Mathigon Polypad â€” Virtual Manipulatives</div><div class="embed-sub">Drag-and-drop virtual manipulatives: algebra tiles, number lines, fraction bars, tangrams</div></div><a href="https://mathigon.org/polypad" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#ec4899,#f59e0b);"><i class="fas fa-expand"></i> Full Screen</a></div>
-    <div class="embed-body"><div class="sim-loading" id="d4"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading Mathigon Polypad...</div></div><iframe src="https://mathigon.org/polypad" style="width:100%;height:580px;border:none;display:block;" title="Mathigon Polypad" onload="document.getElementById('d4').style.display='none'" allowfullscreen></iframe></div>
-  </div>
-
-  <div class="embed-card fade-in-2" style="margin-bottom:60px;">
-    <div class="embed-hdr"><div class="tool-icon-wrap ico-scratch">ðŸ±</div><div style="flex:1;"><div class="embed-title">Scratch â€” Create Math Animations</div><div class="embed-sub">MIT free coding platform â€” build geometric patterns and math simulations</div></div><a href="https://scratch.mit.edu/projects/editor" target="_blank" class="tool-launch-btn btn-lp" style="white-space:nowrap;width:auto;padding:9px 18px;font-size:.82em;border-radius:30px;background:linear-gradient(135deg,#fb923c,#f59e0b);"><i class="fas fa-expand"></i> Full Screen</a></div>
-    <div class="embed-body"><div class="sim-loading" id="d5"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading Scratch Editor...</div></div><iframe src="https://scratch.mit.edu/projects/editor" style="width:100%;height:580px;border:none;display:block;" title="Scratch Editor" onload="document.getElementById('d5').style.display='none'" allowfullscreen></iframe></div>
-  </div>
-
-</div></main>
-
-<footer class="site-footer"><div class="container"><div class="footer-grid">
-  <div class="footer-brand"><h3>ðŸ““ Teacher's Digital Diary</h3><p>K B Joshi | PGT Mathematics | PM SHRI Kendriya Vidyalaya Ranikhet<br>Empowering students through structured, digital mathematics education.</p></div>
-  <div class="footer-col"><h4>Simulation Tools</h4><ul>
-    <li><a href="https://www.desmos.com/calculator" target="_blank"><i class="fas fa-chevron-right"></i> Desmos Graphing</a></li>
-    <li><a href="https://www.geogebra.org/calculator" target="_blank"><i class="fas fa-chevron-right"></i> GeoGebra</a></li>
-    <li><a href="https://phet.colorado.edu" target="_blank"><i class="fas fa-chevron-right"></i> PhET Simulations</a></li>
-    <li><a href="https://kahoot.com" target="_blank"><i class="fas fa-chevron-right"></i> Kahoot!</a></li>
-    <li><a href="https://www.wolframalpha.com" target="_blank"><i class="fas fa-chevron-right"></i> WolframAlpha</a></li>
-  </ul></div>
-  <div class="footer-col"><h4>Quick Links</h4><ul>
-    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-    <li><a href="geogebra.html"><i class="fas fa-chevron-right"></i> GeoGebra Page</a></li>
-    <li><a href="interactive.html"><i class="fas fa-chevron-right"></i> Interactive Lessons</a></li>
-    <li><a href="studymaterial.html"><i class="fas fa-chevron-right"></i> Study Materials</a></li>
-    <li><a href="digitalcontent.html"><i class="fas fa-chevron-right"></i> Digital Content</a></li>
-  </ul></div>
-  <div class="footer-col"><h4>Contact</h4><ul>
-    <li><a href="mailto:kboshikv2008@gmail.com"><i class="fas fa-envelope"></i> kboshikv2008@gmail.com</a></li>
-    <li><a href="https://wa.me/919410121232" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Me</a></li>
-    <li><a href="http://www.youtube.com/@KBJ25" target="_blank"><i class="fab fa-youtube"></i> YouTube Channel</a></li>
-  </ul></div>
-</div><div class="footer-bottom"><p>&copy; 2025 <strong>K B Joshi</strong> &mdash; PGT Mathematics, PM SHRI KV Ranikhet. All rights reserved.</p><a href="#" class="back-to-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><i class="fa-solid fa-arrow-up"></i> Back to Top</a></div></div></footer>
+  </footer>
 </div>
 
-<div class="sim-modal-overlay" id="simModalOverlay" onclick="if(event.target===this)closeSim()">
-  <div class="sim-modal">
-    <div class="sim-modal-header">
-      <div class="sim-modal-icon" id="simModalIcon">ðŸ§®</div>
-      <div style="flex:1;"><div class="sim-modal-title" id="simModalTitle">Tool Preview</div><div class="sim-modal-subtitle" id="simModalSubtitle"></div></div>
-      <div class="sim-modal-actions">
-        <a href="#" id="simModalExtLink" target="_blank" class="sim-modal-btn sim-btn-ext"><i class="fas fa-external-link-alt"></i> Open Full Screen</a>
-        <button class="sim-modal-btn sim-btn-close" onclick="closeSim()"><i class="fas fa-times"></i> Close</button>
+<!-- GUIDE MODAL POPUP -->
+<div class="guide-modal-overlay" id="guideModalOverlay" onclick="if(event.target===this)closeGuideModal()">
+  <div class="guide-modal">
+    <div class="guide-modal-hdr">
+      <h3 class="guide-modal-title" id="guideModalTitle"><i class="fas fa-lightbulb" style="color:#fbbf24;"></i> Tool Pedagogy &amp; Guide</h3>
+      <button class="guide-modal-close" onclick="closeGuideModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="guide-modal-body">
+      <div class="guide-modal-section">
+        <h4><i class="fas fa-chalkboard-teacher"></i> Pedagogical Classroom Application</h4>
+        <p id="guideModalDesc"></p>
+      </div>
+      <div class="guide-modal-section">
+        <h4><i class="fas fa-graduation-cap"></i> Recommended CBSE Classes</h4>
+        <p>Curriculum aligned for <strong>Class IX, X, XI, and XII CBSE Mathematics &amp; STEM Labs</strong>.</p>
       </div>
     </div>
-    <div class="sim-modal-body" id="simModalBody"></div>
+    <div class="guide-modal-footer">
+      <button class="sim-btn" onclick="closeGuideModal()">Close</button>
+      <a href="#" id="guideModalLaunchBtn" target="_blank" class="sim-btn sim-btn-primary"><i class="fas fa-external-link-alt"></i> Open Simulation Platform</a>
+    </div>
   </div>
 </div>
 
-<div class="modal" id="passwordModal"><div class="modal-content">
-  <span class="close-btn" id="closeModal">&times;</span><h2>SECURE PROFILE ACCESS</h2>
-  <div class="teacher-info"><div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div><div class="teacher-details"><h3>KIRTI BALLABH JOSHI</h3><p>PGT Mathematics</p><p>PM SHRI KV Ranikhet</p></div></div>
-  <div class="password-form"><div class="form-group"><label for="password">Enter Access Password</label><div class="password-container"><input type="password" id="password" placeholder="Secure password required"><button class="toggle-password" id="togglePassword">&#128065;&#65039;</button></div></div><button class="submit-btn" id="submitPassword">ACCESS PROFILE</button><div class="error-message" id="errorMessage"></div><div class="security-info">&#128274; Profile access is securely encrypted and monitored</div></div>
-</div></div>
+<!-- PASSWORD MODAL -->
+<div class="modal" id="passwordModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <h2>SECURE PROFILE ACCESS</h2>
+    <div class="teacher-info">
+      <div class="teacher-pic-modal"><img src="kbjoshi.png" alt="Kirti Ballabh Joshi"></div>
+      <div class="teacher-details">
+        <h3>KIRTI BALLABH JOSHI</h3>
+        <p>PGT Mathematics</p>
+        <p>PM SHRI KV Ranikhet</p>
+      </div>
+    </div>
+    <div class="password-form">
+      <div class="form-group">
+        <label for="password">Enter Access Password</label>
+        <div class="password-container">
+          <input type="password" id="password" placeholder="Secure password required">
+          <button class="toggle-password" id="togglePassword">&#128065;&#65039;</button>
+        </div>
+      </div>
+      <button class="submit-btn" id="submitPassword">ACCESS PROFILE</button>
+      <div class="error-message" id="errorMessage"></div>
+      <div class="security-info">&#128274; Profile access is securely encrypted and monitored</div>
+    </div>
+  </div>
+</div>
 
 <button id="backToTop" title="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- =========================================================
+     JAVASCRIPT: SIMULATION ENGINES & FILTER SYSTEM
+     ========================================================= -->
 <script>
-document.querySelectorAll('.cat-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const c=b.dataset.cat;document.querySelectorAll('.tool-card').forEach(card=>{card.style.display=(c==='all'||card.dataset.cat.includes(c))?'':'none';});});});
-function openSim(t,u,ic,em,sub){const o=document.getElementById('simModalOverlay');document.getElementById('simModalTitle').textContent=t;document.getElementById('simModalSubtitle').textContent=sub;const i=document.getElementById('simModalIcon');i.textContent=em;i.className='sim-modal-icon '+ic;document.getElementById('simModalExtLink').href=u;document.getElementById('simModalBody').innerHTML='<div class="sim-loading" id="ms"><div class="spin"></div><div style="font-family:var(--font-head);font-size:.9em;color:var(--text-muted);">Loading '+t+'...</div></div><iframe src="'+u+'" style="width:100%;height:100%;min-height:480px;border:none;display:block;" title="'+t+'" allowfullscreen onload="var s=document.getElementById(\'ms\');if(s)s.style.display=\'none\';"></iframe>';o.classList.add('open');document.body.style.overflow='hidden';}
-function openNoEmbed(t,msg,ic,em,eu){const o=document.getElementById('simModalOverlay');document.getElementById('simModalTitle').textContent=t;document.getElementById('simModalSubtitle').textContent='External platform â€” opens in new tab';const i=document.getElementById('simModalIcon');i.textContent=em;i.className='sim-modal-icon '+ic;document.getElementById('simModalExtLink').href=eu;document.getElementById('simModalBody').innerHTML='<div class="sim-noembed"><div class="ne-icon">'+em+'</div><h3>'+t+'</h3><p>'+msg+'</p><a href="'+eu+'" target="_blank" class="tool-launch-btn btn-lp" style="width:auto;padding:12px 28px;"><i class="fas fa-external-link-alt"></i> Open '+t+' in New Tab</a></div>';o.classList.add('open');document.body.style.overflow='hidden';}
-function closeSim(){document.getElementById('simModalOverlay').classList.remove('open');document.body.style.overflow='';setTimeout(()=>{document.getElementById('simModalBody').innerHTML='';},300);}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSim();});
-window.addEventListener('scroll',()=>{document.getElementById('backToTop').classList.toggle('visible',window.scrollY>300);});
-document.getElementById('backToTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
-document.addEventListener('DOMContentLoaded',()=>{const modal=document.getElementById('passwordModal'),pl=document.getElementById('profileLink'),cm=document.getElementById('closeModal'),tp=document.getElementById('togglePassword'),pi=document.getElementById('password'),sb=document.getElementById('submitPassword'),em=document.getElementById('errorMessage');if(pl)pl.addEventListener('click',e=>{e.preventDefault();modal.style.display='flex';pi.focus();});if(cm)cm.addEventListener('click',()=>{modal.style.display='none';pi.value='';em.textContent='';});window.addEventListener('click',e=>{if(e.target===modal){modal.style.display='none';pi.value='';em.textContent='';}});if(tp)tp.addEventListener('click',function(){const t=pi.getAttribute('type')==='password'?'text':'password';pi.setAttribute('type',t);this.textContent=t==='password'?'\uD83D\uDC41\uFE0F':'\uD83D\uDD12';});if(sb)sb.addEventListener('click',()=>{const p=(pi.value||'').trim().toLowerCase();em.textContent='';if(!p){em.textContent='Please enter your access password';return;}if(['kbjkv@2008'].includes(p)){sb.textContent='Authenticating...';sb.disabled=true;setTimeout(()=>{window.location.href='profile.html';},1200);}else{em.textContent='Incorrect password. Please try again.';pi.value='';pi.focus();sb.classList.add('shake');setTimeout(()=>sb.classList.remove('shake'),500);}});if(pi)pi.addEventListener('keypress',e=>{if(e.key==='Enter')sb.click();});});
+/* ---------------------------------------------------------
+   1. FILTER & SEARCH ENGINE
+   --------------------------------------------------------- */
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterSimulations();
+  });
+});
+
+const searchInput = document.getElementById('simSearchInput');
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    filterSimulations();
+  });
+}
+
+function filterSimulations() {
+  const activeBtn = document.querySelector('.cat-btn.active');
+  const cat = activeBtn ? activeBtn.dataset.filter : 'all';
+  const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+  // Filter Native Sim Labs
+  const labCards = document.querySelectorAll('.sim-lab-card');
+  let visibleLabs = 0;
+  labCards.forEach(card => {
+    const cardCat = card.dataset.cat || '';
+    const keywords = (card.dataset.keywords || '') + ' ' + card.innerText.toLowerCase();
+    const matchesCat = (cat === 'all' || cardCat.includes(cat));
+    const matchesQuery = !query || keywords.includes(query);
+
+    if (matchesCat && matchesQuery) {
+      card.style.display = '';
+      visibleLabs++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  const nativeHeader = document.getElementById('secNativeLabs');
+  if (nativeHeader) {
+    nativeHeader.style.display = (visibleLabs > 0) ? '' : 'none';
+  }
+
+  // Filter External Tools Grid
+  const toolCards = document.querySelectorAll('.tool-card');
+  let visibleTools = 0;
+  toolCards.forEach(card => {
+    const cardCat = card.dataset.cat || '';
+    const keywords = (card.dataset.keywords || '') + ' ' + card.innerText.toLowerCase();
+    const matchesCat = (cat === 'all' || (cat !== 'native' && cardCat.includes(cat)));
+    const matchesQuery = !query || keywords.includes(query);
+
+    if (matchesCat && matchesQuery) {
+      card.style.display = '';
+      visibleTools++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  const globalHeader = document.getElementById('secGlobalTools');
+  if (globalHeader) {
+    globalHeader.style.display = (visibleTools > 0) ? '' : 'none';
+  }
+}
+
+/* ---------------------------------------------------------
+   2. GUIDE MODAL LOGIC
+   --------------------------------------------------------- */
+function openGuideModal(title, desc, launchUrl) {
+  document.getElementById('guideModalTitle').innerHTML = '<i class="fas fa-lightbulb" style="color:#fbbf24;"></i> ' + title + ' — Guide';
+  document.getElementById('guideModalDesc').textContent = desc;
+  document.getElementById('guideModalLaunchBtn').href = launchUrl;
+  document.getElementById('guideModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGuideModal() {
+  document.getElementById('guideModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeGuideModal();
+});
+
+/* ---------------------------------------------------------
+   3. SIMULATION 1: FUNCTION & TANGENT DERIVATIVE
+   --------------------------------------------------------- */
+const cvsFunc = document.getElementById('cvsFunction');
+const ctxFunc = cvsFunc ? cvsFunc.getContext('2d') : null;
+let animTangentId = null;
+
+function evalF(preset, a, x) {
+  switch (preset) {
+    case 'sin': return Math.sin(a * x);
+    case 'poly2': return a * x * x - 2 * x - 1;
+    case 'poly3': return a * Math.pow(x, 3) - 3 * x;
+    case 'exp': return Math.exp(0.5 * a * x) - 2;
+    case 'cos': return Math.cos(a * x);
+    case 'abs': return Math.abs(x - a);
+    default: return Math.sin(x);
+  }
+}
+
+function evalDeriv(preset, a, x) {
+  const h = 0.0001;
+  return (evalF(preset, a, x + h) - evalF(preset, a, x - h)) / (2 * h);
+}
+
+function drawFunctionSim() {
+  if (!ctxFunc || !cvsFunc) return;
+  const w = cvsFunc.width;
+  const h = cvsFunc.height;
+  const preset = document.getElementById('selFuncPreset').value;
+  const a = parseFloat(document.getElementById('sliderA').value);
+  const x0 = parseFloat(document.getElementById('sliderX0').value);
+
+  document.getElementById('valA').textContent = a.toFixed(1);
+  document.getElementById('valX0').textContent = x0.toFixed(1);
+
+  ctxFunc.clearRect(0, 0, w, h);
+
+  // Coordinate transforms
+  const cx = w / 2;
+  const cy = h / 2;
+  const scale = 36; // px per unit
+
+  // Grid
+  ctxFunc.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctxFunc.lineWidth = 1;
+  for (let gx = -10; gx <= 10; gx++) {
+    const px = cx + gx * scale;
+    ctxFunc.beginPath();
+    ctxFunc.moveTo(px, 0);
+    ctxFunc.lineTo(px, h);
+    ctxFunc.stroke();
+  }
+  for (let gy = -10; gy <= 10; gy++) {
+    const py = cy - gy * scale;
+    ctxFunc.beginPath();
+    ctxFunc.moveTo(0, py);
+    ctxFunc.lineTo(w, py);
+    ctxFunc.stroke();
+  }
+
+  // Axes
+  ctxFunc.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+  ctxFunc.lineWidth = 1.5;
+  ctxFunc.beginPath();
+  ctxFunc.moveTo(0, cy);
+  ctxFunc.lineTo(w, cy);
+  ctxFunc.moveTo(cx, 0);
+  ctxFunc.lineTo(cx, h);
+  ctxFunc.stroke();
+
+  // Plot Curve
+  ctxFunc.strokeStyle = '#38bdf8';
+  ctxFunc.lineWidth = 2.5;
+  ctxFunc.beginPath();
+  let first = true;
+  for (let px = 0; px <= w; px += 2) {
+    const x = (px - cx) / scale;
+    const y = evalF(preset, a, x);
+    const py = cy - y * scale;
+    if (py >= -100 && py <= h + 100) {
+      if (first) { ctxFunc.moveTo(px, py); first = false; }
+      else { ctxFunc.lineTo(px, py); }
+    }
+  }
+  ctxFunc.stroke();
+
+  // Tangent Line
+  const y0 = evalF(preset, a, x0);
+  const m = evalDeriv(preset, a, x0);
+  const px0 = cx + x0 * scale;
+  const py0 = cy - y0 * scale;
+
+  ctxFunc.strokeStyle = '#f43f5e';
+  ctxFunc.lineWidth = 2;
+  ctxFunc.setLineDash([4, 4]);
+  ctxFunc.beginPath();
+  const tx1 = x0 - 3;
+  const ty1 = y0 - m * 3;
+  const tx2 = x0 + 3;
+  const ty2 = y0 + m * 3;
+  ctxFunc.moveTo(cx + tx1 * scale, cy - ty1 * scale);
+  ctxFunc.lineTo(cx + tx2 * scale, cy - ty2 * scale);
+  ctxFunc.stroke();
+  ctxFunc.setLineDash([]);
+
+  // Tangent Point Circle
+  ctxFunc.fillStyle = '#f43f5e';
+  ctxFunc.beginPath();
+  ctxFunc.arc(px0, py0, 6, 0, 2 * Math.PI);
+  ctxFunc.fill();
+  ctxFunc.strokeStyle = '#fff';
+  ctxFunc.lineWidth = 2;
+  ctxFunc.stroke();
+
+  // Update Data Overlay
+  const dataOverlay = document.getElementById('cvsFunctionData');
+  if (dataOverlay) {
+    dataOverlay.innerHTML = `Preset: ${preset.toUpperCase()} | a = ${a.toFixed(1)}<br>Point (x₀, y₀) = (${x0.toFixed(2)}, ${y0.toFixed(2)})<br>Derivative f'(x₀) [Slope] = <strong>${m.toFixed(2)}</strong>`;
+  }
+}
+
+if (document.getElementById('selFuncPreset')) {
+  document.getElementById('selFuncPreset').addEventListener('change', drawFunctionSim);
+  document.getElementById('sliderA').addEventListener('input', drawFunctionSim);
+  document.getElementById('sliderX0').addEventListener('input', drawFunctionSim);
+  document.getElementById('btnResetFunc').addEventListener('click', () => {
+    document.getElementById('sliderA').value = '1';
+    document.getElementById('sliderX0').value = '0';
+    if (animTangentId) cancelAnimationFrame(animTangentId);
+    drawFunctionSim();
+  });
+  document.getElementById('btnAnimTangent').addEventListener('click', () => {
+    let t = -4.0;
+    function loop() {
+      t += 0.05;
+      if (t > 4.0) t = -4.0;
+      document.getElementById('sliderX0').value = t.toFixed(2);
+      drawFunctionSim();
+      animTangentId = requestAnimationFrame(loop);
+    }
+    if (animTangentId) {
+      cancelAnimationFrame(animTangentId);
+      animTangentId = null;
+      document.getElementById('btnAnimTangent').innerHTML = '<i class="fas fa-play"></i> Animate Tangent';
+    } else {
+      document.getElementById('btnAnimTangent').innerHTML = '<i class="fas fa-pause"></i> Pause Animation';
+      loop();
+    }
+  });
+}
+
+/* ---------------------------------------------------------
+   4. SIMULATION 2: UNIT CIRCLE & WAVE GENERATOR
+   --------------------------------------------------------- */
+const cvsCirc = document.getElementById('cvsUnitCircle');
+const ctxCirc = cvsCirc ? cvsCirc.getContext('2d') : null;
+let animCircleId = null;
+
+function setAngle(deg) {
+  document.getElementById('sliderAngle').value = deg;
+  drawUnitCircleSim();
+}
+
+function drawUnitCircleSim() {
+  if (!ctxCirc || !cvsCirc) return;
+  const w = cvsCirc.width;
+  const h = cvsCirc.height;
+  const deg = parseFloat(document.getElementById('sliderAngle').value);
+  const rad = (deg * Math.PI) / 180;
+
+  document.getElementById('valAngle').textContent = deg + '°';
+
+  ctxCirc.clearRect(0, 0, w, h);
+
+  const cx = 170;
+  const cy = h / 2;
+  const r = 110;
+
+  // Axes on left circle
+  ctxCirc.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctxCirc.lineWidth = 1;
+  ctxCirc.beginPath();
+  ctxCirc.moveTo(cx - r - 20, cy);
+  ctxCirc.lineTo(cx + r + 20, cy);
+  ctxCirc.moveTo(cx, cy - r - 20);
+  ctxCirc.lineTo(cx, cy + r + 20);
+  ctxCirc.stroke();
+
+  // Unit Circle
+  ctxCirc.strokeStyle = 'rgba(167, 139, 250, 0.6)';
+  ctxCirc.lineWidth = 2;
+  ctxCirc.beginPath();
+  ctxCirc.arc(cx, cy, r, 0, 2 * Math.PI);
+  ctxCirc.stroke();
+
+  // Point on circle
+  const px = cx + r * Math.cos(rad);
+  const py = cy - r * Math.sin(rad);
+
+  // Cosine line (horizontal teal)
+  ctxCirc.strokeStyle = '#2dd4bf';
+  ctxCirc.lineWidth = 3;
+  ctxCirc.beginPath();
+  ctxCirc.moveTo(cx, cy);
+  ctxCirc.lineTo(px, cy);
+  ctxCirc.stroke();
+
+  // Sine line (vertical pink)
+  ctxCirc.strokeStyle = '#f43f5e';
+  ctxCirc.lineWidth = 3;
+  ctxCirc.beginPath();
+  ctxCirc.moveTo(px, cy);
+  ctxCirc.lineTo(px, py);
+  ctxCirc.stroke();
+
+  // Radius hypotenuse
+  ctxCirc.strokeStyle = '#c4b5fd';
+  ctxCirc.lineWidth = 2;
+  ctxCirc.beginPath();
+  ctxCirc.moveTo(cx, cy);
+  ctxCirc.lineTo(px, py);
+  ctxCirc.stroke();
+
+  // Angle arc
+  ctxCirc.strokeStyle = '#f59e0b';
+  ctxCirc.lineWidth = 2;
+  ctxCirc.beginPath();
+  ctxCirc.arc(cx, cy, 30, 0, -rad, true);
+  ctxCirc.stroke();
+
+  // Point dot
+  ctxCirc.fillStyle = '#fff';
+  ctxCirc.beginPath();
+  ctxCirc.arc(px, py, 6, 0, 2 * Math.PI);
+  ctxCirc.fill();
+
+  // Right Side Sine Wave
+  const waveStartX = 340;
+  const waveW = w - waveStartX - 20;
+
+  // Wave axis
+  ctxCirc.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+  ctxCirc.beginPath();
+  ctxCirc.moveTo(waveStartX, cy);
+  ctxCirc.lineTo(w - 10, cy);
+  ctxCirc.stroke();
+
+  // Sine Wave curve
+  ctxCirc.strokeStyle = '#f43f5e';
+  ctxCirc.lineWidth = 2;
+  ctxCirc.beginPath();
+  for (let x = 0; x <= waveW; x += 2) {
+    const angleX = (x / waveW) * 2 * Math.PI;
+    const wy = cy - r * Math.sin(angleX);
+    if (x === 0) ctxCirc.moveTo(waveStartX + x, wy);
+    else ctxCirc.lineTo(waveStartX + x, wy);
+  }
+  ctxCirc.stroke();
+
+  // Connector dot on wave
+  const waveNormAngle = (rad % (2 * Math.PI));
+  const currentWaveX = waveStartX + (waveNormAngle / (2 * Math.PI)) * waveW;
+  const currentWaveY = cy - r * Math.sin(rad);
+
+  // Dashed connector line
+  ctxCirc.strokeStyle = 'rgba(244, 63, 94, 0.5)';
+  ctxCirc.setLineDash([4, 4]);
+  ctxCirc.beginPath();
+  ctxCirc.moveTo(px, py);
+  ctxCirc.lineTo(currentWaveX, currentWaveY);
+  ctxCirc.stroke();
+  ctxCirc.setLineDash([]);
+
+  // Wave current point
+  ctxCirc.fillStyle = '#f43f5e';
+  ctxCirc.beginPath();
+  ctxCirc.arc(currentWaveX, currentWaveY, 6, 0, 2 * Math.PI);
+  ctxCirc.fill();
+
+  // Numerical display updates
+  const sVal = Math.sin(rad);
+  const cVal = Math.cos(rad);
+  const tVal = Math.abs(cVal) > 0.001 ? (sVal / cVal).toFixed(3) : 'Undefined (∞)';
+
+  document.getElementById('rSin').textContent = sVal.toFixed(3);
+  document.getElementById('rCos').textContent = cVal.toFixed(3);
+  document.getElementById('rTan').textContent = tVal;
+
+  const trigOverlay = document.getElementById('cvsTrigData');
+  if (trigOverlay) {
+    trigOverlay.innerHTML = `θ = ${deg}° (${rad.toFixed(2)} rad)<br>sin θ = ${sVal.toFixed(3)} | cos θ = ${cVal.toFixed(3)}`;
+  }
+}
+
+if (document.getElementById('sliderAngle')) {
+  document.getElementById('sliderAngle').addEventListener('input', drawUnitCircleSim);
+  document.getElementById('btnAnimCircle').addEventListener('click', () => {
+    let cur = parseFloat(document.getElementById('sliderAngle').value);
+    function loop() {
+      cur = (cur + 1) % 360;
+      document.getElementById('sliderAngle').value = cur;
+      drawUnitCircleSim();
+      animCircleId = requestAnimationFrame(loop);
+    }
+    if (animCircleId) {
+      cancelAnimationFrame(animCircleId);
+      animCircleId = null;
+      document.getElementById('btnAnimCircle').innerHTML = '<i class="fas fa-play"></i> Rotate Continuously';
+    } else {
+      document.getElementById('btnAnimCircle').innerHTML = '<i class="fas fa-pause"></i> Stop Rotation';
+      loop();
+    }
+  });
+}
+
+/* ---------------------------------------------------------
+   5. SIMULATION 3: VECTOR OPERATIONS & DOT PRODUCT
+   --------------------------------------------------------- */
+const cvsVec = document.getElementById('cvsVectors');
+const ctxVec = cvsVec ? cvsVec.getContext('2d') : null;
+
+function drawVectorSim() {
+  if (!ctxVec || !cvsVec) return;
+  const w = cvsVec.width;
+  const h = cvsVec.height;
+  const ux = parseFloat(document.getElementById('sliderUx').value);
+  const uy = parseFloat(document.getElementById('sliderUy').value);
+  const vx = parseFloat(document.getElementById('sliderVx').value);
+  const vy = parseFloat(document.getElementById('sliderVy').value);
+  const showSum = document.getElementById('chkVecSum').checked;
+  const showPara = document.getElementById('chkParallelogram').checked;
+
+  document.getElementById('valU').textContent = `(${ux}, ${uy})`;
+  document.getElementById('valV').textContent = `(${vx}, ${vy})`;
+
+  ctxVec.clearRect(0, 0, w, h);
+
+  const cx = w / 2;
+  const cy = h / 2;
+  const scale = 28;
+
+  // Grid
+  ctxVec.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctxVec.lineWidth = 1;
+  for (let gx = -10; gx <= 10; gx++) {
+    ctxVec.beginPath();
+    ctxVec.moveTo(cx + gx * scale, 0);
+    ctxVec.lineTo(cx + gx * scale, h);
+    ctxVec.stroke();
+    ctxVec.beginPath();
+    ctxVec.moveTo(0, cy + gx * scale);
+    ctxVec.lineTo(w, cy + gx * scale);
+    ctxVec.stroke();
+  }
+
+  // Axes
+  ctxVec.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+  ctxVec.beginPath();
+  ctxVec.moveTo(0, cy); ctxVec.lineTo(w, cy);
+  ctxVec.moveTo(cx, 0); ctxVec.lineTo(cx, h);
+  ctxVec.stroke();
+
+  // Helper Arrow Drawer
+  function drawArrow(x0, y0, x1, y1, color, label) {
+    const px0 = cx + x0 * scale;
+    const py0 = cy - y0 * scale;
+    const px1 = cx + x1 * scale;
+    const py1 = cy - y1 * scale;
+
+    ctxVec.strokeStyle = color;
+    ctxVec.fillStyle = color;
+    ctxVec.lineWidth = 3;
+
+    ctxVec.beginPath();
+    ctxVec.moveTo(px0, py0);
+    ctxVec.lineTo(px1, py1);
+    ctxVec.stroke();
+
+    // Arrowhead
+    const angle = Math.atan2(py0 - py1, px1 - px0);
+    const arrowLen = 12;
+    ctxVec.beginPath();
+    ctxVec.moveTo(px1, py1);
+    ctxVec.lineTo(px1 - arrowLen * Math.cos(angle - Math.PI / 6), py1 + arrowLen * Math.sin(angle - Math.PI / 6));
+    ctxVec.lineTo(px1 - arrowLen * Math.cos(angle + Math.PI / 6), py1 + arrowLen * Math.sin(angle + Math.PI / 6));
+    ctxVec.closePath();
+    ctxVec.fill();
+
+    if (label) {
+      ctxVec.font = 'bold 13px Poppins, sans-serif';
+      ctxVec.fillText(label, px1 + 8, py1 - 8);
+    }
+  }
+
+  // Parallelogram Area fill
+  if (showPara) {
+    ctxVec.fillStyle = 'rgba(168, 85, 247, 0.15)';
+    ctxVec.beginPath();
+    ctxVec.moveTo(cx, cy);
+    ctxVec.lineTo(cx + ux * scale, cy - uy * scale);
+    ctxVec.lineTo(cx + (ux + vx) * scale, cy - (uy + vy) * scale);
+    ctxVec.lineTo(cx + vx * scale, cy - vy * scale);
+    ctxVec.closePath();
+    ctxVec.fill();
+    ctxVec.strokeStyle = 'rgba(168, 85, 247, 0.4)';
+    ctxVec.setLineDash([3, 3]);
+    ctxVec.stroke();
+    ctxVec.setLineDash([]);
+  }
+
+  // Draw Vector U (Emerald)
+  drawArrow(0, 0, ux, uy, '#10b981', 'u');
+  // Draw Vector V (Sky Blue)
+  drawArrow(0, 0, vx, vy, '#0ea5e9', 'v');
+
+  // Draw Resultant U + V (Rose)
+  if (showSum) {
+    drawArrow(0, 0, ux + vx, uy + vy, '#f43f5e', 'u + v');
+  }
+
+  // Calculations
+  const magU = Math.sqrt(ux * ux + uy * uy);
+  const magV = Math.sqrt(vx * vx + vy * vy);
+  const dotProd = ux * vx + uy * vy;
+  let angleDeg = 0;
+  if (magU > 0 && magV > 0) {
+    const cosTheta = Math.max(-1, Math.min(1, dotProd / (magU * magV)));
+    angleDeg = (Math.acos(cosTheta) * 180) / Math.PI;
+  }
+  const crossArea = Math.abs(ux * vy - uy * vx);
+
+  document.getElementById('vecCalcBox').innerHTML = `
+    <strong>Vector Algebra Results:</strong><br>
+    • |u| = ${magU.toFixed(2)}, &nbsp; |v| = ${magV.toFixed(2)}<br>
+    • Dot Product <strong>u · v</strong> = <strong>${dotProd.toFixed(2)}</strong><br>
+    • Angle θ = <strong>${angleDeg.toFixed(1)}°</strong><br>
+    • Parallelogram Area |u × v| = <strong>${crossArea.toFixed(2)}</strong>
+  `;
+
+  const vecOverlay = document.getElementById('cvsVecData');
+  if (vecOverlay) {
+    vecOverlay.innerHTML = `u = (${ux}, ${uy}) | v = (${vx}, ${vy})<br>u · v = ${dotProd.toFixed(1)} | θ = ${angleDeg.toFixed(1)}°`;
+  }
+}
+
+if (document.getElementById('sliderUx')) {
+  ['sliderUx', 'sliderUy', 'sliderVx', 'sliderVy'].forEach(id => {
+    document.getElementById(id).addEventListener('input', drawVectorSim);
+  });
+  document.getElementById('chkVecSum').addEventListener('change', drawVectorSim);
+  document.getElementById('chkParallelogram').addEventListener('change', drawVectorSim);
+}
+
+/* ---------------------------------------------------------
+   6. SIMULATION 4: RIEMANN SUMS & DEFINITE INTEGRALS
+   --------------------------------------------------------- */
+const cvsRiem = document.getElementById('cvsRiemann');
+const ctxRiem = cvsRiem ? cvsRiem.getContext('2d') : null;
+
+function evalRFunc(type, x) {
+  switch (type) {
+    case 'parabola': return x * x;
+    case 'sin': return Math.sin(x) + 1;
+    case 'cubic': return -Math.pow(x, 3) + 4 * x;
+    case 'exp': return Math.exp(0.5 * x);
+    default: return x * x;
+  }
+}
+
+function getRBounds(type) {
+  switch (type) {
+    case 'parabola': return { a: 0, b: 3, exact: 9.0 };
+    case 'sin': return { a: 0, b: Math.PI, exact: Math.PI + 2.0 };
+    case 'cubic': return { a: 0, b: 2, exact: 4.0 };
+    case 'exp': return { a: 0, b: 2, exact: 2 * (Math.E - 1) };
+    default: return { a: 0, b: 3, exact: 9.0 };
+  }
+}
+
+function drawRiemannSim() {
+  if (!ctxRiem || !cvsRiem) return;
+  const w = cvsRiem.width;
+  const h = cvsRiem.height;
+  const funcType = document.getElementById('selRiemannFunc').value;
+  const sumType = document.getElementById('selRiemannType').value;
+  const n = parseInt(document.getElementById('sliderN').value);
+  document.getElementById('valN').textContent = n;
+
+  ctxRiem.clearRect(0, 0, w, h);
+
+  const bounds = getRBounds(funcType);
+  const a = bounds.a;
+  const b = bounds.b;
+  const exact = bounds.exact;
+
+  const dx = (b - a) / n;
+  let riemannSum = 0;
+
+  // Transforms
+  const padLeft = 40;
+  const padBottom = 40;
+  const plotW = w - padLeft - 20;
+  const plotH = h - padBottom - 20;
+
+  // Max Y estimate
+  let maxY = 1;
+  for (let x = a; x <= b; x += (b - a) / 50) {
+    maxY = Math.max(maxY, evalRFunc(funcType, x));
+  }
+  maxY *= 1.2;
+
+  function toScreenX(x) { return padLeft + ((x - a) / (b - a)) * plotW; }
+  function toScreenY(y) { return (h - padBottom) - (y / maxY) * plotH; }
+
+  // Draw Riemann Rectangles
+  for (let i = 0; i < n; i++) {
+    const xLeft = a + i * dx;
+    const xRight = xLeft + dx;
+    let evalX = xLeft;
+
+    if (sumType === 'left') evalX = xLeft;
+    else if (sumType === 'right') evalX = xRight;
+    else if (sumType === 'mid') evalX = (xLeft + xRight) / 2;
+    else if (sumType === 'trap') {
+      const yL = evalRFunc(funcType, xLeft);
+      const yR = evalRFunc(funcType, xRight);
+      riemannSum += 0.5 * (yL + yR) * dx;
+
+      // Draw Trapezoid
+      ctxRiem.fillStyle = 'rgba(56, 189, 248, 0.25)';
+      ctxRiem.strokeStyle = '#38bdf8';
+      ctxRiem.lineWidth = 1;
+      ctxRiem.beginPath();
+      ctxRiem.moveTo(toScreenX(xLeft), toScreenY(0));
+      ctxRiem.lineTo(toScreenX(xLeft), toScreenY(yL));
+      ctxRiem.lineTo(toScreenX(xRight), toScreenY(yR));
+      ctxRiem.lineTo(toScreenX(xRight), toScreenY(0));
+      ctxRiem.closePath();
+      ctxRiem.fill();
+      ctxRiem.stroke();
+      continue;
+    }
+
+    const rectY = evalRFunc(funcType, evalX);
+    riemannSum += rectY * dx;
+
+    // Draw Rectangle
+    const rx = toScreenX(xLeft);
+    const rw = toScreenX(xRight) - rx;
+    const ry = toScreenY(rectY);
+    const rh = toScreenY(0) - ry;
+
+    ctxRiem.fillStyle = 'rgba(124, 58, 237, 0.3)';
+    ctxRiem.strokeStyle = '#a78bfa';
+    ctxRiem.lineWidth = 1;
+    ctxRiem.fillRect(rx, ry, rw, rh);
+    ctxRiem.strokeRect(rx, ry, rw, rh);
+  }
+
+  // Draw Exact Curve
+  ctxRiem.strokeStyle = '#f43f5e';
+  ctxRiem.lineWidth = 3;
+  ctxRiem.beginPath();
+  for (let px = 0; px <= plotW; px += 2) {
+    const x = a + (px / plotW) * (b - a);
+    const y = evalRFunc(funcType, x);
+    const sy = toScreenY(y);
+    if (px === 0) ctxRiem.moveTo(padLeft + px, sy);
+    else ctxRiem.lineTo(padLeft + px, sy);
+  }
+  ctxRiem.stroke();
+
+  // Baseline X Axis
+  ctxRiem.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+  ctxRiem.lineWidth = 1.5;
+  ctxRiem.beginPath();
+  ctxRiem.moveTo(padLeft, toScreenY(0));
+  ctxRiem.lineTo(w - 10, toScreenY(0));
+  ctxRiem.stroke();
+
+  const err = Math.abs(riemannSum - exact);
+  const pct = ((err / exact) * 100).toFixed(2);
+
+  document.getElementById('riemannCalcBox').innerHTML = `
+    <strong>Riemann Integration Calculus:</strong><br>
+    • Approximation Sum = <strong>${riemannSum.toFixed(3)}</strong><br>
+    • Analytical Exact Area = <strong>${exact.toFixed(3)}</strong><br>
+    • Absolute Error = <strong>${err.toFixed(3)} (${pct}%)</strong>
+  `;
+
+  const riemOverlay = document.getElementById('cvsRiemannData');
+  if (riemOverlay) {
+    riemOverlay.innerHTML = `n = ${n} partitions (${sumType.toUpperCase()})<br>Sum = ${riemannSum.toFixed(3)} | Exact = ${exact.toFixed(3)}`;
+  }
+}
+
+if (document.getElementById('selRiemannFunc')) {
+  document.getElementById('selRiemannFunc').addEventListener('change', drawRiemannSim);
+  document.getElementById('selRiemannType').addEventListener('change', drawRiemannSim);
+  document.getElementById('sliderN').addEventListener('input', drawRiemannSim);
+}
+
+/* ---------------------------------------------------------
+   7. SIMULATION 5: CONIC SECTIONS & ECCENTRICITY
+   --------------------------------------------------------- */
+const cvsConic = document.getElementById('cvsConic');
+const ctxConic = cvsConic ? cvsConic.getContext('2d') : null;
+
+function setConicEcc(e) {
+  document.getElementById('sliderEcc').value = e;
+  drawConicSim();
+}
+
+function drawConicSim() {
+  if (!ctxConic || !cvsConic) return;
+  const w = cvsConic.width;
+  const h = cvsConic.height;
+  const e = parseFloat(document.getElementById('sliderEcc').value);
+  document.getElementById('valEcc').textContent = e.toFixed(2);
+
+  ctxConic.clearRect(0, 0, w, h);
+
+  const cx = w / 2;
+  const cy = h / 2;
+
+  // Grid & Axes
+  ctxConic.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+  ctxConic.beginPath();
+  ctxConic.moveTo(0, cy); ctxConic.lineTo(w, cy);
+  ctxConic.moveTo(cx, 0); ctxConic.lineTo(cx, h);
+  ctxConic.stroke();
+
+  let conicName = 'Ellipse';
+  let color = '#c084fc';
+  const a = 120; // major radius
+
+  ctxConic.lineWidth = 3;
+
+  if (e === 0) {
+    conicName = 'Circle (e = 0)';
+    color = '#38bdf8';
+    ctxConic.strokeStyle = color;
+    ctxConic.beginPath();
+    ctxConic.arc(cx, cy, a, 0, 2 * Math.PI);
+    ctxConic.stroke();
+  } else if (e < 1.0) {
+    conicName = 'Ellipse (0 < e < 1)';
+    color = '#c084fc';
+    const b = a * Math.sqrt(1 - e * e);
+    ctxConic.strokeStyle = color;
+    ctxConic.beginPath();
+    ctxConic.ellipse(cx, cy, a, b, 0, 0, 2 * Math.PI);
+    ctxConic.stroke();
+
+    // Draw Foci
+    const c = a * e;
+    ctxConic.fillStyle = '#f43f5e';
+    ctxConic.beginPath(); ctxConic.arc(cx - c, cy, 5, 0, 2 * Math.PI); ctxConic.fill();
+    ctxConic.beginPath(); ctxConic.arc(cx + c, cy, 5, 0, 2 * Math.PI); ctxConic.fill();
+  } else if (Math.abs(e - 1.0) < 0.05) {
+    conicName = 'Parabola (e = 1)';
+    color = '#10b981';
+    ctxConic.strokeStyle = color;
+    ctxConic.beginPath();
+    for (let py = -160; py <= 160; py += 2) {
+      const px = (py * py) / (4 * 35);
+      if (py === -160) ctxConic.moveTo(cx - 80 + px, cy + py);
+      else ctxConic.lineTo(cx - 80 + px, cy + py);
+    }
+    ctxConic.stroke();
+
+    // Focus & Directrix
+    ctxConic.fillStyle = '#f43f5e';
+    ctxConic.beginPath(); ctxConic.arc(cx - 80 + 35, cy, 5, 0, 2 * Math.PI); ctxConic.fill();
+    ctxConic.strokeStyle = 'rgba(244, 63, 94, 0.5)';
+    ctxConic.setLineDash([4, 4]);
+    ctxConic.beginPath(); ctxConic.moveTo(cx - 80 - 35, 0); ctxConic.lineTo(cx - 80 - 35, h); ctxConic.stroke();
+    ctxConic.setLineDash([]);
+  } else {
+    conicName = 'Hyperbola (e > 1)';
+    color = '#f59e0b';
+    const b = a * Math.sqrt(e * e - 1);
+    ctxConic.strokeStyle = color;
+    // Right branch
+    ctxConic.beginPath();
+    for (let t = -1.4; t <= 1.4; t += 0.05) {
+      const hx = a * Math.cosh(t);
+      const hy = b * Math.sinh(t);
+      if (t === -1.4) ctxConic.moveTo(cx + hx * 0.6, cy - hy * 0.6);
+      else ctxConic.lineTo(cx + hx * 0.6, cy - hy * 0.6);
+    }
+    ctxConic.stroke();
+    // Left branch
+    ctxConic.beginPath();
+    for (let t = -1.4; t <= 1.4; t += 0.05) {
+      const hx = -a * Math.cosh(t);
+      const hy = b * Math.sinh(t);
+      if (t === -1.4) ctxConic.moveTo(cx + hx * 0.6, cy - hy * 0.6);
+      else ctxConic.lineTo(cx + hx * 0.6, cy - hy * 0.6);
+    }
+    ctxConic.stroke();
+  }
+
+  document.getElementById('conicAnalysisBox').innerHTML = `
+    <strong>Classification: ${conicName}</strong><br>
+    • Eccentricity \(e = ${e.toFixed(2)}\)<br>
+    • Distance Ratio \(\\frac{SP}{PM} = e\)<br>
+    • Standard Equation: ${e < 1 ? '\\(\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1\\)' : (e === 1 ? '\\(y^2 = 4ax\\)' : '\\(\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1\\)')}
+  `;
+
+  const conicOverlay = document.getElementById('cvsConicData');
+  if (conicOverlay) {
+    conicOverlay.innerHTML = `Conic: ${conicName}<br>Eccentricity e = ${e.toFixed(2)}`;
+  }
+}
+
+if (document.getElementById('sliderEcc')) {
+  document.getElementById('sliderEcc').addEventListener('input', drawConicSim);
+}
+
+/* ---------------------------------------------------------
+   8. SIMULATION 6: PROBABILITY & CENTRAL LIMIT THEOREM
+   --------------------------------------------------------- */
+const cvsProb = document.getElementById('cvsProb');
+const ctxProb = cvsProb ? cvsProb.getContext('2d') : null;
+let diceCounts = {};
+let totalRolls = 0;
+
+function resetProb() {
+  diceCounts = {};
+  totalRolls = 0;
+  drawProbSim();
+}
+
+function rollDice(times) {
+  const numDice = parseInt(document.getElementById('selDiceCount').value);
+  for (let t = 0; t < times; t++) {
+    let sum = 0;
+    for (let d = 0; d < numDice; d++) {
+      sum += Math.floor(Math.random() * 6) + 1;
+    }
+    diceCounts[sum] = (diceCounts[sum] || 0) + 1;
+    totalRolls++;
+  }
+  drawProbSim();
+}
+
+function drawProbSim() {
+  if (!ctxProb || !cvsProb) return;
+  const w = cvsProb.width;
+  const h = cvsProb.height;
+  const numDice = parseInt(document.getElementById('selDiceCount').value);
+
+  ctxProb.clearRect(0, 0, w, h);
+
+  const minSum = numDice;
+  const maxSum = numDice * 6;
+  const totalOutcomes = maxSum - minSum + 1;
+
+  const padLeft = 40;
+  const padBottom = 30;
+  const plotW = w - padLeft - 20;
+  const plotH = h - padBottom - 30;
+
+  // Find max frequency
+  let maxFreq = 1;
+  for (let s = minSum; s <= maxSum; s++) {
+    maxFreq = Math.max(maxFreq, diceCounts[s] || 0);
+  }
+
+  const barW = (plotW / totalOutcomes) * 0.8;
+  const stepW = plotW / totalOutcomes;
+
+  // Draw Histogram Bars
+  for (let s = minSum; s <= maxSum; s++) {
+    const count = diceCounts[s] || 0;
+    const barH = totalRolls > 0 ? (count / maxFreq) * plotH : 0;
+    const bx = padLeft + (s - minSum) * stepW + (stepW - barW) / 2;
+    const by = (h - padBottom) - barH;
+
+    ctxProb.fillStyle = 'rgba(245, 158, 11, 0.6)';
+    ctxProb.fillRect(bx, by, barW, barH);
+    ctxProb.strokeStyle = '#f59e0b';
+    ctxProb.strokeRect(bx, by, barW, barH);
+
+    // Sum Label below
+    ctxProb.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctxProb.font = '10px Poppins, sans-serif';
+    ctxProb.textAlign = 'center';
+    ctxProb.fillText(s, bx + barW / 2, h - 10);
+  }
+
+  // Draw Baseline
+  ctxProb.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+  ctxProb.beginPath();
+  ctxProb.moveTo(padLeft, h - padBottom);
+  ctxProb.lineTo(w - 10, h - padBottom);
+  ctxProb.stroke();
+
+  // Theoretical Gaussian overlay if rolls > 50
+  if (totalRolls > 50) {
+    const mean = numDice * 3.5;
+    const variance = numDice * (35 / 12);
+    const stdDev = Math.sqrt(variance);
+
+    ctxProb.strokeStyle = '#38bdf8';
+    ctxProb.lineWidth = 2.5;
+    ctxProb.beginPath();
+    for (let px = 0; px <= plotW; px += 2) {
+      const sVal = minSum + (px / plotW) * (maxSum - minSum);
+      const gauss = (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((sVal - mean) / stdDev, 2));
+      // Scale gaussian height to match histogram
+      const gHeight = (gauss * totalRolls / maxFreq) * plotH * (stepW / (maxSum - minSum));
+      const gy = (h - padBottom) - Math.min(plotH, gHeight * 4);
+      if (px === 0) ctxProb.moveTo(padLeft + px, gy);
+      else ctxProb.lineTo(padLeft + px, gy);
+    }
+    ctxProb.stroke();
+  }
+
+  const expectedMean = (numDice * 3.5).toFixed(2);
+  let sampleMean = 0;
+  if (totalRolls > 0) {
+    let sumTotal = 0;
+    for (let s = minSum; s <= maxSum; s++) {
+      sumTotal += s * (diceCounts[s] || 0);
+    }
+    sampleMean = (sumTotal / totalRolls).toFixed(2);
+  }
+
+  document.getElementById('probStatsBox').innerHTML = `
+    <strong>Central Limit Theorem Stats:</strong><br>
+    • Total Trials = <strong>${totalRolls}</strong><br>
+    • Theoretical Mean \\(\\mu\\) = <strong>${expectedMean}</strong><br>
+    • Empirical Sample Mean \\(\\bar{X}\\) = <strong>${totalRolls > 0 ? sampleMean : 'N/A'}</strong>
+  `;
+
+  const probOverlay = document.getElementById('cvsProbData');
+  if (probOverlay) {
+    probOverlay.innerHTML = `Total Trials: ${totalRolls}<br>Expected Mean: ${expectedMean} | Sample Mean: ${totalRolls > 0 ? sampleMean : 'N/A'}`;
+  }
+}
+
+if (document.getElementById('btnRoll100')) {
+  document.getElementById('btnRoll100').addEventListener('click', () => rollDice(100));
+  document.getElementById('btnRoll1000').addEventListener('click', () => rollDice(1000));
+  document.getElementById('btnResetProb').addEventListener('click', resetProb);
+  document.getElementById('selDiceCount').addEventListener('change', resetProb);
+}
+
+/* ---------------------------------------------------------
+   9. INITIALIZE ALL SIMULATORS ON LOAD
+   --------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  drawFunctionSim();
+  drawUnitCircleSim();
+  drawVectorSim();
+  drawRiemannSim();
+  drawConicSim();
+  drawProbSim();
+
+  // Scroll to Top handler
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Teacher Profile Password Modal
+  const modal = document.getElementById('passwordModal');
+  const pl = document.getElementById('profileLink');
+  const cm = document.getElementById('closeModal');
+  const tp = document.getElementById('togglePassword');
+  const pi = document.getElementById('password');
+  const sb = document.getElementById('submitPassword');
+  const em = document.getElementById('errorMessage');
+
+  if (pl) pl.addEventListener('click', e => { e.preventDefault(); modal.style.display = 'flex'; pi.focus(); });
+  if (cm) cm.addEventListener('click', () => { modal.style.display = 'none'; pi.value = ''; em.textContent = ''; });
+  window.addEventListener('click', e => { if (e.target === modal) { modal.style.display = 'none'; pi.value = ''; em.textContent = ''; } });
+  if (tp) tp.addEventListener('click', function() {
+    const t = pi.getAttribute('type') === 'password' ? 'text' : 'password';
+    pi.setAttribute('type', t);
+    this.textContent = t === 'password' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD12';
+  });
+  if (sb) sb.addEventListener('click', () => {
+    const p = (pi.value || '').trim().toLowerCase();
+    em.textContent = '';
+    if (!p) { em.textContent = 'Please enter your access password'; return; }
+    if (['kbjkv@2008'].includes(p)) {
+      sb.textContent = 'Authenticating...';
+      sb.disabled = true;
+      setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
+    } else {
+      em.textContent = 'Incorrect password. Please try again.';
+      pi.value = ''; pi.focus();
+      sb.classList.add('shake');
+      setTimeout(() => sb.classList.remove('shake'), 500);
+    }
+  });
+  if (pi) pi.addEventListener('keypress', e => { if (e.key === 'Enter') sb.click(); });
+});
 </script>
 </body>
 </html>
