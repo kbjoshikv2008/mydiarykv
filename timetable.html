@@ -1597,13 +1597,16 @@
     <!-- TAB 1: TEACHERS TIME TABLE -->
     <div class="tab-content active" id="tab-teachers">
       <!-- Quick Department Chips -->
+      <!-- Quick Stream / Department Chips -->
       <div class="quick-chips-wrapper">
-        <div class="quick-chips-label"><i class="fas fa-filter" style="color:#a78bfa;"></i> Quick Faculty Department Filter / विभाग चुनें:</div>
+        <div class="quick-chips-label"><i class="fas fa-filter" style="color:#a78bfa;"></i> Quick Faculty Stream &amp; Department Filter / संकाय व विभाग चुनें:</div>
         <div class="quick-chips-bar" id="teacherDeptChips">
-          <button class="chip-btn active" data-dept="ALL">All Teachers (सभी)</button>
+          <button class="chip-btn active" data-dept="ALL">All Faculty (सभी)</button>
+          <button class="chip-btn" data-dept="SCI_MATH"><span class="stream-tag senior">🔬 Science &amp; Maths</span> (9 Faculty)</button>
+          <button class="chip-btn" data-dept="HUMANITIES"><span class="stream-tag senior">📜 Humanities</span> (5 Faculty)</button>
+          <button class="chip-btn" data-dept="COMMERCE"><span class="stream-tag senior">📈 Commerce</span> (2 Faculty)</button>
           <button class="chip-btn" data-dept="PGT"><span class="stream-tag senior">PGT</span> Class 11 &amp; 12</button>
           <button class="chip-btn" data-dept="TGT"><span class="stream-tag secondary">TGT</span> Class 6 to 10</button>
-          <button class="chip-btn" data-dept="SCI_MATH">Maths &amp; Science</button>
           <button class="chip-btn" data-dept="LANG">Languages (Hindi/Eng/Skt)</button>
           <button class="chip-btn" data-dept="CS_AI">Computer &amp; AI</button>
           <button class="chip-btn" data-dept="ACTIVITY">PET / Art / WE / Lib</button>
@@ -2820,7 +2823,12 @@
       });
     });
 
-    // Quick Faculty Department Chips Handler
+    // Quick Faculty Stream & Department Definitions (Science & Maths, Humanities, Commerce)
+    const SCIENCE_MATHS_FACULTY = ['kbjoshi', 'pawang', 'sagarb', 'hitendras', 'deveshs', 'hemr', 'smitas', 'karishmac', 'kalpanar'];
+    const HUMANITIES_FACULTY = ['naseem', 'nidhi', 'vipin', 'shikhak', 'rachnav'];
+    const COMMERCE_FACULTY = ['vikasb', 'rachnav'];
+
+    // Quick Faculty Stream & Department Chips Handler
     const deptChips = document.querySelectorAll('#teacherDeptChips .chip-btn[data-dept]');
     deptChips.forEach(chip => {
       chip.addEventListener('click', () => {
@@ -2834,13 +2842,25 @@
           const desig = (t.desig || '').toUpperCase();
           const subj = (t.subject || '').toUpperCase();
 
-          if (dept === 'ALL') matches = true;
-          else if (dept === 'PGT' && desig.includes('PGT')) matches = true;
-          else if (dept === 'TGT' && desig.includes('TGT')) matches = true;
-          else if (dept === 'SCI_MATH' && (subj.includes('MATH') || subj.includes('PHYS') || subj.includes('CHEM') || subj.includes('BIO') || subj.includes('SCI'))) matches = true;
-          else if (dept === 'LANG' && (subj.includes('HIN') || subj.includes('ENG') || subj.includes('SKT') || subj.includes('SAN'))) matches = true;
-          else if (dept === 'CS_AI' && (subj.includes('COMP') || subj.includes('CS') || subj.includes('AI') || desig.includes('CS'))) matches = true;
-          else if (dept === 'ACTIVITY' && (desig.includes('PET') || desig.includes('ART') || desig.includes('WE') || desig.includes('LIB') || desig.includes('YOGA') || desig.includes('SUBSTAFF'))) matches = true;
+          if (dept === 'ALL') {
+            matches = true;
+          } else if (dept === 'SCI_MATH') {
+            matches = SCIENCE_MATHS_FACULTY.includes(t.id);
+          } else if (dept === 'HUMANITIES') {
+            matches = HUMANITIES_FACULTY.includes(t.id);
+          } else if (dept === 'COMMERCE') {
+            matches = COMMERCE_FACULTY.includes(t.id);
+          } else if (dept === 'PGT') {
+            matches = desig.includes('PGT');
+          } else if (dept === 'TGT') {
+            matches = desig.includes('TGT');
+          } else if (dept === 'LANG') {
+            matches = subj.includes('HIN') || subj.includes('ENG') || subj.includes('SKT') || subj.includes('SAN') || desig.includes('HINDI') || desig.includes('ENG') || desig.includes('SKT');
+          } else if (dept === 'CS_AI') {
+            matches = subj.includes('COMP') || subj.includes('CS') || subj.includes('AI') || desig.includes('CS');
+          } else if (dept === 'ACTIVITY') {
+            matches = desig.includes('PET') || desig.includes('ART') || desig.includes('WE') || desig.includes('LIB') || desig.includes('YOGA') || desig.includes('SUBSTAFF');
+          }
 
           if (matches) {
             const opt = document.createElement('option');
