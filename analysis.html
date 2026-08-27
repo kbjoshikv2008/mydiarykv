@@ -48,6 +48,129 @@
     }
 
     /* Class Tabs & Selector */
+        /* ── Rectangular Boxes with Bold and Bigger Fonts for Class Tabs & Examination Sub-Tabs ── */
+    
+    /* 1. Class Nav & Rectangular Class Tabs */
+    .class-nav {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+    
+    .class-tab {
+      background: #18142b !important;
+      border: 2px solid rgba(139, 92, 246, 0.35) !important;
+      border-radius: 6px !important; /* Rectangular Box */
+      padding: 14px 28px !important;
+      font-family: var(--font-head);
+      font-size: 1.15rem !important; /* Bigger Font */
+      font-weight: 800 !important; /* Extra Bold */
+      color: #e2e8f0 !important;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .class-tab:hover {
+      transform: translateY(-2px);
+      background: #241e40 !important;
+      border-color: #a78bfa !important;
+      color: #ffffff !important;
+      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+    }
+    
+    .class-tab.active {
+      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%) !important;
+      color: #ffffff !important;
+      border-color: #c4b5fd !important;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45) !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 2. Rectangular Examination Sub-Tabs */
+    .exam-types-container {
+      margin-bottom: 22px;
+      background: rgba(15, 23, 42, 0.7) !important;
+      padding: 18px 20px !important;
+      border-radius: 8px !important; /* Rectangular Container */
+      border: 2px solid rgba(139, 92, 246, 0.3) !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .exam-type-btn {
+      background: #18142b !important;
+      border: 2px solid rgba(139, 92, 246, 0.3) !important;
+      color: #cbd5e1 !important;
+      padding: 12px 22px !important;
+      font-size: 1.05rem !important; /* Bigger Font */
+      font-weight: 800 !important; /* Extra Bold */
+      font-family: var(--font-head);
+      border-radius: 6px !important; /* Rectangular Box */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .exam-type-btn:hover:not(.active) {
+      background: #271f3f !important;
+      border-color: #a78bfa !important;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+
+    .exam-type-btn.active {
+      background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%) !important;
+      color: #ffffff !important;
+      border-color: #93c5fd !important;
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45) !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 3. Rectangular Sub-Select Chapter Pills */
+    .test-sub-selectors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 8px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .sub-select-btn {
+      background: #1e1b2e !important;
+      border: 1px solid rgba(139, 92, 246, 0.3) !important;
+      color: #cbd5e1 !important;
+      padding: 8px 16px !important;
+      font-size: 0.95rem !important; /* Bigger Font */
+      font-weight: 700 !important; /* Bold Font */
+      border-radius: 6px !important; /* Rectangular Box */
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sub-select-btn:hover:not(.active) {
+      color: #ffffff !important;
+      background: #2d2640 !important;
+      border-color: #a78bfa !important;
+    }
+
+    .sub-select-btn.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      border-color: #6ee7b7 !important;
+      font-weight: 800 !important;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35) !important;
+    }
+
     .class-nav {
       display: flex;
       gap: 15px;
@@ -1892,7 +2015,7 @@
 
           <!-- Exam Sub Tabs for the Active Class (Class Test/Chapterwise, PT1/PT2, HY, PB, SEE) -->
           <div class="exam-types-container" style="margin-bottom: 15px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
-            <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary-light); margin-bottom: 8px; display: flex; align-items: center; gap: 5px;">
+            <div style="font-size: 1.05rem; font-weight: 800; color: #a78bfa; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
               <i class="fas fa-tasks"></i> Select Examination Sub-Tab:
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 10px;">
