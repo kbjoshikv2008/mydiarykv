@@ -299,37 +299,7 @@
     }
 
     
-    /* Sticky Columns for Table Navigation */
-    .marks-table th.sticky-col,
-    .marks-table td.sticky-col {
-      position: sticky;
-      background: #ffffff;
-      z-index: 5;
-    }
-    .marks-table th.sticky-col {
-      background: #f1e9db;
-      z-index: 6;
-    }
-    .marks-table tr:hover td.sticky-col {
-      background: #fdfbf7;
-    }
-    .marks-table th.sticky-col-1,
-    .marks-table td.sticky-col-1 {
-      left: 0;
-      width: 55px;
-      min-width: 55px;
-      text-align: center;
-    }
-    .marks-table th.sticky-col-2,
-    .marks-table td.sticky-col-2 {
-      left: 55px;
-      width: 210px;
-      min-width: 210px;
-      border-right: 2px solid var(--glass-border);
-      box-shadow: 2px 0 5px rgba(0,0,0,0.06);
-    }
-
-    .marks-table td {
+.marks-table td {
       padding: 8px 12px;
       border-bottom: 1px solid var(--glass-border);
       color: var(--text-primary);
@@ -2088,31 +2058,7 @@
     let currentSortAscending = true;
 
     
-    var showConductedOnly = true;
-    window.showConductedOnly = showConductedOnly;
-
-    function isTestConducted(test) {
-      if (!test) return false;
-      const hasDate = testDates[activeClass] && testDates[activeClass][test.id] && testDates[activeClass][test.id].trim() !== "";
-      if (hasDate) return true;
-      const students = studentData[activeClass] || [];
-      return students.some(s => s.marks && s.marks[test.id] !== undefined && s.marks[test.id] !== null && s.marks[test.id] !== "");
-    }
-    window.isTestConducted = isTestConducted;
-
-    function toggleConductedFilter() {
-      showConductedOnly = !showConductedOnly;
-      const btn = document.getElementById("btnToggleConductedOnly");
-      if (btn) {
-        btn.innerHTML = showConductedOnly 
-          ? '<i class="fas fa-eye-slash"></i> Showing Conducted Tests Only' 
-          : '<i class="fas fa-eye"></i> Showing All Tests (Including Unconducted)';
-      }
-      renderTable();
-      renderSelectedTestInfo();
-    }
-
-    function formatDate(dateString) {
+function formatDate(dateString) {
       if (!dateString) return "";
       const parts = dateString.split("-");
       if (parts.length === 3) {
@@ -3316,14 +3262,13 @@ function switchClass(className) {
 
       const activeTests = classTests[activeClass] || [];
       const categoryTests = activeTests.filter(t => {
-        let matchType = false;
-        if (activeExamType === "all") matchType = true;
-        else if (activeExamType === "chapter") matchType = t.id.startsWith("ch") || t.id === "crm";
-        else if (activeExamType === "pt") matchType = t.id.startsWith("pt");
-        else if (activeExamType === "pb") matchType = t.id.startsWith("pb");
-        else if (activeExamType === "hy") matchType = t.id === "hy";
-        else if (activeExamType === "see") matchType = t.id === "see";
-        return matchType && (!showConductedOnly || isTestConducted(t));
+        if (activeExamType === "all") return true;
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        if (activeExamType === "hy") return t.id === "hy";
+        if (activeExamType === "see") return t.id === "see";
+        return false;
       });
 
       const totalMax = categoryTests.reduce((sum, t) => sum + t.maxMarks, 0);
@@ -3460,14 +3405,13 @@ function switchClass(className) {
 
       const activeTests = classTests[activeClass];
       const categoryTests = activeTests.filter(t => {
-        let matchType = false;
-        if (activeExamType === "all") matchType = true;
-        else if (activeExamType === "chapter") matchType = t.id.startsWith("ch") || t.id === "crm";
-        else if (activeExamType === "pt") matchType = t.id.startsWith("pt");
-        else if (activeExamType === "pb") matchType = t.id.startsWith("pb");
-        else if (activeExamType === "hy") matchType = t.id === "hy";
-        else if (activeExamType === "see") matchType = t.id === "see";
-        return matchType && (!showConductedOnly || isTestConducted(t));
+        if (activeExamType === "all") return true;
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        if (activeExamType === "hy") return t.id === "hy";
+        if (activeExamType === "see") return t.id === "see";
+        return false;
       });
 
       const maxOverviewEl = document.getElementById("classMaxMarksOverview");
@@ -3495,8 +3439,8 @@ function switchClass(className) {
         `;
       });
       trHead.innerHTML = `
-        <th class="sortable sticky-col sticky-col-1" onclick="sortTable('rollNo')">S.No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
-        <th class="sortable sticky-col sticky-col-2" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('rollNo')">S.No${currentSortColumn === 'rollNo' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
+        <th class="sortable" onclick="sortTable('name')">Student Name${currentSortColumn === 'name' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
         <th>Parent's Mobile</th>
         ${testHeaders}
         <th class="sortable" onclick="sortTable('pct')" style="text-align: center;">Average Performance${currentSortColumn === 'pct' ? sortIcon : ' <i class="fas fa-sort"></i>'}</th>
@@ -3604,8 +3548,8 @@ function switchClass(className) {
         }
 
         tr.innerHTML = `
-          <td class="sticky-col sticky-col-1">${student.rollNo}</td>
-          <td class="sticky-col sticky-col-2">
+          <td>${student.rollNo}</td>
+          <td>
             <input type="text" class="student-name-input" value="${student.name}" 
               onchange="updateStudentName(${student.rollNo}, this.value)">
           </td>
@@ -3798,14 +3742,13 @@ function switchClass(className) {
 
       // Filter tests based on active sub-tab
       const categoryTests = activeTests.filter(t => {
-        let matchType = false;
-        if (activeExamType === "all") matchType = true;
-        else if (activeExamType === "chapter") matchType = t.id.startsWith("ch") || t.id === "crm";
-        else if (activeExamType === "pt") matchType = t.id.startsWith("pt");
-        else if (activeExamType === "pb") matchType = t.id.startsWith("pb");
-        else if (activeExamType === "hy") matchType = t.id === "hy";
-        else if (activeExamType === "see") matchType = t.id === "see";
-        return matchType && (!showConductedOnly || isTestConducted(t));
+        if (activeExamType === "all") return true;
+        if (activeExamType === "chapter") return t.id.startsWith("ch") || t.id === "crm";
+        if (activeExamType === "pt") return t.id.startsWith("pt");
+        if (activeExamType === "pb") return t.id.startsWith("pb");
+        if (activeExamType === "hy") return t.id === "hy";
+        if (activeExamType === "see") return t.id === "see";
+        return false;
       });
 
       const examAvgValues = [];
