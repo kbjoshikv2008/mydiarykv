@@ -300,14 +300,14 @@
 
     
 
-    /* Restructured & Redesigned Table Freeze-Panes & Actions */
+        /* Dark Theme Styling for Student Performance & Test Analytics Table */
     .table-container {
       position: relative;
       overflow-x: auto;
       border-radius: 12px;
-      border: 1px solid var(--glass-border);
-      background: #ffffff;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #141124;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
     
     .marks-table {
@@ -315,21 +315,49 @@
       border-collapse: separate;
       border-spacing: 0;
       font-size: 0.88rem;
+      color: #f8fafc;
     }
     
-    /* Left Freeze-Pane (S.No & Student Name) */
+    .marks-table th {
+      background: #251d38;
+      color: #f1f5f9;
+      padding: 12px 14px;
+      font-family: var(--font-head);
+      font-weight: 600;
+      border-bottom: 2px solid rgba(124, 58, 237, 0.4);
+      white-space: nowrap;
+    }
+    
+    .marks-table th.sortable:hover {
+      background: #31274a;
+    }
+
+    .marks-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      vertical-align: middle;
+    }
+
+    .marks-table tr:hover {
+      background: rgba(124, 58, 237, 0.15);
+    }
+
+    /* Left Freeze-Pane (S.No & Student Name) - Dark Theme */
     .marks-table th.sticky-col,
     .marks-table td.sticky-col {
       position: sticky;
-      background: #ffffff;
+      background: #18142b;
+      color: #ffffff;
       z-index: 5;
     }
     .marks-table th.sticky-col {
-      background: #f8f6f0;
+      background: #251d38;
+      color: #ffffff;
       z-index: 6;
     }
     .marks-table tr:hover td.sticky-col {
-      background: #fdfaf5;
+      background: #271f3f;
     }
     .marks-table th.sticky-col-1,
     .marks-table td.sticky-col-1 {
@@ -337,73 +365,110 @@
       width: 50px;
       min-width: 50px;
       text-align: center;
+      font-weight: 600;
+      color: #cbd5e1;
     }
     .marks-table th.sticky-col-2,
     .marks-table td.sticky-col-2 {
       left: 50px;
       width: 200px;
       min-width: 200px;
-      border-right: 2px solid rgba(124, 58, 237, 0.15);
-      box-shadow: 3px 0 6px rgba(0, 0, 0, 0.05);
+      border-right: 2px solid rgba(167, 139, 250, 0.3);
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
     }
     
-    /* Right Freeze-Pane (Analysis & Sharing Actions) */
+    /* Right Freeze-Pane (Analysis & Sharing Actions) - Dark Theme */
     .marks-table th.sticky-action-col,
     .marks-table td.sticky-action-col {
       position: sticky;
       right: 0;
-      background: #ffffff;
+      background: #18142b;
       z-index: 5;
-      border-left: 2px solid rgba(124, 58, 237, 0.15);
-      box-shadow: -3px 0 6px rgba(0, 0, 0, 0.05);
+      border-left: 2px solid rgba(167, 139, 250, 0.3);
+      box-shadow: -4px 0 10px rgba(0, 0, 0, 0.4);
     }
     .marks-table th.sticky-action-col {
-      background: #f8f6f0;
+      background: #251d38;
+      color: #ffffff;
       z-index: 6;
     }
     .marks-table tr:hover td.sticky-action-col {
-      background: #fdfaf5;
+      background: #271f3f;
     }
 
-    /* Redesigned Action Buttons */
-    .btn-action-analyse {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      color: #ffffff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.78rem;
+    /* Spreadsheet Input Dark Theme */
+    .student-name-input {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 5px 8px;
+      font-size: 0.92rem;
       font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      color: #ffffff !important;
+      border-radius: 6px;
+      width: 100%;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(124,58,237,0.22);
     }
-    .btn-action-analyse:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(124,58,237,0.35);
+    .student-name-input:focus {
+      background: #2a2244;
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.3);
+      outline: none;
+      color: #ffffff !important;
     }
-    .btn-action-share {
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: #ffffff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+
+    .parent-mobile-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 5px 8px;
+      font-size: 0.85rem;
+      color: #e2e8f0 !important;
+      border-radius: 6px;
+      width: 100%;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(37,211,102,0.22);
     }
-    .btn-action-share:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(37,211,102,0.35);
+    .parent-mobile-input:focus {
+      background: #2a2244;
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.3);
+      outline: none;
+      color: #ffffff !important;
     }
+    .parent-mobile-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .marks-input {
+      width: 58px;
+      padding: 5px 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
+      text-align: center;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      font-family: 'Inter', monospace;
+      font-weight: 700;
+      color: #ffffff !important;
+    }
+    .marks-input:focus {
+      background: #2a2244;
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.3);
+      outline: none;
+      color: #ffffff !important;
+    }
+    .marks-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Date Pickers in Th Header */
+    .marks-table th input[type="date"] {
+      color-scheme: dark;
+      background: rgba(0, 0, 0, 0.35) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: #f1f5f9 !important;
+    }
+
 
     .marks-table td {
       padding: 8px 12px;
