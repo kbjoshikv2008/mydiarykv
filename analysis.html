@@ -2832,6 +2832,29 @@
         }
       });
 
+      
+      // Force sync PRAVEEN RAUTELA in Class 11B
+      if (studentData["11B"]) {
+        let hasPraveen = studentData["11B"].some(s => s && s.name && s.name.toUpperCase() === "PRAVEEN RAUTELA");
+        if (!hasPraveen) {
+          studentData["11B"].push({
+            rollNo: 1,
+            name: "PRAVEEN RAUTELA",
+            marks: { pt1: 13, ch6: 0 }
+          });
+        }
+        const praveen = studentData["11B"].find(s => s && s.name && s.name.toUpperCase() === "PRAVEEN RAUTELA");
+        if (praveen) {
+          if (!praveen.marks) praveen.marks = {};
+          if (praveen.marks.pt1 === undefined || praveen.marks.pt1 === "" || praveen.marks.pt1 === "ab" || praveen.marks.pt1 === "AB") praveen.marks.pt1 = 13;
+          if (praveen.marks.ch6 === undefined || praveen.marks.ch6 === "") praveen.marks.ch6 = 0;
+        }
+        studentData["11B"].sort((a, b) => a.name.localeCompare(b.name));
+        studentData["11B"].forEach((s, idx) => {
+          s.rollNo = idx + 1;
+        });
+      }
+
       window.studentData = studentData;
       window.testDates = testDates;
     }
