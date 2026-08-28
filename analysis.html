@@ -3986,7 +3986,7 @@ function switchClass(className) {
               <button class="btn-action-analyse" onclick="openStudentAnalysisModal(${student.rollNo})" title="Full Performance Analysis" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; font-weight: 800; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 8px rgba(16,185,129,0.4);">
                 <i class="fas fa-chart-line"></i> Analyse
               </button>
-              <button class="btn-action-share" onclick="quickShareWhatsApp(${student.rollNo})" title="Share Report on WhatsApp" style="background: linear-gradient(135deg, #059669, #047857); color: #ffffff; font-weight: 800; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 8px rgba(5,150,105,0.4);">
+              <button class="btn-action-share" onclick="openShareReportModal(${student.rollNo})" title="Share Report on WhatsApp" style="background: linear-gradient(135deg, #059669, #047857); color: #ffffff; font-weight: 800; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 8px rgba(5,150,105,0.4);">
                 <i class="fab fa-whatsapp"></i> Share
               </button>
             </div>
@@ -4606,14 +4606,128 @@ function switchClass(className) {
       }
     }
 
-    function quickShareWhatsApp(rollNo) {
+    
+    let currentShareStudentRoll = null;
+
+    function openShareReportModal(rollNo) {
       const students = studentData[activeClass] || [];
       const student = students.find(s => s.rollNo === rollNo);
       if (!student) return;
 
-      const message = generateShareMessage(student);
+      currentShareStudentRoll = rollNo;
+
+      document.getElementById("shareStudentNameDisplay").textContent = `${student.name} (Class ${activeClass})`;
+      document.getElementById("shareParentMobileInput").value = student.parentMobile || "";
+
+      // Populate single test dropdown with conducted tests
+      const selectEl = document.getElementById("shareSingleTestSelect");
+      selectEl.innerHTML = "";
+
+      const activeTests = classTests[activeClass] || [];
+      const conductedTests = activeTests.filter(t => isTestConducted(t));
+
+      conductedTests.forEach(t => {
+        const val = student.marks ? student.marks[t.id] : undefined;
+        const markStr = (val !== undefined && val !== null && val !== "") ? `${val}/${t.maxMarks}` : "Absent/Blank";
+        const opt = document.createElement("option");
+        opt.value = t.id;
+        opt.textContent = `${testFullNames[t.id] || t.label}: ${markStr}`;
+        selectEl.appendChild(opt);
+      });
+
+      // Default selection: if activeExamType != 'all' & activeTestId exists, select single test
+      const singleRadio = document.getElementById("shareTypeSingle");
+      const multiRadio = document.getElementById("shareTypeMulti");
+      if (activeExamType !== "all" && activeTestId) {
+        singleRadio.checked = true;
+        if (conductedTests.some(t => t.id === activeTestId)) {
+          selectEl.value = activeTestId;
+        }
+      } else {
+        multiRadio.checked = true;
+      }
+
+      toggleShareTypeUI();
+      document.getElementById("shareReportModal").style.display = "flex";
+    }
+
+    function closeShareReportModal() {
+      document.getElementById("shareReportModal").style.display = "none";
+    }
+
+    function toggleShareTypeUI() {
+      const isSingle = document.getElementById("shareTypeSingle").checked;
+      const singleWrap = document.getElementById("singleTestSelectWrap");
+      if (isSingle) {
+        singleWrap.style.display = "block";
+      } else {
+        singleWrap.style.display = "none";
+      }
+      updateShareModalPreview();
+    }
+    window.openShareReportModal = openShareReportModal;
+    window.toggleShareTypeUI = toggleShareTypeUI;
+
+    function updateShareModalPreview() {
+      if (!currentShareStudentRoll) return;
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === currentShareStudentRoll);
+      if (!student) return;
+
+      const isSingle = document.getElementById("shareTypeSingle").checked;
+      let msg = "";
+
+      if (isSingle) {
+        const selectedTestId = document.getElementById("shareSingleTestSelect").value;
+        const activeTests = classTests[activeClass] || [];
+        const test = activeTests.find(t => t.id === selectedTestId);
+        
+        if (test) {
+          const score = student.marks ? student.marks[test.id] : undefined;
+          const displayScore = (score !== undefined && score !== null && score !== "") ? `${score}/${test.maxMarks}` : "Absent / Blank";
+          const pct = (score !== undefined && score !== null && score !== "") ? `(${((score/test.maxMarks)*100).toFixed(0)}%)` : "";
+          
+          let passStatus = "";
+          if (score !== undefined && score !== null && score !== "") {
+            const isPass = (test.maxMarks === 40) ? (Number(score) >= 13) : (((score/test.maxMarks)*100) >= 33);
+            passStatus = isPass ? "*Pass*" : "*Fail*";
+          }
+
+          const testName = testFullNames[test.id] || test.label;
+          const dateStr = testDates[activeClass]?.[test.id] ? ` conducted on ${formatDate(testDates[activeClass][test.id])}` : '';
+          
+          msg = `Dear Parent,\n`;
+          msg += `Here is the evaluation result for *${student.name}* (Class ${activeClass}) in Mathematics *${testName}*${dateStr}:\n\n`;
+          msg += `• Marks Obtained: *${displayScore}* ${pct}\n`;
+          if (passStatus) {
+            msg += `• Status: ${passStatus}\n`;
+          }
+          if (student.remarks) {
+            msg += `\n*Teacher Remarks:* _${student.remarks}_\n`;
+          }
+          msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
+        }
+      } else {
+        msg = generateShareMessage(student);
+      }
+
+      document.getElementById("shareMsgPreview").value = msg;
+    }
+
+    function sendDirectWhatsApp() {
+      if (!currentShareStudentRoll) return;
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => s.rollNo === currentShareStudentRoll);
+      if (!student) return;
+
+      const mobileInput = document.getElementById("shareParentMobileInput").value.trim();
+      if (mobileInput) {
+        updateParentMobile(student.rollNo, mobileInput);
+      }
+
+      const msg = document.getElementById("shareMsgPreview").value;
       
-      let phone = student.parentMobile || '';
+      let phone = mobileInput || student.parentMobile || '';
       phone = phone.replace(/\D/g, '');
       if (phone.length === 10) {
         phone = '91' + phone;
@@ -4621,11 +4735,24 @@ function switchClass(className) {
       
       let url = "";
       if (phone) {
-        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
       } else {
-        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
       }
       window.open(url, '_blank');
+    }
+
+    function copyShareModalText() {
+      const msg = document.getElementById("shareMsgPreview").value;
+      navigator.clipboard.writeText(msg).then(() => {
+        alert("Report message copied to clipboard!");
+      }).catch(err => {
+        console.error("Copy failed: ", err);
+      });
+    }
+
+    function quickShareWhatsApp(rollNo) {
+      openShareReportModal(rollNo);
     }
 
     function setViewMode(mode) {
@@ -5423,6 +5550,75 @@ function switchClass(className) {
   </table>
 
   <div class="footer">PM SHRI KV Ranikhet — Confidential Academic Record — Mathematics Department — Session 2025-26</div>
+
+  <!-- ======================== WHATSAPP SHARE REPORT MODAL ======================== -->
+  <div id="shareReportModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(6px);">
+    <div style="width: 90%; max-width: 580px; background: linear-gradient(135deg, #161226 0%, #0f172a 100%); border: 2px solid rgba(37, 211, 102, 0.4); border-radius: 18px; padding: 26px; color: #ffffff; box-shadow: 0 15px 50px rgba(0,0,0,0.6); position: relative; animation: fadeIn 0.3s ease;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #25d366, #128c7e); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; box-shadow: 0 4px 14px rgba(37,211,102,0.4);">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-head); font-size: 1.2rem; font-weight: 800; color: #ffffff; margin: 0;">Share Performance Report</h3>
+            <span id="shareStudentNameDisplay" style="font-size: 0.9rem; color: #a78bfa; font-weight: 700;">Student Name</span>
+          </div>
+        </div>
+        <button onclick="closeShareReportModal()" style="background: rgba(255,255,255,0.1); border: none; color: #ffffff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;">&times;</button>
+      </div>
+
+      <!-- Parent Mobile Row -->
+      <div style="margin-bottom: 18px;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">
+          <i class="fas fa-phone-alt" style="color: #25d366;"></i> Parent Mobile Number:
+        </label>
+        <input type="text" id="shareParentMobileInput" placeholder="Enter 10-digit Mobile Number" style="width: 100%; padding: 10px 14px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #ffffff; font-family: monospace; font-size: 0.95rem; font-weight: 700;">
+      </div>
+
+      <!-- Report Type Selection -->
+      <div style="margin-bottom: 18px; background: rgba(255,255,255,0.04); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 10px;">
+          <i class="fas fa-tasks"></i> Select Report Type to Share:
+        </label>
+        
+        <div style="display: flex; gap: 20px; margin-bottom: 12px; flex-wrap: wrap;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 700; font-size: 0.95rem; color: #ffffff;">
+            <input type="radio" name="shareTypeOption" id="shareTypeSingle" onchange="toggleShareTypeUI()" style="accent-color: #25d366; width: 18px; height: 18px;">
+            <span>🎯 Single Test Report</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 700; font-size: 0.95rem; color: #ffffff;">
+            <input type="radio" name="shareTypeOption" id="shareTypeMulti" onchange="toggleShareTypeUI()" checked style="accent-color: #25d366; width: 18px; height: 18px;">
+            <span>📊 Multiple Tests / Cumulative Report</span>
+          </label>
+        </div>
+
+        <!-- Single Test Select Dropdown -->
+        <div id="singleTestSelectWrap" style="display: none; margin-top: 10px;">
+          <label style="font-size: 0.78rem; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 4px;">Choose Conducted Test:</label>
+          <select id="shareSingleTestSelect" onchange="updateShareModalPreview()" style="width: 100%; padding: 10px 14px; background: #0f0a21; border: 1px solid #7c3aed; border-radius: 8px; color: #ffffff; font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; cursor: pointer;">
+          </select>
+        </div>
+      </div>
+
+      <!-- Live Message Preview -->
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">
+          <i class="fas fa-eye" style="color: #60a5fa;"></i> Live Message Preview:
+        </label>
+        <textarea id="shareMsgPreview" readonly style="width: 100%; height: 140px; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; color: #e2e8f0; font-family: inherit; font-size: 0.85rem; line-height: 1.45; resize: none;"></textarea>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
+        <button onclick="closeShareReportModal()" style="padding: 10px 18px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #ffffff; font-weight: 700; font-size: 0.88rem; cursor: pointer;">Cancel</button>
+        <button onclick="copyShareModalText()" style="padding: 10px 18px; background: rgba(99,102,241,0.2); border: 1px solid #6366f1; border-radius: 8px; color: #818cf8; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px;"><i class="fas fa-copy"></i> Copy Text</button>
+        <button onclick="sendDirectWhatsApp()" style="padding: 10px 22px; background: linear-gradient(135deg, #25d366, #128c7e); border: none; border-radius: 8px; color: #ffffff; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(37,211,102,0.4);"><i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> Send on WhatsApp</button>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>`);
       doc.close();
