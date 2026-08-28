@@ -3856,7 +3856,10 @@ function switchClass(className) {
             <span style="font-size:0.75em; opacity:0.7;">Max: ${test.maxMarks}</span><br>
             <input type="date" value="${currentDate}" onchange="updateTestDate('${test.id}', this.value)" 
               style="font-size:0.7em; padding:4px 2px; background:rgba(0,0,0,0.25); border:1px solid var(--glass-border); border-radius:4px; color:var(--text-primary); width:95px; margin-top:4px; text-align:center;"
-              title="Set exam date">
+              title="Set exam date"><br>
+            <button onclick="shareTestColumnToParents('${test.id}')" title="Select ${test.label} for sharing" style="background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.4); color: #34d399; font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; cursor: pointer; margin-top: 4px; font-weight: 700;">
+              <i class="fab fa-whatsapp"></i> Share Test
+            </button>
           </th>
         `;
       });
@@ -4443,7 +4446,7 @@ function switchClass(className) {
       }
     }
 
-        function openShareReportModal(rollNo) {
+        function openShareReportModal(rollNo, targetTestId) {
       const students = studentData[activeClass] || [];
       const student = students.find(s => String(s.rollNo) === String(rollNo));
       if (!student) return;
@@ -4472,16 +4475,16 @@ function switchClass(className) {
           selectEl.appendChild(opt);
         });
 
-        // Default selection
+        // Default selection: If targetTestId or activeTestId is passed, default to single test mode for that particular test
+        const chosenTestId = targetTestId || activeTestId;
         const singleRadio = document.getElementById("shareTypeSingle");
         const multiRadio = document.getElementById("shareTypeMulti");
-        if (activeExamType !== "all" && activeTestId && singleRadio && multiRadio) {
+        
+        if (chosenTestId && conductedTests.some(t => t.id === chosenTestId)) {
+          if (singleRadio) singleRadio.checked = true;
+          selectEl.value = chosenTestId;
+        } else if (singleRadio) {
           singleRadio.checked = true;
-          if (conductedTests.some(t => t.id === activeTestId)) {
-            selectEl.value = activeTestId;
-          }
-        } else if (multiRadio) {
-          multiRadio.checked = true;
         }
       }
 
@@ -4649,42 +4652,19 @@ function switchClass(className) {
       return msg;
     }
 
-    function quickShareWhatsApp(rollNo) {
-      const students = studentData[activeClass] || [];
-      const student = students.find(s => String(s.rollNo) === String(rollNo));
-      if (!student) {
-        console.error("Student not found for rollNo:", rollNo);
-        return;
-      }
-
-      // 1. Generate default message
-      let message = "";
-      if (activeExamType !== "all" && activeTestId) {
-        message = generateActiveTestShareMessage(student);
-      }
-      if (!message) {
-        message = generateShareMessage(student);
-      }
-      
-      let phone = student.parentMobile || '';
-      phone = phone.replace(/\D/g, '');
-      if (phone.length === 10) {
-        phone = '91' + phone;
-      }
-      
-      let url = "";
-      if (phone) {
-        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
-      } else {
-        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-      }
-      
-      // 2. Open WhatsApp Web/App
-      window.open(url, '_blank');
-
-      // 3. Open Share Report Modal for customization if desired
-      openShareReportModal(rollNo);
+    function quickShareWhatsApp(rollNo, testId) {
+      openShareReportModal(rollNo, testId);
     }
+    
+    function shareTestColumnToParents(testId) {
+      activeTestId = testId;
+      const activeTests = classTests[activeClass] || [];
+      const test = activeTests.find(t => t.id === testId);
+      const testName = test ? (testFullNames[test.id] || test.label) : testId;
+      alert(`Selected ${testName}. Click 'Share' on any student's row to send their particular ${testName} report to parents!`);
+      renderTable();
+    }
+
     window.quickShareWhatsApp = quickShareWhatsApp;
 
 
