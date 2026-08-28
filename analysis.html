@@ -4120,7 +4120,7 @@ function switchClass(className) {
 
     function updateStudentName(rollNo, newName) {
       const students = studentData[activeClass] || [];
-      const student = students.find(s => s.rollNo === rollNo);
+      const student = students.find(s => String(s.rollNo) === String(rollNo));
       if (student && newName.trim()) {
         student.name = newName.trim();
         saveData();
@@ -4135,7 +4135,7 @@ function switchClass(className) {
       const maxVal = test ? test.maxMarks : 100;
       
       const students = studentData[activeClass] || [];
-      const student = students.find(s => s.rollNo === rollNo);
+      const student = students.find(s => String(s.rollNo) === String(rollNo));
       if (student) {
         if (newValue.trim() === "") {
           student.marks[testKey] = "";
@@ -4333,7 +4333,7 @@ function switchClass(className) {
         ? [...studentData[cls]].sort((a,b) => a.name.localeCompare(b.name))
         : [];
       
-      const sidx = students.findIndex(s => s.rollNo === rollNo);
+      const sidx = students.findIndex(s => String(s.rollNo) === String(rollNo));
       if (sidx !== -1) {
         document.getElementById("trackerStudentSel").value = sidx;
         renderTrackerReport();
@@ -4678,17 +4678,31 @@ function switchClass(className) {
 
 
     function sendDirectWhatsApp() {
-      if (!currentShareStudentRoll) return;
-      const students = studentData[activeClass] || [];
-      const student = students.find(s => s.rollNo === currentShareStudentRoll);
-      if (!student) return;
+      const studentSel = document.getElementById("shareStudentSelect");
+      const targetRoll = (studentSel && studentSel.value) ? studentSel.value : currentShareStudentRoll;
+      if (targetRoll === null || targetRoll === undefined) {
+        alert("Please select a student to share report!");
+        return;
+      }
 
-      const mobileInput = document.getElementById("shareParentMobileInput").value.trim();
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => String(s.rollNo) === String(targetRoll));
+      if (!student) {
+        alert("Selected student record not found!");
+        return;
+      }
+
+      const mobileInputEl = document.getElementById("shareParentMobileInput");
+      const mobileInput = mobileInputEl ? mobileInputEl.value.trim() : "";
       if (mobileInput) {
         updateParentMobile(student.rollNo, mobileInput);
       }
 
-      const msg = document.getElementById("shareMsgPreview").value;
+      const previewBox = document.getElementById("shareMsgPreview");
+      let msg = previewBox ? previewBox.value : "";
+      if (!msg) {
+        msg = generateShareMessage(student);
+      }
       
       let phone = mobileInput || student.parentMobile || '';
       phone = phone.replace(/\D/g, '');
@@ -5344,7 +5358,7 @@ function switchClass(className) {
       trackerCurrentStudent.mobile = raw;
       // Also update matching student in studentData array
       if (trackerCurrentClass && studentData[trackerCurrentClass]) {
-        const idx = studentData[trackerCurrentClass].findIndex(s => s.rollNo === trackerCurrentStudent.rollNo);
+        const idx = studentData[trackerCurrentClass].findIndex(s => String(s.rollNo) === String(trackerCurrentStudent.rollNo));
         if (idx !== -1) {
           studentData[trackerCurrentClass][idx].parentMobile = raw;
           studentData[trackerCurrentClass][idx].mobile = raw;
