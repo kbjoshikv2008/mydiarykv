@@ -4443,173 +4443,7 @@ function switchClass(className) {
       }
     }
 
-    function generateShareMessage(student) {
-      const activeTests = classTests[activeClass];
-      const totalPossible = activeTests.reduce((a, b) => a + b.maxMarks, 0);
-      
-      let studentSum = 0;
-      let studentMaxPossible = 0;
-      activeTests.forEach(t => {
-        const val = student.marks[t.id];
-        if (val !== undefined && val !== null && val !== "") {
-          studentSum += Number(val);
-          studentMaxPossible += t.maxMarks;
-        }
-      });
-      
-      const studentPct = studentMaxPossible > 0 ? (studentSum / studentMaxPossible) * 100 : null;
-      
-      let msg = `Dear Parent,\n`;
-      msg += `Here is the academic performance progress report for *${student.name}* (Class ${activeClass}) in Mathematics evaluations:\n\n`;
-      
-      let hasExams = false;
-      activeTests.forEach(test => {
-        const score = student.marks[test.id];
-        if (score !== undefined && score !== null && score !== "") {
-          hasExams = true;
-          const testName = testFullNames[test.id] || test.label;
-          const dateStr = testDates[activeClass]?.[test.id] ? ` (${formatDate(testDates[activeClass][test.id])})` : '';
-          msg += `• ${testName}${dateStr}: *${score}/${test.maxMarks}* (${((score/test.maxMarks)*100).toFixed(0)}%)\n`;
-        }
-      });
-      
-      if (!hasExams) {
-        msg += `No evaluations recorded yet.\n`;
-      } else {
-        msg += `\n*Overall Average:* *${studentPct.toFixed(1)}%*\n`;
-      }
-      
-      if(student.remarks) {
-        msg += `*Teacher Remarks:* _${student.remarks}_\n`;
-      }
-      
-      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
-      return msg;
-    }
-
-    function generateActiveTestShareMessage(student) {
-      const activeTests = classTests[activeClass];
-      const test = activeTests.find(t => t.id === activeTestId);
-      if (!test) return "";
-      
-      const score = student.marks[activeTestId];
-      const displayScore = (score !== undefined && score !== null && score !== "") ? `${score}/${test.maxMarks}` : "Absent / Blank";
-      const pct = (score !== undefined && score !== null && score !== "") ? `(${((score/test.maxMarks)*100).toFixed(0)}%)` : "";
-      
-      let passStatus = "";
-      if (score !== undefined && score !== null && score !== "") {
-        const isPass = (test.maxMarks === 40) ? (Number(score) >= 13) : (((score/test.maxMarks)*100) >= 33);
-        passStatus = isPass ? "*Pass*" : "*Fail*";
-      }
-
-      const testName = testFullNames[test.id] || test.label;
-      const dateStr = testDates[activeClass]?.[test.id] ? ` conducted on ${formatDate(testDates[activeClass][test.id])}` : '';
-      
-      let msg = `Dear Parent,\n`;
-      msg += `Here is the evaluation result for *${student.name}* (Class ${activeClass}) in Mathematics *${testName}*${dateStr}:\n\n`;
-      msg += `• Marks Obtained: *${displayScore}* ${pct}\n`;
-      if (passStatus) {
-        msg += `• Status: ${passStatus}\n`;
-      }
-      
-      if(student.remarks) {
-        msg += `\n*Teacher Remarks:* _${student.remarks}_\n`;
-      }
-      
-      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
-      return msg;
-    }
-
-    function shareOnWhatsApp() {
-      const students = studentData[activeClass] || [];
-      const student = students[currentSelectedStudentIndex];
-      if (!student) return;
-
-      const isSelectedExamOnly = document.getElementById("reportTypeSelected")?.checked;
-      const message = isSelectedExamOnly ? generateActiveTestShareMessage(student) : generateShareMessage(student);
-      
-      let phone = student.parentMobile || '';
-      phone = phone.replace(/\D/g, '');
-      if (phone.length === 10) {
-        phone = '91' + phone;
-      }
-      
-      let url = "";
-      if (phone) {
-        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
-      } else {
-        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-      }
-      window.open(url, '_blank');
-    }
-
-    function copyShareText() {
-      const students = studentData[activeClass] || [];
-      const student = students[currentSelectedStudentIndex];
-      if (!student) return;
-
-      const isSelectedExamOnly = document.getElementById("reportTypeSelected")?.checked;
-      const message = isSelectedExamOnly ? generateActiveTestShareMessage(student) : generateShareMessage(student);
-      
-      navigator.clipboard.writeText(message).then(() => {
-        alert("Progress report message copied to clipboard!");
-      }).catch(err => {
-        console.error("Copy failed: ", err);
-      });
-    }
-
-    function syncParentMobile(rollNo, mobile) {
-      // 1. Update in table rows (if rendered)
-      const tableInputs = document.querySelectorAll(".parent-mobile-input");
-      tableInputs.forEach(input => {
-        const tr = input.closest("tr");
-        if (tr) {
-          const firstTd = tr.querySelector("td");
-          if (firstTd && Number(firstTd.textContent) === rollNo) {
-            input.value = mobile;
-          }
-        }
-      });
-      // 2. Update in tracker modal (if open)
-      const trackerInput = document.getElementById("trackerParentMobile");
-      if (trackerInput && trackerCurrentStudent && trackerCurrentStudent.rollNo === rollNo) {
-        trackerInput.value = mobile;
-      }
-      // 3. Update in old modal (if open)
-      const oldModalInput = document.getElementById("modalParentMobile");
-      if (oldModalInput) {
-        oldModalInput.value = mobile;
-      }
-    }
-
-    function updateParentMobile(rollNo, newMobile) {
-      const students = studentData[activeClass] || [];
-      const student = students.find(s => s.rollNo === rollNo);
-      if (student) {
-        const val = newMobile.trim();
-        student.parentMobile = val;
-        student.mobile = val;
-        saveData();
-        syncParentMobile(rollNo, val);
-      }
-    }
-
-    function updateModalParentMobile(value) {
-      const students = studentData[activeClass] || [];
-      const student = students[currentSelectedStudentIndex];
-      if (student) {
-        const val = value.trim();
-        student.parentMobile = val;
-        student.mobile = val;
-        saveData();
-        syncParentMobile(student.rollNo, val);
-      }
-    }
-
-    
-        let currentShareStudentRoll = null;
-
-    function openShareReportModal(rollNo) {
+        function openShareReportModal(rollNo) {
       const students = studentData[activeClass] || [];
       const student = students.find(s => String(s.rollNo) === String(rollNo));
       if (!student) return;
@@ -4655,6 +4489,7 @@ function switchClass(className) {
       const modal = document.getElementById("shareReportModal");
       if (modal) modal.style.display = "flex";
     }
+    window.openShareReportModal = openShareReportModal;
 
     function closeShareReportModal() {
       const modal = document.getElementById("shareReportModal");
@@ -4670,7 +4505,6 @@ function switchClass(className) {
       }
       updateShareModalPreview();
     }
-    window.openShareReportModal = openShareReportModal;
     window.toggleShareTypeUI = toggleShareTypeUI;
 
     function updateShareModalPreview() {
@@ -4690,13 +4524,21 @@ function switchClass(className) {
         const test = activeTests.find(t => t.id === selectedTestId);
         
         if (test) {
-          const score = student.marks ? student.marks[test.id] : undefined;
-          const displayScore = (score !== undefined && score !== null && score !== "") ? `${score}/${test.maxMarks}` : "Absent / Blank";
-          const pct = (score !== undefined && score !== null && score !== "") ? `(${((score/test.maxMarks)*100).toFixed(0)}%)` : "";
+          const val = student.marks ? student.marks[test.id] : undefined;
+          const isAbsent = (typeof val === 'string' && val.toUpperCase() === 'AB');
           
+          let displayScore = "Blank / Not Conducted";
+          let pct = "";
           let passStatus = "";
-          if (score !== undefined && score !== null && score !== "") {
-            const isPass = (test.maxMarks === 40) ? (Number(score) >= 13) : (((score/test.maxMarks)*100) >= 33);
+
+          if (isAbsent) {
+            displayScore = "Absent (AB)";
+          } else if (val !== undefined && val !== null && val !== "" && !isNaN(Number(val))) {
+            const score = Number(val);
+            displayScore = `${score}/${test.maxMarks}`;
+            const pctVal = (score / test.maxMarks) * 100;
+            pct = `(${pctVal.toFixed(0)}%)`;
+            const isPass = (test.maxMarks === 40) ? (score >= 13) : (pctVal >= 33);
             passStatus = isPass ? "*Pass*" : "*Fail*";
           }
 
@@ -4720,6 +4562,91 @@ function switchClass(className) {
 
       const previewBox = document.getElementById("shareMsgPreview");
       if (previewBox) previewBox.value = msg;
+    }
+
+    function generateShareMessage(student) {
+      const activeTests = classTests[activeClass] || [];
+      
+      let studentSum = 0;
+      let studentMaxPossible = 0;
+      let hasExams = false;
+
+      let msg = `Dear Parent,\n`;
+      msg += `Here is the academic performance progress report for *${student.name}* (Class ${activeClass}) in Mathematics evaluations:\n\n`;
+      
+      activeTests.forEach(test => {
+        const val = student.marks ? student.marks[test.id] : undefined;
+        if (val !== undefined && val !== null && val !== "") {
+          hasExams = true;
+          const testName = testFullNames[test.id] || test.label;
+          const dateStr = testDates[activeClass]?.[test.id] ? ` (${formatDate(testDates[activeClass][test.id])})` : '';
+          
+          if (typeof val === 'string' && val.toUpperCase() === 'AB') {
+            msg += `• ${testName}${dateStr}: *Absent (AB)*\n`;
+          } else if (!isNaN(Number(val))) {
+            const score = Number(val);
+            const pctVal = (score / test.maxMarks) * 100;
+            studentSum += score;
+            studentMaxPossible += test.maxMarks;
+            msg += `• ${testName}${dateStr}: *${score}/${test.maxMarks}* (${pctVal.toFixed(0)}%)\n`;
+          }
+        }
+      });
+      
+      if (!hasExams) {
+        msg += `No evaluations recorded yet.\n`;
+      } else if (studentMaxPossible > 0) {
+        const studentPct = (studentSum / studentMaxPossible) * 100;
+        msg += `\n*Overall Average:* *${studentPct.toFixed(1)}%*\n`;
+      }
+      
+      if (student.remarks) {
+        msg += `*Teacher Remarks:* _${student.remarks}_\n`;
+      }
+      
+      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
+      return msg;
+    }
+
+    function generateActiveTestShareMessage(student) {
+      const activeTests = classTests[activeClass] || [];
+      const test = activeTests.find(t => t.id === activeTestId);
+      if (!test) return "";
+      
+      const val = student.marks ? student.marks[activeTestId] : undefined;
+      const isAbsent = (typeof val === 'string' && val.toUpperCase() === 'AB');
+      
+      let displayScore = "Blank / Not Conducted";
+      let pct = "";
+      let passStatus = "";
+
+      if (isAbsent) {
+        displayScore = "Absent (AB)";
+      } else if (val !== undefined && val !== null && val !== "" && !isNaN(Number(val))) {
+        const score = Number(val);
+        displayScore = `${score}/${test.maxMarks}`;
+        const pctVal = (score / test.maxMarks) * 100;
+        pct = `(${pctVal.toFixed(0)}%)`;
+        const isPass = (test.maxMarks === 40) ? (score >= 13) : (pctVal >= 33);
+        passStatus = isPass ? "*Pass*" : "*Fail*";
+      }
+
+      const testName = testFullNames[test.id] || test.label;
+      const dateStr = testDates[activeClass]?.[test.id] ? ` conducted on ${formatDate(testDates[activeClass][test.id])}` : '';
+      
+      let msg = `Dear Parent,\n`;
+      msg += `Here is the evaluation result for *${student.name}* (Class ${activeClass}) in Mathematics *${testName}*${dateStr}:\n\n`;
+      msg += `• Marks Obtained: *${displayScore}* ${pct}\n`;
+      if (passStatus) {
+        msg += `• Status: ${passStatus}\n`;
+      }
+      
+      if (student.remarks) {
+        msg += `\n*Teacher Remarks:* _${student.remarks}_\n`;
+      }
+      
+      msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
+      return msg;
     }
 
     function quickShareWhatsApp(rollNo) {
@@ -4798,9 +4725,7 @@ function switchClass(className) {
       });
     }
 
-    function quickShareWhatsApp(rollNo) {
-      openShareReportModal(rollNo);
-    }
+
 
     function setViewMode(mode) {
       activeViewMode = mode;
