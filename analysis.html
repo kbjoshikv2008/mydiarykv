@@ -2713,6 +2713,28 @@
                   }
         },
 "11B": {
+                  "ch7": {
+                            "ADITYA NEGI": 1,
+                            "ARUN ARYA": 7,
+                            "ASHUTOSH": 7,
+                            "AYUSH ROY": "ab",
+                            "DIKSHANT NEGI": 7,
+                            "GAURAV KUMAR": 5,
+                            "ISHANT MEHRA": 3,
+                            "JANVI": "ab",
+                            "KARAN CHANDRA": 4,
+                            "KARTIKEY PHARTIYAL": 5,
+                            "MANAS BHAGAT": "ab",
+                            "MANSI BHANDARI": "ab",
+                            "NEHA NEGI": "ab",
+                            "PARAS SATI": 16,
+                            "PRANAY SATI": 16,
+                            "PRAVEEN RAUTELA": 5,
+                            "PRIYANSHU KANDPAL": 13,
+                            "PRIYANSHU PANDEY": "ab",
+                            "RAJAT ADHIKARI": 9,
+                            "SPARSH DUBEY": 6
+                  },
                       "pt1": {
                             "ADITYA NEGI": 17,
                             "ARUN ARYA": 39,
@@ -3233,6 +3255,21 @@
           if (!praveen.marks) praveen.marks = {};
           if (praveen.marks.pt1 === undefined || praveen.marks.pt1 === "" || praveen.marks.pt1 === "ab" || praveen.marks.pt1 === "AB") praveen.marks.pt1 = 13;
           if (praveen.marks.ch6 === undefined || praveen.marks.ch6 === "") praveen.marks.ch6 = 0;
+        
+        // Force sync Ch7 for Class 11B
+        const ch7Map = {
+          "ADITYA NEGI": 1, "ARUN ARYA": 7, "ASHUTOSH": 7, "AYUSH ROY": "ab", "DIKSHANT NEGI": 7,
+          "GAURAV KUMAR": 5, "ISHANT MEHRA": 3, "JANVI": "ab", "KARAN CHANDRA": 4, "KARTIKEY PHARTIYAL": 5,
+          "MANAS BHAGAT": "ab", "MANSI BHANDARI": "ab", "NEHA NEGI": "ab", "PARAS SATI": 16, "PRANAY SATI": 16,
+          "PRAVEEN RAUTELA": 5, "PRIYANSHU KANDPAL": 13, "PRIYANSHU PANDEY": "ab", "RAJAT ADHIKARI": 9, "SPARSH DUBEY": 6
+        };
+        studentData["11B"].forEach(s => {
+          if (!s.marks) s.marks = {};
+          const sName = s.name ? s.name.trim() : "";
+          if (ch7Map[sName] !== undefined && (s.marks.ch7 === undefined || s.marks.ch7 === "")) {
+            s.marks.ch7 = ch7Map[sName];
+          }
+        });
         }
         studentData["11B"].sort((a, b) => a.name.localeCompare(b.name));
         studentData["11B"].forEach((s, idx) => {
@@ -3362,6 +3399,7 @@ function generateInitialData() {
       testDates["11B"].ch4 = "2026-07-15";
       testDates["11B"].ch5 = "2026-07-17";
       testDates["11B"].ch6 = "2026-08-07";
+      testDates["11B"].ch7 = "2026-08-14";
       testDates["11B"].pt1 = "2026-07-02";
 
       testDates["7C"].crm = "2026-04-02";
