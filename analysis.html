@@ -4445,35 +4445,56 @@ function switchClass(className) {
       }
     }
 
-        var currentShareStudentRoll = null;
+            var currentShareStudentRoll = null;
 
     function openShareReportModal(rollNo, targetTestId) {
       const students = studentData[activeClass] || [];
-      const student = students.find(s => String(s.rollNo) === String(rollNo));
-      if (!student) return;
+      if (students.length === 0) return;
 
-      currentShareStudentRoll = student.rollNo;
+      // 1. Populate student dropdown
+      const studentSel = document.getElementById("shareStudentSelect");
+      if (studentSel) {
+        studentSel.innerHTML = "";
+        students.forEach(s => {
+          const opt = document.createElement("option");
+          opt.value = s.rollNo;
+          opt.textContent = `${s.name} (Roll ${s.rollNo})`;
+          studentSel.appendChild(opt);
+        });
+      }
+
+      // Find target student or default to first student in class
+      let targetStudent = null;
+      if (rollNo !== undefined && rollNo !== null && rollNo !== "") {
+        targetStudent = students.find(s => String(s.rollNo) === String(rollNo));
+      }
+      if (!targetStudent) {
+        targetStudent = students[0];
+      }
+
+      currentShareStudentRoll = targetStudent.rollNo;
+      if (studentSel) studentSel.value = targetStudent.rollNo;
 
       const nameDisplay = document.getElementById("shareStudentNameDisplay");
-      if (nameDisplay) nameDisplay.textContent = `${student.name} (Class ${activeClass})`;
+      if (nameDisplay) nameDisplay.textContent = `${targetStudent.name} (Class ${activeClass})`;
       
       const mobileInput = document.getElementById("shareParentMobileInput");
-      if (mobileInput) mobileInput.value = student.parentMobile || "";
+      if (mobileInput) mobileInput.value = targetStudent.parentMobile || "";
 
-      // Populate single test dropdown with conducted tests
+      // 2. Populate single test dropdown with conducted tests
       const selectEl = document.getElementById("shareSingleTestSelect");
       if (selectEl) {
         selectEl.innerHTML = "";
         const allOption = document.createElement("option");
         allOption.value = "ALL_COMBINED";
-        allOption.textContent = "All Evaluations (Combined Report)";
+        allOption.textContent = "📊 All Conducted Tests Combined (Full Progress Report)";
         selectEl.appendChild(allOption);
 
         const activeTests = classTests[activeClass] || [];
         const conductedTests = activeTests.filter(t => isTestConducted(t));
 
         conductedTests.forEach(t => {
-          const val = student.marks ? student.marks[t.id] : undefined;
+          const val = targetStudent.marks ? targetStudent.marks[t.id] : undefined;
           const markStr = (val !== undefined && val !== null && val !== "") ? `${val}/${t.maxMarks}` : "Absent/Blank";
           const opt = document.createElement("option");
           opt.value = t.id;
@@ -4488,7 +4509,7 @@ function switchClass(className) {
         }
       }
 
-      toggleShareTypeUI();
+      updateShareModalPreview();
       const modal = document.getElementById("shareReportModal");
       if (modal) modal.style.display = "flex";
     }
