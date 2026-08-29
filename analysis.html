@@ -4475,145 +4475,6 @@ function switchClass(className) {
 
             var currentShareStudentRoll = null;
 
-    function openShareReportModal(rollNo, targetTestId) {
-      const students = studentData[activeClass] || [];
-      if (students.length === 0) return;
-
-      // 1. Populate student dropdown
-      const studentSel = document.getElementById("shareStudentSelect");
-      if (studentSel) {
-        studentSel.innerHTML = "";
-        students.forEach(s => {
-          const opt = document.createElement("option");
-          opt.value = s.rollNo;
-          opt.textContent = `${s.name} (Roll ${s.rollNo})`;
-          studentSel.appendChild(opt);
-        });
-      }
-
-      // Find target student or default to first student in class
-      let targetStudent = null;
-      if (rollNo !== undefined && rollNo !== null && rollNo !== "") {
-        targetStudent = students.find(s => String(s.rollNo) === String(rollNo));
-      }
-      if (!targetStudent) {
-        targetStudent = students[0];
-      }
-
-      currentShareStudentRoll = targetStudent.rollNo;
-      if (studentSel) studentSel.value = targetStudent.rollNo;
-
-      const nameDisplay = document.getElementById("shareStudentNameDisplay");
-      if (nameDisplay) nameDisplay.textContent = `${targetStudent.name} (Class ${activeClass})`;
-      
-      const mobileInput = document.getElementById("shareParentMobileInput");
-      if (mobileInput) mobileInput.value = targetStudent.parentMobile || "";
-
-      // 2. Populate single test dropdown with conducted tests
-      const selectEl = document.getElementById("shareSingleTestSelect");
-      if (selectEl) {
-        selectEl.innerHTML = "";
-        const allOption = document.createElement("option");
-        allOption.value = "ALL_COMBINED";
-        allOption.textContent = "📊 All Conducted Tests Combined (Full Progress Report)";
-        selectEl.appendChild(allOption);
-
-        const activeTests = classTests[activeClass] || [];
-        const conductedTests = activeTests.filter(t => isTestConducted(t));
-
-        conductedTests.forEach(t => {
-          const val = targetStudent.marks ? targetStudent.marks[t.id] : undefined;
-          const markStr = (val !== undefined && val !== null && val !== "") ? `${val}/${t.maxMarks}` : "Absent/Blank";
-          const opt = document.createElement("option");
-          opt.value = t.id;
-          opt.textContent = `${testFullNames[t.id] || t.label}: ${markStr}`;
-          selectEl.appendChild(opt);
-        });
-
-        if (targetTestId && conductedTests.some(t => t.id === targetTestId)) {
-          selectEl.value = targetTestId;
-        } else {
-          selectEl.value = "ALL_COMBINED";
-        }
-      }
-
-      updateShareModalPreview();
-      const modal = document.getElementById("shareReportModal");
-      if (modal) modal.style.display = "flex";
-    }
-    window.openShareReportModal = openShareReportModal;
-
-    function closeShareReportModal() {
-      const modal = document.getElementById("shareReportModal");
-      if (modal) modal.style.display = "none";
-    }
-
-    function toggleShareTypeUI() {
-      const singleRadio = document.getElementById("shareTypeSingle");
-      const isSingle = singleRadio ? singleRadio.checked : false;
-      const singleWrap = document.getElementById("singleTestSelectWrap");
-      if (singleWrap) {
-        singleWrap.style.display = isSingle ? "block" : "none";
-      }
-      updateShareModalPreview();
-    }
-    window.toggleShareTypeUI = toggleShareTypeUI;
-
-    function updateShareModalPreview() {
-      if (currentShareStudentRoll === null || currentShareStudentRoll === undefined) return;
-      const students = studentData[activeClass] || [];
-      const student = students.find(s => String(s.rollNo) === String(currentShareStudentRoll));
-      if (!student) return;
-
-      const selectEl = document.getElementById("shareSingleTestSelect");
-      const selectedTestId = selectEl ? selectEl.value : "ALL_COMBINED";
-      let msg = "";
-
-      if (selectedTestId === "ALL_COMBINED" || !selectedTestId) {
-        msg = generateShareMessage(student);
-      } else {
-        const activeTests = classTests[activeClass] || [];
-        const test = activeTests.find(t => t.id === selectedTestId);
-        
-        if (test) {
-          const val = student.marks ? student.marks[test.id] : undefined;
-          const isAbsent = (typeof val === 'string' && val.toUpperCase() === 'AB');
-          
-          let displayScore = "Blank / Not Conducted";
-          let pct = "";
-          let passStatus = "";
-
-          if (isAbsent) {
-            displayScore = "Absent (AB)";
-          } else if (val !== undefined && val !== null && val !== "" && !isNaN(Number(val))) {
-            const score = Number(val);
-            displayScore = `${score}/${test.maxMarks}`;
-            const pctVal = (score / test.maxMarks) * 100;
-            pct = `(${pctVal.toFixed(0)}%)`;
-            const isPass = (test.maxMarks === 40) ? (score >= 13) : (pctVal >= 33);
-            passStatus = isPass ? "*Pass*" : "*Fail*";
-          }
-
-          const testName = testFullNames[test.id] || test.label;
-          const dateStr = testDates[activeClass]?.[test.id] ? ` conducted on ${formatDate(testDates[activeClass][test.id])}` : '';
-          
-          msg = `Dear Parent,\n`;
-          msg += `Here is the evaluation result for *${student.name}* (Class ${activeClass}) in Mathematics *${testName}*${dateStr}:\n\n`;
-          msg += `• Marks Obtained: *${displayScore}* ${pct}\n`;
-          if (passStatus) {
-            msg += `• Status: ${passStatus}\n`;
-          }
-          if (student.remarks) {
-            msg += `\n*Teacher Remarks:* _${student.remarks}_\n`;
-          }
-          msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
-        }
-      }
-
-      const previewBox = document.getElementById("shareMsgPreview");
-      if (previewBox) previewBox.value = msg;
-    }
-
     function generateShareMessage(student) {
       const activeTests = classTests[activeClass] || [];
       
@@ -4699,16 +4560,204 @@ function switchClass(className) {
       return msg;
     }
 
+    function updateWhatsAppLinkHref(student, msg) {
+      const mobileInputEl = document.getElementById("shareParentMobileInput");
+      let phone = mobileInputEl ? mobileInputEl.value.trim() : (student ? (student.parentMobile || '') : '');
+      phone = phone.replace(/\D/g, '');
+      if (phone.length === 10) {
+        phone = '91' + phone;
+      }
+      
+      let url = "";
+      if (phone) {
+        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
+      } else {
+        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+      }
+
+      const btnLink = document.getElementById("btnSendWhatsAppLink");
+      if (btnLink) {
+        btnLink.href = url;
+      }
+      return url;
+    }
+
+    function updateShareModalPreview() {
+      if (currentShareStudentRoll === null || currentShareStudentRoll === undefined) return;
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => String(s.rollNo) === String(currentShareStudentRoll));
+      if (!student) return;
+
+      const selectEl = document.getElementById("shareSingleTestSelect");
+      const selectedTestId = selectEl ? selectEl.value : "ALL_COMBINED";
+      let msg = "";
+
+      if (selectedTestId === "ALL_COMBINED" || !selectedTestId) {
+        msg = generateShareMessage(student);
+      } else {
+        const activeTests = classTests[activeClass] || [];
+        const test = activeTests.find(t => t.id === selectedTestId);
+        
+        if (test) {
+          const val = student.marks ? student.marks[test.id] : undefined;
+          const isAbsent = (typeof val === 'string' && val.toUpperCase() === 'AB');
+          
+          let displayScore = "Blank / Not Conducted";
+          let pct = "";
+          let passStatus = "";
+
+          if (isAbsent) {
+            displayScore = "Absent (AB)";
+          } else if (val !== undefined && val !== null && val !== "" && !isNaN(Number(val))) {
+            const score = Number(val);
+            displayScore = `${score}/${test.maxMarks}`;
+            const pctVal = (score / test.maxMarks) * 100;
+            pct = `(${pctVal.toFixed(0)}%)`;
+            const isPass = (test.maxMarks === 40) ? (score >= 13) : (pctVal >= 33);
+            passStatus = isPass ? "*Pass*" : "*Fail*";
+          }
+
+          const testName = testFullNames[test.id] || test.label;
+          const dateStr = testDates[activeClass]?.[test.id] ? ` conducted on ${formatDate(testDates[activeClass][test.id])}` : '';
+          
+          msg = `Dear Parent,\n`;
+          msg += `Here is the evaluation result for *${student.name}* (Class ${activeClass}) in Mathematics *${testName}*${dateStr}:\n\n`;
+          msg += `• Marks Obtained: *${displayScore}* ${pct}\n`;
+          if (passStatus) {
+            msg += `• Status: ${passStatus}\n`;
+          }
+          if (student.remarks) {
+            msg += `\n*Teacher Remarks:* _${student.remarks}_\n`;
+          }
+          msg += `\nRegards,\n*K B Joshi*\nPGT Mathematics\nPM SHRI KV Ranikhet`;
+        }
+      }
+
+      const previewBox = document.getElementById("shareMsgPreview");
+      if (previewBox) previewBox.value = msg;
+
+      updateWhatsAppLinkHref(student, msg);
+    }
+
+    function openShareReportModal(rollNo, targetTestId) {
+      const students = studentData[activeClass] || [];
+      if (students.length === 0) return;
+
+      const studentSel = document.getElementById("shareStudentSelect");
+      if (studentSel) {
+        studentSel.innerHTML = "";
+        students.forEach(s => {
+          const opt = document.createElement("option");
+          opt.value = s.rollNo;
+          opt.textContent = `${s.name} (Roll ${s.rollNo})`;
+          studentSel.appendChild(opt);
+        });
+      }
+
+      let targetStudent = null;
+      if (rollNo !== undefined && rollNo !== null && rollNo !== "") {
+        targetStudent = students.find(s => String(s.rollNo) === String(rollNo));
+      }
+      if (!targetStudent) {
+        targetStudent = students[0];
+      }
+
+      currentShareStudentRoll = targetStudent.rollNo;
+      if (studentSel) studentSel.value = targetStudent.rollNo;
+
+      const nameDisplay = document.getElementById("shareStudentNameDisplay");
+      if (nameDisplay) nameDisplay.textContent = `${targetStudent.name} (Class ${activeClass})`;
+      
+      const mobileInput = document.getElementById("shareParentMobileInput");
+      if (mobileInput) mobileInput.value = targetStudent.parentMobile || "";
+
+      const selectEl = document.getElementById("shareSingleTestSelect");
+      if (selectEl) {
+        selectEl.innerHTML = "";
+        const allOption = document.createElement("option");
+        allOption.value = "ALL_COMBINED";
+        allOption.textContent = "📊 All Conducted Tests Combined (Full Progress Report)";
+        selectEl.appendChild(allOption);
+
+        const activeTests = classTests[activeClass] || [];
+        const conductedTests = activeTests.filter(t => isTestConducted(t));
+
+        conductedTests.forEach(t => {
+          const val = targetStudent.marks ? targetStudent.marks[t.id] : undefined;
+          const markStr = (val !== undefined && val !== null && val !== "") ? `${val}/${t.maxMarks}` : "Absent/Blank";
+          const opt = document.createElement("option");
+          opt.value = t.id;
+          opt.textContent = `${testFullNames[t.id] || t.label}: ${markStr}`;
+          selectEl.appendChild(opt);
+        });
+
+        if (targetTestId && conductedTests.some(t => t.id === targetTestId)) {
+          selectEl.value = targetTestId;
+        } else {
+          selectEl.value = "ALL_COMBINED";
+        }
+      }
+
+      updateShareModalPreview();
+      const modal = document.getElementById("shareReportModal");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function onShareModalStudentChange() {
+      const studentSel = document.getElementById("shareStudentSelect");
+      if (!studentSel) return;
+      const rollNo = studentSel.value;
+      currentShareStudentRoll = rollNo;
+
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => String(s.rollNo) === String(rollNo));
+      
+      const mobileInput = document.getElementById("shareParentMobileInput");
+      if (mobileInput && student) {
+        mobileInput.value = student.parentMobile || "";
+      }
+
+      const selectEl = document.getElementById("shareSingleTestSelect");
+      if (selectEl && student) {
+        const activeTests = classTests[activeClass] || [];
+        const conductedTests = activeTests.filter(t => isTestConducted(t));
+        const currentVal = selectEl.value;
+
+        selectEl.innerHTML = "";
+        const allOpt = document.createElement("option");
+        allOpt.value = "ALL_COMBINED";
+        allOpt.textContent = "📊 All Conducted Tests Combined (Full Progress Report)";
+        selectEl.appendChild(allOpt);
+
+        conductedTests.forEach(t => {
+          const val = student.marks ? student.marks[t.id] : undefined;
+          const markStr = (val !== undefined && val !== null && val !== "") ? `${val}/${t.maxMarks}` : "Absent/Blank";
+          const opt = document.createElement("option");
+          opt.value = t.id;
+          opt.textContent = `${testFullNames[t.id] || t.label}: ${markStr}`;
+          selectEl.appendChild(opt);
+        });
+
+        selectEl.value = currentVal || "ALL_COMBINED";
+      }
+
+      updateShareModalPreview();
+    }
+
+    function closeShareReportModal() {
+      const modal = document.getElementById("shareReportModal");
+      if (modal) modal.style.display = "none";
+    }
+
     function quickShareWhatsApp(rollNo, testId) {
       openShareReportModal(rollNo, testId);
     }
-    window.quickShareWhatsApp = quickShareWhatsApp;
 
-
-    function sendDirectWhatsApp() {
+    function sendDirectWhatsApp(evt) {
       const studentSel = document.getElementById("shareStudentSelect");
       const targetRoll = (studentSel && studentSel.value) ? studentSel.value : currentShareStudentRoll;
       if (targetRoll === null || targetRoll === undefined) {
+        if (evt) evt.preventDefault();
         alert("Please select a student to share report!");
         return;
       }
@@ -4716,6 +4765,7 @@ function switchClass(className) {
       const students = studentData[activeClass] || [];
       const student = students.find(s => String(s.rollNo) === String(targetRoll));
       if (!student) {
+        if (evt) evt.preventDefault();
         alert("Selected student record not found!");
         return;
       }
@@ -4732,20 +4782,20 @@ function switchClass(className) {
         msg = generateShareMessage(student);
       }
       
-      let phone = mobileInput || student.parentMobile || '';
-      phone = phone.replace(/\D/g, '');
-      if (phone.length === 10) {
-        phone = '91' + phone;
+      const url = updateWhatsAppLinkHref(student, msg);
+
+      if (!evt) {
+        window.open(url, '_blank');
       }
-      
-      let url = "";
-      if (phone) {
-        url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
-      } else {
-        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
-      }
-      window.open(url, '_blank');
     }
+
+    window.openShareReportModal = openShareReportModal;
+    window.onShareModalStudentChange = onShareModalStudentChange;
+    window.closeShareReportModal = closeShareReportModal;
+    window.updateShareModalPreview = updateShareModalPreview;
+    window.quickShareWhatsApp = quickShareWhatsApp;
+    window.sendDirectWhatsApp = sendDirectWhatsApp;
+    
 
     function copyShareModalText() {
       const msg = document.getElementById("shareMsgPreview").value;
@@ -5720,7 +5770,7 @@ function switchClass(className) {
           <label style="font-size: 0.8rem; font-weight: 800; color: #25d366; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">
             <i class="fas fa-phone-alt"></i> Parent Mobile Number:
           </label>
-          <input type="text" id="shareParentMobileInput" placeholder="10-digit Mobile Number" style="width: 100%; padding: 11px 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #ffffff; font-family: monospace; font-size: 0.92rem; font-weight: 700;">
+          <input type="text" id="shareParentMobileInput" oninput="updateShareModalPreview()" placeholder="10-digit Mobile Number" style="width: 100%; padding: 11px 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #ffffff; font-family: monospace; font-size: 0.92rem; font-weight: 700;">
         </div>
       </div>
 
@@ -5746,7 +5796,7 @@ function switchClass(className) {
       <div style="display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
         <button onclick="closeShareReportModal()" style="padding: 11px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #ffffff; font-weight: 700; font-size: 0.9rem; cursor: pointer;">Cancel</button>
         <button onclick="copyShareModalText()" style="padding: 11px 20px; background: rgba(99,102,241,0.2); border: 1px solid #6366f1; border-radius: 8px; color: #818cf8; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 6px;"><i class="fas fa-copy"></i> Copy Text</button>
-        <button onclick="sendDirectWhatsApp()" style="padding: 11px 24px; background: linear-gradient(135deg, #25d366, #128c7e); border: none; border-radius: 8px; color: #ffffff; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(37,211,102,0.4);"><i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Send on WhatsApp</button>
+        <a id="btnSendWhatsAppLink" href="#" target="_blank" onclick="sendDirectWhatsApp(event)" style="padding: 11px 24px; background: linear-gradient(135deg, #25d366, #128c7e); border: none; border-radius: 8px; color: #ffffff; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(37,211,102,0.4); text-decoration: none;"><i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Send on WhatsApp</a>
       </div>
 
     </div>
