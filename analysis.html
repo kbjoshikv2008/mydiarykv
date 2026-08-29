@@ -4415,6 +4415,18 @@ function switchClass(className) {
       renderTable();
     }
 
+    
+    function updateParentMobile(rollNo, mobile) {
+      const students = studentData[activeClass] || [];
+      const student = students.find(s => String(s.rollNo) === String(rollNo));
+      if (student) {
+        student.parentMobile = (mobile || "").trim();
+        saveData();
+      }
+    }
+    window.updateParentMobile = updateParentMobile;
+
+
     function renderTable() {
       updateSummaryCards();
       const thead = document.getElementById("tableHead");
@@ -4550,12 +4562,19 @@ function switchClass(className) {
             }
           }
 
+          let scoreDisplayHtml = `<span style="color: var(--text-muted); font-size: 0.85rem;">--</span>`;
+          if (val !== undefined && val !== null && val !== "") {
+            if (typeof val === 'string' && val.toUpperCase() === 'AB') {
+              scoreDisplayHtml = `<span style="color: #ef4444; font-weight: 800; background: rgba(239,68,68,0.15); padding: 3px 8px; border-radius: 4px; font-size: 0.85rem;">AB</span>`;
+            } else {
+              scoreDisplayHtml = `<span style="font-weight: 800; font-size: 0.92rem; color: #ffffff; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.1); min-width: 36px; display: inline-block; text-align: center;">${displayScore}</span>${arrowHtml}`;
+            }
+          }
+
           testCells += `
             <td style="text-align: center; white-space: nowrap;">
               <div style="display: inline-flex; align-items: center; justify-content: center; gap: 2px;">
-                <input type="number" class="marks-input" min="0" max="${test.maxMarks}" placeholder="--" value="${displayScore}" 
-                  onchange="updateStudentMark(${student.rollNo}, '${test.id}', this.value)" style="width: 55px; text-align: center; padding: 4px; border-radius: 4px;">
-                ${arrowHtml}
+                ${scoreDisplayHtml}
               </div>
             </td>
           `;
@@ -4571,9 +4590,8 @@ function switchClass(className) {
 
         tr.innerHTML = `
           <td class="sticky-col sticky-col-1">${student.rollNo}</td>
-          <td class="sticky-col sticky-col-2">
-            <input type="text" class="student-name-input" value="${student.name}" 
-              onchange="updateStudentName(${student.rollNo}, this.value)">
+          <td class="sticky-col sticky-col-2" style="font-family: var(--font-head); font-weight: 700; color: #ffffff; font-size: 0.92rem; padding: 12px 14px;">
+            ${student.name}
           </td>
           <td>
             <input type="text" class="parent-mobile-input" value="${student.parentMobile || ''}" placeholder="Add Mobile" 
