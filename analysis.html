@@ -6253,7 +6253,7 @@ function switchClass(className) {
         let grade = "Needs Improvement";
         let gradeColor = "#991b1b";
         let bgGrade = "#fee2e2";
-        if (pct >= 80) { grade = "A+ Outstanding"; gradeColor = "#166534"; bgGrade = "#dcfce7"; }
+        if (pct >= 80) { grade = "A+ Outstanding"; gradeColor = "#065f46"; bgGrade = "#d1fae5"; }
         else if (pct >= 60) { grade = "B Good"; gradeColor = "#1e40af"; bgGrade = "#dbeafe"; }
         else if (pct >= 33) { grade = "C Average"; gradeColor = "#854d0e"; bgGrade = "#fef9c3"; }
 
@@ -6280,24 +6280,43 @@ function switchClass(className) {
       // Generate Test Header Columns
       const testHeadersHtml = conductedTests.map(t => {
         const shortName = t.label.replace('Chapterwise Test', 'Ch').replace('Periodic Test', 'PT');
-        return `<th style="text-align:center; min-width:32px;">${shortName}<br><span style="font-size:5.5pt; font-weight:normal;">(${t.maxMarks})</span></th>`;
+        return `<th style="text-align:center; min-width:30px;">${shortName}<br><span style="font-size:5.5pt; font-weight:normal;">(${t.maxMarks})</span></th>`;
       }).join('');
 
-      // Generate Student Rows with Marks in Columns
+      // Generate Student Rows with Highlighting (>=90% and <33%) for Color & B/W printing
       const studentRowsHtml = studentStats.map(s => {
         const studentObj = students.find(st => String(st.rollNo) === String(s.rollNo));
         const testCells = conductedTests.map(t => {
           const val = studentObj && studentObj.marks ? studentObj.marks[t.id] : undefined;
           if (typeof val === 'string' && val.toUpperCase() === 'AB') {
-            return `<td style="text-align:center; color:#991b1b; font-weight:800; background:#fee2e2;">AB</td>`;
+            return `<td style="text-align:center; color:#991b1b; font-weight:800; background:#fecaca; border:1px solid #f87171;" title="Absent">AB</td>`;
           } else if (val !== undefined && val !== null && val !== "" && !isNaN(Number(val))) {
             const score = Number(val);
-            const isHigh = (t.maxMarks === 40) ? (score >= 30) : (score >= 15);
-            return `<td style="text-align:center; font-weight:700; ${isHigh ? 'color:#166534; background:#f0fdf4;' : ''}">${score}</td>`;
+            const pctVal = (score / t.maxMarks) * 100;
+            
+            if (pctVal >= 90) {
+              // High Score >= 90%: Emerald green background + bold text + star symbol ★ for monochrome visibility
+              return `<td style="text-align:center; font-weight:800; color:#065f46; background:#d1fae5; border:1px solid #34d399;" title="Outstanding (>=90%)">${score}★</td>`;
+            } else if (pctVal < 33) {
+              // Low Score < 33%: Light red background + bold text + exclamation symbol ! for monochrome visibility
+              return `<td style="text-align:center; font-weight:800; color:#991b1b; background:#fee2e2; border:1px solid #f87171;" title="Needs Improvement (<33%)">${score}!</td>`;
+            } else {
+              return `<td style="text-align:center; font-weight:700; color:#0f172a;">${score}</td>`;
+            }
           } else {
             return `<td style="text-align:center; color:#94a3b8;">-</td>`;
           }
         }).join('');
+
+        let avgStyle = "color:#1e3a8a;";
+        let avgSymbol = "";
+        if (s.pct >= 90) {
+          avgStyle = "color:#065f46; background:#d1fae5; border:1px solid #34d399;";
+          avgSymbol = "★";
+        } else if (s.pct < 33) {
+          avgStyle = "color:#991b1b; background:#fee2e2; border:1px solid #f87171;";
+          avgSymbol = "!";
+        }
 
         return `
           <tr>
@@ -6306,7 +6325,7 @@ function switchClass(className) {
             ${testCells}
             <td style="text-align:center; font-weight:800;">${s.sum}</td>
             <td style="text-align:center; font-weight:700; color:#64748b;">${s.maxPos}</td>
-            <td style="text-align:center; font-weight:800; color:#1e3a8a;">${s.pct.toFixed(1)}%</td>
+            <td style="text-align:center; font-weight:800; ${avgStyle}">${s.pct.toFixed(1)}%${avgSymbol}</td>
             <td style="text-align:center;"><span style="background:${s.bgGrade}; color:${s.gradeColor}; font-weight:800; padding:1px 4px; border-radius:2px; font-size:6.2pt;">${s.grade}</span></td>
           </tr>
         `;
@@ -6336,7 +6355,7 @@ function switchClass(className) {
             if (score > max) max = score;
           }
         });
-        return `<td style="text-align:center; color:#166534; font-weight:800;">${max >= 0 ? max : '-'}</td>`;
+        return `<td style="text-align:center; color:#065f46; font-weight:800; background:#d1fae5;">${max >= 0 ? max + '★' : '-'}</td>`;
       }).join('');
 
       // Generate Test-wise Lowest Score Footer Row
@@ -6349,7 +6368,7 @@ function switchClass(className) {
             if (score < min) min = score;
           }
         });
-        return `<td style="text-align:center; color:#991b1b; font-weight:800;">${min < 999 ? min : '-'}</td>`;
+        return `<td style="text-align:center; color:#991b1b; font-weight:800; background:#fee2e2;">${min < 999 ? min + '!' : '-'}</td>`;
       }).join('');
 
       // Generate Test-wise Pass Ratio Footer Row
@@ -6365,7 +6384,7 @@ function switchClass(className) {
           }
         });
         const passPct = total > 0 ? (pass / total) * 100 : 0;
-        return `<td style="text-align:center; color:${passPct >= 60 ? '#166534' : '#991b1b'}; font-weight:800;">${passPct.toFixed(0)}%</td>`;
+        return `<td style="text-align:center; color:${passPct >= 60 ? '#065f46' : '#991b1b'}; font-weight:800;">${passPct.toFixed(0)}%</td>`;
       }).join('');
 
       const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -6393,7 +6412,7 @@ function switchClass(className) {
   <style>
     @page {
       size: A4 portrait;
-      margin: 0.5in;
+      margin: 3mm 4mm;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -6411,11 +6430,11 @@ function switchClass(className) {
     .header-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       border: 1.5px solid #1e1b4b;
     }
     .header-table td {
-      padding: 4px 6px;
+      padding: 3px 6px;
       vertical-align: middle;
     }
     .header-main {
@@ -6430,7 +6449,7 @@ function switchClass(className) {
       margin: 0;
     }
     .header-main p {
-      font-size: 7.2pt;
+      font-size: 7pt;
       color: #c7d2fe;
       font-weight: 700;
       margin-top: 1px;
@@ -6438,17 +6457,35 @@ function switchClass(className) {
     .header-meta-box {
       background: #f8fafc;
       color: #1e293b;
-      font-size: 7pt;
+      font-size: 6.8pt;
       border-left: 1.5px solid #1e1b4b;
       line-height: 1.25;
     }
     .header-meta-box strong { color: #1e1b4b; }
 
+    /* Legend Bar */
+    .legend-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 2px 6px;
+      margin-bottom: 4px;
+      font-size: 6.5pt;
+      font-weight: 700;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
     /* Main Full Matrix Table */
     .matrix-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       font-size: 6.8pt;
     }
     .matrix-table th {
@@ -6468,7 +6505,7 @@ function switchClass(className) {
     .matrix-table tbody tr:nth-child(even) { background: #f8fafc; }
 
     .matrix-table tfoot td {
-      padding: 2.5px 3px;
+      padding: 2px 3px;
       border: 1px solid #94a3b8;
       font-size: 6.8pt;
     }
@@ -6477,40 +6514,40 @@ function switchClass(className) {
     .analysis-footer-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 4px;
+      margin-top: 3px;
       border-top: 1.5px solid #1e1b4b;
-      padding-top: 4px;
+      padding-top: 3px;
     }
     .analysis-footer-table td {
-      padding: 4px 6px;
+      padding: 3px 5px;
       vertical-align: top;
     }
     .box-title {
-      font-size: 7.5pt;
+      font-size: 7.2pt;
       font-weight: 800;
       color: #ffffff;
       background: #3730a3;
       padding: 2px 5px;
       text-transform: uppercase;
       letter-spacing: 0.3px;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
       border-radius: 2px;
     }
     .sub-info-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 6.8pt;
+      font-size: 6.6pt;
     }
     .sub-info-table th {
       text-align: left;
       color: #475569;
       font-weight: 700;
-      padding: 1.5px 0;
+      padding: 1px 0;
     }
     .sub-info-table td {
       text-align: right;
       color: #0f172a;
-      padding: 1.5px 0;
+      padding: 1px 0;
     }
   </style>
 </head>
@@ -6532,12 +6569,20 @@ function switchClass(className) {
       </tr>
     </table>
 
+    <!-- Legend Bar for High & Low Score Visual Highlights (Color & B/W Printing) -->
+    <div class="legend-bar">
+      <span><strong>High/Low Score Highlights:</strong></span>
+      <span class="legend-item"><span style="background:#d1fae5; color:#065f46; border:1px solid #34d399; padding:0 3px; font-weight:800;">Score★</span> Above 90% (Outstanding)</span>
+      <span class="legend-item"><span style="background:#fee2e2; color:#991b1b; border:1px solid #f87171; padding:0 3px; font-weight:800;">Score!</span> Below 33% (Needs Attention)</span>
+      <span class="legend-item"><span style="background:#fecaca; color:#991b1b; padding:0 3px; font-weight:800;">AB</span> Absent</span>
+    </div>
+
     <!-- Main Student-by-Test Full Grid Table -->
     <table class="matrix-table">
       <thead>
         <tr>
           <th style="width:20px; text-align:center;">#</th>
-          <th style="text-align:left; min-width:100px;">Student Name</th>
+          <th style="text-align:left; min-width:95px;">Student Name</th>
           ${testHeadersHtml}
           <th style="text-align:center;">Total</th>
           <th style="text-align:center;">Max</th>
@@ -6557,12 +6602,12 @@ function switchClass(className) {
           <td style="text-align:center; color:#1e3a8a;">${overallClassAvgPct.toFixed(1)}%</td>
           <td></td>
         </tr>
-        <tr style="font-weight:800; color:#166534; background:#f0fdf4;">
+        <tr style="font-weight:800; color:#065f46; background:#d1fae5;">
           <td colspan="2" style="text-align:right; text-transform:uppercase;">Highest Score:</td>
           ${classHighestCellsHtml}
           <td colspan="4"></td>
         </tr>
-        <tr style="font-weight:800; color:#991b1b; background:#fff1f2;">
+        <tr style="font-weight:800; color:#991b1b; background:#fee2e2;">
           <td colspan="2" style="text-align:right; text-transform:uppercase;">Lowest Score:</td>
           ${classLowestCellsHtml}
           <td colspan="4"></td>
@@ -6570,7 +6615,7 @@ function switchClass(className) {
         <tr style="font-weight:800; color:#1e1b4b; background:#f1f5f9;">
           <td colspan="2" style="text-align:right; text-transform:uppercase;">Pass Ratio (%):</td>
           ${classPassRatioCellsHtml}
-          <td colspan="3" style="text-align:center; color:#166534; font-weight:800;">${classPassPct.toFixed(0)}%</td>
+          <td colspan="3" style="text-align:center; color:#065f46; font-weight:800;">${classPassPct.toFixed(0)}%</td>
           <td></td>
         </tr>
       </tfoot>
@@ -6585,8 +6630,8 @@ function switchClass(className) {
             <tr><th>Total Enrolled Students:</th><td><strong>${students.length} Students</strong></td></tr>
             <tr><th>Total Evaluations Conducted:</th><td><strong>${conductedTests.length} Conducted Tests</strong></td></tr>
             <tr><th>Class Overall Average:</th><td><strong style="color:#1e3a8a;">${overallClassAvgPct.toFixed(1)}%</strong></td></tr>
-            <tr><th>Overall Class Pass Ratio:</th><td><strong style="color:#166534;">${classPassPct.toFixed(0)}%</strong></td></tr>
-            <tr><th>Top Class Performer:</th><td><strong style="color:#166534;">${topPerformer.name} (${topPerformer.pct.toFixed(1)}%)</strong></td></tr>
+            <tr><th>Overall Class Pass Ratio:</th><td><strong style="color:#065f46;">${classPassPct.toFixed(0)}%</strong></td></tr>
+            <tr><th>Top Class Performer:</th><td><strong style="color:#065f46;">${topPerformer.name} (${topPerformer.pct.toFixed(1)}%)</strong></td></tr>
           </table>
         </td>
         <td style="width:37%;">
@@ -6599,11 +6644,11 @@ function switchClass(className) {
           </table>
         </td>
         <td style="width:25%; text-align:right; vertical-align:bottom;">
-          <div style="font-size:7.2pt; font-weight:bold; color:#1e1b4b; margin-bottom:18px;">
+          <div style="font-size:7pt; font-weight:bold; color:#1e1b4b; margin-bottom:14px;">
             PM SHRI KV RANIKHET<br>MATHEMATICS DEPT.
           </div>
-          <div style="border-top:1px solid #1e1b4b; padding-top:2px; font-size:7.2pt; font-weight:800; color:#1e1b4b;">
-            K B Joshi (PGT Mathematics)<br><span style="font-size:6.2pt; font-weight:normal; color:#475569;">Teacher Signature & Seal</span>
+          <div style="border-top:1px solid #1e1b4b; padding-top:2px; font-size:7pt; font-weight:800; color:#1e1b4b;">
+            K B Joshi (PGT Mathematics)<br><span style="font-size:6pt; font-weight:normal; color:#475569;">Teacher Signature & Seal</span>
           </div>
         </td>
       </tr>
