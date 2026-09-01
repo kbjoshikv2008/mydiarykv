@@ -2399,6 +2399,7 @@ select option:checked {
         { id: "ch5", label: "Ch 5", maxMarks: 20 },
         { id: "ch6", label: "Ch 6", maxMarks: 20 },
         { id: "ch7", label: "Ch 7", maxMarks: 20 },
+        { id: "mt4", label: "MT-4", maxMarks: 20 },
         ...Array.from({length: 8}, (_, i) => ({ id: `ch${i+8}`, label: `Ch ${i+8}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
@@ -2410,6 +2411,7 @@ select option:checked {
     window.classTests = classTests;
     
     const testFullNames = {
+      mt4: "Monthly Test 4 (MT-4)",
       crm: "CRM (Classroom Readiness Module)",
       pt1: "PT1 (Periodic Test 1)",
       pt2: "PT2 (Periodic Test 2)",
@@ -2581,7 +2583,7 @@ select option:checked {
                       "SIYA SUYAL": 16,
                       "SPARSH BHATT": 11,
                       "TANMAY ADHIKARI": 8,
-                      "PALAK": 3,
+                      "PALAK": 5,
                       "NISHANT": 11,
                       "SOUVIK SAHA": "ab"
                     },
@@ -2766,7 +2768,33 @@ select option:checked {
                       "PALAK": "ab",
                       "NISHANT": 15,
                       "SOUVIK SAHA": 13
-                    }
+                    },
+                  "mt4": {
+                    "ABHIMANYU SINGH": 10,
+                    "ANUJ GOSWAMI": 13,
+                    "AYUSH NEGI": 12,
+                    "BHUMI SATI": 14,
+                    "HARDIK PHULARA": 11,
+                    "HARSHIT ARYA": 19,
+                    "HARSHITA NEGI": 10,
+                    "HITESH UPADHYAY": 1,
+                    "KAMAL JOSHI": "ab",
+                    "KANIKA BISHT": 14,
+                    "KARAN": 8,
+                    "NITIN BISHT": 16,
+                    "PARTH": 13,
+                    "PRIYANKA": 10,
+                    "RAJ": 7,
+                    "RITIKA": 9,
+                    "SADHNA": 10,
+                    "SAKSHAM NEGI": 9,
+                    "SIYA SUYAL": 14,
+                    "SPARSH BHATT": 7,
+                    "TANMAY ADHIKARI": 18,
+                    "PALAK": 2,
+                    "NISHANT": 13,
+                    "SOUVIK SAHA": 9
+                  }
                   },
                   "11B": {
                     "ch1": {
@@ -3373,6 +3401,32 @@ select option:checked {
                 // Force sync exact Excel marks for Class 11B from Test Record.xlsx
                 // Force sync exact Excel marks for Class 12 from CT TEST RECORD 2026.xlsx
         const excelMarks12Map = {
+    "mt4": {
+      "ABHIMANYU SINGH": 10,
+      "ANUJ GOSWAMI": 13,
+      "AYUSH NEGI": 12,
+      "BHUMI SATI": 14,
+      "HARDIK PHULARA": 11,
+      "HARSHIT ARYA": 19,
+      "HARSHITA NEGI": 10,
+      "HITESH UPADHYAY": 1,
+      "KAMAL JOSHI": "ab",
+      "KANIKA BISHT": 14,
+      "KARAN": 8,
+      "NITIN BISHT": 16,
+      "PARTH": 13,
+      "PRIYANKA": 10,
+      "RAJ": 7,
+      "RITIKA": 9,
+      "SADHNA": 10,
+      "SAKSHAM NEGI": 9,
+      "SIYA SUYAL": 14,
+      "SPARSH BHATT": 7,
+      "TANMAY ADHIKARI": 18,
+      "PALAK": 2,
+      "NISHANT": 13,
+      "SOUVIK SAHA": 9
+},
           "ch1": {
                     "ABHIMANYU SINGH": 11,
                     "ANUJ GOSWAMI": 11,
@@ -3473,7 +3527,7 @@ select option:checked {
                     "SIYA SUYAL": 16,
                     "SPARSH BHATT": 11,
                     "TANMAY ADHIKARI": 8,
-                    "PALAK": 3,
+                    "PALAK": 5,
                     "NISHANT": 11,
                     "SOUVIK SAHA": "ab"
           },
@@ -3988,6 +4042,7 @@ function generateInitialData() {
       testDates["12"].ch7_definite = "2026-07-31";
       testDates["12"].ch8 = "2026-08-04";
       testDates["12"].ch9 = "2026-08-17";
+      testDates["12"].mt4 = "2026-09-01";
       testDates["12"].pt1 = "2026-07-02";
       testDates["12"].pt1 = "2026-07-03";
 
