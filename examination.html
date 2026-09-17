@@ -4470,7 +4470,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
           <style>
             @page {
               size: A4 landscape;
-              margin: 0.18in 0.18in 0.18in 0.18in;
+              margin: 0.18in 0.5in 0.18in 0.5in;
             }
             * { box-sizing: border-box; }
             html, body {
@@ -4854,10 +4854,10 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       `;
 
       const pdfContainer = document.createElement('div');
-      pdfContainer.style.cssText = 'width: 1080px; background: #ffffff; color: #000000; font-family: Arial, Helvetica, "Segoe UI", sans-serif; font-size: 7.2pt; line-height: 1.16; margin: 0; padding: 0; box-sizing: border-box;';
+      pdfContainer.style.cssText = 'width: 1026px; background: #ffffff; color: #000000; font-family: Arial, Helvetica, "Segoe UI", sans-serif; font-size: 7.2pt; line-height: 1.16; margin: 0; padding: 0; box-sizing: border-box;';
       pdfContainer.innerHTML = `
         <!-- PAGE 1 (FRONT SIDE) -->
-        <div style="width: 1080px; min-height: 745px; height: 745px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding: 0 0 2px 0;">
+        <div style="width: 1026px; min-height: 745px; height: 745px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding: 0 0 2px 0;">
           <div>
             <div style="text-align:center; border-bottom:1.5px solid #000000; padding-bottom:2px; margin-bottom:2px;">
               <h1 style="margin:0 0 1px; font-size:12pt; font-weight:900; color:#000000; letter-spacing:0.02em;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
@@ -4887,7 +4887,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
         </div>
 
         <!-- PAGE 2 (REVERSE SIDE) -->
-        <div style="page-break-before: always; break-before: page; width: 1080px; min-height: 745px; height: 745px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding: 2px 0 2px 0;">
+        <div style="page-break-before: always; break-before: page; width: 1026px; min-height: 745px; height: 745px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding: 2px 0 2px 0;">
           <div>
             <div style="text-align:center; border-bottom:1.5px solid #000000; padding-bottom:2px; margin-bottom:2px;">
               <h1 style="margin:0 0 1px; font-size:12pt; font-weight:900; color:#000000; letter-spacing:0.02em;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
@@ -5019,13 +5019,13 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       // Mount offscreen container into DOM so html2canvas renders with full layout fidelity
       const wrapper = document.createElement('div');
       wrapper.id = 'samagam-pdf-temp-wrapper';
-      wrapper.style.cssText = 'position: fixed; left: -99999px; top: 0; width: 1080px; z-index: -9999; background: #ffffff;';
+      wrapper.style.cssText = 'position: fixed; left: -99999px; top: 0; width: 1026px; z-index: -9999; background: #ffffff;';
       wrapper.appendChild(pdfContainer);
       document.body.appendChild(wrapper);
 
       if (window.html2pdf) {
         const opt = {
-          margin: [0.18, 0.18, 0.18, 0.18], // minimum 0.18in margins on all 4 sides
+          margin: [0.18, 0.5, 0.18, 0.5], // Top: 0.18", Right: 0.5", Bottom: 0.18", Left: 0.5"
           filename: 'KVS_Samagam_Class_7C_Maths_Term1_Marksheet.pdf',
           image: { type: 'jpeg', quality: 1.0 },
           html2canvas: {
@@ -5033,7 +5033,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             useCORS: true,
             letterRendering: true,
             logging: false,
-            windowWidth: 1080,
+            windowWidth: 1026,
             backgroundColor: '#ffffff'
           },
           jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape', compress: true },
