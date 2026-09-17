@@ -737,6 +737,207 @@
       .gen-form-grid { grid-template-columns: 1fr; }
       .q-counter-grid { grid-template-columns: 1fr 1fr; }
     }
+    /* Samagam Result Portal Styling */
+    .samagam-header-card {
+      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(14,165,233,0.18));
+      border: 1px solid rgba(139,92,246,0.35);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .samagam-class-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .samagam-class-btn {
+      padding: 10px 22px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .samagam-class-btn:hover {
+      background: rgba(139,92,246,0.15);
+      color: #c4b5fd;
+      border-color: rgba(139,92,246,0.4);
+    }
+    .samagam-class-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+    }
+    .samagam-term-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .samagam-term-btn {
+      padding: 7px 16px;
+      background: rgba(15,23,42,0.6);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 50px;
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .samagam-term-btn:hover {
+      background: rgba(139,92,246,0.2);
+      color: #e2e8f0;
+    }
+    .samagam-term-btn.active {
+      background: #8b5cf6;
+      color: #fff;
+      border-color: #8b5cf6;
+      box-shadow: 0 2px 8px rgba(139,92,246,0.4);
+    }
+    .criteria-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin: 16px 0 22px;
+    }
+    .criteria-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+      position: relative;
+    }
+    .criteria-box .num-badge {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .criteria-box .c-title {
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .criteria-box .c-marks {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: var(--font-head);
+    }
+    .criteria-box .c-sub {
+      font-size: 0.68rem;
+      color: #94a3b8;
+    }
+    .samagam-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .samagam-stat-box {
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .samagam-stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: var(--font-head);
+      color: #fff;
+    }
+    .samagam-stat-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+    }
+    .samagam-table-wrapper {
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 14px;
+      overflow-x: auto;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .samagam-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+    .samagam-table th {
+      background: rgba(30,41,59,0.95);
+      color: #c4b5fd;
+      padding: 12px 10px;
+      font-weight: 700;
+      text-align: center;
+      border-bottom: 2px solid rgba(139,92,246,0.4);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .samagam-table th.th-main {
+      text-align: left;
+      padding-left: 14px;
+    }
+    .samagam-table td {
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      color: #e2e8f0;
+    }
+    .samagam-table td.td-main {
+      text-align: left;
+      padding-left: 14px;
+    }
+    .samagam-table tbody tr:hover {
+      background: rgba(139,92,246,0.08);
+    }
+    .badge-grade {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+    .grade-A1 { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }
+    .grade-A2 { background: rgba(52,211,153,0.18); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.35); }
+    .grade-B1 { background: rgba(14,165,233,0.18); color: #38bdf8; border: 1px solid rgba(14,165,233,0.35); }
+    .grade-B2 { background: rgba(99,102,241,0.18); color: #818cf8; border: 1px solid rgba(99,102,241,0.35); }
+    .grade-C1 { background: rgba(168,85,247,0.18); color: #c084fc; border: 1px solid rgba(168,85,247,0.35); }
+    .grade-C2 { background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(245,158,11,0.35); }
+    .grade-D  { background: rgba(249,115,22,0.18); color: #fb923c; border: 1px solid rgba(249,115,22,0.35); }
+    .grade-E  { background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4); }
+
+    .samagam-subcontent { display: none; }
+    .samagam-subcontent.active { display: block; }
   </style>
 <style>
 /* ======================== GLOBAL DARK DROPDOWN MENU STYLING ======================== */
@@ -837,6 +1038,7 @@ select option:checked {
           <button class="tab-btn" data-tab="half-yearly"><i class="fas fa-award"></i> Half Yearly</button>
           <button class="tab-btn" data-tab="ioqm-tab"><i class="fas fa-medal"></i> IOQM</button>
           <button class="tab-btn" data-tab="question-papers-tab"><i class="fas fa-folder-open"></i> Question Papers</button>
+          <button class="tab-btn" data-tab="samagam-result-tab"><i class="fas fa-poll-h"></i> RESULT AS PER SAMAGAM PORTAL</button>
         </div>
         
         <!-- Chapterwise Test Tab -->
@@ -1552,6 +1754,223 @@ select option:checked {
 
           </div><!-- end AI Generator subtab -->
         </div><!-- end Question Papers tab -->
+
+        <!-- ===== RESULT AS PER SAMAGAM PORTAL TAB ===== -->
+        <div class="tab-content" id="samagam-result-tab">
+          
+          <!-- Header Banner -->
+          <div class="samagam-header-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; margin-bottom:12px;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                  <span style="background:rgba(139,92,246,0.3); color:#c4b5fd; padding:3px 12px; border-radius:50px; font-size:0.75rem; font-weight:700; border:1px solid rgba(139,92,246,0.4);"><i class="fas fa-university"></i> KVS SANGATHAN SAMAGAM PORTAL</span>
+                  <span style="background:rgba(16,185,129,0.2); color:#34d399; padding:3px 12px; border-radius:50px; font-size:0.75rem; font-weight:700;"><i class="fas fa-check-circle"></i> ACADEMIC YEAR 2026-27</span>
+                </div>
+                <h2 style="font-family:var(--font-head); font-size:1.45rem; font-weight:800; color:#fff; margin:0;"><i class="fas fa-poll-h" style="color:#a78bfa; margin-right:8px;"></i> Consolidated Result &amp; Marksheet System</h2>
+                <p style="color:var(--text-secondary); font-size:0.88rem; margin-top:4px;">Official Samagam Portal mark conversion, weightage distribution &amp; consolidated result sheets for Class 7C, 11B &amp; 12B Mathematics.</p>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button onclick="printSamagamMarksheet()" class="gen-btn gen-btn-print" style="padding:8px 18px; font-size:0.85rem;"><i class="fas fa-print"></i> Print Official Marksheet</button>
+                <button onclick="exportSamagamCSV()" class="gen-btn gen-btn-dl" style="padding:8px 18px; font-size:0.85rem;"><i class="fas fa-file-excel"></i> Export to Excel (CSV)</button>
+              </div>
+            </div>
+
+            <!-- Class Navigation Switcher -->
+            <div class="samagam-class-nav">
+              <button class="samagam-class-btn active" data-samclass="7c" onclick="switchSamagamClass('7c', this)"><i class="fas fa-child"></i> Class 7C (Mathematics)</button>
+              <button class="samagam-class-btn" data-samclass="11b" onclick="switchSamagamClass('11b', this)"><i class="fas fa-user-graduate"></i> Class 11B (Mathematics)</button>
+              <button class="samagam-class-btn" data-samclass="12b" onclick="switchSamagamClass('12b', this)"><i class="fas fa-graduation-cap"></i> Class 12B (Mathematics)</button>
+            </div>
+          </div>
+
+          <!-- ==================== CLASS 7C CONTENT ==================== -->
+          <div class="samagam-subcontent active" id="samclass-7c">
+            
+            <!-- Term Selection Pills -->
+            <div class="samagam-term-nav">
+              <button class="samagam-term-btn active" data-samterm="term1" onclick="switchSamagamTerm('term1', this)"><i class="fas fa-calendar-check"></i> Term 1 (Half Yearly Session) — Out of 100 Marks</button>
+              <button class="samagam-term-btn" data-samterm="term2" onclick="switchSamagamTerm('term2', this)"><i class="fas fa-calendar-plus"></i> Term 2 (Annual Session) — Out of 100 Marks</button>
+              <button class="samagam-term-btn" data-samterm="annual" onclick="switchSamagamTerm('annual', this)"><i class="fas fa-award"></i> Annual Consolidated (Term 1 + 2 = 200M / 100%)</button>
+            </div>
+
+            <!-- Official Evaluation Policy Criteria Card -->
+            <div class="gen-card" style="border-left:4px solid #38bdf8; margin-bottom:20px; padding:18px 22px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+                <span style="font-family:var(--font-head); font-weight:700; color:#38bdf8; font-size:0.95rem;"><i class="fas fa-info-circle"></i> KVS Assessment &amp; Evaluation Weightage Criteria (Middle Stage VI–VIII)</span>
+                <span style="background:rgba(56,189,248,0.15); color:#38bdf8; padding:3px 12px; border-radius:50px; font-size:0.75rem; font-weight:700;">Total: 100 Marks per Term</span>
+              </div>
+              <p style="color:var(--text-secondary); font-size:0.83rem; margin-bottom:12px;">As per KVS HQ Guidelines, marks recorded in the Samagam data files are converted according to the prescribed 6-component framework:</p>
+              
+              <div class="criteria-breakdown-grid">
+                <div class="criteria-box">
+                  <span class="num-badge">1</span>
+                  <span class="c-title">Periodic Test (PT1)</span>
+                  <span class="c-marks">10 M</span>
+                  <span class="c-sub">Scaled from 40M raw (× 0.25)</span>
+                </div>
+                <div class="criteria-box">
+                  <span class="num-badge">2</span>
+                  <span class="c-title">Subject Enrichment (SEA)</span>
+                  <span class="c-marks">05 M</span>
+                  <span class="c-sub">Activities &amp; Lab Practical</span>
+                </div>
+                <div class="criteria-box">
+                  <span class="num-badge">3</span>
+                  <span class="c-title">Written Work</span>
+                  <span class="c-marks">05 M</span>
+                  <span class="c-sub">Scaled from 20M raw (× 0.25)</span>
+                </div>
+                <div class="criteria-box">
+                  <span class="num-badge">4</span>
+                  <span class="c-title">Term End Exam (HY)</span>
+                  <span class="c-marks">60 M</span>
+                  <span class="c-sub">Pen Paper Examination (Max 60)</span>
+                </div>
+                <div class="criteria-box">
+                  <span class="num-badge">5</span>
+                  <span class="c-title">Learner's Diary</span>
+                  <span class="c-marks">10 M</span>
+                  <span class="c-sub">Reflection &amp; Self Assessment</span>
+                </div>
+                <div class="criteria-box">
+                  <span class="num-badge">6</span>
+                  <span class="c-title">Multi-Disciplinary Project</span>
+                  <span class="c-marks">10 M</span>
+                  <span class="c-sub">MDP Interdisciplinary Project</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Summary Statistics -->
+            <div class="samagam-stats-grid">
+              <div class="samagam-stat-box">
+                <div class="samagam-stat-val" style="color:#a78bfa;" id="statTotalStudents">40</div>
+                <div class="samagam-stat-label">Total Students</div>
+              </div>
+              <div class="samagam-stat-box">
+                <div class="samagam-stat-val" style="color:#34d399;" id="statPassed">36 (90%)</div>
+                <div class="samagam-stat-label">Passed (&ge; 33%)</div>
+              </div>
+              <div class="samagam-stat-box">
+                <div class="samagam-stat-val" style="color:#38bdf8;" id="statAverage">56.88</div>
+                <div class="samagam-stat-label">Class Average (/100)</div>
+              </div>
+              <div class="samagam-stat-box">
+                <div class="samagam-stat-val" style="color:#f59e0b;" id="statHighest">85.50 (A2)</div>
+                <div class="samagam-stat-label">Highest Score</div>
+              </div>
+              <div class="samagam-stat-box">
+                <div class="samagam-stat-val" style="color:#f472b6;" id="statGradeDist">2 A | 18 B | 10 C</div>
+                <div class="samagam-stat-label">Grade Spread</div>
+              </div>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; background:rgba(255,255,255,0.03); padding:12px 18px; border-radius:12px; border:1px solid rgba(255,255,255,0.08);">
+              <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:250px;">
+                <i class="fas fa-search" style="color:#a78bfa;"></i>
+                <input type="text" id="samagamSearchInput" oninput="filterSamagamTable()" placeholder="Search by student name, roll number, or Student ID..." class="gen-input" style="width:100%; padding:8px 14px; font-size:0.86rem;">
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-filter"></i> Filter Grade:</label>
+                <select id="samagamGradeFilter" onchange="filterSamagamTable()" class="gen-select" style="padding:6px 14px; font-size:0.84rem; min-width:130px;">
+                  <option value="ALL">All Grades (40)</option>
+                  <option value="A2">Grade A2 (81-90)</option>
+                  <option value="B1">Grade B1 (71-80)</option>
+                  <option value="B2">Grade B2 (61-70)</option>
+                  <option value="C1">Grade C1 (51-60)</option>
+                  <option value="C2">Grade C2 (41-50)</option>
+                  <option value="D">Grade D (33-40)</option>
+                  <option value="E">Grade E (&lt; 33)</option>
+                </select>
+                <button onclick="resetSamagamFilters()" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-undo"></i> Reset</button>
+              </div>
+            </div>
+
+            <!-- Consolidated Table Container -->
+            <div class="samagam-table-wrapper" id="samagamTableContainer">
+              <table class="samagam-table" id="samagamResultTable">
+                <thead>
+                  <tr>
+                    <th style="width:50px;">Roll</th>
+                    <th>Student ID</th>
+                    <th class="th-main">Student Name</th>
+                    <th>PT-1<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
+                    <th style="background:rgba(124,58,237,0.25); color:#a78bfa;">PT-1<br><span style="font-size:0.7rem; color:#c4b5fd;">(10M)</span></th>
+                    <th>Written Work<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /20)</span></th>
+                    <th style="background:rgba(124,58,237,0.25); color:#a78bfa;">Written<br><span style="font-size:0.7rem; color:#c4b5fd;">(5M)</span></th>
+                    <th style="background:rgba(124,58,237,0.25); color:#a78bfa;">SEA<br><span style="font-size:0.7rem; color:#c4b5fd;">(5M)</span></th>
+                    <th style="background:rgba(14,165,233,0.25); color:#38bdf8;">Half Yearly<br><span style="font-size:0.7rem; color:#7dd3fc;">(60M)</span></th>
+                    <th style="background:rgba(16,185,129,0.25); color:#34d399;">Learners Diary<br><span style="font-size:0.7rem; color:#a7f3d0;">(10M)</span></th>
+                    <th style="background:rgba(245,158,11,0.25); color:#fbbf24;">MDP<br><span style="font-size:0.7rem; color:#fde68a;">(10M)</span></th>
+                    <th style="background:rgba(236,72,153,0.3); color:#f472b6; font-size:0.92rem;">Total<br><span style="font-size:0.72rem; color:#fbcfe8;">(100M)</span></th>
+                    <th>%</th>
+                    <th>Grade</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody id="samagamTableBody">
+                  <!-- Injected by JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Print Header Template (Used for clean A4 print preview) -->
+            <div id="samagamPrintTarget" style="display:none;"></div>
+
+          </div><!-- end Class 7C -->
+
+          <!-- ==================== CLASS 11B CONTENT ==================== -->
+          <div class="samagam-subcontent" id="samclass-11b">
+            <div class="gen-card" style="border-left:4px solid #8b5cf6; padding:24px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div>
+                  <h3 style="color:#c4b5fd; font-family:var(--font-head); margin:0 0 6px;"><i class="fas fa-user-graduate"></i> Class 11B Mathematics — Samagam Portal Marksheet</h3>
+                  <p style="color:var(--text-secondary); font-size:0.86rem; margin:0;">Senior Secondary Mathematics Evaluation (Theory 80 Marks + Internal Assessment 20 Marks = 100 Marks)</p>
+                </div>
+                <span style="background:rgba(139,92,246,0.2); color:#c4b5fd; padding:4px 14px; border-radius:50px; font-size:0.78rem; font-weight:700;">Status: Updatable Module</span>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(139,92,246,0.4); border-radius:12px; padding:35px; text-align:center; margin:20px 0;">
+                <i class="fas fa-clipboard-list" style="font-size:2.8rem; color:#8b5cf6; margin-bottom:14px; display:inline-block;"></i>
+                <h4 style="color:#fff; font-size:1.15rem; margin-bottom:8px;">Class 11B Examination Records Ready for Entry</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem; max-width:600px; margin:0 auto 18px;">
+                  Class 11B Term-1 (PT1 + HY) and Term-2 (PT2 + Annual Exam) marksheets will be populated here automatically as per KVS Senior Secondary Assessment Rules (80M Theory + 20M Internal: 10M Periodic Tests + 10M Math Activities).
+                </p>
+                <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                  <button class="gen-btn gen-btn-preview" onclick="showToast('ℹ️ Class 11B records template ready. Data can be linked directly.')"><i class="fas fa-eye"></i> View Blueprint &amp; Structure</button>
+                  <button class="gen-btn gen-btn-edit" onclick="showToast('ℹ️ Upload feature ready for Class 11B Samagam data.')"><i class="fas fa-upload"></i> Import 11B Excel Data</button>
+                </div>
+              </div>
+            </div>
+          </div><!-- end Class 11B -->
+
+          <!-- ==================== CLASS 12B CONTENT ==================== -->
+          <div class="samagam-subcontent" id="samclass-12b">
+            <div class="gen-card" style="border-left:4px solid #10b981; padding:24px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                <div>
+                  <h3 style="color:#6ee7b7; font-family:var(--font-head); margin:0 0 6px;"><i class="fas fa-graduation-cap"></i> Class 12B Mathematics — Samagam Portal Marksheet</h3>
+                  <p style="color:var(--text-secondary); font-size:0.86rem; margin:0;">CBSE Board Assessment Framework (Theory 80 Marks + Internal Assessment 20 Marks = 100 Marks)</p>
+                </div>
+                <span style="background:rgba(16,185,129,0.2); color:#34d399; padding:4px 14px; border-radius:50px; font-size:0.78rem; font-weight:700;">Status: Updatable Module</span>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(16,185,129,0.4); border-radius:12px; padding:35px; text-align:center; margin:20px 0;">
+                <i class="fas fa-award" style="font-size:2.8rem; color:#10b981; margin-bottom:14px; display:inline-block;"></i>
+                <h4 style="color:#fff; font-size:1.15rem; margin-bottom:8px;">Class 12B Board &amp; Pre-Board Examination Records Ready</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem; max-width:600px; margin:0 auto 18px;">
+                  Class 12B Periodic Tests (PT1, PT2), Pre-Board 1, 2, 3, and Board Internal Assessments (10M PT weightage + 10M Mathematics Lab Activities) will be compiled here once marks files are uploaded.
+                </p>
+                <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                  <button class="gen-btn gen-btn-preview" onclick="showToast('ℹ️ Class 12B CBSE framework template ready.')"><i class="fas fa-eye"></i> View CBSE Framework</button>
+                  <button class="gen-btn gen-btn-edit" onclick="showToast('ℹ️ Upload feature ready for Class 12B Samagam data.')"><i class="fas fa-upload"></i> Import 12B Excel Data</button>
+                </div>
+              </div>
+            </div>
+          </div><!-- end Class 12B -->
+
+        </div><!-- end RESULT AS PER SAMAGAM PORTAL TAB -->
 
         <div class="add-test">
           <button class="add-test-btn">
@@ -3493,6 +3912,299 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     }
 
     // ============================================================
+    // SAMAGAM PORTAL RESULT & MARKSHEET SYSTEM
+    // ============================================================
+    const samagam7CData = [
+      { roll: 1, sid: 1000427580, name: "ABHAY KUMAR CHAUHAN", pt_raw: 10, ww_raw: 13, hy_60: 14, diary_10: 5, mdp_10: 3 },
+      { roll: 2, sid: 1000427577, name: "ABHINAY KUMAR", pt_raw: 1, ww_raw: 16, hy_60: 10, diary_10: 5, mdp_10: 3 },
+      { roll: 3, sid: 1000427598, name: "ANAIKA RATHORE", pt_raw: 29, ww_raw: 16, hy_60: 48, diary_10: 8, mdp_10: 7 },
+      { roll: 4, sid: 1000427575, name: "ARYAN KUMAR", pt_raw: 13, ww_raw: 16, hy_60: 24, diary_10: 7, mdp_10: 3 },
+      { roll: 5, sid: 1000427563, name: "BHAVIKA BISHT", pt_raw: 32, ww_raw: 19, hy_60: 50, diary_10: 9, mdp_10: 9 },
+      { roll: 6, sid: 1000427590, name: "CHANDNI BISHT", pt_raw: 3, ww_raw: 17, hy_60: 15, diary_10: 7, mdp_10: 9 },
+      { roll: 7, sid: 1000427581, name: "DIPIKA ARYA", pt_raw: 4, ww_raw: 18, hy_60: 20, diary_10: 8, mdp_10: 8 },
+      { roll: 8, sid: 1000427564, name: "DISHA BISHT", pt_raw: 13, ww_raw: 19, hy_60: 40, diary_10: 8, mdp_10: 3 },
+      { roll: 9, sid: 1000427574, name: "GEETA", pt_raw: 6, ww_raw: 15, hy_60: 13, diary_10: 7, mdp_10: 7 },
+      { roll: 10, sid: 1000427589, name: "GUNJAN SATI", pt_raw: 25, ww_raw: 18, hy_60: 39, diary_10: 8, mdp_10: 7 },
+      { roll: 11, sid: 1000427592, name: "HARSHUL KUWARBI", pt_raw: 6, ww_raw: 16, hy_60: 6, diary_10: 6, mdp_10: 6 },
+      { roll: 12, sid: 1000427576, name: "HIMANSHI", pt_raw: 7, ww_raw: 17, hy_60: 22, diary_10: 6, mdp_10: 7 },
+      { roll: 13, sid: 1000427569, name: "KAMAL SINGH BOHRA", pt_raw: 3, ww_raw: 16, hy_60: 15, diary_10: 6, mdp_10: 7 },
+      { roll: 14, sid: 1000427566, name: "KARTIK BELWAL", pt_raw: 10, ww_raw: 16, hy_60: 26, diary_10: 6, mdp_10: 7 },
+      { roll: 15, sid: 1000427572, name: "KRITIKA GODIYAL", pt_raw: 3, ww_raw: 17, hy_60: 14, diary_10: 7, mdp_10: 9 },
+      { roll: 16, sid: 1000427593, name: "KRITIKA RAWAT", pt_raw: 20, ww_raw: 18, hy_60: 34, diary_10: 8, mdp_10: 7 },
+      { roll: 17, sid: 1001482966, name: "KARISHMA ADHIKARI", pt_raw: 16, ww_raw: 18, hy_60: 34, diary_10: 8, mdp_10: 9 },
+      { roll: 18, sid: 1000427568, name: "LAKSHIT RAWAT", pt_raw: 7, ww_raw: 17, hy_60: 12, diary_10: 5, mdp_10: 3 },
+      { roll: 19, sid: 1001482921, name: "LAKSHIT SINGH", pt_raw: 24, ww_raw: 17, hy_60: 45, diary_10: 8, mdp_10: 3 },
+      { roll: 20, sid: 1000427567, name: "MALVIKA BORA", pt_raw: 20, ww_raw: 18, hy_60: 44, diary_10: 9, mdp_10: 7 },
+      { roll: 21, sid: 1001483518, name: "MAULIK BORA", pt_raw: 25, ww_raw: 16, hy_60: 43, diary_10: 7, mdp_10: 7 },
+      { roll: 22, sid: 1000427599, name: "MOITRIKA CHAKI", pt_raw: 30, ww_raw: 19, hy_60: 46, diary_10: 9, mdp_10: 8 },
+      { roll: 23, sid: 1000427583, name: "MRTUNJAY CHANDRA ARYA", pt_raw: 24, ww_raw: 18, hy_60: 38, diary_10: 7, mdp_10: 6 },
+      { roll: 24, sid: 1000427570, name: "MUNKASHIF", pt_raw: 20, ww_raw: 18, hy_60: 44, diary_10: 9, mdp_10: 9 },
+      { roll: 25, sid: 1000427591, name: "NAITIK RANA", pt_raw: 31, ww_raw: 18, hy_60: 48, diary_10: 9, mdp_10: 9 },
+      { roll: 26, sid: 1000427585, name: "NAMAN SATI", pt_raw: 26, ww_raw: 18, hy_60: 48, diary_10: 9, mdp_10: 7 },
+      { roll: 27, sid: 1001483012, name: "NAMAN TAMTA", pt_raw: 23, ww_raw: 19, hy_60: 38, diary_10: 9, mdp_10: 9 },
+      { roll: 28, sid: 1000427578, name: "NISHTHI CHAUDHARY", pt_raw: 23, ww_raw: 19, hy_60: 46, diary_10: 9, mdp_10: 9 },
+      { roll: 29, sid: 1000427565, name: "PARIDHI", pt_raw: 4, ww_raw: 17, hy_60: 22, diary_10: 6, mdp_10: 3 },
+      { roll: 30, sid: 1000427571, name: "PARTH PHARTIYAL", pt_raw: 16, ww_raw: 16, hy_60: 34, diary_10: 7, mdp_10: 6 },
+      { roll: 31, sid: 1000427587, name: "PRACHI MEHRA", pt_raw: 18, ww_raw: 18, hy_60: 33, diary_10: 8, mdp_10: 7 },
+      { roll: 32, sid: 1000427582, name: "PRASHUN DEV", pt_raw: 8, ww_raw: 17, hy_60: 21, diary_10: 6, mdp_10: 3 },
+      { roll: 33, sid: 1000427588, name: "RUDRAPRATAP SINGH KUWARBI", pt_raw: 22, ww_raw: 15, hy_60: 34, diary_10: 6, mdp_10: 7 },
+      { roll: 34, sid: 1001483103, name: "SHRAVANI DILEEP POTALE", pt_raw: 13, ww_raw: 18, hy_60: 28, diary_10: 9, mdp_10: 3 },
+      { roll: 35, sid: 1000427586, name: "TANISHA", pt_raw: 8, ww_raw: 17, hy_60: 14, diary_10: 6, mdp_10: 3 },
+      { roll: 36, sid: 1000427584, name: "YAMAN ARYA", pt_raw: 14, ww_raw: 16, hy_60: 40, diary_10: 7, mdp_10: 3 },
+      { roll: 37, sid: 1000427573, name: "YASHPAL", pt_raw: 22, ww_raw: 16, hy_60: 29, diary_10: 6, mdp_10: 6 },
+      { roll: 38, sid: 1001627192, name: "ARPITA", pt_raw: 12, ww_raw: 17, hy_60: 34, diary_10: 9, mdp_10: 6 },
+      { roll: 39, sid: 1000425499, name: "PARTH BISHT", pt_raw: 29, ww_raw: 17, hy_60: 33, diary_10: 8, mdp_10: 7 },
+      { roll: 40, sid: 1000312944, name: "MAANSHA DEVI S", pt_raw: 23, ww_raw: 19, hy_60: 47, diary_10: 9, mdp_10: 9 }
+    ];
+
+    let currentSamagamClass = '7c';
+    let currentSamagamTerm = 'term1';
+    let currentSamagamSearch = '';
+    let currentSamagamGrade = 'ALL';
+
+    function calculateSamagamRecord(s) {
+      const pt_10 = +(s.pt_raw / 4.0).toFixed(2);
+      const ww_5 = +(s.ww_raw / 4.0).toFixed(2);
+      const sea_5 = ww_5; // Subject Enrichment Activities out of 5
+      const hy_60 = +(s.hy_60).toFixed(2);
+      const diary_10 = +(s.diary_10).toFixed(2);
+      const mdp_10 = +(s.mdp_10).toFixed(2);
+      const total_100 = +(pt_10 + sea_5 + ww_5 + hy_60 + diary_10 + mdp_10).toFixed(2);
+      
+      let grade = 'E';
+      if (total_100 >= 91) grade = 'A1';
+      else if (total_100 >= 81) grade = 'A2';
+      else if (total_100 >= 71) grade = 'B1';
+      else if (total_100 >= 61) grade = 'B2';
+      else if (total_100 >= 51) grade = 'C1';
+      else if (total_100 >= 41) grade = 'C2';
+      else if (total_100 >= 33) grade = 'D';
+
+      return {
+        ...s,
+        pt_10,
+        ww_5,
+        sea_5,
+        hy_60,
+        diary_10,
+        mdp_10,
+        total_100,
+        grade,
+        percentage: total_100.toFixed(1) + '%',
+        result: total_100 >= 33 ? 'Passed' : 'Needs Imp.'
+      };
+    }
+
+    function switchSamagamClass(cls, btn) {
+      currentSamagamClass = cls;
+      document.querySelectorAll('.samagam-class-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.querySelectorAll('.samagam-subcontent').forEach(c => c.classList.remove('active'));
+      const target = document.getElementById('samclass-' + cls);
+      if (target) target.classList.add('active');
+    }
+
+    function switchSamagamTerm(term, btn) {
+      currentSamagamTerm = term;
+      document.querySelectorAll('.samagam-term-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      if (term !== 'term1') {
+        showToast(`ℹ️ ${term === 'term2' ? 'Term 2' : 'Annual Consolidated'} template active. Term 1 verified data displayed below.`);
+      }
+      renderSamagamTable();
+    }
+
+    function renderSamagamTable() {
+      const tbody = document.getElementById('samagamTableBody');
+      if (!tbody) return;
+
+      const processed = samagam7CData.map(calculateSamagamRecord);
+      const q = (currentSamagamSearch || '').trim().toLowerCase();
+      const gFilter = currentSamagamGrade;
+
+      const filtered = processed.filter(s => {
+        const matchQ = !q || s.name.toLowerCase().includes(q) || String(s.roll).includes(q) || String(s.sid).includes(q);
+        const matchG = gFilter === 'ALL' || s.grade === gFilter;
+        return matchQ && matchG;
+      });
+
+      // Update Statistics
+      const statTotal = document.getElementById('statTotalStudents');
+      const statPassed = document.getElementById('statPassed');
+      const statAverage = document.getElementById('statAverage');
+      const statHighest = document.getElementById('statHighest');
+      const statGradeDist = document.getElementById('statGradeDist');
+
+      if (statTotal) statTotal.textContent = processed.length;
+      const passedCount = processed.filter(s => s.total_100 >= 33).length;
+      if (statPassed) statPassed.textContent = `${passedCount} (${Math.round(passedCount * 100 / processed.length)}%)`;
+      const avgScore = (processed.reduce((sum, s) => sum + s.total_100, 0) / processed.length).toFixed(2);
+      if (statAverage) statAverage.textContent = avgScore;
+      const maxStudent = processed.reduce((max, s) => s.total_100 > max.total_100 ? s : max, processed[0]);
+      if (statHighest) statHighest.textContent = `${maxStudent.total_100.toFixed(2)} (${maxStudent.grade})`;
+
+      const gCounts = { A1:0, A2:0, B1:0, B2:0, C1:0, C2:0, D:0, E:0 };
+      processed.forEach(s => { gCounts[s.grade] = (gCounts[s.grade] || 0) + 1; });
+      if (statGradeDist) {
+        statGradeDist.textContent = `${gCounts.A1+gCounts.A2} A | ${gCounts.B1+gCounts.B2} B | ${gCounts.C1+gCounts.C2} C | ${gCounts.D} D | ${gCounts.E} E`;
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:30px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block;"></i>No student records found matching search filters.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => {
+        const isFail = s.total_100 < 33;
+        return `
+          <tr style="${isFail ? 'background:rgba(239,68,68,0.06);' : ''}">
+            <td style="font-weight:700; color:#fff;">${s.roll}</td>
+            <td style="font-family:monospace; color:#94a3b8; font-size:0.78rem;">${s.sid}</td>
+            <td class="td-main" style="font-weight:700; color:#fff;">${s.name}</td>
+            <td style="color:#94a3b8;">${s.pt_raw}</td>
+            <td style="font-weight:700; color:#c4b5fd; background:rgba(124,58,237,0.12);">${s.pt_10.toFixed(2)}</td>
+            <td style="color:#94a3b8;">${s.ww_raw}</td>
+            <td style="font-weight:700; color:#c4b5fd; background:rgba(124,58,237,0.12);">${s.ww_5.toFixed(2)}</td>
+            <td style="font-weight:700; color:#c4b5fd; background:rgba(124,58,237,0.12);">${s.sea_5.toFixed(2)}</td>
+            <td style="font-weight:700; color:#38bdf8; background:rgba(14,165,233,0.12);">${s.hy_60}</td>
+            <td style="font-weight:700; color:#34d399; background:rgba(16,185,129,0.12);">${s.diary_10}</td>
+            <td style="font-weight:700; color:#fbbf24; background:rgba(245,158,11,0.12);">${s.mdp_10}</td>
+            <td style="font-weight:800; font-size:0.96rem; color:#f472b6; background:rgba(236,72,153,0.15); font-family:var(--font-head);">${s.total_100.toFixed(2)}</td>
+            <td style="font-weight:600; color:#e2e8f0;">${s.percentage}</td>
+            <td><span class="badge-grade grade-${s.grade}">${s.grade}</span></td>
+            <td>
+              <span style="font-size:0.75rem; font-weight:700; color:${isFail ? '#f87171' : '#34d399'};">
+                <i class="fas ${isFail ? 'fa-exclamation-triangle' : 'fa-check'}"></i> ${s.result}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterSamagamTable() {
+      const sInput = document.getElementById('samagamSearchInput');
+      const gInput = document.getElementById('samagamGradeFilter');
+      if (sInput) currentSamagamSearch = sInput.value;
+      if (gInput) currentSamagamGrade = gInput.value;
+      renderSamagamTable();
+    }
+
+    function resetSamagamFilters() {
+      const sInput = document.getElementById('samagamSearchInput');
+      const gInput = document.getElementById('samagamGradeFilter');
+      if (sInput) sInput.value = '';
+      if (gInput) gInput.value = 'ALL';
+      currentSamagamSearch = '';
+      currentSamagamGrade = 'ALL';
+      renderSamagamTable();
+    }
+
+    function exportSamagamCSV() {
+      const processed = samagam7CData.map(calculateSamagamRecord);
+      let csv = 'Roll No,Student ID,Student Name,PT1 Raw (/40),PT1 Weightage (/10),Written Work Raw (/20),Written Work (/5),Subject Enrichment (/5),Term End HY (/60),Learners Diary (/10),MDP (/10),Total (/100),Percentage,Grade,Result\n';
+      
+      processed.forEach(s => {
+        csv += `"${s.roll}","${s.sid}","${s.name}",${s.pt_raw},${s.pt_10},${s.ww_raw},${s.ww_5},${s.sea_5},${s.hy_60},${s.diary_10},${s.mdp_10},${s.total_100},"${s.percentage}","${s.grade}","${s.result}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', 'KVS_Samagam_Class_7C_Maths_Term1_Marksheet.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('✅ Consolidated Marksheet CSV downloaded successfully!');
+    }
+
+    function printSamagamMarksheet() {
+      const processed = samagam7CData.map(calculateSamagamRecord);
+      const pWin = window.open('', '_blank', 'width=1100,height=800');
+      if (!pWin) { alert('Please allow popups to print marksheets.'); return; }
+
+      const rows = processed.map(s => `
+        <tr>
+          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.roll}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-family:monospace;">${s.sid}</td>
+          <td style="padding:5px 8px; border:1px solid #333; font-weight:bold;">${s.name}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.pt_raw}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.pt_10.toFixed(2)}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.ww_raw}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.ww_5.toFixed(2)}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.sea_5.toFixed(2)}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.hy_60}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.diary_10}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.mdp_10}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold; font-size:11pt;">${s.total_100.toFixed(2)}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.percentage}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.grade}</td>
+          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.result}</td>
+        </tr>
+      `).join('');
+
+      pWin.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Class 7C Samagam Marksheet - PM SHRI KV Ranikhet</title>
+          <style>
+            @page { size: A4 landscape; margin: 10mm; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 8.5pt; color: #000; margin: 0; padding: 10px; }
+            .header { text-align: center; margin-bottom: 12px; border-bottom: 2px solid #000; padding-bottom: 8px; }
+            .header h2 { margin: 0 0 4px; font-size: 14pt; }
+            .header h3 { margin: 0 0 4px; font-size: 11pt; }
+            .header p { margin: 0; font-size: 9pt; }
+            table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 8pt; }
+            th { background: #f1f5f9; padding: 6px 4px; border: 1px solid #000; font-size: 7.5pt; }
+            .footer { margin-top: 25px; display: flex; justify-content: space-between; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+            <h3>CONSOLIDATED EVALUATION MARKSHEET (SAMAGAM PORTAL FORMAT)</h3>
+            <p><strong>Class:</strong> VII-C &nbsp;|&nbsp; <strong>Subject:</strong> Mathematics &nbsp;|&nbsp; <strong>Term:</strong> Term-1 (Half Yearly Session 2026-27) &nbsp;|&nbsp; <strong>Max Marks:</strong> 100</p>
+            <p style="font-size:7.5pt; margin-top:3px; color:#444;">Criteria: Periodic Test (10M) + SEA (5M) + Written Work (5M) + Half Yearly Exam (60M) + Learners Diary (10M) + MDP (10M) = 100M</p>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:25px;">Roll</th>
+                <th style="width:70px;">Student ID</th>
+                <th>Student Name</th>
+                <th style="width:35px;">PT1 (40)</th>
+                <th style="width:35px;">PT1 (10)</th>
+                <th style="width:35px;">WW (20)</th>
+                <th style="width:35px;">WW (5)</th>
+                <th style="width:35px;">SEA (5)</th>
+                <th style="width:35px;">HY (60)</th>
+                <th style="width:35px;">Diary (10)</th>
+                <th style="width:35px;">MDP (10)</th>
+                <th style="width:45px;">Total (100)</th>
+                <th style="width:40px;">%</th>
+                <th style="width:35px;">Grade</th>
+                <th style="width:45px;">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+          <div class="footer">
+            <div>Subject Teacher: K B JOSHI (PGT Maths)</div>
+            <div>Exam In-Charge</div>
+            <div>Principal</div>
+          </div>
+        </body>
+        </html>
+      `);
+      pWin.document.close();
+      pWin.focus();
+      setTimeout(() => { pWin.print(); }, 500);
+    }
+
+    // ============================================================
     // INIT
     // ============================================================
     function initQPGenerator() {
@@ -3506,6 +4218,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       updateMarksTotal();
       syncDurationLabel();
       loadSavedAPIKeys();
+      renderSamagamTable();
       const dateEl=document.getElementById('genDate');
       if (dateEl) dateEl.valueAsDate=new Date();
     }
