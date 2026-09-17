@@ -2005,28 +2005,28 @@ select option:checked {
                 <div class="range-badge-pill r-c1" id="rangeBadge-R1" onclick="toggleScoreRangeFilter('R1')" title="Filter students scoring less than 33%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-exclamation-triangle"></i> 1. Less than 33%</span>
-                    <span class="r-count" id="count-R1">4</span>
+                    <span class="r-count" id="count-R1">5</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R1" style="width: 10%;"></div></div>
-                  <div class="r-meta"><span>Needs Imp. (&lt;33M)</span><span id="pct-R1">10.0%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R1" style="width: 12.5%;"></div></div>
+                  <div class="r-meta"><span>Needs Imp. (&lt;33M)</span><span id="pct-R1">12.5%</span></div>
                 </div>
                 <!-- 2. 33% to 45% -->
                 <div class="range-badge-pill r-c2" id="rangeBadge-R2" onclick="toggleScoreRangeFilter('R2')" title="Filter students scoring 33% to 45%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-check"></i> 2. 33% to 45%</span>
-                    <span class="r-count" id="count-R2">7</span>
+                    <span class="r-count" id="count-R2">8</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R2" style="width: 17.5%;"></div></div>
-                  <div class="r-meta"><span>Passing (33–45M)</span><span id="pct-R2">17.5%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R2" style="width: 20%;"></div></div>
+                  <div class="r-meta"><span>Passing (33–45M)</span><span id="pct-R2">20.0%</span></div>
                 </div>
                 <!-- 3. > 45% to < 60% -->
                 <div class="range-badge-pill r-c3" id="rangeBadge-R3" onclick="toggleScoreRangeFilter('R3')" title="Filter students scoring > 45% to < 60%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-arrow-trend-up"></i> 3. &gt;45% to &lt;60%</span>
-                    <span class="r-count" id="count-R3">7</span>
+                    <span class="r-count" id="count-R3">5</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R3" style="width: 17.5%;"></div></div>
-                  <div class="r-meta"><span>Average (45.01–59.99M)</span><span id="pct-R3">17.5%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R3" style="width: 12.5%;"></div></div>
+                  <div class="r-meta"><span>Average (45.01–59.99M)</span><span id="pct-R3">12.5%</span></div>
                 </div>
                 <!-- 4. 60% to < 75% -->
                 <div class="range-badge-pill r-c4" id="rangeBadge-R4" onclick="toggleScoreRangeFilter('R4')" title="Filter students scoring 60% to < 75%">
@@ -2068,9 +2068,9 @@ select option:checked {
                 <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-filter"></i> Score Range:</label>
                 <select id="samagamRangeFilter" onchange="onSelectScoreRange(this.value)" class="gen-select" style="padding:6px 14px; font-size:0.84rem; min-width:160px;">
                   <option value="ALL">All Ranges (40)</option>
-                  <option value="R1">1. &lt; 33% (4 Students)</option>
-                  <option value="R2">2. 33% to 45% (7 Students)</option>
-                  <option value="R3">3. &gt;45% to &lt;60% (7 Students)</option>
+                  <option value="R1">1. &lt; 33% (5 Students)</option>
+                  <option value="R2">2. 33% to 45% (8 Students)</option>
+                  <option value="R3">3. &gt;45% to &lt;60% (5 Students)</option>
                   <option value="R4">4. 60% to &lt;75% (14 Students)</option>
                   <option value="R5">5. 75% to &lt;90% (8 Students)</option>
                   <option value="R6">6. 90% &amp; Above (0 Students)</option>
@@ -2102,9 +2102,13 @@ select option:checked {
                     <th class="th-weightage th-w-pt">PT-1<br><span style="font-size:0.7rem; color:#f5d0fe;">(10M Wtg)</span></th>
                     <th>Written Work<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /20)</span></th>
                     <th class="th-weightage th-w-ww">Written<br><span style="font-size:0.7rem; color:#f5d0fe;">(5M Wtg)</span></th>
+                    <th>SEA<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /20)</span></th>
                     <th class="th-weightage th-w-sea">SEA<br><span style="font-size:0.7rem; color:#f5d0fe;">(5M Wtg)</span></th>
+                    <th>Half Yearly<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /60)</span></th>
                     <th class="th-weightage th-w-hy">Half Yearly<br><span style="font-size:0.7rem; color:#bae6fd;">(60M Wtg)</span></th>
-                    <th class="th-weightage th-w-diary">Learners Diary<br><span style="font-size:0.7rem; color:#a7f3d0;">(10M Wtg)</span></th>
+                    <th>Learners Diary<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /10)</span></th>
+                    <th class="th-weightage th-w-diary">Diary<br><span style="font-size:0.7rem; color:#a7f3d0;">(10M Wtg)</span></th>
+                    <th>MDP<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /10)</span></th>
                     <th class="th-weightage th-w-mdp">MDP<br><span style="font-size:0.7rem; color:#fef08a;">(10M Wtg)</span></th>
                     <th class="th-weightage th-w-total">Total<br><span style="font-size:0.72rem; color:#fce7f3;">(100M Wtg)</span></th>
                     <th>%</th>
@@ -4118,46 +4122,46 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     // SAMAGAM PORTAL RESULT & MARKSHEET SYSTEM
     // ============================================================
     const samagam7CData = [
-      { roll: 1, sid: 1000427580, name: "ABHAY KUMAR CHAUHAN", pt_raw: 10, ww_raw: 13, hy_60: 14, diary_10: 5, mdp_10: 3 },
-      { roll: 2, sid: 1000427577, name: "ABHINAY KUMAR", pt_raw: 1, ww_raw: 16, hy_60: 10, diary_10: 5, mdp_10: 3 },
-      { roll: 3, sid: 1000427598, name: "ANAIKA RATHORE", pt_raw: 29, ww_raw: 16, hy_60: 48, diary_10: 8, mdp_10: 7 },
-      { roll: 4, sid: 1000427575, name: "ARYAN KUMAR", pt_raw: 13, ww_raw: 16, hy_60: 24, diary_10: 7, mdp_10: 3 },
-      { roll: 5, sid: 1000427563, name: "BHAVIKA BISHT", pt_raw: 32, ww_raw: 19, hy_60: 50, diary_10: 9, mdp_10: 9 },
-      { roll: 6, sid: 1000427590, name: "CHANDNI BISHT", pt_raw: 3, ww_raw: 17, hy_60: 15, diary_10: 7, mdp_10: 9 },
-      { roll: 7, sid: 1000427581, name: "DIPIKA ARYA", pt_raw: 4, ww_raw: 18, hy_60: 20, diary_10: 8, mdp_10: 8 },
-      { roll: 8, sid: 1000427564, name: "DISHA BISHT", pt_raw: 13, ww_raw: 19, hy_60: 40, diary_10: 8, mdp_10: 3 },
-      { roll: 9, sid: 1000427574, name: "GEETA", pt_raw: 6, ww_raw: 15, hy_60: 13, diary_10: 7, mdp_10: 7 },
-      { roll: 10, sid: 1000427589, name: "GUNJAN SATI", pt_raw: 25, ww_raw: 18, hy_60: 39, diary_10: 8, mdp_10: 7 },
-      { roll: 11, sid: 1000427592, name: "HARSHUL KUWARBI", pt_raw: 6, ww_raw: 16, hy_60: 6, diary_10: 6, mdp_10: 6 },
-      { roll: 12, sid: 1000427576, name: "HIMANSHI", pt_raw: 7, ww_raw: 17, hy_60: 22, diary_10: 6, mdp_10: 7 },
-      { roll: 13, sid: 1000427569, name: "KAMAL SINGH BOHRA", pt_raw: 3, ww_raw: 16, hy_60: 15, diary_10: 6, mdp_10: 7 },
-      { roll: 14, sid: 1000427566, name: "KARTIK BELWAL", pt_raw: 10, ww_raw: 16, hy_60: 26, diary_10: 6, mdp_10: 7 },
-      { roll: 15, sid: 1000427572, name: "KRITIKA GODIYAL", pt_raw: 3, ww_raw: 17, hy_60: 14, diary_10: 7, mdp_10: 9 },
-      { roll: 16, sid: 1000427593, name: "KRITIKA RAWAT", pt_raw: 20, ww_raw: 18, hy_60: 34, diary_10: 8, mdp_10: 7 },
-      { roll: 17, sid: 1001482966, name: "KARISHMA ADHIKARI", pt_raw: 16, ww_raw: 18, hy_60: 34, diary_10: 8, mdp_10: 9 },
-      { roll: 18, sid: 1000427568, name: "LAKSHIT RAWAT", pt_raw: 7, ww_raw: 17, hy_60: 12, diary_10: 5, mdp_10: 3 },
-      { roll: 19, sid: 1001482921, name: "LAKSHIT SINGH", pt_raw: 24, ww_raw: 17, hy_60: 45, diary_10: 8, mdp_10: 3 },
-      { roll: 20, sid: 1000427567, name: "MALVIKA BORA", pt_raw: 20, ww_raw: 18, hy_60: 44, diary_10: 9, mdp_10: 7 },
-      { roll: 21, sid: 1001483518, name: "MAULIK BORA", pt_raw: 25, ww_raw: 16, hy_60: 43, diary_10: 7, mdp_10: 7 },
-      { roll: 22, sid: 1000427599, name: "MOITRIKA CHAKI", pt_raw: 30, ww_raw: 19, hy_60: 46, diary_10: 9, mdp_10: 8 },
-      { roll: 23, sid: 1000427583, name: "MRTUNJAY CHANDRA ARYA", pt_raw: 24, ww_raw: 18, hy_60: 38, diary_10: 7, mdp_10: 6 },
-      { roll: 24, sid: 1000427570, name: "MUNKASHIF", pt_raw: 20, ww_raw: 18, hy_60: 44, diary_10: 9, mdp_10: 9 },
-      { roll: 25, sid: 1000427591, name: "NAITIK RANA", pt_raw: 31, ww_raw: 18, hy_60: 48, diary_10: 9, mdp_10: 9 },
-      { roll: 26, sid: 1000427585, name: "NAMAN SATI", pt_raw: 26, ww_raw: 18, hy_60: 48, diary_10: 9, mdp_10: 7 },
-      { roll: 27, sid: 1001483012, name: "NAMAN TAMTA", pt_raw: 23, ww_raw: 19, hy_60: 38, diary_10: 9, mdp_10: 9 },
-      { roll: 28, sid: 1000427578, name: "NISHTHI CHAUDHARY", pt_raw: 23, ww_raw: 19, hy_60: 46, diary_10: 9, mdp_10: 9 },
-      { roll: 29, sid: 1000427565, name: "PARIDHI", pt_raw: 4, ww_raw: 17, hy_60: 22, diary_10: 6, mdp_10: 3 },
-      { roll: 30, sid: 1000427571, name: "PARTH PHARTIYAL", pt_raw: 16, ww_raw: 16, hy_60: 34, diary_10: 7, mdp_10: 6 },
-      { roll: 31, sid: 1000427587, name: "PRACHI MEHRA", pt_raw: 18, ww_raw: 18, hy_60: 33, diary_10: 8, mdp_10: 7 },
-      { roll: 32, sid: 1000427582, name: "PRASHUN DEV", pt_raw: 8, ww_raw: 17, hy_60: 21, diary_10: 6, mdp_10: 3 },
-      { roll: 33, sid: 1000427588, name: "RUDRAPRATAP SINGH KUWARBI", pt_raw: 22, ww_raw: 15, hy_60: 34, diary_10: 6, mdp_10: 7 },
-      { roll: 34, sid: 1001483103, name: "SHRAVANI DILEEP POTALE", pt_raw: 13, ww_raw: 18, hy_60: 28, diary_10: 9, mdp_10: 3 },
-      { roll: 35, sid: 1000427586, name: "TANISHA", pt_raw: 8, ww_raw: 17, hy_60: 14, diary_10: 6, mdp_10: 3 },
-      { roll: 36, sid: 1000427584, name: "YAMAN ARYA", pt_raw: 14, ww_raw: 16, hy_60: 40, diary_10: 7, mdp_10: 3 },
-      { roll: 37, sid: 1000427573, name: "YASHPAL", pt_raw: 22, ww_raw: 16, hy_60: 29, diary_10: 6, mdp_10: 6 },
-      { roll: 38, sid: 1001627192, name: "ARPITA", pt_raw: 12, ww_raw: 17, hy_60: 34, diary_10: 9, mdp_10: 6 },
-      { roll: 39, sid: 1000425499, name: "PARTH BISHT", pt_raw: 29, ww_raw: 17, hy_60: 33, diary_10: 8, mdp_10: 7 },
-      { roll: 40, sid: 1000312944, name: "MAANSHA DEVI S", pt_raw: 23, ww_raw: 19, hy_60: 47, diary_10: 9, mdp_10: 9 }
+      { roll: 1, sid: 1000427580, name: "ABHAY KUMAR CHAUHAN", pt_raw: 10, ww_raw: 13, sea_raw: 10, hy_raw: 14, diary_raw: 5, mdp_raw: 3 },
+      { roll: 2, sid: 1000427577, name: "ABHINAY KUMAR", pt_raw: 1, ww_raw: 16, sea_raw: 10, hy_raw: 10, diary_raw: 5, mdp_raw: 3 },
+      { roll: 3, sid: 1000427598, name: "ANAIKA RATHORE", pt_raw: 29, ww_raw: 16, sea_raw: 18, hy_raw: 48, diary_raw: 8, mdp_raw: 7 },
+      { roll: 4, sid: 1000427575, name: "ARYAN KUMAR", pt_raw: 13, ww_raw: 16, sea_raw: 12, hy_raw: 24, diary_raw: 7, mdp_raw: 3 },
+      { roll: 5, sid: 1000427563, name: "BHAVIKA BISHT", pt_raw: 32, ww_raw: 19, sea_raw: 20, hy_raw: 50, diary_raw: 9, mdp_raw: 9 },
+      { roll: 6, sid: 1000427590, name: "CHANDNI BISHT", pt_raw: 3, ww_raw: 17, sea_raw: 12, hy_raw: 15, diary_raw: 7, mdp_raw: 9 },
+      { roll: 7, sid: 1000427581, name: "DIPIKA ARYA", pt_raw: 4, ww_raw: 18, sea_raw: 15, hy_raw: 20, diary_raw: 8, mdp_raw: 8 },
+      { roll: 8, sid: 1000427564, name: "DISHA BISHT", pt_raw: 13, ww_raw: 19, sea_raw: 16, hy_raw: 40, diary_raw: 8, mdp_raw: 3 },
+      { roll: 9, sid: 1000427574, name: "GEETA", pt_raw: 6, ww_raw: 15, sea_raw: 12, hy_raw: 13, diary_raw: 7, mdp_raw: 7 },
+      { roll: 10, sid: 1000427589, name: "GUNJAN SATI", pt_raw: 25, ww_raw: 18, sea_raw: 16, hy_raw: 39, diary_raw: 8, mdp_raw: 7 },
+      { roll: 11, sid: 1000427592, name: "HARSHUL KUWARBI", pt_raw: 6, ww_raw: 16, sea_raw: 9, hy_raw: 6, diary_raw: 6, mdp_raw: 6 },
+      { roll: 12, sid: 1000427576, name: "HIMANSHI", pt_raw: 7, ww_raw: 17, sea_raw: 12, hy_raw: 22, diary_raw: 6, mdp_raw: 7 },
+      { roll: 13, sid: 1000427569, name: "KAMAL SINGH BOHRA", pt_raw: 3, ww_raw: 16, sea_raw: 11, hy_raw: 15, diary_raw: 6, mdp_raw: 7 },
+      { roll: 14, sid: 1000427566, name: "KARTIK BELWAL", pt_raw: 10, ww_raw: 16, sea_raw: 15, hy_raw: 26, diary_raw: 6, mdp_raw: 7 },
+      { roll: 15, sid: 1000427572, name: "KRITIKA GODIYAL", pt_raw: 3, ww_raw: 17, sea_raw: 16, hy_raw: 14, diary_raw: 7, mdp_raw: 9 },
+      { roll: 16, sid: 1000427593, name: "KRITIKA RAWAT", pt_raw: 20, ww_raw: 18, sea_raw: 17, hy_raw: 34, diary_raw: 8, mdp_raw: 7 },
+      { roll: 17, sid: 1001482966, name: "KARISHMA ADHIKARI", pt_raw: 16, ww_raw: 18, sea_raw: 18, hy_raw: 34, diary_raw: 8, mdp_raw: 9 },
+      { roll: 18, sid: 1000427568, name: "LAKSHIT RAWAT", pt_raw: 7, ww_raw: 17, sea_raw: 10, hy_raw: 12, diary_raw: 5, mdp_raw: 3 },
+      { roll: 19, sid: 1001482921, name: "LAKSHIT SINGH", pt_raw: 24, ww_raw: 17, sea_raw: 16, hy_raw: 45, diary_raw: 8, mdp_raw: 3 },
+      { roll: 20, sid: 1000427567, name: "MALVIKA BORA", pt_raw: 20, ww_raw: 18, sea_raw: 18, hy_raw: 44, diary_raw: 9, mdp_raw: 7 },
+      { roll: 21, sid: 1001483518, name: "MAULIK BORA", pt_raw: 25, ww_raw: 16, sea_raw: 15, hy_raw: 43, diary_raw: 7, mdp_raw: 7 },
+      { roll: 22, sid: 1000427599, name: "MOITRIKA CHAKI", pt_raw: 30, ww_raw: 19, sea_raw: 19, hy_raw: 46, diary_raw: 9, mdp_raw: 8 },
+      { roll: 23, sid: 1000427583, name: "MRTUNJAY CHANDRA ARYA", pt_raw: 24, ww_raw: 18, sea_raw: 16, hy_raw: 38, diary_raw: 7, mdp_raw: 6 },
+      { roll: 24, sid: 1000427570, name: "MUNKASHIF", pt_raw: 20, ww_raw: 18, sea_raw: 19, hy_raw: 44, diary_raw: 9, mdp_raw: 9 },
+      { roll: 25, sid: 1000427591, name: "NAITIK RANA", pt_raw: 31, ww_raw: 18, sea_raw: 19, hy_raw: 48, diary_raw: 9, mdp_raw: 9 },
+      { roll: 26, sid: 1000427585, name: "NAMAN SATI", pt_raw: 26, ww_raw: 18, sea_raw: 17, hy_raw: 48, diary_raw: 9, mdp_raw: 7 },
+      { roll: 27, sid: 1001483012, name: "NAMAN TAMTA", pt_raw: 23, ww_raw: 19, sea_raw: 18, hy_raw: 38, diary_raw: 9, mdp_raw: 9 },
+      { roll: 28, sid: 1000427578, name: "NISHTHI CHAUDHARY", pt_raw: 23, ww_raw: 19, sea_raw: 18, hy_raw: 46, diary_raw: 9, mdp_raw: 9 },
+      { roll: 29, sid: 1000427565, name: "PARIDHI", pt_raw: 4, ww_raw: 17, sea_raw: 16, hy_raw: 22, diary_raw: 6, mdp_raw: 3 },
+      { roll: 30, sid: 1000427571, name: "PARTH PHARTIYAL", pt_raw: 16, ww_raw: 16, sea_raw: 16, hy_raw: 34, diary_raw: 7, mdp_raw: 6 },
+      { roll: 31, sid: 1000427587, name: "PRACHI MEHRA", pt_raw: 18, ww_raw: 18, sea_raw: 17, hy_raw: 33, diary_raw: 8, mdp_raw: 7 },
+      { roll: 32, sid: 1000427582, name: "PRASHUN DEV", pt_raw: 8, ww_raw: 17, sea_raw: 15, hy_raw: 21, diary_raw: 6, mdp_raw: 3 },
+      { roll: 33, sid: 1000427588, name: "RUDRAPRATAP SINGH KUWARBI", pt_raw: 22, ww_raw: 15, sea_raw: 15, hy_raw: 34, diary_raw: 6, mdp_raw: 7 },
+      { roll: 34, sid: 1001483103, name: "SHRAVANI DILEEP POTALE", pt_raw: 13, ww_raw: 18, sea_raw: 17, hy_raw: 28, diary_raw: 9, mdp_raw: 3 },
+      { roll: 35, sid: 1000427586, name: "TANISHA", pt_raw: 8, ww_raw: 17, sea_raw: 13, hy_raw: 14, diary_raw: 6, mdp_raw: 3 },
+      { roll: 36, sid: 1000427584, name: "YAMAN ARYA", pt_raw: 14, ww_raw: 16, sea_raw: 15, hy_raw: 40, diary_raw: 7, mdp_raw: 3 },
+      { roll: 37, sid: 1000427573, name: "YASHPAL", pt_raw: 22, ww_raw: 16, sea_raw: 11, hy_raw: 29, diary_raw: 6, mdp_raw: 6 },
+      { roll: 38, sid: 1001627192, name: "ARPITA", pt_raw: 12, ww_raw: 17, sea_raw: 17, hy_raw: 34, diary_raw: 9, mdp_raw: 6 },
+      { roll: 39, sid: 1000425499, name: "PARTH BISHT", pt_raw: 29, ww_raw: 17, sea_raw: 16, hy_raw: 33, diary_raw: 8, mdp_raw: 7 },
+      { roll: 40, sid: 1000312944, name: "MAANSHA DEVI S", pt_raw: 23, ww_raw: 19, sea_raw: 20, hy_raw: 47, diary_raw: 9, mdp_raw: 9 }
     ];
 
     let currentSamagamClass = '7c';
@@ -4169,11 +4173,11 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     function calculateSamagamRecord(s) {
       const pt_10 = +(s.pt_raw / 4.0).toFixed(2);
       const ww_5 = +(s.ww_raw / 4.0).toFixed(2);
-      const sea_5 = ww_5; // Subject Enrichment Activities out of 5
-      const hy_60 = +(s.hy_60).toFixed(2);
-      const diary_10 = +(s.diary_10).toFixed(2);
-      const mdp_10 = +(s.mdp_10).toFixed(2);
-      const total_100 = +(pt_10 + sea_5 + ww_5 + hy_60 + diary_10 + mdp_10).toFixed(2);
+      const sea_5 = +(s.sea_raw / 4.0).toFixed(2);
+      const hy_60 = +(s.hy_raw).toFixed(2);
+      const diary_10 = +(s.diary_raw).toFixed(2);
+      const mdp_10 = +(s.mdp_raw).toFixed(2);
+      const total_100 = +(pt_10 + ww_5 + sea_5 + hy_60 + diary_10 + mdp_10).toFixed(2);
       
       let grade = 'E';
       if (total_100 >= 91) grade = 'A1';
@@ -4308,7 +4312,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       }
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#a78bfa;"></i>No student records found matching the selected filters. <button onclick="resetSamagamFilters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="19" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#a78bfa;"></i>No student records found matching the selected filters. <button onclick="resetSamagamFilters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
         return;
       }
 
@@ -4323,10 +4327,14 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             <td class="td-w-pt">${s.pt_10.toFixed(2)}</td>
             <td style="color:#94a3b8;">${s.ww_raw}</td>
             <td class="td-w-ww">${s.ww_5.toFixed(2)}</td>
+            <td style="color:#94a3b8;">${s.sea_raw}</td>
             <td class="td-w-sea">${s.sea_5.toFixed(2)}</td>
-            <td class="td-w-hy">${s.hy_60}</td>
-            <td class="td-w-diary">${s.diary_10}</td>
-            <td class="td-w-mdp">${s.mdp_10}</td>
+            <td style="color:#94a3b8;">${s.hy_raw}</td>
+            <td class="td-w-hy">${s.hy_60.toFixed(2)}</td>
+            <td style="color:#94a3b8;">${s.diary_raw}</td>
+            <td class="td-w-diary">${s.diary_10.toFixed(2)}</td>
+            <td style="color:#94a3b8;">${s.mdp_raw}</td>
+            <td class="td-w-mdp">${s.mdp_10.toFixed(2)}</td>
             <td class="td-w-total">${s.total_100.toFixed(2)}</td>
             <td style="font-weight:600; color:#e2e8f0;">${s.percentage}</td>
             <td><span class="badge-grade grade-${s.grade}">${s.grade}</span></td>
@@ -4365,7 +4373,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
 
     function exportSamagamCSV() {
       const processed = samagam7CData.map(calculateSamagamRecord);
-      let csv = 'Roll No,Student ID,Student Name,PT1 Raw (/40),PT1 Weightage (/10),Written Work Raw (/20),Written Work (/5),Subject Enrichment (/5),Term End HY (/60),Learners Diary (/10),MDP (/10),Total (/100),Percentage,Grade,Score Range,Result\n';
+      let csv = 'Roll No,Student ID,Student Name,PT1 Raw (/40),PT1 Weightage (/10),Written Work Raw (/20),Written Work (/5),Subject Enrichment Raw (/20),Subject Enrichment (/5),Term End HY Raw (/60),Term End HY (/60),Learners Diary Raw (/10),Learners Diary (/10),MDP Raw (/10),MDP (/10),Total (/100),Percentage,Grade,Score Range,Result\n';
       
       processed.forEach(s => {
         let rDesc = '90% and Above';
@@ -4375,7 +4383,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
         else if (s.rangeKey === 'R4') rDesc = '60% to <75%';
         else if (s.rangeKey === 'R5') rDesc = '75% to <90%';
 
-        csv += `"${s.roll}","${s.sid}","${s.name}",${s.pt_raw},${s.pt_10},${s.ww_raw},${s.ww_5},${s.sea_5},${s.hy_60},${s.diary_10},${s.mdp_10},${s.total_100},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
+        csv += `"${s.roll}","${s.sid}","${s.name}",${s.pt_raw},${s.pt_10},${s.ww_raw},${s.ww_5},${s.sea_raw},${s.sea_5},${s.hy_raw},${s.hy_60},${s.diary_raw},${s.diary_10},${s.mdp_raw},${s.mdp_10},${s.total_100},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -4399,24 +4407,28 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
 
       const buildRowsHTML = (students, isPage1) => students.map(s => {
         const isFail = s.total_100 < 33;
-        const pad = isPage1 ? '3.6px 1.5px' : '1.8px 1.5px';
-        const namePad = isPage1 ? '3.6px 4px' : '1.8px 4px';
-        const fSize = isPage1 ? '7.6pt' : '7.1pt';
-        const nameFSize = isPage1 ? '7.8pt' : '7.2pt';
+        const pad = isPage1 ? '3.5px 1px' : '1.7px 1px';
+        const namePad = isPage1 ? '3.5px 3px' : '1.7px 3px';
+        const fSize = isPage1 ? '7.3pt' : '6.8pt';
+        const nameFSize = isPage1 ? '7.5pt' : '7.0pt';
         return `
           <tr style="${isFail ? 'background:#fee2e2;' : ''} color:#000000;">
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.roll}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-family:monospace; font-weight:700; font-size:${fSize};">${s.sid}</td>
-            <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:125px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
+            <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:112px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.pt_raw}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${s.pt_10.toFixed(2)}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ww_raw}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${s.ww_5.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.sea_raw}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${s.sea_5.toFixed(2)}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${s.hy_60}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${s.diary_10}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${s.mdp_10}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${isPage1 ? '8.4pt' : '7.8pt'}; background:#fce7f3; color:#831843;">${s.total_100.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.hy_raw}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${s.hy_60.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.diary_raw}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${s.diary_10.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.mdp_raw}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${s.mdp_10.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${isPage1 ? '8.2pt' : '7.6pt'}; background:#fce7f3; color:#831843;">${s.total_100.toFixed(2)}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.percentage}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${fSize}; color:#000000;">${s.grade}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; color:${isFail ? '#b91c1c' : '#15803d'}; font-size:${fSize};">${s.result}</td>
@@ -4442,21 +4454,25 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       const tableHeaderHTML = `
         <thead>
           <tr style="background:#000000; color:#ffffff;">
-            <th style="width:24px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">Roll</th>
-            <th style="width:68px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">Student ID</th>
-            <th style="width:125px; max-width:125px; text-align:left; padding:3px 4px; border:1px solid #000000; font-size:7.2pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
-            <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800; background:#1e293b;">PT-1<br>(Raw /40)</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#581c87; color:#ffffff;">PT-1<br>(10M Wtg)</th>
-            <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800; background:#1e293b;">Written<br>(Raw /20)</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#581c87; color:#ffffff;">Written<br>(5M Wtg)</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#581c87; color:#ffffff;">SEA<br>(5M Wtg)</th>
-            <th style="width:42px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#0369a1; color:#ffffff;">Half Yearly<br>(60M Wtg)</th>
-            <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#15803d; color:#ffffff;">Diary<br>(10M Wtg)</th>
-            <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#b45309; color:#ffffff;">MDP<br>(10M Wtg)</th>
-            <th style="width:48px; padding:3px 1px; border:1px solid #000000; font-size:7.4pt; font-weight:900; background:#be185d; color:#ffffff;">Total<br>(100M Wtg)</th>
-            <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">%</th>
-            <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:7.2pt; font-weight:900;">Grade</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">Result</th>
+            <th style="width:20px; padding:2.5px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Roll</th>
+            <th style="width:58px; padding:2.5px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Student ID</th>
+            <th style="width:112px; max-width:112px; text-align:left; padding:2.5px 3px; border:1px solid #000000; font-size:6.8pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">PT-1<br>(Raw/40)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#581c87; color:#ffffff;">PT-1<br>(10M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">WW<br>(Raw/20)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#581c87; color:#ffffff;">WW<br>(5M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">SEA<br>(Raw/20)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#581c87; color:#ffffff;">SEA<br>(5M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">HY<br>(Raw/60)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#0369a1; color:#ffffff;">HY<br>(60M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">Diary<br>(Raw/10)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#15803d; color:#ffffff;">Diary<br>(10M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">MDP<br>(Raw/10)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#b45309; color:#ffffff;">MDP<br>(10M)</th>
+            <th style="width:38px; padding:2.5px 1px; border:1px solid #000000; font-size:7pt; font-weight:900; background:#be185d; color:#ffffff;">Total<br>(100M)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800;">%</th>
+            <th style="width:24px; padding:2.5px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:900;">Grade</th>
+            <th style="width:32px; padding:2.5px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800;">Result</th>
           </tr>
         </thead>
       `;
@@ -4475,8 +4491,8 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             * { box-sizing: border-box; }
             html, body {
               font-family: Arial, Helvetica, "Segoe UI", sans-serif;
-              font-size: 7.2pt;
-              line-height: 1.16;
+              font-size: 7.1pt;
+              line-height: 1.15;
               color: #000000;
               background: #ffffff;
               margin: 0;
@@ -4528,7 +4544,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
               background: #f1f5f9;
               border: 1px solid #000000;
               padding: 2px 6px;
-              font-size: 6.5pt;
+              font-size: 6.3pt;
               margin-bottom: 2px;
               display: flex;
               justify-content: space-between;
@@ -4542,7 +4558,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
               border: 1px solid #000000;
             }
             .page-footer-note {
-              font-size: 6.5pt;
+              font-size: 6.3pt;
               font-weight: 700;
               color: #1e293b;
               text-align: right;
@@ -4560,7 +4576,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
               background: #ffffff;
             }
             .analysis-title {
-              font-size: 7.6pt;
+              font-size: 7.4pt;
               font-weight: 900;
               color: #000000;
               margin-bottom: 1px;
@@ -4572,19 +4588,19 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             .analysis-table {
               width: 100%;
               border-collapse: collapse;
-              font-size: 6.8pt;
+              font-size: 6.7pt;
               border: 1px solid #000000;
             }
             .analysis-table th {
               background: #e2e8f0;
-              padding: 1.8px 4px;
+              padding: 1.6px 4px;
               border: 1px solid #000000;
               font-weight: 800;
               color: #000000;
               text-align: center;
             }
             .analysis-table td {
-              padding: 1.8px 4px;
+              padding: 1.6px 4px;
               border: 1px solid #000000;
               text-align: center;
               font-weight: 600;
@@ -4593,7 +4609,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             .sig-grid {
               display: flex;
               justify-content: space-between;
-              margin-top: 6px;
+              margin-top: 5px;
               padding-top: 2px;
               font-weight: 800;
               font-size: 7.2pt;
@@ -4686,64 +4702,64 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
                       <td style="font-weight:bold;">1</td>
                       <td style="text-align:left; font-weight:bold; color:#b91c1c;">1. Less than 33%</td>
                       <td>&lt; 33.00</td>
-                      <td style="font-weight:900; font-size:7.6pt; color:#b91c1c;">${countR1}</td>
+                      <td style="font-weight:900; font-size:7.5pt; color:#b91c1c;">${countR1}</td>
                       <td style="font-weight:900; color:#b91c1c;">${pctR1}%</td>
                       <td style="font-weight:800; color:#b91c1c;">Needs Improvement (Essential Repeat)</td>
-                      <td style="text-align:left; font-size:6.6pt; font-weight:700;">Roll: 1, 2, 11, 18</td>
+                      <td style="text-align:left; font-size:6.5pt; font-weight:700;">Roll: 1, 2, 11, 18, 35</td>
                     </tr>
                     <tr style="background:#ffedd5;">
                       <td style="font-weight:bold;">2</td>
                       <td style="text-align:left; font-weight:bold; color:#c2410c;">2. 33% to 45%</td>
                       <td>33.00 &ndash; 45.00</td>
-                      <td style="font-weight:900; font-size:7.6pt; color:#c2410c;">${countR2}</td>
+                      <td style="font-weight:900; font-size:7.5pt; color:#c2410c;">${countR2}</td>
                       <td style="font-weight:900; color:#c2410c;">${pctR2}%</td>
                       <td style="font-weight:700;">Satisfactory / Passing Grade (D)</td>
-                      <td style="text-align:left; font-size:6.6pt; font-weight:700;">Roll: 6, 9, 13, 15, 29, 32, 35</td>
+                      <td style="text-align:left; font-size:6.5pt; font-weight:700;">Roll: 4, 6, 9, 12, 13, 15, 29, 32</td>
                     </tr>
                     <tr style="background:#fef3c7;">
                       <td style="font-weight:bold;">3</td>
                       <td style="text-align:left; font-weight:bold; color:#b45309;">3. More than 45% but less than 60%</td>
                       <td>45.01 &ndash; 59.99</td>
-                      <td style="font-weight:900; font-size:7.6pt; color:#b45309;">${countR3}</td>
+                      <td style="font-weight:900; font-size:7.5pt; color:#b45309;">${countR3}</td>
                       <td style="font-weight:900; color:#b45309;">${pctR3}%</td>
                       <td style="font-weight:700;">Average Performance (C1 / C2)</td>
-                      <td style="text-align:left; font-size:6.6pt; font-weight:700;">Roll: 4, 7, 12, 14, 30, 34, 37</td>
+                      <td style="text-align:left; font-size:6.5pt; font-weight:700;">Roll: 7, 14, 30, 34, 37</td>
                     </tr>
                     <tr style="background:#e0f2fe;">
                       <td style="font-weight:bold;">4</td>
                       <td style="text-align:left; font-weight:bold; color:#0369a1;">4. 60% to less than 75%</td>
                       <td>60.00 &ndash; 74.99</td>
-                      <td style="font-weight:900; font-size:7.6pt; color:#0369a1;">${countR4}</td>
+                      <td style="font-weight:900; font-size:7.5pt; color:#0369a1;">${countR4}</td>
                       <td style="font-weight:900; color:#0369a1;">${pctR4}%</td>
                       <td style="font-weight:700; color:#0369a1;">Good Performance (B1 / B2 &mdash; Highest Group)</td>
-                      <td style="text-align:left; font-size:6.6pt; font-weight:700;">Roll: 8, 10, 16, 17, 19, 20, 21, 23, 27, 31, 33, 36, 38, 39</td>
+                      <td style="text-align:left; font-size:6.5pt; font-weight:700;">Roll: 8, 10, 16, 17, 19, 20, 21, 23, 27, 31, 33, 36, 38, 39</td>
                     </tr>
                     <tr style="background:#dcfce7;">
                       <td style="font-weight:bold;">5</td>
                       <td style="text-align:left; font-weight:bold; color:#15803d;">5. 75% to less than 90%</td>
                       <td>75.00 &ndash; 89.99</td>
-                      <td style="font-weight:900; font-size:7.6pt; color:#15803d;">${countR5}</td>
+                      <td style="font-weight:900; font-size:7.5pt; color:#15803d;">${countR5}</td>
                       <td style="font-weight:900; color:#15803d;">${pctR5}%</td>
                       <td style="font-weight:700; color:#15803d;">Distinction / Very Good (A2 / B1)</td>
-                      <td style="text-align:left; font-size:6.6pt; font-weight:700;">Roll: 3, 5, 22, 24, 25, 26, 28, 40</td>
+                      <td style="text-align:left; font-size:6.5pt; font-weight:700;">Roll: 3, 5, 22, 24, 25, 26, 28, 40</td>
                     </tr>
                     <tr style="background:#f3e8ff;">
                       <td style="font-weight:bold;">6</td>
                       <td style="text-align:left; font-weight:bold; color:#6b21a8;">6. 90% and Above</td>
                       <td>&ge; 90.00</td>
-                      <td style="font-weight:900; font-size:7.6pt; color:#6b21a8;">${countR6}</td>
+                      <td style="font-weight:900; font-size:7.5pt; color:#6b21a8;">${countR6}</td>
                       <td style="font-weight:900; color:#6b21a8;">${pctR6}%</td>
                       <td style="font-weight:800; color:#6b21a8;">Outstanding / Top Tier (A1)</td>
-                      <td style="text-align:left; font-size:6.6pt; font-weight:700;">Nil</td>
+                      <td style="text-align:left; font-size:6.5pt; font-weight:700;">Nil</td>
                     </tr>
                     <tr style="background:#000000; color:#ffffff; font-weight:bold;">
                       <td colspan="3" style="text-align:right; padding:2.5px 5px; border:1px solid #000000;">TOTAL CONSOLIDATED SUMMARY:</td>
                       <td style="padding:2.5px 5px; border:1px solid #000000; font-size:7.8pt; font-weight:900; text-align:center;">40</td>
                       <td style="padding:2.5px 5px; border:1px solid #000000; font-weight:900; text-align:center;">100.0%</td>
                       <td colspan="2" style="text-align:left; font-size:6.8pt; padding-left:6px; border:1px solid #000000;">
-                        Pass %: <strong>90.0% (36/40)</strong> &nbsp;|&nbsp; 
-                        Class Average: <strong>56.88 / 100</strong> &nbsp;|&nbsp; 
-                        Highest: <strong>85.50 (Bhavika Bisht)</strong>
+                        Pass %: <strong>87.5% (35/40)</strong> &nbsp;|&nbsp; 
+                        Class Average: <strong>56.92 / 100</strong> &nbsp;|&nbsp; 
+                        Highest: <strong>85.75 (Bhavika Bisht)</strong>
                       </td>
                     </tr>
                   </tbody>
@@ -4792,24 +4808,28 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
 
       const buildRowsHTML = (students, isPage1) => students.map(s => {
         const isFail = s.total_100 < 33;
-        const pad = isPage1 ? '3.5px 1.5px' : '1.8px 1.5px';
-        const namePad = isPage1 ? '3.5px 4px' : '1.8px 4px';
-        const fSize = isPage1 ? '7.5pt' : '7.1pt';
-        const nameFSize = isPage1 ? '7.8pt' : '7.2pt';
+        const pad = isPage1 ? '3.5px 1px' : '1.7px 1px';
+        const namePad = isPage1 ? '3.5px 3px' : '1.7px 3px';
+        const fSize = isPage1 ? '7.3pt' : '6.8pt';
+        const nameFSize = isPage1 ? '7.5pt' : '7.0pt';
         return `
           <tr style="${isFail ? 'background:#fee2e2;' : ''} color:#000000;">
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.roll}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-family:monospace; font-weight:700; font-size:${fSize};">${s.sid}</td>
-            <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:125px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
+            <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:112px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.pt_raw}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${s.pt_10.toFixed(2)}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ww_raw}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${s.ww_5.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.sea_raw}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${s.sea_5.toFixed(2)}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${s.hy_60}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${s.diary_10}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${s.mdp_10}</td>
-            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${isPage1 ? '8.4pt' : '7.8pt'}; background:#fce7f3; color:#831843;">${s.total_100.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.hy_raw}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${s.hy_60.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.diary_raw}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${s.diary_10.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.mdp_raw}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${s.mdp_10.toFixed(2)}</td>
+            <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${isPage1 ? '8.2pt' : '7.6pt'}; background:#fce7f3; color:#831843;">${s.total_100.toFixed(2)}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.percentage}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${fSize}; color:#000000;">${s.grade}</td>
             <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; color:${isFail ? '#b91c1c' : '#15803d'}; font-size:${fSize};">${s.result}</td>
@@ -4834,27 +4854,31 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       const tableHeaderHTML = `
         <thead>
           <tr style="background:#000000; color:#ffffff;">
-            <th style="width:24px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">Roll</th>
-            <th style="width:68px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">Student ID</th>
-            <th style="width:125px; max-width:125px; text-align:left; padding:3px 4px; border:1px solid #000000; font-size:7.2pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
-            <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800; background:#1e293b;">PT-1<br>(Raw /40)</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#581c87; color:#ffffff;">PT-1<br>(10M Wtg)</th>
-            <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800; background:#1e293b;">Written<br>(Raw /20)</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#581c87; color:#ffffff;">Written<br>(5M Wtg)</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#581c87; color:#ffffff;">SEA<br>(5M Wtg)</th>
-            <th style="width:42px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#0369a1; color:#ffffff;">Half Yearly<br>(60M Wtg)</th>
-            <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#15803d; color:#ffffff;">Diary<br>(10M Wtg)</th>
-            <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800; background:#b45309; color:#ffffff;">MDP<br>(10M Wtg)</th>
-            <th style="width:48px; padding:3px 1px; border:1px solid #000000; font-size:7.4pt; font-weight:900; background:#be185d; color:#ffffff;">Total<br>(100M Wtg)</th>
-            <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">%</th>
-            <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:7.2pt; font-weight:900;">Grade</th>
-            <th style="width:38px; padding:3px 1px; border:1px solid #000000; font-size:7pt; font-weight:800;">Result</th>
+            <th style="width:20px; padding:2.5px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Roll</th>
+            <th style="width:58px; padding:2.5px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Student ID</th>
+            <th style="width:112px; max-width:112px; text-align:left; padding:2.5px 3px; border:1px solid #000000; font-size:6.8pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">PT-1<br>(Raw/40)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#581c87; color:#ffffff;">PT-1<br>(10M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">WW<br>(Raw/20)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#581c87; color:#ffffff;">WW<br>(5M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">SEA<br>(Raw/20)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#581c87; color:#ffffff;">SEA<br>(5M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">HY<br>(Raw/60)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#0369a1; color:#ffffff;">HY<br>(60M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">Diary<br>(Raw/10)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#15803d; color:#ffffff;">Diary<br>(10M)</th>
+            <th style="width:26px; padding:2.5px 1px; border:1px solid #000000; font-size:6.2pt; font-weight:800; background:#1e293b;">MDP<br>(Raw/10)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.4pt; font-weight:800; background:#b45309; color:#ffffff;">MDP<br>(10M)</th>
+            <th style="width:38px; padding:2.5px 1px; border:1px solid #000000; font-size:7pt; font-weight:900; background:#be185d; color:#ffffff;">Total<br>(100M)</th>
+            <th style="width:28px; padding:2.5px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800;">%</th>
+            <th style="width:24px; padding:2.5px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:900;">Grade</th>
+            <th style="width:32px; padding:2.5px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800;">Result</th>
           </tr>
         </thead>
       `;
 
       const pdfContainer = document.createElement('div');
-      pdfContainer.style.cssText = 'width: 1026px; background: #ffffff; color: #000000; font-family: Arial, Helvetica, "Segoe UI", sans-serif; font-size: 7.2pt; line-height: 1.16; margin: 0; padding: 0; box-sizing: border-box;';
+      pdfContainer.style.cssText = 'width: 1026px; background: #ffffff; color: #000000; font-family: Arial, Helvetica, "Segoe UI", sans-serif; font-size: 7.1pt; line-height: 1.15; margin: 0; padding: 0; box-sizing: border-box;';
       pdfContainer.innerHTML = `
         <!-- PAGE 1 (FRONT SIDE) -->
         <div style="width: 1026px; min-height: 745px; height: 745px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding: 0 0 2px 0;">
@@ -4870,7 +4894,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
                 <span><strong>Total Students:</strong> 40 (Part 1: Roll 1 to 20)</span>
               </div>
             </div>
-            <div style="background:#f1f5f9; border:1px solid #000000; padding:2px 6px; font-size:6.6pt; margin-bottom:2px; display:flex; justify-content:space-between; font-weight:700; color:#000000;">
+            <div style="background:#f1f5f9; border:1px solid #000000; padding:2px 6px; font-size:6.3pt; margin-bottom:2px; display:flex; justify-content:space-between; font-weight:700; color:#000000;">
               <span><strong>KVS HQ Weightage Policy:</strong> PT1 (10M) + Written Work (5M) + SEA (5M) + Half Yearly Exam (60M) + Learner's Diary (10M) + MDP (10M) = 100 Marks</span>
               <span><strong>Academic Session:</strong> 2026-27</span>
             </div>
@@ -4881,7 +4905,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
               </tbody>
             </table>
           </div>
-          <div style="font-size:6.5pt; font-weight:700; color:#1e293b; text-align:right; border-top:0.8px solid #000000; padding-top:1px; margin-top:1px;">
+          <div style="font-size:6.3pt; font-weight:700; color:#1e293b; text-align:right; border-top:0.8px solid #000000; padding-top:1px; margin-top:1px;">
             PM SHRI KV Ranikhet &bull; Samagam Evaluation Portal &bull; Page 1 of 2 (Front Side: Roll 1 to 20) &bull; Turn over for Page 2
           </div>
         </div>
@@ -4908,91 +4932,91 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             </table>
 
             <div style="border:1.2px solid #000000; border-radius:2px; padding:2px 4px; margin-top:2px; background:#ffffff;">
-              <div style="font-size:7.6pt; font-weight:900; color:#000000; margin-bottom:1px; text-transform:uppercase; letter-spacing:0.02em; border-bottom:1px solid #000000; padding-bottom:1px;">
+              <div style="font-size:7.4pt; font-weight:900; color:#000000; margin-bottom:1px; text-transform:uppercase; letter-spacing:0.02em; border-bottom:1px solid #000000; padding-bottom:1px;">
                 Performance Analysis &amp; Score Range Distribution (Out of 100 Marks)
               </div>
-              <table style="width:100%; border-collapse:collapse; font-size:6.8pt; border:1px solid #000000;">
+              <table style="width:100%; border-collapse:collapse; font-size:6.7pt; border:1px solid #000000;">
                 <thead>
                   <tr>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:left;">S.No.</th>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:left;">Score Range (Percentage Category)</th>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">Marks Range (/100)</th>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">Students</th>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">% of Class</th>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">Qualitative Performance Status</th>
-                    <th style="background:#e2e8f0; padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:left;">Student Roll Numbers in Bracket</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:left;">S.No.</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:left;">Score Range (Percentage Category)</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">Marks Range (/100)</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">Students</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">% of Class</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:center;">Qualitative Performance Status</th>
+                    <th style="background:#e2e8f0; padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#000000; text-align:left;">Student Roll Numbers in Bracket</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr style="background:#fee2e2;">
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:bold;">1</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#b91c1c;">1. Less than 33%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center;">&lt; 33.00</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#b91c1c; text-align:center;">${countR1}</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; color:#b91c1c; text-align:center;">${pctR1}%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:800; color:#b91c1c; text-align:center;">Needs Improvement (Essential Repeat)</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-size:6.6pt; font-weight:700;">Roll: 1, 2, 11, 18</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:bold;">1</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#b91c1c;">1. Less than 33%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center;">&lt; 33.00</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; font-size:7.5pt; color:#b91c1c; text-align:center;">${countR1}</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; color:#b91c1c; text-align:center;">${pctR1}%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:800; color:#b91c1c; text-align:center;">Needs Improvement (Essential Repeat)</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-size:6.5pt; font-weight:700;">Roll: 1, 2, 11, 18, 35</td>
                   </tr>
                   <tr style="background:#ffedd5;">
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:bold;">2</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#c2410c;">2. 33% to 45%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center;">33.00 &ndash; 45.00</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#c2410c; text-align:center;">${countR2}</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; color:#c2410c; text-align:center;">${pctR2}%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Satisfactory / Passing Grade (D)</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-size:6.6pt; font-weight:700;">Roll: 6, 9, 13, 15, 29, 32, 35</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:bold;">2</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#c2410c;">2. 33% to 45%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center;">33.00 &ndash; 45.00</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; font-size:7.5pt; color:#c2410c; text-align:center;">${countR2}</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; color:#c2410c; text-align:center;">${pctR2}%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Satisfactory / Passing Grade (D)</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-size:6.5pt; font-weight:700;">Roll: 4, 6, 9, 12, 13, 15, 29, 32</td>
                   </tr>
                   <tr style="background:#fef3c7;">
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:bold;">3</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#b45309;">3. More than 45% but less than 60%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center;">45.01 &ndash; 59.99</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#b45309; text-align:center;">${countR3}</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; color:#b45309; text-align:center;">${pctR3}%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Average Performance (C1 / C2)</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-size:6.6pt; font-weight:700;">Roll: 4, 7, 12, 14, 30, 34, 37</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:bold;">3</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#b45309;">3. More than 45% but less than 60%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center;">45.01 &ndash; 59.99</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; font-size:7.5pt; color:#b45309; text-align:center;">${countR3}</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; color:#b45309; text-align:center;">${pctR3}%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Average Performance (C1 / C2)</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-size:6.5pt; font-weight:700;">Roll: 7, 14, 30, 34, 37</td>
                   </tr>
                   <tr style="background:#e0f2fe;">
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:bold;">4</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#0369a1;">4. 60% to less than 75%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center;">60.00 &ndash; 74.99</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#0369a1; text-align:center;">${countR4}</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; color:#0369a1; text-align:center;">${pctR4}%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#0369a1;">Good Performance (B1 / B2 &mdash; Highest Group)</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-size:6.6pt; font-weight:700;">Roll: 8, 10, 16, 17, 19, 20, 21, 23, 27, 31, 33, 36, 38, 39</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:bold;">4</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#0369a1;">4. 60% to less than 75%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center;">60.00 &ndash; 74.99</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; font-size:7.5pt; color:#0369a1; text-align:center;">${countR4}</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; color:#0369a1; text-align:center;">${pctR4}%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#0369a1;">Good Performance (B1 / B2 &mdash; Highest Group)</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-size:6.5pt; font-weight:700;">Roll: 8, 10, 16, 17, 19, 20, 21, 23, 27, 31, 33, 36, 38, 39</td>
                   </tr>
                   <tr style="background:#dcfce7;">
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:bold;">5</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#15803d;">5. 75% to less than 90%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center;">75.00 &ndash; 89.99</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#15803d; text-align:center;">${countR5}</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; color:#15803d; text-align:center;">${pctR5}%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#15803d;">Distinction / Very Good (A2 / B1)</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-size:6.6pt; font-weight:700;">Roll: 3, 5, 22, 24, 25, 26, 28, 40</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:bold;">5</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#15803d;">5. 75% to less than 90%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center;">75.00 &ndash; 89.99</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; font-size:7.5pt; color:#15803d; text-align:center;">${countR5}</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; color:#15803d; text-align:center;">${pctR5}%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#15803d;">Distinction / Very Good (A2 / B1)</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-size:6.5pt; font-weight:700;">Roll: 3, 5, 22, 24, 25, 26, 28, 40</td>
                   </tr>
                   <tr style="background:#f3e8ff;">
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:bold;">6</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#6b21a8;">6. 90% and Above</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center;">&ge; 90.00</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#6b21a8; text-align:center;">${countR6}</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; font-weight:900; color:#6b21a8; text-align:center;">${pctR6}%</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:center; font-weight:800; color:#6b21a8;">Outstanding / Top Tier (A1)</td>
-                    <td style="padding:1.8px 4px; border:1px solid #000000; text-align:left; font-size:6.6pt; font-weight:700;">Nil</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:bold;">6</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-weight:bold; color:#6b21a8;">6. 90% and Above</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center;">&ge; 90.00</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; font-size:7.5pt; color:#6b21a8; text-align:center;">${countR6}</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; font-weight:900; color:#6b21a8; text-align:center;">${pctR6}%</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:center; font-weight:800; color:#6b21a8;">Outstanding / Top Tier (A1)</td>
+                    <td style="padding:1.6px 4px; border:1px solid #000000; text-align:left; font-size:6.5pt; font-weight:700;">Nil</td>
                   </tr>
                   <tr style="background:#000000; color:#ffffff; font-weight:bold;">
                     <td colspan="3" style="text-align:right; padding:2.5px 5px; border:1px solid #000000;">TOTAL CONSOLIDATED SUMMARY:</td>
                     <td style="padding:2.5px 5px; border:1px solid #000000; font-size:7.8pt; font-weight:900; text-align:center;">40</td>
                     <td style="padding:2.5px 5px; border:1px solid #000000; font-weight:900; text-align:center;">100.0%</td>
                     <td colspan="2" style="text-align:left; font-size:6.8pt; padding-left:6px; border:1px solid #000000;">
-                      Pass %: <strong>90.0% (36/40)</strong> &nbsp;|&nbsp; 
-                      Class Average: <strong>56.88 / 100</strong> &nbsp;|&nbsp; 
-                      Highest: <strong>85.50 (Bhavika Bisht)</strong>
+                      Pass %: <strong>87.5% (35/40)</strong> &nbsp;|&nbsp; 
+                      Class Average: <strong>56.92 / 100</strong> &nbsp;|&nbsp; 
+                      Highest: <strong>85.75 (Bhavika Bisht)</strong>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div style="display:flex; justify-content:space-between; margin-top:6px; padding-top:2px; font-weight:800; font-size:7.2pt; color:#000000;">
+            <div style="display:flex; justify-content:space-between; margin-top:5px; padding-top:2px; font-weight:800; font-size:7.2pt; color:#000000;">
               <div style="text-align:center; min-width:140px; border-top:1.2px dashed #000000; padding-top:2px;">
                 <strong>K B JOSHI</strong><br>
                 Subject Teacher (PGT Mathematics)<br>
@@ -5010,7 +5034,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
               </div>
             </div>
           </div>
-          <div style="font-size:6.5pt; font-weight:700; color:#1e293b; text-align:right; border-top:0.8px solid #000000; padding-top:1px; margin-top:1px;">
+          <div style="font-size:6.3pt; font-weight:700; color:#1e293b; text-align:right; border-top:0.8px solid #000000; padding-top:1px; margin-top:1px;">
             PM SHRI KV Ranikhet &bull; Samagam Evaluation Portal &bull; Page 2 of 2 (Reverse Side: Roll 21 to 40) &bull; End of Consolidated Sheet
           </div>
         </div>
