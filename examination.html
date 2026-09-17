@@ -938,6 +938,132 @@
 
     .samagam-subcontent { display: none; }
     .samagam-subcontent.active { display: block; }
+
+    /* Score Range Analysis & Highlighted Weightage Column Styles */
+    .range-analysis-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .range-analysis-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .range-analysis-header h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .range-badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+    .range-badge-pill {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-decoration: none;
+      user-select: none;
+    }
+    .range-badge-pill:hover {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    .range-badge-pill.active {
+      background: rgba(139, 92, 246, 0.28);
+      border-color: #a78bfa;
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+    .range-badge-pill .r-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .range-badge-pill .r-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .range-badge-pill .r-count {
+      font-size: 1.15rem;
+      font-weight: 800;
+      font-family: var(--font-head);
+    }
+    .range-badge-pill .r-bar-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 2px;
+    }
+    .range-badge-pill .r-bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+    .range-badge-pill .r-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* Range colors */
+    .r-c1 { color: #f87171; }
+    .r-c1 .r-bar-fill { background: #ef4444; }
+    .r-c2 { color: #fb923c; }
+    .r-c2 .r-bar-fill { background: #f97316; }
+    .r-c3 { color: #fbbf24; }
+    .r-c3 .r-bar-fill { background: #f59e0b; }
+    .r-c4 { color: #38bdf8; }
+    .r-c4 .r-bar-fill { background: #0ea5e9; }
+    .r-c5 { color: #34d399; }
+    .r-c5 .r-bar-fill { background: #10b981; }
+    .r-c6 { color: #c084fc; }
+    .r-c6 .r-bar-fill { background: #a855f7; }
+
+    /* Weightage Column Highlights */
+    .th-weightage {
+      border-left: 1px solid rgba(255,255,255,0.1) !important;
+      border-right: 1px solid rgba(255,255,255,0.1) !important;
+    }
+    .th-w-pt { background: rgba(124, 58, 237, 0.35) !important; color: #d8b4fe !important; }
+    .th-w-ww { background: rgba(124, 58, 237, 0.35) !important; color: #d8b4fe !important; }
+    .th-w-sea { background: rgba(124, 58, 237, 0.35) !important; color: #d8b4fe !important; }
+    .th-w-hy { background: rgba(14, 165, 233, 0.35) !important; color: #7dd3fc !important; }
+    .th-w-diary { background: rgba(16, 185, 129, 0.35) !important; color: #6ee7b7 !important; }
+    .th-w-mdp { background: rgba(245, 158, 11, 0.35) !important; color: #fde68a !important; }
+    .th-w-total { background: rgba(236, 72, 153, 0.4) !important; color: #fbcfe8 !important; }
+
+    .td-w-pt { background: rgba(124, 58, 237, 0.12); color: #c4b5fd; font-weight: 700; }
+    .td-w-ww { background: rgba(124, 58, 237, 0.12); color: #c4b5fd; font-weight: 700; }
+    .td-w-sea { background: rgba(124, 58, 237, 0.12); color: #c4b5fd; font-weight: 700; }
+    .td-w-hy { background: rgba(14, 165, 233, 0.14); color: #38bdf8; font-weight: 700; }
+    .td-w-diary { background: rgba(16, 185, 129, 0.12); color: #34d399; font-weight: 700; }
+    .td-w-mdp { background: rgba(245, 158, 11, 0.12); color: #fbbf24; font-weight: 700; }
+    .td-w-total { background: rgba(236, 72, 153, 0.18); color: #f472b6; font-weight: 800; font-size: 0.96rem; font-family: var(--font-head); }
   </style>
 <style>
 /* ======================== GLOBAL DARK DROPDOWN MENU STYLING ======================== */
@@ -1865,6 +1991,70 @@ select option:checked {
               </div>
             </div>
 
+            <!-- Consolidated Score Range Performance Analysis Breakdown Card -->
+            <div class="range-analysis-card">
+              <div class="range-analysis-header">
+                <h3><i class="fas fa-chart-pie" style="color:#a78bfa;"></i> Score Range Analysis Breakdown (Out of 100 Marks)</h3>
+                <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;"><i class="fas fa-hand-pointer"></i> Click any range badge below to filter student records</span>
+              </div>
+              <div class="range-badges-grid">
+                <!-- 1. Less than 33% -->
+                <div class="range-badge-pill r-c1" id="rangeBadge-R1" onclick="toggleScoreRangeFilter('R1')" title="Filter students scoring less than 33%">
+                  <div class="r-header">
+                    <span class="r-title"><i class="fas fa-exclamation-triangle"></i> 1. Less than 33%</span>
+                    <span class="r-count" id="count-R1">4</span>
+                  </div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R1" style="width: 10%;"></div></div>
+                  <div class="r-meta"><span>Needs Imp. (&lt;33M)</span><span id="pct-R1">10.0%</span></div>
+                </div>
+                <!-- 2. 33% to 45% -->
+                <div class="range-badge-pill r-c2" id="rangeBadge-R2" onclick="toggleScoreRangeFilter('R2')" title="Filter students scoring 33% to 45%">
+                  <div class="r-header">
+                    <span class="r-title"><i class="fas fa-check"></i> 2. 33% to 45%</span>
+                    <span class="r-count" id="count-R2">7</span>
+                  </div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R2" style="width: 17.5%;"></div></div>
+                  <div class="r-meta"><span>Passing (33–45M)</span><span id="pct-R2">17.5%</span></div>
+                </div>
+                <!-- 3. > 45% to < 60% -->
+                <div class="range-badge-pill r-c3" id="rangeBadge-R3" onclick="toggleScoreRangeFilter('R3')" title="Filter students scoring > 45% to < 60%">
+                  <div class="r-header">
+                    <span class="r-title"><i class="fas fa-arrow-trend-up"></i> 3. &gt;45% to &lt;60%</span>
+                    <span class="r-count" id="count-R3">7</span>
+                  </div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R3" style="width: 17.5%;"></div></div>
+                  <div class="r-meta"><span>Average (45.01–59.99M)</span><span id="pct-R3">17.5%</span></div>
+                </div>
+                <!-- 4. 60% to < 75% -->
+                <div class="range-badge-pill r-c4" id="rangeBadge-R4" onclick="toggleScoreRangeFilter('R4')" title="Filter students scoring 60% to < 75%">
+                  <div class="r-header">
+                    <span class="r-title"><i class="fas fa-star-half-alt"></i> 4. 60% to &lt;75%</span>
+                    <span class="r-count" id="count-R4">14</span>
+                  </div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R4" style="width: 35%;"></div></div>
+                  <div class="r-meta"><span>Good (60–74.99M)</span><span id="pct-R4">35.0%</span></div>
+                </div>
+                <!-- 5. 75% to < 90% -->
+                <div class="range-badge-pill r-c5" id="rangeBadge-R5" onclick="toggleScoreRangeFilter('R5')" title="Filter students scoring 75% to < 90%">
+                  <div class="r-header">
+                    <span class="r-title"><i class="fas fa-award"></i> 5. 75% to &lt;90%</span>
+                    <span class="r-count" id="count-R5">8</span>
+                  </div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R5" style="width: 20%;"></div></div>
+                  <div class="r-meta"><span>Distinction (75–89.99M)</span><span id="pct-R5">20.0%</span></div>
+                </div>
+                <!-- 6. 90% and Above -->
+                <div class="range-badge-pill r-c6" id="rangeBadge-R6" onclick="toggleScoreRangeFilter('R6')" title="Filter students scoring 90% and above">
+                  <div class="r-header">
+                    <span class="r-title"><i class="fas fa-crown"></i> 6. 90% &amp; Above</span>
+                    <span class="r-count" id="count-R6">0</span>
+                  </div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar-R6" style="width: 0%;"></div></div>
+                  <div class="r-meta"><span>Outstanding (&ge;90M)</span><span id="pct-R6">0.0%</span></div>
+                </div>
+              </div>
+            </div>
+
             <!-- Search and Filter Bar -->
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; background:rgba(255,255,255,0.03); padding:12px 18px; border-radius:12px; border:1px solid rgba(255,255,255,0.08);">
               <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:250px;">
@@ -1872,7 +2062,17 @@ select option:checked {
                 <input type="text" id="samagamSearchInput" oninput="filterSamagamTable()" placeholder="Search by student name, roll number, or Student ID..." class="gen-input" style="width:100%; padding:8px 14px; font-size:0.86rem;">
               </div>
               <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-filter"></i> Filter Grade:</label>
+                <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-filter"></i> Score Range:</label>
+                <select id="samagamRangeFilter" onchange="onSelectScoreRange(this.value)" class="gen-select" style="padding:6px 14px; font-size:0.84rem; min-width:160px;">
+                  <option value="ALL">All Ranges (40)</option>
+                  <option value="R1">1. &lt; 33% (4 Students)</option>
+                  <option value="R2">2. 33% to 45% (7 Students)</option>
+                  <option value="R3">3. &gt;45% to &lt;60% (7 Students)</option>
+                  <option value="R4">4. 60% to &lt;75% (14 Students)</option>
+                  <option value="R5">5. 75% to &lt;90% (8 Students)</option>
+                  <option value="R6">6. 90% &amp; Above (0 Students)</option>
+                </select>
+                <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-medal"></i> Grade:</label>
                 <select id="samagamGradeFilter" onchange="filterSamagamTable()" class="gen-select" style="padding:6px 14px; font-size:0.84rem; min-width:130px;">
                   <option value="ALL">All Grades (40)</option>
                   <option value="A2">Grade A2 (81-90)</option>
@@ -1883,7 +2083,7 @@ select option:checked {
                   <option value="D">Grade D (33-40)</option>
                   <option value="E">Grade E (&lt; 33)</option>
                 </select>
-                <button onclick="resetSamagamFilters()" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-undo"></i> Reset</button>
+                <button onclick="resetSamagamFilters()" class="gen-btn gen-btn-edit" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-undo"></i> Reset Filters</button>
               </div>
             </div>
 
@@ -1892,18 +2092,18 @@ select option:checked {
               <table class="samagam-table" id="samagamResultTable">
                 <thead>
                   <tr>
-                    <th style="width:50px;">Roll</th>
+                    <th style="width:45px;">Roll</th>
                     <th>Student ID</th>
                     <th class="th-main">Student Name</th>
                     <th>PT-1<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
-                    <th style="background:rgba(124,58,237,0.25); color:#a78bfa;">PT-1<br><span style="font-size:0.7rem; color:#c4b5fd;">(10M)</span></th>
+                    <th class="th-weightage th-w-pt">PT-1<br><span style="font-size:0.7rem; color:#f5d0fe;">(10M Wtg)</span></th>
                     <th>Written Work<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /20)</span></th>
-                    <th style="background:rgba(124,58,237,0.25); color:#a78bfa;">Written<br><span style="font-size:0.7rem; color:#c4b5fd;">(5M)</span></th>
-                    <th style="background:rgba(124,58,237,0.25); color:#a78bfa;">SEA<br><span style="font-size:0.7rem; color:#c4b5fd;">(5M)</span></th>
-                    <th style="background:rgba(14,165,233,0.25); color:#38bdf8;">Half Yearly<br><span style="font-size:0.7rem; color:#7dd3fc;">(60M)</span></th>
-                    <th style="background:rgba(16,185,129,0.25); color:#34d399;">Learners Diary<br><span style="font-size:0.7rem; color:#a7f3d0;">(10M)</span></th>
-                    <th style="background:rgba(245,158,11,0.25); color:#fbbf24;">MDP<br><span style="font-size:0.7rem; color:#fde68a;">(10M)</span></th>
-                    <th style="background:rgba(236,72,153,0.3); color:#f472b6; font-size:0.92rem;">Total<br><span style="font-size:0.72rem; color:#fbcfe8;">(100M)</span></th>
+                    <th class="th-weightage th-w-ww">Written<br><span style="font-size:0.7rem; color:#f5d0fe;">(5M Wtg)</span></th>
+                    <th class="th-weightage th-w-sea">SEA<br><span style="font-size:0.7rem; color:#f5d0fe;">(5M Wtg)</span></th>
+                    <th class="th-weightage th-w-hy">Half Yearly<br><span style="font-size:0.7rem; color:#bae6fd;">(60M Wtg)</span></th>
+                    <th class="th-weightage th-w-diary">Learners Diary<br><span style="font-size:0.7rem; color:#a7f3d0;">(10M Wtg)</span></th>
+                    <th class="th-weightage th-w-mdp">MDP<br><span style="font-size:0.7rem; color:#fef08a;">(10M Wtg)</span></th>
+                    <th class="th-weightage th-w-total">Total<br><span style="font-size:0.72rem; color:#fce7f3;">(100M Wtg)</span></th>
                     <th>%</th>
                     <th>Grade</th>
                     <th>Result</th>
@@ -3961,6 +4161,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     let currentSamagamTerm = 'term1';
     let currentSamagamSearch = '';
     let currentSamagamGrade = 'ALL';
+    let currentSamagamScoreRange = 'ALL';
 
     function calculateSamagamRecord(s) {
       const pt_10 = +(s.pt_raw / 4.0).toFixed(2);
@@ -3980,6 +4181,15 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       else if (total_100 >= 41) grade = 'C2';
       else if (total_100 >= 33) grade = 'D';
 
+      // 6 Score Range Brackets
+      let rangeKey = 'R6';
+      if (total_100 < 33) rangeKey = 'R1';        // 1. Less than 33%
+      else if (total_100 <= 45) rangeKey = 'R2';  // 2. 33% to 45%
+      else if (total_100 < 60) rangeKey = 'R3';   // 3. More than 45% but less than 60%
+      else if (total_100 < 75) rangeKey = 'R4';   // 4. 60% to less than 75%
+      else if (total_100 < 90) rangeKey = 'R5';   // 5. 75% to less than 90%
+      else rangeKey = 'R6';                       // 6. 90% and above
+
       return {
         ...s,
         pt_10,
@@ -3990,6 +4200,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
         mdp_10,
         total_100,
         grade,
+        rangeKey,
         percentage: total_100.toFixed(1) + '%',
         result: total_100 >= 33 ? 'Passed' : 'Needs Imp.'
       };
@@ -4014,31 +4225,75 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       renderSamagamTable();
     }
 
+    function toggleScoreRangeFilter(rKey) {
+      if (currentSamagamScoreRange === rKey) {
+        currentSamagamScoreRange = 'ALL';
+      } else {
+        currentSamagamScoreRange = rKey;
+      }
+      const select = document.getElementById('samagamRangeFilter');
+      if (select) select.value = currentSamagamScoreRange;
+      renderSamagamTable();
+    }
+
+    function onSelectScoreRange(val) {
+      currentSamagamScoreRange = val;
+      renderSamagamTable();
+    }
+
     function renderSamagamTable() {
       const tbody = document.getElementById('samagamTableBody');
       if (!tbody) return;
 
       const processed = samagam7CData.map(calculateSamagamRecord);
+      const totalStudentsCount = processed.length;
+
+      // Calculate 6 Score Range Distribution
+      const rangeCounts = { R1: 0, R2: 0, R3: 0, R4: 0, R5: 0, R6: 0 };
+      processed.forEach(s => {
+        if (rangeCounts[s.rangeKey] !== undefined) rangeCounts[s.rangeKey]++;
+      });
+
+      // Update 6 Range Cards & Bars
+      ['R1', 'R2', 'R3', 'R4', 'R5', 'R6'].forEach(key => {
+        const countEl = document.getElementById(`count-${key}`);
+        const pctEl = document.getElementById(`pct-${key}`);
+        const barEl = document.getElementById(`bar-${key}`);
+        const badgeEl = document.getElementById(`rangeBadge-${key}`);
+        const count = rangeCounts[key] || 0;
+        const pct = totalStudentsCount > 0 ? ((count / totalStudentsCount) * 100).toFixed(1) : '0.0';
+
+        if (countEl) countEl.textContent = count;
+        if (pctEl) pctEl.textContent = `${pct}%`;
+        if (barEl) barEl.style.width = `${pct}%`;
+        if (badgeEl) {
+          badgeEl.classList.toggle('active', currentSamagamScoreRange === key);
+        }
+      });
+
+      // Filter logic
       const q = (currentSamagamSearch || '').trim().toLowerCase();
       const gFilter = currentSamagamGrade;
+      const rFilter = currentSamagamScoreRange;
 
       const filtered = processed.filter(s => {
         const matchQ = !q || s.name.toLowerCase().includes(q) || String(s.roll).includes(q) || String(s.sid).includes(q);
         const matchG = gFilter === 'ALL' || s.grade === gFilter;
-        return matchQ && matchG;
+        const matchR = rFilter === 'ALL' || s.rangeKey === rFilter;
+        return matchQ && matchG && matchR;
       });
 
-      // Update Statistics
+      // Update Statistics Header
       const statTotal = document.getElementById('statTotalStudents');
       const statPassed = document.getElementById('statPassed');
       const statAverage = document.getElementById('statAverage');
       const statHighest = document.getElementById('statHighest');
       const statGradeDist = document.getElementById('statGradeDist');
 
-      if (statTotal) statTotal.textContent = processed.length;
+      if (statTotal) statTotal.textContent = totalStudentsCount;
       const passedCount = processed.filter(s => s.total_100 >= 33).length;
-      if (statPassed) statPassed.textContent = `${passedCount} (${Math.round(passedCount * 100 / processed.length)}%)`;
-      const avgScore = (processed.reduce((sum, s) => sum + s.total_100, 0) / processed.length).toFixed(2);
+      if (statPassed) statPassed.textContent = `${passedCount} (${Math.round(passedCount * 100 / totalStudentsCount)}%)`;
+      const avgScore = (processed.reduce((sum, s) => sum + s.total_100, 0) / totalStudentsCount).toFixed(2);
       if (statAverage) statAverage.textContent = avgScore;
       const maxStudent = processed.reduce((max, s) => s.total_100 > max.total_100 ? s : max, processed[0]);
       if (statHighest) statHighest.textContent = `${maxStudent.total_100.toFixed(2)} (${maxStudent.grade})`;
@@ -4050,7 +4305,7 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       }
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:30px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block;"></i>No student records found matching search filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#a78bfa;"></i>No student records found matching the selected filters. <button onclick="resetSamagamFilters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
         return;
       }
 
@@ -4062,14 +4317,14 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
             <td style="font-family:monospace; color:#94a3b8; font-size:0.78rem;">${s.sid}</td>
             <td class="td-main" style="font-weight:700; color:#fff;">${s.name}</td>
             <td style="color:#94a3b8;">${s.pt_raw}</td>
-            <td style="font-weight:700; color:#c4b5fd; background:rgba(124,58,237,0.12);">${s.pt_10.toFixed(2)}</td>
+            <td class="td-w-pt">${s.pt_10.toFixed(2)}</td>
             <td style="color:#94a3b8;">${s.ww_raw}</td>
-            <td style="font-weight:700; color:#c4b5fd; background:rgba(124,58,237,0.12);">${s.ww_5.toFixed(2)}</td>
-            <td style="font-weight:700; color:#c4b5fd; background:rgba(124,58,237,0.12);">${s.sea_5.toFixed(2)}</td>
-            <td style="font-weight:700; color:#38bdf8; background:rgba(14,165,233,0.12);">${s.hy_60}</td>
-            <td style="font-weight:700; color:#34d399; background:rgba(16,185,129,0.12);">${s.diary_10}</td>
-            <td style="font-weight:700; color:#fbbf24; background:rgba(245,158,11,0.12);">${s.mdp_10}</td>
-            <td style="font-weight:800; font-size:0.96rem; color:#f472b6; background:rgba(236,72,153,0.15); font-family:var(--font-head);">${s.total_100.toFixed(2)}</td>
+            <td class="td-w-ww">${s.ww_5.toFixed(2)}</td>
+            <td class="td-w-sea">${s.sea_5.toFixed(2)}</td>
+            <td class="td-w-hy">${s.hy_60}</td>
+            <td class="td-w-diary">${s.diary_10}</td>
+            <td class="td-w-mdp">${s.mdp_10}</td>
+            <td class="td-w-total">${s.total_100.toFixed(2)}</td>
             <td style="font-weight:600; color:#e2e8f0;">${s.percentage}</td>
             <td><span class="badge-grade grade-${s.grade}">${s.grade}</span></td>
             <td>
@@ -4085,27 +4340,39 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     function filterSamagamTable() {
       const sInput = document.getElementById('samagamSearchInput');
       const gInput = document.getElementById('samagamGradeFilter');
+      const rInput = document.getElementById('samagamRangeFilter');
       if (sInput) currentSamagamSearch = sInput.value;
       if (gInput) currentSamagamGrade = gInput.value;
+      if (rInput) currentSamagamScoreRange = rInput.value;
       renderSamagamTable();
     }
 
     function resetSamagamFilters() {
       const sInput = document.getElementById('samagamSearchInput');
       const gInput = document.getElementById('samagamGradeFilter');
+      const rInput = document.getElementById('samagamRangeFilter');
       if (sInput) sInput.value = '';
       if (gInput) gInput.value = 'ALL';
+      if (rInput) rInput.value = 'ALL';
       currentSamagamSearch = '';
       currentSamagamGrade = 'ALL';
+      currentSamagamScoreRange = 'ALL';
       renderSamagamTable();
     }
 
     function exportSamagamCSV() {
       const processed = samagam7CData.map(calculateSamagamRecord);
-      let csv = 'Roll No,Student ID,Student Name,PT1 Raw (/40),PT1 Weightage (/10),Written Work Raw (/20),Written Work (/5),Subject Enrichment (/5),Term End HY (/60),Learners Diary (/10),MDP (/10),Total (/100),Percentage,Grade,Result\n';
+      let csv = 'Roll No,Student ID,Student Name,PT1 Raw (/40),PT1 Weightage (/10),Written Work Raw (/20),Written Work (/5),Subject Enrichment (/5),Term End HY (/60),Learners Diary (/10),MDP (/10),Total (/100),Percentage,Grade,Score Range,Result\n';
       
       processed.forEach(s => {
-        csv += `"${s.roll}","${s.sid}","${s.name}",${s.pt_raw},${s.pt_10},${s.ww_raw},${s.ww_5},${s.sea_5},${s.hy_60},${s.diary_10},${s.mdp_10},${s.total_100},"${s.percentage}","${s.grade}","${s.result}"\n`;
+        let rDesc = '90% and Above';
+        if (s.rangeKey === 'R1') rDesc = 'Less than 33%';
+        else if (s.rangeKey === 'R2') rDesc = '33% to 45%';
+        else if (s.rangeKey === 'R3') rDesc = '>45% to <60%';
+        else if (s.rangeKey === 'R4') rDesc = '60% to <75%';
+        else if (s.rangeKey === 'R5') rDesc = '75% to <90%';
+
+        csv += `"${s.roll}","${s.sid}","${s.name}",${s.pt_raw},${s.pt_10},${s.ww_raw},${s.ww_5},${s.sea_5},${s.hy_60},${s.diary_10},${s.mdp_10},${s.total_100},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -4115,87 +4382,382 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      showToast('✅ Consolidated Marksheet CSV downloaded successfully!');
+      showToast('✅ Consolidated Marksheet CSV exported successfully!');
     }
 
     function printSamagamMarksheet() {
       const processed = samagam7CData.map(calculateSamagamRecord);
-      const pWin = window.open('', '_blank', 'width=1100,height=800');
+      const pWin = window.open('', '_blank', 'width=1200,height=850');
       if (!pWin) { alert('Please allow popups to print marksheets.'); return; }
 
-      const rows = processed.map(s => `
-        <tr>
-          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.roll}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-family:monospace;">${s.sid}</td>
-          <td style="padding:5px 8px; border:1px solid #333; font-weight:bold;">${s.name}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.pt_raw}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.pt_10.toFixed(2)}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.ww_raw}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.ww_5.toFixed(2)}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.sea_5.toFixed(2)}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.hy_60}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.diary_10}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.mdp_10}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold; font-size:11pt;">${s.total_100.toFixed(2)}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.percentage}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333; font-weight:bold;">${s.grade}</td>
-          <td style="text-align:center; padding:5px; border:1px solid #333;">${s.result}</td>
-        </tr>
-      `).join('');
+      // Divide 40 students strictly into 2 pages: 1-20 (Page 1), 21-40 (Page 2)
+      const part1 = processed.slice(0, 20);
+      const part2 = processed.slice(20, 40);
+
+      // Helper function to render table rows with highlighted weightage columns
+      const buildRowsHTML = (students) => students.map(s => {
+        const isFail = s.total_100 < 33;
+        return `
+          <tr style="${isFail ? 'background:#fef2f2;' : ''}">
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold;">${s.roll}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-family:monospace; font-size:7pt;">${s.sid}</td>
+            <td style="padding:3.5px 6px; border:1px solid #475569; font-weight:bold; font-size:7.8pt;">${s.name}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; color:#475569;">${s.pt_raw}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; background:#f3e8ff; color:#6b21a8;">${s.pt_10.toFixed(2)}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; color:#475569;">${s.ww_raw}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; background:#f3e8ff; color:#6b21a8;">${s.ww_5.toFixed(2)}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; background:#f3e8ff; color:#6b21a8;">${s.sea_5.toFixed(2)}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; background:#e0f2fe; color:#0369a1;">${s.hy_60}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; background:#dcfce7; color:#15803d;">${s.diary_10}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; background:#fef3c7; color:#b45309;">${s.mdp_10}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:800; font-size:8.8pt; background:#fce7f3; color:#be185d;">${s.total_100.toFixed(2)}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:600;">${s.percentage}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold;">${s.grade}</td>
+            <td style="text-align:center; padding:3.5px 2px; border:1px solid #475569; font-weight:bold; color:${isFail ? '#dc2626' : '#16a34a'}; font-size:7pt;">${s.result}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // 6 Score Range Analysis Counts
+      const countR1 = processed.filter(s => s.total_100 < 33).length;
+      const countR2 = processed.filter(s => s.total_100 >= 33 && s.total_100 <= 45).length;
+      const countR3 = processed.filter(s => s.total_100 > 45 && s.total_100 < 60).length;
+      const countR4 = processed.filter(s => s.total_100 >= 60 && s.total_100 < 75).length;
+      const countR5 = processed.filter(s => s.total_100 >= 75 && s.total_100 < 90).length;
+      const countR6 = processed.filter(s => s.total_100 >= 90).length;
+
+      const pctR1 = ((countR1 / 40) * 100).toFixed(1);
+      const pctR2 = ((countR2 / 40) * 100).toFixed(1);
+      const pctR3 = ((countR3 / 40) * 100).toFixed(1);
+      const pctR4 = ((countR4 / 40) * 100).toFixed(1);
+      const pctR5 = ((countR5 / 40) * 100).toFixed(1);
+      const pctR6 = ((countR6 / 40) * 100).toFixed(1);
+
+      const tableHeaderHTML = `
+        <thead>
+          <tr style="background:#0f172a; color:#fff;">
+            <th style="width:24px; padding:4px 2px; border:1px solid #000; font-size:7pt;">Roll</th>
+            <th style="width:68px; padding:4px 2px; border:1px solid #000; font-size:7pt;">Student ID</th>
+            <th style="text-align:left; padding:4px 6px; border:1px solid #000; font-size:7.5pt;">Student Name</th>
+            <th style="width:34px; padding:4px 2px; border:1px solid #000; font-size:6.8pt; background:#334155;">PT-1<br>(Raw /40)</th>
+            <th style="width:38px; padding:4px 2px; border:1px solid #000; font-size:7pt; background:#7c3aed; color:#fff;">PT-1<br>(10M Wtg)</th>
+            <th style="width:36px; padding:4px 2px; border:1px solid #000; font-size:6.8pt; background:#334155;">Written<br>(Raw /20)</th>
+            <th style="width:38px; padding:4px 2px; border:1px solid #000; font-size:7pt; background:#7c3aed; color:#fff;">Written<br>(5M Wtg)</th>
+            <th style="width:38px; padding:4px 2px; border:1px solid #000; font-size:7pt; background:#7c3aed; color:#fff;">SEA<br>(5M Wtg)</th>
+            <th style="width:42px; padding:4px 2px; border:1px solid #000; font-size:7pt; background:#0284c7; color:#fff;">Half Yearly<br>(60M Wtg)</th>
+            <th style="width:40px; padding:4px 2px; border:1px solid #000; font-size:7pt; background:#059669; color:#fff;">Diary<br>(10M Wtg)</th>
+            <th style="width:40px; padding:4px 2px; border:1px solid #000; font-size:7pt; background:#d97706; color:#fff;">MDP<br>(10M Wtg)</th>
+            <th style="width:48px; padding:4px 2px; border:1px solid #000; font-size:7.5pt; background:#db2777; color:#fff;">Total<br>(100M Wtg)</th>
+            <th style="width:34px; padding:4px 2px; border:1px solid #000; font-size:7pt;">%</th>
+            <th style="width:32px; padding:4px 2px; border:1px solid #000; font-size:7pt;">Grade</th>
+            <th style="width:40px; padding:4px 2px; border:1px solid #000; font-size:7pt;">Result</th>
+          </tr>
+        </thead>
+      `;
 
       pWin.document.write(`
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
         <head>
-          <title>Class 7C Samagam Marksheet - PM SHRI KV Ranikhet</title>
+          <meta charset="UTF-8">
+          <title>Samagam Consolidated Result Sheet - Class 7C Mathematics (Term 1) - PM SHRI KV Ranikhet</title>
           <style>
-            @page { size: A4 landscape; margin: 10mm; }
-            body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 8.5pt; color: #000; margin: 0; padding: 10px; }
-            .header { text-align: center; margin-bottom: 12px; border-bottom: 2px solid #000; padding-bottom: 8px; }
-            .header h2 { margin: 0 0 4px; font-size: 14pt; }
-            .header h3 { margin: 0 0 4px; font-size: 11pt; }
-            .header p { margin: 0; font-size: 9pt; }
-            table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 8pt; }
-            th { background: #f1f5f9; padding: 6px 4px; border: 1px solid #000; font-size: 7.5pt; }
-            .footer { margin-top: 25px; display: flex; justify-content: space-between; font-weight: bold; }
+            @page {
+              size: A4 landscape;
+              margin: 5mm 7mm;
+            }
+            * { box-sizing: border-box; }
+            body {
+              font-family: 'Segoe UI', Arial, sans-serif;
+              font-size: 7.8pt;
+              line-height: 1.25;
+              color: #000;
+              background: #fff;
+              margin: 0;
+              padding: 0;
+            }
+            .page-container {
+              width: 100%;
+              min-height: 195mm;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+            .page-break {
+              page-break-before: always;
+              break-before: page;
+            }
+            .school-header {
+              text-align: center;
+              border-bottom: 1.5px solid #000;
+              padding-bottom: 4px;
+              margin-bottom: 5px;
+            }
+            .school-header h1 {
+              margin: 0 0 2px;
+              font-size: 13pt;
+              font-weight: 800;
+              letter-spacing: 0.02em;
+              color: #0f172a;
+            }
+            .school-header h2 {
+              margin: 0 0 2px;
+              font-size: 9.5pt;
+              font-weight: 700;
+              color: #4338ca;
+            }
+            .school-header .meta-row {
+              font-size: 8pt;
+              margin-top: 2px;
+              color: #1e293b;
+              font-weight: 600;
+            }
+            .criteria-strip {
+              background: #f8fafc;
+              border: 1px dashed #64748b;
+              padding: 3px 8px;
+              font-size: 6.8pt;
+              margin-bottom: 5px;
+              display: flex;
+              justify-content: space-between;
+              font-weight: 600;
+              color: #334155;
+            }
+            table.sheet-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 4px;
+            }
+            .sheet-table td {
+              font-size: 7.5pt;
+            }
+            .page-footer-note {
+              font-size: 6.8pt;
+              font-style: italic;
+              color: #475569;
+              text-align: right;
+              margin-top: 3px;
+            }
+            
+            /* Analysis Box Styles on Page 2 */
+            .analysis-section {
+              border: 1.2px solid #0f172a;
+              border-radius: 4px;
+              padding: 5px 8px;
+              margin-top: 6px;
+              background: #fafafa;
+            }
+            .analysis-title {
+              font-size: 8.5pt;
+              font-weight: 800;
+              color: #0f172a;
+              margin-bottom: 4px;
+              text-transform: uppercase;
+              letter-spacing: 0.03em;
+              border-bottom: 1px solid #cbd5e1;
+              padding-bottom: 2px;
+            }
+            .analysis-table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 7.2pt;
+            }
+            .analysis-table th {
+              background: #e2e8f0;
+              padding: 3px 6px;
+              border: 1px solid #64748b;
+              font-weight: 700;
+              text-align: center;
+            }
+            .analysis-table td {
+              padding: 3px 6px;
+              border: 1px solid #64748b;
+              text-align: center;
+            }
+            .sig-grid {
+              display: flex;
+              justify-content: space-between;
+              margin-top: 18px;
+              padding-top: 8px;
+              font-weight: 700;
+              font-size: 8pt;
+            }
+            .sig-col {
+              text-align: center;
+              min-width: 160px;
+              border-top: 1px dashed #000;
+              padding-top: 4px;
+            }
           </style>
         </head>
         <body>
-          <div class="header">
-            <h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
-            <h3>CONSOLIDATED EVALUATION MARKSHEET (SAMAGAM PORTAL FORMAT)</h3>
-            <p><strong>Class:</strong> VII-C &nbsp;|&nbsp; <strong>Subject:</strong> Mathematics &nbsp;|&nbsp; <strong>Term:</strong> Term-1 (Half Yearly Session 2026-27) &nbsp;|&nbsp; <strong>Max Marks:</strong> 100</p>
-            <p style="font-size:7.5pt; margin-top:3px; color:#444;">Criteria: Periodic Test (10M) + SEA (5M) + Written Work (5M) + Half Yearly Exam (60M) + Learners Diary (10M) + MDP (10M) = 100M</p>
+
+          <!-- ==================== PAGE 1 (ROLL 1 TO 20) ==================== -->
+          <div class="page-container">
+            <div>
+              <div class="school-header">
+                <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+                <h2>SAMAGAM PORTAL CONSOLIDATED EVALUATION SHEET — TERM 1 (PAGE 1 OF 2)</h2>
+                <div class="meta-row">
+                  <span><strong>Class &amp; Sec:</strong> VII-C</span> &nbsp;|&nbsp; 
+                  <span><strong>Subject:</strong> Mathematics</span> &nbsp;|&nbsp; 
+                  <span><strong>Session:</strong> 2026-27</span> &nbsp;|&nbsp; 
+                  <span><strong>Maximum Marks:</strong> 100</span> &nbsp;|&nbsp;
+                  <span><strong>Total Students:</strong> 40 (Part 1: Roll 1 to 20)</span>
+                </div>
+              </div>
+
+              <div class="criteria-strip">
+                <span><strong>KVS HQ Weightage Policy:</strong> Periodic Test 1 (10M) + Written Work (5M) + SEA (5M) + Half Yearly Exam (60M) + Learner's Diary (10M) + MDP (10M) = 100 Marks</span>
+                <span><strong>Date:</strong> 2026-27 Session</span>
+              </div>
+
+              <table class="sheet-table">
+                ${tableHeaderHTML}
+                <tbody>
+                  ${buildRowsHTML(part1)}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="page-footer-note">
+              PM SHRI KV Ranikhet &bull; Samagam Evaluation Portal &bull; Page 1 of 2 (Roll 1 to 20) &bull; Continued on Page 2 for Roll 21 to 40, Score Range Analysis &amp; Signatures
+            </div>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th style="width:25px;">Roll</th>
-                <th style="width:70px;">Student ID</th>
-                <th>Student Name</th>
-                <th style="width:35px;">PT1 (40)</th>
-                <th style="width:35px;">PT1 (10)</th>
-                <th style="width:35px;">WW (20)</th>
-                <th style="width:35px;">WW (5)</th>
-                <th style="width:35px;">SEA (5)</th>
-                <th style="width:35px;">HY (60)</th>
-                <th style="width:35px;">Diary (10)</th>
-                <th style="width:35px;">MDP (10)</th>
-                <th style="width:45px;">Total (100)</th>
-                <th style="width:40px;">%</th>
-                <th style="width:35px;">Grade</th>
-                <th style="width:45px;">Result</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows}
-            </tbody>
-          </table>
-          <div class="footer">
-            <div>Subject Teacher: K B JOSHI (PGT Maths)</div>
-            <div>Exam In-Charge</div>
-            <div>Principal</div>
+
+          <!-- ==================== PAGE 2 (ROLL 21 TO 40 + ANALYSIS + SIGNATURES) ==================== -->
+          <div class="page-container page-break">
+            <div>
+              <div class="school-header" style="margin-bottom:4px;">
+                <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+                <h2>SAMAGAM PORTAL CONSOLIDATED EVALUATION SHEET — TERM 1 (PAGE 2 OF 2)</h2>
+                <div class="meta-row">
+                  <span><strong>Class &amp; Sec:</strong> VII-C</span> &nbsp;|&nbsp; 
+                  <span><strong>Subject:</strong> Mathematics</span> &nbsp;|&nbsp; 
+                  <span><strong>Session:</strong> 2026-27</span> &nbsp;|&nbsp; 
+                  <span><strong>Maximum Marks:</strong> 100</span> &nbsp;|&nbsp;
+                  <span><strong>Records:</strong> Part 2 (Roll 21 to 40)</span>
+                </div>
+              </div>
+
+              <table class="sheet-table">
+                ${tableHeaderHTML}
+                <tbody>
+                  ${buildRowsHTML(part2)}
+                </tbody>
+              </table>
+
+              <!-- Consolidated Score Range Performance Analysis Table -->
+              <div class="analysis-section">
+                <div class="analysis-title">
+                  <i class="fas fa-chart-bar"></i> Performance Analysis &amp; Score Range Distribution (Out of 100 Marks)
+                </div>
+                <table class="analysis-table">
+                  <thead>
+                    <tr>
+                      <th style="text-align:left;">S.No.</th>
+                      <th style="text-align:left;">Score Range (Percentage Category)</th>
+                      <th>Marks Range (/100)</th>
+                      <th>Number of Students</th>
+                      <th>Percentage of Class</th>
+                      <th>Qualitative Performance Status</th>
+                      <th style="text-align:left;">Student Roll Numbers in Bracket</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="background:#fee2e2;">
+                      <td style="font-weight:bold;">1</td>
+                      <td style="text-align:left; font-weight:bold; color:#b91c1c;">1. Less than 33%</td>
+                      <td>&lt; 33.00</td>
+                      <td style="font-weight:bold; font-size:8pt; color:#b91c1c;">${countR1}</td>
+                      <td style="font-weight:bold; color:#b91c1c;">${pctR1}%</td>
+                      <td style="font-weight:bold; color:#b91c1c;">Needs Improvement (Essential Repeat)</td>
+                      <td style="text-align:left; font-size:6.8pt;">Roll: 1, 2, 11, 18</td>
+                    </tr>
+                    <tr style="background:#ffedd5;">
+                      <td style="font-weight:bold;">2</td>
+                      <td style="text-align:left; font-weight:bold; color:#c2410c;">2. 33% to 45%</td>
+                      <td>33.00 &ndash; 45.00</td>
+                      <td style="font-weight:bold; font-size:8pt; color:#c2410c;">${countR2}</td>
+                      <td style="font-weight:bold; color:#c2410c;">${pctR2}%</td>
+                      <td>Satisfactory / Passing Grade (D)</td>
+                      <td style="text-align:left; font-size:6.8pt;">Roll: 6, 9, 13, 15, 29, 32, 35</td>
+                    </tr>
+                    <tr style="background:#fef3c7;">
+                      <td style="font-weight:bold;">3</td>
+                      <td style="text-align:left; font-weight:bold; color:#b45309;">3. More than 45% but less than 60%</td>
+                      <td>45.01 &ndash; 59.99</td>
+                      <td style="font-weight:bold; font-size:8pt; color:#b45309;">${countR3}</td>
+                      <td style="font-weight:bold; color:#b45309;">${pctR3}%</td>
+                      <td>Average Performance (C1 / C2)</td>
+                      <td style="text-align:left; font-size:6.8pt;">Roll: 4, 7, 12, 14, 30, 34, 37</td>
+                    </tr>
+                    <tr style="background:#e0f2fe;">
+                      <td style="font-weight:bold;">4</td>
+                      <td style="text-align:left; font-weight:bold; color:#0369a1;">4. 60% to less than 75%</td>
+                      <td>60.00 &ndash; 74.99</td>
+                      <td style="font-weight:bold; font-size:8pt; color:#0369a1;">${countR4}</td>
+                      <td style="font-weight:bold; color:#0369a1;">${pctR4}%</td>
+                      <td style="font-weight:bold; color:#0369a1;">Good Performance (B1 / B2 &mdash; Highest Group)</td>
+                      <td style="text-align:left; font-size:6.8pt;">Roll: 8, 10, 16, 17, 19, 20, 21, 23, 27, 31, 33, 36, 38, 39</td>
+                    </tr>
+                    <tr style="background:#dcfce7;">
+                      <td style="font-weight:bold;">5</td>
+                      <td style="text-align:left; font-weight:bold; color:#15803d;">5. 75% to less than 90%</td>
+                      <td>75.00 &ndash; 89.99</td>
+                      <td style="font-weight:bold; font-size:8pt; color:#15803d;">${countR5}</td>
+                      <td style="font-weight:bold; color:#15803d;">${pctR5}%</td>
+                      <td style="font-weight:bold; color:#15803d;">Distinction / Very Good (A2 / B1)</td>
+                      <td style="text-align:left; font-size:6.8pt;">Roll: 3, 5, 22, 24, 25, 26, 28, 40</td>
+                    </tr>
+                    <tr style="background:#f3e8ff;">
+                      <td style="font-weight:bold;">6</td>
+                      <td style="text-align:left; font-weight:bold; color:#6b21a8;">6. 90% and Above</td>
+                      <td>&ge; 90.00</td>
+                      <td style="font-weight:bold; font-size:8pt; color:#6b21a8;">${countR6}</td>
+                      <td style="font-weight:bold; color:#6b21a8;">${pctR6}%</td>
+                      <td style="font-weight:bold; color:#6b21a8;">Outstanding / Top Tier (A1)</td>
+                      <td style="text-align:left; font-size:6.8pt;">Nil</td>
+                    </tr>
+                    <tr style="background:#0f172a; color:#fff; font-weight:bold;">
+                      <td colspan="3" style="text-align:right; padding:4px 8px;">TOTAL CONSOLIDATED SUMMARY:</td>
+                      <td style="font-size:8.5pt;">40</td>
+                      <td>100.0%</td>
+                      <td colspan="2" style="text-align:left; font-size:7pt; padding-left:10px;">
+                        Pass Percentage: <strong>90.0% (36/40)</strong> &nbsp;|&nbsp; 
+                        Class Average: <strong>56.88 / 100</strong> &nbsp;|&nbsp; 
+                        Highest Mark: <strong>85.50 (Bhavika Bisht)</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Official Signatures -->
+              <div class="sig-grid">
+                <div class="sig-col">
+                  <strong>K B JOSHI</strong><br>
+                  Subject Teacher (PGT Mathematics)<br>
+                  PM SHRI KV Ranikhet
+                </div>
+                <div class="sig-col">
+                  <strong>EXAMINATION IN-CHARGE</strong><br>
+                  Internal Assessment Committee<br>
+                  PM SHRI KV Ranikhet
+                </div>
+                <div class="sig-col">
+                  <strong>PRINCIPAL</strong><br>
+                  PM SHRI Kendriya Vidyalaya<br>
+                  Ranikhet (Almora)
+                </div>
+              </div>
+            </div>
+
+            <div class="page-footer-note">
+              PM SHRI KV Ranikhet &bull; Samagam Evaluation Portal &bull; Page 2 of 2 &bull; End of Consolidated Sheet
+            </div>
           </div>
+
         </body>
         </html>
       `);
