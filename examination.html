@@ -2162,12 +2162,12 @@ select option:checked {
             </div>
           </div><!-- end Class 11B -->
 
-          <!-- ==================== CLASS 12B / 12 CONTENT ==================== -->
+                    <!-- ==================== CLASS 12B / 12 CONTENT ==================== -->
           <div class="samagam-subcontent" id="samclass-12b">
             
             <!-- Assessment Session Navigation Pills -->
             <div class="samagam-term-nav">
-              <button class="samagam-term-btn active" data-samterm12="monthly" onclick="switchSamagamTerm12('monthly', this)"><i class="fas fa-calendar-check"></i> Monthly Tests Consolidated (April to August) — Scaled /100 Marks</button>
+              <button class="samagam-term-btn active" data-samterm12="monthly" onclick="switchSamagamTerm12('monthly', this)"><i class="fas fa-calendar-check"></i> Monthly Tests (April to August) — Converted to 100 Marks &amp; Consolidated Average</button>
               <button class="samagam-term-btn" data-samterm12="ia" onclick="switchSamagamTerm12('ia', this)"><i class="fas fa-calculator"></i> CBSE Internal Assessment (10M PT/MT + 10M Activities = 20M)</button>
               <button class="samagam-term-btn" data-samterm12="board" onclick="switchSamagamTerm12('board', this)"><i class="fas fa-award"></i> CBSE Board Framework (80M Board Exam + 20M IA = 100M)</button>
             </div>
@@ -2175,47 +2175,47 @@ select option:checked {
             <!-- Official Evaluation Policy Criteria Card -->
             <div class="gen-card" style="border-left:4px solid #10b981; margin-bottom:20px; padding:18px 22px;">
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
-                <span style="font-family:var(--font-head); font-weight:700; color:#34d399; font-size:0.95rem;"><i class="fas fa-info-circle"></i> KVS &amp; CBSE Senior Secondary Assessment &amp; Evaluation Weightage Criteria (Class XII Mathematics)</span>
-                <span style="background:rgba(16,185,129,0.15); color:#34d399; padding:3px 12px; border-radius:50px; font-size:0.75rem; font-weight:700;">Total: 100 Marks Scaled Weightage</span>
+                <span style="font-family:var(--font-head); font-weight:700; color:#34d399; font-size:0.95rem;"><i class="fas fa-info-circle"></i> KVS &amp; CBSE Senior Secondary Assessment Criteria (Class XII Mathematics)</span>
+                <span style="background:rgba(16,185,129,0.15); color:#34d399; padding:3px 12px; border-radius:50px; font-size:0.75rem; font-weight:700;">Each Test Converted to 100M &bull; Final Score = Mean Average</span>
               </div>
-              <p style="color:var(--text-secondary); font-size:0.83rem; margin-bottom:12px;">As per KVS Senior Secondary Assessment Guidelines &amp; CBSE Board Norms, monthly assessment data is compiled across tests with proportional scaling and 10M internal assessment conversion:</p>
+              <p style="color:var(--text-secondary); font-size:0.83rem; margin-bottom:12px;">As per KVS Senior Secondary Assessment Guidelines &amp; CBSE Board Norms, each monthly test is conducted for 40 Marks, converted out of 100 Marks (&times; 2.5), and final performance is computed as the average across all monthly tests conducted:</p>
               
               <div class="criteria-breakdown-grid">
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#7c3aed; color:#fff;">1</span>
                   <span class="c-title">April Monthly Test</span>
-                  <span class="c-marks" style="color:#d8b4fe;">25 M</span>
-                  <span class="c-sub">Scaled from 40M raw (&times; 0.625)</span>
+                  <span class="c-marks" style="color:#d8b4fe;">100 M</span>
+                  <span class="c-sub">Converted from 40M raw (&times; 2.5)</span>
                 </div>
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#0284c7; color:#fff;">2</span>
                   <span class="c-title">June Monthly Test</span>
-                  <span class="c-marks" style="color:#7dd3fc;">25 M</span>
-                  <span class="c-sub">Scaled from 40M raw (&times; 0.625)</span>
+                  <span class="c-marks" style="color:#7dd3fc;">100 M</span>
+                  <span class="c-sub">Converted from 40M raw (&times; 2.5)</span>
                 </div>
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#059669; color:#fff;">3</span>
                   <span class="c-title">July Monthly Test</span>
-                  <span class="c-marks" style="color:#6ee7b7;">25 M</span>
-                  <span class="c-sub">Scaled from 40M raw (&times; 0.625)</span>
+                  <span class="c-marks" style="color:#6ee7b7;">100 M</span>
+                  <span class="c-sub">Converted from 40M raw (&times; 2.5)</span>
                 </div>
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#d97706; color:#fff;">4</span>
                   <span class="c-title">August Monthly Test</span>
-                  <span class="c-marks" style="color:#fde68a;">25 M</span>
-                  <span class="c-sub">Scaled from 40M raw (&times; 0.625)</span>
+                  <span class="c-marks" style="color:#fde68a;">100 M</span>
+                  <span class="c-sub">Converted from 40M raw (&times; 2.5)</span>
                 </div>
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#db2777; color:#fff;">5</span>
-                  <span class="c-title">Consolidated Total</span>
+                  <span class="c-title">Consolidated Average</span>
                   <span class="c-marks" style="color:#fbcfe8;">100 M</span>
-                  <span class="c-sub">Scaled /100 &amp; Percentage</span>
+                  <span class="c-sub">Mean of all /100 tests till August</span>
                 </div>
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#4f46e5; color:#fff;">6</span>
-                  <span class="c-title">CBSE PT / MT IA</span>
-                  <span class="c-marks" style="color:#c7d2fe;">10 M</span>
-                  <span class="c-sub">Internal Assessment Component</span>
+                  <span class="c-title">Overall Percentage</span>
+                  <span class="c-marks" style="color:#c7d2fe;">%</span>
+                  <span class="c-sub">Cumulative Performance &amp; Grade</span>
                 </div>
               </div>
             </div>
@@ -2247,7 +2247,7 @@ select option:checked {
             <!-- Consolidated Score Range Performance Analysis Breakdown Card -->
             <div class="range-analysis-card">
               <div class="range-analysis-header">
-                <h3><i class="fas fa-chart-pie" style="color:#34d399;"></i> Class 12 Score Range Analysis Breakdown (Out of 100 Marks)</h3>
+                <h3><i class="fas fa-chart-pie" style="color:#34d399;"></i> Class 12 Score Range Analysis Breakdown (Out of 100 Marks Average)</h3>
                 <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;"><i class="fas fa-hand-pointer"></i> Click any range badge below to filter student records</span>
               </div>
               <div class="range-badges-grid">
@@ -2349,16 +2349,14 @@ select option:checked {
                     <th>Student ID</th>
                     <th class="th-main">Student Name</th>
                     <th>April MT<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
-                    <th class="th-weightage th-w-apr">April<br><span style="font-size:0.7rem; color:#f5d0fe;">(25M Wtg)</span></th>
+                    <th class="th-weightage th-w-apr">April<br><span style="font-size:0.7rem; color:#f5d0fe;">(/100)</span></th>
                     <th>June MT<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
-                    <th class="th-weightage th-w-jun">June<br><span style="font-size:0.7rem; color:#bae6fd;">(25M Wtg)</span></th>
+                    <th class="th-weightage th-w-jun">June<br><span style="font-size:0.7rem; color:#bae6fd;">(/100)</span></th>
                     <th>July MT<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
-                    <th class="th-weightage th-w-jul">July<br><span style="font-size:0.7rem; color:#a7f3d0;">(25M Wtg)</span></th>
+                    <th class="th-weightage th-w-jul">July<br><span style="font-size:0.7rem; color:#a7f3d0;">(/100)</span></th>
                     <th>August MT<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
-                    <th class="th-weightage th-w-aug">August<br><span style="font-size:0.7rem; color:#fef08a;">(25M Wtg)</span></th>
-                    <th>Total Raw<br><span style="font-size:0.7rem; color:#94a3b8;">(Obt / Max)</span></th>
-                    <th class="th-weightage th-w-total">Total<br><span style="font-size:0.72rem; color:#fce7f3;">(100M Wtg)</span></th>
-                    <th class="th-weightage th-w-ia">CBSE IA<br><span style="font-size:0.7rem; color:#c7d2fe;">(10M PT)</span></th>
+                    <th class="th-weightage th-w-aug">August<br><span style="font-size:0.7rem; color:#fef08a;">(/100)</span></th>
+                    <th class="th-weightage th-w-total">Average<br><span style="font-size:0.72rem; color:#fce7f3;">(/100)</span></th>
                     <th>%</th>
                     <th>Grade</th>
                     <th>Result</th>
@@ -2373,7 +2371,7 @@ select option:checked {
             <!-- Download & Print CTA Footer -->
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:14px; background:rgba(255,255,255,0.02); padding:14px 20px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);">
               <div style="font-size:0.84rem; color:#94a3b8;">
-                <i class="fas fa-check-circle" style="color:#34d399;"></i> Official Class 12 Monthly Test Marksheet compiled from Samagam Data (April, June, July, August).
+                <i class="fas fa-check-circle" style="color:#34d399;"></i> Official Class 12 Monthly Test Marksheet: Each test conducted out of 40M converted to 100M &amp; final consolidated average computed.
               </div>
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
                 <button onclick="downloadSamagamPDF12()" class="gen-btn gen-btn-edit" style="padding:8px 18px; font-size:0.85rem; background:linear-gradient(135deg, #ef4444, #dc2626); color:#fff; border-color:transparent;"><i class="fas fa-file-pdf"></i> Download PDF (A4 2-Page)</button>
@@ -5295,8 +5293,9 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     }
 
 
+    
     // ============================================================
-    // CLASS 12 SAMAGAM DATA & LOGIC
+    // CLASS 12 SAMAGAM DATA & LOGIC (40M RAW -> 100M CONVERTED -> AVERAGE)
     // ============================================================
 const samagam12Data = [
   { roll: 1, sid: 1001380184, name: "ABHIMANYU SINGH NEGI", ap_raw: 22, ju_raw: 21, jl_raw: 18, au_raw: 20 },
@@ -5344,47 +5343,47 @@ function calculateSamagam12Record(s) {
   const pJl = parseVal(s.jl_raw);
   const pAu = parseVal(s.au_raw);
 
-  const ap_25 = pAp.valid && pAp.disp !== 'AB' ? +(pAp.num * 0.625).toFixed(2) : (pAp.disp === 'AB' ? 0 : '-');
-  const ju_25 = pJu.valid && pJu.disp !== 'AB' ? +(pJu.num * 0.625).toFixed(2) : (pJu.disp === 'AB' ? 0 : '-');
-  const jl_25 = pJl.valid && pJl.disp !== 'AB' ? +(pJl.num * 0.625).toFixed(2) : (pJl.disp === 'AB' ? 0 : '-');
-  const au_25 = pAu.valid && pAu.disp !== 'AB' ? +(pAu.num * 0.625).toFixed(2) : (pAu.disp === 'AB' ? 0 : '-');
+  // Each monthly test conducted out of 40 marks converted to 100: (Raw / 40) * 100 = Raw * 2.5
+  const ap_100 = pAp.valid && pAp.disp !== 'AB' ? +(pAp.num * 2.5).toFixed(2) : (pAp.disp === 'AB' ? 0.0 : '-');
+  const ju_100 = pJu.valid && pJu.disp !== 'AB' ? +(pJu.num * 2.5).toFixed(2) : (pJu.disp === 'AB' ? 0.0 : '-');
+  const jl_100 = pJl.valid && pJl.disp !== 'AB' ? +(pJl.num * 2.5).toFixed(2) : (pJl.disp === 'AB' ? 0.0 : '-');
+  const au_100 = pAu.valid && pAu.disp !== 'AB' ? +(pAu.num * 2.5).toFixed(2) : (pAu.disp === 'AB' ? 0.0 : '-');
 
-  const tot_raw = +(pAp.num + pJu.num + pJl.num + pAu.num).toFixed(1);
-  const validTestsCount = [pAp, pJu, pJl, pAu].filter(x => x.valid).length;
-  const max_marks = validTestsCount > 0 ? validTestsCount * 40 : 160;
-
-  const scaled_100 = max_marks > 0 ? +((tot_raw / max_marks) * 100).toFixed(2) : 0;
-  const cbse_ia_10 = +(scaled_100 / 10.0).toFixed(2);
+  // Compute average of all monthly tests conducted/attended till the last test:
+  const validConvertedTests = [ap_100, ju_100, jl_100, au_100].filter(x => x !== '-');
+  const testsAttendedCount = validConvertedTests.length;
+  const avg_100 = testsAttendedCount > 0 ? +(validConvertedTests.reduce((sum, v) => sum + v, 0) / testsAttendedCount).toFixed(2) : 0.0;
+  
+  // Percentage is exactly equal to the average out of 100
+  const percentageVal = avg_100;
 
   let grade = 'E';
-  if (scaled_100 >= 91) grade = 'A1';
-  else if (scaled_100 >= 81) grade = 'A2';
-  else if (scaled_100 >= 71) grade = 'B1';
-  else if (scaled_100 >= 61) grade = 'B2';
-  else if (scaled_100 >= 51) grade = 'C1';
-  else if (scaled_100 >= 41) grade = 'C2';
-  else if (scaled_100 >= 33) grade = 'D';
+  if (percentageVal >= 91) grade = 'A1';
+  else if (percentageVal >= 81) grade = 'A2';
+  else if (percentageVal >= 71) grade = 'B1';
+  else if (percentageVal >= 61) grade = 'B2';
+  else if (percentageVal >= 51) grade = 'C1';
+  else if (percentageVal >= 41) grade = 'C2';
+  else if (percentageVal >= 33) grade = 'D';
 
   let rangeKey = 'R6';
-  if (scaled_100 < 33) rangeKey = 'R1';
-  else if (scaled_100 <= 45) rangeKey = 'R2';
-  else if (scaled_100 < 60) rangeKey = 'R3';
-  else if (scaled_100 < 75) rangeKey = 'R4';
-  else if (scaled_100 < 90) rangeKey = 'R5';
+  if (percentageVal < 33) rangeKey = 'R1';
+  else if (percentageVal <= 45) rangeKey = 'R2';
+  else if (percentageVal < 60) rangeKey = 'R3';
+  else if (percentageVal < 75) rangeKey = 'R4';
+  else if (percentageVal < 90) rangeKey = 'R5';
   else rangeKey = 'R6';
 
   return {
     ...s,
     pAp, pJu, pJl, pAu,
-    ap_25, ju_25, jl_25, au_25,
-    tot_raw,
-    max_marks,
-    scaled_100,
-    cbse_ia_10,
+    ap_100, ju_100, jl_100, au_100,
+    testsAttendedCount,
+    avg_100,
     grade,
     rangeKey,
-    percentage: scaled_100.toFixed(1) + '%',
-    result: scaled_100 >= 33 ? 'Passed' : 'Needs Imp.'
+    percentage: percentageVal.toFixed(1) + '%',
+    result: percentageVal >= 33 ? 'Passed' : 'Needs Imp.'
   };
 }
 
@@ -5483,12 +5482,12 @@ function renderSamagam12Table() {
   const statGradeDist = document.getElementById('statGradeDist12');
 
   if (statTotal) statTotal.textContent = totalStudentsCount;
-  const passedCount = processed.filter(s => s.scaled_100 >= 33).length;
+  const passedCount = processed.filter(s => s.avg_100 >= 33).length;
   if (statPassed) statPassed.textContent = `${passedCount} (${Math.round(passedCount * 100 / totalStudentsCount)}%)`;
-  const avgScore = (processed.reduce((sum, s) => sum + s.scaled_100, 0) / totalStudentsCount).toFixed(2);
+  const avgScore = (processed.reduce((sum, s) => sum + s.avg_100, 0) / totalStudentsCount).toFixed(2);
   if (statAverage) statAverage.textContent = `${avgScore}%`;
-  const maxStudent = processed.reduce((max, s) => s.scaled_100 > max.scaled_100 ? s : max, processed[0]);
-  if (statHighest) statHighest.textContent = `${maxStudent.scaled_100.toFixed(2)}% (${maxStudent.grade})`;
+  const maxStudent = processed.reduce((max, s) => s.avg_100 > max.avg_100 ? s : max, processed[0]);
+  if (statHighest) statHighest.textContent = `${maxStudent.avg_100.toFixed(2)}% (${maxStudent.grade})`;
 
   const gCounts = { A1:0, A2:0, B1:0, B2:0, C1:0, C2:0, D:0, E:0 };
   processed.forEach(s => { gCounts[s.grade] = (gCounts[s.grade] || 0) + 1; });
@@ -5497,12 +5496,12 @@ function renderSamagam12Table() {
   }
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#34d399;"></i>No student records found matching the selected filters. <button onclick="resetSamagam12Filters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#34d399;"></i>No student records found matching the selected filters. <button onclick="resetSamagam12Filters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
     return;
   }
 
   tbody.innerHTML = filtered.map(s => {
-    const isFail = s.scaled_100 < 33;
+    const isFail = s.avg_100 < 33;
     const formatCol = (val) => val === '-' ? '-' : (typeof val === 'number' ? val.toFixed(2) : val);
     return `
       <tr style="${isFail ? 'background:rgba(239,68,68,0.06);' : ''}">
@@ -5510,16 +5509,14 @@ function renderSamagam12Table() {
         <td style="font-family:monospace; color:#94a3b8; font-size:0.78rem;">${s.sid}</td>
         <td class="td-main" style="font-weight:700; color:#fff;">${s.name}</td>
         <td style="color:#94a3b8;">${s.ap_raw}</td>
-        <td class="td-w-apr">${formatCol(s.ap_25)}</td>
+        <td class="td-w-apr">${formatCol(s.ap_100)}</td>
         <td style="color:#94a3b8;">${s.ju_raw}</td>
-        <td class="td-w-jun">${formatCol(s.ju_25)}</td>
+        <td class="td-w-jun">${formatCol(s.ju_100)}</td>
         <td style="color:#94a3b8;">${s.jl_raw}</td>
-        <td class="td-w-jul">${formatCol(s.jl_25)}</td>
+        <td class="td-w-jul">${formatCol(s.jl_100)}</td>
         <td style="color:#94a3b8;">${s.au_raw}</td>
-        <td class="td-w-aug">${formatCol(s.au_25)}</td>
-        <td style="color:#cbd5e1; font-weight:600;">${s.tot_raw} / ${s.max_marks}</td>
-        <td class="td-w-total">${s.scaled_100.toFixed(2)}</td>
-        <td class="td-w-ia">${s.cbse_ia_10.toFixed(2)}</td>
+        <td class="td-w-aug">${formatCol(s.au_100)}</td>
+        <td class="td-w-total">${s.avg_100.toFixed(2)}</td>
         <td style="font-weight:600; color:#e2e8f0;">${s.percentage}</td>
         <td><span class="badge-grade grade-${s.grade}">${s.grade}</span></td>
         <td>
@@ -5534,7 +5531,7 @@ function renderSamagam12Table() {
 
 function exportSamagamCSV12() {
   const processed = samagam12Data.map(calculateSamagam12Record);
-  let csv = 'Roll No,Student ID,Student Name,April Raw (/40),April Wtg (/25),June Raw (/40),June Wtg (/25),July Raw (/40),July Wtg (/25),August Raw (/40),August Wtg (/25),Total Raw Obtained,Total Max Marks,Scaled Total (/100),CBSE IA Component (/10),Percentage,Grade,Score Range,Result\n';
+  let csv = 'Roll No,Student ID,Student Name,April Raw (/40),April Converted (/100),June Raw (/40),June Converted (/100),July Raw (/40),July Converted (/100),August Raw (/40),August Converted (/100),Average (/100),Percentage,Grade,Score Range,Result\n';
   
   processed.forEach(s => {
     let rDesc = '90% and Above';
@@ -5544,7 +5541,7 @@ function exportSamagamCSV12() {
     else if (s.rangeKey === 'R4') rDesc = '60% to <75%';
     else if (s.rangeKey === 'R5') rDesc = '75% to <90%';
 
-    csv += `"${s.roll}","${s.sid}","${s.name}",${s.ap_raw},"${s.ap_25}",${s.ju_raw},"${s.ju_25}",${s.jl_raw},"${s.jl_25}",${s.au_raw},"${s.au_25}",${s.tot_raw},${s.max_marks},${s.scaled_100},${s.cbse_ia_10},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
+    csv += `"${s.roll}","${s.sid}","${s.name}",${s.ap_raw},"${s.ap_100}",${s.ju_raw},"${s.ju_100}",${s.jl_raw},"${s.jl_100}",${s.au_raw},"${s.au_100}",${s.avg_100},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
   });
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -5563,28 +5560,26 @@ function printSamagamMarksheet12() {
   if (!pWin) { alert('Please allow popups to print marksheets.'); return; }
 
   const buildRowsHTML = (students) => students.map(s => {
-    const isFail = s.scaled_100 < 33;
-    const pad = '3.5px 2px';
-    const namePad = '3.5px 4px';
-    const fSize = '7.4pt';
-    const nameFSize = '7.6pt';
+    const isFail = s.avg_100 < 33;
+    const pad = '3.5px 3px';
+    const namePad = '3.5px 5px';
+    const fSize = '7.5pt';
+    const nameFSize = '7.7pt';
     const formatCol = (val) => val === '-' ? '-' : (typeof val === 'number' ? val.toFixed(2) : val);
     return `
       <tr style="${isFail ? 'background:#fee2e2;' : ''} color:#000000;">
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.roll}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-family:monospace; font-weight:700; font-size:${fSize};">${s.sid}</td>
-        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:130px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
+        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:140px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ap_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${formatCol(s.ap_25)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${formatCol(s.ap_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ju_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${formatCol(s.ju_25)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${formatCol(s.ju_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.jl_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${formatCol(s.jl_25)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${formatCol(s.jl_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.au_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${formatCol(s.au_25)}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.tot_raw} / ${s.max_marks}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.2pt; background:#fce7f3; color:#831843;">${s.scaled_100.toFixed(2)}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#ede9fe; color:#4338ca; font-size:${fSize};">${s.cbse_ia_10.toFixed(2)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${formatCol(s.au_100)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.4pt; background:#fce7f3; color:#831843;">${s.avg_100.toFixed(2)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.percentage}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${fSize}; color:#000000;">${s.grade}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; color:${isFail ? '#b91c1c' : '#15803d'}; font-size:${fSize};">${s.result}</td>
@@ -5592,12 +5587,12 @@ function printSamagamMarksheet12() {
     `;
   }).join('');
 
-  const countR1 = processed.filter(s => s.scaled_100 < 33).length;
-  const countR2 = processed.filter(s => s.scaled_100 >= 33 && s.scaled_100 <= 45).length;
-  const countR3 = processed.filter(s => s.scaled_100 > 45 && s.scaled_100 < 60).length;
-  const countR4 = processed.filter(s => s.scaled_100 >= 60 && s.scaled_100 < 75).length;
-  const countR5 = processed.filter(s => s.scaled_100 >= 75 && s.scaled_100 < 90).length;
-  const countR6 = processed.filter(s => s.scaled_100 >= 90).length;
+  const countR1 = processed.filter(s => s.avg_100 < 33).length;
+  const countR2 = processed.filter(s => s.avg_100 >= 33 && s.avg_100 <= 45).length;
+  const countR3 = processed.filter(s => s.avg_100 > 45 && s.avg_100 < 60).length;
+  const countR4 = processed.filter(s => s.avg_100 >= 60 && s.avg_100 < 75).length;
+  const countR5 = processed.filter(s => s.avg_100 >= 75 && s.avg_100 < 90).length;
+  const countR6 = processed.filter(s => s.avg_100 >= 90).length;
 
   const pctR1 = ((countR1 / 24) * 100).toFixed(1);
   const pctR2 = ((countR2 / 24) * 100).toFixed(1);
@@ -5609,23 +5604,21 @@ function printSamagamMarksheet12() {
   const tableHeaderHTML = `
     <thead>
       <tr style="background:#000000; color:#ffffff;">
-        <th style="width:22px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Roll</th>
-        <th style="width:60px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Student ID</th>
-        <th style="width:130px; max-width:130px; text-align:left; padding:3px 4px; border:1px solid #000000; font-size:6.9pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(25M)</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(25M)</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(25M)</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(25M)</th>
-        <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#334155;">Total Raw<br>(Obt/Max)</th>
-        <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7.2pt; font-weight:900; background:#be185d; color:#ffffff;">Total<br>(100M)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800; background:#4338ca; color:#ffffff;">CBSE IA<br>(10M PT)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">%</th>
-        <th style="width:26px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:900;">Grade</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Result</th>
+        <th style="width:24px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Roll</th>
+        <th style="width:64px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Student ID</th>
+        <th style="width:140px; max-width:140px; text-align:left; padding:3px 5px; border:1px solid #000000; font-size:7.1pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(/100)</th>
+        <th style="width:44px; padding:3px 1px; border:1px solid #000000; font-size:7.4pt; font-weight:900; background:#be185d; color:#ffffff;">Average<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">%</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:7.1pt; font-weight:900;">Grade</th>
+        <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">Result</th>
       </tr>
     </thead>
   `;
@@ -5644,7 +5637,7 @@ function printSamagamMarksheet12() {
         * { box-sizing: border-box; }
         html, body {
           font-family: Arial, Helvetica, "Segoe UI", sans-serif;
-          font-size: 7.2pt;
+          font-size: 7.3pt;
           line-height: 1.15;
           color: #000000;
           background: #ffffff;
@@ -5766,12 +5759,12 @@ function printSamagamMarksheet12() {
               <span><strong>Class:</strong> XII (Senior Secondary)</span> &nbsp;|&nbsp; 
               <span><strong>Subject:</strong> Mathematics (041)</span> &nbsp;|&nbsp; 
               <span><strong>Session:</strong> 2026-27</span> &nbsp;|&nbsp; 
-              <span><strong>Max Marks:</strong> 100 Scaled (160 Raw)</span> &nbsp;|&nbsp;
+              <span><strong>Assessment:</strong> Monthly Tests (Each Converted to 100M &bull; Consolidated Average)</span> &nbsp;|&nbsp;
               <span><strong>Total Students:</strong> 24</span>
             </div>
           </div>
           <div class="policy-banner">
-            <span><strong>CBSE / KVS Assessment Framework:</strong> April (25M Wtg) + June (25M Wtg) + July (25M Wtg) + August (25M Wtg) = 100 Marks &bull; CBSE Internal Assessment PT Component = 10 Marks</span>
+            <span><strong>CBSE / KVS Assessment Framework:</strong> Each Monthly Test (40M Raw) is converted out of 100 Marks (&times; 2.5). Final Result = Mean Average of All Monthly Tests Conducted.</span>
             <span><strong>Academic Session:</strong> 2026-27</span>
           </div>
           <table style="width:100%; border-collapse:collapse; margin-bottom:1px; border:1px solid #000000;">
@@ -5802,7 +5795,7 @@ function printSamagamMarksheet12() {
 
           <div class="analysis-box">
             <div class="analysis-title">
-              1. Performance Analysis &amp; Score Range Distribution (Out of 100 Marks)
+              1. Performance Analysis &amp; Score Range Distribution (Out of 100 Marks Average)
             </div>
             <table style="width:100%; border-collapse:collapse; font-size:6.9pt; border:1px solid #000000;">
               <thead>
@@ -5890,7 +5883,7 @@ function printSamagamMarksheet12() {
               2. CBSE Senior Secondary Grading Rubric &amp; Weightage Summary
             </div>
             <div style="font-size:6.8pt; line-height:1.3; color:#000000;">
-              <strong>CBSE Senior Secondary Assessment Framework:</strong> 4 Monthly Tests (April, June, July, August) each conducted for 40 Marks (Total 160 Marks) are compiled and scaled to 100 Marks with equal 25M weightage per test. Proportionate weightage is calculated for late admissions as per KVS Rule 7. The PT/Monthly Test component contributes 10 Marks towards the 20 Marks CBSE Board Internal Assessment (10M PT + 10M Mathematics Lab Activities &amp; Continuous Record).
+              <strong>CBSE Senior Secondary Assessment Framework:</strong> 4 Monthly Tests (April, June, July, August) each conducted for 40 Marks are scaled directly to 100 Marks (&times; 2.5). The final consolidated score is the mean average of all tests conducted till August. Proportionate weightage is calculated for late admissions as per KVS Rule 7.
             </div>
           </div>
 
@@ -5938,28 +5931,26 @@ async function downloadSamagamPDF12() {
   showToast('⏳ Generating official high-contrast Class 12 A4 landscape PDF...');
 
   const buildRowsHTML = (students) => students.map(s => {
-    const isFail = s.scaled_100 < 33;
-    const pad = '3.5px 2px';
-    const namePad = '3.5px 4px';
-    const fSize = '7.4pt';
-    const nameFSize = '7.6pt';
+    const isFail = s.avg_100 < 33;
+    const pad = '3.5px 3px';
+    const namePad = '3.5px 5px';
+    const fSize = '7.5pt';
+    const nameFSize = '7.7pt';
     const formatCol = (val) => val === '-' ? '-' : (typeof val === 'number' ? val.toFixed(2) : val);
     return `
       <tr style="${isFail ? 'background:#fee2e2;' : ''} color:#000000;">
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.roll}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-family:monospace; font-weight:700; font-size:${fSize};">${s.sid}</td>
-        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:130px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
+        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:140px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ap_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${formatCol(s.ap_25)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${formatCol(s.ap_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ju_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${formatCol(s.ju_25)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#e0f2fe; color:#075985; font-size:${fSize};">${formatCol(s.ju_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.jl_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${formatCol(s.jl_25)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${formatCol(s.jl_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.au_raw}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${formatCol(s.au_25)}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.tot_raw} / ${s.max_marks}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.2pt; background:#fce7f3; color:#831843;">${s.scaled_100.toFixed(2)}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#ede9fe; color:#4338ca; font-size:${fSize};">${s.cbse_ia_10.toFixed(2)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${formatCol(s.au_100)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.4pt; background:#fce7f3; color:#831843;">${s.avg_100.toFixed(2)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.percentage}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${fSize}; color:#000000;">${s.grade}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; color:${isFail ? '#b91c1c' : '#15803d'}; font-size:${fSize};">${s.result}</td>
@@ -5967,12 +5958,12 @@ async function downloadSamagamPDF12() {
     `;
   }).join('');
 
-  const countR1 = processed.filter(s => s.scaled_100 < 33).length;
-  const countR2 = processed.filter(s => s.scaled_100 >= 33 && s.scaled_100 <= 45).length;
-  const countR3 = processed.filter(s => s.scaled_100 > 45 && s.scaled_100 < 60).length;
-  const countR4 = processed.filter(s => s.scaled_100 >= 60 && s.scaled_100 < 75).length;
-  const countR5 = processed.filter(s => s.scaled_100 >= 75 && s.scaled_100 < 90).length;
-  const countR6 = processed.filter(s => s.scaled_100 >= 90).length;
+  const countR1 = processed.filter(s => s.avg_100 < 33).length;
+  const countR2 = processed.filter(s => s.avg_100 >= 33 && s.avg_100 <= 45).length;
+  const countR3 = processed.filter(s => s.avg_100 > 45 && s.avg_100 < 60).length;
+  const countR4 = processed.filter(s => s.avg_100 >= 60 && s.avg_100 < 75).length;
+  const countR5 = processed.filter(s => s.avg_100 >= 75 && s.avg_100 < 90).length;
+  const countR6 = processed.filter(s => s.avg_100 >= 90).length;
 
   const pctR1 = ((countR1 / 24) * 100).toFixed(1);
   const pctR2 = ((countR2 / 24) * 100).toFixed(1);
@@ -5984,29 +5975,27 @@ async function downloadSamagamPDF12() {
   const tableHeaderHTML = `
     <thead>
       <tr style="background:#000000; color:#ffffff;">
-        <th style="width:22px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Roll</th>
-        <th style="width:60px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Student ID</th>
-        <th style="width:130px; max-width:130px; text-align:left; padding:3px 4px; border:1px solid #000000; font-size:6.9pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(25M)</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(25M)</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(25M)</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(25M)</th>
-        <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#334155;">Total Raw<br>(Obt/Max)</th>
-        <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7.2pt; font-weight:900; background:#be185d; color:#ffffff;">Total<br>(100M)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800; background:#4338ca; color:#ffffff;">CBSE IA<br>(10M PT)</th>
-        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">%</th>
-        <th style="width:26px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:900;">Grade</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Result</th>
+        <th style="width:24px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Roll</th>
+        <th style="width:64px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Student ID</th>
+        <th style="width:140px; max-width:140px; text-align:left; padding:3px 5px; border:1px solid #000000; font-size:7.1pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(/100)</th>
+        <th style="width:44px; padding:3px 1px; border:1px solid #000000; font-size:7.4pt; font-weight:900; background:#be185d; color:#ffffff;">Average<br>(/100)</th>
+        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">%</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:7.1pt; font-weight:900;">Grade</th>
+        <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">Result</th>
       </tr>
     </thead>
   `;
 
   const pdfContainer = document.createElement('div');
-  pdfContainer.style.cssText = 'width: 1026px; background: #ffffff; color: #000000; font-family: Arial, Helvetica, "Segoe UI", sans-serif; font-size: 7.2pt; line-height: 1.15; margin: 0; padding: 0; box-sizing: border-box;';
+  pdfContainer.style.cssText = 'width: 1026px; background: #ffffff; color: #000000; font-family: Arial, Helvetica, "Segoe UI", sans-serif; font-size: 7.3pt; line-height: 1.15; margin: 0; padding: 0; box-sizing: border-box;';
   pdfContainer.innerHTML = `
     <!-- PAGE 1 (FRONT SIDE) -->
     <div style="width: 1026px; min-height: 745px; height: 745px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; padding: 0 0 2px 0;">
@@ -6018,12 +6007,12 @@ async function downloadSamagamPDF12() {
             <span><strong>Class:</strong> XII (Senior Secondary)</span> &nbsp;|&nbsp; 
             <span><strong>Subject:</strong> Mathematics (041)</span> &nbsp;|&nbsp; 
             <span><strong>Session:</strong> 2026-27</span> &nbsp;|&nbsp; 
-            <span><strong>Max Marks:</strong> 100 Scaled (160 Raw)</span> &nbsp;|&nbsp;
+            <span><strong>Assessment:</strong> Monthly Tests (Each Converted to 100M &bull; Consolidated Average)</span> &nbsp;|&nbsp;
             <span><strong>Total Students:</strong> 24</span>
           </div>
         </div>
         <div style="background:#f1f5f9; border:1px solid #000000; padding:2px 6px; font-size:6.4pt; margin-bottom:3px; display:flex; justify-content:space-between; font-weight:700; color:#000000;">
-          <span><strong>CBSE / KVS Assessment Framework:</strong> April (25M Wtg) + June (25M Wtg) + July (25M Wtg) + August (25M Wtg) = 100 Marks &bull; CBSE Internal Assessment PT Component = 10 Marks</span>
+          <span><strong>CBSE / KVS Assessment Framework:</strong> Each Monthly Test (40M Raw) is converted out of 100 Marks (&times; 2.5). Final Result = Mean Average of All Monthly Tests Conducted.</span>
           <span><strong>Academic Session:</strong> 2026-27</span>
         </div>
         <table style="width:100%; border-collapse:collapse; margin-bottom:1px; border:1px solid #000000;">
@@ -6054,7 +6043,7 @@ async function downloadSamagamPDF12() {
 
         <div style="border:1.2px solid #000000; border-radius:2px; padding:4px 6px; margin-top:4px; background:#ffffff;">
           <div style="font-size:7.8pt; font-weight:900; color:#000000; margin-bottom:3px; text-transform:uppercase; letter-spacing:0.02em; border-bottom:1px solid #000000; padding-bottom:2px;">
-            1. Performance Analysis &amp; Score Range Distribution (Out of 100 Marks)
+            1. Performance Analysis &amp; Score Range Distribution (Out of 100 Marks Average)
           </div>
           <table style="width:100%; border-collapse:collapse; font-size:6.9pt; border:1px solid #000000;">
             <thead>
@@ -6142,27 +6131,27 @@ async function downloadSamagamPDF12() {
             2. CBSE Senior Secondary Grading Rubric &amp; Weightage Summary
           </div>
           <div style="font-size:6.8pt; line-height:1.3; color:#000000;">
-            <strong>CBSE Senior Secondary Assessment Framework:</strong> 4 Monthly Tests (April, June, July, August) each conducted for 40 Marks (Total 160 Marks) are compiled and scaled to 100 Marks with equal 25M weightage per test. Proportionate weightage is calculated for late admissions as per KVS Rule 7. The PT/Monthly Test component contributes 10 Marks towards the 20 Marks CBSE Board Internal Assessment (10M PT + 10M Mathematics Lab Activities &amp; Continuous Record).
+            <strong>CBSE Senior Secondary Assessment Framework:</strong> 4 Monthly Tests (April, June, July, August) each conducted for 40 Marks are scaled directly to 100 Marks (&times; 2.5). The final consolidated score is the mean average of all tests conducted till August. Proportionate weightage is calculated for late admissions as per KVS Rule 7.
           </div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; margin-top:8px; padding-top:4px; font-weight:800; font-size:7.4pt; color:#000000;">
-          <div style="text-align:center; min-width:150px; border-top:1.2px dashed #000000; padding-top:3px;">
+        <div class="sig-block">
+          <div class="sig-col">
             <strong>K B JOSHI</strong><br>
             Subject Teacher (PGT Mathematics)<br>
             PM SHRI KV Ranikhet
           </div>
-          <div style="text-align:center; min-width:150px; border-top:1.2px dashed #000000; padding-top:3px;">
+          <div class="sig-col">
             <strong>CLASS TEACHER</strong><br>
             Class XII<br>
             PM SHRI KV Ranikhet
           </div>
-          <div style="text-align:center; min-width:150px; border-top:1.2px dashed #000000; padding-top:3px;">
+          <div class="sig-col">
             <strong>EXAMINATION IN-CHARGE</strong><br>
             CBSE Examination Committee<br>
             PM SHRI KV Ranikhet
           </div>
-          <div style="text-align:center; min-width:150px; border-top:1.2px dashed #000000; padding-top:3px;">
+          <div class="sig-col">
             <strong>PRINCIPAL</strong><br>
             PM SHRI Kendriya Vidyalaya<br>
             Ranikhet (Almora)
@@ -6170,7 +6159,7 @@ async function downloadSamagamPDF12() {
         </div>
       </div>
 
-      <div class="footer-note" style="margin-top:3px;">
+      <div class="footer-note">
         PM SHRI KV Ranikhet &bull; Samagam Evaluation Portal &bull; Class 12 Mathematics Performance Summary &bull; Page 2 of 2 (Reverse Side: Analytics &amp; Signatures) &bull; End of Sheet
       </div>
     </div>
@@ -6216,30 +6205,6 @@ async function downloadSamagamPDF12() {
     printSamagamMarksheet12();
   }
 }
-
-    function exportSamagamCSV() {
-      if (currentSamagamClass === '12b' || currentSamagamClass === '12') {
-        exportSamagamCSV12();
-      } else {
-        exportSamagamCSV7C();
-      }
-    }
-
-    function printSamagamMarksheet() {
-      if (currentSamagamClass === '12b' || currentSamagamClass === '12') {
-        printSamagamMarksheet12();
-      } else {
-        printSamagamMarksheet7C();
-      }
-    }
-
-    async function downloadSamagamPDF() {
-      if (currentSamagamClass === '12b' || currentSamagamClass === '12') {
-        await downloadSamagamPDF12();
-      } else {
-        await downloadSamagamPDF7C();
-      }
-    }
 
     // ============================================================
     // INIT
