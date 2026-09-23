@@ -2400,6 +2400,7 @@ select option:checked {
         { id: "ch6", label: "Ch 6", maxMarks: 20 },
         { id: "ch7", label: "Ch 7", maxMarks: 20 },
         { id: "mt4", label: "MT-4", maxMarks: 20 },
+        { id: "ch10", label: "Ch 10", maxMarks: 10 },
         ...Array.from({length: 8}, (_, i) => ({ id: `ch${i+8}`, label: `Ch ${i+8}`, maxMarks: 20 })),
         { id: "pt1", label: "PT1", maxMarks: 40 },
         { id: "pt2", label: "PT2", maxMarks: 40 },
@@ -2411,6 +2412,7 @@ select option:checked {
     window.classTests = classTests;
     
     const testFullNames = {
+      ch10: "Chapter 10: Vector Algebra",
       mt4: "Monthly Test 4 (MT-4)",
       crm: "CRM (Classroom Readiness Module)",
       pt1: "PT1 (Periodic Test 1)",
@@ -2794,6 +2796,32 @@ select option:checked {
                     "PALAK": 2,
                     "NISHANT": 13,
                     "SOUVIK SAHA": 9
+                  },
+                  "ch10": {
+                    "ABHIMANYU SINGH": 2,
+                    "ANUJ GOSWAMI": 10,
+                    "AYUSH NEGI": 3,
+                    "BHUMI SATI": "ab",
+                    "HARDIK PHULARA": 6,
+                    "HARSHIT ARYA": 10,
+                    "HARSHITA NEGI": 8,
+                    "HITESH UPADHYAY": 5,
+                    "KAMAL JOSHI": 5,
+                    "KANIKA BISHT": 6,
+                    "KARAN": 3,
+                    "NITIN BISHT": 8,
+                    "PARTH": 10,
+                    "PRIYANKA": 8,
+                    "RAJ": 2,
+                    "RITIKA": "ab",
+                    "SADHNA": 5,
+                    "SAKSHAM NEGI": 6,
+                    "SIYA SUYAL": 10,
+                    "SPARSH BHATT": 5,
+                    "TANMAY ADHIKARI": 4,
+                    "PALAK": 2,
+                    "NISHANT": 6,
+                    "SOUVIK SAHA": 10
                   }
                   },
                   "11B": {
@@ -3454,6 +3482,32 @@ select option:checked {
                 // Force sync exact Excel marks for Class 11B from Test Record.xlsx
                 // Force sync exact Excel marks for Class 12 from CT TEST RECORD 2026.xlsx
         const excelMarks12Map = {
+    "ch10": {
+      "ABHIMANYU SINGH": 2,
+      "ANUJ GOSWAMI": 10,
+      "AYUSH NEGI": 3,
+      "BHUMI SATI": "ab",
+      "HARDIK PHULARA": 6,
+      "HARSHIT ARYA": 10,
+      "HARSHITA NEGI": 8,
+      "HITESH UPADHYAY": 5,
+      "KAMAL JOSHI": 5,
+      "KANIKA BISHT": 6,
+      "KARAN": 3,
+      "NITIN BISHT": 8,
+      "PARTH": 10,
+      "PRIYANKA": 8,
+      "RAJ": 2,
+      "RITIKA": "ab",
+      "SADHNA": 5,
+      "SAKSHAM NEGI": 6,
+      "SIYA SUYAL": 10,
+      "SPARSH BHATT": 5,
+      "TANMAY ADHIKARI": 4,
+      "PALAK": 2,
+      "NISHANT": 6,
+      "SOUVIK SAHA": 10
+},
     "mt4": {
       "ABHIMANYU SINGH": 10,
       "ANUJ GOSWAMI": 13,
@@ -4096,6 +4150,7 @@ function generateInitialData() {
       testDates["12"].ch8 = "2026-08-04";
       testDates["12"].ch9 = "2026-08-17";
       testDates["12"].mt4 = "2026-09-01";
+      testDates["12"].ch10 = "2026-09-11";
       testDates["12"].pt1 = "2026-07-02";
       testDates["12"].pt1 = "2026-07-03";
 
