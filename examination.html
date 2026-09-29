@@ -1062,6 +1062,7 @@
     .th-w-jun { background: rgba(14, 165, 233, 0.35) !important; color: #7dd3fc !important; }
     .th-w-jul { background: rgba(16, 185, 129, 0.35) !important; color: #6ee7b7 !important; }
     .th-w-aug { background: rgba(245, 158, 11, 0.35) !important; color: #fde68a !important; }
+    .th-w-sep { background: rgba(236, 72, 153, 0.35) !important; color: #fbcfe8 !important; }
     .th-w-ia { background: rgba(99, 102, 241, 0.35) !important; color: #c7d2fe !important; }
 
     .td-w-pt { background: rgba(124, 58, 237, 0.12); color: #c4b5fd; font-weight: 700; }
@@ -1075,6 +1076,7 @@
     .td-w-jun { background: rgba(14, 165, 233, 0.14); color: #38bdf8; font-weight: 700; }
     .td-w-jul { background: rgba(16, 185, 129, 0.12); color: #34d399; font-weight: 700; }
     .td-w-aug { background: rgba(245, 158, 11, 0.12); color: #fbbf24; font-weight: 700; }
+    .td-w-sep { background: rgba(236, 72, 153, 0.12); color: #f472b6; font-weight: 700; }
     .td-w-ia { background: rgba(99, 102, 241, 0.14); color: #a5b4fc; font-weight: 700; }
   </style>
 <style>
@@ -2167,7 +2169,7 @@ select option:checked {
             
             <!-- Assessment Session Navigation Pills -->
             <div class="samagam-term-nav">
-              <button class="samagam-term-btn active" data-samterm12="monthly" onclick="switchSamagamTerm12('monthly', this)"><i class="fas fa-calendar-check"></i> Monthly Tests (April to August) — Converted to 100 Marks &amp; Consolidated Average</button>
+              <button class="samagam-term-btn active" data-samterm12="monthly" onclick="switchSamagamTerm12('monthly', this)"><i class="fas fa-calendar-check"></i> Monthly Tests (April to September) — Converted to 100 Marks &amp; Consolidated Average</button>
               <button class="samagam-term-btn" data-samterm12="ia" onclick="switchSamagamTerm12('ia', this)"><i class="fas fa-calculator"></i> CBSE Internal Assessment (10M PT/MT + 10M Activities = 20M)</button>
               <button class="samagam-term-btn" data-samterm12="board" onclick="switchSamagamTerm12('board', this)"><i class="fas fa-award"></i> CBSE Board Framework (80M Board Exam + 20M IA = 100M)</button>
             </div>
@@ -2207,12 +2209,18 @@ select option:checked {
                 </div>
                 <div class="criteria-box">
                   <span class="num-badge" style="background:#db2777; color:#fff;">5</span>
-                  <span class="c-title">Consolidated Average</span>
+                  <span class="c-title">September Monthly Test</span>
                   <span class="c-marks" style="color:#fbcfe8;">100 M</span>
-                  <span class="c-sub">Mean of all /100 tests till August</span>
+                  <span class="c-sub">Converted from 40M raw (&times; 2.5)</span>
                 </div>
                 <div class="criteria-box">
-                  <span class="num-badge" style="background:#4f46e5; color:#fff;">6</span>
+                  <span class="num-badge" style="background:#e11d48; color:#fff;">6</span>
+                  <span class="c-title">Consolidated Average</span>
+                  <span class="c-marks" style="color:#fecdd3;">100 M</span>
+                  <span class="c-sub">Mean of all /100 tests till September</span>
+                </div>
+                <div class="criteria-box">
+                  <span class="num-badge" style="background:#4f46e5; color:#fff;">7</span>
                   <span class="c-title">Overall Percentage</span>
                   <span class="c-marks" style="color:#c7d2fe;">%</span>
                   <span class="c-sub">Cumulative Performance &amp; Grade</span>
@@ -2227,19 +2235,19 @@ select option:checked {
                 <div class="samagam-stat-label">Total Students</div>
               </div>
               <div class="samagam-stat-box">
-                <div class="samagam-stat-val" style="color:#34d399;" id="statPassed12">21 (87.5%)</div>
+                <div class="samagam-stat-val" style="color:#34d399;" id="statPassed12">22 (91.7%)</div>
                 <div class="samagam-stat-label">Passed (&ge; 33%)</div>
               </div>
               <div class="samagam-stat-box">
-                <div class="samagam-stat-val" style="color:#38bdf8;" id="statAverage12">54.24%</div>
+                <div class="samagam-stat-val" style="color:#38bdf8;" id="statAverage12">58.33%</div>
                 <div class="samagam-stat-label">Class Average (/100)</div>
               </div>
               <div class="samagam-stat-box">
-                <div class="samagam-stat-val" style="color:#f59e0b;" id="statHighest12">96.25% (A1)</div>
+                <div class="samagam-stat-val" style="color:#f59e0b;" id="statHighest12">97.00% (A1)</div>
                 <div class="samagam-stat-label">Highest Score</div>
               </div>
               <div class="samagam-stat-box">
-                <div class="samagam-stat-val" style="color:#f472b6;" id="statGradeDist12">1 A | 10 B | 7 C | 3 D | 3 E</div>
+                <div class="samagam-stat-val" style="color:#f472b6;" id="statGradeDist12">1 A | 12 B | 7 C | 2 D | 2 E</div>
                 <div class="samagam-stat-label">Grade Spread</div>
               </div>
             </div>
@@ -2255,28 +2263,28 @@ select option:checked {
                 <div class="range-badge-pill r-c1" id="rangeBadge12-R1" onclick="toggleScoreRangeFilter12('R1')" title="Filter students scoring less than 33%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-exclamation-triangle"></i> 1. Less than 33%</span>
-                    <span class="r-count" id="count12-R1">3</span>
+                    <span class="r-count" id="count12-R1">2</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R1" style="width: 12.5%;"></div></div>
-                  <div class="r-meta"><span>Needs Imp. (&lt;33%)</span><span id="pct12-R1">12.5%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R1" style="width: 8.3%;"></div></div>
+                  <div class="r-meta"><span>Needs Imp. (&lt;33%)</span><span id="pct12-R1">8.3%</span></div>
                 </div>
                 <!-- 2. 33% to 45% -->
                 <div class="range-badge-pill r-c2" id="rangeBadge12-R2" onclick="toggleScoreRangeFilter12('R2')" title="Filter students scoring 33% to 45%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-check"></i> 2. 33% to 45%</span>
-                    <span class="r-count" id="count12-R2">4</span>
+                    <span class="r-count" id="count12-R2">3</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R2" style="width: 16.7%;"></div></div>
-                  <div class="r-meta"><span>Passing (33–45%)</span><span id="pct12-R2">16.7%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R2" style="width: 12.5%;"></div></div>
+                  <div class="r-meta"><span>Passing (33–45%)</span><span id="pct12-R2">12.5%</span></div>
                 </div>
                 <!-- 3. > 45% to < 60% -->
                 <div class="range-badge-pill r-c3" id="rangeBadge12-R3" onclick="toggleScoreRangeFilter12('R3')" title="Filter students scoring > 45% to < 60%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-arrow-trend-up"></i> 3. &gt;45% to &lt;60%</span>
-                    <span class="r-count" id="count12-R3">5</span>
+                    <span class="r-count" id="count12-R3">6</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R3" style="width: 20.8%;"></div></div>
-                  <div class="r-meta"><span>Average (45.01–59.99%)</span><span id="pct12-R3">20.8%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R3" style="width: 25.0%;"></div></div>
+                  <div class="r-meta"><span>Average (45.01–59.99%)</span><span id="pct12-R3">25.0%</span></div>
                 </div>
                 <!-- 4. 60% to < 75% -->
                 <div class="range-badge-pill r-c4" id="rangeBadge12-R4" onclick="toggleScoreRangeFilter12('R4')" title="Filter students scoring 60% to < 75%">
@@ -2291,10 +2299,10 @@ select option:checked {
                 <div class="range-badge-pill r-c5" id="rangeBadge12-R5" onclick="toggleScoreRangeFilter12('R5')" title="Filter students scoring 75% to < 90%">
                   <div class="r-header">
                     <span class="r-title"><i class="fas fa-award"></i> 5. 75% to &lt;90%</span>
-                    <span class="r-count" id="count12-R5">1</span>
+                    <span class="r-count" id="count12-R5">2</span>
                   </div>
-                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R5" style="width: 4.2%;"></div></div>
-                  <div class="r-meta"><span>Distinction (75–89.99%)</span><span id="pct12-R5">4.2%</span></div>
+                  <div class="r-bar-track"><div class="r-bar-fill" id="bar12-R5" style="width: 8.3%;"></div></div>
+                  <div class="r-meta"><span>Distinction (75–89.99%)</span><span id="pct12-R5">8.3%</span></div>
                 </div>
                 <!-- 6. 90% and Above -->
                 <div class="range-badge-pill r-c6" id="rangeBadge12-R6" onclick="toggleScoreRangeFilter12('R6')" title="Filter students scoring 90% and above">
@@ -2318,11 +2326,11 @@ select option:checked {
                 <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-filter"></i> Score Range:</label>
                 <select id="samagamRangeFilter12" onchange="onSelectScoreRange12(this.value)" class="gen-select" style="padding:6px 14px; font-size:0.84rem; min-width:160px;">
                   <option value="ALL">All Ranges (24)</option>
-                  <option value="R1">1. &lt; 33% (3 Students)</option>
-                  <option value="R2">2. 33% to 45% (4 Students)</option>
-                  <option value="R3">3. &gt;45% to &lt;60% (5 Students)</option>
+                  <option value="R1">1. &lt; 33% (2 Students)</option>
+                  <option value="R2">2. 33% to 45% (3 Students)</option>
+                  <option value="R3">3. &gt;45% to &lt;60% (6 Students)</option>
                   <option value="R4">4. 60% to &lt;75% (10 Students)</option>
-                  <option value="R5">5. 75% to &lt;90% (1 Student)</option>
+                  <option value="R5">5. 75% to &lt;90% (2 Students)</option>
                   <option value="R6">6. 90% &amp; Above (1 Student)</option>
                 </select>
                 <label style="font-size:0.82rem; color:#94a3b8; font-weight:600;"><i class="fas fa-medal"></i> Grade:</label>
@@ -2356,6 +2364,8 @@ select option:checked {
                     <th class="th-weightage th-w-jul">July<br><span style="font-size:0.7rem; color:#a7f3d0;">(/100)</span></th>
                     <th>August MT<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
                     <th class="th-weightage th-w-aug">August<br><span style="font-size:0.7rem; color:#fef08a;">(/100)</span></th>
+                    <th>September MT<br><span style="font-size:0.7rem; color:#94a3b8;">(Raw /40)</span></th>
+                    <th class="th-weightage th-w-sep">September<br><span style="font-size:0.7rem; color:#fbcfe8;">(/100)</span></th>
                     <th class="th-weightage th-w-total">Average<br><span style="font-size:0.72rem; color:#fce7f3;">(/100)</span></th>
                     <th>%</th>
                     <th>Grade</th>
@@ -5298,30 +5308,30 @@ Generate the COMPLETE, self-contained LaTeX code ready to compile. Start with \\
     // CLASS 12 SAMAGAM DATA & LOGIC (40M RAW -> 100M CONVERTED -> AVERAGE)
     // ============================================================
 const samagam12Data = [
-  { roll: 1, sid: 1001380184, name: "ABHIMANYU SINGH NEGI", ap_raw: 22, ju_raw: 21, jl_raw: 18, au_raw: 20 },
-  { roll: 3, sid: 1000443631, name: "ANUJ GOSWAMI", ap_raw: 26, ju_raw: 32, jl_raw: 26, au_raw: 26 },
-  { roll: 5, sid: 1000444193, name: "AYUSH NEGI", ap_raw: 22, ju_raw: 23, jl_raw: 30, au_raw: 24 },
-  { roll: 7, sid: 1000443717, name: "BHUMI SATI", ap_raw: 30, ju_raw: 20, jl_raw: 30, au_raw: 28 },
-  { roll: 11, sid: 1001380237, name: "HARDIK PHULARA", ap_raw: 18, ju_raw: 17, jl_raw: 16, au_raw: 11 },
-  { roll: 12, sid: 1000443697, name: "HARSHIT ARYA", ap_raw: 36, ju_raw: 40, jl_raw: 40, au_raw: 38 },
-  { roll: 13, sid: 1000443628, name: "HARSITA NEGI", ap_raw: 36, ju_raw: 28, jl_raw: 38, au_raw: 20 },
-  { roll: 14, sid: 1000443711, name: "HITESH UPADHYAY", ap_raw: 8, ju_raw: 14, jl_raw: 10, au_raw: 2 },
-  { roll: 18, sid: 1000444200, name: "KAMAL JOSHI", ap_raw: 16, ju_raw: 13, jl_raw: 28, au_raw: "AB" },
-  { roll: 19, sid: 1001380264, name: "KANIKA BISHT", ap_raw: 32, ju_raw: 18, jl_raw: 36, au_raw: 27 },
-  { roll: 20, sid: 1000443710, name: "KARAN KUWABRI", ap_raw: 22, ju_raw: 23, jl_raw: 12, au_raw: 16 },
-  { roll: 20, sid: 1000445412, name: "NISHANT MUNGALI", ap_raw: 26, ju_raw: 30, jl_raw: 18, au_raw: 26 },
-  { roll: 24, sid: 1000443715, name: "NITIN BISHT", ap_raw: 28, ju_raw: 18, jl_raw: 8, au_raw: 31 },
-  { roll: 25, sid: 1000924646, name: "PALAK", ap_raw: "-", ju_raw: 7, jl_raw: 0, au_raw: 4 },
-  { roll: 26, sid: 1000443712, name: "PARTH AKOLIA", ap_raw: 38, ju_raw: 20, jl_raw: 20, au_raw: 26 },
-  { roll: 27, sid: 1000444280, name: "PRIYANKA", ap_raw: 32, ju_raw: 20, jl_raw: 28, au_raw: 19 },
-  { roll: 28, sid: 1000443624, name: "RAJ BISHT", ap_raw: 10, ju_raw: 14, jl_raw: 4, au_raw: 13 },
-  { roll: 30, sid: 1000444212, name: "RITIKA RAWAT", ap_raw: 22, ju_raw: 15, jl_raw: 14, au_raw: 18 },
-  { roll: 31, sid: 1000443698, name: "SADHNA", ap_raw: 38, ju_raw: 10, jl_raw: 12, au_raw: 20 },
-  { roll: 32, sid: 1000445419, name: "SAKSHAM NEGI", ap_raw: 20, ju_raw: 24, jl_raw: 14, au_raw: 17 },
-  { roll: 33, sid: 1000444191, name: "SIYA SUYAL", ap_raw: 32, ju_raw: 22, jl_raw: 32, au_raw: 27 },
-  { roll: 35, sid: 1000549991, name: "SOUVIK SAHA", ap_raw: "-", ju_raw: "-", jl_raw: "-", au_raw: 18 },
-  { roll: 36, sid: 1000444213, name: "SPARSH BHATT", ap_raw: 36, ju_raw: 24, jl_raw: 30, au_raw: 13 },
-  { roll: 37, sid: 1000444197, name: "TANMAY ADHIKARI", ap_raw: 26, ju_raw: 26, jl_raw: 26, au_raw: 36 }
+  { roll: 1, sid: 1001380184, name: "ABHIMANYU SINGH NEGI", ap_raw: 22, ju_raw: 21, jl_raw: 18, au_raw: 20, se_raw: 28 },
+  { roll: 3, sid: 1000443631, name: "ANUJ GOSWAMI", ap_raw: 26, ju_raw: 32, jl_raw: 26, au_raw: 26, se_raw: 31 },
+  { roll: 5, sid: 1000444193, name: "AYUSH NEGI", ap_raw: 22, ju_raw: 23, jl_raw: 30, au_raw: 24, se_raw: 28 },
+  { roll: 7, sid: 1000443717, name: "BHUMI SATI", ap_raw: 30, ju_raw: 20, jl_raw: 30, au_raw: 28, se_raw: 18 },
+  { roll: 11, sid: 1001380237, name: "HARDIK PHULARA", ap_raw: 18, ju_raw: 17, jl_raw: 16, au_raw: 11, se_raw: 27 },
+  { roll: 12, sid: 1000443697, name: "HARSHIT ARYA", ap_raw: 36, ju_raw: 40, jl_raw: 40, au_raw: 38, se_raw: 40 },
+  { roll: 13, sid: 1000443628, name: "HARSITA NEGI", ap_raw: 36, ju_raw: 28, jl_raw: 38, au_raw: 20, se_raw: 32 },
+  { roll: 14, sid: 1000443711, name: "HITESH UPADHYAY", ap_raw: 8, ju_raw: 14, jl_raw: 10, au_raw: 2, se_raw: 12 },
+  { roll: 18, sid: 1000444200, name: "KAMAL JOSHI", ap_raw: 16, ju_raw: 13, jl_raw: 28, au_raw: "AB", se_raw: 22 },
+  { roll: 19, sid: 1001380264, name: "KANIKA BISHT", ap_raw: 32, ju_raw: 18, jl_raw: 36, au_raw: 27, se_raw: 28 },
+  { roll: 20, sid: 1000443710, name: "KARAN KUWABRI", ap_raw: 22, ju_raw: 23, jl_raw: 12, au_raw: 16, se_raw: 25 },
+  { roll: 20, sid: 1000445412, name: "NISHANT MUNGALI", ap_raw: 26, ju_raw: 30, jl_raw: 18, au_raw: 26, se_raw: 30 },
+  { roll: 24, sid: 1000443715, name: "NITIN BISHT", ap_raw: 28, ju_raw: 18, jl_raw: 8, au_raw: 31, se_raw: 23 },
+  { roll: 25, sid: 1000924646, name: "PALAK", ap_raw: "-", ju_raw: 7, jl_raw: 0, au_raw: 4, se_raw: "AB" },
+  { roll: 26, sid: 1000443712, name: "PARTH AKOLIA", ap_raw: 38, ju_raw: 20, jl_raw: 20, au_raw: 26, se_raw: 32 },
+  { roll: 27, sid: 1000444280, name: "PRIYANKA", ap_raw: 32, ju_raw: 20, jl_raw: 28, au_raw: 19, se_raw: 33 },
+  { roll: 28, sid: 1000443624, name: "RAJ BISHT", ap_raw: 10, ju_raw: 14, jl_raw: 4, au_raw: 13, se_raw: 28 },
+  { roll: 30, sid: 1000444212, name: "RITIKA RAWAT", ap_raw: 22, ju_raw: 15, jl_raw: 14, au_raw: 18, se_raw: 32 },
+  { roll: 31, sid: 1000443698, name: "SADHNA", ap_raw: 38, ju_raw: 10, jl_raw: 12, au_raw: 20, se_raw: 25 },
+  { roll: 32, sid: 1000445419, name: "SAKSHAM NEGI", ap_raw: 20, ju_raw: 24, jl_raw: 14, au_raw: 17, se_raw: 30 },
+  { roll: 33, sid: 1000444191, name: "SIYA SUYAL", ap_raw: 32, ju_raw: 22, jl_raw: 32, au_raw: 27, se_raw: 37 },
+  { roll: 35, sid: 1000549991, name: "SOUVIK SAHA", ap_raw: "-", ju_raw: "-", jl_raw: "-", au_raw: 18, se_raw: 36 },
+  { roll: 36, sid: 1000444213, name: "SPARSH BHATT", ap_raw: 36, ju_raw: 24, jl_raw: 30, au_raw: 13, se_raw: 26 },
+  { roll: 37, sid: 1000444197, name: "TANMAY ADHIKARI", ap_raw: 26, ju_raw: 26, jl_raw: 26, au_raw: 36, se_raw: 29 }
 ];
 
 let currentSamagamTerm12 = 'monthly';
@@ -5342,15 +5352,17 @@ function calculateSamagam12Record(s) {
   const pJu = parseVal(s.ju_raw);
   const pJl = parseVal(s.jl_raw);
   const pAu = parseVal(s.au_raw);
+  const pSe = parseVal(s.se_raw);
 
   // Each monthly test conducted out of 40 marks converted to 100: (Raw / 40) * 100 = Raw * 2.5
   const ap_100 = pAp.valid && pAp.disp !== 'AB' ? +(pAp.num * 2.5).toFixed(2) : (pAp.disp === 'AB' ? 0.0 : '-');
   const ju_100 = pJu.valid && pJu.disp !== 'AB' ? +(pJu.num * 2.5).toFixed(2) : (pJu.disp === 'AB' ? 0.0 : '-');
   const jl_100 = pJl.valid && pJl.disp !== 'AB' ? +(pJl.num * 2.5).toFixed(2) : (pJl.disp === 'AB' ? 0.0 : '-');
   const au_100 = pAu.valid && pAu.disp !== 'AB' ? +(pAu.num * 2.5).toFixed(2) : (pAu.disp === 'AB' ? 0.0 : '-');
+  const se_100 = pSe.valid && pSe.disp !== 'AB' ? +(pSe.num * 2.5).toFixed(2) : (pSe.disp === 'AB' ? 0.0 : '-');
 
-  // Compute average of all monthly tests conducted/attended till the last test:
-  const validConvertedTests = [ap_100, ju_100, jl_100, au_100].filter(x => x !== '-');
+  // Compute average of all monthly tests conducted/attended till the last test (September):
+  const validConvertedTests = [ap_100, ju_100, jl_100, au_100, se_100].filter(x => x !== '-');
   const testsAttendedCount = validConvertedTests.length;
   const avg_100 = testsAttendedCount > 0 ? +(validConvertedTests.reduce((sum, v) => sum + v, 0) / testsAttendedCount).toFixed(2) : 0.0;
   
@@ -5376,8 +5388,8 @@ function calculateSamagam12Record(s) {
 
   return {
     ...s,
-    pAp, pJu, pJl, pAu,
-    ap_100, ju_100, jl_100, au_100,
+    pAp, pJu, pJl, pAu, pSe,
+    ap_100, ju_100, jl_100, au_100, se_100,
     testsAttendedCount,
     avg_100,
     grade,
@@ -5483,7 +5495,7 @@ function renderSamagam12Table() {
 
   if (statTotal) statTotal.textContent = totalStudentsCount;
   const passedCount = processed.filter(s => s.avg_100 >= 33).length;
-  if (statPassed) statPassed.textContent = `${passedCount} (${Math.round(passedCount * 100 / totalStudentsCount)}%)`;
+  if (statPassed) statPassed.textContent = `${passedCount} (${(passedCount * 100 / totalStudentsCount).toFixed(1)}%)`;
   const avgScore = (processed.reduce((sum, s) => sum + s.avg_100, 0) / totalStudentsCount).toFixed(2);
   if (statAverage) statAverage.textContent = `${avgScore}%`;
   const maxStudent = processed.reduce((max, s) => s.avg_100 > max.avg_100 ? s : max, processed[0]);
@@ -5496,7 +5508,7 @@ function renderSamagam12Table() {
   }
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#34d399;"></i>No student records found matching the selected filters. <button onclick="resetSamagam12Filters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center; padding:35px; color:var(--text-secondary);"><i class="fas fa-search" style="font-size:1.8rem; margin-bottom:8px; display:block; color:#34d399;"></i>No student records found matching the selected filters. <button onclick="resetSamagam12Filters()" class="action-btn" style="margin-top:10px;"><i class="fas fa-undo"></i> Reset Filters</button></td></tr>`;
     return;
   }
 
@@ -5516,6 +5528,8 @@ function renderSamagam12Table() {
         <td class="td-w-jul">${formatCol(s.jl_100)}</td>
         <td style="color:#94a3b8;">${s.au_raw}</td>
         <td class="td-w-aug">${formatCol(s.au_100)}</td>
+        <td style="color:#94a3b8;">${s.se_raw}</td>
+        <td class="td-w-sep">${formatCol(s.se_100)}</td>
         <td class="td-w-total">${s.avg_100.toFixed(2)}</td>
         <td style="font-weight:600; color:#e2e8f0;">${s.percentage}</td>
         <td><span class="badge-grade grade-${s.grade}">${s.grade}</span></td>
@@ -5531,7 +5545,7 @@ function renderSamagam12Table() {
 
 function exportSamagamCSV12() {
   const processed = samagam12Data.map(calculateSamagam12Record);
-  let csv = 'Roll No,Student ID,Student Name,April Raw (/40),April Converted (/100),June Raw (/40),June Converted (/100),July Raw (/40),July Converted (/100),August Raw (/40),August Converted (/100),Average (/100),Percentage,Grade,Score Range,Result\n';
+  let csv = 'Roll No,Student ID,Student Name,April Raw (/40),April Converted (/100),June Raw (/40),June Converted (/100),July Raw (/40),July Converted (/100),August Raw (/40),August Converted (/100),September Raw (/40),September Converted (/100),Average (/100),Percentage,Grade,Score Range,Result\n';
   
   processed.forEach(s => {
     let rDesc = '90% and Above';
@@ -5541,7 +5555,7 @@ function exportSamagamCSV12() {
     else if (s.rangeKey === 'R4') rDesc = '60% to <75%';
     else if (s.rangeKey === 'R5') rDesc = '75% to <90%';
 
-    csv += `"${s.roll}","${s.sid}","${s.name}",${s.ap_raw},"${s.ap_100}",${s.ju_raw},"${s.ju_100}",${s.jl_raw},"${s.jl_100}",${s.au_raw},"${s.au_100}",${s.avg_100},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
+    csv += `"${s.roll}","${s.sid}","${s.name}",${s.ap_raw},"${s.ap_100}",${s.ju_raw},"${s.ju_100}",${s.jl_raw},"${s.jl_100}",${s.au_raw},"${s.au_100}",${s.se_raw},"${s.se_100}",${s.avg_100},"${s.percentage}","${s.grade}","${rDesc}","${s.result}"\n`;
   });
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -5561,16 +5575,16 @@ function printSamagamMarksheet12() {
 
   const buildRowsHTML = (students) => students.map(s => {
     const isFail = s.avg_100 < 33;
-    const pad = '3.5px 3px';
-    const namePad = '3.5px 5px';
-    const fSize = '7.5pt';
-    const nameFSize = '7.7pt';
+    const pad = '3px 2px';
+    const namePad = '3px 4px';
+    const fSize = '7.2pt';
+    const nameFSize = '7.4pt';
     const formatCol = (val) => val === '-' ? '-' : (typeof val === 'number' ? val.toFixed(2) : val);
     return `
       <tr style="${isFail ? 'background:#fee2e2;' : ''} color:#000000;">
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.roll}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-family:monospace; font-weight:700; font-size:${fSize};">${s.sid}</td>
-        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:140px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
+        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:130px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ap_raw}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${formatCol(s.ap_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ju_raw}</td>
@@ -5579,7 +5593,9 @@ function printSamagamMarksheet12() {
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${formatCol(s.jl_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.au_raw}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${formatCol(s.au_100)}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.4pt; background:#fce7f3; color:#831843;">${s.avg_100.toFixed(2)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.se_raw}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fce7f3; color:#831843; font-size:${fSize};">${formatCol(s.se_100)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.2pt; background:#fbcfe8; color:#831843;">${s.avg_100.toFixed(2)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.percentage}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${fSize}; color:#000000;">${s.grade}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; color:${isFail ? '#b91c1c' : '#15803d'}; font-size:${fSize};">${s.result}</td>
@@ -5604,21 +5620,23 @@ function printSamagamMarksheet12() {
   const tableHeaderHTML = `
     <thead>
       <tr style="background:#000000; color:#ffffff;">
-        <th style="width:24px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Roll</th>
-        <th style="width:64px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Student ID</th>
-        <th style="width:140px; max-width:140px; text-align:left; padding:3px 5px; border:1px solid #000000; font-size:7.1pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(/100)</th>
-        <th style="width:44px; padding:3px 1px; border:1px solid #000000; font-size:7.4pt; font-weight:900; background:#be185d; color:#ffffff;">Average<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">%</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:7.1pt; font-weight:900;">Grade</th>
-        <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">Result</th>
+        <th style="width:22px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Roll</th>
+        <th style="width:58px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Student ID</th>
+        <th style="width:130px; max-width:130px; text-align:left; padding:3px 4px; border:1px solid #000000; font-size:6.9pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">Sept<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#be185d; color:#ffffff;">Sept<br>(/100)</th>
+        <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7.2pt; font-weight:900; background:#831843; color:#ffffff;">Average<br>(/100)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">%</th>
+        <th style="width:26px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:900;">Grade</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Result</th>
       </tr>
     </thead>
   `;
@@ -5817,7 +5835,7 @@ function printSamagamMarksheet12() {
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#b91c1c; text-align:center;">${countR1}</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#b91c1c; text-align:center;">${pctR1}%</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:800; color:#b91c1c; text-align:center;">Needs Targeted Remedial Intervention</td>
-                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 14 (HITESH), Roll: 25 (PALAK), Roll: 28 (RAJ)</td>
+                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 14 (HITESH UPADHYAY &mdash; 23.00%), Roll: 25 (PALAK &mdash; 6.88%)</td>
                 </tr>
                 <tr style="background:#ffedd5;">
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">2</td>
@@ -5826,7 +5844,7 @@ function printSamagamMarksheet12() {
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#c2410c; text-align:center;">${countR2}</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#c2410c; text-align:center;">${pctR2}%</td>
                   <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Satisfactory / Passing Grade (D / C2)</td>
-                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 11 (HARDIK), Roll: 18 (KAMAL), Roll: 30 (RITIKA), Roll: 35 (SOUVIK)</td>
+                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 11 (HARDIK &mdash; 44.50%), Roll: 18 (KAMAL &mdash; 39.50%), Roll: 28 (RAJ &mdash; 34.50%)</td>
                 </tr>
                 <tr style="background:#fef3c7;">
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">3</td>
@@ -5835,7 +5853,7 @@ function printSamagamMarksheet12() {
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#b45309; text-align:center;">${countR3}</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#b45309; text-align:center;">${pctR3}%</td>
                   <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Average Performance (C1 / C2)</td>
-                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 1 (ABHIMANYU), Roll: 20 (KARAN), Roll: 24 (NITIN), Roll: 31 (SADHNA), Roll: 32 (SAKSHAM)</td>
+                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 1 (ABHIMANYU &mdash; 54.50%), Roll: 20 (KARAN &mdash; 49.00%), Roll: 24 (NITIN &mdash; 54.00%), Roll: 30 (RITIKA &mdash; 50.50%), Roll: 31 (SADHNA &mdash; 52.50%), Roll: 32 (SAKSHAM &mdash; 52.50%)</td>
                 </tr>
                 <tr style="background:#e0f2fe;">
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">4</td>
@@ -5844,7 +5862,7 @@ function printSamagamMarksheet12() {
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#0369a1; text-align:center;">${countR4}</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#0369a1; text-align:center;">${pctR4}%</td>
                   <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#0369a1;">Good Performance (B1 / B2 &mdash; Largest Group)</td>
-                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 3 (ANUJ), Roll: 5 (AYUSH), Roll: 7 (BHUMI), Roll: 19 (KANIKA), Roll: 20 (NISHANT), Roll: 26 (PARTH), Roll: 27 (PRIYANKA), Roll: 33 (SIYA), Roll: 36 (SPARSH), Roll: 37 (TANMAY)</td>
+                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 3 (ANUJ), Roll: 5 (AYUSH), Roll: 7 (BHUMI), Roll: 19 (KANIKA), Roll: 20 (NISHANT), Roll: 26 (PARTH), Roll: 27 (PRIYANKA), Roll: 35 (SOUVIK), Roll: 36 (SPARSH), Roll: 37 (TANMAY)</td>
                 </tr>
                 <tr style="background:#dcfce7;">
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">5</td>
@@ -5853,7 +5871,7 @@ function printSamagamMarksheet12() {
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#15803d; text-align:center;">${countR5}</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#15803d; text-align:center;">${pctR5}%</td>
                   <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#15803d;">Distinction / Very Good (B1)</td>
-                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 13 (HARSITA NEGI &mdash; 76.25%)</td>
+                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 13 (HARSITA NEGI &mdash; 77.00%), Roll: 33 (SIYA SUYAL &mdash; 75.00%)</td>
                 </tr>
                 <tr style="background:#f3e8ff;">
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">6</td>
@@ -5862,16 +5880,16 @@ function printSamagamMarksheet12() {
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#6b21a8; text-align:center;">${countR6}</td>
                   <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#6b21a8; text-align:center;">${pctR6}%</td>
                   <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:800; color:#6b21a8;">Outstanding / Top Tier (A1)</td>
-                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 12 (HARSHIT ARYA &mdash; 96.25%)</td>
+                  <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 12 (HARSHIT ARYA &mdash; 97.00%)</td>
                 </tr>
                 <tr style="background:#000000; color:#ffffff; font-weight:bold;">
                   <td colspan="3" style="text-align:right; padding:3px 5px; border:1px solid #000000;">TOTAL CONSOLIDATED SUMMARY:</td>
                   <td style="padding:3px 5px; border:1px solid #000000; font-size:8pt; font-weight:900; text-align:center;">24</td>
                   <td style="padding:3px 5px; border:1px solid #000000; font-weight:900; text-align:center;">100.0%</td>
                   <td colspan="2" style="text-align:left; font-size:7pt; padding-left:6px; border:1px solid #000000;">
-                    Pass %: <strong>87.5% (21/24)</strong> &nbsp;|&nbsp; 
-                    Class Average: <strong>54.24%</strong> &nbsp;|&nbsp; 
-                    Highest: <strong>96.25% (Harshit Arya - A1)</strong>
+                    Pass %: <strong>91.7% (22/24)</strong> &nbsp;|&nbsp; 
+                    Class Average: <strong>58.33%</strong> &nbsp;|&nbsp; 
+                    Highest: <strong>97.00% (Harshit Arya - A1)</strong>
                   </td>
                 </tr>
               </tbody>
@@ -5883,7 +5901,7 @@ function printSamagamMarksheet12() {
               2. CBSE Senior Secondary Grading Rubric &amp; Weightage Summary
             </div>
             <div style="font-size:6.8pt; line-height:1.3; color:#000000;">
-              <strong>CBSE Senior Secondary Assessment Framework:</strong> 4 Monthly Tests (April, June, July, August) each conducted for 40 Marks are scaled directly to 100 Marks (&times; 2.5). The final consolidated score is the mean average of all tests conducted till August. Proportionate weightage is calculated for late admissions as per KVS Rule 7.
+              <strong>CBSE Senior Secondary Assessment Framework:</strong> 5 Monthly Tests (April, June, July, August, September) each conducted for 40 Marks are scaled directly to 100 Marks (&times; 2.5). The final consolidated score is the mean average of all tests conducted till September. Proportionate weightage is calculated for late admissions as per KVS Rule 7.
             </div>
           </div>
 
@@ -5932,16 +5950,16 @@ async function downloadSamagamPDF12() {
 
   const buildRowsHTML = (students) => students.map(s => {
     const isFail = s.avg_100 < 33;
-    const pad = '3.5px 3px';
-    const namePad = '3.5px 5px';
-    const fSize = '7.5pt';
-    const nameFSize = '7.7pt';
+    const pad = '3px 2px';
+    const namePad = '3px 4px';
+    const fSize = '7.2pt';
+    const nameFSize = '7.4pt';
     const formatCol = (val) => val === '-' ? '-' : (typeof val === 'number' ? val.toFixed(2) : val);
     return `
       <tr style="${isFail ? 'background:#fee2e2;' : ''} color:#000000;">
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.roll}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-family:monospace; font-weight:700; font-size:${fSize};">${s.sid}</td>
-        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:140px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
+        <td style="padding:${namePad}; border:1px solid #000000; font-weight:800; font-size:${nameFSize}; color:#000000; white-space:nowrap; max-width:130px; overflow:hidden; text-overflow:ellipsis;">${s.name}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ap_raw}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#f3e8ff; color:#3b0764; font-size:${fSize};">${formatCol(s.ap_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.ju_raw}</td>
@@ -5950,7 +5968,9 @@ async function downloadSamagamPDF12() {
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#dcfce7; color:#14532d; font-size:${fSize};">${formatCol(s.jl_100)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.au_raw}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fef3c7; color:#78350f; font-size:${fSize};">${formatCol(s.au_100)}</td>
-        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.4pt; background:#fce7f3; color:#831843;">${s.avg_100.toFixed(2)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:700; color:#000000; font-size:${fSize};">${s.se_raw}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; background:#fce7f3; color:#831843; font-size:${fSize};">${formatCol(s.se_100)}</td>
+        <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:8.2pt; background:#fbcfe8; color:#831843;">${s.avg_100.toFixed(2)}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:800; font-size:${fSize};">${s.percentage}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; font-size:${fSize}; color:#000000;">${s.grade}</td>
         <td style="text-align:center; padding:${pad}; border:1px solid #000000; font-weight:900; color:${isFail ? '#b91c1c' : '#15803d'}; font-size:${fSize};">${s.result}</td>
@@ -5975,21 +5995,23 @@ async function downloadSamagamPDF12() {
   const tableHeaderHTML = `
     <thead>
       <tr style="background:#000000; color:#ffffff;">
-        <th style="width:24px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Roll</th>
-        <th style="width:64px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:800;">Student ID</th>
-        <th style="width:140px; max-width:140px; text-align:left; padding:3px 5px; border:1px solid #000000; font-size:7.1pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
-        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(/100)</th>
-        <th style="width:44px; padding:3px 1px; border:1px solid #000000; font-size:7.4pt; font-weight:900; background:#be185d; color:#ffffff;">Average<br>(/100)</th>
-        <th style="width:32px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">%</th>
-        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:7.1pt; font-weight:900;">Grade</th>
-        <th style="width:36px; padding:3px 1px; border:1px solid #000000; font-size:6.8pt; font-weight:800;">Result</th>
+        <th style="width:22px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Roll</th>
+        <th style="width:58px; padding:3px 1px; border:1px solid #000000; font-size:6.7pt; font-weight:800;">Student ID</th>
+        <th style="width:130px; max-width:130px; text-align:left; padding:3px 4px; border:1px solid #000000; font-size:6.9pt; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Student Name</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">April<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#581c87; color:#ffffff;">April<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">June<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#0369a1; color:#ffffff;">June<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">July<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#15803d; color:#ffffff;">July<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">August<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#b45309; color:#ffffff;">August<br>(/100)</th>
+        <th style="width:28px; padding:3px 1px; border:1px solid #000000; font-size:6.3pt; font-weight:800; background:#1e293b;">Sept<br>(Raw/40)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.5pt; font-weight:800; background:#be185d; color:#ffffff;">Sept<br>(/100)</th>
+        <th style="width:40px; padding:3px 1px; border:1px solid #000000; font-size:7.2pt; font-weight:900; background:#831843; color:#ffffff;">Average<br>(/100)</th>
+        <th style="width:30px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">%</th>
+        <th style="width:26px; padding:3px 1px; border:1px solid #000000; font-size:6.9pt; font-weight:900;">Grade</th>
+        <th style="width:34px; padding:3px 1px; border:1px solid #000000; font-size:6.6pt; font-weight:800;">Result</th>
       </tr>
     </thead>
   `;
@@ -6065,7 +6087,7 @@ async function downloadSamagamPDF12() {
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#b91c1c; text-align:center;">${countR1}</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#b91c1c; text-align:center;">${pctR1}%</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:800; color:#b91c1c; text-align:center;">Needs Targeted Remedial Intervention</td>
-                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 14 (HITESH), Roll: 25 (PALAK), Roll: 28 (RAJ)</td>
+                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 14 (HITESH UPADHYAY &mdash; 23.00%), Roll: 25 (PALAK &mdash; 6.88%)</td>
               </tr>
               <tr style="background:#ffedd5;">
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">2</td>
@@ -6074,7 +6096,7 @@ async function downloadSamagamPDF12() {
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#c2410c; text-align:center;">${countR2}</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#c2410c; text-align:center;">${pctR2}%</td>
                 <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Satisfactory / Passing Grade (D / C2)</td>
-                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 11 (HARDIK), Roll: 18 (KAMAL), Roll: 30 (RITIKA), Roll: 35 (SOUVIK)</td>
+                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 11 (HARDIK &mdash; 44.50%), Roll: 18 (KAMAL &mdash; 39.50%), Roll: 28 (RAJ &mdash; 34.50%)</td>
               </tr>
               <tr style="background:#fef3c7;">
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">3</td>
@@ -6083,7 +6105,7 @@ async function downloadSamagamPDF12() {
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#b45309; text-align:center;">${countR3}</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#b45309; text-align:center;">${pctR3}%</td>
                 <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700;">Average Performance (C1 / C2)</td>
-                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 1 (ABHIMANYU), Roll: 20 (KARAN), Roll: 24 (NITIN), Roll: 31 (SADHNA), Roll: 32 (SAKSHAM)</td>
+                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 1 (ABHIMANYU &mdash; 54.50%), Roll: 20 (KARAN &mdash; 49.00%), Roll: 24 (NITIN &mdash; 54.00%), Roll: 30 (RITIKA &mdash; 50.50%), Roll: 31 (SADHNA &mdash; 52.50%), Roll: 32 (SAKSHAM &mdash; 52.50%)</td>
               </tr>
               <tr style="background:#e0f2fe;">
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">4</td>
@@ -6092,7 +6114,7 @@ async function downloadSamagamPDF12() {
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#0369a1; text-align:center;">${countR4}</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#0369a1; text-align:center;">${pctR4}%</td>
                 <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#0369a1;">Good Performance (B1 / B2 &mdash; Largest Group)</td>
-                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 3 (ANUJ), Roll: 5 (AYUSH), Roll: 7 (BHUMI), Roll: 19 (KANIKA), Roll: 20 (NISHANT), Roll: 26 (PARTH), Roll: 27 (PRIYANKA), Roll: 33 (SIYA), Roll: 36 (SPARSH), Roll: 37 (TANMAY)</td>
+                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 3 (ANUJ), Roll: 5 (AYUSH), Roll: 7 (BHUMI), Roll: 19 (KANIKA), Roll: 20 (NISHANT), Roll: 26 (PARTH), Roll: 27 (PRIYANKA), Roll: 35 (SOUVIK), Roll: 36 (SPARSH), Roll: 37 (TANMAY)</td>
               </tr>
               <tr style="background:#dcfce7;">
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">5</td>
@@ -6101,7 +6123,7 @@ async function downloadSamagamPDF12() {
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#15803d; text-align:center;">${countR5}</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#15803d; text-align:center;">${pctR5}%</td>
                 <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:700; color:#15803d;">Distinction / Very Good (B1)</td>
-                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 13 (HARSITA NEGI &mdash; 76.25%)</td>
+                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 13 (HARSITA NEGI &mdash; 77.00%), Roll: 33 (SIYA SUYAL &mdash; 75.00%)</td>
               </tr>
               <tr style="background:#f3e8ff;">
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:bold;">6</td>
@@ -6110,16 +6132,16 @@ async function downloadSamagamPDF12() {
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; font-size:7.6pt; color:#6b21a8; text-align:center;">${countR6}</td>
                 <td style="padding:2px 4px; border:1px solid #000000; font-weight:900; color:#6b21a8; text-align:center;">${pctR6}%</td>
                 <td style="padding:2px 4px; border:1px solid #000000; text-align:center; font-weight:800; color:#6b21a8;">Outstanding / Top Tier (A1)</td>
-                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 12 (HARSHIT ARYA &mdash; 96.25%)</td>
+                <td style="padding:2px 4px; border:1px solid #000000; text-align:left; font-size:6.7pt; font-weight:700;">Roll: 12 (HARSHIT ARYA &mdash; 97.00%)</td>
               </tr>
               <tr style="background:#000000; color:#ffffff; font-weight:bold;">
                 <td colspan="3" style="text-align:right; padding:3px 5px; border:1px solid #000000;">TOTAL CONSOLIDATED SUMMARY:</td>
                 <td style="padding:3px 5px; border:1px solid #000000; font-size:8pt; font-weight:900; text-align:center;">24</td>
                 <td style="padding:3px 5px; border:1px solid #000000; font-weight:900; text-align:center;">100.0%</td>
                 <td colspan="2" style="text-align:left; font-size:7pt; padding-left:6px; border:1px solid #000000;">
-                  Pass %: <strong>87.5% (21/24)</strong> &nbsp;|&nbsp; 
-                  Class Average: <strong>54.24%</strong> &nbsp;|&nbsp; 
-                  Highest: <strong>96.25% (Harshit Arya - A1)</strong>
+                  Pass %: <strong>91.7% (22/24)</strong> &nbsp;|&nbsp; 
+                  Class Average: <strong>58.33%</strong> &nbsp;|&nbsp; 
+                  Highest: <strong>97.00% (Harshit Arya - A1)</strong>
                 </td>
               </tr>
             </tbody>
@@ -6131,7 +6153,7 @@ async function downloadSamagamPDF12() {
             2. CBSE Senior Secondary Grading Rubric &amp; Weightage Summary
           </div>
           <div style="font-size:6.8pt; line-height:1.3; color:#000000;">
-            <strong>CBSE Senior Secondary Assessment Framework:</strong> 4 Monthly Tests (April, June, July, August) each conducted for 40 Marks are scaled directly to 100 Marks (&times; 2.5). The final consolidated score is the mean average of all tests conducted till August. Proportionate weightage is calculated for late admissions as per KVS Rule 7.
+            <strong>CBSE Senior Secondary Assessment Framework:</strong> 5 Monthly Tests (April, June, July, August, September) each conducted for 40 Marks are scaled directly to 100 Marks (&times; 2.5). The final consolidated score is the mean average of all tests conducted till September. Proportionate weightage is calculated for late admissions as per KVS Rule 7.
           </div>
         </div>
 
