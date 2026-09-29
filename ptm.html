@@ -845,6 +845,7 @@ select option:checked {
           { id: "ch6", label: "Ch 6", maxMarks: 20 },
           { id: "ch7", label: "Ch 7", maxMarks: 20 },
         { id: "mt4", label: "MT-4", maxMarks: 20 },
+        { id: "mt5", label: "MT-5", maxMarks: 20 },
         { id: "ch10", label: "Ch 10", maxMarks: 10 },
           ...Array.from({length: 8}, (_, i) => ({ id: `ch${i+8}`, label: `Ch ${i+8}`, maxMarks: 20 })),
           { id: "pt1", label: "PT1", maxMarks: 40 },
@@ -857,6 +858,8 @@ select option:checked {
 
       const testFullNames = {
         crm: "CRM (Classroom Readiness Module)",
+        mt4: "Monthly Test 4 (MT-4)",
+        mt5: "Monthly Test 5 (MT-5)",
         pt1: "PT1 (Periodic Test 1)",
         pt2: "PT2 (Periodic Test 2)",
         hy: "HY (Half Yearly)",
@@ -926,6 +929,8 @@ select option:checked {
           if (!testDates["12"]) testDates["12"] = {};
           testDates["12"].ch7 = "2026-07-28";
           testDates["12"].ch8 = "2026-08-04";
+          testDates["12"].mt4 = "2026-09-01";
+          testDates["12"].mt5 = "2026-09-24";
           testDates["12"].pt1 = "2026-07-03";
           testDates["11B"].ch6 = "2026-08-07";
           testDates["11B"].pt1 = "2026-07-02";

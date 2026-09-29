@@ -697,6 +697,24 @@ function autoSyncExcelMarks() {
       }
     }
 
+    // Monthly Tests (MT-4 August and MT-5 September) for Class 12
+    fullFallbackMarks["12"]["mt4"] = {
+      "ABHIMANYU SINGH": 10, "ANUJ GOSWAMI": 13, "AYUSH NEGI": 12, "BHUMI SATI": 14,
+      "HARDIK PHULARA": 11, "HARSHIT ARYA": 19, "HARSHITA NEGI": 10, "HITESH UPADHYAY": 1,
+      "KAMAL JOSHI": "ab", "KANIKA BISHT": 14, "KARAN": 8, "NITIN BISHT": 16,
+      "PARTH": 13, "PRIYANKA": 10, "RAJ": 7, "RITIKA": 9,
+      "SADHNA": 10, "SAKSHAM NEGI": 9, "SIYA SUYAL": 14, "SPARSH BHATT": 7,
+      "TANMAY ADHIKARI": 18, "PALAK": 2, "NISHANT": 13, "SOUVIK SAHA": 9
+    };
+    fullFallbackMarks["12"]["mt5"] = {
+      "ABHIMANYU SINGH": 14, "ANUJ GOSWAMI": 15.5, "AYUSH NEGI": 14, "BHUMI SATI": 9,
+      "HARDIK PHULARA": 13.5, "HARSHIT ARYA": 20, "HARSHITA NEGI": 16, "HITESH UPADHYAY": 6,
+      "KAMAL JOSHI": 11, "KANIKA BISHT": 14, "KARAN": 12.5, "NITIN BISHT": 11.5,
+      "PARTH": 16, "PRIYANKA": 16.5, "RAJ": 14, "RITIKA": 16,
+      "SADHNA": 12.5, "SAKSHAM NEGI": 15, "SIYA SUYAL": 18.5, "SPARSH BHATT": 13,
+      "TANMAY ADHIKARI": 14.5, "PALAK": "ab", "NISHANT": 15, "SOUVIK SAHA": 18
+    };
+
     // 2. Read Test Record.xlsx for Class 11
     const ct11File = path.join(__dirname, 'class test', 'class test 11', 'Test Record.xlsx');
     if (fs.existsSync(ct11File)) {
