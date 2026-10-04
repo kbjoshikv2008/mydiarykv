@@ -351,6 +351,15 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
     }
+    .btn-faculty-list {
+      background: linear-gradient(135deg, #4f46e5, #3730a3);
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    }
+    .btn-faculty-list:hover {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+    }
 
     /* Timetable Card & Grid Styling */
     .tt-sheet-card {
@@ -361,8 +370,6 @@
       padding: 26px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
       margin-bottom: 30px;
-      overflow-x: auto;
-    }
       overflow-x: auto;
     }
 
@@ -1649,6 +1656,7 @@ select option:checked {
           </select>
         </div>
         <div class="tt-action-buttons">
+          <button class="btn-action btn-faculty-list" id="openTeachersListModalBtn" onclick="openTeachersDirectoryModal()"><i class="fas fa-id-card-alt"></i> <span class="btn-lbl-faclist">शिक्षक सूची / Teachers Directory</span></button>
           <button class="btn-action btn-pdf" id="downloadTeacherPdfBtn"><i class="fas fa-file-pdf"></i> <span class="btn-lbl-pdf">PDF डाउनलोड / Download PDF</span></button>
           <button class="btn-action btn-print" id="printTeacherBtn"><i class="fas fa-print"></i> <span class="btn-lbl-print">प्रिंट करें / Print</span></button>
           <button class="btn-action btn-share" id="shareTeacherBtn"><i class="fas fa-share-alt"></i> <span class="btn-lbl-share">शेयर करें / Share PDF</span></button>
@@ -2005,6 +2013,70 @@ select option:checked {
         <span>Email File</span>
         <small style="font-size:0.68rem; opacity:0.8;">Send via Email</small>
       </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Teachers Directory & Designation Download Modal ─────────────── -->
+<div class="share-modal-overlay" id="teachersDirectoryModal" style="display:none;">
+  <div class="share-modal-card" style="width:min(1080px, 95vw); max-height:92vh; display:flex; flex-direction:column; padding:24px 28px;">
+    <button onclick="closeTeachersDirectoryModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text-muted);font-size:1.6rem;cursor:pointer;line-height:1;transition:color 0.2s;" title="Close / बंद करें">&times;</button>
+    
+    <!-- Modal Header -->
+    <div style="text-align:left; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:14px; margin-bottom:14px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, #4f46e5, #7c3aed); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; box-shadow:0 4px 14px rgba(99,102,241,0.4); flex-shrink:0;">
+            <i class="fas fa-users-cog"></i>
+          </div>
+          <div>
+            <h3 style="margin:0 0 3px 0; font-size:1.25rem; font-weight:900; color:#fff; font-family:var(--font-head); letter-spacing:0.4px;">
+              FACULTY DIRECTORY &amp; DESIGNATIONS / शिक्षक विवरण सूची
+            </h3>
+            <span style="color:#2dd4bf; font-size:0.82rem; font-weight:700;"><i class="fas fa-school"></i> PM SHRI KENDRIYA VIDYALAYA RANIKHET · Session 2026-27</span>
+          </div>
+        </div>
+        
+        <!-- Quick Action Buttons -->
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <button class="btn-action btn-pdf" onclick="downloadTeachersDirectoryPdf()" style="padding:8px 14px; font-size:0.82rem;" title="Download clean PDF of Faculty Directory">
+            <i class="fas fa-file-pdf"></i> PDF डाउनलोड / Download PDF
+          </button>
+          <button class="btn-action btn-print" onclick="downloadTeachersDirectoryExcel()" style="padding:8px 14px; font-size:0.82rem; background:linear-gradient(135deg, #059669, #10b981);" title="Download full multi-sheet Excel spreadsheet">
+            <i class="fas fa-file-excel"></i> Excel डाउनलोड / Excel
+          </button>
+          <button class="btn-action btn-share" onclick="printTeachersDirectory()" style="padding:8px 14px; font-size:0.82rem; background:linear-gradient(135deg, #0284c7, #0369a1);" title="Print formatted list">
+            <i class="fas fa-print"></i> प्रिंट / Print
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:10px 14px;">
+      <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:260px;">
+        <i class="fas fa-search" style="color:#a78bfa; font-size:0.95rem;"></i>
+        <input type="text" id="tdSearchInput" placeholder="Search by name, designation, subject, class... / नाम या पदनाम से खोजें" oninput="renderTeachersDirectoryTable()" style="width:100%; background:transparent; border:none; outline:none; color:#fff; font-size:0.9rem;" />
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <label for="tdCategoryFilter" style="font-size:0.82rem; font-weight:700; color:#c4b5fd;"><i class="fas fa-filter"></i> संकाय / Stream:</label>
+        <select id="tdCategoryFilter" onchange="renderTeachersDirectoryTable()" class="tt-select" style="min-width:180px; padding:6px 12px; font-size:0.84rem;">
+          <option value="ALL">All Faculty / सभी शिक्षक (35)</option>
+          <option value="SCI_MATH">🔬 Science &amp; Maths (9)</option>
+          <option value="HUMANITIES">📜 Humanities (5)</option>
+          <option value="COMMERCE">📈 Commerce (2)</option>
+          <option value="LANG">🗣️ Languages (9)</option>
+          <option value="CS_AI">💻 Computer &amp; AI (2)</option>
+          <option value="ACTIVITY">🎨 Activity &amp; Support (8)</option>
+          <option value="PGT">PGTs (Classes 11-12)</option>
+          <option value="TGT">TGTs (Classes 6-10)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Scrollable Directory Table Container -->
+    <div id="teachersDirectoryTableContainer" style="overflow-y:auto; overflow-x:auto; flex:1; border-radius:12px; border:1px solid rgba(255,255,255,0.08); background:rgba(10,8,25,0.7); min-height:260px;">
+      <!-- Table populated dynamically -->
     </div>
   </div>
 </div>
@@ -2978,6 +3050,12 @@ select option:checked {
           if (currentLangMode === 1) el.textContent = 'शेयर करें (पीडीएफ)';
           else if (currentLangMode === 2) el.textContent = 'Share PDF';
           else el.textContent = 'शेयर करें / Share PDF';
+        });
+
+        document.querySelectorAll('.btn-lbl-faclist').forEach(el => {
+          if (currentLangMode === 1) el.textContent = 'शिक्षक सूची डाउनलोड';
+          else if (currentLangMode === 2) el.textContent = 'Teachers Directory';
+          else el.textContent = 'शिक्षक सूची / Teachers Directory';
         });
 
         const xlLbl = document.querySelector('#downloadRecessExcelBtn .btn-text');
@@ -4195,6 +4273,471 @@ select option:checked {
     }
   };
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // TEACHERS DIRECTORY, DESIGNATIONS & MULTI-FORMAT EXPORT (PDF/EXCEL/PRINT)
+  // ─────────────────────────────────────────────────────────────────────────
+
+  // Helper: Computes teacher statistics, stream tags, classes taught, and weekly load
+  window.getTeacherDirectoryInfo = function(t) {
+    const SCIENCE_MATHS = ['kbjoshi', 'pawang', 'sagarb', 'hitendras', 'deveshs', 'hemr', 'smitas', 'karishmac', 'kalpanar'];
+    const HUMANITIES = ['naseem', 'nidhi', 'vipin', 'shikhak', 'rachnav'];
+    const COMMERCE = ['vikasb', 'rachnav'];
+
+    let streamKey = 'OTHER';
+    let streamLabelEn = 'Co-Curricular / Support';
+    let streamLabelHi = 'सह-शैक्षिक व सहयोग';
+    let streamBadgeClass = 'middle';
+
+    const desig = (t.desig || '').toUpperCase();
+    const subj = (t.subject || '').toUpperCase();
+
+    if (SCIENCE_MATHS.includes(t.id)) {
+      streamKey = 'SCI_MATH';
+      streamLabelEn = 'Science & Mathematics';
+      streamLabelHi = 'विज्ञान एवं गणित संकाय';
+      streamBadgeClass = 'senior';
+    } else if (HUMANITIES.includes(t.id) && COMMERCE.includes(t.id)) {
+      streamKey = 'HUM_COM';
+      streamLabelEn = 'Humanities & Commerce';
+      streamLabelHi = 'कला एवं वाणिज्य संकाय';
+      streamBadgeClass = 'senior';
+    } else if (HUMANITIES.includes(t.id)) {
+      streamKey = 'HUMANITIES';
+      streamLabelEn = 'Humanities / Social Sciences';
+      streamLabelHi = 'मानविकी एवं सामाजिक विज्ञान';
+      streamBadgeClass = 'senior';
+    } else if (COMMERCE.includes(t.id)) {
+      streamKey = 'COMMERCE';
+      streamLabelEn = 'Commerce';
+      streamLabelHi = 'वाणिज्य संकाय';
+      streamBadgeClass = 'senior';
+    } else if (subj.includes('HIN') || subj.includes('ENG') || subj.includes('SKT') || subj.includes('SAN') || desig.includes('HINDI') || desig.includes('ENG') || desig.includes('SKT') || desig.includes('SANSKRIT')) {
+      streamKey = 'LANG';
+      streamLabelEn = 'Languages (Hindi/Eng/Skt)';
+      streamLabelHi = 'भाषा संकाय';
+      streamBadgeClass = 'secondary';
+    } else if (subj.includes('COMP') || subj.includes('CS') || subj.includes('AI') || desig.includes('CS') || desig.includes('COMPUTER')) {
+      streamKey = 'CS_AI';
+      streamLabelEn = 'Computer Science & AI';
+      streamLabelHi = 'संगणक विज्ञान एवं AI';
+      streamBadgeClass = 'senior';
+    } else if (desig.includes('PET') || desig.includes('PHE') || desig.includes('ART') || desig.includes('WE') || desig.includes('LIB') || desig.includes('YOGA') || desig.includes('VEI') || desig.includes('SUBSTAFF')) {
+      streamKey = 'ACTIVITY';
+      streamLabelEn = 'Activity, PE, Arts & Support';
+      streamLabelHi = 'शारीरिक, कला व सह-शैक्षिक';
+      streamBadgeClass = 'middle';
+    }
+
+    // Calculate weekly load and classes
+    let load = 0;
+    const classesSet = new Set();
+    if (t.schedule) {
+      Object.values(t.schedule).forEach(dayArr => {
+        if (Array.isArray(dayArr)) {
+          dayArr.forEach(p => {
+            if (p && p.trim() !== '') {
+              load++;
+              const clMatch = p.match(/\b(1[0-2]|[1-9])[A-C]\b/);
+              if (clMatch) classesSet.add(clMatch[0]);
+              else if (p.includes('CLA')) classesSet.add('CLA');
+            }
+          });
+        }
+      });
+    }
+
+    const assignedClasses = Array.from(classesSet);
+
+    return {
+      id: t.id,
+      name: t.name,
+      desig: t.desig,
+      subject: t.subject,
+      streamKey: streamKey,
+      streamLabelEn: streamLabelEn,
+      streamLabelHi: streamLabelHi,
+      streamBadgeClass: streamBadgeClass,
+      assignedClasses: assignedClasses,
+      classesStr: assignedClasses.length ? assignedClasses.join(', ') : 'General / School Duties',
+      weeklyLoad: load
+    };
+  };
+
+  // Open & Close Teachers Directory Modal
+  window.openTeachersDirectoryModal = function() {
+    const modal = document.getElementById('teachersDirectoryModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      renderTeachersDirectoryTable();
+    }
+  };
+
+  window.closeTeachersDirectoryModal = function() {
+    const modal = document.getElementById('teachersDirectoryModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  // Render Directory Table inside Modal
+  window.renderTeachersDirectoryTable = function() {
+    const container = document.getElementById('teachersDirectoryTableContainer');
+    if (!container) return;
+
+    const q = (document.getElementById('tdSearchInput')?.value || '').trim().toLowerCase();
+    const filter = document.getElementById('tdCategoryFilter')?.value || 'ALL';
+
+    const SCIENCE_MATHS = ['kbjoshi', 'pawang', 'sagarb', 'hitendras', 'deveshs', 'hemr', 'smitas', 'karishmac', 'kalpanar'];
+    const HUMANITIES = ['naseem', 'nidhi', 'vipin', 'shikhak', 'rachnav'];
+    const COMMERCE = ['vikasb', 'rachnav'];
+
+    const filtered = TEACHERS_DATA.filter(t => {
+      const info = getTeacherDirectoryInfo(t);
+      let matchCat = false;
+
+      if (filter === 'ALL') matchCat = true;
+      else if (filter === 'SCI_MATH') matchCat = SCIENCE_MATHS.includes(t.id);
+      else if (filter === 'HUMANITIES') matchCat = HUMANITIES.includes(t.id);
+      else if (filter === 'COMMERCE') matchCat = COMMERCE.includes(t.id);
+      else if (filter === 'LANG') matchCat = info.streamKey === 'LANG';
+      else if (filter === 'CS_AI') matchCat = info.streamKey === 'CS_AI';
+      else if (filter === 'ACTIVITY') matchCat = info.streamKey === 'ACTIVITY';
+      else if (filter === 'PGT') matchCat = (t.desig || '').toUpperCase().includes('PGT');
+      else if (filter === 'TGT') matchCat = (t.desig || '').toUpperCase().includes('TGT');
+
+      const searchStr = (t.name + ' ' + t.desig + ' ' + t.subject + ' ' + info.streamLabelEn + ' ' + info.streamLabelHi + ' ' + info.classesStr).toLowerCase();
+      const matchQ = !q || searchStr.includes(q);
+
+      return matchCat && matchQ;
+    });
+
+    if (!filtered.length) {
+      container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);font-weight:600;"><i class="fas fa-search" style="font-size:2rem;margin-bottom:10px;display:block;"></i>No matching faculty records found. / कोई परिणाम नहीं मिला।</div>';
+      return;
+    }
+
+    let h = '<table style="width:100%; border-collapse:collapse; font-size:0.84rem; text-align:left;">';
+    h += '<thead><tr style="background:linear-gradient(135deg,rgba(15,23,42,0.95),rgba(30,41,59,0.95)); color:#fff; border-bottom:2px solid var(--primary-light); position:sticky; top:0; z-index:2;">';
+    h += '<th style="padding:10px 12px; font-weight:900; text-align:center; width:50px;">क्र.सं.<br><span style="font-size:0.68rem; opacity:0.8;">Sr.No</span></th>';
+    h += '<th style="padding:10px 12px; font-weight:900;">शिक्षक का नाम / Name</th>';
+    h += '<th style="padding:10px 12px; font-weight:900;">पदनाम / Designation</th>';
+    h += '<th style="padding:10px 12px; font-weight:900;">संकाय / Stream</th>';
+    h += '<th style="padding:10px 12px; font-weight:900;">विषय / Subject</th>';
+    h += '<th style="padding:10px 12px; font-weight:900;">कक्षाएं / Classes</th>';
+    h += '<th style="padding:10px 12px; font-weight:900; text-align:center;">कुल वादन<br><span style="font-size:0.68rem; opacity:0.8;">Load/Wk</span></th>';
+    h += '<th style="padding:10px 12px; font-weight:900; text-align:center; width:80px;">समय सारणी</th>';
+    h += '</tr></thead><tbody>';
+
+    filtered.forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      const bg = idx % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)';
+      
+      h += `<tr style="background:${bg}; border-bottom:1px solid rgba(255,255,255,0.06); transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.1)'" onmouseout="this.style.background='${bg}'">`;
+      h += `<td style="padding:9px 12px; text-align:center; font-weight:800; color:#a78bfa;">${idx + 1}</td>`;
+      h += `<td style="padding:9px 12px; font-weight:900; color:#ffffff;">
+              <i class="fas fa-user-circle" style="color:#60a5fa; margin-right:6px;"></i>${t.name}
+            </td>`;
+      h += `<td style="padding:9px 12px;">
+              <span style="display:inline-block; padding:3px 8px; background:rgba(14,165,233,0.18); border:1px solid rgba(56,189,248,0.35); color:#7dd3fc; border-radius:6px; font-weight:800; font-size:0.78rem;">${t.desig}</span>
+            </td>`;
+      h += `<td style="padding:9px 12px;">
+              <span class="stream-tag ${info.streamBadgeClass}">${info.streamLabelEn}</span>
+            </td>`;
+      h += `<td style="padding:9px 12px; color:var(--text-secondary); font-weight:600;">${t.subject}</td>`;
+      h += `<td style="padding:9px 12px; color:#cbd5e1; font-weight:700; font-size:0.78rem;">${info.classesStr}</td>`;
+      h += `<td style="padding:9px 12px; text-align:center;">
+              <span style="display:inline-block; padding:3px 8px; background:${info.weeklyLoad > 0 ? 'rgba(16,185,129,0.2)' : 'rgba(148,163,184,0.2)'}; color:${info.weeklyLoad > 0 ? '#6ee7b7' : '#94a3b8'}; border-radius:6px; font-weight:900; font-size:0.82rem;">${info.weeklyLoad}</span>
+            </td>`;
+      h += `<td style="padding:9px 12px; text-align:center;">
+              <button onclick="selectTeacherAndCloseDirectory('${t.id}')" style="background:rgba(99,102,241,0.25); border:1px solid rgba(167,139,250,0.4); color:#c4b5fd; padding:4px 8px; border-radius:6px; font-size:0.74rem; font-weight:700; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='#6366f1';this.style.color='#fff';" onmouseout="this.style.background='rgba(99,102,241,0.25)';this.style.color='#c4b5fd';">
+                <i class="fas fa-calendar-alt"></i> View
+              </button>
+            </td>`;
+      h += '</tr>';
+    });
+
+    h += '</tbody></table>';
+    container.innerHTML = h;
+  };
+
+  // Switch to teacher view directly from modal
+  window.selectTeacherAndCloseDirectory = function(teacherId) {
+    closeTeachersDirectoryModal();
+    const teacherSelect = document.getElementById('teacherSelect');
+    if (teacherSelect) {
+      // Ensure teacher exists in dropdown (reset to all if needed)
+      let found = false;
+      for (let i = 0; i < teacherSelect.options.length; i++) {
+        if (teacherSelect.options[i].value === teacherId) {
+          teacherSelect.selectedIndex = i;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        // Reset dept chips to ALL
+        const allBtn = document.querySelector('#teacherDeptChips .chip-btn[data-dept="ALL"]');
+        if (allBtn) allBtn.click();
+        teacherSelect.value = teacherId;
+      }
+      renderTeacherTimetable(teacherId);
+      document.querySelector('.tab-btn[data-tab="tab-teachers"]')?.click();
+      document.getElementById('teacherSheetContainer')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // EXCEL DOWNLOAD FOR COMPLETE TEACHERS & DESIGNATIONS DIRECTORY
+  window.downloadTeachersDirectoryExcel = function() {
+    if (typeof XLSX === 'undefined') {
+      alert('Excel library not loaded! / एक्सेल लाइब्रेरी लोड नहीं हो सकी।');
+      return;
+    }
+
+    const SCIENCE_MATHS = ['kbjoshi', 'pawang', 'sagarb', 'hitendras', 'deveshs', 'hemr', 'smitas', 'karishmac', 'kalpanar'];
+    const HUMANITIES = ['naseem', 'nidhi', 'vipin', 'shikhak', 'rachnav'];
+    const COMMERCE = ['vikasb', 'rachnav'];
+
+    const wb = XLSX.utils.book_new();
+
+    // 1. All Teachers Sheet
+    const fullData = [
+      ["PM SHRI KENDRIYA VIDYALAYA RANIKHET"],
+      ["COMPLETE FACULTY DIRECTORY & DESIGNATIONS (SESSION 2026-27)"],
+      ["समस्त शिक्षक पदनाम एवं वादन विवरण सूची"],
+      [],
+      ["Sr. No.", "Teacher Name", "Designation", "Department / Stream", "Main Subject", "Assigned Classes", "Weekly Load (Periods/Wk)"]
+    ];
+
+    TEACHERS_DATA.forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      fullData.push([
+        idx + 1,
+        t.name,
+        t.desig,
+        info.streamLabelEn,
+        t.subject,
+        info.classesStr,
+        info.weeklyLoad
+      ]);
+    });
+
+    const wsFull = XLSX.utils.aoa_to_sheet(fullData);
+    XLSX.utils.book_append_sheet(wb, wsFull, "All_Faculty_Directory");
+
+    // 2. Science & Maths Sheet
+    const sciData = [
+      ["SCIENCE & MATHEMATICS FACULTY (9 TEACHERS)"],
+      ["Sr. No.", "Teacher Name", "Designation", "Subject", "Assigned Classes", "Weekly Load"]
+    ];
+    TEACHERS_DATA.filter(t => SCIENCE_MATHS.includes(t.id)).forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      sciData.push([idx + 1, t.name, t.desig, t.subject, info.classesStr, info.weeklyLoad]);
+    });
+    const wsSci = XLSX.utils.aoa_to_sheet(sciData);
+    XLSX.utils.book_append_sheet(wb, wsSci, "Science_and_Maths");
+
+    // 3. Humanities Sheet
+    const humData = [
+      ["HUMANITIES FACULTY (5 TEACHERS)"],
+      ["Sr. No.", "Teacher Name", "Designation", "Subject", "Assigned Classes", "Weekly Load"]
+    ];
+    TEACHERS_DATA.filter(t => HUMANITIES.includes(t.id)).forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      humData.push([idx + 1, t.name, t.desig, t.subject, info.classesStr, info.weeklyLoad]);
+    });
+    const wsHum = XLSX.utils.aoa_to_sheet(humData);
+    XLSX.utils.book_append_sheet(wb, wsHum, "Humanities");
+
+    // 4. Commerce Sheet
+    const comData = [
+      ["COMMERCE FACULTY (2 TEACHERS)"],
+      ["Sr. No.", "Teacher Name", "Designation", "Subject", "Assigned Classes", "Weekly Load"]
+    ];
+    TEACHERS_DATA.filter(t => COMMERCE.includes(t.id)).forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      comData.push([idx + 1, t.name, t.desig, t.subject, info.classesStr, info.weeklyLoad]);
+    });
+    const wsCom = XLSX.utils.aoa_to_sheet(comData);
+    XLSX.utils.book_append_sheet(wb, wsCom, "Commerce");
+
+    // 5. Languages Sheet
+    const langData = [
+      ["LANGUAGES FACULTY (HINDI, ENGLISH, SANSKRIT)"],
+      ["Sr. No.", "Teacher Name", "Designation", "Subject", "Assigned Classes", "Weekly Load"]
+    ];
+    TEACHERS_DATA.filter(t => getTeacherDirectoryInfo(t).streamKey === 'LANG').forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      langData.push([idx + 1, t.name, t.desig, t.subject, info.classesStr, info.weeklyLoad]);
+    });
+    const wsLang = XLSX.utils.aoa_to_sheet(langData);
+    XLSX.utils.book_append_sheet(wb, wsLang, "Languages");
+
+    // 6. Computer & AI Sheet
+    const csData = [
+      ["COMPUTER SCIENCE & AI INSTRUCTORS"],
+      ["Sr. No.", "Teacher Name", "Designation", "Subject", "Assigned Classes", "Weekly Load"]
+    ];
+    TEACHERS_DATA.filter(t => getTeacherDirectoryInfo(t).streamKey === 'CS_AI').forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      csData.push([idx + 1, t.name, t.desig, t.subject, info.classesStr, info.weeklyLoad]);
+    });
+    const wsCS = XLSX.utils.aoa_to_sheet(csData);
+    XLSX.utils.book_append_sheet(wb, wsCS, "Computer_and_AI");
+
+    // 7. Activities & Support Sheet
+    const actData = [
+      ["PHYSICAL EDUCATION, ARTS, WE, LIBRARY & SUPPORT"],
+      ["Sr. No.", "Teacher Name", "Designation", "Subject", "Assigned Classes", "Weekly Load"]
+    ];
+    TEACHERS_DATA.filter(t => getTeacherDirectoryInfo(t).streamKey === 'ACTIVITY').forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      actData.push([idx + 1, t.name, t.desig, t.subject, info.classesStr, info.weeklyLoad]);
+    });
+    const wsAct = XLSX.utils.aoa_to_sheet(actData);
+    XLSX.utils.book_append_sheet(wb, wsAct, "Activity_and_Support");
+
+    XLSX.writeFile(wb, "KV_Ranikhet_Faculty_and_Designations_List_2026-27.xlsx");
+  };
+
+  // PDF DOWNLOAD FOR TEACHERS DIRECTORY
+  window.downloadTeachersDirectoryPdf = function() {
+    if (typeof html2pdf === 'undefined') {
+      alert('PDF generator library is loading, please try again in a few seconds.');
+      return;
+    }
+
+    const container = document.createElement('div');
+    container.style.padding = '14px 18px';
+    container.style.background = '#ffffff';
+    container.style.color = '#000000';
+    container.style.fontFamily = "'Inter', sans-serif";
+
+    let rowsHtml = '';
+    TEACHERS_DATA.forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      const bg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
+      rowsHtml += `
+        <tr style="background:${bg}; border-bottom:1px solid #cbd5e1;">
+          <td style="padding:4px 6px; text-align:center; font-weight:bold; font-size:0.75rem; border:1px solid #94a3b8;">${idx + 1}</td>
+          <td style="padding:4px 6px; font-weight:bold; font-size:0.78rem; border:1px solid #94a3b8; color:#0f172a;">${t.name}</td>
+          <td style="padding:4px 6px; font-weight:bold; font-size:0.75rem; border:1px solid #94a3b8; color:#0369a1;">${t.desig}</td>
+          <td style="padding:4px 6px; font-size:0.72rem; font-weight:600; border:1px solid #94a3b8;">${info.streamLabelEn}</td>
+          <td style="padding:4px 6px; font-size:0.72rem; border:1px solid #94a3b8;">${t.subject}</td>
+          <td style="padding:4px 6px; font-size:0.70rem; border:1px solid #94a3b8;">${info.classesStr}</td>
+          <td style="padding:4px 6px; text-align:center; font-weight:bold; font-size:0.78rem; border:1px solid #94a3b8; color:#065f46;">${info.weeklyLoad}</td>
+        </tr>
+      `;
+    });
+
+    container.innerHTML = `
+      <div style="text-align:center; border:2px solid #0f172a; border-radius:6px; padding:8px 12px; margin-bottom:10px; background:#f8fafc;">
+        <h2 style="margin:0 0 2px 0; font-size:1.15rem; font-weight:900; color:#064e3b; text-transform:uppercase; letter-spacing:0.5px;">PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2>
+        <h3 style="margin:0 0 2px 0; font-size:0.95rem; font-weight:900; color:#0f172a; border-bottom:1.5px solid #0f172a; padding-bottom:2px;">OFFICIAL FACULTY ROSTER &amp; TEACHER DESIGNATIONS (SESSION 2026-27)</h3>
+        <p style="margin:2px 0 0 0; font-size:0.75rem; font-weight:700; color:#334155;">समस्त शिक्षक पदनाम, संकाय एवं वादन विवरण सूची · Total Faculty: 35</p>
+      </div>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:12px; border:2px solid #0f172a;">
+        <thead>
+          <tr style="background:#0f172a; color:#ffffff;">
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:center; border:1px solid #334155; width:35px;">क्र.सं.</th>
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:left; border:1px solid #334155;">शिक्षक का नाम (Name)</th>
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:left; border:1px solid #334155;">पदनाम (Designation)</th>
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:left; border:1px solid #334155;">संकाय (Department)</th>
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:left; border:1px solid #334155;">विषय (Subject)</th>
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:left; border:1px solid #334155;">कक्षाएं (Classes)</th>
+            <th style="padding:6px 4px; font-size:0.74rem; font-weight:900; text-align:center; border:1px solid #334155; width:50px;">कुल वादन</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+        </tbody>
+      </table>
+
+      <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:flex-end; font-size:0.78rem; font-weight:bold; border-top:2px solid #0f172a; padding-top:8px; color:#0f172a;">
+        <div>
+          <div>Prepared by: Timetable Committee</div>
+          <div style="font-size:0.70rem; color:#475569; font-weight:normal;">Generated on: ${new Date().toLocaleDateString('en-GB')}</div>
+        </div>
+        <div style="text-align:center;">
+          <div>Timetable Incharge</div>
+          <div style="font-size:0.70rem; color:#475569; margin-top:14px;">(Signature)</div>
+        </div>
+        <div style="text-align:right;">
+          <div>Principal Signature</div>
+          <div style="font-size:0.70rem; color:#475569; margin-top:14px;">PM SHRI KV RANIKHET</div>
+        </div>
+      </div>
+    `;
+
+    const opt = {
+      margin: [6, 8, 6, 8],
+      filename: 'KV_Ranikhet_Faculty_and_Designations_List_2026-27.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    html2pdf().set(opt).from(container).save();
+  };
+
+  // DIRECT PRINT FOR TEACHERS DIRECTORY
+  window.printTeachersDirectory = function() {
+    const filter = document.getElementById('tdCategoryFilter')?.value || 'ALL';
+    const q = (document.getElementById('tdSearchInput')?.value || '').trim().toLowerCase();
+
+    const SCIENCE_MATHS = ['kbjoshi', 'pawang', 'sagarb', 'hitendras', 'deveshs', 'hemr', 'smitas', 'karishmac', 'kalpanar'];
+    const HUMANITIES = ['naseem', 'nidhi', 'vipin', 'shikhak', 'rachnav'];
+    const COMMERCE = ['vikasb', 'rachnav'];
+
+    const filtered = TEACHERS_DATA.filter(t => {
+      const info = getTeacherDirectoryInfo(t);
+      let matchCat = false;
+
+      if (filter === 'ALL') matchCat = true;
+      else if (filter === 'SCI_MATH') matchCat = SCIENCE_MATHS.includes(t.id);
+      else if (filter === 'HUMANITIES') matchCat = HUMANITIES.includes(t.id);
+      else if (filter === 'COMMERCE') matchCat = COMMERCE.includes(t.id);
+      else if (filter === 'LANG') matchCat = info.streamKey === 'LANG';
+      else if (filter === 'CS_AI') matchCat = info.streamKey === 'CS_AI';
+      else if (filter === 'ACTIVITY') matchCat = info.streamKey === 'ACTIVITY';
+      else if (filter === 'PGT') matchCat = (t.desig || '').toUpperCase().includes('PGT');
+      else if (filter === 'TGT') matchCat = (t.desig || '').toUpperCase().includes('TGT');
+
+      const searchStr = (t.name + ' ' + t.desig + ' ' + t.subject + ' ' + info.streamLabelEn + ' ' + info.streamLabelHi + ' ' + info.classesStr).toLowerCase();
+      const matchQ = !q || searchStr.includes(q);
+
+      return matchCat && matchQ;
+    });
+
+    let rowsHtml = '';
+    filtered.forEach((t, idx) => {
+      const info = getTeacherDirectoryInfo(t);
+      const bg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
+      rowsHtml += `
+        <tr style="background:${bg}; border-bottom:1px solid #cbd5e1;">
+          <td style="padding:4px 6px; text-align:center; font-weight:bold; font-size:0.75rem; border:1px solid #94a3b8;">${idx + 1}</td>
+          <td style="padding:4px 6px; font-weight:bold; font-size:0.78rem; border:1px solid #94a3b8; color:#0f172a;">${t.name}</td>
+          <td style="padding:4px 6px; font-weight:bold; font-size:0.75rem; border:1px solid #94a3b8; color:#0369a1;">${t.desig}</td>
+          <td style="padding:4px 6px; font-size:0.72rem; font-weight:600; border:1px solid #94a3b8;">${info.streamLabelEn}</td>
+          <td style="padding:4px 6px; font-size:0.72rem; border:1px solid #94a3b8;">${t.subject}</td>
+          <td style="padding:4px 6px; font-size:0.70rem; border:1px solid #94a3b8;">${info.classesStr}</td>
+          <td style="padding:4px 6px; text-align:center; font-weight:bold; font-size:0.78rem; border:1px solid #94a3b8; color:#065f46;">${info.weeklyLoad}</td>
+        </tr>
+      `;
+    });
+
+    const printWindow = window.open('', '_blank');
+    let doc = '<!DOCTYPE html><html><head><title>Teachers & Designations Directory - PM SHRI KV RANIKHET</title>';
+    doc += '<style>@page { size: A4 portrait; margin: 8mm 10mm; } body { font-family: sans-serif; margin: 0; padding: 10px; color: #0f172a; } .header-box { text-align: center; border: 2px solid #0f172a; padding: 10px; margin-bottom: 12px; background: #f8fafc; border-radius: 6px; } .header-box h2 { margin: 0 0 3px; font-size: 1.2rem; color: #064e3b; text-transform: uppercase; } .header-box h3 { margin: 0 0 3px; font-size: 0.95rem; color: #0f172a; } .header-box p { margin: 0; font-size: 0.78rem; font-weight: bold; color: #475569; } table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.78rem; } th { background: #0f172a; color: #fff; border: 1px solid #334155; padding: 6px 4px; text-align: left; font-weight: bold; } th.center { text-align: center; } td { border: 1px solid #94a3b8; padding: 5px 6px; vertical-align: middle; } tr:nth-child(even) { background: #f1f5f9; } .footer-line { margin-top: 20px; display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: bold; border-top: 2px solid #0f172a; padding-top: 8px; }</style></head><body>';
+    doc += '<div class="header-box"><h2>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h2><h3>OFFICIAL FACULTY ROSTER & TEACHER DESIGNATIONS (SESSION 2026-27)</h3><p>समस्त शिक्षक पदनाम, संकाय एवं वादन विवरण सूची</p></div>';
+    doc += '<table><thead><tr><th class="center" style="width:35px;">क्र.सं.</th><th>शिक्षक का नाम (Name)</th><th>पदनाम (Designation)</th><th>संकाय (Department)</th><th>विषय (Subject)</th><th>कक्षाएं (Classes)</th><th class="center" style="width:50px;">कुल वादन</th></tr></thead><tbody>' + rowsHtml + '</tbody></table>';
+    doc += '<div class="footer-line"><span>Prepared by: Timetable Committee</span><span>Timetable Incharge: ______________</span><span>Principal Signature: __________________</span></div>';
+    doc += '<' + 'script>window.onload = function() { window.print(); };<' + '/script></body></html>';
+
+    printWindow.document.write(doc);
+    printWindow.document.close();
+  };
 
   window.renderRecessDuty = function renderRecessDuty() {
       const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
