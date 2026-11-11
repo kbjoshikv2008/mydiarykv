@@ -872,7 +872,7 @@ select option:checked {
 
       const defaultRosters = {
         "7C": ["ABHAY", "ABHINAY", "ANAIKA", "ARYAN", "BHAVIKA", "CHANDNI", "DEEPIKA", "DISHA", "GEETA", "GUNJAN", "HARSHUL", "HIMANSHI", "KAMAL", "KARISHMA", "KARTIK", "KRITIKA GODIYAL", "KRITIKA RAWAT", "LAKSHIT RAWAT", "LAKSHIT SINGH", "MALVIKA", "NAMAN TAMTA", "MAULIK", "MOITRIKA", "MRITYUNJAY", "MUNKASHIF", "NAITIK", "NAMAN SATI", "NISHTHI", "PARIDHI", "PARTH", "PRACHI", "PRASUN DEV", "RUDRA", "SHRAVANI", "TANISHA", "YAMAN", "YASHPAL", "ARPITA", "MAANSHA", "PARTH BISHT"],
-        "11B": ["ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
+        "11B": ["ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
         "12": ["ABHIMANYU SINGH", "ANUJ GOSWAMI", "AYUSH NEGI", "BHUMI SATI", "HARDIK PHULARA", "HARSHIT ARYA", "HARSHITA NEGI", "HITESH UPADHYAY", "KAMAL JOSHI", "KANIKA BISHT", "KARAN", "NITIN BISHT", "PARTH", "PRIYANKA", "RAJ", "RITIKA", "SADHNA", "SAKSHAM NEGI", "SIYA SUYAL", "SOUVIK SAHA", "SPARSH BHATT", "TANMAY ADHIKARI", "PALAK", "NISHANT"]
       };
 
@@ -913,11 +913,22 @@ select option:checked {
             }
 
             if (studentData["11B"]) {
-              studentData["11B"] = studentData["11B"].filter(s => {
-                if (typeof s === "string") return s.toUpperCase() !== "NIHARIKA MOHAN";
-                if (s && s.name) return s.name.toUpperCase() !== "NIHARIKA MOHAN";
-                return true;
-              });
+              let niharika = studentData["11B"].find(s => s && s.name && s.name.toUpperCase() === "NIHARIKA MOHAN");
+              if (!niharika) {
+                studentData["11B"].push({
+                  rollNo: 14,
+                  name: "NIHARIKA MOHAN",
+                  parentMobile: "9410729583",
+                  mobile: "9410729583",
+                  marks: { hy: 60 }
+                });
+              } else {
+                niharika.name = "NIHARIKA MOHAN";
+                niharika.parentMobile = "9410729583";
+                niharika.mobile = "9410729583";
+                if (!niharika.marks) niharika.marks = {};
+                niharika.marks.hy = 60;
+              }
             }
           }
           const savedDates = localStorage.getItem("student_performance_test_dates");
@@ -1003,6 +1014,9 @@ select option:checked {
           return [...studentData[className]].sort((a, b) => a.name.localeCompare(b.name));
         }
         // Fallback to default alphabetical rosters with full contact directory
+        const class11bFallbackContacts = {
+          "NIHARIKA MOHAN": "9410729583"
+        };
         const class12FallbackContacts = {
           "PRIYANKA": "9759421398", "HARSHITA NEGI": "8006819873", "BHUMI SATI": "8630964002",
           "RITIKA": "7248286865", "SIYA SUYAL": "9675585905", "HARSHIT ARYA": "7351161744",
@@ -1014,7 +1028,9 @@ select option:checked {
           "SOUVIK SAHA": "9892570352", "AYUSH NEGI": "9627250240", "PARTH": "9568467573"
         };
         return defaultRosters[className].map((name, idx) => {
-          const pMobile = (className === "12" && class12FallbackContacts[name]) ? class12FallbackContacts[name] : "";
+          let pMobile = "";
+          if (className === "12" && class12FallbackContacts[name]) pMobile = class12FallbackContacts[name];
+          if (className === "11B" && class11bFallbackContacts[name]) pMobile = class11bFallbackContacts[name];
           return {
             rollNo: idx + 1,
             name: name,

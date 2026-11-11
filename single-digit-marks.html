@@ -416,7 +416,7 @@ select option:checked {
     // ── Student Data (mirrors consolidated.html) ──
     const fallbackRosters = {
       "12": ["ABHIMANYU SINGH","ANUJ GOSWAMI","AYUSH NEGI","BHUMI SATI","HARDIK PHULARA","HARSHIT ARYA","HARSHITA NEGI","HITESH UPADHYAY","KAMAL JOSHI","KANIKA BISHT","KARAN","NITIN BISHT","PARTH","PRIYANKA","RAJ","RITIKA","SADHNA","SAKSHAM NEGI","SIYA SUYAL","SOUVIK SAHA","SPARSH BHATT","TANMAY ADHIKARI","PALAK","NISHANT"],
-      "11B": ["ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
+      "11B": ["ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA", "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"],
       "7C": ["ABHAY","ABHINAY","ANAIKA","ARYAN","BHAVIKA","CHANDNI","DEEPIKA","DISHA","GEETA","GUNJAN","HARSHUL","HIMANSHI","KAMAL","KARISHMA","KARTIK","KRITIKA GODIYAL","KRITIKA RAWAT","LAKSHIT RAWAT","LAKSHIT SINGH","MALVIKA","NAMAN TAMTA","MAULIK","MOITRIKA","MRITYUNJAY","MUNKASHIF","NAITIK","NAMAN SATI","NISHTHI","PARIDHI","PARTH","PRACHI","PRASUN DEV","RUDRA","SHRAVANI","TANISHA","YAMAN","YASHPAL","ARPITA","MAANSHA","PARTH BISHT"]
     };
     const fallbackMarks = {
@@ -1040,6 +1040,7 @@ select option:checked {
                     "MANSI": 56,
                     "MANSI BHANDARI": 56,
                     "NEHA NEGI": 22,
+                    "NIHARIKA MOHAN": 60,
                     "PARAS SATI": 63,
                     "PRANAY SATI": 65,
                     "PRAVEEN RAUTELA": 20,
@@ -1457,6 +1458,27 @@ select option:checked {
         const sd = localStorage.getItem("student_performance_data");
         if (sd) studentData = JSON.parse(sd);
       } catch(e) {}
+
+      if (studentData["11B"]) {
+        let niharika = studentData["11B"].find(s => s && s.name && s.name.toUpperCase() === "NIHARIKA MOHAN");
+        if (!niharika) {
+          studentData["11B"].push({
+            rollNo: 14,
+            name: "NIHARIKA MOHAN",
+            parentMobile: "9410729583",
+            mobile: "9410729583",
+            marks: { hy: 60 }
+          });
+        } else {
+          niharika.name = "NIHARIKA MOHAN";
+          niharika.parentMobile = "9410729583";
+          niharika.mobile = "9410729583";
+          if (!niharika.marks) niharika.marks = {};
+          niharika.marks.hy = 60;
+        }
+        studentData["11B"].sort((a, b) => a.name.localeCompare(b.name));
+        studentData["11B"].forEach((s, idx) => { s.rollNo = idx + 1; });
+      }
 
       // Build structured data from fallback if needed
       ["7C","11B","12"].forEach(cls => {

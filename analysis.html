@@ -2037,8 +2037,8 @@ select option:checked {
           <!-- Class Tabs -->
           <div class="class-nav" style="margin-bottom: 15px;">
             <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(40 Students)</span></button>
-            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(18 Students)</span></button>
-            <button class="class-tab" onclick="switchClass('12')"><i class="fas fa-graduation-cap"></i> Class 12 <span style="font-size:0.8em; opacity:0.8;">(23 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(21 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('12')"><i class="fas fa-graduation-cap"></i> Class 12 <span style="font-size:0.8em; opacity:0.8;">(24 Students)</span></button>
           </div>
 
           <!-- Exam Sub Tabs for the Active Class (Class Test/Chapterwise, PT1/PT2, HY, PB, SEE) -->
@@ -3106,6 +3106,7 @@ select option:checked {
                     "MANSI": 56,
                     "MANSI BHANDARI": 56,
                     "NEHA NEGI": 22,
+                    "NIHARIKA MOHAN": 60,
                     "PARAS SATI": 63,
                     "PRANAY SATI": 65,
                     "PRAVEEN RAUTELA": 20,
@@ -3486,7 +3487,7 @@ select option:checked {
       ],
       "11B": [
         "ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA",
-        "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "PARAS SATI",
+        "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI", "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI",
         "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY", "RAJAT ADHIKARI", "SPARSH DUBEY"
       ],
       "12": [
@@ -3547,6 +3548,22 @@ select option:checked {
             name: "PRAVEEN RAUTELA",
             marks: { pt1: 13, ch6: 0 }
           });
+        }
+        let niharika = studentData["11B"].find(s => s && s.name && s.name.toUpperCase() === "NIHARIKA MOHAN");
+        if (!niharika) {
+          studentData["11B"].push({
+            rollNo: 14,
+            name: "NIHARIKA MOHAN",
+            parentMobile: "9410729583",
+            mobile: "9410729583",
+            marks: { hy: 60 }
+          });
+        } else {
+          niharika.name = "NIHARIKA MOHAN";
+          niharika.parentMobile = "9410729583";
+          niharika.mobile = "9410729583";
+          if (!niharika.marks) niharika.marks = {};
+          niharika.marks.hy = 60;
         }
         const praveen = studentData["11B"].find(s => s && s.name && s.name.toUpperCase() === "PRAVEEN RAUTELA");
         if (praveen) {
@@ -3991,6 +4008,7 @@ const excelMarks11BMap = {
       "MANSI": 56,
       "MANSI BHANDARI": 56,
       "NEHA NEGI": 22,
+      "NIHARIKA MOHAN": 60,
       "PARAS SATI": 63,
       "PRANAY SATI": 65,
       "PRAVEEN RAUTELA": 20,
@@ -4194,6 +4212,9 @@ const excelMarks11BMap = {
         });
       }
 
+      try {
+        localStorage.setItem("student_performance_data", JSON.stringify(studentData));
+      } catch(e) {}
       window.studentData = studentData;
       window.testDates = testDates;
     }
@@ -4202,7 +4223,7 @@ function generateInitialData() {
       const c11bNames = [
         "ADITYA NEGI", "ARUN ARYA", "ASHUTOSH", "AYUSH ROY", "DIKSHANT NEGI", "GAURAV KUMAR", "ISHANT MEHRA",
         "JANVI", "KARAN CHANDRA", "KARTIKEY PHARTIYAL", "MANAS BHAGAT", "MANSI BHANDARI",
-        "NEHA NEGI", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY",
+        "NEHA NEGI", "NIHARIKA MOHAN", "PARAS SATI", "PRANAY SATI", "PRAVEEN RAUTELA", "PRIYANSHU KANDPAL", "PRIYANSHU PANDEY",
         "RAJAT ADHIKARI", "SPARSH DUBEY"
       ];
 
