@@ -238,6 +238,438 @@
       color: #94a3b8;
     }
     .cs-stats span strong { color: #c4b5fd; }
+    /* ===== Main PTM Section Navigation Tabs ===== */
+    .ptm-main-tabs-wrap {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 0 0 28px 0;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+    }
+    .ptm-main-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(139, 92, 246, 0.35);
+      background: rgba(139, 92, 246, 0.08);
+      color: #cbd5e1;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      text-decoration: none;
+    }
+    .ptm-main-tab-btn:hover {
+      background: rgba(139, 92, 246, 0.22);
+      border-color: rgba(139, 92, 246, 0.7);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .ptm-main-tab-btn.active {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      border-color: #a78bfa;
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+    }
+    .ptm-tab-badge-new {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+
+    /* ===== Class 11 SEE Sheet Styles ===== */
+    .see-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .see-card-title {
+      font-family: var(--font-head, 'Poppins', sans-serif);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #c4b5fd;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 6px 0;
+    }
+    .see-card-subtitle {
+      color: var(--text-secondary, #cbd5e1);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      max-width: 820px;
+      margin: 0;
+    }
+    .see-action-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .see-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .see-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+    .see-btn-print {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+    }
+    .see-btn-excel {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
+    }
+    .see-btn-reset {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+    }
+    .see-btn-reset:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .see-btn-info {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #93c5fd;
+    }
+
+    /* Criteria Guide Banner */
+    .see-criteria-box {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.6), rgba(15, 23, 42, 0.75));
+      border: 1.5px solid rgba(139, 92, 246, 0.35);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .see-criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .see-rule-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.83rem;
+      line-height: 1.55;
+    }
+    .see-rule-card h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .see-rule-card.theory h4 { color: #c4b5fd; }
+    .see-rule-card.internal h4 { color: #34d399; }
+    .see-rule-card.pass h4 { color: #38bdf8; }
+
+    .see-formula-pill {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 0.82em;
+      margin: 2px 0;
+    }
+
+    /* Stats Ribbon */
+    .see-stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .see-stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .see-stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+    }
+    .see-stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      font-family: var(--font-head, 'Poppins', sans-serif);
+      color: #fff;
+      line-height: 1.1;
+    }
+    .see-stat-lbl {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* Simulator Bar */
+    .see-simulator-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+    }
+    .see-sim-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .see-sim-ctrl label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #a78bfa;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .see-sim-select {
+      padding: 8px 14px;
+      background: #161226 !important;
+      border: 1.5px solid rgba(139, 92, 246, 0.4) !important;
+      border-radius: 8px;
+      color: #fff !important;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+    .see-search-input {
+      padding: 8px 14px;
+      background: rgba(0, 0, 0, 0.4) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 8px;
+      color: #fff !important;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.84rem;
+      outline: none;
+      min-width: 220px;
+    }
+    .see-search-input:focus {
+      border-color: #a78bfa !important;
+      box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+    }
+
+    /* Master Table */
+    .see-table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(5, 5, 12, 0.6);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    }
+    .see-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      min-width: 1420px;
+    }
+    .see-table thead tr.super-header th {
+      padding: 10px 8px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+    }
+    .see-table thead tr.sub-header th {
+      padding: 8px 6px;
+      font-weight: 700;
+      font-size: 0.72rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .th-theory-head {
+      background: linear-gradient(135deg, #1e1b4b, #2e1065) !important;
+      color: #c4b5fd !important;
+    }
+    .th-ia-head {
+      background: linear-gradient(135deg, #064e3b, #0f766e) !important;
+      color: #6ee7b7 !important;
+    }
+    .th-target-head {
+      background: linear-gradient(135deg, #075985, #1e3a8a) !important;
+      color: #7dd3fc !important;
+    }
+    .th-basic-head {
+      background: #111827 !important;
+      color: #94a3b8 !important;
+    }
+
+    .see-table tbody tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.15s;
+    }
+    .see-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.015); }
+    .see-table tbody tr:hover { background: rgba(139, 92, 246, 0.08); }
+    .see-table tbody td {
+      padding: 9px 6px;
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 0.81rem;
+      vertical-align: middle;
+    }
+    .see-table td.col-sno { color: #94a3b8; font-weight: 600; width: 40px; }
+    .see-table td.col-name {
+      text-align: left;
+      padding-left: 14px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      min-width: 170px;
+    }
+    .see-table td.col-pt1 { color: #93c5fd; font-weight: 600; }
+    .see-table td.col-wtg { color: #a5b4fc; font-weight: 600; }
+    .see-table td.col-hy { color: #93c5fd; font-weight: 600; }
+    .see-table td.col-tot-wtg { color: #c084fc; font-weight: 700; background: rgba(139, 92, 246, 0.06); }
+    .see-table td.col-theory-final { font-weight: 800; font-size: 0.86rem; background: rgba(139, 92, 246, 0.1); }
+    .see-table td.col-theory-final.pass { color: #34d399; }
+    .see-table td.col-theory-final.fail { color: #f87171; }
+    .see-table td.col-ia-total { font-weight: 700; background: rgba(16, 185, 129, 0.08); }
+    .see-table td.col-ia-total.pass { color: #34d399; }
+    .see-table td.col-ia-total.fail { color: #f87171; }
+    .see-table td.col-grand-tot { font-weight: 800; font-size: 0.88rem; background: rgba(14, 165, 233, 0.1); }
+    .see-table td.col-grand-tot.pass { color: #38bdf8; }
+    .see-table td.col-grand-tot.fail { color: #f87171; }
+
+    .see-table td.col-deficit {
+      color: #fca5a5;
+      font-weight: 700;
+    }
+    .see-table td.col-see-req {
+      background: rgba(234, 179, 8, 0.08);
+      font-weight: 800;
+    }
+    .see-target-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .see-target-badge.passed {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #34d399;
+    }
+    .see-target-badge.safe {
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+    }
+    .see-target-badge.moderate {
+      background: rgba(251, 191, 36, 0.2);
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      color: #fbbf24;
+    }
+    .see-target-badge.warning {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      color: #fca5a5;
+    }
+
+    /* In-table input boxes */
+    .see-input {
+      width: 54px;
+      padding: 5px 6px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .see-input:focus {
+      border-color: #a78bfa;
+      background: rgba(124, 58, 237, 0.2);
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.3);
+    }
+    .see-input::placeholder {
+      color: #64748b;
+      font-weight: normal;
+    }
+
+    .see-table tfoot td {
+      background: #111827;
+      color: #c4b5fd;
+      font-weight: 800;
+      padding: 10px 6px;
+      border-top: 2px solid rgba(139, 92, 246, 0.4);
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    .see-table tfoot td.label-cell {
+      text-align: left;
+      padding-left: 14px;
+    }
+
 
     /* Print Stylesheet for Parent Letters */
     @media print {
@@ -526,6 +958,229 @@ select option:checked {
 
 
 
+            <!-- ===== PTM Main Navigation Tabs ===== -->
+      <div class="ptm-main-tabs-wrap fade-in-1">
+        <button class="ptm-main-tab-btn active" id="ptmNavTab-see11" onclick="switchPtmSection('see11')">
+          <i class="fas fa-calculator" style="color:#a78bfa;"></i>
+          <span>Class 11 SEE Required Marks Sheet</span>
+          <span class="ptm-tab-badge-new">NEW</span>
+        </button>
+        <button class="ptm-main-tab-btn" id="ptmNavTab-consolidated" onclick="switchPtmSection('consolidated')">
+          <i class="fas fa-table" style="color:#38bdf8;"></i>
+          <span>Consolidated PTM Marks Sheets</span>
+        </button>
+        <button class="ptm-main-tab-btn" id="ptmNavTab-letter" onclick="switchPtmSection('letter')">
+          <i class="fas fa-magic" style="color:#f472b6;"></i>
+          <span>AI Parent Letter Generator</span>
+        </button>
+      </div>
+
+      <!-- ===== Class 11 SEE Required Marks Sheet Section ===== -->
+      <div class="glass-card p-32 mb-48 fade-in-2" id="ptmSection-see11" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(139,92,246,0.3); border-radius: 16px;">
+        
+        <!-- Header & Action Row -->
+        <div class="see-card-header">
+          <div>
+            <h2 class="see-card-title">
+              <i class="fas fa-bullseye" style="color: #a78bfa;"></i> Class 11 — Session Ending Exam (SEE) Required Marks Analyzer
+            </h2>
+            <p class="see-card-subtitle">
+              Official KVS Assessment Matrix: Minimum marks required in Session Ending Exam (SEE) and PT-2 for each student of Class 11 to secure <strong>27/80 in Theory</strong>, <strong>7/20 in Internal Assessment</strong>, and <strong>33/100 aggregate</strong> to pass.
+            </p>
+          </div>
+          <div class="see-action-btns">
+            <button class="see-btn see-btn-print" onclick="printClass11SeeSheet()">
+              <i class="fas fa-print"></i> Print Official Sheet
+            </button>
+            <button class="see-btn see-btn-excel" onclick="downloadClass11SeeCsv()">
+              <i class="fas fa-file-excel"></i> Download Excel (CSV)
+            </button>
+            <button class="see-btn see-btn-reset" onclick="resetClass11SeeDefaults()">
+              <i class="fas fa-undo"></i> Reset Marks
+            </button>
+            <button class="see-btn see-btn-info" onclick="toggleSeeCriteria()">
+              <i class="fas fa-info-circle"></i> Criteria &amp; Rules
+            </button>
+          </div>
+        </div>
+
+        <!-- Official KVS Passing Criteria Banner -->
+        <div class="see-criteria-box" id="seeCriteriaBox">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+            <div style="font-weight:700;font-size:0.95rem;color:#e2d9f3;display:flex;align-items:center;gap:8px;">
+              <i class="fas fa-graduation-cap" style="color:#a78bfa;"></i> KVS Class XI Mathematics Examination Passing &amp; Weightage Scheme
+            </div>
+            <span style="font-size:0.75rem;color:#94a3b8;font-style:italic;">Passing thresholds: Theory &ge; 27/80, IA &ge; 7/20, Combined &ge; 33/100</span>
+          </div>
+
+          <div class="see-criteria-grid">
+            <!-- Theory Rule Card -->
+            <div class="see-rule-card theory">
+              <h4><i class="fas fa-book-open"></i> Theory Component (80 Marks)</h4>
+              <div>• <strong>PT-1:</strong> 40 marks &rarr; weightage <strong>10</strong> <span class="see-formula-pill">(PT1/40 &times; 10)</span></div>
+              <div>• <strong>Half-Yearly:</strong> 80 marks &rarr; weightage <strong>30</strong> <span class="see-formula-pill">(HY/80 &times; 30)</span></div>
+              <div>• <strong>PT-2:</strong> 40 marks &rarr; weightage <strong>10</strong> <span class="see-formula-pill">(PT2/40 &times; 10)</span> <em>(Not conducted yet)</em></div>
+              <div>• <strong>SEE:</strong> 80 marks &rarr; weightage <strong>50</strong> <span class="see-formula-pill">(SEE/80 &times; 50)</span> <em>(Session Ending Exam)</em></div>
+              <div style="margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;color:#c4b5fd;">
+                <strong>Total Weightage:</strong> 100 &rarr; Reduced to <strong>80 marks</strong> (&times; 0.8).<br>
+                <strong>Passing Score:</strong> <span style="color:#34d399;font-weight:700;">27 out of 80 (33%)</span>
+              </div>
+            </div>
+
+            <!-- Internal Assessment Rule Card -->
+            <div class="see-rule-card internal">
+              <h4><i class="fas fa-flask"></i> Internal Assessment (20 Marks)</h4>
+              <div>• <strong>PT Component:</strong> PT-1 &amp; PT-2 combined &amp; reduced to <strong>10 marks</strong> <span class="see-formula-pill">((PT1+PT2)/80 &times; 10)</span></div>
+              <div>• <strong>Lab Manual:</strong> Records of activities = <strong>5 marks</strong></div>
+              <div>• <strong>Activity Exam &amp; Viva:</strong> Activities &amp; viva = <strong>5 marks</strong></div>
+              <div style="margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;color:#6ee7b7;">
+                <strong>Total Internal Assessment:</strong> <strong>20 marks</strong>.<br>
+                <strong>Passing Score:</strong> <span style="color:#34d399;font-weight:700;">7 out of 20 (33%)</span>
+              </div>
+            </div>
+
+            <!-- Passing Rule Card -->
+            <div class="see-rule-card pass">
+              <h4><i class="fas fa-check-circle"></i> Passing &amp; Eligibility Target</h4>
+              <div>• <strong>Separate Passing:</strong> Student <em>must pass separately</em> in Theory (&ge; 27/80) and Internal Assessment (&ge; 7/20).</div>
+              <div>• <strong>Combined Score:</strong> Overall score must be <strong>&ge; 33 out of 100</strong>.</div>
+              <div>• <strong>Calculation of Target:</strong><br>
+                <span class="see-formula-pill">SEE Required = &lceil; 2 &times; (27 &minus; Theory Earned &minus; PT2 &times; 0.2) &rceil;</span>
+              </div>
+              <div style="margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;color:#7dd3fc;">
+                <strong>Interactive Mode:</strong> Type trial marks in table or choose a simulator scenario below!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Ribbon -->
+        <div class="see-stats-ribbon" id="seeStatsRibbon">
+          <div class="see-stat-card">
+            <div class="see-stat-icon" style="background: rgba(139,92,246,0.15); color: #c4b5fd;">
+              <i class="fas fa-users"></i>
+            </div>
+            <div>
+              <div class="see-stat-val" id="statTotalStudents">21</div>
+              <div class="see-stat-lbl">Class Strength</div>
+            </div>
+          </div>
+          <div class="see-stat-card">
+            <div class="see-stat-icon" style="background: rgba(16,185,129,0.15); color: #34d399;">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div>
+              <div class="see-stat-val" id="statAlreadyPassed" style="color:#34d399;">1</div>
+              <div class="see-stat-lbl">Theory Already Qualified</div>
+            </div>
+          </div>
+          <div class="see-stat-card">
+            <div class="see-stat-icon" style="background: rgba(56,189,248,0.15); color: #38bdf8;">
+              <i class="fas fa-check-double"></i>
+            </div>
+            <div>
+              <div class="see-stat-val" id="statSafeTarget" style="color:#38bdf8;">7</div>
+              <div class="see-stat-lbl">Safe (&le; 10 in SEE)</div>
+            </div>
+          </div>
+          <div class="see-stat-card">
+            <div class="see-stat-icon" style="background: rgba(251,191,36,0.15); color: #fbbf24;">
+              <i class="fas fa-hourglass-half"></i>
+            </div>
+            <div>
+              <div class="see-stat-val" id="statModerateTarget" style="color:#fbbf24;">6</div>
+              <div class="see-stat-lbl">Moderate (11-25 in SEE)</div>
+            </div>
+          </div>
+          <div class="see-stat-card">
+            <div class="see-stat-icon" style="background: rgba(239,68,68,0.15); color: #f87171;">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div>
+              <div class="see-stat-val" id="statFocusTarget" style="color:#f87171;">7</div>
+              <div class="see-stat-lbl">Remedial Focus (&gt; 25 in SEE)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator & Filter Toolbar -->
+        <div class="see-simulator-bar">
+          <div class="see-sim-ctrl">
+            <label><i class="fas fa-sliders-h"></i> PT-2 Scenario:</label>
+            <select id="seePt2SimulatorSelect" class="see-sim-select" onchange="simulatePt2Scenario(this.value)">
+              <option value="blank">⚪ Current State (Leave PT-2 &amp; SEE Blank)</option>
+              <option value="pass14">🟢 Passing PT-2 (14/40 — 35% Threshold)</option>
+              <option value="avg20">🟡 Average PT-2 (20/40 — 50%)</option>
+              <option value="good28">🔵 Good PT-2 (28/40 — 70%)</option>
+              <option value="sameAsPt1">🟣 PT-2 Same as Student's PT-1 Score</option>
+            </select>
+          </div>
+
+          <div class="see-sim-ctrl">
+            <label><i class="fas fa-filter"></i> Search:</label>
+            <input type="text" id="seeSearchInput" class="see-search-input" placeholder="Search student name or S.No..." oninput="filterClass11SeeRows()">
+          </div>
+
+          <div style="font-size:0.78rem;color:#94a3b8;">
+            <i class="fas fa-pencil-alt" style="color:#a78bfa;margin-right:4px;"></i> Editable: Type trial marks into PT-2, SEE, Lab Manual, or Viva!
+          </div>
+        </div>
+
+        <!-- Master Table Wrap -->
+        <div class="see-table-wrap">
+          <table class="see-table" id="class11SeeTable">
+            <thead>
+              <tr class="super-header">
+                <th rowspan="2" class="th-basic-head" style="width:40px;">S.No</th>
+                <th rowspan="2" class="th-basic-head" style="min-width:170px;text-align:left;padding-left:14px;">Student Name</th>
+                <th colspan="10" class="th-theory-head"><i class="fas fa-book"></i> THEORY COMPONENT (80 Marks — Passing: 27/80)</th>
+                <th colspan="4" class="th-ia-head"><i class="fas fa-flask"></i> INTERNAL ASSESSMENT (20 Marks — Passing: 7/20)</th>
+                <th colspan="5" class="th-target-head"><i class="fas fa-bullseye"></i> PASSING TARGETS &amp; STATUS (Overall: 33/100)</th>
+              </tr>
+              <tr class="sub-header">
+                <!-- Theory sub-headers -->
+                <th class="th-theory-head" title="Periodic Test 1 (Conducted out of 40)">PT-1<br><span style="opacity:0.75;font-weight:normal;">/40</span></th>
+                <th class="th-theory-head" title="PT-1 reduced to 10 marks weightage">PT-1 Wtg<br><span style="opacity:0.75;font-weight:normal;">/10</span></th>
+                <th class="th-theory-head" title="Half-Yearly Exam (Conducted out of 80)">HY<br><span style="opacity:0.75;font-weight:normal;">/80</span></th>
+                <th class="th-theory-head" title="Half-Yearly reduced to 30 marks weightage">HY Wtg<br><span style="opacity:0.75;font-weight:normal;">/30</span></th>
+                <th class="th-theory-head" title="Periodic Test 2 (Upcoming - editable)">PT-2<br><span style="opacity:0.75;font-weight:normal;">/40</span></th>
+                <th class="th-theory-head" title="PT-2 reduced to 10 marks weightage">PT-2 Wtg<br><span style="opacity:0.75;font-weight:normal;">/10</span></th>
+                <th class="th-theory-head" title="Session Ending Exam (Upcoming - editable)">SEE<br><span style="opacity:0.75;font-weight:normal;">/80</span></th>
+                <th class="th-theory-head" title="SEE reduced to 50 marks weightage">SEE Wtg<br><span style="opacity:0.75;font-weight:normal;">/50</span></th>
+                <th class="th-theory-head" title="Sum of weightages (PT1 10 + HY 30 + PT2 10 + SEE 50)">Total Wtg<br><span style="opacity:0.75;font-weight:normal;">/100</span></th>
+                <th class="th-theory-head" title="Total weightage reduced to 80 marks (Passing: 27)">Theory<br><span style="opacity:0.75;font-weight:normal;">/80 (P:27)</span></th>
+
+                <!-- IA sub-headers -->
+                <th class="th-ia-head" title="Periodic Tests component ((PT1+PT2)/80 * 10)">PT Wtg<br><span style="opacity:0.75;font-weight:normal;">/10</span></th>
+                <th class="th-ia-head" title="Lab Manual records of activities">Lab<br><span style="opacity:0.75;font-weight:normal;">/5</span></th>
+                <th class="th-ia-head" title="Activity Exam & Viva">Viva<br><span style="opacity:0.75;font-weight:normal;">/5</span></th>
+                <th class="th-ia-head" title="Total Internal Assessment (Passing: 7)">Total IA<br><span style="opacity:0.75;font-weight:normal;">/20 (P:7)</span></th>
+
+                <!-- Target & Status sub-headers -->
+                <th class="th-target-head" title="Grand Total (Theory 80 + IA 20)">Grand Total<br><span style="opacity:0.75;font-weight:normal;">/100 (P:33)</span></th>
+                <th class="th-target-head" title="Theory marks already secured from PT1 + HY">Theory Secured<br><span style="opacity:0.75;font-weight:normal;">/32</span></th>
+                <th class="th-target-head" title="Marks still needed in Theory to reach 27 pass mark">Theory Deficit<br><span style="opacity:0.75;font-weight:normal;">to 27</span></th>
+                <th class="th-target-head" title="Minimum marks required in SEE out of 80 to pass Theory" style="background:#0284c7;color:#fff;">SEE Req to Pass<br><span style="opacity:0.9;font-weight:bold;">/80</span></th>
+                <th class="th-target-head" title="Passing eligibility and academic recommendation">Academic Target / Status</th>
+              </tr>
+            </thead>
+            <tbody id="class11SeeTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+            <tfoot id="class11SeeTableFoot">
+              <!-- Rendered dynamically -->
+            </tfoot>
+          </table>
+        </div>
+
+        <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:0.8rem;color:#94a3b8;">
+          <div><i class="fas fa-info-circle" style="color:#a78bfa;margin-right:5px;"></i> Note: PT-2 (out of 40) and SEE (out of 80) are left blank by default. The &ldquo;SEE Req to Pass&rdquo; column dynamically calculates the minimum SEE marks required for each student to secure 27/80 in theory.</div>
+          <div><button class="see-btn see-btn-print" onclick="printClass11SeeSheet()"><i class="fas fa-print"></i> Print Sheet</button></div>
+        </div>
+
+      </div>
+      <!-- ===== End Class 11 SEE Required Marks Sheet Section ===== -->
+
       <!-- ===== Consolidated PTM Sheet Section ===== -->
       <div class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); border-radius: 16px;" id="consolidatedSheetCard">
         <h2 class="class-header-title" style="margin-top:0;">
@@ -539,7 +1194,10 @@ select option:checked {
             <i class="fas fa-graduation-cap"></i> Class 7C
           </button>
           <button class="cs-tab-btn" onclick="csOpenSheet('11B', this)" style="padding:14px 32px;font-size:1rem;">
-            <i class="fas fa-graduation-cap"></i> Class 11B
+            <i class="fas fa-graduation-cap"></i> Class 11B (Consolidated)
+          </button>
+          <button class="cs-tab-btn" onclick="switchPtmSection('see11')" style="padding:14px 32px;font-size:1rem;background:linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.35));border-color:#10b981;color:#6ee7b7;">
+            <i class="fas fa-calculator"></i> Class 11 SEE Target Sheet
           </button>
           <button class="cs-tab-btn" onclick="csOpenSheet('12', this)" style="padding:14px 32px;font-size:1rem;">
             <i class="fas fa-graduation-cap"></i> Class 12
@@ -550,7 +1208,7 @@ select option:checked {
       <!-- ===== End Consolidated PTM Sheet Section ===== -->
 
       <!-- AI Parent Letter Generator Section -->
-      <div class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); position: relative; border-radius: 16px;">
+      <div id="ptmSection-letter" class="glass-card p-32 mb-48 fade-in-2" style="background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); position: relative; border-radius: 16px;">
         <h2 class="class-header-title" style="margin-top:0;"><i class="fas fa-magic"></i> AI Parent Letter Generator</h2>
         <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 0.95em;">Select a student to dynamically generate a personalized math progress report letter for Parent-Teacher consultations.</p>
         
@@ -1680,5 +2338,553 @@ select option:checked {
       window.open('consolidated.html?cls=' + cls, '_blank');
     };
   </script>
+  <!-- ===== Class 11 SEE Target Sheet Script ===== -->
+  <script>
+    // Master Class 11 Dataset
+    const defaultClass11SeeList = [
+      { rollNo: 1, name: "ADITYA NEGI", pt1: 17, hy: 36, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 2, name: "ARUN ARYA", pt1: 39, hy: 66, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 3, name: "ASHUTOSH", pt1: 13, hy: 24, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 4, name: "AYUSH ROY", pt1: 3, hy: 16, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 5, name: "DIKSHANT NEGI", pt1: 31, hy: 59, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 6, name: "GAURAV KUMAR", pt1: 9, hy: 23, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 7, name: "ISHANT MEHRA", pt1: 4, hy: 28, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 8, name: "JANVI", pt1: 32, hy: 40, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 9, name: "KARAN CHANDRA", pt1: 13, hy: 41, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 10, name: "KARTIKEY PHARTIYAL", pt1: 21, hy: 45, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 11, name: "MANAS BHAGAT", pt1: 6, hy: 30, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 12, name: "MANSI BHANDARI", pt1: 20, hy: 56, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 13, name: "NEHA NEGI", pt1: 9, hy: 22, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 14, name: "NIHARIKA MOHAN", pt1: null, hy: 60, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 15, name: "PARAS SATI", pt1: 29, hy: 63, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 16, name: "PRANAY SATI", pt1: 28, hy: 65, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 17, name: "PRAVEEN RAUTELA", pt1: 13, hy: 20, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 18, name: "PRIYANSHU KANDPAL", pt1: 23, hy: 69, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 19, name: "PRIYANSHU PANDEY", pt1: 24, hy: 64, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 20, name: "RAJAT ADHIKARI", pt1: 24, hy: 37, pt2: null, see: null, lab: 5, viva: 5 },
+      { rollNo: 21, name: "SPARSH DUBEY", pt1: 11, hy: 26, pt2: null, see: null, lab: 5, viva: 5 }
+    ];
+
+    let currentClass11SeeList = JSON.parse(JSON.stringify(defaultClass11SeeList));
+
+    // Sync marks from localStorage if present
+    function syncLive11Marks() {
+      try {
+        const sd = localStorage.getItem("student_performance_data");
+        if (sd) {
+          const parsed = JSON.parse(sd);
+          if (parsed["11B"] && Array.isArray(parsed["11B"])) {
+            parsed["11B"].forEach(item => {
+              const matched = currentClass11SeeList.find(s => s.name.toUpperCase().trim() === (item.name || '').toUpperCase().trim());
+              if (matched && item.marks) {
+                if (item.marks.pt1 !== undefined && item.marks.pt1 !== '' && item.marks.pt1 !== 'ab') {
+                  matched.pt1 = Number(item.marks.pt1);
+                }
+                if (item.marks.hy !== undefined && item.marks.hy !== '' && item.marks.hy !== 'ab') {
+                  matched.hy = Number(item.marks.hy);
+                }
+              }
+            });
+          }
+        }
+      } catch(e) {
+        console.warn("Could not sync live 11 marks:", e);
+      }
+    }
+
+    // Switch PTM Top-Level Sections
+    function switchPtmSection(sectionKey) {
+      document.querySelectorAll('.ptm-main-tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('ptmNavTab-' + sectionKey);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const secSee = document.getElementById('ptmSection-see11');
+      const secConsolidated = document.getElementById('consolidatedSheetCard');
+      const secLetter = document.getElementById('ptmSection-letter');
+
+      if (secSee) secSee.style.display = sectionKey === 'see11' ? 'block' : 'none';
+      if (secConsolidated) secConsolidated.style.display = sectionKey === 'consolidated' ? 'block' : 'none';
+      if (secLetter) secLetter.style.display = sectionKey === 'letter' ? 'block' : 'none';
+
+      if (sectionKey === 'see11') {
+        renderClass11SeeTable();
+      }
+    }
+
+    function toggleSeeCriteria() {
+      const box = document.getElementById('seeCriteriaBox');
+      if (!box) return;
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function calculateStudentMetrics(s) {
+      const pt1Val = (s.pt1 !== null && s.pt1 !== undefined && s.pt1 !== '' && !isNaN(s.pt1)) ? Number(s.pt1) : 0;
+      const pt1Wtg = (pt1Val / 40) * 10; // max 10
+
+      const hyVal = (s.hy !== null && s.hy !== undefined && s.hy !== '' && !isNaN(s.hy)) ? Number(s.hy) : 0;
+      const hyWtg = (hyVal / 80) * 30; // max 30
+
+      const pt2HasScore = (s.pt2 !== null && s.pt2 !== undefined && s.pt2 !== '' && !isNaN(s.pt2));
+      const pt2Val = pt2HasScore ? Number(s.pt2) : null;
+      const pt2Wtg = pt2HasScore ? ((pt2Val / 40) * 10) : 0; // max 10
+
+      const seeHasScore = (s.see !== null && s.see !== undefined && s.see !== '' && !isNaN(s.see));
+      const seeVal = seeHasScore ? Number(s.see) : null;
+      const seeWtg = seeHasScore ? ((seeVal / 80) * 50) : 0; // max 50
+
+      // Total theory weightage out of 100
+      const totalTheoryWtg100 = pt1Wtg + hyWtg + pt2Wtg + seeWtg;
+
+      // Final theory marks out of 80 (passing threshold is 27)
+      const finalTheory80 = totalTheoryWtg100 * 0.8;
+
+      // Theory marks already earned so far from PT1 + HY (out of 32 max)
+      const theorySecured = (pt1Wtg * 0.8) + (hyWtg * 0.8);
+      const theoryDeficit = Math.max(0, 27 - theorySecured);
+
+      // SEE required to pass theory (out of 80)
+      // Condition: PT2 * 0.2 + SEE * 0.5 >= theoryDeficit
+      let minSeeReq = 0;
+      if (theoryDeficit <= 0) {
+        minSeeReq = 0;
+      } else {
+        const pt2Credit = pt2HasScore ? (pt2Val * 0.2) : 0;
+        const remainingDeficit = Math.max(0, theoryDeficit - pt2Credit);
+        minSeeReq = Math.min(80, Math.ceil(remainingDeficit / 0.5));
+      }
+
+      // If PT2 was passed with 14 marks (35%), what would SEE requirement be?
+      const seeReqIfPt2_14 = Math.max(0, Math.ceil(Math.max(0, theoryDeficit - (14 * 0.2)) / 0.5));
+
+      // Internal Assessment (out of 20, passing threshold is 7)
+      // PT component: ((PT1 + PT2) / 80) * 10 = (PT1 + PT2) / 8
+      const iaPtWtg = ((pt1Val + (pt2HasScore ? pt2Val : 0)) / 80) * 10;
+      const labVal = (s.lab !== null && s.lab !== undefined && s.lab !== '' && !isNaN(s.lab)) ? Number(s.lab) : 5;
+      const vivaVal = (s.viva !== null && s.viva !== undefined && s.viva !== '' && !isNaN(s.viva)) ? Number(s.viva) : 5;
+      const totalIA20 = Math.min(20, iaPtWtg + labVal + vivaVal);
+
+      // Grand total out of 100
+      const grandTotal100 = finalTheory80 + totalIA20;
+
+      const theoryPass = finalTheory80 >= 27;
+      const iaPass = totalIA20 >= 7;
+      const overallPass = theoryPass && iaPass && grandTotal100 >= 33;
+
+      return {
+        pt1Val, pt1Wtg,
+        hyVal, hyWtg,
+        pt2Val, pt2Wtg, pt2HasScore,
+        seeVal, seeWtg, seeHasScore,
+        totalTheoryWtg100, finalTheory80,
+        theorySecured, theoryDeficit,
+        minSeeReq, seeReqIfPt2_14,
+        iaPtWtg, labVal, vivaVal, totalIA20,
+        grandTotal100, theoryPass, iaPass, overallPass
+      };
+    }
+
+    function renderClass11SeeTable() {
+      const tbody = document.getElementById('class11SeeTableBody');
+      const tfoot = document.getElementById('class11SeeTableFoot');
+      if (!tbody) return;
+
+      const q = (document.getElementById('seeSearchInput') ? document.getElementById('seeSearchInput').value : '').trim().toUpperCase();
+
+      let html = '';
+      let sumPt1 = 0, sumPt1Wtg = 0, sumHy = 0, sumHyWtg = 0;
+      let sumTheorySec = 0, sumDeficit = 0, sumSeeReq = 0;
+      let countQualified = 0, countSafe = 0, countModerate = 0, countFocus = 0;
+
+      currentClass11SeeList.forEach((s) => {
+        const m = calculateStudentMetrics(s);
+
+        sumPt1 += m.pt1Val;
+        sumPt1Wtg += m.pt1Wtg;
+        sumHy += m.hyVal;
+        sumHyWtg += m.hyWtg;
+        sumTheorySec += m.theorySecured;
+        sumDeficit += m.theoryDeficit;
+        sumSeeReq += m.minSeeReq;
+
+        if (m.theoryDeficit <= 0) {
+          countQualified++;
+        } else if (m.minSeeReq <= 10) {
+          countSafe++;
+        } else if (m.minSeeReq <= 25) {
+          countModerate++;
+        } else {
+          countFocus++;
+        }
+
+        const isMatch = !q || s.name.toUpperCase().includes(q) || String(s.rollNo) === q;
+        if (!isMatch) return;
+
+        // Badge styling for SEE requirement
+        let badgeClass = 'warning';
+        let badgeLabel = m.minSeeReq + '/80';
+        let targetText = '';
+
+        if (m.theoryDeficit <= 0) {
+          badgeClass = 'passed';
+          badgeLabel = '0/80 • QUALIFIED';
+          targetText = '<span style="color:#34d399;font-weight:700;"><i class="fas fa-check-circle"></i> Theory Pass Secured (27/80 &check;)</span>';
+        } else if (m.minSeeReq <= 10) {
+          badgeClass = 'safe';
+          targetText = '<span style="color:#38bdf8;font-weight:600;">Safe Target &bull; Needs &le; 10 in SEE</span>';
+        } else if (m.minSeeReq <= 25) {
+          badgeClass = 'moderate';
+          targetText = '<span style="color:#fbbf24;font-weight:600;">Needs ' + m.minSeeReq + ' in SEE <small style="color:#94a3b8;">(or ' + m.seeReqIfPt2_14 + ' if PT2=14)</small></span>';
+        } else {
+          badgeClass = 'warning';
+          targetText = '<span style="color:#f87171;font-weight:700;">Remedial Focus &bull; Needs ' + m.minSeeReq + ' in SEE <small style="color:#fca5a5;">(PT2 &ge; 14 drops it to ' + m.seeReqIfPt2_14 + ')</small></span>';
+        }
+
+        html += '<tr data-roll="' + s.rollNo + '">';
+        html += '<td class="col-sno">' + s.rollNo + '</td>';
+        html += '<td class="col-name">' + s.name + '</td>';
+
+        // Theory columns
+        html += '<td class="col-pt1">' + (s.pt1 !== null ? s.pt1 : '<span style="color:#f87171;font-style:italic;">AB</span>') + '</td>';
+        html += '<td class="col-wtg">' + m.pt1Wtg.toFixed(1) + '</td>';
+        html += '<td class="col-hy">' + (s.hy !== null ? s.hy : '<span style="color:#f87171;font-style:italic;">AB</span>') + '</td>';
+        html += '<td class="col-wtg">' + m.hyWtg.toFixed(1) + '</td>';
+
+        // PT-2 input & weightage
+        html += '<td><input type="number" min="0" max="40" step="1" class="see-input" placeholder="&mdash;" value="' + (s.pt2 !== null ? s.pt2 : '') + '" onchange="onSeeInputChange(' + s.rollNo + ', \'pt2\', this.value)"></td>';
+        html += '<td class="col-wtg">' + (m.pt2HasScore ? m.pt2Wtg.toFixed(1) : '<span style="color:#64748b;">&mdash;</span>') + '</td>';
+
+        // SEE input & weightage
+        html += '<td><input type="number" min="0" max="80" step="1" class="see-input" placeholder="&mdash;" value="' + (s.see !== null ? s.see : '') + '" onchange="onSeeInputChange(' + s.rollNo + ', \'see\', this.value)"></td>';
+        html += '<td class="col-wtg">' + (m.seeHasScore ? m.seeWtg.toFixed(1) : '<span style="color:#64748b;">&mdash;</span>') + '</td>';
+
+        // Total Wtg & Final Theory (80)
+        html += '<td class="col-tot-wtg">' + m.totalTheoryWtg100.toFixed(1) + '</td>';
+        html += '<td class="col-theory-final ' + (m.finalTheory80 >= 27 ? 'pass' : (m.pt2HasScore || m.seeHasScore ? 'fail' : '')) + '">' + m.finalTheory80.toFixed(1) + '</td>';
+
+        // Internal Assessment
+        html += '<td>' + m.iaPtWtg.toFixed(1) + '</td>';
+        html += '<td><input type="number" min="0" max="5" step="0.5" class="see-input" style="width:44px;" value="' + s.lab + '" onchange="onSeeInputChange(' + s.rollNo + ', \'lab\', this.value)"></td>';
+        html += '<td><input type="number" min="0" max="5" step="0.5" class="see-input" style="width:44px;" value="' + s.viva + '" onchange="onSeeInputChange(' + s.rollNo + ', \'viva\', this.value)"></td>';
+        html += '<td class="col-ia-total ' + (m.totalIA20 >= 7 ? 'pass' : 'fail') + '">' + m.totalIA20.toFixed(1) + '</td>';
+
+        // Grand Total & Targets
+        html += '<td class="col-grand-tot ' + (m.grandTotal100 >= 33 ? 'pass' : '') + '">' + m.grandTotal100.toFixed(1) + '</td>';
+        html += '<td><strong style="color:#c4b5fd;">' + m.theorySecured.toFixed(1) + '</strong><span style="opacity:0.6;font-size:0.75em;">/32</span></td>';
+        html += '<td class="col-deficit">' + (m.theoryDeficit > 0 ? m.theoryDeficit.toFixed(1) : '<span style="color:#34d399;">0.0</span>') + '</td>';
+        html += '<td class="col-see-req"><span class="see-target-badge ' + badgeClass + '">' + badgeLabel + '</span></td>';
+        html += '<td style="text-align:left;padding-left:12px;">' + targetText + '</td>';
+
+        html += '</tr>';
+      });
+
+      tbody.innerHTML = html;
+
+      // Update Header Stats
+      const totalCount = currentClass11SeeList.length;
+      if (document.getElementById('statTotalStudents')) document.getElementById('statTotalStudents').textContent = totalCount;
+      if (document.getElementById('statAlreadyPassed')) document.getElementById('statAlreadyPassed').textContent = countQualified;
+      if (document.getElementById('statSafeTarget')) document.getElementById('statSafeTarget').textContent = countSafe;
+      if (document.getElementById('statModerateTarget')) document.getElementById('statModerateTarget').textContent = countModerate;
+      if (document.getElementById('statFocusTarget')) document.getElementById('statFocusTarget').textContent = countFocus;
+
+      // Footer Row
+      if (tfoot && totalCount > 0) {
+        const avgPt1 = (sumPt1 / totalCount).toFixed(1);
+        const avgPt1W = (sumPt1Wtg / totalCount).toFixed(1);
+        const avgHy = (sumHy / totalCount).toFixed(1);
+        const avgHyW = (sumHyWtg / totalCount).toFixed(1);
+        const avgSec = (sumTheorySec / totalCount).toFixed(1);
+        const avgDef = (sumDeficit / totalCount).toFixed(1);
+        const avgSeeReq = (sumSeeReq / totalCount).toFixed(1);
+
+        tfoot.innerHTML = '<tr>' +
+          '<td colspan="2" class="label-cell">Class XI Mathematics Average</td>' +
+          '<td>' + avgPt1 + '</td><td>' + avgPt1W + '</td>' +
+          '<td>' + avgHy + '</td><td>' + avgHyW + '</td>' +
+          '<td>&mdash;</td><td>&mdash;</td>' +
+          '<td>&mdash;</td><td>&mdash;</td>' +
+          '<td>&mdash;</td><td>&mdash;</td>' +
+          '<td>&mdash;</td><td>5.0</td><td>5.0</td>' +
+          '<td>&mdash;</td><td>&mdash;</td>' +
+          '<td>' + avgSec + '</td>' +
+          '<td>' + avgDef + '</td>' +
+          '<td style="color:#38bdf8;font-weight:800;">' + avgSeeReq + '/80</td>' +
+          '<td style="text-align:left;padding-left:12px;color:#cbd5e1;font-weight:600;">Average ' + avgSeeReq + ' marks required in SEE to pass</td>' +
+          '</tr>';
+      }
+    }
+
+    function onSeeInputChange(rollNo, field, val) {
+      const student = currentClass11SeeList.find(s => s.rollNo === Number(rollNo));
+      if (!student) return;
+
+      const trimmed = String(val).trim();
+      student[field] = trimmed === '' ? null : Number(trimmed);
+      renderClass11SeeTable();
+    }
+
+    function simulatePt2Scenario(scenario) {
+      currentClass11SeeList.forEach(s => {
+        if (scenario === 'blank') {
+          s.pt2 = null;
+          s.see = null;
+        } else if (scenario === 'pass14') {
+          s.pt2 = 14;
+        } else if (scenario === 'avg20') {
+          s.pt2 = 20;
+        } else if (scenario === 'good28') {
+          s.pt2 = 28;
+        } else if (scenario === 'sameAsPt1') {
+          s.pt2 = s.pt1 !== null ? s.pt1 : 14;
+        }
+      });
+      renderClass11SeeTable();
+    }
+
+    function filterClass11SeeRows() {
+      renderClass11SeeTable();
+    }
+
+    function resetClass11SeeDefaults() {
+      currentClass11SeeList = JSON.parse(JSON.stringify(defaultClass11SeeList));
+      const simSelect = document.getElementById('seePt2SimulatorSelect');
+      if (simSelect) simSelect.value = 'blank';
+      const searchInput = document.getElementById('seeSearchInput');
+      if (searchInput) searchInput.value = '';
+      renderClass11SeeTable();
+    }
+
+    // Official Print Sheet Function (A4 Landscape)
+    function printClass11SeeSheet() {
+      let iframe = document.getElementById("ptmSeePrintIframe");
+      if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.id = "ptmSeePrintIframe";
+        iframe.style.position = "absolute";
+        iframe.style.width = "0px";
+        iframe.style.height = "0px";
+        iframe.style.border = "none";
+        document.body.appendChild(iframe);
+      }
+
+      let rowsHtml = '';
+      currentClass11SeeList.forEach((s) => {
+        const m = calculateStudentMetrics(s);
+        const pt1Str = s.pt1 !== null ? s.pt1 : 'AB';
+        const hyStr = s.hy !== null ? s.hy : 'AB';
+        const pt2Str = s.pt2 !== null ? s.pt2 : '.....';
+        const seeStr = s.see !== null ? s.see : '.....';
+        const seeReqStr = m.theoryDeficit <= 0 ? '0 (Passed)' : (m.minSeeReq + '/80');
+        const remark = m.theoryDeficit <= 0 
+          ? 'Theory Qualified (Pass >= 27)' 
+          : ('Needs ' + m.minSeeReq + ' in SEE (or ' + m.seeReqIfPt2_14 + ' if PT2=14)');
+
+        rowsHtml += '<tr>' +
+          '<td style="text-align:center;">' + s.rollNo + '</td>' +
+          '<td style="text-align:left;font-weight:bold;white-space:nowrap;">' + s.name + '</td>' +
+          '<td style="text-align:center;">' + pt1Str + '</td>' +
+          '<td style="text-align:center;">' + m.pt1Wtg.toFixed(1) + '</td>' +
+          '<td style="text-align:center;">' + hyStr + '</td>' +
+          '<td style="text-align:center;">' + m.hyWtg.toFixed(1) + '</td>' +
+          '<td style="text-align:center;color:#444;">' + pt2Str + '</td>' +
+          '<td style="text-align:center;">' + (s.pt2 !== null ? m.pt2Wtg.toFixed(1) : '-') + '</td>' +
+          '<td style="text-align:center;color:#444;">' + seeStr + '</td>' +
+          '<td style="text-align:center;">' + (s.see !== null ? m.seeWtg.toFixed(1) : '-') + '</td>' +
+          '<td style="text-align:center;font-weight:bold;">' + m.theorySecured.toFixed(1) + '</td>' +
+          '<td style="text-align:center;font-weight:bold;color:' + (m.theoryDeficit > 0 ? '#b91c1c' : '#047857') + ';">' + (m.theoryDeficit > 0 ? m.theoryDeficit.toFixed(1) : '0.0') + '</td>' +
+          '<td style="text-align:center;font-weight:bold;font-size:10pt;background:#f0f9ff;">' + seeReqStr + '</td>' +
+          '<td style="text-align:center;">' + m.iaPtWtg.toFixed(1) + '</td>' +
+          '<td style="text-align:center;">' + s.lab + '</td>' +
+          '<td style="text-align:center;">' + s.viva + '</td>' +
+          '<td style="text-align:center;font-weight:bold;">' + m.totalIA20.toFixed(1) + '</td>' +
+          '<td style="text-align:left;font-size:8pt;">' + remark + '</td>' +
+          '</tr>';
+      });
+
+      const todayStr = new Date().toLocaleDateString('en-GB');
+
+      let printDoc = '<!DOCTYPE html>\n' +
+'<html lang="en">\n' +
+'<head>\n' +
+'  <meta charset="UTF-8">\n' +
+'  <title>Class 11 SEE Required Marks Sheet – PM SHRI KV Ranikhet</title>\n' +
+'  <style>\n' +
+'    @page { size: A4 landscape; margin: 8mm 10mm 8mm 10mm; }\n' +
+'    * { box-sizing: border-box; margin: 0; padding: 0; }\n' +
+'    body { font-family: Arial, sans-serif; font-size: 8.5pt; color: #111; padding: 0; line-height: 1.35; }\n' +
+'    .header { text-align: center; border-bottom: 2px solid #1e3a5f; padding-bottom: 5px; margin-bottom: 8px; }\n' +
+'    .header h1 { font-size: 13pt; font-weight: 800; color: #1e3a5f; letter-spacing: 0.5px; }\n' +
+'    .header h2 { font-size: 10pt; font-weight: 700; color: #333; margin-top: 2px; }\n' +
+'    .header p { font-size: 8pt; color: #555; margin-top: 2px; }\n' +
+'    .rules-bar { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 8px; font-size: 7.8pt; margin-bottom: 8px; display: flex; justify-content: space-between; }\n' +
+'    table { width: 100%; border-collapse: collapse; font-size: 8pt; }\n' +
+'    th, td { border: 1px solid #333; padding: 4px 5px; }\n' +
+'    thead th { background: #1e3a5f; color: #fff; text-align: center; font-size: 7.8pt; }\n' +
+'    thead tr.sub-head th { background: #e2e8f0; color: #0f172a; font-weight: bold; }\n' +
+'    tbody tr:nth-child(even) { background: #f8fafc; }\n' +
+'    .signatures { margin-top: 18px; display: flex; justify-content: space-between; padding: 0 20px; font-size: 8.5pt; font-weight: bold; }\n' +
+'    .sig-line { width: 220px; border-top: 1px solid #333; margin-top: 36px; text-align: center; padding-top: 4px; }\n' +
+'    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }\n' +
+'  </style>\n' +
+'</head>\n' +
+'<body>\n' +
+'  <div class="header">\n' +
+'    <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>\n' +
+'    <h2>SESSION ENDING EXAMINATION (SEE) PASSING MARKS &amp; WEIGHTAGE ANALYSIS SHEET</h2>\n' +
+'    <p>Class: XI (Science) &bull; Subject: Mathematics (Code: 041) &bull; Session: 2025-26 &bull; Date: ' + todayStr + '</p>\n' +
+'  </div>\n' +
+'  <div class="rules-bar">\n' +
+'    <div><strong>Theory Passing:</strong> 27 / 80 &bull; Weightages: PT1 (10) + HY (30) + PT2 (10) + SEE (50) = 100 &times; 0.8 = 80</div>\n' +
+'    <div><strong>Internal Assessment Passing:</strong> 7 / 20 &bull; (PT1+PT2)/8 + Lab (5) + Viva (5)</div>\n' +
+'    <div><strong>Overall Passing:</strong> &ge; 33 / 100</div>\n' +
+'  </div>\n' +
+'  <table>\n' +
+'    <thead>\n' +
+'      <tr>\n' +
+'        <th rowspan="2" style="width:30px;">S.No</th>\n' +
+'        <th rowspan="2" style="min-width:140px;">Student Name</th>\n' +
+'        <th colspan="4">Conducted Assessments</th>\n' +
+'        <th colspan="4">Upcoming Assessments</th>\n' +
+'        <th colspan="3">Theory Pass Target (27/80)</th>\n' +
+'        <th colspan="4">Internal Assessment (7/20)</th>\n' +
+'        <th rowspan="2">Guidance &amp; Target Remark</th>\n' +
+'      </tr>\n' +
+'      <tr class="sub-head">\n' +
+'        <th>PT1 (40)</th>\n' +
+'        <th>Wtg (10)</th>\n' +
+'        <th>HY (80)</th>\n' +
+'        <th>Wtg (30)</th>\n' +
+'        <th>PT2 (40)</th>\n' +
+'        <th>Wtg (10)</th>\n' +
+'        <th>SEE (80)</th>\n' +
+'        <th>Wtg (50)</th>\n' +
+'        <th>Secured (/32)</th>\n' +
+'        <th>Deficit (to 27)</th>\n' +
+'        <th style="background:#dbeafe;color:#1e40af;">SEE Req (/80)</th>\n' +
+'        <th>PT Wtg (10)</th>\n' +
+'        <th>Lab (5)</th>\n' +
+'        <th>Viva (5)</th>\n' +
+'        <th>IA Total (20)</th>\n' +
+'      </tr>\n' +
+'    </thead>\n' +
+'    <tbody>\n' +
+'      ' + rowsHtml + '\n' +
+'    </tbody>\n' +
+'  </table>\n' +
+'  <div style="font-size:7.5pt;color:#555;margin-top:6px;font-style:italic;">\n' +
+'    * Note: PT-2 and SEE are yet to be conducted. &ldquo;SEE Req (/80)&rdquo; specifies the exact marks needed in SEE assuming 0 in PT-2. Scoring in PT-2 directly lowers the SEE requirement (every 1 mark in PT-2 reduces SEE requirement by 0.4 marks).\n' +
+'  </div>\n' +
+'  <div class="signatures">\n' +
+'    <div class="sig-line">K B Joshi<br><span style="font-size:7.5pt;font-weight:normal;">PGT Mathematics</span></div>\n' +
+'    <div class="sig-line">Examination Incharge<br><span style="font-size:7.5pt;font-weight:normal;">PM SHRI KV Ranikhet</span></div>\n' +
+'    <div class="sig-line">Principal<br><span style="font-size:7.5pt;font-weight:normal;">PM SHRI KV Ranikhet</span></div>\n' +
+'  </div>\n' +
+'</body>\n' +
+'</html>';
+
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(printDoc);
+      doc.close();
+
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }, 200);
+    }
+
+    // Download CSV / Excel Function
+    function downloadClass11SeeCsv() {
+      let csv = '\uFEFF'; // UTF-8 BOM
+      csv += 'PM SHRI KENDRIYA VIDYALAYA RANIKHET\r\n';
+      csv += 'CLASS XI MATHEMATICS - SESSION ENDING EXAM (SEE) REQUIRED MARKS SHEET\r\n';
+      csv += 'Session 2025-26 | Passing Criteria: Theory 27/80, IA 7/20, Combined 33/100\r\n\r\n';
+
+      csv += [
+        'S.No',
+        'Student Name',
+        'PT-1 Marks (40)',
+        'PT-1 Weightage (10)',
+        'Half Yearly Marks (80)',
+        'Half Yearly Weightage (30)',
+        'PT-2 Marks (40)',
+        'PT-2 Weightage (10)',
+        'SEE Marks (80)',
+        'SEE Weightage (50)',
+        'Total Theory Wtg (100)',
+        'Theory Final Marks (80)',
+        'Theory Secured Currently (80)',
+        'Theory Deficit to Pass (80)',
+        'Min SEE Required to Pass (80)',
+        'SEE Required if PT-2 is 14 (80)',
+        'IA PT Component (10)',
+        'Lab Manual (5)',
+        'Activity Exam & Viva (5)',
+        'Total IA (20)',
+        'Grand Total (100)',
+        'Academic Status / Recommendation'
+      ].join(',') + '\r\n';
+
+      currentClass11SeeList.forEach(s => {
+        const m = calculateStudentMetrics(s);
+        const remark = m.theoryDeficit <= 0 
+          ? 'Theory Qualified (Pass >= 27 secured)' 
+          : ('Needs ' + m.minSeeReq + ' in SEE (or ' + m.seeReqIfPt2_14 + ' if PT-2=14)');
+
+        csv += [
+          s.rollNo,
+          '"' + s.name + '"',
+          s.pt1 !== null ? s.pt1 : 'AB',
+          m.pt1Wtg.toFixed(2),
+          s.hy !== null ? s.hy : 'AB',
+          m.hyWtg.toFixed(2),
+          s.pt2 !== null ? s.pt2 : '',
+          s.pt2 !== null ? m.pt2Wtg.toFixed(2) : '',
+          s.see !== null ? s.see : '',
+          s.see !== null ? m.seeWtg.toFixed(2) : '',
+          m.totalTheoryWtg100.toFixed(2),
+          m.finalTheory80.toFixed(2),
+          m.theorySecured.toFixed(2),
+          m.theoryDeficit.toFixed(2),
+          m.minSeeReq,
+          m.seeReqIfPt2_14,
+          m.iaPtWtg.toFixed(2),
+          s.lab,
+          s.viva,
+          m.totalIA20.toFixed(2),
+          m.grandTotal100.toFixed(2),
+          '"' + remark + '"'
+        ].join(',') + '\r\n';
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'Class_11_SEE_Required_Marks_Sheet_2026.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Auto initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      syncLive11Marks();
+      renderClass11SeeTable();
+
+      // Check URL params or hash
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab') || window.location.hash.replace('#', '');
+      if (tabParam === 'consolidated') {
+        switchPtmSection('consolidated');
+      } else if (tabParam === 'letter') {
+        switchPtmSection('letter');
+      } else {
+        // Default to the new requested Class 11 SEE Target Sheet!
+        switchPtmSection('see11');
+      }
+    });
+  </script>
+
 </body>
 </html>
