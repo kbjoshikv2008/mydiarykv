@@ -985,7 +985,7 @@ select option:checked {
               <i class="fas fa-bullseye" style="color: #a78bfa;"></i> Class 11 — Session Ending Exam (SEE) Required Marks Analyzer
             </h2>
             <p class="see-card-subtitle">
-              Official KVS Assessment Matrix: Minimum marks required in Session Ending Exam (SEE) and PT-2 for each student of Class 11 to secure <strong>27/80 in Theory</strong>, <strong>7/20 in Internal Assessment</strong>, and <strong>33/100 aggregate</strong> to pass.
+              Official KVS Assessment Matrix: Minimum marks required in Session Ending Exam (SEE) and PT-2 for each student of Class 11 to secure <strong>27/80 in Theory</strong> (minimum 27 passing in SEE paper), <strong>7/20 in Internal Assessment</strong>, and <strong>33/100 aggregate</strong> to pass.
             </p>
           </div>
           <div class="see-action-btns">
@@ -1010,7 +1010,7 @@ select option:checked {
             <div style="font-weight:700;font-size:0.95rem;color:#e2d9f3;display:flex;align-items:center;gap:8px;">
               <i class="fas fa-graduation-cap" style="color:#a78bfa;"></i> KVS Class XI Mathematics Examination Passing &amp; Weightage Scheme
             </div>
-            <span style="font-size:0.75rem;color:#94a3b8;font-style:italic;">Passing thresholds: Theory &ge; 27/80, IA &ge; 7/20, Combined &ge; 33/100</span>
+            <span style="font-size:0.75rem;color:#94a3b8;font-style:italic;">Passing thresholds: Theory &ge; 27/80 (Paper minimum 27), IA &ge; 7/20, Combined &ge; 33/100</span>
           </div>
 
           <div class="see-criteria-grid">
@@ -1019,8 +1019,8 @@ select option:checked {
               <h4><i class="fas fa-book-open"></i> Theory Component (80 Marks)</h4>
               <div>• <strong>PT-1:</strong> 40 marks &rarr; weightage <strong>10</strong> <span class="see-formula-pill">(PT1/40 &times; 10)</span></div>
               <div>• <strong>Half-Yearly:</strong> 80 marks &rarr; weightage <strong>30</strong> <span class="see-formula-pill">(HY/80 &times; 30)</span></div>
-              <div>• <strong>PT-2:</strong> 40 marks &rarr; weightage <strong>10</strong> <span class="see-formula-pill">(PT2/40 &times; 10)</span> <em>(Not conducted yet)</em></div>
-              <div>• <strong>SEE:</strong> 80 marks &rarr; weightage <strong>50</strong> <span class="see-formula-pill">(SEE/80 &times; 50)</span> <em>(Session Ending Exam)</em></div>
+              <div>• <strong>PT-2:</strong> 40 marks &rarr; weightage <strong>10</strong> <span class="see-formula-pill">(PT2/40 &times; 10)</span> <em>(Not conducted yet &bull; Blank)</em></div>
+              <div>• <strong>SEE:</strong> 80 marks &rarr; weightage <strong>50</strong> <span class="see-formula-pill">(SEE/80 &times; 50)</span> <em>(Session Ending Exam &bull; Blank)</em></div>
               <div style="margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;color:#c4b5fd;">
                 <strong>Total Weightage:</strong> 100 &rarr; Reduced to <strong>80 marks</strong> (&times; 0.8).<br>
                 <strong>Passing Score:</strong> <span style="color:#34d399;font-weight:700;">27 out of 80 (33%)</span>
@@ -1031,8 +1031,8 @@ select option:checked {
             <div class="see-rule-card internal">
               <h4><i class="fas fa-flask"></i> Internal Assessment (20 Marks)</h4>
               <div>• <strong>PT Component:</strong> PT-1 &amp; PT-2 combined &amp; reduced to <strong>10 marks</strong> <span class="see-formula-pill">((PT1+PT2)/80 &times; 10)</span></div>
-              <div>• <strong>Lab Manual:</strong> Records of activities = <strong>5 marks</strong></div>
-              <div>• <strong>Activity Exam &amp; Viva:</strong> Activities &amp; viva = <strong>5 marks</strong></div>
+              <div>• <strong>Lab Manual:</strong> Records of activities = <strong>5 marks</strong> <em>(Not conducted yet &bull; Blank)</em></div>
+              <div>• <strong>Activity Exam &amp; Viva:</strong> Activities &amp; viva = <strong>5 marks</strong> <em>(Not conducted yet &bull; Blank)</em></div>
               <div style="margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;color:#6ee7b7;">
                 <strong>Total Internal Assessment:</strong> <strong>20 marks</strong>.<br>
                 <strong>Passing Score:</strong> <span style="color:#34d399;font-weight:700;">7 out of 20 (33%)</span>
@@ -1042,13 +1042,11 @@ select option:checked {
             <!-- Passing Rule Card -->
             <div class="see-rule-card pass">
               <h4><i class="fas fa-check-circle"></i> Passing &amp; Eligibility Target</h4>
+              <div>• <strong>Mandatory Paper Threshold:</strong> Minimum <strong>27 marks out of 80</strong> is mandatory in the SEE question paper to qualify, even if mathematically requiring less.</div>
               <div>• <strong>Separate Passing:</strong> Student <em>must pass separately</em> in Theory (&ge; 27/80) and Internal Assessment (&ge; 7/20).</div>
               <div>• <strong>Combined Score:</strong> Overall score must be <strong>&ge; 33 out of 100</strong>.</div>
-              <div>• <strong>Calculation of Target:</strong><br>
-                <span class="see-formula-pill">SEE Required = &lceil; 2 &times; (27 &minus; Theory Earned &minus; PT2 &times; 0.2) &rceil;</span>
-              </div>
               <div style="margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;color:#7dd3fc;">
-                <strong>Interactive Mode:</strong> Type trial marks in table or choose a simulator scenario below!
+                <strong>Parent Consultation:</strong> Includes a dedicated Parent's Signature column for the PTM register.
               </div>
             </div>
           </div>
@@ -1079,8 +1077,8 @@ select option:checked {
               <i class="fas fa-check-double"></i>
             </div>
             <div>
-              <div class="see-stat-val" id="statSafeTarget" style="color:#38bdf8;">7</div>
-              <div class="see-stat-lbl">Safe (&le; 10 in SEE)</div>
+              <div class="see-stat-val" id="statSafeTarget" style="color:#38bdf8;">13</div>
+              <div class="see-stat-lbl">Paper Min Req (27 in SEE)</div>
             </div>
           </div>
           <div class="see-stat-card">
@@ -1088,8 +1086,8 @@ select option:checked {
               <i class="fas fa-hourglass-half"></i>
             </div>
             <div>
-              <div class="see-stat-val" id="statModerateTarget" style="color:#fbbf24;">6</div>
-              <div class="see-stat-lbl">Moderate (11-25 in SEE)</div>
+              <div class="see-stat-val" id="statModerateTarget" style="color:#fbbf24;">2</div>
+              <div class="see-stat-lbl">Moderate (28-35 in SEE)</div>
             </div>
           </div>
           <div class="see-stat-card">
@@ -1097,8 +1095,8 @@ select option:checked {
               <i class="fas fa-exclamation-triangle"></i>
             </div>
             <div>
-              <div class="see-stat-val" id="statFocusTarget" style="color:#f87171;">7</div>
-              <div class="see-stat-lbl">Remedial Focus (&gt; 25 in SEE)</div>
+              <div class="see-stat-val" id="statFocusTarget" style="color:#f87171;">6</div>
+              <div class="see-stat-lbl">Remedial Focus (&gt; 35 in SEE)</div>
             </div>
           </div>
         </div>
@@ -1136,6 +1134,7 @@ select option:checked {
                 <th colspan="10" class="th-theory-head"><i class="fas fa-book"></i> THEORY COMPONENT (80 Marks — Passing: 27/80)</th>
                 <th colspan="4" class="th-ia-head"><i class="fas fa-flask"></i> INTERNAL ASSESSMENT (20 Marks — Passing: 7/20)</th>
                 <th colspan="5" class="th-target-head"><i class="fas fa-bullseye"></i> PASSING TARGETS &amp; STATUS (Overall: 33/100)</th>
+                <th rowspan="2" class="th-basic-head" style="width:130px;min-width:130px;">Parent's Sign</th>
               </tr>
               <tr class="sub-header">
                 <!-- Theory sub-headers -->
@@ -1152,15 +1151,15 @@ select option:checked {
 
                 <!-- IA sub-headers -->
                 <th class="th-ia-head" title="Periodic Tests component ((PT1+PT2)/80 * 10)">PT Wtg<br><span style="opacity:0.75;font-weight:normal;">/10</span></th>
-                <th class="th-ia-head" title="Lab Manual records of activities">Lab<br><span style="opacity:0.75;font-weight:normal;">/5</span></th>
-                <th class="th-ia-head" title="Activity Exam & Viva">Viva<br><span style="opacity:0.75;font-weight:normal;">/5</span></th>
+                <th class="th-ia-head" title="Lab Manual records of activities (5 Marks - Blank)">Lab<br><span style="opacity:0.75;font-weight:normal;">/5</span></th>
+                <th class="th-ia-head" title="Activity Exam & Viva (5 Marks - Blank)">Viva<br><span style="opacity:0.75;font-weight:normal;">/5</span></th>
                 <th class="th-ia-head" title="Total Internal Assessment (Passing: 7)">Total IA<br><span style="opacity:0.75;font-weight:normal;">/20 (P:7)</span></th>
 
                 <!-- Target & Status sub-headers -->
                 <th class="th-target-head" title="Grand Total (Theory 80 + IA 20)">Grand Total<br><span style="opacity:0.75;font-weight:normal;">/100 (P:33)</span></th>
                 <th class="th-target-head" title="Theory marks already secured from PT1 + HY">Theory Secured<br><span style="opacity:0.75;font-weight:normal;">/32</span></th>
                 <th class="th-target-head" title="Marks still needed in Theory to reach 27 pass mark">Theory Deficit<br><span style="opacity:0.75;font-weight:normal;">to 27</span></th>
-                <th class="th-target-head" title="Minimum marks required in SEE out of 80 to pass Theory" style="background:#0284c7;color:#fff;">SEE Req to Pass<br><span style="opacity:0.9;font-weight:bold;">/80</span></th>
+                <th class="th-target-head" title="Minimum marks required in SEE out of 80 to pass (Min 27 rule applied)" style="background:#0284c7;color:#fff;">SEE Req to Pass<br><span style="opacity:0.9;font-weight:bold;">/80 (Min 27)</span></th>
                 <th class="th-target-head" title="Passing eligibility and academic recommendation">Academic Target / Status</th>
               </tr>
             </thead>
@@ -1174,7 +1173,7 @@ select option:checked {
         </div>
 
         <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:0.8rem;color:#94a3b8;">
-          <div><i class="fas fa-info-circle" style="color:#a78bfa;margin-right:5px;"></i> Note: PT-2 (out of 40) and SEE (out of 80) are left blank by default. The &ldquo;SEE Req to Pass&rdquo; column dynamically calculates the minimum SEE marks required for each student to secure 27/80 in theory.</div>
+          <div><i class="fas fa-info-circle" style="color:#a78bfa;margin-right:5px;"></i> Note: PT-2 (out of 40), SEE (out of 80), Lab Manual (out of 5), and Activity/Viva (out of 5) are kept blank as they are yet to be conducted. A mandatory minimum of 27 marks is enforced for the SEE paper passing requirement.</div>
           <div><button class="see-btn see-btn-print" onclick="printClass11SeeSheet()"><i class="fas fa-print"></i> Print Sheet</button></div>
         </div>
 
@@ -2340,29 +2339,29 @@ select option:checked {
   </script>
   <!-- ===== Class 11 SEE Target Sheet Script ===== -->
   <script>
-    // Master Class 11 Dataset
+    // Master Class 11 Dataset (PT-2, SEE, Lab Manual, and Viva blank as not conducted yet)
     const defaultClass11SeeList = [
-      { rollNo: 1, name: "ADITYA NEGI", pt1: 17, hy: 36, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 2, name: "ARUN ARYA", pt1: 39, hy: 66, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 3, name: "ASHUTOSH", pt1: 13, hy: 24, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 4, name: "AYUSH ROY", pt1: 3, hy: 16, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 5, name: "DIKSHANT NEGI", pt1: 31, hy: 59, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 6, name: "GAURAV KUMAR", pt1: 9, hy: 23, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 7, name: "ISHANT MEHRA", pt1: 4, hy: 28, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 8, name: "JANVI", pt1: 32, hy: 40, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 9, name: "KARAN CHANDRA", pt1: 13, hy: 41, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 10, name: "KARTIKEY PHARTIYAL", pt1: 21, hy: 45, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 11, name: "MANAS BHAGAT", pt1: 6, hy: 30, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 12, name: "MANSI BHANDARI", pt1: 20, hy: 56, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 13, name: "NEHA NEGI", pt1: 9, hy: 22, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 14, name: "NIHARIKA MOHAN", pt1: null, hy: 60, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 15, name: "PARAS SATI", pt1: 29, hy: 63, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 16, name: "PRANAY SATI", pt1: 28, hy: 65, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 17, name: "PRAVEEN RAUTELA", pt1: 13, hy: 20, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 18, name: "PRIYANSHU KANDPAL", pt1: 23, hy: 69, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 19, name: "PRIYANSHU PANDEY", pt1: 24, hy: 64, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 20, name: "RAJAT ADHIKARI", pt1: 24, hy: 37, pt2: null, see: null, lab: 5, viva: 5 },
-      { rollNo: 21, name: "SPARSH DUBEY", pt1: 11, hy: 26, pt2: null, see: null, lab: 5, viva: 5 }
+      { rollNo: 1, name: "ADITYA NEGI", pt1: 17, hy: 36, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 2, name: "ARUN ARYA", pt1: 39, hy: 66, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 3, name: "ASHUTOSH", pt1: 13, hy: 24, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 4, name: "AYUSH ROY", pt1: 3, hy: 16, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 5, name: "DIKSHANT NEGI", pt1: 31, hy: 59, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 6, name: "GAURAV KUMAR", pt1: 9, hy: 23, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 7, name: "ISHANT MEHRA", pt1: 4, hy: 28, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 8, name: "JANVI", pt1: 32, hy: 40, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 9, name: "KARAN CHANDRA", pt1: 13, hy: 41, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 10, name: "KARTIKEY PHARTIYAL", pt1: 21, hy: 45, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 11, name: "MANAS BHAGAT", pt1: 6, hy: 30, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 12, name: "MANSI BHANDARI", pt1: 20, hy: 56, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 13, name: "NEHA NEGI", pt1: 9, hy: 22, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 14, name: "NIHARIKA MOHAN", pt1: null, hy: 60, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 15, name: "PARAS SATI", pt1: 29, hy: 63, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 16, name: "PRANAY SATI", pt1: 28, hy: 65, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 17, name: "PRAVEEN RAUTELA", pt1: 13, hy: 20, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 18, name: "PRIYANSHU KANDPAL", pt1: 23, hy: 69, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 19, name: "PRIYANSHU PANDEY", pt1: 24, hy: 64, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 20, name: "RAJAT ADHIKARI", pt1: 24, hy: 37, pt2: null, see: null, lab: null, viva: null },
+      { rollNo: 21, name: "SPARSH DUBEY", pt1: 11, hy: 26, pt2: null, see: null, lab: null, viva: null }
     ];
 
     let currentClass11SeeList = JSON.parse(JSON.stringify(defaultClass11SeeList));
@@ -2442,26 +2441,36 @@ select option:checked {
       const theorySecured = (pt1Wtg * 0.8) + (hyWtg * 0.8);
       const theoryDeficit = Math.max(0, 27 - theorySecured);
 
-      // SEE required to pass theory (out of 80)
+      // Raw SEE required to cover theory deficit (out of 80)
       // Condition: PT2 * 0.2 + SEE * 0.5 >= theoryDeficit
-      let minSeeReq = 0;
+      let rawSeeReq = 0;
       if (theoryDeficit <= 0) {
-        minSeeReq = 0;
+        rawSeeReq = 0;
       } else {
         const pt2Credit = pt2HasScore ? (pt2Val * 0.2) : 0;
         const remainingDeficit = Math.max(0, theoryDeficit - pt2Credit);
-        minSeeReq = Math.min(80, Math.ceil(remainingDeficit / 0.5));
+        rawSeeReq = Math.min(80, Math.ceil(remainingDeficit / 0.5));
       }
 
+      // Final SEE Required rule:
+      // Minimum 27 marks is required to pass the SEE question paper independently.
+      // Even if mathematically needing less than 27, keep minimum 27 at final column!
+      const finalSeeReq = Math.max(27, rawSeeReq);
+
       // If PT2 was passed with 14 marks (35%), what would SEE requirement be?
-      const seeReqIfPt2_14 = Math.max(0, Math.ceil(Math.max(0, theoryDeficit - (14 * 0.2)) / 0.5));
+      const rawSeeReqIfPt2_14 = Math.max(0, Math.ceil(Math.max(0, theoryDeficit - (14 * 0.2)) / 0.5));
+      const finalSeeReqIfPt2_14 = Math.max(27, rawSeeReqIfPt2_14);
 
       // Internal Assessment (out of 20, passing threshold is 7)
       // PT component: ((PT1 + PT2) / 80) * 10 = (PT1 + PT2) / 8
       const iaPtWtg = ((pt1Val + (pt2HasScore ? pt2Val : 0)) / 80) * 10;
-      const labVal = (s.lab !== null && s.lab !== undefined && s.lab !== '' && !isNaN(s.lab)) ? Number(s.lab) : 5;
-      const vivaVal = (s.viva !== null && s.viva !== undefined && s.viva !== '' && !isNaN(s.viva)) ? Number(s.viva) : 5;
-      const totalIA20 = Math.min(20, iaPtWtg + labVal + vivaVal);
+      const labHasScore = (s.lab !== null && s.lab !== undefined && s.lab !== '' && !isNaN(s.lab));
+      const labVal = labHasScore ? Number(s.lab) : null;
+
+      const vivaHasScore = (s.viva !== null && s.viva !== undefined && s.viva !== '' && !isNaN(s.viva));
+      const vivaVal = vivaHasScore ? Number(s.viva) : null;
+
+      const totalIA20 = iaPtWtg + (labHasScore ? labVal : 0) + (vivaHasScore ? vivaVal : 0);
 
       // Grand total out of 100
       const grandTotal100 = finalTheory80 + totalIA20;
@@ -2477,8 +2486,9 @@ select option:checked {
         seeVal, seeWtg, seeHasScore,
         totalTheoryWtg100, finalTheory80,
         theorySecured, theoryDeficit,
-        minSeeReq, seeReqIfPt2_14,
-        iaPtWtg, labVal, vivaVal, totalIA20,
+        rawSeeReq, finalSeeReq,
+        rawSeeReqIfPt2_14, finalSeeReqIfPt2_14,
+        iaPtWtg, labVal, labHasScore, vivaVal, vivaHasScore, totalIA20,
         grandTotal100, theoryPass, iaPass, overallPass
       };
     }
@@ -2504,13 +2514,14 @@ select option:checked {
         sumHyWtg += m.hyWtg;
         sumTheorySec += m.theorySecured;
         sumDeficit += m.theoryDeficit;
-        sumSeeReq += m.minSeeReq;
+        sumSeeReq += m.finalSeeReq;
 
         if (m.theoryDeficit <= 0) {
           countQualified++;
-        } else if (m.minSeeReq <= 10) {
+        }
+        if (m.finalSeeReq === 27) {
           countSafe++;
-        } else if (m.minSeeReq <= 25) {
+        } else if (m.finalSeeReq <= 35) {
           countModerate++;
         } else {
           countFocus++;
@@ -2519,24 +2530,27 @@ select option:checked {
         const isMatch = !q || s.name.toUpperCase().includes(q) || String(s.rollNo) === q;
         if (!isMatch) return;
 
-        // Badge styling for SEE requirement
+        // Badge styling for SEE requirement (minimum 27 rule applied)
         let badgeClass = 'warning';
-        let badgeLabel = m.minSeeReq + '/80';
+        let badgeLabel = m.finalSeeReq + '/80';
         let targetText = '';
 
-        if (m.theoryDeficit <= 0) {
-          badgeClass = 'passed';
-          badgeLabel = '0/80 • QUALIFIED';
-          targetText = '<span style="color:#34d399;font-weight:700;"><i class="fas fa-check-circle"></i> Theory Pass Secured (27/80 &check;)</span>';
-        } else if (m.minSeeReq <= 10) {
-          badgeClass = 'safe';
-          targetText = '<span style="color:#38bdf8;font-weight:600;">Safe Target &bull; Needs &le; 10 in SEE</span>';
-        } else if (m.minSeeReq <= 25) {
+        if (m.finalSeeReq === 27) {
+          if (m.theoryDeficit <= 0) {
+            badgeClass = 'passed';
+            badgeLabel = '27/80 • MIN 27';
+            targetText = '<span style="color:#34d399;font-weight:700;"><i class="fas fa-check-circle"></i> Theory Deficit 0 &bull; Min 27/80 in SEE Paper Required</span>';
+          } else {
+            badgeClass = 'safe';
+            badgeLabel = '27/80 • MIN 27';
+            targetText = '<span style="color:#38bdf8;font-weight:600;">Deficit ' + m.theoryDeficit.toFixed(1) + ' &bull; Min 27/80 in SEE Paper Required</span>';
+          }
+        } else if (m.finalSeeReq <= 35) {
           badgeClass = 'moderate';
-          targetText = '<span style="color:#fbbf24;font-weight:600;">Needs ' + m.minSeeReq + ' in SEE <small style="color:#94a3b8;">(or ' + m.seeReqIfPt2_14 + ' if PT2=14)</small></span>';
+          targetText = '<span style="color:#fbbf24;font-weight:600;">Needs ' + m.finalSeeReq + ' in SEE <small style="color:#94a3b8;">(drops to ' + m.finalSeeReqIfPt2_14 + ' if PT2=14)</small></span>';
         } else {
           badgeClass = 'warning';
-          targetText = '<span style="color:#f87171;font-weight:700;">Remedial Focus &bull; Needs ' + m.minSeeReq + ' in SEE <small style="color:#fca5a5;">(PT2 &ge; 14 drops it to ' + m.seeReqIfPt2_14 + ')</small></span>';
+          targetText = '<span style="color:#f87171;font-weight:700;">Remedial Focus &bull; Needs ' + m.finalSeeReq + ' in SEE <small style="color:#fca5a5;">(PT2 &ge; 14 drops it to ' + m.finalSeeReqIfPt2_14 + ')</small></span>';
         }
 
         html += '<tr data-roll="' + s.rollNo + '">';
@@ -2549,11 +2563,11 @@ select option:checked {
         html += '<td class="col-hy">' + (s.hy !== null ? s.hy : '<span style="color:#f87171;font-style:italic;">AB</span>') + '</td>';
         html += '<td class="col-wtg">' + m.hyWtg.toFixed(1) + '</td>';
 
-        // PT-2 input & weightage
+        // PT-2 input & weightage (blank if null)
         html += '<td><input type="number" min="0" max="40" step="1" class="see-input" placeholder="&mdash;" value="' + (s.pt2 !== null ? s.pt2 : '') + '" onchange="onSeeInputChange(' + s.rollNo + ', \'pt2\', this.value)"></td>';
         html += '<td class="col-wtg">' + (m.pt2HasScore ? m.pt2Wtg.toFixed(1) : '<span style="color:#64748b;">&mdash;</span>') + '</td>';
 
-        // SEE input & weightage
+        // SEE input & weightage (blank if null)
         html += '<td><input type="number" min="0" max="80" step="1" class="see-input" placeholder="&mdash;" value="' + (s.see !== null ? s.see : '') + '" onchange="onSeeInputChange(' + s.rollNo + ', \'see\', this.value)"></td>';
         html += '<td class="col-wtg">' + (m.seeHasScore ? m.seeWtg.toFixed(1) : '<span style="color:#64748b;">&mdash;</span>') + '</td>';
 
@@ -2561,11 +2575,11 @@ select option:checked {
         html += '<td class="col-tot-wtg">' + m.totalTheoryWtg100.toFixed(1) + '</td>';
         html += '<td class="col-theory-final ' + (m.finalTheory80 >= 27 ? 'pass' : (m.pt2HasScore || m.seeHasScore ? 'fail' : '')) + '">' + m.finalTheory80.toFixed(1) + '</td>';
 
-        // Internal Assessment
+        // Internal Assessment (Lab & Viva blank if null)
         html += '<td>' + m.iaPtWtg.toFixed(1) + '</td>';
-        html += '<td><input type="number" min="0" max="5" step="0.5" class="see-input" style="width:44px;" value="' + s.lab + '" onchange="onSeeInputChange(' + s.rollNo + ', \'lab\', this.value)"></td>';
-        html += '<td><input type="number" min="0" max="5" step="0.5" class="see-input" style="width:44px;" value="' + s.viva + '" onchange="onSeeInputChange(' + s.rollNo + ', \'viva\', this.value)"></td>';
-        html += '<td class="col-ia-total ' + (m.totalIA20 >= 7 ? 'pass' : 'fail') + '">' + m.totalIA20.toFixed(1) + '</td>';
+        html += '<td><input type="number" min="0" max="5" step="0.5" class="see-input" style="width:46px;" placeholder="&mdash;" value="' + (s.lab !== null ? s.lab : '') + '" onchange="onSeeInputChange(' + s.rollNo + ', \'lab\', this.value)"></td>';
+        html += '<td><input type="number" min="0" max="5" step="0.5" class="see-input" style="width:46px;" placeholder="&mdash;" value="' + (s.viva !== null ? s.viva : '') + '" onchange="onSeeInputChange(' + s.rollNo + ', \'viva\', this.value)"></td>';
+        html += '<td class="col-ia-total ' + (m.totalIA20 >= 7 ? 'pass' : '') + '">' + m.totalIA20.toFixed(1) + '</td>';
 
         // Grand Total & Targets
         html += '<td class="col-grand-tot ' + (m.grandTotal100 >= 33 ? 'pass' : '') + '">' + m.grandTotal100.toFixed(1) + '</td>';
@@ -2573,6 +2587,9 @@ select option:checked {
         html += '<td class="col-deficit">' + (m.theoryDeficit > 0 ? m.theoryDeficit.toFixed(1) : '<span style="color:#34d399;">0.0</span>') + '</td>';
         html += '<td class="col-see-req"><span class="see-target-badge ' + badgeClass + '">' + badgeLabel + '</span></td>';
         html += '<td style="text-align:left;padding-left:12px;">' + targetText + '</td>';
+
+        // Parent's Signature Column (blank for physical sign)
+        html += '<td style="border-left:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.01);min-width:110px;"></td>';
 
         html += '</tr>';
       });
@@ -2604,12 +2621,13 @@ select option:checked {
           '<td>&mdash;</td><td>&mdash;</td>' +
           '<td>&mdash;</td><td>&mdash;</td>' +
           '<td>&mdash;</td><td>&mdash;</td>' +
-          '<td>&mdash;</td><td>5.0</td><td>5.0</td>' +
+          '<td>&mdash;</td><td>&mdash;</td><td>&mdash;</td>' +
           '<td>&mdash;</td><td>&mdash;</td>' +
           '<td>' + avgSec + '</td>' +
           '<td>' + avgDef + '</td>' +
           '<td style="color:#38bdf8;font-weight:800;">' + avgSeeReq + '/80</td>' +
-          '<td style="text-align:left;padding-left:12px;color:#cbd5e1;font-weight:600;">Average ' + avgSeeReq + ' marks required in SEE to pass</td>' +
+          '<td style="text-align:left;padding-left:12px;color:#cbd5e1;font-weight:600;">Min 27 enforced &bull; Average ' + avgSeeReq + ' marks required</td>' +
+          '<td></td>' +
           '</tr>';
       }
     }
@@ -2628,6 +2646,8 @@ select option:checked {
         if (scenario === 'blank') {
           s.pt2 = null;
           s.see = null;
+          s.lab = null;
+          s.viva = null;
         } else if (scenario === 'pass14') {
           s.pt2 = 14;
         } else if (scenario === 'avg20') {
@@ -2674,10 +2694,12 @@ select option:checked {
         const hyStr = s.hy !== null ? s.hy : 'AB';
         const pt2Str = s.pt2 !== null ? s.pt2 : '.....';
         const seeStr = s.see !== null ? s.see : '.....';
-        const seeReqStr = m.theoryDeficit <= 0 ? '0 (Passed)' : (m.minSeeReq + '/80');
-        const remark = m.theoryDeficit <= 0 
-          ? 'Theory Qualified (Pass >= 27)' 
-          : ('Needs ' + m.minSeeReq + ' in SEE (or ' + m.seeReqIfPt2_14 + ' if PT2=14)');
+        const labStr = s.lab !== null ? s.lab : '.....';
+        const vivaStr = s.viva !== null ? s.viva : '.....';
+        const seeReqStr = m.finalSeeReq + '/80';
+        const remark = m.finalSeeReq === 27
+          ? 'Min 27/80 in SEE Paper Required to Pass' 
+          : ('Needs ' + m.finalSeeReq + ' in SEE (drops to ' + m.finalSeeReqIfPt2_14 + ' if PT2=14)');
 
         rowsHtml += '<tr>' +
           '<td style="text-align:center;">' + s.rollNo + '</td>' +
@@ -2686,18 +2708,19 @@ select option:checked {
           '<td style="text-align:center;">' + m.pt1Wtg.toFixed(1) + '</td>' +
           '<td style="text-align:center;">' + hyStr + '</td>' +
           '<td style="text-align:center;">' + m.hyWtg.toFixed(1) + '</td>' +
-          '<td style="text-align:center;color:#444;">' + pt2Str + '</td>' +
+          '<td style="text-align:center;color:#555;">' + pt2Str + '</td>' +
           '<td style="text-align:center;">' + (s.pt2 !== null ? m.pt2Wtg.toFixed(1) : '-') + '</td>' +
-          '<td style="text-align:center;color:#444;">' + seeStr + '</td>' +
+          '<td style="text-align:center;color:#555;">' + seeStr + '</td>' +
           '<td style="text-align:center;">' + (s.see !== null ? m.seeWtg.toFixed(1) : '-') + '</td>' +
           '<td style="text-align:center;font-weight:bold;">' + m.theorySecured.toFixed(1) + '</td>' +
           '<td style="text-align:center;font-weight:bold;color:' + (m.theoryDeficit > 0 ? '#b91c1c' : '#047857') + ';">' + (m.theoryDeficit > 0 ? m.theoryDeficit.toFixed(1) : '0.0') + '</td>' +
-          '<td style="text-align:center;font-weight:bold;font-size:10pt;background:#f0f9ff;">' + seeReqStr + '</td>' +
+          '<td style="text-align:center;font-weight:bold;font-size:9.5pt;background:#f0f9ff;color:#0369a1;">' + seeReqStr + '</td>' +
           '<td style="text-align:center;">' + m.iaPtWtg.toFixed(1) + '</td>' +
-          '<td style="text-align:center;">' + s.lab + '</td>' +
-          '<td style="text-align:center;">' + s.viva + '</td>' +
+          '<td style="text-align:center;color:#555;">' + labStr + '</td>' +
+          '<td style="text-align:center;color:#555;">' + vivaStr + '</td>' +
           '<td style="text-align:center;font-weight:bold;">' + m.totalIA20.toFixed(1) + '</td>' +
-          '<td style="text-align:left;font-size:8pt;">' + remark + '</td>' +
+          '<td style="text-align:left;font-size:7.8pt;">' + remark + '</td>' +
+          '<td style="border:1px solid #333;width:90px;"></td>' +
           '</tr>';
       });
 
@@ -2717,9 +2740,9 @@ select option:checked {
 '    .header h2 { font-size: 10pt; font-weight: 700; color: #333; margin-top: 2px; }\n' +
 '    .header p { font-size: 8pt; color: #555; margin-top: 2px; }\n' +
 '    .rules-bar { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 8px; font-size: 7.8pt; margin-bottom: 8px; display: flex; justify-content: space-between; }\n' +
-'    table { width: 100%; border-collapse: collapse; font-size: 8pt; }\n' +
-'    th, td { border: 1px solid #333; padding: 4px 5px; }\n' +
-'    thead th { background: #1e3a5f; color: #fff; text-align: center; font-size: 7.8pt; }\n' +
+'    table { width: 100%; border-collapse: collapse; font-size: 7.8pt; }\n' +
+'    th, td { border: 1px solid #333; padding: 4px 4px; }\n' +
+'    thead th { background: #1e3a5f; color: #fff; text-align: center; font-size: 7.5pt; }\n' +
 '    thead tr.sub-head th { background: #e2e8f0; color: #0f172a; font-weight: bold; }\n' +
 '    tbody tr:nth-child(even) { background: #f8fafc; }\n' +
 '    .signatures { margin-top: 18px; display: flex; justify-content: space-between; padding: 0 20px; font-size: 8.5pt; font-weight: bold; }\n' +
@@ -2734,20 +2757,21 @@ select option:checked {
 '    <p>Class: XI (Science) &bull; Subject: Mathematics (Code: 041) &bull; Session: 2025-26 &bull; Date: ' + todayStr + '</p>\n' +
 '  </div>\n' +
 '  <div class="rules-bar">\n' +
-'    <div><strong>Theory Passing:</strong> 27 / 80 &bull; Weightages: PT1 (10) + HY (30) + PT2 (10) + SEE (50) = 100 &times; 0.8 = 80</div>\n' +
+'    <div><strong>Theory Passing:</strong> 27 / 80 (Min 27 in SEE paper) &bull; PT1 (10) + HY (30) + PT2 (10) + SEE (50) = 100 &times; 0.8 = 80</div>\n' +
 '    <div><strong>Internal Assessment Passing:</strong> 7 / 20 &bull; (PT1+PT2)/8 + Lab (5) + Viva (5)</div>\n' +
 '    <div><strong>Overall Passing:</strong> &ge; 33 / 100</div>\n' +
 '  </div>\n' +
 '  <table>\n' +
 '    <thead>\n' +
 '      <tr>\n' +
-'        <th rowspan="2" style="width:30px;">S.No</th>\n' +
-'        <th rowspan="2" style="min-width:140px;">Student Name</th>\n' +
+'        <th rowspan="2" style="width:26px;">S.No</th>\n' +
+'        <th rowspan="2" style="min-width:130px;">Student Name</th>\n' +
 '        <th colspan="4">Conducted Assessments</th>\n' +
 '        <th colspan="4">Upcoming Assessments</th>\n' +
 '        <th colspan="3">Theory Pass Target (27/80)</th>\n' +
 '        <th colspan="4">Internal Assessment (7/20)</th>\n' +
 '        <th rowspan="2">Guidance &amp; Target Remark</th>\n' +
+'        <th rowspan="2" style="width:90px;">Parent\'s Sign</th>\n' +
 '      </tr>\n' +
 '      <tr class="sub-head">\n' +
 '        <th>PT1 (40)</th>\n' +
@@ -2760,7 +2784,7 @@ select option:checked {
 '        <th>Wtg (50)</th>\n' +
 '        <th>Secured (/32)</th>\n' +
 '        <th>Deficit (to 27)</th>\n' +
-'        <th style="background:#dbeafe;color:#1e40af;">SEE Req (/80)</th>\n' +
+'        <th style="background:#dbeafe;color:#1e40af;">SEE Req (Min 27)</th>\n' +
 '        <th>PT Wtg (10)</th>\n' +
 '        <th>Lab (5)</th>\n' +
 '        <th>Viva (5)</th>\n' +
@@ -2772,7 +2796,7 @@ select option:checked {
 '    </tbody>\n' +
 '  </table>\n' +
 '  <div style="font-size:7.5pt;color:#555;margin-top:6px;font-style:italic;">\n' +
-'    * Note: PT-2 and SEE are yet to be conducted. &ldquo;SEE Req (/80)&rdquo; specifies the exact marks needed in SEE assuming 0 in PT-2. Scoring in PT-2 directly lowers the SEE requirement (every 1 mark in PT-2 reduces SEE requirement by 0.4 marks).\n' +
+'    * Note: PT-2, SEE, Lab Manual, and Viva are left blank as not conducted yet. &ldquo;SEE Req (Min 27)&rdquo; enforces the mandatory 27/80 passing mark on the SEE question paper.\n' +
 '  </div>\n' +
 '  <div class="signatures">\n' +
 '    <div class="sig-line">K B Joshi<br><span style="font-size:7.5pt;font-weight:normal;">PGT Mathematics</span></div>\n' +
@@ -2798,7 +2822,7 @@ select option:checked {
       let csv = '\uFEFF'; // UTF-8 BOM
       csv += 'PM SHRI KENDRIYA VIDYALAYA RANIKHET\r\n';
       csv += 'CLASS XI MATHEMATICS - SESSION ENDING EXAM (SEE) REQUIRED MARKS SHEET\r\n';
-      csv += 'Session 2025-26 | Passing Criteria: Theory 27/80, IA 7/20, Combined 33/100\r\n\r\n';
+      csv += 'Session 2025-26 | Passing Criteria: Theory 27/80 (Paper Min 27), IA 7/20, Combined 33/100\r\n\r\n';
 
       csv += [
         'S.No',
@@ -2815,21 +2839,22 @@ select option:checked {
         'Theory Final Marks (80)',
         'Theory Secured Currently (80)',
         'Theory Deficit to Pass (80)',
-        'Min SEE Required to Pass (80)',
-        'SEE Required if PT-2 is 14 (80)',
+        'SEE Required to Pass (Min 27)',
+        'SEE Req if PT-2 is 14 (Min 27)',
         'IA PT Component (10)',
         'Lab Manual (5)',
         'Activity Exam & Viva (5)',
         'Total IA (20)',
         'Grand Total (100)',
-        'Academic Status / Recommendation'
+        'Academic Status / Recommendation',
+        'Parent\'s Sign'
       ].join(',') + '\r\n';
 
       currentClass11SeeList.forEach(s => {
         const m = calculateStudentMetrics(s);
-        const remark = m.theoryDeficit <= 0 
-          ? 'Theory Qualified (Pass >= 27 secured)' 
-          : ('Needs ' + m.minSeeReq + ' in SEE (or ' + m.seeReqIfPt2_14 + ' if PT-2=14)');
+        const remark = m.finalSeeReq === 27
+          ? 'Min 27/80 in SEE Paper Required to Pass' 
+          : ('Needs ' + m.finalSeeReq + ' in SEE (or ' + m.finalSeeReqIfPt2_14 + ' if PT-2=14)');
 
         csv += [
           s.rollNo,
@@ -2846,14 +2871,15 @@ select option:checked {
           m.finalTheory80.toFixed(2),
           m.theorySecured.toFixed(2),
           m.theoryDeficit.toFixed(2),
-          m.minSeeReq,
-          m.seeReqIfPt2_14,
+          m.finalSeeReq,
+          m.finalSeeReqIfPt2_14,
           m.iaPtWtg.toFixed(2),
-          s.lab,
-          s.viva,
+          s.lab !== null ? s.lab : '',
+          s.viva !== null ? s.viva : '',
           m.totalIA20.toFixed(2),
           m.grandTotal100.toFixed(2),
-          '"' + remark + '"'
+          '"' + remark + '"',
+          ''
         ].join(',') + '\r\n';
       });
 
