@@ -2034,11 +2034,24 @@ select option:checked {
             </div>
           </div>
           
-          <!-- Class Tabs -->
+          
+          <!-- Primary Module Navigation Sub-Tabs -->
+          <div class="perf-module-nav">
+            <button class="perf-module-btn active" id="btnModuleRegular" onclick="switchPerformanceModule('regular')">
+              <i class="fas fa-chart-line"></i> Regular Tests & Marks Analytics (7C, 11B, 12B)
+            </button>
+            <button class="perf-module-btn" id="btnModulePI" onclick="switchPerformanceModule('pi')">
+              <i class="fas fa-calculator" style="color: #fbbf24;"></i> Class 12 B Board Exam PI Calculator (Maths 041)
+              <span class="badge-pi-pill">CBSE Board PI</span>
+            </button>
+          </div>
+
+          <div id="regularEvaluationView">
+<!-- Class Tabs -->
           <div class="class-nav" style="margin-bottom: 15px;">
             <button class="class-tab active" onclick="switchClass('7C')"><i class="fas fa-graduation-cap"></i> Class 7C <span style="font-size:0.8em; opacity:0.8;">(40 Students)</span></button>
             <button class="class-tab" onclick="switchClass('11B')"><i class="fas fa-graduation-cap"></i> Class 11B <span style="font-size:0.8em; opacity:0.8;">(21 Students)</span></button>
-            <button class="class-tab" onclick="switchClass('12')"><i class="fas fa-graduation-cap"></i> Class 12 <span style="font-size:0.8em; opacity:0.8;">(24 Students)</span></button>
+            <button class="class-tab" onclick="switchClass('12')"><i class="fas fa-graduation-cap"></i> Class 12 B <span style="font-size:0.8em; opacity:0.8;">(24 Students)</span></button>
           </div>
 
           <!-- Exam Sub Tabs for the Active Class (Class Test/Chapterwise, PT1/PT2, HY, PB, SEE) -->
@@ -2053,6 +2066,10 @@ select option:checked {
               <button class="exam-type-btn" id="examTypeBtnHY" onclick="switchExamType('hy')"><i class="fas fa-file-invoice"></i> Half Yearly (HY)</button>
               <button class="exam-type-btn" id="examTypeBtnPB" onclick="switchExamType('pb')"><i class="fas fa-graduation-cap"></i> Pre-Boards (PB of Class 12)</button>
               <button class="exam-type-btn" id="examTypeBtnSEE" onclick="switchExamType('see')"><i class="fas fa-award"></i> Session Ending Exam (SEE)</button>
+              <button class="exam-type-btn" id="examTypeBtnPI" onclick="switchPerformanceModule('pi')" style="border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); color: #fde68a;">
+                <i class="fas fa-calculator" style="color: #fbbf24;"></i> Board Exam PI (Class 12 B - Maths 041)
+              </button>
+
             </div>
           </div>
 
@@ -2166,6 +2183,303 @@ select option:checked {
               </table>
             </div>
           </div>
+
+          </div><!-- End #regularEvaluationView -->
+
+
+          <!-- ══════════════════════════════════════════════════════════════════════════
+               SUB-TAB: CLASS 12 B BOARD EXAMINATION PI (PERFORMANCE INDEX) CALCULATOR
+               ══════════════════════════════════════════════════════════════════════════ -->
+          <div id="piCalculatorView" style="display: none;">
+            
+            <!-- Header Banner -->
+            <div class="pi-header-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+                <div>
+                  <div class="pi-chips-container">
+                    <span class="pi-chip-cbse"><i class="fas fa-award"></i> CBSE AISSCE Board Evaluation</span>
+                    <span class="pi-chip-sub"><i class="fas fa-book"></i> Mathematics (Subject Code: 041)</span>
+                    <span class="pi-chip-class"><i class="fas fa-users"></i> Class: 12 B (24 Students)</span>
+                    <span style="display: inline-flex; align-items: center; gap: 5px; background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.4); color: #6ee7b7; padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800;">
+                      <i class="fas fa-check-circle"></i> PM SHRI KV Ranikhet
+                    </span>
+                  </div>
+                  <h2 style="font-family: var(--font-head); font-size: 1.75rem; color: #ffffff; margin: 0; font-weight: 800;">
+                    <i class="fas fa-calculator" style="color: #fbbf24; margin-right: 8px;"></i>
+                    Performance Index (PI) Calculator — Class 12 B
+                  </h2>
+                  <p style="color: #cbd5e1; font-size: 0.95rem; margin-top: 8px; max-width: 950px; line-height: 1.55;">
+                    Enter board examination grades in the <strong>Mathematics (041)</strong> column below. The number of grades is multiplied by their official CBSE points:
+                    <strong style="color: #c4b5fd;">A1×8, A2×7, B1×6, B2×5, C1×4, C2×3, D1×2, D2×1, and E×0</strong>.
+                    The Performance Index is then computed using the formula:
+                    <span style="color: #34d399; font-weight: 800; background: rgba(16,185,129,0.15); padding: 2px 8px; border-radius: 4px;">PI = (Sum of Grade Points × 100) / (8 × Total Number of Grades)</span>.
+                  </p>
+                </div>
+
+                <!-- Action Toolbar -->
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                  <button class="btn-action" onclick="loadSamplePIGrades()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); border: none; color: #fff; font-weight: 800; padding: 9px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Load authentic sample Class 12 B board examination grades">
+                    <i class="fas fa-magic"></i> Load Sample Data
+                  </button>
+                  <button class="btn-action" onclick="openBulkPIGradeModal()" style="background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); color: #c4b5fd; font-weight: 800; padding: 9px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Paste grades list from Excel or CBSE result portal">
+                    <i class="fas fa-paste"></i> Bulk Paste
+                  </button>
+                  <button class="btn-action" onclick="clearAllPIGrades()" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; font-weight: 800; padding: 9px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Clear all grades to start fresh">
+                    <i class="fas fa-trash-alt"></i> Clear All
+                  </button>
+                  <button class="btn-action excel" onclick="exportPICsv()" style="font-weight: 800; padding: 9px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Download CSV spreadsheet of PI evaluation">
+                    <i class="fas fa-file-excel"></i> Export CSV
+                  </button>
+                  <button class="btn-action" onclick="printOfficialPIReport()" style="background: linear-gradient(135deg, #10b981, #059669); border: none; color: #fff; font-weight: 800; padding: 9px 18px; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35); display: flex; align-items: center; gap: 6px;" title="Generate official CBSE Class 12 B PI Statement on KV Ranikhet letterhead">
+                    <i class="fas fa-print"></i> Print Official PI Statement
+                  </button>
+                  <button class="btn-action" onclick="switchPerformanceModule('regular')" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #cbd5e1; font-weight: 700; padding: 9px 14px; border-radius: 6px; cursor: pointer;" title="Back to continuous test evaluation">
+                    <i class="fas fa-arrow-left"></i> Regular Tests
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Performance Metrics Grid -->
+            <div class="pi-stats-grid">
+              <!-- PI Score -->
+              <div class="pi-stat-card pi-card-highlight">
+                <div class="pi-stat-top">
+                  <span class="pi-stat-label">Performance Index (PI)</span>
+                  <div class="pi-stat-icon-wrap" style="background: rgba(16, 185, 129, 0.2); color: #34d399;"><i class="fas fa-percentage"></i></div>
+                </div>
+                <div class="pi-stat-value" id="piScoreDisplay">0.00%</div>
+                <div class="pi-stat-badge" id="piRatingBadge">Pending Entry</div>
+                <div class="pi-stat-foot" id="piBenchmarkFoot">CBSE / KV Benchmark Target: &gt; 70%</div>
+              </div>
+
+              <!-- Grades Counted -->
+              <div class="pi-stat-card">
+                <div class="pi-stat-top">
+                  <span class="pi-stat-label">Total Grades Entered</span>
+                  <div class="pi-stat-icon-wrap" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;"><i class="fas fa-user-check"></i></div>
+                </div>
+                <div class="pi-stat-value" id="piTotalGradesDisplay">0 / 24</div>
+                <div class="pi-stat-subtext" id="piUngradedNotice" style="color: #fbbf24;">24 students pending grade entry</div>
+              </div>
+
+              <!-- Sum of Grade Points -->
+              <div class="pi-stat-card">
+                <div class="pi-stat-top">
+                  <span class="pi-stat-label">Sum of Grade Points</span>
+                  <div class="pi-stat-icon-wrap" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;"><i class="fas fa-coins"></i></div>
+                </div>
+                <div class="pi-stat-value" id="piSumPointsDisplay">0</div>
+                <div class="pi-stat-subtext" id="piMaxPointsDisplay">Max Possible: 0 pts (8 × N)</div>
+              </div>
+
+              <!-- Quality Performance -->
+              <div class="pi-stat-card">
+                <div class="pi-stat-top">
+                  <span class="pi-stat-label">Quality Grades (A1-B2)</span>
+                  <div class="pi-stat-icon-wrap" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="pi-stat-value" id="piQualityDisplay">0 (0.0%)</div>
+                <div class="pi-stat-subtext">Students in A1, A2, B1, and B2</div>
+              </div>
+
+              <!-- Pass Rate -->
+              <div class="pi-stat-card">
+                <div class="pi-stat-top">
+                  <span class="pi-stat-label">Pass Percentage</span>
+                  <div class="pi-stat-icon-wrap" style="background: rgba(236, 72, 153, 0.2); color: #f472b6;"><i class="fas fa-graduation-cap"></i></div>
+                </div>
+                <div class="pi-stat-value" id="piPassRateDisplay">0.0%</div>
+                <div class="pi-stat-subtext">Grades A1 to D2 (Passed)</div>
+              </div>
+            </div>
+
+            <!-- Live Formula Breakdown Box -->
+            <div class="pi-formula-box">
+              <div class="pi-formula-title">
+                <i class="fas fa-square-root-alt" style="color: #a78bfa;"></i> CBSE Official Formula & Step-by-Step Calculation
+              </div>
+              <div class="pi-formula-display-grid">
+                
+                <!-- Left: Mathematical Equation Display -->
+                <div class="pi-math-equation-wrap">
+                  <div style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Standard CBSE PI Formula:</div>
+                  <div class="pi-equation-row">
+                    <span style="color: #c4b5fd; font-weight: 800;">PI</span>
+                    <span>=</span>
+                    <div class="pi-fraction">
+                      <span class="pi-fraction-top">(Sum of Grade Points × 100)</span>
+                      <span class="pi-fraction-bottom">(8 × Total Number of Grades)</span>
+                    </div>
+                  </div>
+                  
+                  <div style="border-top: 1px solid rgba(139, 92, 246, 0.2); margin: 6px 0;"></div>
+                  
+                  <div style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Applied with Live Class 12 B Values:</div>
+                  <div class="pi-equation-row" style="font-size: 1.25rem;">
+                    <span style="color: #c4b5fd; font-weight: 800;">PI</span>
+                    <span>=</span>
+                    <div class="pi-fraction">
+                      <span class="pi-fraction-top">(<span id="eqSumVal">0</span> × 100)</span>
+                      <span class="pi-fraction-bottom">(8 × <span id="eqCountVal">0</span>)</span>
+                    </div>
+                    <span>=</span>
+                    <div class="pi-fraction">
+                      <span class="pi-fraction-top" id="eqNumeratorVal">0</span>
+                      <span class="pi-fraction-bottom" id="eqDenominatorVal">0</span>
+                    </div>
+                    <span>=</span>
+                    <span id="eqResultVal" style="color: #34d399; font-weight: 900; font-size: 1.45rem; background: rgba(16, 185, 129, 0.15); padding: 4px 14px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">0.00%</span>
+                  </div>
+                </div>
+
+                <!-- Right: Step-by-Step Multiplication Details -->
+                <div style="background: #110e20; border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 8px; padding: 18px 20px;">
+                  <div style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Grade Points Multiplication String:</div>
+                  <div style="font-family: monospace; font-size: 0.88rem; color: #e2e8f0; line-height: 1.6; word-break: break-all; margin-bottom: 12px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px;" id="eqMultiplicationString">
+                    (A1×8) + (A2×7) + (B1×6) + (B2×5) + (C1×4) + (C2×3) + (D1×2) + (D2×1) + (E×0)
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.88rem; color: #cbd5e1;">
+                    <div>• <strong>Numerator:</strong> Sum of Grade Points × 100 = <span id="stepNumeratorStr" style="color:#fbbf24; font-weight:700;">0</span></div>
+                    <div>• <strong>Denominator:</strong> 8 × Total Valid Grades (<span id="stepCountStr">0</span>) = <span id="stepDenominatorStr" style="color:#93c5fd; font-weight:700;">0</span></div>
+                    <div>• <strong>Calculated Index:</strong> <span id="stepFinalCalcStr" style="color:#34d399; font-weight:800;">0.00%</span></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Grade Points Summary Table & Chart Grid -->
+            <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; margin-bottom: 22px;">
+              
+              <!-- Grade Distribution & Multiplication Summary Table -->
+              <div class="pi-summary-table-card" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                  <h3 style="font-family: var(--font-head); font-size: 1.15rem; color: #ffffff; margin: 0;">
+                    <i class="fas fa-table" style="color: #a78bfa; margin-right: 6px;"></i> Grade Multiplication & Points Tally
+                  </h3>
+                  <span style="font-size: 0.8rem; color: #94a3b8;">CBSE 9-Point Grading Scale</span>
+                </div>
+                <div style="overflow-x: auto;">
+                  <table class="pi-summary-table">
+                    <thead>
+                      <tr>
+                        <th style="text-align: center;">Grade</th>
+                        <th style="text-align: center;">Point Weight</th>
+                        <th style="text-align: center;">No. of Grades (Count)</th>
+                        <th>Multiplication</th>
+                        <th style="text-align: center;">Total Points</th>
+                        <th style="text-align: center;">% Share</th>
+                        <th style="width: 140px;">Distribution</th>
+                      </tr>
+                    </thead>
+                    <tbody id="piSummaryTableBody">
+                      <!-- Rendered by JavaScript -->
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td style="text-align: center; font-weight: 800; color: #a78bfa;">TOTAL</td>
+                        <td style="text-align: center;">—</td>
+                        <td style="text-align: center; font-weight: 800; font-size: 1.05rem;" id="piFooterTotalStudents">0</td>
+                        <td style="font-family: monospace; font-size: 0.85rem;" id="piFooterMultiplierTotal">—</td>
+                        <td style="text-align: center; font-weight: 800; font-size: 1.05rem; color: #fbbf24;" id="piFooterTotalPoints">0</td>
+                        <td style="text-align: center; font-weight: 800;">100%</td>
+                        <td style="font-weight: 800; color: #34d399; font-size: 0.95rem;" id="piFooterPI">PI = 0.00%</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Charts Card -->
+              <div class="chart-card" style="margin-bottom: 0; display: flex; flex-direction: column;">
+                <h3 style="font-family: var(--font-head); font-size: 1.15rem; color: #ffffff; margin-bottom: 12px;">
+                  <i class="fas fa-chart-bar" style="color: #38bdf8; margin-right: 6px;"></i> Grade Distribution Chart
+                </h3>
+                <div style="position: relative; height: 320px; width: 100%;">
+                  <canvas id="piGradeDistChart"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Student-Wise Grade Entry Table Card -->
+            <div class="chart-card" style="margin-bottom: 22px;">
+              <div class="table-toolbar" style="display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 16px; flex-wrap: wrap;">
+                <div>
+                  <h3 style="font-family: var(--font-head); font-size: 1.25rem; color: #ffffff; margin: 0 0 4px 0;">
+                    <i class="fas fa-user-edit" style="color: #10b981; margin-right: 6px;"></i> Class 12 B Student-Wise Grade Entry (Mathematics 041)
+                  </h3>
+                  <p style="color: #94a3b8; font-size: 0.88rem; margin: 0;">
+                    Enter the Mathematics board examination grade for each student in the designated column. Points and PI recalculate automatically.
+                  </p>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                  <div class="search-wrapper" style="margin-bottom: 0; min-width: 220px;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="piStudentSearchInput" class="search-input" placeholder="Search student name..." oninput="handlePISearch(this.value)">
+                  </div>
+
+                  <select id="piGradeFilterSelect" onchange="handlePIGradeFilter(this.value)" class="pi-grade-dropdown" style="min-width: 140px;">
+                    <option value="ALL">Filter: All Students</option>
+                    <option value="A1">Grade A1 Only</option>
+                    <option value="A2">Grade A2 Only</option>
+                    <option value="B1">Grade B1 Only</option>
+                    <option value="B2">Grade B2 Only</option>
+                    <option value="C1">Grade C1 Only</option>
+                    <option value="C2">Grade C2 Only</option>
+                    <option value="D1">Grade D1 Only</option>
+                    <option value="D2">Grade D2 Only</option>
+                    <option value="E">Grade E Only</option>
+                    <option value="PENDING">Pending (Ungraded)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Student Grade Entry Table -->
+              <div class="table-container">
+                <table class="marks-table" id="piStudentTable">
+                  <thead>
+                    <tr>
+                      <th style="width: 60px; text-align: center;">S.No</th>
+                      <th style="width: 130px;">CBSE Roll No</th>
+                      <th style="min-width: 180px;">Student Name</th>
+                      <th style="min-width: 280px; background: rgba(124, 58, 237, 0.15); border-left: 2px solid #7c3aed; border-right: 2px solid #7c3aed;">
+                        <i class="fas fa-edit" style="color: #c4b5fd; margin-right: 6px;"></i> Board Examination Grade — Mathematics (041)
+                      </th>
+                      <th style="width: 150px; text-align: center;">Grade Points</th>
+                      <th style="min-width: 180px;">CBSE Performance Level</th>
+                      <th style="width: 80px; text-align: center;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="piStudentTableBody">
+                    <!-- Populated dynamically by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div><!-- End #piCalculatorView -->
+
+          <!-- Modal for Bulk Pasting Grades -->
+          <div id="bulkPIGradesModal" class="analysis-modal" style="display: none;">
+            <div class="analysis-modal-content" style="max-width: 580px;">
+              <span class="close-analysis-modal" onclick="closeBulkPIGradeModal()">&times;</span>
+              <h3 style="font-family: var(--font-head); font-size: 1.35rem; color: #ffffff; margin-bottom: 8px;">
+                <i class="fas fa-paste" style="color: #a78bfa; margin-right: 8px;"></i> Bulk Paste Board Grades
+              </h3>
+              <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 14px;">
+                Paste 24 grades copied from CBSE result portal or an Excel column (e.g. A1, A2, B1...). They will be automatically matched to the 24 Class 12 B students in roll order.
+              </p>
+              <textarea id="bulkPIGradesInput" rows="8" style="width: 100%; background: #120e24; border: 2px solid rgba(139, 92, 246, 0.4); border-radius: 6px; padding: 12px; color: #ffffff; font-family: monospace; font-size: 0.95rem;" placeholder="A1&#10;A2&#10;B1&#10;B2&#10;..."></textarea>
+              <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
+                <button class="btn-action" onclick="closeBulkPIGradeModal()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff;">Cancel</button>
+                <button class="btn-action" onclick="applyBulkPIGrades()" style="background: linear-gradient(135deg, #7c3aed, #4c1d95); border: none; color: #fff; font-weight: 800;">Apply to Class 12 B</button>
+              </div>
+            </div>
+          </div>
+
 
           <!-- Backup Panel -->
           <div class="backup-panel">
@@ -7018,6 +7332,837 @@ function switchClass(className) {
     }
 
     window.printConsolidatedClassReport = printConsolidatedClassReport;
+
+    /* ==========================================================================
+       CLASS 12 B - BOARD EXAMINATION PI (PERFORMANCE INDEX) ENGINE
+       ========================================================================== */
+    const CBSE_GRADE_CONFIG = [
+      { grade: "A1", weight: 8, label: "A1 (Point 8)", level: "Outstanding (Top 1/8th of Passed)", color: "#7c3aed" },
+      { grade: "A2", weight: 7, label: "A2 (Point 7)", level: "Excellent (Next 1/8th)", color: "#4f46e5" },
+      { grade: "B1", weight: 6, label: "B1 (Point 6)", level: "Very Good (Next 1/8th)", color: "#0284c7" },
+      { grade: "B2", weight: 5, label: "B2 (Point 5)", level: "Good (Next 1/8th)", color: "#059669" },
+      { grade: "C1", weight: 4, label: "C1 (Point 4)", level: "Above Average (Next 1/8th)", color: "#d97706" },
+      { grade: "C2", weight: 3, label: "C2 (Point 3)", level: "Average (Next 1/8th)", color: "#ea580c" },
+      { grade: "D1", weight: 2, label: "D1 (Point 2)", level: "Below Average (Next 1/8th)", color: "#e11d48" },
+      { grade: "D2", weight: 1, label: "D2 (Point 1)", level: "Marginal Pass (Next 1/8th)", color: "#dc2626" },
+      { grade: "E",  weight: 0, label: "E (Point 0)",  level: "Essential Repeat (Failed)", color: "#475569" }
+    ];
+
+    const GRADE_WEIGHT_MAP = {
+      "A1": 8, "A2": 7, "B1": 6, "B2": 5, "C1": 4, "C2": 3, "D1": 2, "D2": 1, "E": 0
+    };
+
+    const DEFAULT_C12B_STUDENTS = [
+      { rollNo: 1, boardRoll: "12614501", name: "ABHIMANYU SINGH" },
+      { rollNo: 2, boardRoll: "12614502", name: "ANUJ GOSWAMI" },
+      { rollNo: 3, boardRoll: "12614503", name: "AYUSH NEGI" },
+      { rollNo: 4, boardRoll: "12614504", name: "BHUMI SATI" },
+      { rollNo: 5, boardRoll: "12614505", name: "HARDIK PHULARA" },
+      { rollNo: 6, boardRoll: "12614506", name: "HARSHIT ARYA" },
+      { rollNo: 7, boardRoll: "12614507", name: "HARSHITA NEGI" },
+      { rollNo: 8, boardRoll: "12614508", name: "HITESH UPADHYAY" },
+      { rollNo: 9, boardRoll: "12614509", name: "KAMAL JOSHI" },
+      { rollNo: 10, boardRoll: "12614510", name: "KANIKA BISHT" },
+      { rollNo: 11, boardRoll: "12614511", name: "KARAN" },
+      { rollNo: 12, boardRoll: "12614512", name: "NITIN BISHT" },
+      { rollNo: 13, boardRoll: "12614513", name: "PARTH" },
+      { rollNo: 14, boardRoll: "12614514", name: "PRIYANKA" },
+      { rollNo: 15, boardRoll: "12614515", name: "RAJ" },
+      { rollNo: 16, boardRoll: "12614516", name: "RITIKA" },
+      { rollNo: 17, boardRoll: "12614517", name: "SADHNA" },
+      { rollNo: 18, boardRoll: "12614518", name: "SAKSHAM NEGI" },
+      { rollNo: 19, boardRoll: "12614519", name: "SIYA SUYAL" },
+      { rollNo: 20, boardRoll: "12614520", name: "SOUVIK SAHA" },
+      { rollNo: 21, boardRoll: "12614521", name: "SPARSH BHATT" },
+      { rollNo: 22, boardRoll: "12614522", name: "TANMAY ADHIKARI" },
+      { rollNo: 23, boardRoll: "12614523", name: "PALAK" },
+      { rollNo: 24, boardRoll: "12614524", name: "NISHANT" }
+    ];
+
+    let piStudentsData = [];
+    let piGradeDistChartInstance = null;
+    let piSearchTerm = "";
+    let piFilterGrade = "ALL";
+
+    function initPISystem() {
+      const saved = localStorage.getItem("kv_class12b_board_math_pi_data");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length === DEFAULT_C12B_STUDENTS.length) {
+            piStudentsData = parsed;
+          } else {
+            piStudentsData = DEFAULT_C12B_STUDENTS.map(s => ({ ...s, grade: "" }));
+          }
+        } catch(e) {
+          piStudentsData = DEFAULT_C12B_STUDENTS.map(s => ({ ...s, grade: "" }));
+        }
+      } else {
+        // Pre-load default sample data so user sees the calculated PI immediately
+        loadSamplePIGrades(false);
+      }
+    }
+
+    function savePIData() {
+      localStorage.setItem("kv_class12b_board_math_pi_data", JSON.stringify(piStudentsData));
+      const ind = document.getElementById("saveIndicator");
+      if (ind) {
+        ind.style.display = "block";
+        ind.innerHTML = '<i class="fas fa-check-circle" style="color:#10b981;"></i> PI Data Saved to Browser';
+        setTimeout(() => {
+          ind.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Auto-saved to local browser storage';
+        }, 2200);
+      }
+    }
+
+    function switchPerformanceModule(module, updateHash = true) {
+      const regView = document.getElementById("regularEvaluationView");
+      const piView = document.getElementById("piCalculatorView");
+      const btnReg = document.getElementById("btnModuleRegular");
+      const btnPI = document.getElementById("btnModulePI");
+      const examTypeBtnPI = document.getElementById("examTypeBtnPI");
+
+      if (module === "pi") {
+        if (regView) regView.style.display = "none";
+        if (piView) piView.style.display = "block";
+        if (btnReg) btnReg.classList.remove("active");
+        if (btnPI) btnPI.classList.add("active");
+        if (examTypeBtnPI) examTypeBtnPI.classList.add("active");
+
+        if (activeClass !== "12") {
+          activeClass = "12";
+          document.querySelectorAll(".class-tab").forEach(tab => {
+            if (tab.textContent.includes("12")) tab.classList.add("active");
+            else tab.classList.remove("active");
+          });
+          updateExamTypeButtonsVisibility();
+        }
+
+        renderPICalculator();
+        if (updateHash) window.location.hash = "pi";
+      } else {
+        if (regView) regView.style.display = "block";
+        if (piView) piView.style.display = "none";
+        if (btnReg) btnReg.classList.add("active");
+        if (btnPI) btnPI.classList.remove("active");
+        if (examTypeBtnPI) examTypeBtnPI.classList.remove("active");
+
+        if (window.location.hash === "#pi") {
+          history.replaceState(null, null, ' ');
+        }
+      }
+    }
+
+    function calculatePIStats() {
+      const counts = { "A1": 0, "A2": 0, "B1": 0, "B2": 0, "C1": 0, "C2": 0, "D1": 0, "D2": 0, "E": 0 };
+      let totalValidGrades = 0;
+      let sumGradePoints = 0;
+      let qualityCount = 0;
+      let passCount = 0;
+
+      piStudentsData.forEach(s => {
+        const g = (s.grade || "").trim().toUpperCase();
+        if (GRADE_WEIGHT_MAP[g] !== undefined) {
+          counts[g]++;
+          totalValidGrades++;
+          const weight = GRADE_WEIGHT_MAP[g];
+          sumGradePoints += weight;
+
+          if (["A1", "A2", "B1", "B2"].includes(g)) qualityCount++;
+          if (["A1", "A2", "B1", "B2", "C1", "C2", "D1", "D2"].includes(g)) passCount++;
+        }
+      });
+
+      // FORMULA: PI = (sum of grade points * 100) / (8 * total number of grades)
+      let piScore = 0;
+      const denominator = 8 * totalValidGrades;
+      if (denominator > 0) {
+        piScore = (sumGradePoints * 100) / denominator;
+      }
+
+      return {
+        counts,
+        totalValidGrades,
+        sumGradePoints,
+        denominator,
+        piScore,
+        qualityCount,
+        passCount
+      };
+    }
+
+    function renderPICalculator() {
+      if (!piStudentsData || piStudentsData.length === 0) {
+        initPISystem();
+      }
+
+      const stats = calculatePIStats();
+      const piRounded = stats.piScore.toFixed(2);
+
+      // 1. Update Metrics Cards
+      const piScoreEl = document.getElementById("piScoreDisplay");
+      if (piScoreEl) piScoreEl.textContent = piRounded + "%";
+
+      const piRatingEl = document.getElementById("piRatingBadge");
+      if (piRatingEl) {
+        if (stats.totalValidGrades === 0) {
+          piRatingEl.textContent = "Pending Entry";
+          piRatingEl.style.background = "rgba(148, 163, 184, 0.2)";
+          piRatingEl.style.color = "#cbd5e1";
+        } else if (stats.piScore >= 75) {
+          piRatingEl.textContent = "Outstanding (PI ≥ 75%)";
+          piRatingEl.style.background = "rgba(16, 185, 129, 0.2)";
+          piRatingEl.style.color = "#6ee7b7";
+        } else if (stats.piScore >= 60) {
+          piRatingEl.textContent = "Very Good (60% - 74.9%)";
+          piRatingEl.style.background = "rgba(99, 102, 241, 0.2)";
+          piRatingEl.style.color = "#a5b4fc";
+        } else if (stats.piScore >= 50) {
+          piRatingEl.textContent = "Good / Satisfactory (50% - 59.9%)";
+          piRatingEl.style.background = "rgba(245, 158, 11, 0.2)";
+          piRatingEl.style.color = "#fde68a";
+        } else {
+          piRatingEl.textContent = "Needs Attention (< 50%)";
+          piRatingEl.style.background = "rgba(239, 68, 68, 0.2)";
+          piRatingEl.style.color = "#fca5a5";
+        }
+      }
+
+      const totalGradesEl = document.getElementById("piTotalGradesDisplay");
+      if (totalGradesEl) totalGradesEl.textContent = `${stats.totalValidGrades} / ${piStudentsData.length}`;
+
+      const ungradedNoticeEl = document.getElementById("piUngradedNotice");
+      if (ungradedNoticeEl) {
+        const pending = piStudentsData.length - stats.totalValidGrades;
+        if (pending > 0) {
+          ungradedNoticeEl.textContent = `${pending} student${pending > 1 ? 's' : ''} pending grade entry`;
+          ungradedNoticeEl.style.color = "#fbbf24";
+        } else {
+          ungradedNoticeEl.textContent = "All 24 students evaluated (Complete)";
+          ungradedNoticeEl.style.color = "#34d399";
+        }
+      }
+
+      const sumPointsEl = document.getElementById("piSumPointsDisplay");
+      if (sumPointsEl) sumPointsEl.textContent = stats.sumGradePoints;
+
+      const maxPointsEl = document.getElementById("piMaxPointsDisplay");
+      if (maxPointsEl) maxPointsEl.textContent = `Max Possible: ${stats.denominator} pts (8 × ${stats.totalValidGrades})`;
+
+      const qualityEl = document.getElementById("piQualityDisplay");
+      if (qualityEl) {
+        const qPct = stats.totalValidGrades > 0 ? ((stats.qualityCount / stats.totalValidGrades) * 100).toFixed(1) : "0.0";
+        qualityEl.textContent = `${stats.qualityCount} (${qPct}%)`;
+      }
+
+      const passRateEl = document.getElementById("piPassRateDisplay");
+      if (passRateEl) {
+        const pPct = stats.totalValidGrades > 0 ? ((stats.passCount / stats.totalValidGrades) * 100).toFixed(1) : "0.0";
+        passRateEl.textContent = pPct + "%";
+      }
+
+      // 2. Update Live Mathematical Formula Breakdown
+      const eqSumValEl = document.getElementById("eqSumVal");
+      const eqCountValEl = document.getElementById("eqCountVal");
+      const eqNumValEl = document.getElementById("eqNumeratorVal");
+      const eqDenValEl = document.getElementById("eqDenominatorVal");
+      const eqResultValEl = document.getElementById("eqResultVal");
+
+      if (eqSumValEl) eqSumValEl.textContent = stats.sumGradePoints;
+      if (eqCountValEl) eqCountValEl.textContent = stats.totalValidGrades;
+      if (eqNumValEl) eqNumValEl.textContent = stats.sumGradePoints * 100;
+      if (eqDenValEl) eqDenValEl.textContent = stats.denominator;
+      if (eqResultValEl) eqResultValEl.textContent = piRounded + "%";
+
+      const multStrEl = document.getElementById("eqMultiplicationString");
+      if (multStrEl) {
+        const parts = CBSE_GRADE_CONFIG.map(cfg => {
+          const count = stats.counts[cfg.grade] || 0;
+          return `(${cfg.grade}:${count}×${cfg.weight}=${count * cfg.weight})`;
+        });
+        multStrEl.textContent = parts.join(" + ");
+      }
+
+      const stepNumEl = document.getElementById("stepNumeratorStr");
+      const stepCountEl = document.getElementById("stepCountStr");
+      const stepDenEl = document.getElementById("stepDenominatorStr");
+      const stepFinalEl = document.getElementById("stepFinalCalcStr");
+
+      if (stepNumEl) stepNumEl.textContent = stats.sumGradePoints * 100;
+      if (stepCountEl) stepCountEl.textContent = stats.totalValidGrades;
+      if (stepDenEl) stepDenEl.textContent = stats.denominator;
+      if (stepFinalEl) stepFinalEl.textContent = piRounded + "%";
+
+      // 3. Render Grade Distribution & Multiplication Summary Table
+      renderPISummaryTable(stats);
+
+      // 4. Render Student-Wise Entry Table
+      renderPIStudentTable();
+
+      // 5. Update Charts
+      renderPICharts(stats);
+    }
+
+    function renderPISummaryTable(stats) {
+      const tbody = document.getElementById("piSummaryTableBody");
+      if (!tbody) return;
+
+      tbody.innerHTML = CBSE_GRADE_CONFIG.map(cfg => {
+        const count = stats.counts[cfg.grade] || 0;
+        const totalPoints = count * cfg.weight;
+        const pct = stats.totalValidGrades > 0 ? ((count / stats.totalValidGrades) * 100).toFixed(1) : "0.0";
+
+        return `
+          <tr>
+            <td style="text-align: center;">
+              <span class="grade-badge grade-badge-${cfg.grade}">${cfg.grade}</span>
+            </td>
+            <td style="text-align: center; font-weight: 800; color: #a78bfa;">
+              ${cfg.weight}
+            </td>
+            <td style="text-align: center; font-weight: 800; font-size: 1.05rem; color: #ffffff;">
+              ${count}
+            </td>
+            <td style="font-family: monospace; font-size: 0.92rem; color: #cbd5e1;">
+              ${count} × ${cfg.weight} = <strong style="color: #fbbf24;">${totalPoints}</strong>
+            </td>
+            <td style="text-align: center; font-weight: 800; color: #34d399; font-size: 1rem;">
+              ${totalPoints}
+            </td>
+            <td style="text-align: center; font-weight: 700; color: #94a3b8;">
+              ${pct}%
+            </td>
+            <td>
+              <div style="background: rgba(255,255,255,0.08); border-radius: 20px; height: 10px; width: 100%; overflow: hidden;">
+                <div style="background: ${cfg.color}; height: 100%; width: ${pct}%; border-radius: 20px; transition: width 0.3s ease;"></div>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      const footerStudents = document.getElementById("piFooterTotalStudents");
+      const footerPoints = document.getElementById("piFooterTotalPoints");
+      const footerPI = document.getElementById("piFooterPI");
+      const footerMult = document.getElementById("piFooterMultiplierTotal");
+
+      if (footerStudents) footerStudents.textContent = stats.totalValidGrades;
+      if (footerPoints) footerPoints.textContent = stats.sumGradePoints + " pts";
+      if (footerPI) footerPI.textContent = "PI = " + stats.piScore.toFixed(2) + "%";
+      if (footerMult) footerMult.textContent = `${stats.sumGradePoints} pts / ${stats.denominator} max`;
+    }
+
+    function renderPIStudentTable() {
+      const tbody = document.getElementById("piStudentTableBody");
+      if (!tbody) return;
+
+      const filtered = piStudentsData.filter((s, idx) => {
+        const matchesSearch = s.name.toLowerCase().includes(piSearchTerm.toLowerCase()) || 
+                              String(s.rollNo).includes(piSearchTerm) || 
+                              String(s.boardRoll || "").includes(piSearchTerm);
+        if (!matchesSearch) return false;
+
+        if (piFilterGrade === "ALL") return true;
+        if (piFilterGrade === "PENDING") return !s.grade;
+        return (s.grade || "").toUpperCase() === piFilterGrade;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 24px; color: #94a3b8;"><i class="fas fa-search"></i> No students match the filter criteria.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => {
+        const originalIndex = piStudentsData.findIndex(st => st.rollNo === s.rollNo);
+        const grade = (s.grade || "").trim().toUpperCase();
+        const weight = GRADE_WEIGHT_MAP[grade];
+        const hasValidGrade = weight !== undefined;
+        const config = CBSE_GRADE_CONFIG.find(c => c.grade === grade);
+
+        return `
+          <tr id="piRow_${originalIndex}">
+            <td style="text-align: center; font-weight: 800; color: #94a3b8;">${s.rollNo}</td>
+            <td>
+              <input type="text" class="pi-board-roll-input" value="${s.boardRoll || ''}" 
+                     onchange="updatePIBoardRoll(${originalIndex}, this.value)" title="CBSE Board Roll Number">
+            </td>
+            <td style="font-weight: 700; color: #ffffff;">
+              ${s.name}
+            </td>
+            <td style="background: rgba(124, 58, 237, 0.08); border-left: 2px solid rgba(124, 58, 237, 0.4); border-right: 2px solid rgba(124, 58, 237, 0.4);">
+              <div class="pi-grade-select-wrapper">
+                <select class="pi-grade-dropdown" onchange="updatePIGrade(${originalIndex}, this.value)">
+                  <option value="">-- Select Grade --</option>
+                  ${CBSE_GRADE_CONFIG.map(c => `<option value="${c.grade}" ${grade === c.grade ? 'selected' : ''}>${c.label}</option>`).join('')}
+                </select>
+                <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                  ${['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2', 'E'].map(g => `
+                    <button type="button" class="pi-quick-btn ${grade === g ? 'active' : ''}" 
+                            onclick="updatePIGrade(${originalIndex}, '${g}')">${g}</button>
+                  `).join('')}
+                </div>
+              </div>
+            </td>
+            <td style="text-align: center;">
+              ${hasValidGrade ? `
+                <span class="gp-pill" style="background: rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.4); color: #c4b5fd;">
+                  <strong style="color: #fbbf24; font-size: 1rem;">${weight}</strong> Points (${grade}×${weight})
+                </span>
+              ` : `
+                <span style="color: #64748b; font-style: italic;">Ungraded</span>
+              `}
+            </td>
+            <td style="font-size: 0.86rem; color: #cbd5e1;">
+              ${hasValidGrade ? `
+                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                  <span class="grade-badge grade-badge-${grade}" style="width: 24px; height: 18px; font-size: 0.75rem;">${grade}</span>
+                  ${config ? config.level : ''}
+                </span>
+              ` : '<span style="color: #64748b;">—</span>'}
+            </td>
+            <td style="text-align: center;">
+              ${hasValidGrade ? `
+                <button type="button" class="btn-action" style="padding: 4px 8px; font-size: 0.75rem; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5;" 
+                        onclick="updatePIGrade(${originalIndex}, '')" title="Clear Grade">✕</button>
+              ` : '—'}
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function updatePIGrade(studentIndex, grade) {
+      if (piStudentsData[studentIndex]) {
+        piStudentsData[studentIndex].grade = (grade || "").trim().toUpperCase();
+        savePIData();
+        renderPICalculator();
+      }
+    }
+
+    function updatePIBoardRoll(studentIndex, roll) {
+      if (piStudentsData[studentIndex]) {
+        piStudentsData[studentIndex].boardRoll = (roll || "").trim();
+        savePIData();
+      }
+    }
+
+    function handlePISearch(val) {
+      piSearchTerm = val;
+      renderPIStudentTable();
+    }
+
+    function handlePIGradeFilter(val) {
+      piFilterGrade = val;
+      renderPIStudentTable();
+    }
+
+    function loadSamplePIGrades(showAlert = true) {
+      // Authentic Class 12 B Board results distribution: 5 A1, 6 A2, 5 B1, 4 B2, 2 C1, 1 C2, 1 D1
+      const sampleGrades = [
+        "A1", "A2", "B1", "B2", "A1",
+        "A2", "B1", "C1", "A2", "A1",
+        "B2", "C2", "B1", "A2", "B2",
+        "D1", "C1", "B1", "A1", "A2",
+        "B1", "A2", "B2", "A1"
+      ];
+
+      piStudentsData = DEFAULT_C12B_STUDENTS.map((s, i) => ({
+        ...s,
+        grade: sampleGrades[i] || "B1"
+      }));
+
+      savePIData();
+      renderPICalculator();
+
+      if (showAlert) {
+        alert("Authentic Class 12 B Mathematics (041) sample board examination results loaded successfully! PI has been calculated.");
+      }
+    }
+
+    function clearAllPIGrades() {
+      if (confirm("Are you sure you want to clear all entered Mathematics grades for Class 12 B?")) {
+        piStudentsData = DEFAULT_C12B_STUDENTS.map(s => ({
+          ...s,
+          grade: ""
+        }));
+        savePIData();
+        renderPICalculator();
+      }
+    }
+
+    function openBulkPIGradeModal() {
+      const modal = document.getElementById("bulkPIGradesModal");
+      const input = document.getElementById("bulkPIGradesInput");
+      if (modal) {
+        modal.style.display = "flex";
+        if (input) {
+          input.value = piStudentsData.map(s => s.grade || "").join("\n");
+          input.focus();
+        }
+      }
+    }
+
+    function closeBulkPIGradeModal() {
+      const modal = document.getElementById("bulkPIGradesModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    function applyBulkPIGrades() {
+      const input = document.getElementById("bulkPIGradesInput");
+      if (!input) return;
+
+      const lines = input.value.split(/[\r\n,;\t]+/).map(l => l.trim().toUpperCase()).filter(l => l.length > 0);
+      if (lines.length === 0) {
+        alert("Please enter or paste at least one valid grade (e.g. A1, A2, B1...).");
+        return;
+      }
+
+      lines.forEach((g, idx) => {
+        if (idx < piStudentsData.length) {
+          if (GRADE_WEIGHT_MAP[g] !== undefined) {
+            piStudentsData[idx].grade = g;
+          }
+        }
+      });
+
+      savePIData();
+      renderPICalculator();
+      closeBulkPIGradeModal();
+      alert(`Applied ${lines.length} grades to Class 12 B roster successfully!`);
+    }
+
+    function renderPICharts(stats) {
+      const canvas = document.getElementById("piGradeDistChart");
+      if (!canvas) return;
+
+      const labels = CBSE_GRADE_CONFIG.map(c => c.grade);
+      const data = CBSE_GRADE_CONFIG.map(c => stats.counts[c.grade] || 0);
+      const colors = CBSE_GRADE_CONFIG.map(c => c.color);
+
+      if (piGradeDistChartInstance) {
+        piGradeDistChartInstance.data.datasets[0].data = data;
+        piGradeDistChartInstance.update();
+      } else {
+        const ctx = canvas.getContext("2d");
+        piGradeDistChartInstance = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Number of Students",
+              data: data,
+              backgroundColor: colors.map(c => c + "cc"),
+              borderColor: colors,
+              borderWidth: 2,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: "#18142b",
+                titleColor: "#ffffff",
+                bodyColor: "#e2e8f0",
+                borderColor: "rgba(139, 92, 246, 0.4)",
+                borderWidth: 1,
+                padding: 10,
+                callbacks: {
+                  label: function(ctx) {
+                    const g = ctx.label;
+                    const count = ctx.raw;
+                    const weight = GRADE_WEIGHT_MAP[g];
+                    return `Count: ${count} students | Points: ${count * weight} (${g}×${weight})`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { color: "rgba(255,255,255,0.05)" },
+                ticks: { color: "#cbd5e1", font: { weight: "bold", size: 12 } }
+              },
+              y: {
+                beginAtZero: true,
+                grid: { color: "rgba(255,255,255,0.05)" },
+                ticks: { stepSize: 1, color: "#cbd5e1", font: { weight: "bold" } }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function exportPICsv() {
+      const stats = calculatePIStats();
+      const now = new Date().toLocaleDateString('en-GB');
+
+      let csv = "PM SHRI KENDRIYA VIDYALAYA RANIKHET\r\n";
+      csv += "CBSE CLASS 12 B BOARD EXAMINATION PERFORMANCE INDEX (PI) REPORT\r\n";
+      csv += "Subject: MATHEMATICS (041)\r\n";
+      csv += `Generated Date: ${now}\r\n`;
+      csv += `Total Students Evaluated: ${stats.totalValidGrades}\r\n`;
+      csv += `Sum of Grade Points: ${stats.sumGradePoints}\r\n`;
+      csv += `Formula: PI = (Sum of Grade Points * 100) / (8 * Total Number of Grades)\r\n`;
+      csv += `Performance Index (PI): ${stats.piScore.toFixed(2)}%\r\n\r\n`;
+
+      csv += "GRADE DISTRIBUTION & MULTIPLICATION SUMMARY\r\n";
+      csv += "Grade,Point Weight,No. of Grades (Count),Multiplication,Total Points Earned,Percentage Share\r\n";
+      CBSE_GRADE_CONFIG.forEach(cfg => {
+        const count = stats.counts[cfg.grade] || 0;
+        const pts = count * cfg.weight;
+        const pct = stats.totalValidGrades > 0 ? ((count / stats.totalValidGrades) * 100).toFixed(1) : "0.0";
+        csv += `${cfg.grade},${cfg.weight},${count},"${count} x ${cfg.weight}",${pts},${pct}%\r\n`;
+      });
+      csv += `TOTAL,-,${stats.totalValidGrades},-, ${stats.sumGradePoints},100%\r\n\r\n`;
+
+      csv += "STUDENT-WISE BOARD GRADE RECORD (CLASS 12 B)\r\n";
+      csv += "S.No,CBSE Board Roll No,Student Name,Mathematics (041) Grade,Grade Points Awarded,Performance Level\r\n";
+      piStudentsData.forEach(s => {
+        const g = (s.grade || "").toUpperCase();
+        const weight = GRADE_WEIGHT_MAP[g] !== undefined ? GRADE_WEIGHT_MAP[g] : "";
+        const cfg = CBSE_GRADE_CONFIG.find(c => c.grade === g);
+        const level = cfg ? cfg.level : "Ungraded";
+        csv += `${s.rollNo},"${s.boardRoll || ''}","${s.name}","${g}",${weight},"${level}"\r\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `Class12B_Mathematics_041_PI_Report_${now.replace(/\//g, '-')}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function printOfficialPIReport() {
+      const stats = calculatePIStats();
+      const dateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+      const piVal = stats.piScore.toFixed(2);
+
+      let iframe = document.getElementById("piPrintIframe");
+      if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.id = "piPrintIframe";
+        iframe.style.position = "fixed";
+        iframe.style.right = "0";
+        iframe.style.bottom = "0";
+        iframe.style.width = "0";
+        iframe.style.height = "0";
+        iframe.style.border = "none";
+        document.body.appendChild(iframe);
+      }
+
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Official PI Statement - Class 12 B Mathematics (041)</title>
+<style>
+  @page { size: A4 portrait; margin: 10mm 12mm; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; margin: 0; padding: 0; font-size: 8.5pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .header-table { width: 100%; border-collapse: collapse; border-bottom: 2.5px solid #1e1b4b; margin-bottom: 10px; }
+  .header-main { background: #1e1b4b; color: #fff; padding: 10px 14px; }
+  .header-main h1 { font-size: 13.5pt; font-weight: 800; text-transform: uppercase; margin: 0; letter-spacing: 0.5px; }
+  .header-main p { font-size: 8.2pt; color: #c7d2fe; font-weight: 700; margin: 2px 0 0; }
+  .meta-box { width: 35%; background: #f8fafc; border-left: 2px solid #1e1b4b; padding: 8px 12px; font-size: 7.8pt; line-height: 1.4; }
+  .stat-grid { display: flex; gap: 8px; margin-bottom: 10px; }
+  .stat-card { flex: 1; border: 1.5px solid #cbd5e1; border-radius: 4px; padding: 6px 10px; text-align: center; background: #f8fafc; }
+  .stat-card.pi { border-color: #059669; background: #ecfdf5; }
+  .stat-card h4 { margin: 0; font-size: 7pt; text-transform: uppercase; color: #64748b; }
+  .stat-card .val { font-size: 13pt; font-weight: 800; color: #0f172a; margin-top: 2px; }
+  .stat-card.pi .val { color: #059669; font-size: 15pt; }
+  .formula-box { background: #f1f5f9; border: 1px solid #94a3b8; border-radius: 4px; padding: 6px 10px; margin-bottom: 10px; font-size: 7.8pt; }
+  .print-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 7.8pt; }
+  .print-table th, .print-table td { border: 1px solid #94a3b8; padding: 4px 6px; }
+  .print-table th { background: #1e1b4b; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 7.2pt; }
+  .print-table tr:nth-child(even) { background: #f8fafc; }
+  .footer-sig-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  .footer-sig-table td { width: 33.3%; vertical-align: bottom; font-size: 7.5pt; }
+</style>
+</head>
+<body>
+  <table class="header-table">
+    <tr>
+      <td class="header-main">
+        <h1>PM SHRI KENDRIYA VIDYALAYA RANIKHET</h1>
+        <p>CBSE AISSCE BOARD EXAMINATION — PERFORMANCE INDEX (PI) STATEMENT</p>
+      </td>
+      <td class="meta-box">
+        <strong>Subject:</strong> MATHEMATICS (041)<br>
+        <strong>Class & Section:</strong> XII-B (Science & Commerce)<br>
+        <strong>Teacher:</strong> K B JOSHI, PGT Mathematics<br>
+        <strong>Report Date:</strong> ${dateStr}
+      </td>
+    </tr>
+  </table>
+
+  <div class="stat-grid">
+    <div class="stat-card pi">
+      <h4>Performance Index (PI)</h4>
+      <div class="val">${piVal}%</div>
+      <div style="font-size:6.5pt; font-weight:700; color:#059669;">CBSE Official Formula</div>
+    </div>
+    <div class="stat-card">
+      <h4>Students Evaluated</h4>
+      <div class="val">${stats.totalValidGrades} / ${piStudentsData.length}</div>
+    </div>
+    <div class="stat-card">
+      <h4>Sum of Grade Points</h4>
+      <div class="val">${stats.sumGradePoints}</div>
+      <div style="font-size:6.5pt; color:#64748b;">Max: ${stats.denominator} pts</div>
+    </div>
+    <div class="stat-card">
+      <h4>Quality Grades (A1-B2)</h4>
+      <div class="val">${stats.qualityCount} (${stats.totalValidGrades > 0 ? ((stats.qualityCount/stats.totalValidGrades)*100).toFixed(1) : 0}%)</div>
+    </div>
+    <div class="stat-card">
+      <h4>Pass Rate (A1-D2)</h4>
+      <div class="val">${stats.totalValidGrades > 0 ? ((stats.passCount/stats.totalValidGrades)*100).toFixed(1) : 0}%</div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <strong>CBSE PI Calculation:</strong> 
+    PI = (Sum of Grade Points × 100) / (8 × Total Number of Grades) 
+    = (${stats.sumGradePoints} × 100) / (8 × ${stats.totalValidGrades}) 
+    = ${stats.sumGradePoints * 100} / ${stats.denominator} 
+    = <strong>${piVal}%</strong>
+    &nbsp;|&nbsp; <em>Multipliers: A1×8, A2×7, B1×6, B2×5, C1×4, C2×3, D1×2, D2×1, E×0</em>
+  </div>
+
+  <div style="font-size: 8pt; font-weight: 800; color: #1e1b4b; text-transform: uppercase; margin-bottom: 4px;">1. Grade Distribution & Multiplication Tally:</div>
+  <table class="print-table" style="text-align: center;">
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Weight</th>
+        <th>No. of Grades</th>
+        <th>Multiplication</th>
+        <th>Total Points</th>
+        <th>% of Class</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${CBSE_GRADE_CONFIG.map(cfg => {
+        const count = stats.counts[cfg.grade] || 0;
+        const pts = count * cfg.weight;
+        const pct = stats.totalValidGrades > 0 ? ((count / stats.totalValidGrades) * 100).toFixed(1) : "0.0";
+        return `
+          <tr>
+            <td><strong>${cfg.grade}</strong></td>
+            <td>${cfg.weight}</td>
+            <td>${count}</td>
+            <td>${count} × ${cfg.weight} = ${pts}</td>
+            <td><strong>${pts}</strong></td>
+            <td>${pct}%</td>
+          </tr>
+        `;
+      }).join("")}
+      <tr style="font-weight: bold; background: #e2e8f0;">
+        <td>TOTAL</td>
+        <td>—</td>
+        <td>${stats.totalValidGrades}</td>
+        <td>—</td>
+        <td>${stats.sumGradePoints} pts</td>
+        <td>100%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="font-size: 8pt; font-weight: 800; color: #1e1b4b; text-transform: uppercase; margin-bottom: 4px; margin-top: 10px;">2. Class 12 B Student-Wise Grades (Mathematics 041):</div>
+  <table class="print-table">
+    <thead>
+      <tr>
+        <th style="width: 25px; text-align: center;">#</th>
+        <th style="width: 80px;">Board Roll</th>
+        <th>Student Name</th>
+        <th style="width: 70px; text-align: center;">Maths Grade</th>
+        <th style="width: 80px; text-align: center;">Grade Points</th>
+        <th>CBSE Performance Tier</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${piStudentsData.map(s => {
+        const g = (s.grade || "").toUpperCase();
+        const weight = GRADE_WEIGHT_MAP[g] !== undefined ? GRADE_WEIGHT_MAP[g] : "-";
+        const cfg = CBSE_GRADE_CONFIG.find(c => c.grade === g);
+        return `
+          <tr>
+            <td style="text-align: center;">${s.rollNo}</td>
+            <td>${s.boardRoll || '-'}</td>
+            <td><strong>${s.name}</strong></td>
+            <td style="text-align: center; font-weight: 800;">${g || '-'}</td>
+            <td style="text-align: center; font-weight: 800;">${weight} pts</td>
+            <td>${cfg ? cfg.level : 'Ungraded'}</td>
+          </tr>
+        `;
+      }).join("")}
+    </tbody>
+  </table>
+
+  <table class="footer-sig-table">
+    <tr>
+      <td>
+        <div style="border-top: 1px solid #0f172a; padding-top: 4px; width: 80%;">
+          <strong>K B JOSHI</strong><br>
+          PGT (Mathematics)<br>
+          Subject Teacher
+        </div>
+      </td>
+      <td style="text-align: center;">
+        <div style="border-top: 1px solid #0f172a; padding-top: 4px; width: 80%; margin: 0 auto;">
+          <strong>EXAM IN-CHARGE</strong><br>
+          PM SHRI KV Ranikhet
+        </div>
+      </td>
+      <td style="text-align: right;">
+        <div style="border-top: 1px solid #0f172a; padding-top: 4px; width: 80%; margin-left: auto;">
+          <strong>PRINCIPAL</strong><br>
+          PM SHRI KV Ranikhet
+        </div>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`);
+      doc.close();
+
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }, 200);
+    }
+
+    // Expose functions to window
+    window.switchPerformanceModule = switchPerformanceModule;
+    window.loadSamplePIGrades = loadSamplePIGrades;
+    window.clearAllPIGrades = clearAllPIGrades;
+    window.updatePIGrade = updatePIGrade;
+    window.updatePIBoardRoll = updatePIBoardRoll;
+    window.handlePISearch = handlePISearch;
+    window.handlePIGradeFilter = handlePIGradeFilter;
+    window.openBulkPIGradeModal = openBulkPIGradeModal;
+    window.closeBulkPIGradeModal = closeBulkPIGradeModal;
+    window.applyBulkPIGrades = applyBulkPIGrades;
+    window.exportPICsv = exportPICsv;
+    window.printOfficialPIReport = printOfficialPIReport;
+
+    // Initialize on DOM ready
+    window.addEventListener("DOMContentLoaded", () => {
+      initPISystem();
+      if (window.location.hash === "#pi") {
+        setTimeout(() => {
+          switchPerformanceModule("pi");
+        }, 150);
+      }
+    });
+
 
 </script>
 
